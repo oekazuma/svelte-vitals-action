@@ -1,5 +1,11 @@
 # @svelte-vitals/action
 
+## 0.4.1
+
+### Patch Changes
+
+- 18bbb18: Added `branding` (icon/color) to `action.yml` — required by GitHub before the action can be published to the GitHub Marketplace.
+
 ## 0.4.0
 
 ### Minor Changes
