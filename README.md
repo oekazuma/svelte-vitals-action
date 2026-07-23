@@ -54,5 +54,3 @@ The action runs the **same analysis as the `svelte-vitals` CLI**, so everything 
 - **[`svelte-vitals-suppressions.json`](https://oekazuma.github.io/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)** — a committed one-shot acceptance of the existing backlog (`svelte-vitals --update-suppressions`); the action applies it whenever it's present in the repo.
 
 See [Excluding routes or rules](https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules) in the CI guide for which mechanism fits which situation, and the [CI integration guide](https://oekazuma.github.io/svelte-vitals/guides/ci/) for the full workflow reference.
-
-See [AGENTS.md](./AGENTS.md) for development setup, verify commands, and the release process.
