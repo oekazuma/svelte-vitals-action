@@ -55,16 +55,4 @@ The action runs the **same analysis as the `svelte-vitals` CLI**, so everything 
 
 See [Excluding routes or rules](https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules) in the CI guide for which mechanism fits which situation, and the [CI integration guide](https://oekazuma.github.io/svelte-vitals/guides/ci/) for the full workflow reference.
 
-## Development
-
-This action depends on the published `svelte-vitals` / `@svelte-vitals/core` npm packages (regular semver ranges, not a workspace link) — it's a normal consumer of those packages, not part of the [svelte-vitals](https://github.com/oekazuma/svelte-vitals) monorepo. Bumping `svelte-vitals`/`@svelte-vitals/core` here is a deliberate, reviewed dependency update (via Renovate or by hand), not something that happens automatically when the main repo changes.
-
-```bash
-pnpm install
-pnpm build      # tsup — bundles everything into dist/index.js (GitHub Actions runs it standalone, no npm install step)
-pnpm test
-pnpm typecheck
-pnpm lint
-```
-
-`dist/` is committed (GitHub Actions needs it at the pinned ref) and rebuilt as part of the release process.
+See [AGENTS.md](./AGENTS.md) for development setup, verify commands, and the release process.
