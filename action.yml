@@ -1,5 +1,5 @@
 name: 'svelte-vitals'
-description: 'Static SvelteKit code-health checks (SEO, Performance, Correctness, Security, Architecture) — PR annotations, job summary, and a sticky summary comment.'
+description: 'Static SvelteKit code-health checks (SEO, Performance, Correctness, Security, Architecture) with PR annotations & summary.'
 inputs:
   path:
     description: 'Project directory to analyze'
