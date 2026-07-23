@@ -55,9 +55,17 @@ jobs:
         # idempotency (unconditional runs are harmless — a not-yet-released version or
         # an already-tagged one both fall through to a no-op branch), matching the
         # proven pattern from the old monorepo's equivalent step.
+        #
+        # Explicitly re-checks-out the triggering commit first: a real incident showed
+        # `changesets/action`'s "open/update the Version Packages PR" path leaves the
+        # working directory on `changeset-release/main` (with an unmerged version bump)
+        # and never switches back — without this, package.json/HEAD here would silently
+        # reflect that unmerged branch instead of the actual pushed commit, tagging and
+        # releasing a version that was never really shipped.
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git checkout --force "$GITHUB_SHA"
           version=$(node -p "require('./package.json').version")
           tag="v$version"
 
