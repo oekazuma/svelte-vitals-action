@@ -9,6 +9,11 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
+      "description": "engines.node is a deliberately chosen dev/pnpm compatibility floor (matches the main svelte-vitals repo's pnpm@11.x requirement) — never auto-bump it. The CI workflow's own node-version (a separate 'uses-with' dep) is unaffected and still updates normally.",
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    },
+    {
       "groupName": "svelte-vitals",
       "matchPackageNames": ["svelte-vitals", "@svelte-vitals/core"]
     },
