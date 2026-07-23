@@ -18,8 +18,8 @@ importers:
         specifier: ^0.29.0
         version: 0.29.0
       svelte-vitals:
-        specifier: ^0.32.0
-        version: 0.32.0
+        specifier: ^0.33.0
+        version: 0.33.0
     devDependencies:
       '@changesets/cli':
         specifier: ^2.31.1
@@ -1631,8 +1631,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.32.0:
-    resolution: {integrity: sha512-BdQtAbg4FT8+q/ifdWif5/TlfbHXUcw40lJuZ3vOV9shqYgeS8FWbEXX1Fhfal5NJZuyzmfbBHXPog+xkK8/kQ==}
+  svelte-vitals@0.33.0:
+    resolution: {integrity: sha512-Qw/GQ5rgK1zZ/1RSaJ22fnvKGf6sVOSxApToXeKCqhdpiOVrpCPwLpWUExtOMQOhF+Ly0JaJ079+ZvQPBM3FTg==}
     engines: {node: '>=22.13.0'}
     hasBin: true
 
@@ -3195,7 +3195,7 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.32.0:
+  svelte-vitals@0.33.0:
     dependencies:
       '@clack/prompts': 1.7.0
       '@svelte-vitals/core': 0.29.0
