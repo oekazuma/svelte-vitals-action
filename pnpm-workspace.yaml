@@ -1,2 +1,9 @@
 allowBuilds:
   esbuild: true
+
+# Disabled (rather than an ever-growing minimumReleaseAgeExclude list): this repo's only
+# production dependencies are svelte-vitals/@svelte-vitals/core, published by the same
+# maintainer this repo belongs to — not third-party supply-chain risk. Renovate's own
+# minimumReleaseAge policy (see oekazuma/svelte-vitals's renovate.json) still gates when a
+# PR bumping these is opened in the first place.
+minimumReleaseAge: 0
