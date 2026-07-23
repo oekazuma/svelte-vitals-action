@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":disablePeerDependencies"],
+  "minimumReleaseAge": "3 days",
+  "labels": ["renovate"],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "groupName": "svelte-vitals",
+      "matchPackageNames": ["svelte-vitals", "@svelte-vitals/core"]
+    },
+    {
+      "groupName": "dependencies",
+      "matchDepTypes": ["dependencies"]
+    },
+    {
+      "groupName": "devDependencies",
+      "matchDepTypes": ["devDependencies"]
+    }
+  ]
+}
