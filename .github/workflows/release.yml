@@ -1,0 +1,94 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+permissions: {}
+jobs:
+  release:
+    permissions:
+      contents: write
+      pull-requests: write
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          # Full history: the tag step below verifies an existing tag is an ancestor of
+          # HEAD, which needs the actual commit graph, not just the tip commit.
+          fetch-depth: 0
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Create Release Pull Request or apply version
+        id: changesets
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
+        with:
+          publish: pnpm changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tag and release this private package
+        # This is a single-package, private (never npm-published) repo distributed via
+        # git tag/SHA — `changeset publish` bumps the version and CHANGELOG.md but (in
+        # the current stable @changesets/cli line) skips tag/release creation entirely
+        # for private packages. This step fills that in with a plain vX.Y.Z tag: no
+        # Renovate-comment translation is needed here (unlike the old monorepo home of
+        # this package) because this repo's tags are never shared with any other
+        # package's version history, so the built-in github-actions manager just works.
+        #
+        # Ancestry-checked before trusting an existing tag name: a same-named tag that
+        # isn't actually an ancestor of HEAD (e.g. from an abandoned branch) must not be
+        # silently treated as "already released" — see oekazuma/svelte-vitals's
+        # 2026-07-23 incident with the old `action-vX.Y.Z` tagging step for why.
+        #
+        # No `if:` gate: relies entirely on the tag/release existence checks below for
+        # idempotency (unconditional runs are harmless — a not-yet-released version or
+        # an already-tagged one both fall through to a no-op branch), matching the
+        # proven pattern from the old monorepo's equivalent step.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version=$(node -p "require('./package.json').version")
+          tag="v$version"
+
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            git fetch origin "refs/tags/$tag:refs/tags/$tag" --force
+            if git merge-base --is-ancestor "refs/tags/$tag" HEAD; then
+              echo "$tag already exists on origin and is part of this release's history"
+            else
+              echo "::error::$tag already exists on origin, but its commit is NOT an ancestor of HEAD. Refusing to silently skip. Investigate and delete the incorrect tag/release, then re-run this workflow."
+              exit 1
+            fi
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag "$tag"
+            git push origin "$tag"
+            echo "created and pushed $tag"
+          fi
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "release for $tag already exists, skipping"
+          else
+            if ! notes="$(awk -v ver="$version" '
+              $0 == "## " ver { found=1; next }
+              found && /^## / { exit }
+              found { print }
+              END { if (!found) exit 1 }
+            ' CHANGELOG.md)"; then
+              echo "::error::No changelog section found for $version"
+              exit 1
+            fi
+            gh release create "$tag" --title "v$version" --notes "$notes"
+            echo "created release for $tag"
+          fi
