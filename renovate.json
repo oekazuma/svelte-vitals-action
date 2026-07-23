@@ -14,8 +14,10 @@
       "enabled": false
     },
     {
+      "description": "Same maintainer, same trust boundary as this repo — the 3-day supply-chain wait below is for third-party deps, not our own just-published releases.",
       "groupName": "svelte-vitals",
-      "matchPackageNames": ["svelte-vitals", "@svelte-vitals/core"]
+      "matchPackageNames": ["svelte-vitals", "@svelte-vitals/core"],
+      "minimumReleaseAge": "0 seconds"
     },
     {
       "groupName": "dependencies",
