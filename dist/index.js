@@ -36551,13 +36551,13 @@ function apply_mutations(node, mutations) {
   );
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/patterns.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/patterns.js
 var regex_starts_with_whitespaces = /^[ \t\r\n]+/;
 var regex_ends_with_whitespaces = /[ \t\r\n]+$/;
 var regex_not_whitespace = /[^ \t\r\n]/;
 var regex_not_newline_characters = /[^\n]/g;
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/constants.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/constants.js
 var EACH_INDEX_REACTIVE = 1 << 1;
 var EACH_IS_CONTROLLED = 1 << 2;
 var EACH_IS_ANIMATED = 1 << 3;
@@ -36592,7 +36592,7 @@ var IGNORABLE_RUNTIME_WARNINGS = (
   ]
 );
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
 function fuzzymatch(name, names) {
   if (names.length === 0) return null;
   const set2 = new FuzzySet(names);
@@ -36828,7 +36828,7 @@ function getLocator(source2, options = {}) {
   return locator2;
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/utils.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/utils.js
 var VOID_ELEMENT_NAMES = [
   "area",
   "base",
@@ -36981,7 +36981,7 @@ var RUNES = (
 );
 var REGEX_VALID_TAG_NAME = /^[a-zA-Z][a-zA-Z0-9]*(-[a-zA-Z0-9.\-_\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u{10000}-\u{EFFFF}]*)?$/u;
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/state.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/state.js
 var warnings = [];
 var filename;
 var UNKNOWN_FILENAME = "(unknown)";
@@ -37015,7 +37015,7 @@ function reset(state) {
   warnings = [];
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
 var regex_tabs = /^\t+/;
 function tabs_to_spaces(str) {
   return str.replace(regex_tabs, (match) => match.split("	").join("  "));
@@ -37086,7 +37086,7 @@ ${this.frame}`;
   }
 };
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/warnings.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/warnings.js
 var InternalCompileWarning = class extends CompileDiagnostic {
   name = "CompileWarning";
   /**
@@ -37236,7 +37236,7 @@ function svelte_element_invalid_this(node) {
 https://svelte.dev/e/svelte_element_invalid_this`);
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
 var regex_svelte_ignore = /^\s*svelte-ignore\s/;
 var replacements = {
   "non-top-level-reactive-declaration": "reactive_declaration_invalid_placement",
@@ -37292,7 +37292,7 @@ function extract_svelte_ignore(offset2, text2, runes2) {
   return ignores;
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/legacy.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/legacy.js
 function remove_surrounding_whitespace_nodes(nodes) {
   const first = nodes.at(0);
   const last = nodes.at(-1);
@@ -48699,7 +48699,7 @@ function tsPlugin(options) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/errors.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/errors.js
 var InternalCompileError = class extends Error {
   message = "";
   // ensure this property is enumerable
@@ -48961,7 +48961,7 @@ function void_element_invalid_content(node) {
 https://svelte.dev/e/void_element_invalid_content`);
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
 var JSParser = Parser;
 var TSParser = JSParser.extend(tsPlugin());
 function parse6(source2, comments, typescript, is_script) {
@@ -49140,7 +49140,7 @@ function get_comment_handlers(source2, comments, index = 0) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
 function infinity_if_negative(num) {
   if (num < 0) {
     return Infinity;
@@ -49295,7 +49295,7 @@ function match_quote(parser, start, quote) {
   unterminated_string_constant(start);
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
 function get_loose_identifier(parser, opening_token) {
   const end = find_matching_bracket(parser.template, parser.index, opening_token ?? "{");
   if (end) {
@@ -49334,7 +49334,7 @@ function read_expression(parser, opening_token, disallow_loose) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/utils/builders.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/utils/builders.js
 function array(elements = []) {
   return { type: "ArrayExpression", elements };
 }
@@ -49349,7 +49349,7 @@ var true_instance = literal2(true);
 var false_instance = literal2(false);
 var null_instance = literal2(null);
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/utils/ast.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/utils/ast.js
 function is_text_attribute(attribute) {
   return Array.isArray(attribute.value) && attribute.value.length === 1 && attribute.value[0].type === "Text";
 }
@@ -49363,7 +49363,7 @@ function get_attribute_expression(attribute) {
   ) : attribute.value.expression;
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
 var regex_closing_script_tag = /<\/script\s*>/;
 var regex_starts_with_closing_script_tag = /<\/script\s*>/y;
 var RESERVED_ATTRIBUTES = ["server", "client", "worker", "test", "default"];
@@ -49422,7 +49422,7 @@ function read_script(parser, start, attributes) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
 var REGEX_MATCHER = /[~^$*|]?=/y;
 var REGEX_CLOSING_BRACKET = /[\s\]]/;
 var REGEX_ATTRIBUTE_FLAGS = /[a-zA-Z]+/y;
@@ -49880,7 +49880,7 @@ function allow_comment_or_whitespace(parser) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
 var entities_default = {
   "CounterClockwiseContourIntegral;": 8755,
   "ClockwiseContourIntegral;": 8754,
@@ -52115,7 +52115,7 @@ var entities_default = {
   lt: 60
 };
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
 var windows_1252 = [
   8364,
   129,
@@ -52223,7 +52223,7 @@ function validate_code(code) {
   return NUL;
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
 function create_fragment(transparent = false) {
   return {
     type: "Fragment",
@@ -52235,7 +52235,7 @@ function create_fragment(transparent = false) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/nodes.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/nodes.js
 var element_nodes = [
   "SvelteElement",
   "RegularElement",
@@ -52329,7 +52329,7 @@ var ExpressionMetadata = class {
   }
 };
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/html-tree-validation.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/html-tree-validation.js
 var autoclosing_children = {
   // based on http://developers.whatwg.org/syntax.html#syntax-tag-omission
   li: { direct: ["li"] },
@@ -52439,14 +52439,14 @@ var disallowed_children = {
   "#document": { only: ["html"] }
 };
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/utils/string.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/utils/string.js
 function list(strings, conjunction = "or") {
   if (strings.length === 1) return strings[0];
   if (strings.length === 2) return `${strings[0]} ${conjunction} ${strings[1]}`;
   return `${strings.slice(0, -1).join(", ")} ${conjunction} ${strings[strings.length - 1]}`;
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
 var regex_invalid_unquoted_attribute_value = /(\/>|[\s"'=<>`])/y;
 var regex_closing_textarea_tag = /<\/textarea(\s[^>]*)?>/iy;
 var regex_closing_comment = /-->/;
@@ -53159,7 +53159,7 @@ function read_tag(parser, regex) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
 function read_pattern(parser) {
   const start = parser.index;
   let i = parser.index;
@@ -53226,7 +53226,7 @@ function read_type_annotation(parser) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
 var regex_whitespace_with_closing_curly_brace = /\s*}/y;
 var regex_supported_declaration = /(?:let|const)\b/y;
 var regex_unsupported_declaration = /(?:var|interface|enum)\b/y;
@@ -53880,7 +53880,7 @@ function special(parser) {
   expected_tag(parser.index);
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
 function text(parser) {
   const start = parser.index;
   while (parser.index < parser.template.length && !parser.match("<") && !parser.match("{")) {
@@ -53896,7 +53896,7 @@ function text(parser) {
   });
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
 function fragment(parser) {
   if (parser.match("<")) {
     return element;
@@ -53907,7 +53907,7 @@ function fragment(parser) {
   return text;
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
 function read_options(node) {
   const component_options2 = {
     start: node.start,
@@ -54110,7 +54110,7 @@ function validate_tag(attribute, tag2) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
 function disallow_children(node) {
   const { nodes } = node.fragment;
   if (nodes.length > 0) {
@@ -54120,7 +54120,7 @@ function disallow_children(node) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/1-parse/index.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/1-parse/index.js
 function is_whitespace(cc) {
   if (cc === 32 || cc <= 13 && cc >= 9) return true;
   if (cc < 160) return false;
@@ -54371,7 +54371,7 @@ function parse7(template2, loose = false) {
   return parser.root;
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/scope.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/scope.js
 var NUMBER = /* @__PURE__ */ Symbol("number");
 var STRING = /* @__PURE__ */ Symbol("string");
 var globals = {
@@ -54424,7 +54424,7 @@ var globals = {
   "String.fromCodePoint": [STRING, String.fromCodePoint]
 };
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
 var import_aria_query = __toESM(require_lib2(), 1);
 var import_axobject_query = __toESM(require_lib3(), 1);
 var aria_attributes = "activedescendant atomic autocomplete busy checked colcount colindex colspan controls current describedby description details disabled dropeffect errormessage expanded flowto grabbed haspopup hidden invalid keyshortcuts label labelledby level live modal multiline multiselectable orientation owns placeholder posinset pressed readonly relevant required roledescription rowcount rowindex rowspan selected setsize sort valuemax valuemin valuenow valuetext".split(
@@ -54479,7 +54479,7 @@ for (const [schema, ax_object] of import_axobject_query.elementAXObjects.entries
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
 var import_aria_query2 = __toESM(require_lib2(), 1);
 var import_axobject_query2 = __toESM(require_lib3(), 1);
 
@@ -54506,19 +54506,19 @@ if (typeof window !== "undefined" && typeof window.btoa === "function") {
   btoa2 = (str) => Buffer.from(str, "utf-8").toString("base64");
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/internal/server/hydration.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/internal/server/hydration.js
 var BLOCK_OPEN = `<!--${HYDRATION_START}-->`;
 var BLOCK_OPEN_ELSE = `<!--${HYDRATION_START_ELSE}-->`;
 var BLOCK_CLOSE = `<!--${HYDRATION_END}-->`;
 var EMPTY_COMMENT = `<!---->`;
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
 var block_open = literal2(BLOCK_OPEN);
 var block_open_else = literal2(BLOCK_OPEN_ELSE);
 var block_close = literal2(BLOCK_CLOSE);
 var empty_comment = literal2(EMPTY_COMMENT);
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
 var svg_attributes = "accent-height accumulate additive alignment-baseline allowReorder alphabetic amplitude arabic-form ascent attributeName attributeType autoReverse azimuth baseFrequency baseline-shift baseProfile bbox begin bias by calcMode cap-height class clip clipPathUnits clip-path clip-rule color color-interpolation color-interpolation-filters color-profile color-rendering contentScriptType contentStyleType cursor cx cy d decelerate descent diffuseConstant direction display divisor dominant-baseline dur dx dy edgeMode elevation enable-background end exponent externalResourcesRequired fill fill-opacity fill-rule filter filterRes filterUnits flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight format from fr fx fy g1 g2 glyph-name glyph-orientation-horizontal glyph-orientation-vertical glyphRef gradientTransform gradientUnits hanging height href horiz-adv-x horiz-origin-x id ideographic image-rendering in in2 intercept k k1 k2 k3 k4 kernelMatrix kernelUnitLength kerning keyPoints keySplines keyTimes lang lengthAdjust letter-spacing lighting-color limitingConeAngle local marker-end marker-mid marker-start markerHeight markerUnits markerWidth mask maskContentUnits maskUnits mathematical max media method min mode name numOctaves offset onabort onactivate onbegin onclick onend onerror onfocusin onfocusout onload onmousedown onmousemove onmouseout onmouseover onmouseup onrepeat onresize onscroll onunload opacity operator order orient orientation origin overflow overline-position overline-thickness panose-1 paint-order pathLength patternContentUnits patternTransform patternUnits pointer-events points pointsAtX pointsAtY pointsAtZ preserveAlpha preserveAspectRatio primitiveUnits r radius refX refY rendering-intent repeatCount repeatDur requiredExtensions requiredFeatures restart result rotate rx ry scale seed shape-rendering slope spacing specularConstant specularExponent speed spreadMethod startOffset stdDeviation stemh stemv stitchTiles stop-color stop-opacity strikethrough-position strikethrough-thickness string stroke stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width style surfaceScale systemLanguage tabindex tableValues target targetX targetY text-anchor text-decoration text-rendering textLength to transform type u1 u2 underline-position underline-thickness unicode unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical values version vert-adv-y vert-origin-x vert-origin-y viewBox viewTarget visibility width widths word-spacing writing-mode x x-height x1 x2 xChannelSelector xlink:actuate xlink:arcrole xlink:href xlink:role xlink:show xlink:title xlink:type xml:base xml:lang xml:space y y1 y2 yChannelSelector z zoomAndPan".split(
   " "
 );
@@ -54527,7 +54527,7 @@ svg_attributes.forEach((name) => {
   svg_attribute_lookup.set(name.toLowerCase(), name);
 });
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/validate-options.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/validate-options.js
 var common_options = {
   filename: string("(unknown)"),
   // default to process.cwd() where it exists to replicate svelte4 behavior (and make Deno work with this as well)
@@ -54785,7 +54785,7 @@ function throw_error2(msg) {
   options_invalid_value(null, msg);
 }
 
-// node_modules/.pnpm/svelte@5.56.7/node_modules/svelte/src/compiler/index.js
+// node_modules/.pnpm/svelte@5.56.8/node_modules/svelte/src/compiler/index.js
 function parse8(source2, { modern, loose } = {}) {
   source2 = remove_bom(source2);
   reset({ warning: () => false, filename: void 0 });
@@ -54820,7 +54820,8 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.29.0/node_modules/@svelte-vitals/core/dist/index.js
+// node_modules/.pnpm/@svelte-vitals+core@0.30.0/node_modules/@svelte-vitals/core/dist/index.js
+var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture"];
 var defaultConfig = {
   treatDynamicAs: "pass",
   metaComponents: [],
@@ -54829,6 +54830,9 @@ var defaultConfig = {
 };
 function defineConfig(config = {}) {
   return { ...defaultConfig, ...config };
+}
+function isRootRelativePath(value) {
+  return value.startsWith("/") && !value.startsWith("//");
 }
 var CHILD_NODE_KEYS = [
   "fragment",
@@ -55074,6 +55078,12 @@ function scopeIntroducedNames(node) {
   } else if (node.type === "AwaitBlock") {
     if (node.value) addBoundNames(node.value, introduced);
     if (node.error) addBoundNames(node.error, introduced);
+  } else if (node.type === "Fragment") {
+    for (const child of node.nodes ?? []) {
+      if (child?.type === "ConstTag" || child?.type === "DeclarationTag") {
+        for (const d of child.declaration?.declarations ?? []) addBoundNames(d.id, introduced);
+      }
+    }
   }
   return introduced;
 }
@@ -55481,6 +55491,7 @@ function bodyIsEmpty(fn) {
   return false;
 }
 var URL_ATTRS = ["href", "src", "action", "formaction"];
+var CHECKABLE_INPUT_TYPES = /* @__PURE__ */ new Set(["checkbox", "radio"]);
 function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
   if (Array.isArray(node)) {
     for (const child of node) collectSecurityFacts(child, source2, htmlTags, jsUrls);
@@ -55500,6 +55511,59 @@ function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
   }
   for (const key2 of CHILD_NODE_KEYS) {
     if (key2 in node) collectSecurityFacts(node[key2], source2, htmlTags, jsUrls);
+  }
+}
+function collectCheckableBindValues(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectCheckableBindValues(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "input" && Array.isArray(node.attributes)) {
+    const typeAttr = findAttr(node.attributes, "type");
+    const typeValue = typeAttr ? attrTextOf(typeAttr) : void 0;
+    if (typeValue && CHECKABLE_INPUT_TYPES.has(typeValue)) {
+      const bindValue = node.attributes.find((a) => a?.type === "BindDirective" && a.name === "value");
+      if (bindValue) {
+        acc.push({
+          kind: typeValue,
+          line: lineOf(source2, bindValue.start ?? node.start)
+        });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectCheckableBindValues(node[key2], source2, acc);
+  }
+}
+function collectHrefLinks(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectHrefLinks(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "a" && Array.isArray(node.attributes)) {
+    const attr = findAttr(node.attributes, "href");
+    const value = attr ? attrTextOf(attr) : void 0;
+    if (value !== void 0 && isRootRelativePath(value)) {
+      acc.push({ kind: "href", path: value, line: lineOf(source2, attr?.start ?? node.start) });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectHrefLinks(node[key2], source2, acc);
+  }
+}
+var GOTO_NAMES = /* @__PURE__ */ new Set(["goto"]);
+function collectGotoLinks(locals, roots, source2, acc) {
+  if (locals.size === 0) return;
+  for (const root of roots) {
+    if (!root) continue;
+    walkEstree(root, (n) => {
+      if (n.type !== "CallExpression" || n.callee?.type !== "Identifier" || !locals.has(n.callee.name)) return;
+      const arg = n.arguments?.[0];
+      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) return;
+      acc.push({ kind: "goto", path: arg.value, line: lineOf(source2, n.start) });
+    });
   }
 }
 function isPropsCall(node) {
@@ -55787,19 +55851,24 @@ var BROWSER_GLOBALS = /* @__PURE__ */ new Set([
   "confirm",
   "prompt"
 ]);
-function collectBrowserGuardImports(program) {
+function collectNamedImportAliases(program, moduleSource, names) {
   const out = /* @__PURE__ */ new Set();
   for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== "$app/environment")
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== moduleSource) {
       continue;
+    }
     for (const s of stmt2.specifiers ?? []) {
       if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
-      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && s.imported.name === "browser") {
+      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && names.has(s.imported.name)) {
         out.add(s.local.name);
       }
     }
   }
   return out;
+}
+var BROWSER_GUARD_NAMES = /* @__PURE__ */ new Set(["browser"]);
+function collectBrowserGuardImports(program) {
+  return collectNamedImportAliases(program, "$app/environment", BROWSER_GUARD_NAMES);
 }
 function collectProgramBindings(program) {
   const bound = /* @__PURE__ */ new Set();
@@ -55978,6 +56047,14 @@ function parseModuleFacts(source2, filename2) {
   const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
   const browserGlobalRefs = program ? collectBrowserGlobalRefs(program, wrapped).map((r) => ({ ...r, line: shift(r.line), context: "module" })) : [];
   const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d) => ({ ...d, line: shift(d.line) })) : [];
+  const basePathLinks = [];
+  if (program) {
+    const locals = collectNamedImportAliases(program, "$app/navigation", GOTO_NAMES);
+    const raw = [];
+    collectGotoLinks(locals, [program], wrapped, raw);
+    for (const l of raw) basePathLinks.push({ ...l, line: shift(l.line) });
+    basePathLinks.sort((a, b) => a.line - b.line);
+  }
   return {
     eachBlocks: [],
     effects: [],
@@ -55993,6 +56070,8 @@ function parseModuleFacts(source2, filename2) {
     stalePropDerivations: [],
     rawableStates: [],
     nonreactiveBuiltinStates: [],
+    checkableBindValues: [],
+    basePathLinks,
     suppressions: collectSuppressions(source2),
     orphanEffects,
     orphanLifecycleCalls,
@@ -56008,6 +56087,18 @@ function parseComponentFacts(source2, filename2) {
   const htmlTags = [];
   const javascriptUrls = [];
   collectSecurityFacts(ast.fragment ?? ast, source2, htmlTags, javascriptUrls);
+  const checkableBindValues = [];
+  collectCheckableBindValues(ast.fragment ?? ast, source2, checkableBindValues);
+  const basePathLinks = [];
+  collectHrefLinks(ast.fragment ?? ast, source2, basePathLinks);
+  const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean);
+  const gotoLocals = /* @__PURE__ */ new Set();
+  for (const p of gotoPrograms)
+    for (const n of collectNamedImportAliases(p, "$app/navigation", GOTO_NAMES)) {
+      gotoLocals.add(n);
+    }
+  collectGotoLinks(gotoLocals, [...gotoPrograms, ast.fragment], source2, basePathLinks);
+  basePathLinks.sort((a, b) => a.line - b.line);
   const loc = countLines(source2);
   const suppressions = collectSuppressions(source2);
   const moduleProgram = ast.module?.content;
@@ -56182,6 +56273,8 @@ function parseComponentFacts(source2, filename2) {
     stalePropDerivations,
     rawableStates,
     nonreactiveBuiltinStates,
+    checkableBindValues,
+    basePathLinks,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
@@ -56206,6 +56299,8 @@ function emptyComponentFacts(file) {
     stalePropDerivations: [],
     rawableStates: [],
     nonreactiveBuiltinStates: [],
+    checkableBindValues: [],
+    basePathLinks: [],
     orphanEffects: [],
     orphanLifecycleCalls: [],
     browserGlobalRefs: [],
@@ -56337,6 +56432,22 @@ function collectAwaits(node, out = []) {
   for (const key2 of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key2)) continue;
     collectAwaits(node[key2], out);
+  }
+  return out;
+}
+var REDIRECT_NAMES = /* @__PURE__ */ new Set(["redirect"]);
+function collectRedirectCalls(node, locals, out = []) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectRedirectCalls(child, locals, out);
+    return out;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
+  if (node.type === "CallExpression" && node.callee?.type === "Identifier" && locals.has(node.callee.name)) {
+    out.push(node);
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectRedirectCalls(node[key2], locals, out);
   }
   return out;
 }
@@ -56527,6 +56638,7 @@ function parseKitModuleFacts(source2, filename2) {
       runesModuleImports,
       lifecycleCalls,
       browserGlobalRefs,
+      basePathLinks: [],
       suppressions
     };
   }
@@ -56651,6 +56763,15 @@ function parseKitModuleFacts(source2, filename2) {
     }
   });
   const byLine = (arr) => arr.sort((a, b) => a.line - b.line);
+  const basePathLinks = [];
+  const redirectLocals = collectNamedImportAliases(program, "@sveltejs/kit", REDIRECT_NAMES);
+  if (redirectLocals.size > 0) {
+    for (const call2 of collectRedirectCalls(program, redirectLocals)) {
+      const arg = call2.arguments?.[1];
+      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) continue;
+      basePathLinks.push({ kind: "redirect", path: arg.value, line: line(call2.start) });
+    }
+  }
   return {
     moduleStateReassignments: byLine(moduleStateReassignments),
     importedStateWrites: byLine(importedStateWrites),
@@ -56658,6 +56779,7 @@ function parseKitModuleFacts(source2, filename2) {
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
+    basePathLinks: byLine(basePathLinks),
     ...ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {},
     ...csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {},
     ...waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0 ? { loadWaterfalls: waterfalls } : {},
@@ -56674,6 +56796,7 @@ function emptyKitModuleFacts(file, kind) {
     runesModuleImports: [],
     lifecycleCalls: [],
     browserGlobalRefs: [],
+    basePathLinks: [],
     suppressions: []
   };
 }
@@ -56775,6 +56898,77 @@ function findMinifyDisabled(source2) {
   if (!minify || minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
   return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
 }
+function basePathOf(kitConfig, bindings) {
+  const paths = propOf(kitConfig, "paths");
+  const pathsObj = paths ? unwrapToObjectExpression(paths.value, bindings) : void 0;
+  if (!pathsObj) return void 0;
+  const base = propOf(pathsObj, "base");
+  if (!base) return void 0;
+  const value = unwrapTs(base.value);
+  if (value.type === "Literal") {
+    return typeof value.value === "string" && value.value !== "" ? { value: value.value } : void 0;
+  }
+  return {};
+}
+function programOf(source2, filename2) {
+  try {
+    return parseModuleProgram(source2, filename2).program ?? void 0;
+  } catch {
+    return void 0;
+  }
+}
+function findKitPathsBaseInSvelteConfig(source2) {
+  const program = programOf(source2, "svelte.config.js");
+  if (!program) return void 0;
+  const config = resolveConfigObject(program);
+  if (!config) return void 0;
+  const bindings = collectTopLevelBindings(program);
+  const kit = propOf(config, "kit");
+  const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
+  return kitObj ? basePathOf(kitObj, bindings) : void 0;
+}
+function sveltekitLocalNames(program) {
+  const out = collectNamedImportAliases(program, "@sveltejs/kit/vite", /* @__PURE__ */ new Set(["sveltekit"]));
+  if (out.size === 0) out.add("sveltekit");
+  return out;
+}
+function findKitPathsBaseInViteConfig(source2) {
+  const none = { kind: "no-plugin-config" };
+  const program = programOf(source2, "vite.config.ts");
+  if (!program) return none;
+  const config = resolveConfigObject(program);
+  if (!config) return none;
+  const bindings = collectTopLevelBindings(program);
+  const plugins = propOf(config, "plugins");
+  const pluginsValue = plugins ? unwrapTs(plugins.value) : void 0;
+  if (pluginsValue?.type !== "ArrayExpression") return none;
+  const locals = sveltekitLocalNames(program);
+  for (const el of pluginsValue.elements) {
+    if (!el || el.type === "SpreadElement") continue;
+    const call2 = unwrapTs(el);
+    if (call2.type !== "CallExpression") continue;
+    if (call2.callee.type !== "Identifier" || !locals.has(call2.callee.name)) continue;
+    const arg = call2.arguments[0];
+    if (arg === void 0) return none;
+    const kitConfig = unwrapToObjectExpression(arg, bindings);
+    if (!kitConfig) return { kind: "unresolvable" };
+    const base = basePathOf(kitConfig, bindings);
+    return base ? { kind: "resolved", base } : { kind: "resolved" };
+  }
+  return none;
+}
+function resolveKitPathsBase(viteConfig, svelteConfig) {
+  if (viteConfig) {
+    const result = findKitPathsBaseInViteConfig(viteConfig.source);
+    if (result.kind === "unresolvable") return void 0;
+    if (result.kind === "resolved") {
+      return result.base ? { ...result.base, file: viteConfig.file } : void 0;
+    }
+  }
+  if (!svelteConfig) return void 0;
+  const base = findKitPathsBaseInSvelteConfig(svelteConfig.source);
+  return base ? { ...base, file: svelteConfig.file } : void 0;
+}
 var ROBOTS_SOURCE_PATHS = [
   "static/robots.txt",
   "src/routes/robots.txt/+server.ts",
@@ -56785,6 +56979,15 @@ var SITEMAP_SOURCE_PATHS = [
   "src/routes/sitemap.xml/+server.ts",
   "src/routes/sitemap.xml/+server.js"
 ];
+var VITE_CONFIG_FILES = [
+  "vite.config.js",
+  "vite.config.mjs",
+  "vite.config.ts",
+  "vite.config.cjs",
+  "vite.config.mts",
+  "vite.config.cts"
+];
+var SVELTE_CONFIG_FILES = ["svelte.config.js", "svelte.config.ts"];
 function docsUrlFor(id2) {
   return `https://oekazuma.github.io/svelte-vitals/rules/${id2.toLowerCase()}`;
 }
@@ -56846,7 +57049,7 @@ function detect(head, match) {
   return tag2 ? { presence: tag2.presence, value: tag2.value } : { presence: "none", value: "absent" };
 }
 function headTagRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
+  const docsUrl8 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -56869,7 +57072,7 @@ function headTagRule(opts) {
           location: head.file,
           message,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl7,
+          docsUrl: docsUrl8,
           // Copy per finding: opts.fix is a rule-level template shared across all
           // results this rule emits; a fresh object keeps findings independent.
           ...opts.fix ? { fix: { ...opts.fix } } : {}
@@ -57044,7 +57247,7 @@ var seoHtmlLang = {
   }
 };
 function imageRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
+  const docsUrl8 = docsUrlFor(opts.id);
   const category = opts.category ?? "performance";
   return {
     id: opts.id,
@@ -57068,7 +57271,7 @@ function imageRule(opts) {
             route: route.route,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl7
+            docsUrl: docsUrl8
           });
           continue;
         }
@@ -57083,7 +57286,7 @@ function imageRule(opts) {
             ...img.line > 0 ? { line: img.line } : {},
             message: `Missing ${opts.label}`,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl7,
+            docsUrl: docsUrl8,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -57135,7 +57338,7 @@ var performanceResponsiveImage = imageRule({
   ok: (img) => img.hasSrcset
 });
 function linkRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
+  const docsUrl8 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -57159,7 +57362,7 @@ function linkRule(opts) {
             route: head.route,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl7
+            docsUrl: docsUrl8
           });
           continue;
         }
@@ -57176,7 +57379,7 @@ function linkRule(opts) {
             location: tag2.file ?? head.file,
             message: `Missing ${opts.label}`,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl7,
+            docsUrl: docsUrl8,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -57314,9 +57517,192 @@ var performanceRenderBlockingScript = {
     return out;
   }
 };
+function settingSeverity(setting) {
+  if (setting === void 0) return void 0;
+  if (typeof setting === "string") return setting;
+  return setting.severity;
+}
+function settingOptions(setting) {
+  return setting !== void 0 && typeof setting !== "string" ? setting.options : void 0;
+}
+function selectRules(rules, config) {
+  return rules.filter((rule) => settingSeverity(config.rules[rule.id]) !== "off");
+}
+function applyRuleSeverities(results, config) {
+  return results.map((result) => {
+    const severity = settingSeverity(config.rules[result.id]);
+    return severity !== void 0 && severity !== "off" ? { ...result, severity } : result;
+  });
+}
+function routeGlobToRegExp(pattern) {
+  const body = pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, "\0").replace(/\*/g, "[^/]*").split("\0").join(".*");
+  const source2 = body.endsWith("/.*") ? `${body.slice(0, -3)}(/.*)?` : body;
+  return new RegExp(`^${source2}$`);
+}
+function toPatterns(globs) {
+  if (globs === void 0) return [];
+  return (Array.isArray(globs) ? globs : [globs]).map(routeGlobToRegExp);
+}
+function compileOverrides(config) {
+  return (config.overrides ?? []).map((o) => ({
+    routes: toPatterns(o.route),
+    files: toPatterns(o.files),
+    rules: o.rules
+  }));
+}
+function overrideMatches(o, target) {
+  const { route, file } = target;
+  return route !== void 0 && o.routes.some((p) => p.test(route)) || file !== void 0 && o.files.some((p) => p.test(file));
+}
+function applyOverrides(results, config) {
+  const compiled = compileOverrides(config);
+  if (compiled.length === 0) return results;
+  const out = [];
+  for (const result of results) {
+    let severity;
+    for (const o of compiled) {
+      if (!overrideMatches(o, { route: result.route, file: result.location })) continue;
+      const sev = settingSeverity(o.rules[result.id]) ?? settingSeverity(o.rules[result.category ?? "seo"]);
+      if (sev !== void 0) severity = sev;
+    }
+    if (severity === void 0) out.push(result);
+    else if (severity !== "off") out.push({ ...result, severity });
+  }
+  return out;
+}
+var RULE_SETTING_VALUES = ["off", "critical", "warning", "info"];
+function defaultsOf(spec) {
+  const out = {};
+  for (const [key2, s] of Object.entries(spec)) {
+    out[key2] = s.kind === "integer" ? s.default : s.kind === "string-list" ? [...s.default] : { ...s.default };
+  }
+  return out;
+}
+function intOption(options, key2, fallback = 0) {
+  const v = options[key2];
+  return typeof v === "number" ? v : fallback;
+}
+function listOption(options, key2) {
+  const v = options[key2];
+  return Array.isArray(v) ? v : [];
+}
+function mapOption(options, key2) {
+  const v = options[key2];
+  return typeof v === "object" && v !== null && !Array.isArray(v) ? v : {};
+}
+function resolveRuleOptions(ruleId, spec, config, target, compiled) {
+  if (!spec) return {};
+  const out = defaultsOf(spec);
+  const layers = [settingOptions(config.rules[ruleId])];
+  if (target) {
+    for (const o of compiled ?? compileOverrides(config)) {
+      if (overrideMatches(o, target)) layers.push(settingOptions(o.rules[ruleId]));
+    }
+  }
+  for (const layer of layers) {
+    if (!layer) continue;
+    for (const [key2, value] of Object.entries(layer)) {
+      const s = spec[key2];
+      if (!s) continue;
+      if (s.kind === "integer") out[key2] = value;
+      else if (s.kind === "string-list") out[key2] = [...out[key2], ...value];
+      else out[key2] = { ...out[key2], ...value };
+    }
+  }
+  return out;
+}
+function validateRuleOptions(ruleId, spec, options, baseline, skipRangeCheck) {
+  if (!spec) return Object.keys(options).length === 0 ? [] : [`${ruleId} takes no options.`];
+  const errors = [];
+  const badKeys = /* @__PURE__ */ new Set();
+  const isNonEmptyString = (v) => typeof v === "string" && v.length > 0;
+  for (const [key2, value] of Object.entries(options)) {
+    const s = spec[key2];
+    if (!s) {
+      errors.push(`${ruleId}: unknown option '${key2}'. Known options: ${Object.keys(spec).join(", ")}.`);
+      continue;
+    }
+    if (s.kind === "integer") {
+      if (typeof value !== "number" || !Number.isInteger(value)) {
+        errors.push(`${ruleId}.${key2} must be an integer.`);
+        badKeys.add(key2);
+      } else if (s.min !== void 0 && value < s.min) {
+        errors.push(`${ruleId}.${key2} must be >= ${s.min}.`);
+        badKeys.add(key2);
+      } else if (s.max !== void 0 && value > s.max) {
+        errors.push(`${ruleId}.${key2} must be <= ${s.max}.`);
+        badKeys.add(key2);
+      }
+    } else if (s.kind === "string-list") {
+      if (!Array.isArray(value) || !value.every(isNonEmptyString)) {
+        errors.push(`${ruleId}.${key2} must be an array of non-empty strings.`);
+      }
+    } else if (typeof value !== "object" || value === null || Array.isArray(value) || !Object.values(value).every(isNonEmptyString)) {
+      errors.push(`${ruleId}.${key2} must be an object of string \u2192 non-empty string.`);
+    }
+  }
+  const minSpec = spec.min;
+  const maxSpec = spec.max;
+  if (minSpec?.kind === "integer" && maxSpec?.kind === "integer" && !badKeys.has("min") && !badKeys.has("max") && !skipRangeCheck) {
+    const base = baseline ?? defaultsOf(spec);
+    const minVal = "min" in options ? options.min : base.min;
+    const maxVal = "max" in options ? options.max : base.max;
+    if (typeof minVal === "number" && typeof maxVal === "number" && minVal > maxVal) {
+      errors.push(`${ruleId}: min (${minVal}) must be <= max (${maxVal}).`);
+    }
+  }
+  return errors;
+}
+function isPlainObject3(value) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+function otherOverrideNarrowsOppositeSide(overrides, selfIndex, key2, side) {
+  return overrides.some((entry, i) => {
+    if (i === selfIndex || !isPlainObject3(entry) || !isPlainObject3(entry.rules)) return false;
+    const setting = entry.rules[key2];
+    return isPlainObject3(setting) && isPlainObject3(setting.options) && side in setting.options;
+  });
+}
+function shouldSkipRangeCheck(overrides, selfIndex, key2, setting) {
+  if (!isPlainObject3(setting) || !isPlainObject3(setting.options)) return false;
+  const setsMin = "min" in setting.options;
+  const setsMax = "max" in setting.options;
+  if (setsMin === setsMax) return false;
+  return otherOverrideNarrowsOppositeSide(overrides, selfIndex, key2, setsMin ? "max" : "min");
+}
+function validateRuleSetting(label, ruleId, setting, spec, opts) {
+  const expected = RULE_SETTING_VALUES.join("|");
+  if (typeof setting === "string") {
+    return RULE_SETTING_VALUES.includes(setting) ? [] : [`${label}: invalid setting '${setting}'; expected ${expected}.`];
+  }
+  if (!isPlainObject3(setting)) {
+    return [`${label}: must be ${expected} or an object with 'severity' and/or 'options'.`];
+  }
+  const errors = [];
+  const unknownKeys = Object.keys(setting).filter((k) => k !== "severity" && k !== "options");
+  if (unknownKeys.length > 0) {
+    errors.push(`${label}: unknown key(s) ${unknownKeys.join(", ")}; expected severity, options.`);
+  }
+  if (setting.severity !== void 0 && !RULE_SETTING_VALUES.includes(setting.severity)) {
+    errors.push(`${label}.severity: invalid setting '${String(setting.severity)}'; expected ${expected}.`);
+  }
+  if (setting.options === void 0) return errors;
+  if (!opts.allowOptions) {
+    errors.push(`${label}: options are not allowed on a category key.`);
+    return errors;
+  }
+  if (!isPlainObject3(setting.options)) {
+    errors.push(`${label}.options: must be an object.`);
+    return errors;
+  }
+  const optionErrors = validateRuleOptions(ruleId, spec, setting.options, opts.baseline, opts.skipRangeCheck);
+  if (optionErrors.length > 0) errors.push(`${label}: ${optionErrors.join(" ")}`);
+  return errors;
+}
 var docsUrl3 = docsUrlFor("performance/preconnect");
 var recommendation3 = 'Add <link rel="preconnect"> (or dns-prefetch) for the third-party origin so the connection is set up early.';
 var THIRD_PARTY_ORIGINS = /* @__PURE__ */ new Set(["fonts.googleapis.com", "fonts.gstatic.com"]);
+var OPTIONS = { origins: { kind: "string-list", default: [...THIRD_PARTY_ORIGINS] } };
 function hostOf(href) {
   const m = /^(?:https?:)?\/\/([^/?#]+)/i.exec(href);
   return m ? m[1].toLowerCase() : void 0;
@@ -57333,17 +57719,30 @@ var performancePreconnect = {
     snippet: '<link rel="preconnect" href="https://fonts.googleapis.com" />',
     lang: "html"
   },
+  options: OPTIONS,
   async check(ctx) {
     const out = [];
+    const compiled = compileOverrides(ctx.config);
     for (const head of ctx.heads) {
       const referenced = /* @__PURE__ */ new Map();
       const covered = /* @__PURE__ */ new Set();
       for (const tag2 of head.tags) {
         if (tag2.kind !== "link" && tag2.kind !== "script" || typeof tag2.href !== "string") continue;
         const host = hostOf(tag2.href);
-        if (!host || !THIRD_PARTY_ORIGINS.has(host)) continue;
-        if (tag2.kind === "link" && (tag2.rel === "preconnect" || tag2.rel === "dns-prefetch")) covered.add(host);
-        else if (!referenced.has(host)) referenced.set(host, tag2.file);
+        if (!host) continue;
+        if (tag2.kind === "link" && (tag2.rel === "preconnect" || tag2.rel === "dns-prefetch")) {
+          covered.add(host);
+          continue;
+        }
+        const o = resolveRuleOptions(
+          "performance/preconnect",
+          OPTIONS,
+          ctx.config,
+          { route: head.route, file: tag2.file ?? head.file },
+          compiled
+        );
+        if (!listOption(o, "origins").includes(host)) continue;
+        if (!referenced.has(host)) referenced.set(host, tag2.file);
       }
       if (referenced.size === 0) continue;
       const missing = [...referenced].filter(([host]) => !covered.has(host));
@@ -57392,7 +57791,7 @@ var seoIndexability = {
   rationale: "A noindex directive removes the page from search results; an accidental noindex on a public route silently deindexes it.",
   fix: FIX5,
   async check(ctx) {
-    const docsUrl7 = docsUrlFor("seo/indexability");
+    const docsUrl8 = docsUrlFor("seo/indexability");
     const out = [];
     for (const head of ctx.heads) {
       const noindexed = head.tags.some((t) => t.kind === "meta" && t.name === "robots" && t.noindex === true);
@@ -57407,7 +57806,7 @@ var seoIndexability = {
         location: head.file,
         message: "Route is noindex \u2014 verify this is intentional",
         recommendation: 'If this route should be indexed, remove noindex from its <meta name="robots">.',
-        docsUrl: docsUrl7,
+        docsUrl: docsUrl8,
         fix: { ...FIX5 }
       });
     }
@@ -57644,7 +58043,7 @@ function jsonldTags(head) {
   return head.tags.filter((t) => t.kind === "jsonld" && typeof t.jsonld === "string");
 }
 function jsonldRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
+  const docsUrl8 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -57672,7 +58071,7 @@ function jsonldRule(opts) {
               location: head.file,
               message: problem,
               recommendation: opts.recommendation,
-              docsUrl: docsUrl7,
+              docsUrl: docsUrl8,
               ...opts.fix ? { fix: { ...opts.fix } } : {}
             } : {
               id: opts.id,
@@ -57682,7 +58081,7 @@ function jsonldRule(opts) {
               route: head.route,
               message: opts.label,
               recommendation: opts.recommendation,
-              docsUrl: docsUrl7
+              docsUrl: docsUrl8
             }
           );
         }
@@ -57704,7 +58103,7 @@ var seoJsonLdValidity = {
     lang: "svelte"
   },
   async check(ctx) {
-    const docsUrl7 = docsUrlFor("seo/json-ld-validity");
+    const docsUrl8 = docsUrlFor("seo/json-ld-validity");
     const out = [];
     for (const head of ctx.heads) {
       for (const tag2 of jsonldTags(head)) {
@@ -57723,7 +58122,7 @@ var seoJsonLdValidity = {
             location: head.file,
             message: problem,
             recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl7,
+            docsUrl: docsUrl8,
             fix: { ...seoJsonLdValidity.fix }
           } : {
             id: "seo/json-ld-validity",
@@ -57733,7 +58132,7 @@ var seoJsonLdValidity = {
             route: head.route,
             message: "JSON-LD validity",
             recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl7
+            docsUrl: docsUrl8
           }
         );
       }
@@ -57830,7 +58229,11 @@ function visibleLength(s) {
   return [...segmenter.segment(collapsed)].length;
 }
 function lengthRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
+  const docsUrl8 = docsUrlFor(opts.id);
+  const spec = {
+    min: { kind: "integer", default: opts.min, min: 0 },
+    max: { kind: "integer", default: opts.max, min: 1 }
+  };
   return {
     id: opts.id,
     title: opts.title,
@@ -57838,15 +58241,22 @@ function lengthRule(opts) {
     severity: "info",
     scope: "route",
     rationale: opts.rationale,
+    options: spec,
     async check(ctx) {
       const out = [];
+      const compiled = compileOverrides(ctx.config);
       for (const head of ctx.heads) {
         const tag2 = head.tags.find(opts.match);
         if (!tag2 || typeof tag2.text !== "string") continue;
+        const location = tag2.file ?? head.file;
+        const o = resolveRuleOptions(opts.id, spec, ctx.config, { route: head.route, file: location }, compiled);
+        const min = intOption(o, "min", opts.min);
+        const max = intOption(o, "max", opts.max);
+        const recommendation8 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
         const len = visibleLength(tag2.text);
         let problem;
-        if (len < opts.min) problem = `${opts.noun} is too short (${len} chars; aim for ${opts.min}\u2013${opts.max})`;
-        else if (len > opts.max) problem = `${opts.noun} is too long (${len} chars; aim for ${opts.min}\u2013${opts.max})`;
+        if (len < min) problem = `${opts.noun} is too short (${len} chars; aim for ${min}\u2013${max})`;
+        else if (len > max) problem = `${opts.noun} is too long (${len} chars; aim for ${min}\u2013${max})`;
         out.push(
           problem ? {
             id: opts.id,
@@ -57854,10 +58264,10 @@ function lengthRule(opts) {
             severity: "info",
             detection: PENALIZED,
             route: head.route,
-            location: tag2.file ?? head.file,
+            location,
             message: problem,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl7
+            recommendation: recommendation8,
+            docsUrl: docsUrl8
           } : {
             id: opts.id,
             category: "seo",
@@ -57865,8 +58275,8 @@ function lengthRule(opts) {
             detection: PASS,
             route: head.route,
             message: opts.label,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl7
+            recommendation: recommendation8,
+            docsUrl: docsUrl8
           }
         );
       }
@@ -57874,26 +58284,30 @@ function lengthRule(opts) {
     }
   };
 }
+var MIN = 30;
+var MAX = 60;
 var seoTitleLength = lengthRule({
   id: "seo/title-length",
   title: "Title length",
   label: "Title length",
   noun: "Title",
   match: (t) => t.kind === "title",
-  min: 30,
-  max: 60,
-  recommendation: "Aim for a title of 30\u201360 characters so it is not truncated in search results.",
+  min: MIN,
+  max: MAX,
+  recommendation: (o) => `Aim for a title of ${intOption(o, "min", MIN)}\u2013${intOption(o, "max", MAX)} characters so it is not truncated in search results.`,
   rationale: "A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP."
 });
+var MIN2 = 70;
+var MAX2 = 160;
 var seoDescriptionLength = lengthRule({
   id: "seo/description-length",
   title: "Description length",
   label: "Description length",
   noun: "Description",
   match: (t) => t.kind === "meta" && t.name === "description",
-  min: 70,
-  max: 160,
-  recommendation: "Aim for a meta description of 70\u2013160 characters so it is not truncated in search results.",
+  min: MIN2,
+  max: MAX2,
+  recommendation: (o) => `Aim for a meta description of ${intOption(o, "min", MIN2)}\u2013${intOption(o, "max", MAX2)} characters so it is not truncated in search results.`,
   rationale: "A description that is too short under-uses the SERP snippet; one that is too long is truncated by search engines."
 });
 var seoCharset = headTagRule({
@@ -58033,7 +58447,7 @@ var seoSingleH1 = {
   }
 };
 function uniquenessRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
+  const docsUrl8 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -58063,7 +58477,7 @@ function uniquenessRule(opts) {
           location: e2.file,
           message: `${opts.noun} is duplicated across ${n} routes`,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl7
+          docsUrl: docsUrl8
         } : {
           id: opts.id,
           category: "seo",
@@ -58072,7 +58486,7 @@ function uniquenessRule(opts) {
           route: e2.route,
           message: opts.label,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl7
+          docsUrl: docsUrl8
         };
       });
     }
@@ -58152,7 +58566,7 @@ function isSuppressed(m, ruleId, line) {
   return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function kitModuleRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
+  const docsUrl8 = docsUrlFor(opts.id);
   const severity = opts.severity ?? "warning";
   return {
     id: opts.id,
@@ -58176,7 +58590,7 @@ function kitModuleRule(opts) {
             route: m.file,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl7
+            docsUrl: docsUrl8
           });
           continue;
         }
@@ -58191,7 +58605,7 @@ function kitModuleRule(opts) {
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl7,
+            docsUrl: docsUrl8,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -58223,7 +58637,7 @@ function isSuppressed2(c, ruleId, line) {
   return (c.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function componentRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
+  const docsUrl8 = docsUrlFor(opts.id);
   const severity = opts.severity ?? "warning";
   return {
     id: opts.id,
@@ -58233,11 +58647,15 @@ function componentRule(opts) {
     scope: "component",
     rationale: opts.rationale,
     ...opts.fix ? { fix: opts.fix } : {},
+    ...opts.options ? { options: opts.options } : {},
     async check(ctx) {
       const out = [];
+      const compiled = compileOverrides(ctx.config);
       for (const c of ctx.components ?? []) {
-        if (!opts.applies(c)) continue;
-        const bad = opts.bad(c).filter((b) => !(b.line > 0 && isSuppressed2(c, opts.id, b.line)));
+        const o = resolveRuleOptions(opts.id, opts.options, ctx.config, { route: c.file, file: c.file }, compiled);
+        const recommendation8 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
+        if (!opts.applies(c, o)) continue;
+        const bad = opts.bad(c, o).filter((b) => !(b.line > 0 && isSuppressed2(c, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
@@ -58246,8 +58664,8 @@ function componentRule(opts) {
             detection: PASS3,
             route: c.file,
             message: opts.label,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl7
+            recommendation: recommendation8,
+            docsUrl: docsUrl8
           });
           continue;
         }
@@ -58261,8 +58679,8 @@ function componentRule(opts) {
             location: c.file,
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl7,
+            recommendation: recommendation8,
+            docsUrl: docsUrl8,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -58375,6 +58793,23 @@ var correctnessNonreactiveBuiltinState = componentRule({
     message: `"${s.name}" is a plain ${s.type} in $state \u2014 its mutations are not tracked, so the UI silently stops updating when it changes. Use Svelte${s.type} from 'svelte/reactivity'.`
   }))
 });
+var correctnessCheckableBindValue = componentRule({
+  id: "correctness/checkable-bind-value",
+  title: "bind:value on a checkable input",
+  category: "correctness",
+  severity: "warning",
+  label: "bind:checked / bind:group on checkable inputs",
+  recommendation: "Replace bind:value with bind:checked (single checkbox) or bind:group (checkbox list / radio group).",
+  rationale: "bind:value binds the DOM value property. A checkbox/radio's user interaction toggles checkedness, which bind:value never observes \u2014 the bound state is frozen at its initial value. Svelte's checked/grouped bindings (bind:checked, bind:group) are built for exactly this.",
+  fix: {
+    description: "For a single checkbox, replace bind:value={x} with bind:checked={x} (x becomes a boolean). For a checkbox list or radio group, replace bind:value={x} with bind:group={x} on every input sharing the group, keeping each input's static value attribute to identify the option."
+  },
+  applies: (c) => c.checkableBindValues.length > 0,
+  bad: (c) => c.checkableBindValues.map((v) => ({
+    line: v.line,
+    message: v.kind === "checkbox" ? "bind:value on a checkbox does not track its checked state \u2014 the bound value silently never updates when the user toggles it. Use bind:checked (single checkbox) or bind:group (checkbox list) instead." : "bind:value on a radio input does not track which option is selected \u2014 the bound value silently never updates when the user picks one. Use bind:group with a shared group variable across the radio inputs instead."
+  }))
+});
 var correctnessOrphanEffect = componentRule({
   id: "correctness/orphan-effect",
   title: "Orphan $effect",
@@ -58472,21 +58907,32 @@ var correctnessOrphanLifecycle = {
 };
 var PENALIZED5 = { presence: "none", value: "absent" };
 var PASS5 = { presence: "own", value: "static" };
-var ID2 = "correctness/server-browser-global";
+var ID2 = "correctness/base-path-navigation";
 var DOCS_URL2 = docsUrlFor(ID2);
-var LABEL2 = "Server-safe module code";
-var RECOMMENDATION2 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
-var moduleMessage = (name) => `${name} is accessed at module scope \u2014 it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;
+var LABEL2 = "Base-path-aware navigation";
+var RECOMMENDATION2 = "Wrap root-relative paths in resolve() from '$app/paths' so they resolve against kit.paths.base.";
+var FIX7 = {
+  description: "Import { resolve } from '$app/paths' and wrap the path: href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login'))."
+};
+function messageFor2(link) {
+  if (link.kind === "href") {
+    return `<a href="${link.path}"> is root-relative \u2014 under this project's kit.paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
+  }
+  if (link.kind === "goto") {
+    return `goto('${link.path}') is root-relative \u2014 it navigates outside this project's kit.paths.base and 404s in production. Use goto(resolve('${link.path}')) with resolve from '$app/paths'.`;
+  }
+  return `redirect(\u2026, '${link.path}') is root-relative \u2014 the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
+}
 function isSuppressed4(suppressions, line) {
   return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID2)));
 }
-function emitFile2(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed4(suppressions, b.line)));
+function emitFile2(out, file, links, suppressions) {
+  const bad = links.filter((l) => !(l.line > 0 && isSuppressed4(suppressions, l.line)));
   if (bad.length === 0) {
     out.push({
       id: ID2,
       category: "correctness",
-      severity: "critical",
+      severity: "warning",
       detection: PASS5,
       route: file,
       message: LABEL2,
@@ -58495,23 +58941,88 @@ function emitFile2(out, file, issues, suppressions) {
     });
     return;
   }
-  for (const b of bad) {
+  for (const l of bad) {
     out.push({
       id: ID2,
       category: "correctness",
-      severity: "critical",
+      severity: "warning",
       detection: PENALIZED5,
+      route: file,
+      location: file,
+      ...l.line > 0 ? { line: l.line } : {},
+      message: messageFor2(l),
+      recommendation: RECOMMENDATION2,
+      docsUrl: DOCS_URL2,
+      fix: { ...FIX7 }
+    });
+  }
+}
+var correctnessBasePathNavigation = {
+  id: ID2,
+  title: "Root-relative navigation under a base path",
+  category: "correctness",
+  severity: "warning",
+  scope: "component",
+  rationale: "A root-relative literal resolves against the domain root, not kit.paths.base, so navigation lands outside an app served from a sub-path. The break only appears once the app is deployed under its base \u2014 locally base is usually empty, so every such link works.",
+  fix: { ...FIX7 },
+  async check(ctx) {
+    if (!ctx.project.kitPathsBase) return [];
+    const out = [];
+    for (const c of ctx.components ?? []) {
+      const links = c.basePathLinks ?? [];
+      if (links.length === 0) continue;
+      emitFile2(out, c.file, links, c.suppressions);
+    }
+    for (const m of ctx.kitModules ?? []) {
+      const links = m.basePathLinks ?? [];
+      if (links.length === 0) continue;
+      emitFile2(out, m.file, links, m.suppressions);
+    }
+    return out;
+  }
+};
+var PENALIZED6 = { presence: "none", value: "absent" };
+var PASS6 = { presence: "own", value: "static" };
+var ID3 = "correctness/server-browser-global";
+var DOCS_URL3 = docsUrlFor(ID3);
+var LABEL3 = "Server-safe module code";
+var RECOMMENDATION3 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
+var moduleMessage = (name) => `${name} is accessed at module scope \u2014 it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;
+function isSuppressed5(suppressions, line) {
+  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID3)));
+}
+function emitFile3(out, file, issues, suppressions) {
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed5(suppressions, b.line)));
+  if (bad.length === 0) {
+    out.push({
+      id: ID3,
+      category: "correctness",
+      severity: "critical",
+      detection: PASS6,
+      route: file,
+      message: LABEL3,
+      recommendation: RECOMMENDATION3,
+      docsUrl: DOCS_URL3
+    });
+    return;
+  }
+  for (const b of bad) {
+    out.push({
+      id: ID3,
+      category: "correctness",
+      severity: "critical",
+      detection: PENALIZED6,
       route: file,
       location: file,
       ...b.line > 0 ? { line: b.line } : {},
       message: b.message,
-      recommendation: RECOMMENDATION2,
-      docsUrl: DOCS_URL2
+      recommendation: RECOMMENDATION3,
+      docsUrl: DOCS_URL3
     });
   }
 }
 var correctnessServerBrowserGlobal = {
-  id: ID2,
+  id: ID3,
   title: "Browser global in server module code",
   category: "correctness",
   severity: "critical",
@@ -58522,7 +59033,7 @@ var correctnessServerBrowserGlobal = {
     for (const c of ctx.components ?? []) {
       const refs = (c.browserGlobalRefs ?? []).filter((r) => r.context === "module");
       if (refs.length === 0) continue;
-      emitFile2(
+      emitFile3(
         out,
         c.file,
         refs.map((r) => ({ line: r.line, message: moduleMessage(r.name) })),
@@ -58532,7 +59043,7 @@ var correctnessServerBrowserGlobal = {
     for (const m of ctx.kitModules ?? []) {
       const refs = m.browserGlobalRefs ?? [];
       if (refs.length === 0) continue;
-      emitFile2(
+      emitFile3(
         out,
         m.file,
         refs.map((r) => ({
@@ -58634,32 +59145,146 @@ var securitySharedStateImport = kitModuleRule({
     return out;
   }
 });
-var MAX_LOC = 400;
+var MAX_LOC = 200;
 var architectureComponentSize = componentRule({
   id: "architecture/component-size",
   title: "Component size",
   category: "architecture",
   severity: "info",
   label: "Component size",
-  recommendation: `Split components over ${MAX_LOC} lines into smaller, focused pieces.`,
+  options: { max: { kind: "integer", default: MAX_LOC, min: 1 } },
+  recommendation: (o) => `Split components over ${intOption(o, "max", MAX_LOC)} lines into smaller, focused pieces.`,
   rationale: "A very large component is hard to read, test, and reuse, and is a common sign that several responsibilities should be split out.",
   applies: (c) => c.loc > 0,
   // skip unanalyzable files (loc 0 = read/parse failure), don't PASS them
-  bad: (c) => c.loc > MAX_LOC ? [{ line: 1, message: `Component is ${c.loc} lines (over ${MAX_LOC})` }] : []
+  bad: (c, o) => {
+    const max = intOption(o, "max", MAX_LOC);
+    return c.loc > max ? [{ line: 1, message: `Component is ${c.loc} lines (over ${max})` }] : [];
+  }
 });
-var MAX_PROPS = 10;
+var MAX_PROPS = 6;
 var architecturePropCount = componentRule({
   id: "architecture/prop-count",
   title: "Prop count",
   category: "architecture",
   severity: "info",
   label: "Prop count",
-  recommendation: `Group related props into an object, or split the component, when it takes more than ${MAX_PROPS} props.`,
+  options: { max: { kind: "integer", default: MAX_PROPS, min: 1 } },
+  recommendation: (o) => `Group related props into an object, or split the component, when it takes more than ${intOption(o, "max", MAX_PROPS)} props.`,
   rationale: "A component taking many props is usually doing too much; grouping or splitting keeps its API understandable.",
   applies: (c) => c.propCount > 0,
   // only components whose props we could count
-  bad: (c) => c.propCount > MAX_PROPS ? [{ line: 1, message: `Component takes ${c.propCount} props (over ${MAX_PROPS})` }] : []
+  bad: (c, o) => {
+    const max = intOption(o, "max", MAX_PROPS);
+    return c.propCount > max ? [{ line: 1, message: `Component takes ${c.propCount} props (over ${max})` }] : [];
+  }
 });
+var docsUrl7 = docsUrlFor("architecture/private-scope-import");
+var recommendation7 = "Move the unit to the directory shared by all of its importers, or import it only from inside its own scope.";
+var OPTIONS2 = { scopes: { kind: "string-list", default: [] } };
+function ancestorDirs(file) {
+  const segments = file.split("/");
+  const out = [];
+  for (let i = segments.length - 1; i > 0; i--) out.push(segments.slice(0, i).join("/"));
+  return out;
+}
+function privateScopeOf(target, patterns) {
+  for (const dir of ancestorDirs(target)) {
+    if (!patterns.some((p) => p.test(dir))) continue;
+    const cut = dir.lastIndexOf("/");
+    return cut === -1 ? "" : dir.slice(0, cut);
+  }
+  return void 0;
+}
+function isInside(file, boundary) {
+  return boundary === "" || file.startsWith(`${boundary}/`);
+}
+var architecturePrivateScopeImport = {
+  id: "architecture/private-scope-import",
+  title: "Private-scope import",
+  category: "architecture",
+  severity: "info",
+  scope: "component",
+  rationale: "A unit placed inside a private directory is written for one owner; importing it from elsewhere couples two parts of the tree that were meant to move independently, and the unit belongs higher up instead.",
+  fix: {
+    description: "Move this unit out of its private scope, to the directory shared by all of its importers, and update this import."
+  },
+  options: OPTIONS2,
+  async check(ctx) {
+    const out = [];
+    const compiled = compileOverrides(ctx.config);
+    const patternCache = /* @__PURE__ */ new Map();
+    const compileScopes = (scopes) => {
+      const key2 = JSON.stringify(scopes);
+      let patterns = patternCache.get(key2);
+      if (patterns === void 0) {
+        patterns = scopes.map((scope) => {
+          const marker = scope.endsWith("/**") ? scope.slice(0, -3) : scope;
+          return routeGlobToRegExp(marker);
+        });
+        patternCache.set(key2, patterns);
+      }
+      return patterns;
+    };
+    for (const c of ctx.components ?? []) {
+      const o = resolveRuleOptions(
+        "architecture/private-scope-import",
+        OPTIONS2,
+        ctx.config,
+        { route: c.file, file: c.file },
+        compiled
+      );
+      const scopes = listOption(o, "scopes");
+      if (scopes.length === 0) continue;
+      const patterns = compileScopes(scopes);
+      const spans = c.importSpans ?? c.imports.map((source2) => ({ source: source2, line: 0 }));
+      let sawScopedImport = false;
+      const violations = [];
+      for (const { source: source2, line } of spans) {
+        const target = resolveRepoLocalPath(source2, c.file);
+        if (target === void 0) continue;
+        const boundary = privateScopeOf(target, patterns);
+        if (boundary === void 0) continue;
+        sawScopedImport = true;
+        if (isInside(c.file, boundary)) continue;
+        violations.push({ line, message: `${target} is private to ${boundary}` });
+      }
+      if (!sawScopedImport) continue;
+      const visible = violations.filter(
+        (v) => !(v.line > 0 && isSuppressed2(c, "architecture/private-scope-import", v.line))
+      );
+      if (visible.length === 0) {
+        out.push({
+          id: "architecture/private-scope-import",
+          category: "architecture",
+          severity: "info",
+          detection: { presence: "own", value: "static" },
+          route: c.file,
+          message: "No private-scope imports",
+          recommendation: recommendation7,
+          docsUrl: docsUrl7
+        });
+        continue;
+      }
+      for (const v of visible) {
+        out.push({
+          id: "architecture/private-scope-import",
+          category: "architecture",
+          severity: "info",
+          detection: { presence: "none", value: "absent" },
+          route: c.file,
+          location: c.file,
+          ...v.line > 0 ? { line: v.line } : {},
+          message: v.message,
+          recommendation: recommendation7,
+          docsUrl: docsUrl7,
+          fix: { ...architecturePrivateScopeImport.fix }
+        });
+      }
+    }
+    return out;
+  }
+};
 var HEAVY_PACKAGES = {
   lodash: "import a submodule (lodash/debounce) or use lodash-es for tree-shaking",
   moment: "use a lighter date library (date-fns or dayjs) \u2014 moment is large and not tree-shakeable"
@@ -58672,18 +59297,20 @@ var performanceHeavyImport = componentRule({
   label: "No heavy imports",
   recommendation: "Import a submodule or switch to a lighter, tree-shakeable alternative.",
   rationale: "Importing a large, non-tree-shakeable package pulls its whole weight into the bundle even when only a fraction is used, slowing load.",
+  options: { packages: { kind: "string-map", default: HEAVY_PACKAGES } },
   // ComponentFacts is a public @svelte-vitals/core export — an external caller compiled
   // against an older version may still construct one without importSpans. Fall back to the
   // line-less `imports` (line: 0, the pre-fix behavior) instead of crashing on `undefined`.
   applies: (c) => (c.importSpans ?? c.imports).length > 0,
-  bad: (c) => {
+  bad: (c, o) => {
+    const packages = mapOption(o, "packages");
     const seen = /* @__PURE__ */ new Set();
     const out = [];
     const spans = c.importSpans ?? c.imports.map((source2) => ({ source: source2, line: 0 }));
     for (const { source: src, line } of spans) {
-      if (!Object.hasOwn(HEAVY_PACKAGES, src) || seen.has(src)) continue;
+      if (!Object.hasOwn(packages, src) || seen.has(src)) continue;
       seen.add(src);
-      out.push({ line, message: `Heavy import "${src}" \u2014 ${HEAVY_PACKAGES[src]}` });
+      out.push({ line, message: `Heavy import "${src}" \u2014 ${packages[src]}` });
     }
     return out;
   }
@@ -58709,13 +59336,13 @@ var performanceNamespaceImport = componentRule({
     }));
   }
 });
-var PENALIZED6 = { presence: "none", value: "absent" };
+var PENALIZED7 = { presence: "none", value: "absent" };
 var MINIFY_DISABLED_FIX = {
   description: "Remove the minify: false override from vite.config (Vite minifies with esbuild by default), or scope it to non-production builds.",
   snippet: "export default defineConfig({\n  build: {\n    minify: 'esbuild'\n  }\n});",
   lang: "ts"
 };
-var RECOMMENDATION3 = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
+var RECOMMENDATION4 = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
 var performanceMinifyDisabled = {
   id: "performance/minify-disabled",
   title: "Minification disabled",
@@ -58733,11 +59360,11 @@ var performanceMinifyDisabled = {
         id: "performance/minify-disabled",
         category: "performance",
         severity: "warning",
-        detection: PENALIZED6,
+        detection: PENALIZED7,
         ...hit.file !== void 0 ? { location: hit.file } : {},
         ...hit.line !== void 0 ? { line: hit.line } : {},
         message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
-        recommendation: RECOMMENDATION3,
+        recommendation: RECOMMENDATION4,
         docsUrl: docsUrlFor("performance/minify-disabled"),
         fix: { ...MINIFY_DISABLED_FIX }
       }
@@ -58843,8 +59470,10 @@ var allRules = [
   correctnessPropMutation,
   correctnessStalePropDerivation,
   correctnessNonreactiveBuiltinState,
+  correctnessCheckableBindValue,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
+  correctnessBasePathNavigation,
   correctnessServerBrowserGlobal,
   correctnessInstanceBrowserGlobal,
   securityRawHtml,
@@ -58854,6 +59483,7 @@ var allRules = [
   securitySharedStateImport,
   architectureComponentSize,
   architecturePropCount,
+  architecturePrivateScopeImport,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,
@@ -59115,49 +59745,8 @@ function formatMarkdownReport(results, config, meta) {
   }
   return lines.join("\n");
 }
-function selectRules(rules, config) {
-  return rules.filter((rule) => config.rules[rule.id] !== "off");
-}
-function applyRuleSeverities(results, config) {
-  return results.map((result) => {
-    const setting = config.rules[result.id];
-    return setting && setting !== "off" ? { ...result, severity: setting } : result;
-  });
-}
-function routeGlobToRegExp(pattern) {
-  const body = pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, "\0").replace(/\*/g, "[^/]*").split("\0").join(".*");
-  const source2 = body.endsWith("/.*") ? `${body.slice(0, -3)}(/.*)?` : body;
-  return new RegExp(`^${source2}$`);
-}
-function toPatterns(globs) {
-  if (globs === void 0) return [];
-  return (Array.isArray(globs) ? globs : [globs]).map(routeGlobToRegExp);
-}
-function applyOverrides(results, config) {
-  const overrides = config.overrides;
-  if (!overrides || overrides.length === 0) return results;
-  const compiled = overrides.map((o) => ({
-    routes: toPatterns(o.route),
-    files: toPatterns(o.files),
-    rules: o.rules
-  }));
-  const out = [];
-  for (const result of results) {
-    const { route, location } = result;
-    let setting;
-    for (const o of compiled) {
-      const matched = route !== void 0 && o.routes.some((p) => p.test(route)) || location !== void 0 && o.files.some((p) => p.test(location));
-      if (!matched) continue;
-      const s = o.rules[result.id] ?? o.rules[result.category ?? "seo"];
-      if (s !== void 0) setting = s;
-    }
-    if (setting === void 0) out.push(result);
-    else if (setting !== "off") out.push({ ...result, severity: setting });
-  }
-  return out;
-}
 
-// node_modules/.pnpm/svelte-vitals@0.32.0/node_modules/svelte-vitals/dist/chunk-CWCO6A5B.js
+// node_modules/.pnpm/svelte-vitals@0.34.0/node_modules/svelte-vitals/dist/chunk-WSPRFLPP.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -59935,7 +60524,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// node_modules/.pnpm/svelte-vitals@0.32.0/node_modules/svelte-vitals/dist/chunk-CWCO6A5B.js
+// node_modules/.pnpm/svelte-vitals@0.34.0/node_modules/svelte-vitals/dist/chunk-WSPRFLPP.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -60055,14 +60644,6 @@ async function robotsRefsSitemap(rt, cwd) {
     return void 0;
   }
 }
-var VITE_CONFIG_FILES = [
-  "vite.config.js",
-  "vite.config.mjs",
-  "vite.config.ts",
-  "vite.config.cjs",
-  "vite.config.mts",
-  "vite.config.cts"
-];
 async function detectViteMinifyDisabled(rt, cwd) {
   const exists2 = await Promise.all(VITE_CONFIG_FILES.map((f) => rt.exists(rt.join(cwd, f))));
   const file = VITE_CONFIG_FILES[exists2.indexOf(true)];
@@ -60074,12 +60655,32 @@ async function detectViteMinifyDisabled(rt, cwd) {
     return void 0;
   }
 }
+async function readFirstConfig(rt, cwd, files) {
+  for (const file of files) {
+    const path = rt.join(cwd, file);
+    if (!await rt.exists(path)) continue;
+    try {
+      return { file, source: await rt.readFile(path) };
+    } catch {
+      return void 0;
+    }
+  }
+  return void 0;
+}
+async function detectKitPathsBase(rt, cwd) {
+  const [viteConfig, svelteConfig] = await Promise.all([
+    readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
+    readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES)
+  ]);
+  return resolveKitPathsBase(viteConfig, svelteConfig);
+}
 async function collectProjectFacts(rt, cwd) {
-  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled, kitPathsBase] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
     detectAppHtmlLang(rt, cwd),
-    detectViteMinifyDisabled(rt, cwd)
+    detectViteMinifyDisabled(rt, cwd),
+    detectKitPathsBase(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
@@ -60087,7 +60688,8 @@ async function collectProjectFacts(rt, cwd) {
     hasSitemap,
     htmlLang,
     ...robotsReferencesSitemap !== void 0 ? { robotsReferencesSitemap } : {},
-    ...viteMinifyDisabled ? { viteMinifyDisabled } : {}
+    ...viteMinifyDisabled ? { viteMinifyDisabled } : {},
+    ...kitPathsBase ? { kitPathsBase } : {}
   };
 }
 function exprValue(node) {
@@ -60657,7 +61259,7 @@ function filterToNewFindings(results, baselineResults) {
   return results.filter((r) => !baselineKeys.has(findingKey(r)));
 }
 var SUPPRESSIONS_FILE = "svelte-vitals-suppressions.json";
-function isPlainObject3(value) {
+function isPlainObject4(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 function loadSuppressions(cwd) {
@@ -60677,7 +61279,7 @@ function loadSuppressions(cwd) {
       { cause: err }
     );
   }
-  if (!isPlainObject3(parsed)) {
+  if (!isPlainObject4(parsed)) {
     throw new Error(`invalid ${SUPPRESSIONS_FILE}: expected a top-level JSON object.`);
   }
   if (parsed.version !== 1) {
@@ -60688,7 +61290,7 @@ function loadSuppressions(cwd) {
   }
   const entries = [];
   parsed.suppressions.forEach((entry, i) => {
-    if (!isPlainObject3(entry) || typeof entry.id !== "string") {
+    if (!isPlainObject4(entry) || typeof entry.id !== "string") {
       throw new Error(`invalid ${SUPPRESSIONS_FILE}: suppressions[${i}] must be an object with a string "id".`);
     }
     entries.push({
@@ -60726,23 +61328,33 @@ var ansiPalette = {
   cyan: wrap(36, 39)
 };
 var KNOWN_IDS = new Set(allRules.map((r) => r.id));
+var RULE_BY_ID = new Map(allRules.map((r) => [r.id, r]));
 function findUnknownRuleIds(ids) {
   return [...new Set(ids.filter((id2) => !KNOWN_IDS.has(id2)))];
 }
 function knownRuleIds() {
   return [...KNOWN_IDS].sort();
 }
+function ruleOptionsSpec(id2) {
+  return RULE_BY_ID.get(id2)?.options;
+}
 var CONFIG_FILENAMES = ["svelte-vitals.config.mjs", "svelte-vitals.config.js", "svelte-vitals.config.ts"];
-var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture"];
 var TREAT_DYNAMIC_AS_VALUES = ["pass", "warn", "fail"];
 var FAIL_ON_VALUES = ["critical", "warning", "info"];
 var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set(["treatDynamicAs", "metaComponents", "rules", "failOn", "weights", "overrides"]);
-var RULE_SETTING_VALUES = ["off", "critical", "warning", "info"];
 function isPlainObject22(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 function isMissingExtensionLoaderError(err) {
   return err instanceof Error && ("code" in err && err.code === "ERR_UNKNOWN_FILE_EXTENSION" || /Unknown file extension/.test(err.message));
+}
+function validateSetting(path, where, key2, setting, allowOptions, baseline, skipRangeCheck) {
+  const errors = validateRuleSetting(`${where}.${key2}`, key2, setting, ruleOptionsSpec(key2), {
+    allowOptions,
+    ...baseline !== void 0 ? { baseline } : {},
+    ...skipRangeCheck !== void 0 ? { skipRangeCheck } : {}
+  });
+  if (errors.length > 0) throw new Error(`${path}: ${errors.join(" ")}`);
 }
 function validateConfigFile(raw, path) {
   const warnings2 = [];
@@ -60786,6 +61398,7 @@ function validateConfigFile(raw, path) {
         `${path}: unknown rule id(s) in rules: ${unknown.join(", ")}. Known rule ids: ${knownRuleIds().join(", ")}`
       );
     }
+    for (const [key2, setting] of Object.entries(rules)) validateSetting(path, "rules", key2, setting, true);
     config.rules = rules;
   }
   if (raw.overrides !== void 0) {
@@ -60795,7 +61408,8 @@ function validateConfigFile(raw, path) {
     const isGlob = (v) => typeof v === "string" && v.length > 0;
     const isGlobs = (v) => isGlob(v) || Array.isArray(v) && v.length > 0 && v.every(isGlob);
     const overrides = [];
-    raw.overrides.forEach((entry, i) => {
+    const rawOverrides = raw.overrides;
+    rawOverrides.forEach((entry, i) => {
       if (!isPlainObject22(entry)) {
         throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
       }
@@ -60826,11 +61440,10 @@ function validateConfigFile(raw, path) {
         );
       }
       for (const [key2, setting] of Object.entries(entry.rules)) {
-        if (!RULE_SETTING_VALUES.includes(setting)) {
-          throw new Error(
-            `${path}: overrides[${i}].rules.${key2}: invalid setting '${String(setting)}'; expected ${RULE_SETTING_VALUES.join("|")}.`
-          );
-        }
+        const isCategory = CATEGORIES.includes(key2);
+        const baseline = isCategory ? void 0 : resolveRuleOptions(key2, ruleOptionsSpec(key2), { ...defaultConfig, rules: config.rules ?? {} });
+        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i, key2, setting);
+        validateSetting(path, `overrides[${i}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
       }
       overrides.push({
         ...entry.route !== void 0 ? { route: entry.route } : {},

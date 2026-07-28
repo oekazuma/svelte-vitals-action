@@ -50,7 +50,7 @@ The job fails when the scan finds gating findings (per the resolved `failOn`, de
 
 The action runs the **same analysis as the `svelte-vitals` CLI**, so everything you configure in committed files applies here automatically, with no action input involved:
 
-- **[`svelte-vitals.config.*`](https://oekazuma.github.io/svelte-vitals/guides/configuration/)** — disable rules or change their severity (`rules`), scope rules/categories to specific routes or files (`overrides` — e.g. turn SEO rules off for auth-only routes: `overrides: [{ files: 'src/routes/(app)/**', rules: { seo: 'off' } }]`), `failOn`, `weights`, and the rest.
+- **[`svelte-vitals.config.*`](https://oekazuma.github.io/svelte-vitals/guides/configuration/)** — disable rules, change their severity, or move a configurable rule's thresholds/lists (`rules`, either `'off' | Severity` or the object form `{ severity, options }`), scope rules/categories to specific routes or files (`overrides` — e.g. turn SEO rules off for auth-only routes: `overrides: [{ files: 'src/routes/(app)/**', rules: { seo: 'off' } }]`), `failOn`, `weights`, and the rest.
 - **[`svelte-vitals-suppressions.json`](https://oekazuma.github.io/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)** — a committed one-shot acceptance of the existing backlog (`svelte-vitals --update-suppressions`); the action applies it whenever it's present in the repo.
 
 See [Excluding routes or rules](https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules) in the CI guide for which mechanism fits which situation, and the [CI integration guide](https://oekazuma.github.io/svelte-vitals/guides/ci/) for the full workflow reference.
