@@ -15,11 +15,11 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       '@svelte-vitals/core':
-        specifier: ^0.29.0
-        version: 0.29.0
+        specifier: ^0.30.0
+        version: 0.30.0
       svelte-vitals:
-        specifier: ^0.32.0
-        version: 0.32.0
+        specifier: ^0.34.0
+        version: 0.34.0
     devDependencies:
       '@changesets/cli':
         specifier: ^2.31.1
@@ -29,7 +29,7 @@ importers:
         version: 24.13.3
       oxfmt:
         specifier: ^0.60.0
-        version: 0.60.0(svelte@5.56.7)
+        version: 0.60.0(svelte@5.56.8)
       oxlint:
         specifier: ^1.75.0
         version: 1.75.0
@@ -889,8 +889,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@svelte-vitals/core@0.29.0':
-    resolution: {integrity: sha512-4E1ltdn+bn5zWbmUmGfGxLbNLOMEUqyEpryc9/E2+CAg450t9oBsuX1CwSTp9mIaRPyTcOue3KeZb4o0HHjLdg==}
+  '@svelte-vitals/core@0.30.0':
+    resolution: {integrity: sha512-frYqGJWKV3Dq7BgVw0/Jp9EPMLwjTdtcHmIE09IEIpyTtYwEXdwRyk4Xm/pmRcm5wxbWTZK9eoxxez4lYBtLdA==}
     engines: {node: '>=22.13.0'}
 
   '@sveltejs/acorn-typescript@1.0.11':
@@ -1631,13 +1631,13 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.32.0:
-    resolution: {integrity: sha512-BdQtAbg4FT8+q/ifdWif5/TlfbHXUcw40lJuZ3vOV9shqYgeS8FWbEXX1Fhfal5NJZuyzmfbBHXPog+xkK8/kQ==}
+  svelte-vitals@0.34.0:
+    resolution: {integrity: sha512-j7eaYoCWZvHsctIVYivkd7MR42XFOnEcdR2An0TpO5eEWUReugFL61490VgCJZqi3I1yhGdzj7OwNuBJpXGVCQ==}
     engines: {node: '>=22.13.0'}
     hasBin: true
 
-  svelte@5.56.7:
-    resolution: {integrity: sha512-5qERUZX80oQj6XrDMUmD2Uhd/cIpCPDWWKBK3ZHmyRUC9apPyamWM8xMo31mbWsIQxwG2hVoSnOJ/EcnhVkkzQ==}
+  svelte@5.56.8:
+    resolution: {integrity: sha512-PY8LOw7xP6c8IOiVqdo0sbbZVYhXRSfklOQLAUyGBKqjTX0wx/z4l/9J+PmBpmlLnxzEb1NqltxQ5/wZme/Cmg==}
     engines: {node: '>=18'}
 
   term-size@2.2.1:
@@ -2487,9 +2487,9 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@svelte-vitals/core@0.29.0':
+  '@svelte-vitals/core@0.30.0':
     dependencies:
-      svelte: 5.56.7
+      svelte: 5.56.8
     transitivePeerDependencies:
       - '@typescript-eslint/types'
 
@@ -2947,7 +2947,7 @@ snapshots:
 
   outdent@0.5.0: {}
 
-  oxfmt@0.60.0(svelte@5.56.7):
+  oxfmt@0.60.0(svelte@5.56.8):
     dependencies:
       tinypool: 2.1.0
     optionalDependencies:
@@ -2970,7 +2970,7 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.60.0
       '@oxfmt/binding-win32-ia32-msvc': 0.60.0
       '@oxfmt/binding-win32-x64-msvc': 0.60.0
-      svelte: 5.56.7
+      svelte: 5.56.8
 
   oxlint@1.75.0:
     optionalDependencies:
@@ -3195,20 +3195,20 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.32.0:
+  svelte-vitals@0.34.0:
     dependencies:
       '@clack/prompts': 1.7.0
-      '@svelte-vitals/core': 0.29.0
+      '@svelte-vitals/core': 0.30.0
       log-update: 8.0.0
       magicast: 0.5.3
       mri: 1.2.0
       smol-toml: 1.7.0
-      svelte: 5.56.7
+      svelte: 5.56.8
       tinyglobby: 0.2.17
     transitivePeerDependencies:
       - '@typescript-eslint/types'
 
-  svelte@5.56.7:
+  svelte@5.56.8:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
