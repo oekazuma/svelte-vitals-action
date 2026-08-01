@@ -54820,7 +54820,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.30.0/node_modules/@svelte-vitals/core/dist/index.js
+// node_modules/.pnpm/@svelte-vitals+core@0.31.1/node_modules/@svelte-vitals/core/dist/index.js
 var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture"];
 var defaultConfig = {
   treatDynamicAs: "pass",
@@ -55665,10 +55665,19 @@ function countLines(source2) {
   if (source2.length === 0) return 0;
   return source2.split("\n").length - (source2.endsWith("\n") ? 1 : 0);
 }
+function isTypeOnlyImport(n) {
+  if (n.importKind === "type") return true;
+  const specs = n.specifiers;
+  return Array.isArray(specs) && specs.length > 0 && specs.every((s) => s?.importKind === "type");
+}
 function collectImportSources(program, source2, acc) {
   walkEstree(program, (n) => {
     if (n.type === "ImportDeclaration" && typeof n.source?.value === "string") {
-      acc.push({ source: n.source.value, line: lineOf(source2, n.start) });
+      acc.push({
+        source: n.source.value,
+        line: lineOf(source2, n.start),
+        ...isTypeOnlyImport(n) ? { type: true } : {}
+      });
     }
   });
 }
@@ -56321,6 +56330,10 @@ async function collectComponentFacts(rt, cwd) {
     })
   );
 }
+async function collectSourceFiles(rt, cwd) {
+  const files = await rt.glob("src/**/*", cwd);
+  return files.slice().sort();
+}
 var HANDLER_NAMES = /* @__PURE__ */ new Set([
   "load",
   "handle",
@@ -56600,28 +56613,45 @@ function normalizePosix(path) {
   }
   return out.join("/");
 }
-function resolveRepoLocalPath(spec, importerFile) {
+var DEFAULT_KIT_ALIASES = [{ find: "$lib", replacement: "src/lib", match: "prefix" }];
+function aliasMatches(entry, spec) {
+  if (entry.match === "exact") return spec === entry.find;
+  if (spec.startsWith(`${entry.find}/`)) return true;
+  return entry.match === "prefix" && spec === entry.find;
+}
+function resolveRepoLocalPath(spec, importerFile, aliases = DEFAULT_KIT_ALIASES) {
   let path;
-  if (spec.startsWith("$lib/")) path = `src/lib/${spec.slice("$lib/".length)}`;
-  else if (spec.startsWith("./") || spec.startsWith("../")) {
+  if (spec.startsWith("./") || spec.startsWith("../")) {
     const dir = importerFile.split("/").slice(0, -1).join("/");
     path = `${dir}/${spec}`;
-  } else return void 0;
+  } else {
+    const entry = aliases.find((a) => aliasMatches(a, spec));
+    if (entry?.replacement == null) return void 0;
+    if (entry.replacement.startsWith("/") || /^[A-Za-z]:\//.test(entry.replacement)) return void 0;
+    path = entry.replacement + spec.slice(entry.find.length);
+  }
   return normalizePosix(path);
 }
-function resolveRunesModuleSpecifier(spec, importerFile) {
-  const path = resolveRepoLocalPath(spec, importerFile);
+function resolveRunesModuleSpecifier(spec, importerFile, aliases) {
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
   if (path === void 0) return void 0;
   if (/\.svelte\.(ts|js)$/.test(path)) return path;
   if (path.endsWith(".svelte")) return `${path}.ts`;
   return void 0;
 }
-function isLocalStateSpecifier(spec, importerFile) {
-  const path = resolveRepoLocalPath(spec, importerFile);
-  if (path === void 0) return false;
-  return path !== "src/lib/server" && !path.startsWith("src/lib/server/");
+function libServerRoot(aliases) {
+  const lib = aliases?.find((a) => a.find === "$lib");
+  if (lib && lib.replacement === null) return void 0;
+  return `${lib?.replacement ?? "src/lib"}/server`;
 }
-function parseKitModuleFacts(source2, filename2) {
+function isLocalStateSpecifier(spec, importerFile, aliases) {
+  const serverRoot = libServerRoot(aliases);
+  if (serverRoot === void 0) return false;
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
+  if (path === void 0) return false;
+  return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
+}
+function parseKitModuleFacts(source2, filename2, aliases) {
   const suppressions = collectSuppressions(source2);
   const { program, wrapped } = parseModuleProgram(source2, filename2);
   const moduleStateReassignments = [];
@@ -56654,7 +56684,7 @@ function parseKitModuleFacts(source2, filename2) {
       importedSpecifiers.set(s.local.name, spec);
     }
     if (names.length === 0) continue;
-    const resolved = resolveRunesModuleSpecifier(spec, filename2);
+    const resolved = resolveRunesModuleSpecifier(spec, filename2, aliases);
     if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt2.start) });
   }
   const moduleLets = /* @__PURE__ */ new Set();
@@ -56728,7 +56758,8 @@ function parseKitModuleFacts(source2, filename2) {
       const method2 = n.callee.property?.type === "Identifier" ? n.callee.property.name : void 0;
       if (method2 === "set" || method2 === "update") {
         const r = importedRoot(n.callee.object);
-        if (r && isLocalStateSpecifier(importedSpecifiers.get(r), filename2)) write = { name: r, via: "set-call" };
+        if (r && isLocalStateSpecifier(importedSpecifiers.get(r), filename2, aliases))
+          write = { name: r, via: "set-call" };
       }
     } else if (n.type === "AssignmentExpression" && (n.left?.type === "ObjectPattern" || n.left?.type === "ArrayPattern")) {
       const scanPatternTargets = (pat) => {
@@ -56804,7 +56835,7 @@ function kindOf(file) {
   const base = file.split("/").pop() ?? file;
   return base.includes(".server.") || base.startsWith("+server.") ? "server" : "universal";
 }
-async function collectKitModuleFacts(rt, cwd) {
+async function collectKitModuleFacts(rt, cwd, aliases) {
   const patterns = [
     "src/routes/**/+{page,layout}.server.{ts,js}",
     "src/routes/**/+{page,layout}.{ts,js}",
@@ -56818,7 +56849,7 @@ async function collectKitModuleFacts(rt, cwd) {
       const kind = kindOf(rel);
       try {
         const source2 = await rt.readFile(rt.join(cwd, rel));
-        return { file: rel, kind, ...parseKitModuleFacts(source2, rel) };
+        return { file: rel, kind, ...parseKitModuleFacts(source2, rel, aliases) };
       } catch {
         return emptyKitModuleFacts(rel, kind);
       }
@@ -56909,6 +56940,79 @@ function basePathOf(kitConfig, bindings) {
     return typeof value.value === "string" && value.value !== "" ? { value: value.value } : void 0;
   }
   return {};
+}
+function keyNameOf(p) {
+  if (p.computed) return void 0;
+  if (p.key.type === "Identifier") return p.key.name;
+  if (p.key.type === "Literal" && typeof p.key.value === "string") return p.key.value;
+  return void 0;
+}
+function stringValueOf(p) {
+  const v = unwrapTs(p.value);
+  return v.type === "Literal" && typeof v.value === "string" ? v.value : void 0;
+}
+function aliasEntriesOf(kitConfig, bindings) {
+  const alias = propOf(kitConfig, "alias");
+  if (!alias) return [];
+  const obj = unwrapToObjectExpression(alias.value, bindings);
+  if (!obj) return void 0;
+  const out = [];
+  const at2 = /* @__PURE__ */ new Map();
+  for (const p of obj.properties) {
+    if (p.type !== "Property") return void 0;
+    const key2 = keyNameOf(p);
+    if (key2 === void 0) return void 0;
+    const entry = { key: key2, value: stringValueOf(p) ?? null };
+    const seen = at2.get(key2);
+    if (seen === void 0) {
+      at2.set(key2, out.length);
+      out.push(entry);
+    } else out[seen] = entry;
+  }
+  return out;
+}
+function filesLibOf(kitConfig, bindings) {
+  const files = propOf(kitConfig, "files");
+  const obj = files ? unwrapToObjectExpression(files.value, bindings) : void 0;
+  const lib = obj ? propOf(obj, "lib") : void 0;
+  if (!lib) return void 0;
+  return stringValueOf(lib) ?? null;
+}
+function findKitAliasesInSvelteConfig(source2) {
+  const program = programOf(source2, "svelte.config.js");
+  const config = program ? resolveConfigObject(program) : void 0;
+  if (!program || !config) return { entries: [] };
+  const bindings = collectTopLevelBindings(program);
+  const kit = propOf(config, "kit");
+  const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
+  if (!kitObj) return { entries: [] };
+  const filesLib = filesLibOf(kitObj, bindings);
+  return { entries: aliasEntriesOf(kitObj, bindings), ...filesLib !== void 0 ? { filesLib } : {} };
+}
+function normalizeAliasValue(value) {
+  const posix2 = value.replace(/\\/g, "/");
+  const noStar = posix2.endsWith("/*") ? posix2.slice(0, -2) : posix2;
+  return noStar.replace(/\/+$/, "");
+}
+function compileKitAliases(raw) {
+  const filesLib = raw.filesLib === null ? null : normalizeAliasValue(raw.filesLib ?? "src/lib");
+  const out = [{ find: "$lib", replacement: filesLib, match: "prefix" }];
+  const entries = raw.entries ?? [];
+  const declared = new Set(entries.map((e2) => e2.key));
+  for (const { key: key2, value } of entries) {
+    const star = key2.endsWith("/*");
+    out.push({
+      find: star ? key2.slice(0, -2) : key2,
+      replacement: value === null ? null : normalizeAliasValue(value),
+      match: star ? "contents" : declared.has(`${key2}/*`) ? "exact" : "prefix"
+    });
+  }
+  return out;
+}
+function resolveKitAliases(viteConfig, svelteConfig) {
+  if (viteConfig && findKitPathsBaseInViteConfig(viteConfig.source).kind !== "no-plugin-config") return void 0;
+  if (!svelteConfig) return void 0;
+  return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
 }
 function programOf(source2, filename2) {
   try {
@@ -57049,7 +57153,7 @@ function detect(head, match) {
   return tag2 ? { presence: tag2.presence, value: tag2.value } : { presence: "none", value: "absent" };
 }
 function headTagRule(opts) {
-  const docsUrl8 = docsUrlFor(opts.id);
+  const docsUrl11 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -57072,7 +57176,7 @@ function headTagRule(opts) {
           location: head.file,
           message,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl8,
+          docsUrl: docsUrl11,
           // Copy per finding: opts.fix is a rule-level template shared across all
           // results this rule emits; a fresh object keeps findings independent.
           ...opts.fix ? { fix: { ...opts.fix } } : {}
@@ -57247,7 +57351,7 @@ var seoHtmlLang = {
   }
 };
 function imageRule(opts) {
-  const docsUrl8 = docsUrlFor(opts.id);
+  const docsUrl11 = docsUrlFor(opts.id);
   const category = opts.category ?? "performance";
   return {
     id: opts.id,
@@ -57271,7 +57375,7 @@ function imageRule(opts) {
             route: route.route,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl8
+            docsUrl: docsUrl11
           });
           continue;
         }
@@ -57286,7 +57390,7 @@ function imageRule(opts) {
             ...img.line > 0 ? { line: img.line } : {},
             message: `Missing ${opts.label}`,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl8,
+            docsUrl: docsUrl11,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -57338,7 +57442,7 @@ var performanceResponsiveImage = imageRule({
   ok: (img) => img.hasSrcset
 });
 function linkRule(opts) {
-  const docsUrl8 = docsUrlFor(opts.id);
+  const docsUrl11 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -57362,7 +57466,7 @@ function linkRule(opts) {
             route: head.route,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl8
+            docsUrl: docsUrl11
           });
           continue;
         }
@@ -57379,7 +57483,7 @@ function linkRule(opts) {
             location: tag2.file ?? head.file,
             message: `Missing ${opts.label}`,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl8,
+            docsUrl: docsUrl11,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -57590,6 +57694,10 @@ function mapOption(options, key2) {
   const v = options[key2];
   return typeof v === "object" && v !== null && !Array.isArray(v) ? v : {};
 }
+function isMentionedAnywhere(config, ruleId) {
+  if (Object.hasOwn(config.rules, ruleId)) return true;
+  return (config.overrides ?? []).some((entry) => entry.rules !== void 0 && Object.hasOwn(entry.rules, ruleId));
+}
 function resolveRuleOptions(ruleId, spec, config, target, compiled) {
   if (!spec) return {};
   const out = defaultsOf(spec);
@@ -57791,7 +57899,7 @@ var seoIndexability = {
   rationale: "A noindex directive removes the page from search results; an accidental noindex on a public route silently deindexes it.",
   fix: FIX5,
   async check(ctx) {
-    const docsUrl8 = docsUrlFor("seo/indexability");
+    const docsUrl11 = docsUrlFor("seo/indexability");
     const out = [];
     for (const head of ctx.heads) {
       const noindexed = head.tags.some((t) => t.kind === "meta" && t.name === "robots" && t.noindex === true);
@@ -57806,7 +57914,7 @@ var seoIndexability = {
         location: head.file,
         message: "Route is noindex \u2014 verify this is intentional",
         recommendation: 'If this route should be indexed, remove noindex from its <meta name="robots">.',
-        docsUrl: docsUrl8,
+        docsUrl: docsUrl11,
         fix: { ...FIX5 }
       });
     }
@@ -58043,7 +58151,7 @@ function jsonldTags(head) {
   return head.tags.filter((t) => t.kind === "jsonld" && typeof t.jsonld === "string");
 }
 function jsonldRule(opts) {
-  const docsUrl8 = docsUrlFor(opts.id);
+  const docsUrl11 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -58071,7 +58179,7 @@ function jsonldRule(opts) {
               location: head.file,
               message: problem,
               recommendation: opts.recommendation,
-              docsUrl: docsUrl8,
+              docsUrl: docsUrl11,
               ...opts.fix ? { fix: { ...opts.fix } } : {}
             } : {
               id: opts.id,
@@ -58081,7 +58189,7 @@ function jsonldRule(opts) {
               route: head.route,
               message: opts.label,
               recommendation: opts.recommendation,
-              docsUrl: docsUrl8
+              docsUrl: docsUrl11
             }
           );
         }
@@ -58103,7 +58211,7 @@ var seoJsonLdValidity = {
     lang: "svelte"
   },
   async check(ctx) {
-    const docsUrl8 = docsUrlFor("seo/json-ld-validity");
+    const docsUrl11 = docsUrlFor("seo/json-ld-validity");
     const out = [];
     for (const head of ctx.heads) {
       for (const tag2 of jsonldTags(head)) {
@@ -58122,7 +58230,7 @@ var seoJsonLdValidity = {
             location: head.file,
             message: problem,
             recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl8,
+            docsUrl: docsUrl11,
             fix: { ...seoJsonLdValidity.fix }
           } : {
             id: "seo/json-ld-validity",
@@ -58132,7 +58240,7 @@ var seoJsonLdValidity = {
             route: head.route,
             message: "JSON-LD validity",
             recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl8
+            docsUrl: docsUrl11
           }
         );
       }
@@ -58229,7 +58337,7 @@ function visibleLength(s) {
   return [...segmenter.segment(collapsed)].length;
 }
 function lengthRule(opts) {
-  const docsUrl8 = docsUrlFor(opts.id);
+  const docsUrl11 = docsUrlFor(opts.id);
   const spec = {
     min: { kind: "integer", default: opts.min, min: 0 },
     max: { kind: "integer", default: opts.max, min: 1 }
@@ -58252,7 +58360,7 @@ function lengthRule(opts) {
         const o = resolveRuleOptions(opts.id, spec, ctx.config, { route: head.route, file: location }, compiled);
         const min = intOption(o, "min", opts.min);
         const max = intOption(o, "max", opts.max);
-        const recommendation8 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
+        const recommendation11 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
         const len = visibleLength(tag2.text);
         let problem;
         if (len < min) problem = `${opts.noun} is too short (${len} chars; aim for ${min}\u2013${max})`;
@@ -58266,8 +58374,8 @@ function lengthRule(opts) {
             route: head.route,
             location,
             message: problem,
-            recommendation: recommendation8,
-            docsUrl: docsUrl8
+            recommendation: recommendation11,
+            docsUrl: docsUrl11
           } : {
             id: opts.id,
             category: "seo",
@@ -58275,8 +58383,8 @@ function lengthRule(opts) {
             detection: PASS,
             route: head.route,
             message: opts.label,
-            recommendation: recommendation8,
-            docsUrl: docsUrl8
+            recommendation: recommendation11,
+            docsUrl: docsUrl11
           }
         );
       }
@@ -58447,7 +58555,7 @@ var seoSingleH1 = {
   }
 };
 function uniquenessRule(opts) {
-  const docsUrl8 = docsUrlFor(opts.id);
+  const docsUrl11 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -58477,7 +58585,7 @@ function uniquenessRule(opts) {
           location: e2.file,
           message: `${opts.noun} is duplicated across ${n} routes`,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl8
+          docsUrl: docsUrl11
         } : {
           id: opts.id,
           category: "seo",
@@ -58486,7 +58594,7 @@ function uniquenessRule(opts) {
           route: e2.route,
           message: opts.label,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl8
+          docsUrl: docsUrl11
         };
       });
     }
@@ -58566,7 +58674,7 @@ function isSuppressed(m, ruleId, line) {
   return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function kitModuleRule(opts) {
-  const docsUrl8 = docsUrlFor(opts.id);
+  const docsUrl11 = docsUrlFor(opts.id);
   const severity = opts.severity ?? "warning";
   return {
     id: opts.id,
@@ -58590,7 +58698,7 @@ function kitModuleRule(opts) {
             route: m.file,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl8
+            docsUrl: docsUrl11
           });
           continue;
         }
@@ -58605,7 +58713,7 @@ function kitModuleRule(opts) {
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl8,
+            docsUrl: docsUrl11,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -58637,7 +58745,7 @@ function isSuppressed2(c, ruleId, line) {
   return (c.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function componentRule(opts) {
-  const docsUrl8 = docsUrlFor(opts.id);
+  const docsUrl11 = docsUrlFor(opts.id);
   const severity = opts.severity ?? "warning";
   return {
     id: opts.id,
@@ -58653,9 +58761,9 @@ function componentRule(opts) {
       const compiled = compileOverrides(ctx.config);
       for (const c of ctx.components ?? []) {
         const o = resolveRuleOptions(opts.id, opts.options, ctx.config, { route: c.file, file: c.file }, compiled);
-        const recommendation8 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
-        if (!opts.applies(c, o)) continue;
-        const bad = opts.bad(c, o).filter((b) => !(b.line > 0 && isSuppressed2(c, opts.id, b.line)));
+        const recommendation11 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
+        if (!opts.applies(c, o, ctx)) continue;
+        const bad = opts.bad(c, o, ctx).filter((b) => !(b.line > 0 && isSuppressed2(c, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
@@ -58664,8 +58772,8 @@ function componentRule(opts) {
             detection: PASS3,
             route: c.file,
             message: opts.label,
-            recommendation: recommendation8,
-            docsUrl: docsUrl8
+            recommendation: recommendation11,
+            docsUrl: docsUrl11
           });
           continue;
         }
@@ -58679,8 +58787,8 @@ function componentRule(opts) {
             location: c.file,
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
-            recommendation: recommendation8,
-            docsUrl: docsUrl8,
+            recommendation: recommendation11,
+            docsUrl: docsUrl11,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -59241,7 +59349,7 @@ var architecturePrivateScopeImport = {
       let sawScopedImport = false;
       const violations = [];
       for (const { source: source2, line } of spans) {
-        const target = resolveRepoLocalPath(source2, c.file);
+        const target = resolveRepoLocalPath(source2, c.file, ctx.project.kitAliases);
         if (target === void 0) continue;
         const boundary = privateScopeOf(target, patterns);
         if (boundary === void 0) continue;
@@ -59285,6 +59393,578 @@ var architecturePrivateScopeImport = {
     return out;
   }
 };
+function ancestorDirs2(file) {
+  const segments = file.split("/");
+  const out = [];
+  for (let i = 1; i < segments.length; i++) out.push(segments.slice(0, i).join("/"));
+  return out;
+}
+function baseName(dir) {
+  const cut = dir.lastIndexOf("/");
+  return cut === -1 ? dir : dir.slice(cut + 1);
+}
+function childDirs(dirs) {
+  const out = /* @__PURE__ */ new Map();
+  for (const dir of dirs) {
+    const cut = dir.lastIndexOf("/");
+    if (cut === -1) continue;
+    const parent = dir.slice(0, cut);
+    let kids = out.get(parent);
+    if (kids === void 0) out.set(parent, kids = []);
+    kids.push(dir);
+  }
+  for (const kids of out.values()) kids.sort();
+  return out;
+}
+function childFiles(files) {
+  const out = /* @__PURE__ */ new Map();
+  for (const file of files) {
+    const cut = file.lastIndexOf("/");
+    if (cut === -1) continue;
+    const dir = file.slice(0, cut);
+    let own = out.get(dir);
+    if (own === void 0) out.set(dir, own = []);
+    own.push(file.slice(cut + 1));
+  }
+  for (const own of out.values()) own.sort();
+  return out;
+}
+function splitNames(value) {
+  const out = [];
+  for (const raw of value.split("|")) {
+    const token = raw.trim();
+    if (token.length > 0) out.push(token);
+  }
+  return out;
+}
+function keyShape(key2) {
+  const parts = key2.split("/");
+  let doubleStars = 0;
+  for (const p of parts) if (p === "**") doubleStars++;
+  return { segments: parts.length, doubleStars };
+}
+function createKeyCompiler() {
+  const cache = /* @__PURE__ */ new Map();
+  return (globs, bareGuard = false) => {
+    const cacheKey = JSON.stringify([globs, bareGuard]);
+    let entry = cache.get(cacheKey);
+    if (entry === void 0) {
+      entry = globs.map((key2) => ({
+        key: key2,
+        re: routeGlobToRegExp(key2),
+        ...keyShape(key2),
+        ...bareGuard && key2.endsWith("/**") ? { barePrefixRe: routeGlobToRegExp(key2.slice(0, -3)) } : {}
+      }));
+      cache.set(cacheKey, entry);
+    }
+    return entry;
+  };
+}
+function matchKeys(dir, compiled) {
+  const matched = [];
+  let best;
+  for (const entry of compiled) {
+    if (entry.barePrefixRe?.test(dir)) continue;
+    if (!entry.re.test(dir)) continue;
+    matched.push(entry.key);
+    if (best === void 0 || moreSpecificShaped(entry, best)) best = entry;
+  }
+  return best === void 0 ? { matched } : { matched, best: best.key };
+}
+function moreSpecificShaped(a, b) {
+  if (a.segments !== b.segments) return a.segments > b.segments;
+  if (a.doubleStars !== b.doubleStars) return a.doubleStars < b.doubleStars;
+  if (a.key.length !== b.key.length) return a.key.length > b.key.length;
+  return a.key < b.key;
+}
+function moreSpecificGlob(a, b) {
+  return moreSpecificShaped({ key: a, ...keyShape(a) }, { key: b, ...keyShape(b) });
+}
+function reportAt(dir, files) {
+  const prefix = `${dir}/`;
+  const under = files.filter((f) => f.startsWith(prefix)).sort();
+  return under.find((f) => !f.slice(prefix.length).includes("/")) ?? under[0];
+}
+function isExcluded(dir, ancestors, excluded) {
+  return excluded.some(({ re }) => re.test(dir) || ancestors.some((a) => re.test(a)));
+}
+function keysMatchingAny(keys, dirs, compile) {
+  const hit = /* @__PURE__ */ new Set();
+  if (keys.length === 0 || dirs.length === 0) return hit;
+  for (const { key: key2, re, barePrefixRe } of compile(keys, true)) {
+    if (dirs.some((d) => !barePrefixRe?.test(d) && re.test(d))) hit.add(key2);
+  }
+  return hit;
+}
+function classifyUnusedKeys(unused, excludedDirs, compile) {
+  const out = /* @__PURE__ */ new Map();
+  if (unused.length === 0) return out;
+  const shadowed = keysMatchingAny(unused, excludedDirs, compile);
+  for (const key2 of unused) out.set(key2, shadowed.has(key2) ? "only-excluded" : "no-match");
+  return out;
+}
+var ID4 = "architecture/unit-entry-file";
+var docsUrl8 = docsUrlFor(ID4);
+var recommendation8 = "Give every declared unit directory a file named after it, or stop declaring that directory a unit.";
+var OPTIONS3 = {
+  units: { kind: "string-map", default: {} },
+  pascalCaseUnits: { kind: "string-map", default: {} },
+  exclude: { kind: "string-list", default: [] }
+};
+function isPascalCase(name) {
+  const c = name.charCodeAt(0);
+  return c >= 65 && c <= 90;
+}
+var architectureUnitEntryFile = {
+  id: ID4,
+  title: "Unit entry file",
+  category: "architecture",
+  severity: "info",
+  scope: "component",
+  rationale: "A directory named after a unit but missing that unit's entry file is either an incomplete unit or a grouping wearing the wrong name; either way the tree no longer says what it means, and tooling that resolves by convention starts guessing.",
+  fix: {
+    description: "Make the directory and its entry file agree \u2014 add the entry file, or stop declaring this directory a unit."
+  },
+  options: OPTIONS3,
+  async check(ctx) {
+    const files = ctx.sourceFiles;
+    if (files === void 0) return [];
+    if (!isMentionedAnywhere(ctx.config, ID4)) return [];
+    const compiledOverrides = compileOverrides(ctx.config);
+    const dirs = /* @__PURE__ */ new Set();
+    for (const f of files) for (const d of ancestorDirs2(f)) dirs.add(d);
+    const fileSet = new Set(files);
+    const compile = createKeyCompiler();
+    const out = [];
+    const globalOptions = resolveRuleOptions(ID4, OPTIONS3, ctx.config);
+    const globalKeys = /* @__PURE__ */ new Set([
+      ...Object.keys(mapOption(globalOptions, "units")),
+      ...Object.keys(mapOption(globalOptions, "pascalCaseUnits"))
+    ]);
+    const usedKeys = /* @__PURE__ */ new Set();
+    const excludedDirs = [];
+    const matchedSurviving = /* @__PURE__ */ new Set();
+    for (const dir of [...dirs].sort()) {
+      const o = resolveRuleOptions(ID4, OPTIONS3, ctx.config, { route: dir, file: dir }, compiledOverrides);
+      const units = mapOption(o, "units");
+      const pascalUnits = mapOption(o, "pascalCaseUnits");
+      if (Object.keys(units).length === 0 && Object.keys(pascalUnits).length === 0) continue;
+      const excluded = compile(listOption(o, "exclude"));
+      const ancestors = ancestorDirs2(dir);
+      if (isExcluded(dir, ancestors, excluded)) {
+        excludedDirs.push(dir);
+        continue;
+      }
+      const byPath = matchKeys(dir, compile(Object.keys(units), true));
+      const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits), true));
+      for (const k of byPath.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      for (const k of byPath.matched) if (globalKeys.has(k)) matchedSurviving.add(k);
+      for (const k of byCasing.matched) if (globalKeys.has(k)) matchedSurviving.add(k);
+      if (isPascalCase(baseName(dir))) {
+        for (const k of byCasing.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      }
+      let ext = byPath.best === void 0 ? void 0 : units[byPath.best];
+      const viaUnits = ext !== void 0;
+      if (ext === void 0 && isPascalCase(baseName(dir))) {
+        ext = byCasing.best === void 0 ? void 0 : pascalUnits[byCasing.best];
+      }
+      if (ext === void 0) continue;
+      const expected = `${dir}/${baseName(dir)}${ext}`;
+      if (fileSet.has(expected)) {
+        out.push({
+          id: ID4,
+          category: "architecture",
+          severity: "info",
+          detection: { presence: "own", value: "static" },
+          location: expected,
+          message: "Unit entry file",
+          recommendation: recommendation8,
+          docsUrl: docsUrl8
+        });
+        continue;
+      }
+      const at2 = reportAt(dir, files);
+      if (at2 === void 0) continue;
+      out.push({
+        id: ID4,
+        category: "architecture",
+        severity: "info",
+        detection: { presence: "none", value: "absent" },
+        route: dir,
+        location: at2,
+        message: `${dir} declares a unit but has no ${expected}`,
+        recommendation: recommendation8,
+        docsUrl: docsUrl8,
+        // Which declaration matched decides the wording: a `units` match like functions/getFoo/
+        // is already camelCase, so telling its author to rename it would be nonsense.
+        fix: {
+          description: viaUnits ? `Add ${baseName(dir)}${ext} to this directory, or remove it from the units declaration.` : `Add the same-named entry file, or rename the directory to camelCase if it is a grouping.`
+        }
+      });
+    }
+    const inertKeys = [...globalKeys].filter((key2) => !usedKeys.has(key2)).sort();
+    if (inertKeys.length > 0) {
+      const shadowed = inertKeys.filter((k) => !matchedSurviving.has(k));
+      const reasons = classifyUnusedKeys(shadowed, excludedDirs, compile);
+      const why = (k) => reasons.get(k) === "only-excluded" ? "matched only excluded directories" : "matched no directory";
+      const message = inertKeys.length === 1 ? `The declaration '${inertKeys[0]}' ${why(inertKeys[0])}, so it checks nothing.` : `These declarations check nothing: ${inertKeys.map((k) => `'${k}' (${why(k)})`).join(", ")}.`;
+      out.push({
+        id: ID4,
+        category: "architecture",
+        severity: "info",
+        detection: { presence: "none", value: "absent" },
+        message,
+        recommendation: "Correct the glob, or remove the declaration.",
+        docsUrl: docsUrl8
+      });
+    }
+    return out;
+  }
+};
+var CASINGS = {
+  camelCase: /^[a-z][a-zA-Z0-9]*$/,
+  PascalCase: /^[A-Z][a-zA-Z0-9]*$/,
+  "kebab-case": /^[a-z0-9]+(-[a-z0-9]+)*$/,
+  snake_case: /^[a-z0-9]+(_[a-z0-9]+)*$/
+};
+function parseCasings(value) {
+  const known = [];
+  const unknown = [];
+  for (const name of splitNames(value)) {
+    if (Object.hasOwn(CASINGS, name)) known.push(name);
+    else unknown.push(name);
+  }
+  return { known, unknown };
+}
+function decodeSegment(name) {
+  let inner = name;
+  if (inner.length > 2 && inner.startsWith("(") && inner.endsWith(")")) inner = inner.slice(1, -1);
+  else if (inner.length > 4 && inner.startsWith("[[") && inner.endsWith("]]")) inner = inner.slice(2, -2);
+  else if (inner.length > 2 && inner.startsWith("[") && inner.endsWith("]")) inner = inner.slice(1, -1);
+  if (inner.startsWith("...")) inner = inner.slice(3);
+  const eq = inner.indexOf("=");
+  if (eq !== -1) inner = inner.slice(0, eq);
+  if (inner.length === 0 || /[[\]()]/.test(inner)) return void 0;
+  return inner;
+}
+function satisfiesCasing(name, allowed) {
+  if (!/[a-zA-Z]/.test(name)) return true;
+  return allowed.some((c) => Object.hasOwn(CASINGS, c) && CASINGS[c].test(name));
+}
+var ID5 = "architecture/directory-naming";
+var docsUrl9 = docsUrlFor(ID5);
+var recommendation9 = "Name each directory in the casing its location declares, or narrow the declaration.";
+var OPTIONS4 = {
+  directories: { kind: "string-map", default: {} },
+  exclude: { kind: "string-list", default: [] }
+};
+var architectureDirectoryNaming = {
+  id: ID5,
+  title: "Directory naming",
+  category: "architecture",
+  severity: "info",
+  scope: "component",
+  rationale: "A directory whose name breaks the convention its location declares stops carrying the meaning the convention gave it, and every reader \u2014 human or agent \u2014 has to open the directory to learn what it is.",
+  fix: {
+    description: "Rename the directory to the declared casing, or narrow the declaration that governs it."
+  },
+  options: OPTIONS4,
+  async check(ctx) {
+    const files = ctx.sourceFiles;
+    if (files === void 0) return [];
+    if (!isMentionedAnywhere(ctx.config, ID5)) return [];
+    const compiledOverrides = compileOverrides(ctx.config);
+    const dirs = /* @__PURE__ */ new Set();
+    for (const f of files) for (const d of ancestorDirs2(f)) dirs.add(d);
+    const compile = createKeyCompiler();
+    const parsed = /* @__PURE__ */ new Map();
+    const casingsOf = (value) => {
+      let p = parsed.get(value);
+      if (p === void 0) parsed.set(value, p = parseCasings(value));
+      return p;
+    };
+    const out = [];
+    const globalOptions = resolveRuleOptions(ID5, OPTIONS4, ctx.config);
+    const globalMap = mapOption(globalOptions, "directories");
+    const globalKeys = new Set(Object.keys(globalMap));
+    const usedKeys = /* @__PURE__ */ new Set();
+    const excludedDirs = [];
+    for (const dir of [...dirs].sort()) {
+      const o = resolveRuleOptions(ID5, OPTIONS4, ctx.config, { route: dir, file: dir }, compiledOverrides);
+      const declared = mapOption(o, "directories");
+      if (Object.keys(declared).length === 0) continue;
+      const excluded = compile(listOption(o, "exclude"));
+      if (isExcluded(dir, ancestorDirs2(dir), excluded)) {
+        excludedDirs.push(dir);
+        continue;
+      }
+      const live = Object.keys(declared).filter((k) => casingsOf(declared[k]).known.length > 0);
+      const m = matchKeys(dir, compile(live, true));
+      for (const k of m.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      if (m.best === void 0) continue;
+      const decoded = decodeSegment(baseName(dir));
+      if (decoded === void 0) continue;
+      const allowed = casingsOf(declared[m.best]).known;
+      if (satisfiesCasing(decoded, allowed)) continue;
+      const at2 = reportAt(dir, files);
+      if (at2 === void 0) continue;
+      out.push({
+        id: ID5,
+        category: "architecture",
+        severity: "info",
+        detection: { presence: "none", value: "absent" },
+        route: dir,
+        location: at2,
+        message: `${dir} must be ${allowed.join(" or ")}.`,
+        recommendation: recommendation9,
+        docsUrl: docsUrl9,
+        fix: { description: "Rename the directory, or narrow the declaration that governs it." }
+      });
+    }
+    const notes = /* @__PURE__ */ new Map();
+    for (const key2 of globalKeys) {
+      const { known, unknown } = casingsOf(globalMap[key2]);
+      if (known.length > 0 && unknown.length === 0) continue;
+      const names = unknown.map((u) => `'${u}'`).join(", ");
+      notes.set(
+        key2,
+        known.length === 0 ? unknown.length === 0 ? "the value names no casing at all, so it checks nothing" : `unknown casing name ${names}, so it checks nothing` : `unknown casing name ${names}; the rest of the value still applies`
+      );
+    }
+    const unclassified = [...globalKeys].filter(
+      (key2) => !notes.has(key2) && !usedKeys.has(key2) && casingsOf(globalMap[key2]).known.length > 0
+    );
+    const reasons = classifyUnusedKeys(unclassified, excludedDirs, compile);
+    for (const [key2, reason] of reasons) {
+      notes.set(key2, reason === "only-excluded" ? "matched only excluded directories" : "matched no directory");
+    }
+    const reported = [...notes.keys()].sort();
+    if (reported.length > 0) {
+      const message = reported.length === 1 ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0])}.` : `These declarations do not check what they say: ${reported.map((k) => `'${k}' (${notes.get(k)})`).join(", ")}.`;
+      out.push({
+        id: ID5,
+        category: "architecture",
+        severity: "info",
+        detection: { presence: "none", value: "absent" },
+        message,
+        recommendation: "Correct the glob or the casing name, or remove the declaration.",
+        docsUrl: docsUrl9
+      });
+    }
+    return out;
+  }
+};
+var ID6 = "architecture/reserved-directory-names";
+var docsUrl10 = docsUrlFor(ID6);
+var recommendation10 = "Use one of the names this location declares, or add the new name to the declaration.";
+var OPTIONS5 = {
+  scopes: { kind: "string-map", default: {} },
+  unitScopes: { kind: "string-map", default: {} },
+  exclude: { kind: "string-list", default: [] }
+};
+function stem(file) {
+  const dot = file.indexOf(".");
+  return dot === -1 ? file : file.slice(0, dot);
+}
+function isUnitDir(dir, filesIn) {
+  const name = baseName(dir);
+  const first = name.charCodeAt(0);
+  if (!(first >= 65 && first <= 90)) return false;
+  const own = filesIn.get(dir);
+  return own !== void 0 && own.some((f) => stem(f) === name);
+}
+var architectureReservedDirectoryNames = {
+  id: ID6,
+  title: "Reserved directory names",
+  category: "architecture",
+  severity: "info",
+  scope: "component",
+  rationale: "A closed set of directory names is only worth writing down if it stays closed: one directory outside it and the table stops describing the tree, so every reader has to open a directory to learn what it holds.",
+  fix: {
+    description: "Rename the directory to a declared name, move it under one of them, or add its name to the declaration."
+  },
+  options: OPTIONS5,
+  async check(ctx) {
+    const files = ctx.sourceFiles;
+    if (files === void 0) return [];
+    if (!isMentionedAnywhere(ctx.config, ID6)) return [];
+    const compiledOverrides = compileOverrides(ctx.config);
+    const dirs = /* @__PURE__ */ new Set();
+    for (const f of files) for (const d of ancestorDirs2(f)) dirs.add(d);
+    const kids = childDirs(dirs);
+    const filesIn = childFiles(files);
+    const compile = createKeyCompiler();
+    const parsed = /* @__PURE__ */ new Map();
+    const namesOf = (value) => {
+      let n = parsed.get(value);
+      if (n === void 0) parsed.set(value, n = splitNames(value));
+      return n;
+    };
+    const out = [];
+    const globalOptions = resolveRuleOptions(ID6, OPTIONS5, ctx.config);
+    const globalScopes = mapOption(globalOptions, "scopes");
+    const globalUnits = mapOption(globalOptions, "unitScopes");
+    const globalKeys = /* @__PURE__ */ new Set([...Object.keys(globalScopes), ...Object.keys(globalUnits)]);
+    const usedKeys = /* @__PURE__ */ new Set();
+    const excludedDirs = [];
+    const nonUnitDirs = [];
+    const collisions = /* @__PURE__ */ new Set();
+    const noteCollisions = (scopesMap, unitMap) => {
+      for (const key2 of Object.keys(scopesMap)) {
+        if (!Object.hasOwn(unitMap, key2)) continue;
+        if (namesOf(scopesMap[key2]).length === 0) continue;
+        if (namesOf(unitMap[key2]).length === 0) continue;
+        collisions.add(key2);
+      }
+    };
+    noteCollisions(globalScopes, globalUnits);
+    for (const dir of [...dirs].sort()) {
+      const o = resolveRuleOptions(ID6, OPTIONS5, ctx.config, { route: dir, file: dir }, compiledOverrides);
+      const scopes = mapOption(o, "scopes");
+      const unitScopes = mapOption(o, "unitScopes");
+      if (Object.keys(scopes).length === 0 && Object.keys(unitScopes).length === 0) continue;
+      noteCollisions(scopes, unitScopes);
+      const excluded = compile(listOption(o, "exclude"));
+      if (isExcluded(dir, ancestorDirs2(dir), excluded)) {
+        excludedDirs.push(dir);
+        continue;
+      }
+      const liveScopes = Object.keys(scopes).filter((k) => namesOf(scopes[k]).length > 0);
+      const isUnit = isUnitDir(dir, filesIn);
+      const liveUnits = isUnit ? Object.keys(unitScopes).filter((k) => namesOf(unitScopes[k]).length > 0) : [];
+      if (!isUnit) nonUnitDirs.push(dir);
+      const byPosition = matchKeys(dir, compile(liveScopes, true));
+      const byUnit = matchKeys(dir, compile(liveUnits, true));
+      for (const k of byPosition.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      for (const k of byUnit.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      let governing;
+      if (byPosition.best !== void 0 && byUnit.best !== void 0) {
+        governing = moreSpecificGlob(byUnit.best, byPosition.best) ? namesOf(unitScopes[byUnit.best]) : namesOf(scopes[byPosition.best]);
+      } else if (byPosition.best !== void 0) {
+        governing = namesOf(scopes[byPosition.best]);
+      } else if (byUnit.best !== void 0) {
+        governing = namesOf(unitScopes[byUnit.best]);
+      }
+      if (governing === void 0) continue;
+      const allowed = new Set(governing);
+      for (const child of kids.get(dir) ?? []) {
+        if (allowed.has(baseName(child))) continue;
+        if (isExcluded(child, ancestorDirs2(child), excluded)) continue;
+        const childOptions = resolveRuleOptions(
+          ID6,
+          OPTIONS5,
+          ctx.config,
+          { route: child, file: child },
+          compiledOverrides
+        );
+        if (isExcluded(child, ancestorDirs2(child), compile(listOption(childOptions, "exclude")))) continue;
+        const at2 = reportAt(child, files);
+        if (at2 === void 0) continue;
+        out.push({
+          id: ID6,
+          category: "architecture",
+          severity: "info",
+          detection: { presence: "none", value: "absent" },
+          route: child,
+          location: at2,
+          message: `${child} is not one of the names declared here: ${governing.join(", ")}.`,
+          recommendation: recommendation10,
+          docsUrl: docsUrl10,
+          fix: {
+            description: "Rename it to a declared name, move it under one of them, or add its name to the declaration."
+          }
+        });
+      }
+    }
+    const notes = /* @__PURE__ */ new Map();
+    for (const key2 of collisions) {
+      notes.set(key2, "declared in both scopes and unitScopes, so the scopes entry wins wherever both apply");
+    }
+    for (const key2 of globalKeys) {
+      if (notes.has(key2)) continue;
+      const scopesEmpty = Object.hasOwn(globalScopes, key2) && namesOf(globalScopes[key2]).length === 0;
+      const unitsEmpty = Object.hasOwn(globalUnits, key2) && namesOf(globalUnits[key2]).length === 0;
+      if (scopesEmpty || unitsEmpty) {
+        notes.set(key2, "names no directory name at all");
+      }
+    }
+    const unused = [...globalKeys].filter((k) => !notes.has(k) && !usedKeys.has(k));
+    const unitOnly = unused.filter((k) => Object.hasOwn(globalUnits, k) && !Object.hasOwn(globalScopes, k));
+    for (const key2 of keysMatchingAny(unitOnly, nonUnitDirs, compile)) {
+      notes.set(key2, "matched directories but never a unit");
+    }
+    for (const [key2, reason] of classifyUnusedKeys(
+      unused.filter((k) => !notes.has(k)),
+      excludedDirs,
+      compile
+    )) {
+      notes.set(key2, reason === "only-excluded" ? "matched only excluded directories" : "matched no directory");
+    }
+    const reported = [...notes.keys()].sort();
+    if (reported.length > 0) {
+      const message = reported.length === 1 ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0])}.` : `These declarations do not check what they say: ${reported.map((k) => `'${k}' (${notes.get(k)})`).join(", ")}.`;
+      out.push({
+        id: ID6,
+        category: "architecture",
+        severity: "info",
+        detection: { presence: "none", value: "absent" },
+        message,
+        recommendation: "Correct the glob or the names, or remove the declaration.",
+        docsUrl: docsUrl10
+      });
+    }
+    return out;
+  }
+};
+var ID7 = "architecture/route-component-import";
+var EXEMPT_IMPORTERS = ["**/*.stories.svelte", "**/*.test.svelte", "**/*.spec.svelte"];
+var ROUTES_DIR = "src/routes/";
+var ROUTE_ENTRY = /^\+(page|layout)(@.*)?\.svelte$/;
+function isRouteEntry(path) {
+  if (!path.startsWith(ROUTES_DIR)) return false;
+  const base = path.slice(path.lastIndexOf("/") + 1);
+  return base === "+error.svelte" || ROUTE_ENTRY.test(base);
+}
+function routeEntryImports(c, ctx) {
+  const out = [];
+  for (const { source: source2, line, type } of c.importSpans ?? []) {
+    if (type) continue;
+    const target = resolveRepoLocalPath(source2, c.file, ctx.project.kitAliases);
+    if (target !== void 0 && isRouteEntry(target)) out.push({ line, target });
+  }
+  return out;
+}
+var routeEntryImportsCache = /* @__PURE__ */ new WeakMap();
+function cachedRouteEntryImports(c, ctx) {
+  const cached = routeEntryImportsCache.get(c);
+  if (cached !== void 0 && cached.aliases === ctx.project.kitAliases) return cached.result;
+  const result = routeEntryImports(c, ctx);
+  routeEntryImportsCache.set(c, { aliases: ctx.project.kitAliases, result });
+  return result;
+}
+var architectureRouteComponentImport = componentRule({
+  id: ID7,
+  title: "Route component import",
+  category: "architecture",
+  severity: "info",
+  label: "Route component imports",
+  options: { exemptImporters: { kind: "string-list", default: EXEMPT_IMPORTERS } },
+  recommendation: "Extract the shared markup into a component under $lib and import that from both places, leaving the route entry to SvelteKit.",
+  rationale: "A route entry is written on the assumption that SvelteKit renders it: Kit hands a page its data and params, and an error page its page.error and page.status. Imported from somewhere else it receives none of that and renders against nothing, or against the importing page data standing in for its own.",
+  // Signal present = this file imports a route entry, exempt or not. An exempt file therefore
+  // reaches `bad` and earns a PASS, rather than being called signal-free.
+  // `_o`: this rule's option is read only in `bad`, but `ctx` is the third parameter, so the
+  // second cannot simply be omitted the way every other component rule omits what it does not use.
+  applies: (c, _o, ctx) => cachedRouteEntryImports(c, ctx).length > 0,
+  bad: (c, o, ctx) => {
+    const exempt = listOption(o, "exemptImporters").map(routeGlobToRegExp);
+    if (exempt.some((re) => re.test(c.file))) return [];
+    return cachedRouteEntryImports(c, ctx).map(({ line, target }) => ({
+      line,
+      message: `${target} is a SvelteKit route entry \u2014 imported here it renders without the data Kit would give it`
+    }));
+  }
+});
 var HEAVY_PACKAGES = {
   lodash: "import a submodule (lodash/debounce) or use lodash-es for tree-shaking",
   moment: "use a lighter date library (date-fns or dayjs) \u2014 moment is large and not tree-shakeable"
@@ -59307,8 +59987,8 @@ var performanceHeavyImport = componentRule({
     const seen = /* @__PURE__ */ new Set();
     const out = [];
     const spans = c.importSpans ?? c.imports.map((source2) => ({ source: source2, line: 0 }));
-    for (const { source: src, line } of spans) {
-      if (!Object.hasOwn(packages, src) || seen.has(src)) continue;
+    for (const { source: src, line, type } of spans) {
+      if (type || !Object.hasOwn(packages, src) || seen.has(src)) continue;
       seen.add(src);
       out.push({ line, message: `Heavy import "${src}" \u2014 ${packages[src]}` });
     }
@@ -59484,6 +60164,10 @@ var allRules = [
   architectureComponentSize,
   architecturePropCount,
   architecturePrivateScopeImport,
+  architectureUnitEntryFile,
+  architectureDirectoryNaming,
+  architectureReservedDirectoryNames,
+  architectureRouteComponentImport,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,
@@ -59546,7 +60230,8 @@ function computeScore(results, config, options = {}) {
     routeScores.set(route, routeScores.get(route) - deduction);
   }
   const scores = [...routeScores.values()].map(clamp);
-  const routeAverage = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 100;
+  const rawRouteAverage = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 100;
+  const routeAverage = Math.floor(rawRouteAverage);
   const projectRuleMax = /* @__PURE__ */ new Map();
   for (const r of projectResults) {
     if (!isPenalized(r.detection, config.treatDynamicAs)) continue;
@@ -59558,11 +60243,11 @@ function computeScore(results, config, options = {}) {
   let sitePenalty = 0;
   for (const deduction of projectRuleMax.values()) sitePenalty += deduction;
   const applyCap = options.applyCriticalCap ?? true;
-  const uncapped = routeAverage - sitePenalty;
-  const capBinds = applyCap && anyCritical && uncapped > CRITICAL_CAP;
+  const rawUncapped = rawRouteAverage - sitePenalty;
+  const capBinds = applyCap && anyCritical && rawUncapped > CRITICAL_CAP;
   const criticalCap = capBinds ? CRITICAL_CAP : null;
-  const score = capBinds ? CRITICAL_CAP : uncapped;
-  return { score: clamp(score), scoreModel: { routeAverage, sitePenalty, criticalCap } };
+  const rawScore = clamp(capBinds ? CRITICAL_CAP : rawUncapped);
+  return { score: Math.floor(rawScore), rawScore, scoreModel: { routeAverage, sitePenalty, criticalCap } };
 }
 function scoresByCategory(results, config) {
   const byCat = /* @__PURE__ */ new Map();
@@ -59579,7 +60264,7 @@ function scoresByCategory(results, config) {
 function computeHealth(results, config) {
   const categories = scoresByCategory(results, config);
   const weights = {};
-  let weighted = 0;
+  let weightedDeficit = 0;
   let total = 0;
   for (const cat of Object.keys(categories)) {
     const w2 = config.weights?.[cat] ?? 1;
@@ -59587,14 +60272,15 @@ function computeHealth(results, config) {
       throw new RangeError(`invalid weight for '${cat}'; expected a finite number >= 0.`);
     }
     weights[cat] = w2;
-    weighted += categories[cat].score * w2;
+    weightedDeficit += (100 - categories[cat].rawScore) * w2;
     total += w2;
   }
   if (Object.keys(weights).length === 0) return { health: 100, categories, weights };
   if (total === 0) {
     throw new RangeError("Health weights sum to 0; at least one present category must have a positive weight.");
   }
-  const health = Math.round(weighted / total);
+  const averageDeficit = weightedDeficit / total;
+  const health = averageDeficit === 0 ? 100 : Math.min(99, Math.floor(100 - averageDeficit));
   return { health, categories, weights };
 }
 function issueOf(result) {
@@ -59746,7 +60432,7 @@ function formatMarkdownReport(results, config, meta) {
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/svelte-vitals@0.34.0/node_modules/svelte-vitals/dist/chunk-WSPRFLPP.js
+// node_modules/.pnpm/svelte-vitals@0.37.0/node_modules/svelte-vitals/dist/chunk-I2MKPWWT.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -60524,7 +61210,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// node_modules/.pnpm/svelte-vitals@0.34.0/node_modules/svelte-vitals/dist/chunk-WSPRFLPP.js
+// node_modules/.pnpm/svelte-vitals@0.37.0/node_modules/svelte-vitals/dist/chunk-I2MKPWWT.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -60563,7 +61249,7 @@ var ProjectError = class extends Error {
     this.name = "ProjectError";
   }
 };
-var ROUTES_DIR = "src/routes";
+var ROUTES_DIR2 = "src/routes";
 var MIN_SVELTE_MAJOR = 5;
 var MIN_KIT_MAJOR = 2;
 function leadingMajor(range) {
@@ -60607,16 +61293,16 @@ async function detectProject(rt, cwd) {
     }
   }
   const hasConfig = await rt.exists(rt.join(cwd, "svelte.config.js")) || await rt.exists(rt.join(cwd, "svelte.config.ts"));
-  const hasRoutes = await rt.exists(rt.join(cwd, ROUTES_DIR));
+  const hasRoutes = await rt.exists(rt.join(cwd, ROUTES_DIR2));
   if (hasKitDep || hasConfig && hasRoutes) return;
   throw new ProjectError(
-    "No SvelteKit project found in the current directory. Run this inside a SvelteKit app, or pass a path (e.g. npx svelte-vitals apps/web)."
+    "No SvelteKit project found in the current directory. Run this inside a SvelteKit app, or pass a path (e.g. npx svelte-vitals apps/web). See `svelte-vitals docs show monorepo` for how the app is resolved."
   );
 }
 async function enumerateRoutePages(rt, cwd) {
   const [plain, breakout] = await Promise.all([
-    rt.glob(`${ROUTES_DIR}/**/+page.svelte`, cwd),
-    rt.glob(`${ROUTES_DIR}/**/+page@*.svelte`, cwd)
+    rt.glob(`${ROUTES_DIR2}/**/+page.svelte`, cwd),
+    rt.glob(`${ROUTES_DIR2}/**/+page@*.svelte`, cwd)
   ]);
   return [.../* @__PURE__ */ new Set([...plain, ...breakout])].sort();
 }
@@ -60667,20 +61353,25 @@ async function readFirstConfig(rt, cwd, files) {
   }
   return void 0;
 }
-async function detectKitPathsBase(rt, cwd) {
+async function detectKitConfigFacts(rt, cwd) {
   const [viteConfig, svelteConfig] = await Promise.all([
     readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
     readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES)
   ]);
-  return resolveKitPathsBase(viteConfig, svelteConfig);
+  const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
+  const kitAliases = resolveKitAliases(viteConfig, svelteConfig);
+  return {
+    ...kitPathsBase ? { kitPathsBase } : {},
+    ...kitAliases ? { kitAliases } : {}
+  };
 }
 async function collectProjectFacts(rt, cwd) {
-  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled, kitPathsBase] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled, kitConfig] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
     detectAppHtmlLang(rt, cwd),
     detectViteMinifyDisabled(rt, cwd),
-    detectKitPathsBase(rt, cwd)
+    detectKitConfigFacts(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
@@ -60689,7 +61380,7 @@ async function collectProjectFacts(rt, cwd) {
     htmlLang,
     ...robotsReferencesSitemap !== void 0 ? { robotsReferencesSitemap } : {},
     ...viteMinifyDisabled ? { viteMinifyDisabled } : {},
-    ...kitPathsBase ? { kitPathsBase } : {}
+    ...kitConfig
   };
 }
 function exprValue(node) {
@@ -61074,7 +61765,7 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
   }
   return { tags, broad };
 }
-var ROUTES_DIR2 = "src/routes";
+var ROUTES_DIR22 = "src/routes";
 var MAX_DEPTH = 5;
 function isGroupSegment(segment) {
   return /^\(.+\)$/.test(segment);
@@ -61084,11 +61775,11 @@ function dirOf(rel) {
   return i >= 0 ? rel.slice(0, i) : "";
 }
 function dirSegments(dir) {
-  const extra = dir.slice(ROUTES_DIR2.length);
+  const extra = dir.slice(ROUTES_DIR22.length);
   return extra.length === 0 ? [] : extra.split("/").filter(Boolean);
 }
 function dirKey(segs) {
-  return segs.length === 0 ? ROUTES_DIR2 : `${ROUTES_DIR2}/${segs.join("/")}`;
+  return segs.length === 0 ? ROUTES_DIR22 : `${ROUTES_DIR22}/${segs.join("/")}`;
 }
 function parseAt(rel) {
   const file = rel.slice(rel.lastIndexOf("/") + 1);
@@ -61109,8 +61800,8 @@ function deriveRoute(pageRel) {
 }
 async function collectLayouts(rt, cwd) {
   const [plain, breakout] = await Promise.all([
-    rt.glob(`${ROUTES_DIR2}/**/+layout.svelte`, cwd),
-    rt.glob(`${ROUTES_DIR2}/**/+layout@*.svelte`, cwd)
+    rt.glob(`${ROUTES_DIR22}/**/+layout.svelte`, cwd),
+    rt.glob(`${ROUTES_DIR22}/**/+layout@*.svelte`, cwd)
   ]);
   const map = /* @__PURE__ */ new Map();
   for (const rel of [...plain, ...breakout]) map.set(dirOf(rel), rel);
@@ -61185,6 +61876,24 @@ async function collectRoutes(rt, cwd, config = defaultConfig, cache = /* @__PURE
     images: facts.map((f) => f.images),
     headings: facts.map((f) => f.headings)
   };
+}
+function routeMatcher(glob2) {
+  if (!glob2) return () => true;
+  const body = glob2.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, " ").replace(/\*/g, "[^/]*").replace(/\/ $/g, "(?:/.*)?").replace(/^ \//g, "(?:.*/)?").replace(/ \//g, "(?:.*/)?").replace(/\/ /g, "(?:/.*)?").replace(/ /g, ".*");
+  const re = new RegExp(`^${body}$`);
+  return (route) => re.test(route.replace(/^\//, ""));
+}
+async function collectAll(rt, cwd, config, opts = {}) {
+  const matches = routeMatcher(opts.route);
+  const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
+  const heads = collected.heads.filter((h) => matches(h.route));
+  const images = collected.images.filter((i) => matches(i.route));
+  const headings = collected.headings.filter((h) => matches(h.route));
+  const project = await collectProjectFacts(rt, cwd);
+  const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
+  const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd, project.kitAliases);
+  const sourceFiles = opts.route ? void 0 : await collectSourceFiles(rt, cwd);
+  return { heads, images, headings, project, components, kitModules, sourceFiles };
 }
 function readPackageVersion() {
   try {
@@ -61494,12 +62203,6 @@ async function loadConfigFile(cwd) {
   }
   return validateConfigFile(mod.default, found);
 }
-function routeMatcher(glob2) {
-  if (!glob2) return () => true;
-  const body = glob2.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, " ").replace(/\*/g, "[^/]*").replace(/\/ $/g, "(?:/.*)?").replace(/^ \//g, "(?:.*/)?").replace(/ \//g, "(?:.*/)?").replace(/\/ /g, "(?:/.*)?").replace(/ /g, ".*");
-  const re = new RegExp(`^${body}$`);
-  return (route) => re.test(route.replace(/^\//, ""));
-}
 async function analyzeProject(opts = {}) {
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
@@ -61516,19 +62219,15 @@ async function analyzeProject(opts = {}) {
   });
   await detectProject(rt, cwd);
   const warnings2 = [...loaded?.warnings ?? [], ...await checkVersionFloor(rt, cwd)];
-  const matches = routeMatcher(opts.route);
-  const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
-  const heads = collected.heads.filter((h) => matches(h.route));
-  const images = collected.images.filter((i) => matches(i.route));
-  const headings = collected.headings.filter((h) => matches(h.route));
-  const project = await collectProjectFacts(rt, cwd);
-  const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
-  const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
+  const { heads, images, headings, project, components, kitModules, sourceFiles } = await collectAll(rt, cwd, config, {
+    route: opts.route,
+    parseCache: opts.parseCache
+  });
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories.includes(r.category)) : selected;
   const results = applyOverrides(
     applyRuleSeverities(
-      await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
+      await runRules(rules, { heads, images, headings, components, project, config, kitModules, sourceFiles }),
       config
     ),
     config
