@@ -8,7 +8,8 @@ description: >-
   changeset 書いて", "dist が stale って言われてる", or a bare PR link. Also use it when
   bumping those two packages by hand. Reach for it even when the ask sounds like a
   one-line fix ("just rebuild dist") — the rebuild alone leaves the release silently
-  broken, and this skill covers the rest.
+  broken, and this skill covers the rest. Step 1 tells you how to bow out if the PR
+  turns out to bump something else, so a wrong guess costs one command.
 ---
 
 # Analyzer bump PRs
@@ -31,11 +32,17 @@ judgment is in the changeset.
 
 ## Workflow
 
-**1. Read the PR.** `gh pr view <N> --json title,body,files,statusCheckRollup`. Confirm
-`svelte-vitals` / `@svelte-vitals/core` are actually among the bumped packages, and keep
-the release notes in the PR body — that's your changeset source material. Read the CI
-failure rather than assuming it's the dist check; an analyzer bump can also break the
-build for real (see step 3).
+**1. Read the PR.** `gh pr view <N> --json title,body,files,statusCheckRollup`. Keep the
+release notes in the PR body — that's your changeset source material. Read the CI failure
+rather than assuming it's the dist check; an analyzer bump can also break the build for
+real (see step 3).
+
+First confirm `svelte-vitals` / `@svelte-vitals/core` are actually among the bumped
+packages. **If they aren't, stop here** — this skill doesn't cover the PR. Say which
+packages it bumps and hand it back. The rest of these steps would be actively wrong there:
+a lockfile refresh or a devDependency bump isn't user-facing, so writing a changeset for it
+would cut a release that ships nothing, and those PRs are on Renovate's automerge list
+precisely because they're meant to go through without this ceremony.
 
 **2. Check out the branch and install.** Let `gh` resolve the branch — `renovate.json`
 groups these bumps under `dependencies` today, so the head branch is
@@ -47,11 +54,10 @@ pnpm install --frozen-lockfile
 ```
 
 **3. Run the full verify set before building.** `pnpm lint`, `pnpm typecheck`, `pnpm test`.
-These are not a formality here: `src/index.ts` imports `analyzeProject` / `applyScope` from
-`svelte-vitals` and `formatGithubReport` / `formatMarkdownReport` / `summarize` /
-`hasFailureAtOrAbove` from `@svelte-vitals/core`, so a renamed or removed export shows up
-as a typecheck failure. If that happens you have a real source change to make, not just a
-rebuild — and the changeset should say what changed for users as a result.
+These are not a formality here: `src/` imports analysis and formatting functions from both
+packages by name, so an export the bump renamed or removed surfaces as a typecheck failure.
+If that happens you have a real source change to make, not just a rebuild — and the
+changeset should say what changed for users as a result.
 
 **4. Rebuild dist.**
 
@@ -67,12 +73,16 @@ the change is user-facing enough to need a changeset at all.
 
 **5. Write the changeset.** See below — this is the part that needs thought.
 
-**6. Commit both artifacts together and push to the Renovate branch.** They belong in one
+**6. Commit everything the bump required, together, and push to the Renovate branch.** One
 commit: a rebuilt `dist/` without its changeset is exactly the half-done state this skill
-exists to prevent.
+exists to prevent, and if step 3 sent you into `src/`, that fix has to travel with the
+bundle built from it — otherwise the pushed commit contains a `dist/` compiled from source
+that isn't in the repo. Check `git status` against what you actually touched rather than
+staging from memory.
 
 ```bash
-git add dist/index.js .changeset/<name>.md
+git status --short          # dist/index.js, .changeset/<name>.md, and any src/ fix
+git add -A
 git commit -m "chore: rebuild dist and add changeset for analyzer update"
 git push
 ```
@@ -105,8 +115,13 @@ internal performance work with no visible effect. An action user never invokes t
 
 **Bump level:** `minor` for new default-on rules, recalibrated thresholds, or changed
 score semantics. `patch` for pure false-positive fixes and no-visible-change updates.
-`major` only if the action's own inputs or outputs in `action.yml` change — a dependency
-bump alone is never major.
+
+`major` means a consumer's workflow breaks or has to change. Two surfaces can do that, and
+only one of them is declared: the `inputs` in `action.yml` (there is no `outputs:` block —
+the action doesn't set any), and the report itself — the annotations, the job summary, and
+the sticky PR comment named in the action's description. The undeclared half is the one to
+watch, since a bump can restructure the report without touching a line of this repo. A
+version bump on its own is never major.
 
 Write it for someone who runs the action in CI and wants to know whether their build is
 about to behave differently. Lead with what moves, not with version numbers. `0.5.0` in
@@ -138,6 +153,7 @@ Two things worth warning about when they apply:
 
 - If Renovate rebases the branch, your commit is gone and CI goes red again. Say so, and
   tell them not to tick the rebase checkbox in the PR body.
-- The Version Packages PR only touches `package.json` and `CHANGELOG.md`, and the action's
-  version isn't embedded in the bundle — so `dist/` won't go stale there. If it somehow
-  does, the same rebuild applies.
+- The Version Packages PR bumps `package.json`, appends to `CHANGELOG.md`, and deletes the
+  changeset it consumed — that deletion is expected, not a mistake. None of it reaches
+  `dist/`: the action's version isn't embedded in the bundle, so that PR won't fail the
+  freshness check. If it somehow does, the same rebuild applies.
