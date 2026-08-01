@@ -43,5 +43,6 @@ Run these yourself and confirm they pass before claiming a task is complete. CI 
 
 - [`analyzer-bump-pr`](.claude/skills/analyzer-bump-pr/SKILL.md) — taking a
   `svelte-vitals`/`@svelte-vitals/core` bump PR from red CI to merge-ready: the `dist/` rebuild
-  Renovate skips, and how to write the changeset the release depends on. Use it for any of these
-  PRs rather than working the steps out again.
+  Renovate skips, and how to write the changeset the release depends on. Invoke it directly as
+  `/analyzer-bump-pr <pr-number>`, and use it for any of these PRs rather than working the steps
+  out again.

@@ -1,5 +1,6 @@
 ---
 name: analyzer-bump-pr
+argument-hint: '[pr-number]'
 description: >-
   Take a Renovate PR that bumps `svelte-vitals` / `@svelte-vitals/core` from red CI to
   merge-ready in this repo — rebuild the committed `dist/`, write the changeset the
@@ -31,6 +32,13 @@ So the fix is always the same two artifacts: a rebuilt `dist/` and a changeset. 
 judgment is in the changeset.
 
 ## Workflow
+
+**Target PR:** $ARGUMENTS
+
+If that line is empty, nobody named a PR — invoking as `/analyzer-bump-pr 16` fills it in,
+and Claude reaching for this skill on its own usually won't. Find the candidate rather than
+guessing: `gh pr list --label renovate --json number,title,files`. If exactly one open PR
+bumps the analyzer packages, use it and say which you picked. If several do, ask.
 
 **1. Read the PR.** `gh pr view <N> --json title,body,files,statusCheckRollup`. Keep the
 release notes in the PR body — that's your changeset source material. Read the CI failure
