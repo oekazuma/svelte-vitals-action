@@ -38,3 +38,10 @@ Run these yourself and confirm they pass before claiming a task is complete. CI 
   rulesets — one lets Renovate bypass the review requirement, a separate one enforces the `ci`
   status check with no bypass for Renovate). A `svelte-vitals`/`@svelte-vitals/core` bump needs a
   manually-added changeset before merging, or the version never actually gets released.
+
+## Skills
+
+- [`analyzer-bump-pr`](.claude/skills/analyzer-bump-pr/SKILL.md) — taking a
+  `svelte-vitals`/`@svelte-vitals/core` bump PR from red CI to merge-ready: the `dist/` rebuild
+  Renovate skips, and how to write the changeset the release depends on. Use it for any of these
+  PRs rather than working the steps out again.
