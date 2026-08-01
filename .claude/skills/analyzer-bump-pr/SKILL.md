@@ -5,12 +5,12 @@ description: >-
   Take a Renovate PR that bumps `svelte-vitals` / `@svelte-vitals/core` from red CI to
   merge-ready in this repo — rebuild the committed `dist/`, write the changeset the
   release requires, verify, and push. Use this whenever a dependency-update PR here is
-  mentioned at all: "この Renovate PR 対応して", "PR #N の CI が落ちてる", "アナライザ更新の
-  changeset 書いて", "dist が stale って言われてる", or a bare PR link. Also use it when
-  bumping those two packages by hand. Reach for it even when the ask sounds like a
-  one-line fix ("just rebuild dist") — the rebuild alone leaves the release silently
-  broken, and this skill covers the rest. Step 1 tells you how to bow out if the PR
-  turns out to bump something else, so a wrong guess costs one command.
+  mentioned at all: "handle this Renovate PR", "CI is failing on PR #N", "write the
+  changeset for the analyzer update", "it says dist is stale", or a bare PR link. Also
+  use it when bumping those two packages by hand. Reach for it even when the ask sounds
+  like a one-line fix ("just rebuild dist") — the rebuild alone leaves the release
+  silently broken, and this skill covers the rest. Step 1 tells you how to bow out if
+  the PR turns out to bump something else, so a wrong guess costs one command.
 ---
 
 # Analyzer bump PRs
