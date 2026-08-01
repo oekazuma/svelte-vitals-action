@@ -15,11 +15,11 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       '@svelte-vitals/core':
-        specifier: ^0.30.0
-        version: 0.30.0
+        specifier: ^0.31.1
+        version: 0.31.1
       svelte-vitals:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.37.0
+        version: 0.37.0
     devDependencies:
       '@changesets/cli':
         specifier: ^2.31.1
@@ -889,8 +889,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@svelte-vitals/core@0.30.0':
-    resolution: {integrity: sha512-frYqGJWKV3Dq7BgVw0/Jp9EPMLwjTdtcHmIE09IEIpyTtYwEXdwRyk4Xm/pmRcm5wxbWTZK9eoxxez4lYBtLdA==}
+  '@svelte-vitals/core@0.31.1':
+    resolution: {integrity: sha512-klgtfHihe6w+jobVcRtUWs65IYe3XaBCH88elhwBcc9pXxxXA7z03urx2SpLoT3166VxESltDVn/BCAqaroy1w==}
     engines: {node: '>=22.13.0'}
 
   '@sveltejs/acorn-typescript@1.0.11':
@@ -1706,10 +1706,6 @@ packages:
     resolution: {integrity: sha512-SO/3iYL5S3W57LLEniscOGPZgOqZUPCx6d3dB+52B80yJ0XstzsC/eV8gnA4tM3MHDrKz+OCFSLNjswdSC+/bA==}
     engines: {node: '>=22'}
 
-  smol-toml@1.7.0:
-    resolution: {integrity: sha512-aqVvWoyO21L23mb+drl4RmMXbf6N7FdHjAhTRA9ZBL7apWBgfWC16KjrASI+1p9GAroljyMHj6fK67i0UiTNvQ==}
-    engines: {node: '>= 18'}
-
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -1751,8 +1747,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.34.0:
-    resolution: {integrity: sha512-j7eaYoCWZvHsctIVYivkd7MR42XFOnEcdR2An0TpO5eEWUReugFL61490VgCJZqi3I1yhGdzj7OwNuBJpXGVCQ==}
+  svelte-vitals@0.37.0:
+    resolution: {integrity: sha512-CMb5t8VHOY9zxmwh90ijyUi9IDSaiee631KbrlCK62IuoV1/HbqE+pUZuSVP2LjsL9ZeFyiXvJTnvcD/w3QTWg==}
     engines: {node: '>=22.13.0'}
     hasBin: true
 
@@ -2607,7 +2603,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@svelte-vitals/core@0.30.0':
+  '@svelte-vitals/core@0.31.1':
     dependencies:
       svelte: 5.56.8
     transitivePeerDependencies:
@@ -3333,8 +3329,6 @@ snapshots:
       ansi-styles: 6.2.3
       is-fullwidth-code-point: 5.1.0
 
-  smol-toml@1.7.0: {}
-
   source-map-js@1.2.1: {}
 
   source-map@0.7.6: {}
@@ -3375,14 +3369,13 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.34.0:
+  svelte-vitals@0.37.0:
     dependencies:
       '@clack/prompts': 1.7.0
-      '@svelte-vitals/core': 0.30.0
+      '@svelte-vitals/core': 0.31.1
       log-update: 8.0.0
       magicast: 0.5.3
       mri: 1.2.0
-      smol-toml: 1.7.0
       svelte: 5.56.8
       tinyglobby: 0.2.17
     transitivePeerDependencies:
