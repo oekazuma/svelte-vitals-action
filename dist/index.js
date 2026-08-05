@@ -54820,7 +54820,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.31.1/node_modules/@svelte-vitals/core/dist/index.js
+// node_modules/.pnpm/@svelte-vitals+core@0.34.0/node_modules/@svelte-vitals/core/dist/index.js
 var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture"];
 var defaultConfig = {
   treatDynamicAs: "pass",
@@ -55712,6 +55712,53 @@ function collectSuppressions(source2) {
   });
   return out;
 }
+var MD_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
+var SCRIPT_OPEN = /<script(?:\s[^>]*)?>/;
+var SCRIPT_CLOSE = /<\/script\s*>/;
+var STYLE_OPEN = /<style(?:\s[^>]*)?>/;
+var STYLE_CLOSE = /<\/style\s*>/;
+function collectCommentLinks(source2, { wholeFileIsScript = false } = {}) {
+  const out = [];
+  let htmlOpen = false;
+  let block2 = wholeFileIsScript ? "script" : void 0;
+  source2.split("\n").forEach((line, i) => {
+    let text2 = "";
+    if (block2 !== void 0) {
+      if (block2 === "script" && /^\s*\/\//.test(line)) text2 = line.replace(/^\s*\/\//, "");
+      if (!wholeFileIsScript && (block2 === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(line)) block2 = void 0;
+    } else {
+      let plain = "";
+      let rest2 = line;
+      while (rest2.length > 0) {
+        if (htmlOpen) {
+          const end = rest2.indexOf("-->");
+          if (end === -1) {
+            text2 += rest2;
+            break;
+          }
+          text2 += rest2.slice(0, end);
+          htmlOpen = false;
+          rest2 = rest2.slice(end + 3);
+          continue;
+        }
+        const start = rest2.indexOf("<!--");
+        if (start === -1) {
+          plain += rest2;
+          break;
+        }
+        plain += rest2.slice(0, start);
+        htmlOpen = true;
+        rest2 = rest2.slice(start + 4);
+      }
+      const opened = SCRIPT_OPEN.test(plain) ? "script" : STYLE_OPEN.test(plain) ? "style" : void 0;
+      if (opened !== void 0 && !(opened === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(plain)) block2 = opened;
+    }
+    for (const m of text2.matchAll(MD_LINK)) {
+      if (m[1] !== void 0) out.push({ url: m[1], line: i + 1 });
+    }
+  });
+  return out;
+}
 var EVAL_SCOPE_BOUNDARIES = /* @__PURE__ */ new Set([
   "FunctionDeclaration",
   "FunctionExpression",
@@ -56082,6 +56129,7 @@ function parseModuleFacts(source2, filename2) {
     checkableBindValues: [],
     basePathLinks,
     suppressions: collectSuppressions(source2),
+    commentLinks: collectCommentLinks(source2, { wholeFileIsScript: true }),
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
@@ -56288,7 +56336,8 @@ function parseComponentFacts(source2, filename2) {
     orphanLifecycleCalls,
     browserGlobalRefs,
     moduleStateDecls: [],
-    suppressions
+    suppressions,
+    commentLinks: collectCommentLinks(source2)
   };
 }
 function emptyComponentFacts(file) {
@@ -56314,7 +56363,8 @@ function emptyComponentFacts(file) {
     orphanLifecycleCalls: [],
     browserGlobalRefs: [],
     moduleStateDecls: [],
-    suppressions: []
+    suppressions: [],
+    commentLinks: []
   };
 }
 async function collectComponentFacts(rt, cwd) {
@@ -56644,6 +56694,13 @@ function libServerRoot(aliases) {
   if (lib && lib.replacement === null) return void 0;
   return `${lib?.replacement ?? "src/lib"}/server`;
 }
+function serverRootRelativePath(spec, importerFile, aliases) {
+  const serverRoot = libServerRoot(aliases);
+  if (serverRoot === void 0) return void 0;
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
+  if (path === void 0) return void 0;
+  return path === serverRoot || path.startsWith(`${serverRoot}/`) ? path : void 0;
+}
 function isLocalStateSpecifier(spec, importerFile, aliases) {
   const serverRoot = libServerRoot(aliases);
   if (serverRoot === void 0) return false;
@@ -56651,12 +56708,32 @@ function isLocalStateSpecifier(spec, importerFile, aliases) {
   if (path === void 0) return false;
   return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
 }
+var IN_MEMORY_CTORS = /* @__PURE__ */ new Set(["Map", "Set", "WeakMap", "WeakSet"]);
+function isInMemoryInit(init2) {
+  if (!init2) return false;
+  if (init2.type === "ObjectExpression" || init2.type === "ArrayExpression") return true;
+  return init2.type === "NewExpression" && init2.callee?.type === "Identifier" && IN_MEMORY_CTORS.has(init2.callee.name);
+}
+function parseInMemoryExports(source2, filename2) {
+  const names = /* @__PURE__ */ new Set();
+  const { program } = parseModuleProgram(source2, filename2);
+  for (const stmt2 of program?.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
+    const decl = stmt2.declaration;
+    if (decl.type !== "VariableDeclaration") continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type === "Identifier" && isInMemoryInit(d.init)) names.add(d.id.name);
+    }
+  }
+  return names;
+}
 function parseKitModuleFacts(source2, filename2, aliases) {
   const suppressions = collectSuppressions(source2);
   const { program, wrapped } = parseModuleProgram(source2, filename2);
   const moduleStateReassignments = [];
   const importedStateWrites = [];
   const importedStateWritesOutsideHandlers = [];
+  const pendingServerStoreWrites = [];
   const runesModuleImports = [];
   const lifecycleCalls = [];
   const browserGlobalRefs = [];
@@ -56665,6 +56742,7 @@ function parseKitModuleFacts(source2, filename2, aliases) {
       moduleStateReassignments,
       importedStateWrites,
       importedStateWritesOutsideHandlers,
+      pendingServerStoreWrites,
       runesModuleImports,
       lifecycleCalls,
       browserGlobalRefs,
@@ -56674,6 +56752,7 @@ function parseKitModuleFacts(source2, filename2, aliases) {
   }
   const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
   const importedSpecifiers = /* @__PURE__ */ new Map();
+  const importedNames = /* @__PURE__ */ new Map();
   for (const stmt2 of program.body ?? []) {
     if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
     const spec = typeof stmt2.source?.value === "string" ? stmt2.source.value : "";
@@ -56682,6 +56761,10 @@ function parseKitModuleFacts(source2, filename2, aliases) {
       if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
       names.push(s.local.name);
       importedSpecifiers.set(s.local.name, spec);
+      importedNames.set(
+        s.local.name,
+        s.type === "ImportSpecifier" && s.imported?.type === "Identifier" ? s.imported.name : s.local.name
+      );
     }
     if (names.length === 0) continue;
     const resolved = resolveRunesModuleSpecifier(spec, filename2, aliases);
@@ -56758,8 +56841,21 @@ function parseKitModuleFacts(source2, filename2, aliases) {
       const method2 = n.callee.property?.type === "Identifier" ? n.callee.property.name : void 0;
       if (method2 === "set" || method2 === "update") {
         const r = importedRoot(n.callee.object);
-        if (r && isLocalStateSpecifier(importedSpecifiers.get(r), filename2, aliases))
-          write = { name: r, via: "set-call" };
+        const spec = r ? importedSpecifiers.get(r) : void 0;
+        if (r && spec !== void 0) {
+          if (isLocalStateSpecifier(spec, filename2, aliases)) write = { name: r, via: "set-call" };
+          else {
+            const resolved = serverRootRelativePath(spec, filename2, aliases);
+            if (resolved !== void 0 && inHandler) {
+              pendingServerStoreWrites.push({
+                name: r,
+                imported: importedNames.get(r) ?? r,
+                resolved,
+                line: line(n.start)
+              });
+            }
+          }
+        }
       }
     } else if (n.type === "AssignmentExpression" && (n.left?.type === "ObjectPattern" || n.left?.type === "ArrayPattern")) {
       const scanPatternTargets = (pat) => {
@@ -56807,6 +56903,7 @@ function parseKitModuleFacts(source2, filename2, aliases) {
     moduleStateReassignments: byLine(moduleStateReassignments),
     importedStateWrites: byLine(importedStateWrites),
     importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
+    pendingServerStoreWrites: byLine(pendingServerStoreWrites),
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
@@ -56824,6 +56921,7 @@ function emptyKitModuleFacts(file, kind) {
     moduleStateReassignments: [],
     importedStateWrites: [],
     importedStateWritesOutsideHandlers: [],
+    pendingServerStoreWrites: [],
     runesModuleImports: [],
     lifecycleCalls: [],
     browserGlobalRefs: [],
@@ -56844,7 +56942,7 @@ async function collectKitModuleFacts(rt, cwd, aliases) {
   ];
   const lists = await Promise.all(patterns.map((p) => rt.glob(p, cwd)));
   const files = [...new Set(lists.flat())];
-  return Promise.all(
+  const facts = await Promise.all(
     files.sort().map(async (rel) => {
       const kind = kindOf(rel);
       try {
@@ -56855,6 +56953,38 @@ async function collectKitModuleFacts(rt, cwd, aliases) {
       }
     })
   );
+  return arbitrateServerStoreWrites(rt, cwd, facts);
+}
+function moduleCandidates(repoPath) {
+  if (repoPath.endsWith(".js")) return [repoPath, `${repoPath.slice(0, -3)}.ts`];
+  if (repoPath.endsWith(".ts")) return [repoPath];
+  return [`${repoPath}.ts`, `${repoPath}.js`, `${repoPath}/index.ts`, `${repoPath}/index.js`];
+}
+async function inMemoryExportsOf(rt, cwd, repoPath) {
+  for (const rel of moduleCandidates(repoPath)) {
+    try {
+      if (!await rt.exists(rt.join(cwd, rel))) continue;
+      return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);
+    } catch {
+      return /* @__PURE__ */ new Set();
+    }
+  }
+  return /* @__PURE__ */ new Set();
+}
+async function arbitrateServerStoreWrites(rt, cwd, facts) {
+  const targets = [...new Set(facts.flatMap((f) => f.pendingServerStoreWrites.map((w2) => w2.resolved)))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(
+    await Promise.all(targets.map(async (t) => [t, await inMemoryExportsOf(rt, cwd, t)]))
+  );
+  return facts.map((f) => {
+    const promoted = f.pendingServerStoreWrites.filter((w2) => byPath.get(w2.resolved)?.has(w2.imported)).map((w2) => ({ name: w2.name, line: w2.line, via: "set-call" }));
+    if (promoted.length === 0) return f;
+    return {
+      ...f,
+      importedStateWrites: [...f.importedStateWrites, ...promoted].sort((a, b) => a.line - b.line)
+    };
+  });
 }
 function propOf(obj, name) {
   let found;
@@ -59965,6 +60095,58 @@ var architectureRouteComponentImport = componentRule({
     }));
   }
 });
+var ID8 = "architecture/doc-link-target";
+function stripFragment(url) {
+  const i = url.search(/[#?]/);
+  return i === -1 ? url : url.slice(0, i);
+}
+function baseOf(root) {
+  return root.replace(/\/+$/, "");
+}
+function remainderUnder(url, root) {
+  const base = baseOf(root);
+  if (url === base) return "";
+  return url.startsWith(`${base}/`) ? baseOf(url.slice(base.length + 1)) : void 0;
+}
+function isUnderSrc(target) {
+  return target.startsWith("src/");
+}
+function rootFor(url, roots) {
+  let best;
+  for (const r of roots) {
+    const remainder = remainderUnder(url, r);
+    if (remainder === void 0) continue;
+    const base = baseOf(r);
+    if (best === void 0 || base.length > best.base.length) best = { base, remainder };
+  }
+  return best;
+}
+function targetExists(path, sourceFiles) {
+  const prefix = `${path}/`;
+  return sourceFiles.some((f) => f === path || f.startsWith(prefix));
+}
+function references(links, roots) {
+  const out = [];
+  for (const { url, line } of links) {
+    const match = rootFor(stripFragment(url), roots);
+    if (match === void 0) continue;
+    if (!isUnderSrc(match.remainder)) continue;
+    out.push({ line, target: match.remainder });
+  }
+  return out;
+}
+var architectureDocLinkTarget = componentRule({
+  id: ID8,
+  title: "Documentation link target",
+  category: "architecture",
+  severity: "info",
+  label: "Documentation link targets",
+  options: { urlRoots: { kind: "string-list", default: [] } },
+  recommendation: "Point the link at the unit that exists now, or remove it. A link inside a comment has nothing to resolve it, so a rename leaves it silently broken.",
+  rationale: "A documentation link written in a comment is invisible to type checking, module resolution and the test runner, so a convention-driven rename leaves it pointing at nothing and only human review notices.",
+  applies: (c, o, ctx) => ctx.sourceFiles !== void 0 && references(c.commentLinks, listOption(o, "urlRoots")).length > 0,
+  bad: (c, o, ctx) => references(c.commentLinks, listOption(o, "urlRoots")).filter(({ target }) => !targetExists(target, ctx.sourceFiles ?? [])).map(({ line, target }) => ({ line, message: `${target} does not exist` }))
+});
 var HEAVY_PACKAGES = {
   lodash: "import a submodule (lodash/debounce) or use lodash-es for tree-shaking",
   moment: "use a lighter date library (date-fns or dayjs) \u2014 moment is large and not tree-shakeable"
@@ -60168,6 +60350,7 @@ var allRules = [
   architectureDirectoryNaming,
   architectureReservedDirectoryNames,
   architectureRouteComponentImport,
+  architectureDocLinkTarget,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,
@@ -60203,6 +60386,27 @@ function hasFailureAtOrAbove(summary2, min) {
   return order.some((sev, idx) => idx >= threshold && summary2[sev] > 0);
 }
 var DEDUCTION = { critical: 15, warning: 5, info: 1 };
+function pairKey(category, scope) {
+  return `${category}::${scope}`;
+}
+function severityOf(rule, config) {
+  const setting = settingSeverity(config.rules[rule.id]);
+  if (setting === "off") return void 0;
+  return setting ?? rule.severity;
+}
+function buildInventory(config, rules = selectRules(allRules, config)) {
+  const out = /* @__PURE__ */ new Map();
+  for (const rule of rules) {
+    const severity = severityOf(rule, config);
+    if (severity === void 0) continue;
+    const key2 = pairKey(rule.category, rule.scope);
+    out.set(key2, (out.get(key2) ?? 0) + DEDUCTION[severity]);
+  }
+  return out;
+}
+function ruleScopes(rules) {
+  return new Map(rules.map((r) => [r.id, pairKey(r.category, r.scope)]));
+}
 var CRITICAL_CAP = 79;
 function clamp(n) {
   return Math.max(0, Math.min(100, n));
@@ -60210,27 +60414,36 @@ function clamp(n) {
 function computeScore(results, config, options = {}) {
   const routeResults = results.filter((r) => r.route !== void 0);
   const projectResults = results.filter((r) => r.route === void 0);
-  const routeScores = /* @__PURE__ */ new Map();
-  for (const r of routeResults) if (!routeScores.has(r.route)) routeScores.set(r.route, 100);
+  const rules = selectRules([...options.rules ?? allRules], config);
+  const inventory = buildInventory(config, rules);
+  const pairOf = ruleScopes(rules);
   let anyCritical = false;
-  const routeRuleMax = /* @__PURE__ */ new Map();
+  const observed = /* @__PURE__ */ new Map();
+  const ruleMax = /* @__PURE__ */ new Map();
   for (const r of routeResults) {
+    const key2 = r.route;
+    if (!observed.has(key2)) observed.set(key2, /* @__PURE__ */ new Set());
+    const pair = pairOf.get(r.id);
+    if (pair !== void 0) observed.get(key2).add(pair);
     if (!isPenalized(r.detection, config.treatDynamicAs)) continue;
     const sev = effectiveSeverity(r, config);
     if (sev === "critical") anyCritical = true;
-    const route = r.route;
-    let perRule = routeRuleMax.get(route);
-    if (!perRule) routeRuleMax.set(route, perRule = /* @__PURE__ */ new Map());
+    let perRule = ruleMax.get(key2);
+    if (!perRule) ruleMax.set(key2, perRule = /* @__PURE__ */ new Map());
     const prev = perRule.get(r.id) ?? 0;
     if (DEDUCTION[sev] > prev) perRule.set(r.id, DEDUCTION[sev]);
   }
-  for (const [route, perRule] of routeRuleMax) {
-    let deduction = 0;
-    for (const d of perRule.values()) deduction += d;
-    routeScores.set(route, routeScores.get(route) - deduction);
+  let totalDeficit = 0;
+  for (const [key2, pairs] of observed) {
+    let failed = 0;
+    for (const d of ruleMax.get(key2)?.values() ?? []) failed += d;
+    let inventoryWeight = 0;
+    for (const p of pairs) inventoryWeight += inventory.get(p) ?? 0;
+    inventoryWeight = Math.max(inventoryWeight, failed);
+    totalDeficit += inventoryWeight === 0 ? 0 : 100 * failed / inventoryWeight;
   }
-  const scores = [...routeScores.values()].map(clamp);
-  const rawRouteAverage = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 100;
+  const keyCount = observed.size;
+  const rawRouteAverage = keyCount === 0 ? 100 : 100 - totalDeficit / keyCount;
   const routeAverage = Math.floor(rawRouteAverage);
   const projectRuleMax = /* @__PURE__ */ new Map();
   for (const r of projectResults) {
@@ -60249,7 +60462,7 @@ function computeScore(results, config, options = {}) {
   const rawScore = clamp(capBinds ? CRITICAL_CAP : rawUncapped);
   return { score: Math.floor(rawScore), rawScore, scoreModel: { routeAverage, sitePenalty, criticalCap } };
 }
-function scoresByCategory(results, config) {
+function scoresByCategory(results, config, options = {}) {
   const byCat = /* @__PURE__ */ new Map();
   for (const r of results) {
     const cat = r.category ?? "seo";
@@ -60258,7 +60471,7 @@ function scoresByCategory(results, config) {
     bucket.push(r);
   }
   const out = {};
-  for (const [cat, rs] of byCat) out[cat] = computeScore(rs, config);
+  for (const [cat, rs] of byCat) out[cat] = computeScore(rs, config, options);
   return out;
 }
 function computeHealth(results, config) {
@@ -60296,9 +60509,20 @@ function issueOf(result) {
     ...result.fix ? { fix: result.fix } : {}
   };
 }
-function buildJsonReport(results, config, meta) {
+function ruleEvidence(results, config, ruleIds) {
+  const out = {};
+  for (const id2 of ruleIds ?? []) out[id2] = { findings: 0, passed: 0 };
+  for (const r of results) {
+    const entry = out[r.id] ??= { findings: 0, passed: 0 };
+    if (isPenalized(r.detection, config.treatDynamicAs)) entry.findings += 1;
+    else entry.passed += 1;
+  }
+  return out;
+}
+function buildJsonReport(results, config, meta, ruleIds) {
   const { health, categories: byCat, weights } = computeHealth(results, config);
   const summary2 = summarize(results, config);
+  const rules = ruleEvidence(results, config, ruleIds);
   const categories = Object.fromEntries(
     Object.entries(byCat).map(([cat, sr]) => [cat, { score: sr.score, scoreModel: sr.scoreModel }])
   );
@@ -60311,10 +60535,15 @@ function buildJsonReport(results, config, meta) {
   const routes = [...routeMap.values()].sort((a, b) => a.route.localeCompare(b.route)).map(({ route, results: rs }) => ({
     route,
     score: computeScore(rs, config, { applyCriticalCap: false }).score,
+    // Per category, scored against that category's own inventory, so this is not guaranteed to average to
+    // `score` — which is one ratio over the union of the pairs the route touched.
+    categories: Object.fromEntries(
+      Object.entries(scoresByCategory(rs, config, { applyCriticalCap: false })).map(([cat, sr]) => [cat, sr.score])
+    ),
     issues: rs.filter((r) => isPenalized(r.detection, config.treatDynamicAs)).map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }))
   }));
   const siteIssues = results.filter((r) => r.route === void 0 && isPenalized(r.detection, config.treatDynamicAs)).map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }));
-  return { version: meta.version, score: health, weights, categories, summary: summary2, routes, siteIssues };
+  return { version: meta.version, score: health, weights, categories, summary: summary2, rules, routes, siteIssues };
 }
 function severityToGithubLevel(sev) {
   return sev === "critical" ? "error" : sev === "warning" ? "warning" : "notice";
@@ -60432,7 +60661,7 @@ function formatMarkdownReport(results, config, meta) {
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/svelte-vitals@0.37.0/node_modules/svelte-vitals/dist/chunk-I2MKPWWT.js
+// node_modules/.pnpm/svelte-vitals@0.39.0/node_modules/svelte-vitals/dist/chunk-2WDZJQGD.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -61210,7 +61439,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// node_modules/.pnpm/svelte-vitals@0.37.0/node_modules/svelte-vitals/dist/chunk-I2MKPWWT.js
+// node_modules/.pnpm/svelte-vitals@0.39.0/node_modules/svelte-vitals/dist/chunk-2WDZJQGD.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -62232,7 +62461,7 @@ async function analyzeProject(opts = {}) {
     ),
     config
   );
-  return { results, config, version: readPackageVersion(), warnings: warnings2 };
+  return { results, config, version: readPackageVersion(), ruleIds: rules.map((r) => r.id), warnings: warnings2 };
 }
 async function applyScope(results, opts) {
   const errorLog = opts.errorLog ?? ((line) => console.error(line));
