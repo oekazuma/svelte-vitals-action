@@ -1,5 +1,15 @@
 # @svelte-vitals/action
 
+## 0.7.0
+
+### Minor Changes
+
+- e3216c2: Update the bundled analyzer to `svelte-vitals` 0.39.0 / `@svelte-vitals/core` 0.34.0. The action's inputs and outputs are unchanged, and so is what makes the step fail — the gate still keys on `failOn` severity, not on any score. What changes is the numbers the report prints and what the scan reports:
+
+  - **Category scores now measure how much is wrong, not merely that something is.** A key used to start at 100 and lose fixed points per failing rule, which capped what a category could express and flattened one finding against several hundred. A key now scores the share of what it was measured against that is intact, weighted by severity, so every category can reach 0. Any category carrying a finding moves in the summary and the sticky PR comment, most of them downward and by more than a point; `architecture`, `security` and `performance` move furthest, `seo` and `correctness` stay within a point. A clean 100 still means no finding among the checks that ran, and a `critical` still caps a category at 79. Anything reading the Health number out of the job summary should be recalibrated against the new scale.
+  - `security/handler-state-write`, on by default, now reports a hand-rolled in-memory store under `$lib/server`. The `.set()`/`.update()` exemption for that directory was path-based, so a shared `new Map()` overwritten by every request was exempt alongside the database clients it was meant to cover. The export's initializer is now read: a `Map`/`Set`/`WeakMap`/`WeakSet` or an object or array literal is reported, anything else stays exempt. Existing projects may see new findings here.
+  - New opt-in rule `architecture/doc-link-target` reports a documentation link in a component comment whose target no longer exists. Inert until you declare `urlRoots`, so it adds nothing to a scan until configured.
+
 ## 0.6.0
 
 ### Minor Changes
