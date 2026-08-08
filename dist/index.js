@@ -54820,7 +54820,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.38.0/node_modules/@svelte-vitals/core/dist/index.js
+// node_modules/.pnpm/@svelte-vitals+core@0.39.0/node_modules/@svelte-vitals/core/dist/index.js
 var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture"];
 var defaultConfig = {
   treatDynamicAs: "pass",
@@ -55634,7 +55634,7 @@ function countProps(program) {
     if (n.type !== "VariableDeclarator" || !n.init || !isPropsCall(unwrapTs(n.init))) return;
     seen++;
     const props = n.id?.type === "ObjectPattern" ? n.id.properties : void 0;
-    if (!Array.isArray(props) || props.some((p) => p?.type === "RestElement")) {
+    if (!Array.isArray(props)) {
       uncountable = true;
       return;
     }
@@ -57503,6 +57503,13 @@ function imageRule(opts) {
             severity: opts.severity,
             detection: { presence: "own", value: "static" },
             route: route.route,
+            // No single route-level file exists here (unlike ResolvedHead.file) — the
+            // route's first image stands in as its attributed file (design
+            // 2026-08-08-pass-result-location-design.md; this uncaught inline PASS literal
+            // was missed by the design spike's grep and added to its blast-radius table
+            // afterward, maintainer ruling, same date). `route.images.length === 0` already
+            // continued above, so `[0]` is always defined here.
+            location: route.images[0].file,
             message: opts.label,
             recommendation: opts.recommendation,
             docsUrl: docsUrl12
@@ -57594,6 +57601,13 @@ function linkRule(opts) {
             severity: opts.severity,
             detection: { presence: "own", value: "static" },
             route: head.route,
+            // The route's own attributed file (design 2026-08-08-pass-result-location-design.md)
+            // — this uncaught inline PASS literal was missed by the design spike's grep and
+            // added to its blast-radius table afterward (maintainer ruling, same date). No
+            // single per-tag location applies here (many links can back one pass), so the
+            // route's own head file is the uniform attribution; per-tag penalized locations
+            // above remain per-tag.
+            location: head.file,
             message: opts.label,
             recommendation: opts.recommendation,
             docsUrl: docsUrl12
@@ -57690,6 +57704,11 @@ var performanceLcpImage = {
           severity: "warning",
           detection: { presence: "own", value: "static" },
           route: route.route,
+          // Same `location` the penalized branch above uses (design
+          // 2026-08-08-pass-result-location-design.md) — this uncaught inline PASS literal
+          // was missed by the design spike's grep and added to its blast-radius table
+          // afterward (maintainer ruling, same date).
+          location: first.file,
           message: "LCP image eager loading",
           recommendation,
           docsUrl
@@ -57742,6 +57761,10 @@ var performanceRenderBlockingScript = {
           severity: "warning",
           detection: { presence: "own", value: "static" },
           route: head.route,
+          // The route's own attributed file (design 2026-08-08-pass-result-location-design.md)
+          // — this uncaught inline PASS literal was missed by the design spike's grep and
+          // added to its blast-radius table afterward (maintainer ruling, same date).
+          location: head.file,
           message: "No render-blocking scripts",
           recommendation: recommendation2,
           docsUrl: docsUrl2
@@ -57991,6 +58014,10 @@ var performancePreconnect = {
           severity: "info",
           detection: { presence: "own", value: "static" },
           route: head.route,
+          // head.file — the same target used to resolve options above (design
+          // 2026-08-08-pass-result-location-design.md) — so a `files:`-scoped override can
+          // also match this passing seed via `severity: 'off'`.
+          location: head.file,
           message: "Third-party origins are preconnected",
           recommendation: recommendation3,
           docsUrl: docsUrl3
@@ -58316,6 +58343,9 @@ function jsonldRule(opts) {
               severity: opts.severity,
               detection: PASS,
               route: head.route,
+              // Same `location` the penalized branch above uses (design
+              // 2026-08-08-pass-result-location-design.md).
+              location: head.file,
               message: opts.label,
               recommendation: opts.recommendation,
               docsUrl: docsUrl12
@@ -58367,6 +58397,9 @@ var seoJsonLdValidity = {
             severity: "warning",
             detection: PASS,
             route: head.route,
+            // Same `location` the penalized branch above uses (design
+            // 2026-08-08-pass-result-location-design.md).
+            location: head.file,
             message: "JSON-LD validity",
             recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
             docsUrl: docsUrl12
@@ -58509,6 +58542,11 @@ function lengthRule(opts) {
             severity: "info",
             detection: PASS,
             route: head.route,
+            // Same `location` the penalized branch above uses (design
+            // 2026-08-08-pass-result-location-design.md) — without it, a `files:`-scoped
+            // override can flip this result to PASS via its `options` but can never match
+            // it to also apply `severity: 'off'`.
+            location,
             message: opts.label,
             recommendation: recommendation12,
             docsUrl: docsUrl12
@@ -58622,6 +58660,9 @@ var seoHreflang = {
           severity: "warning",
           detection: PASS,
           route: head.route,
+          // Same `location` the penalized branch above uses (design
+          // 2026-08-08-pass-result-location-design.md).
+          location,
           message: "hreflang",
           recommendation: recommendation4,
           docsUrl: docsUrl4
@@ -58672,6 +58713,10 @@ var seoSingleH1 = {
           severity: "warning",
           detection: PASS,
           route: route.route,
+          // No single route-level file exists here (unlike ResolvedHead.file) — the
+          // passing route's own <h1> stands in as its attributed file (design
+          // 2026-08-08-pass-result-location-design.md). Only reached when h1.length === 1.
+          location: h1[0].file,
           message: "Heading hierarchy",
           recommendation: recommendation5,
           docsUrl: docsUrl5
@@ -58719,6 +58764,9 @@ function uniquenessRule(opts) {
           severity: "warning",
           detection: PASS,
           route: e2.route,
+          // Same `location` the penalized branch above uses (design
+          // 2026-08-08-pass-result-location-design.md).
+          location: e2.file,
           message: opts.label,
           recommendation: opts.recommendation,
           docsUrl: docsUrl12
@@ -58786,6 +58834,11 @@ var seoHeadingLevelSkip = {
           severity: "info",
           detection: PASS,
           route: route.route,
+          // No single route-level file exists here (unlike ResolvedHead.file) — the
+          // route's first heading stands in as its attributed file (design
+          // 2026-08-08-pass-result-location-design.md). `route.headings.length === 0`
+          // already continued above, so `[0]` is always defined here.
+          location: route.headings[0].file,
           message: "Heading order",
           recommendation: recommendation6,
           docsUrl: docsUrl6
@@ -58823,6 +58876,9 @@ function kitModuleRule(opts) {
             severity,
             detection: PASS2,
             route: m.file,
+            // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
+            // same location a penalized result for this file would carry.
+            location: m.file,
             message: opts.label,
             recommendation: opts.recommendation,
             docsUrl: docsUrl12
@@ -58898,6 +58954,9 @@ function componentRule(opts) {
             severity,
             detection: PASS3,
             route: c.file,
+            // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
+            // same location a penalized result for this file would carry.
+            location: c.file,
             message: opts.label,
             recommendation: recommendation12,
             docsUrl: docsUrl12
@@ -59081,6 +59140,9 @@ function emitFile(out, file, issues, suppressions) {
       severity: "critical",
       detection: PASS4,
       route: file,
+      // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
+      // same location a penalized result for this file would carry.
+      location: file,
       message: LABEL,
       recommendation: RECOMMENDATION,
       docsUrl: DOCS_URL
@@ -59170,6 +59232,9 @@ function emitFile2(out, file, links, suppressions) {
       severity: "warning",
       detection: PASS5,
       route: file,
+      // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
+      // same location a penalized result for this file would carry.
+      location: file,
       message: LABEL2,
       recommendation: RECOMMENDATION2,
       docsUrl: DOCS_URL2
@@ -59235,6 +59300,9 @@ function emitFile3(out, file, issues, suppressions) {
       severity: "critical",
       detection: PASS6,
       route: file,
+      // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
+      // same location a penalized result for this file would carry.
+      location: file,
       message: LABEL3,
       recommendation: RECOMMENDATION3,
       docsUrl: DOCS_URL3
@@ -59495,6 +59563,11 @@ var architecturePrivateScopeImport = {
           severity: "info",
           detection: { presence: "own", value: "static" },
           route: c.file,
+          // Same location the penalized branch below uses (design
+          // 2026-08-08-pass-result-location-design.md) — this uncaught inline PASS literal
+          // was missed by the design spike's grep and added to its blast-radius table
+          // afterward (maintainer ruling, same date).
+          location: c.file,
           message: "No private-scope imports",
           recommendation: recommendation7,
           docsUrl: docsUrl7
@@ -59669,6 +59742,8 @@ var architectureUnitEntryFile = {
       ...Object.keys(mapOption(globalOptions, "pascalCaseUnits"))
     ]);
     const usedKeys = /* @__PURE__ */ new Set();
+    const examinedCounts = {};
+    for (const key2 of globalKeys) examinedCounts[key2] = 0;
     const excludedDirs = [];
     const matchedSurviving = /* @__PURE__ */ new Set();
     for (const dir of [...dirs].sort()) {
@@ -59696,6 +59771,10 @@ var architectureUnitEntryFile = {
         ext = byCasing.best === void 0 ? void 0 : pascalUnits[byCasing.best];
       }
       if (ext === void 0) continue;
+      const winningKey = viaUnits ? byPath.best : byCasing.best;
+      if (winningKey !== void 0 && globalKeys.has(winningKey)) {
+        examinedCounts[winningKey] = (examinedCounts[winningKey] ?? 0) + 1;
+      }
       const expected = `${dir}/${baseName(dir)}${ext}`;
       if (fileSet.has(expected)) {
         out.push({
@@ -59745,6 +59824,7 @@ var architectureUnitEntryFile = {
         docsUrl: docsUrl8
       });
     }
+    ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };
@@ -59814,6 +59894,8 @@ var architectureDirectoryNaming = {
     const globalOptions = resolveRuleOptions(ID5, OPTIONS4, ctx.config);
     const globalMap = mapOption(globalOptions, "directories");
     const globalKeys = new Set(Object.keys(globalMap));
+    const examinedCounts = {};
+    for (const key2 of globalKeys) examinedCounts[key2] = 0;
     const usedKeys = /* @__PURE__ */ new Set();
     const excludedDirs = [];
     for (const dir of [...dirs].sort()) {
@@ -59831,6 +59913,7 @@ var architectureDirectoryNaming = {
       if (m.best === void 0) continue;
       const decoded = decodeSegment(baseName(dir));
       if (decoded === void 0) continue;
+      if (globalKeys.has(m.best)) examinedCounts[m.best] = (examinedCounts[m.best] ?? 0) + 1;
       const allowed = casingsOf(declared[m.best]).known;
       if (satisfiesCasing(decoded, allowed)) continue;
       const at2 = reportAt(dir, files);
@@ -59878,6 +59961,7 @@ var architectureDirectoryNaming = {
         docsUrl: docsUrl9
       });
     }
+    ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };
@@ -59887,6 +59971,7 @@ var recommendation10 = "Use one of the names this location declares, or add the 
 var OPTIONS5 = {
   scopes: { kind: "string-map", default: {} },
   unitScopes: { kind: "string-map", default: {} },
+  anyCaseUnitScopes: { kind: "string-map", default: {} },
   exclude: { kind: "string-list", default: [] }
 };
 function stem(file) {
@@ -59902,6 +59987,7 @@ function isAnyCaseUnitDir(dir, filesIn) {
   const own = filesIn.get(dir);
   return own !== void 0 && own.some((f) => stem(f) === name);
 }
+var PRIORITY = { scopes: 0, unitScopes: 1, anyCaseUnitScopes: 2 };
 var architectureReservedDirectoryNames = {
   id: ID6,
   title: "Reserved directory names",
@@ -59933,26 +60019,45 @@ var architectureReservedDirectoryNames = {
     const globalOptions = resolveRuleOptions(ID6, OPTIONS5, ctx.config);
     const globalScopes = mapOption(globalOptions, "scopes");
     const globalUnits = mapOption(globalOptions, "unitScopes");
-    const globalKeys = /* @__PURE__ */ new Set([...Object.keys(globalScopes), ...Object.keys(globalUnits)]);
+    const globalAnyUnits = mapOption(globalOptions, "anyCaseUnitScopes");
+    const globalKeys = /* @__PURE__ */ new Set([
+      ...Object.keys(globalScopes),
+      ...Object.keys(globalUnits),
+      ...Object.keys(globalAnyUnits)
+    ]);
     const usedKeys = /* @__PURE__ */ new Set();
     const excludedDirs = [];
     const nonUnitDirs = [];
-    const collisions = /* @__PURE__ */ new Set();
-    const noteCollisions = (scopesMap, unitMap) => {
+    const nonAnyUnitDirs = [];
+    const collisions = /* @__PURE__ */ new Map();
+    const collisionMessage = (losers) => {
+      const maps = ["scopes", ...losers];
+      const list3 = maps.length === 2 ? `both ${maps[0]} and ${maps[1]}` : maps.join(", ");
+      return `declared in ${list3}, so the scopes entry wins wherever ${losers.length > 1 ? "they" : "both"} apply`;
+    };
+    const examinedCounts = {};
+    for (const key2 of globalKeys) examinedCounts[key2] = 0;
+    const noteCollisions = (scopesMap, unitMap, anyUnitMap) => {
       for (const key2 of Object.keys(scopesMap)) {
-        if (!Object.hasOwn(unitMap, key2)) continue;
         if (namesOf(scopesMap[key2]).length === 0) continue;
-        if (namesOf(unitMap[key2]).length === 0) continue;
-        collisions.add(key2);
+        const losers = [];
+        if (Object.hasOwn(unitMap, key2) && namesOf(unitMap[key2]).length > 0) losers.push("unitScopes");
+        if (Object.hasOwn(anyUnitMap, key2) && namesOf(anyUnitMap[key2]).length > 0) {
+          losers.push("anyCaseUnitScopes");
+        }
+        if (losers.length > 0) collisions.set(key2, collisionMessage(losers));
       }
     };
-    noteCollisions(globalScopes, globalUnits);
+    noteCollisions(globalScopes, globalUnits, globalAnyUnits);
     for (const dir of [...dirs].sort()) {
       const o = resolveRuleOptions(ID6, OPTIONS5, ctx.config, { route: dir, file: dir }, compiledOverrides);
       const scopes = mapOption(o, "scopes");
       const unitScopes = mapOption(o, "unitScopes");
-      if (Object.keys(scopes).length === 0 && Object.keys(unitScopes).length === 0) continue;
-      noteCollisions(scopes, unitScopes);
+      const anyCaseUnitScopes = mapOption(o, "anyCaseUnitScopes");
+      if (Object.keys(scopes).length === 0 && Object.keys(unitScopes).length === 0 && Object.keys(anyCaseUnitScopes).length === 0) {
+        continue;
+      }
+      noteCollisions(scopes, unitScopes, anyCaseUnitScopes);
       const excluded = compile(listOption(o, "exclude"));
       if (isExcluded(dir, ancestorDirs2(dir), excluded)) {
         excludedDirs.push(dir);
@@ -59960,22 +60065,46 @@ var architectureReservedDirectoryNames = {
       }
       const liveScopes = Object.keys(scopes).filter((k) => namesOf(scopes[k]).length > 0);
       const isUnit = isUnitDir(dir, filesIn);
+      const isAnyUnit = isAnyCaseUnitDir(dir, filesIn);
       const liveUnits = isUnit ? Object.keys(unitScopes).filter((k) => namesOf(unitScopes[k]).length > 0) : [];
+      const liveAnyUnits = isAnyUnit ? Object.keys(anyCaseUnitScopes).filter((k) => namesOf(anyCaseUnitScopes[k]).length > 0) : [];
       if (!isUnit) nonUnitDirs.push(dir);
+      if (!isAnyUnit) nonAnyUnitDirs.push(dir);
       const byPosition = matchKeys(dir, compile(liveScopes, true));
       const byUnit = matchKeys(dir, compile(liveUnits, true));
+      const byAnyUnit = matchKeys(dir, compile(liveAnyUnits, true));
       for (const k of byPosition.matched) if (globalKeys.has(k)) usedKeys.add(k);
       for (const k of byUnit.matched) if (globalKeys.has(k)) usedKeys.add(k);
-      let governing;
-      if (byPosition.best !== void 0 && byUnit.best !== void 0) {
-        governing = moreSpecificGlob(byUnit.best, byPosition.best) ? namesOf(unitScopes[byUnit.best]) : namesOf(scopes[byPosition.best]);
-      } else if (byPosition.best !== void 0) {
-        governing = namesOf(scopes[byPosition.best]);
-      } else if (byUnit.best !== void 0) {
-        governing = namesOf(unitScopes[byUnit.best]);
+      for (const k of byAnyUnit.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      const candidates = [];
+      if (byPosition.best !== void 0) {
+        candidates.push({ kind: "scopes", best: byPosition.best, names: namesOf(scopes[byPosition.best]) });
       }
-      if (governing === void 0) continue;
-      const allowed = new Set(governing);
+      if (byUnit.best !== void 0) {
+        candidates.push({
+          kind: "unitScopes",
+          best: byUnit.best,
+          names: namesOf(unitScopes[byUnit.best])
+        });
+      }
+      if (byAnyUnit.best !== void 0) {
+        candidates.push({
+          kind: "anyCaseUnitScopes",
+          best: byAnyUnit.best,
+          names: namesOf(anyCaseUnitScopes[byAnyUnit.best])
+        });
+      }
+      let winner;
+      for (const c of candidates) {
+        if (winner === void 0 || moreSpecificGlob(c.best, winner.best)) {
+          winner = c;
+        } else if (!moreSpecificGlob(winner.best, c.best) && PRIORITY[c.kind] < PRIORITY[winner.kind]) {
+          winner = c;
+        }
+      }
+      if (winner === void 0) continue;
+      if (globalKeys.has(winner.best)) examinedCounts[winner.best] = (examinedCounts[winner.best] ?? 0) + 1;
+      const allowed = new Set(winner.names);
       for (const child of kids.get(dir) ?? []) {
         if (allowed.has(baseName(child))) continue;
         if (isExcluded(child, ancestorDirs2(child), excluded)) continue;
@@ -59996,7 +60125,7 @@ var architectureReservedDirectoryNames = {
           detection: { presence: "none", value: "absent" },
           route: child,
           location: at2,
-          message: `${child} is not one of the names declared here: ${governing.join(", ")}.`,
+          message: `${child} is not one of the names declared here: ${winner.names.join(", ")}.`,
           recommendation: recommendation10,
           docsUrl: docsUrl10,
           fix: {
@@ -60006,19 +60135,24 @@ var architectureReservedDirectoryNames = {
       }
     }
     const notes = /* @__PURE__ */ new Map();
-    for (const key2 of collisions) {
-      notes.set(key2, "declared in both scopes and unitScopes, so the scopes entry wins wherever both apply");
-    }
+    for (const [key2, message] of collisions) notes.set(key2, message);
     for (const key2 of globalKeys) {
       if (notes.has(key2)) continue;
       const scopesEmpty = Object.hasOwn(globalScopes, key2) && namesOf(globalScopes[key2]).length === 0;
       const unitsEmpty = Object.hasOwn(globalUnits, key2) && namesOf(globalUnits[key2]).length === 0;
-      if (scopesEmpty || unitsEmpty) {
+      const anyUnitsEmpty = Object.hasOwn(globalAnyUnits, key2) && namesOf(globalAnyUnits[key2]).length === 0;
+      if (scopesEmpty || unitsEmpty || anyUnitsEmpty) {
         notes.set(key2, "names no directory name at all");
       }
     }
     const unused = [...globalKeys].filter((k) => !notes.has(k) && !usedKeys.has(k));
-    const unitOnly = unused.filter((k) => Object.hasOwn(globalUnits, k) && !Object.hasOwn(globalScopes, k));
+    const anyUnitOnly = unused.filter((k) => Object.hasOwn(globalAnyUnits, k) && !Object.hasOwn(globalScopes, k));
+    for (const key2 of keysMatchingAny(anyUnitOnly, nonAnyUnitDirs, compile)) {
+      notes.set(key2, "matched directories but never a unit of either case");
+    }
+    const unitOnly = unused.filter(
+      (k) => Object.hasOwn(globalUnits, k) && !Object.hasOwn(globalScopes, k) && !notes.has(k)
+    );
     for (const key2 of keysMatchingAny(unitOnly, nonUnitDirs, compile)) {
       notes.set(key2, "matched directories but never a unit");
     }
@@ -60042,6 +60176,7 @@ var architectureReservedDirectoryNames = {
         docsUrl: docsUrl10
       });
     }
+    ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };
@@ -60857,7 +60992,7 @@ function formatMarkdownReport(results, config, meta) {
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/svelte-vitals@0.44.0/node_modules/svelte-vitals/dist/chunk-WD5TSADH.js
+// node_modules/.pnpm/svelte-vitals@0.44.1/node_modules/svelte-vitals/dist/chunk-4MC7STFI.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -61635,7 +61770,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// node_modules/.pnpm/svelte-vitals@0.44.0/node_modules/svelte-vitals/dist/chunk-WD5TSADH.js
+// node_modules/.pnpm/svelte-vitals@0.44.1/node_modules/svelte-vitals/dist/chunk-4MC7STFI.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -62346,8 +62481,10 @@ function getChangedFiles(cwd, opts) {
     return void 0;
   }
 }
-function filterToChangedFiles(results, changed) {
-  return results.filter((r) => r.location !== void 0 && changed.has(r.location));
+function filterToChangedFiles(results, changed, config = defaultConfig) {
+  return results.filter(
+    (r) => r.location !== void 0 && changed.has(r.location) && (isPenalized(r.detection, config.treatDynamicAs) || r.route === void 0)
+  );
 }
 function git2(args, cwd) {
   return execFileSync2("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
@@ -62391,9 +62528,10 @@ function checkoutBaseline(cwd, ref2) {
     return void 0;
   }
 }
-function filterToNewFindings(results, baselineResults) {
-  const baselineKeys = new Set(baselineResults.map(findingKey));
-  return results.filter((r) => !baselineKeys.has(findingKey(r)));
+function filterToNewFindings(results, baselineResults, config = defaultConfig) {
+  const penalized = (rs) => rs.filter((r) => isPenalized(r.detection, config.treatDynamicAs));
+  const baselineKeys = new Set(penalized(baselineResults).map(findingKey));
+  return penalized(results).filter((r) => !baselineKeys.has(findingKey(r)));
 }
 var KNOWN_IDS = new Set(allRules.map((r) => r.id));
 var RULE_BY_ID = new Map(allRules.map((r) => [r.id, r]));
@@ -62602,19 +62740,22 @@ function loadSuppressions(cwd) {
   });
   return entries;
 }
-function applySuppressions(results, entries, config) {
+function applySuppressions(results, entries, config, allResults) {
   const keys = new Set(entries.map((e2) => findingKey(e2)));
-  const usedKeys = /* @__PURE__ */ new Set();
   const kept = [];
   let suppressed = 0;
   for (const r of results) {
     const key2 = findingKey(r);
     if (keys.has(key2) && isPenalized(r.detection, config.treatDynamicAs)) {
       suppressed++;
-      usedKeys.add(key2);
       continue;
     }
     kept.push(r);
+  }
+  const usedKeys = /* @__PURE__ */ new Set();
+  for (const r of allResults ?? results) {
+    const key2 = findingKey(r);
+    if (keys.has(key2) && isPenalized(r.detection, config.treatDynamicAs)) usedKeys.add(key2);
   }
   const stale = [...keys].filter((k) => !usedKeys.has(k)).length;
   return { results: kept, suppressed, stale };
@@ -62649,6 +62790,28 @@ function resolveRuleSelection(input) {
   for (const id2 of input.ignoreRules ?? []) out[id2] = "off";
   return out;
 }
+function formatGlob(glob2) {
+  return Array.isArray(glob2) ? `[${glob2.map((g) => `'${g}'`).join(", ")}]` : `'${glob2}'`;
+}
+function overridesOffWarnings(allowRules, overrides) {
+  if (!allowRules || allowRules.length === 0 || !overrides || overrides.length === 0) return [];
+  const warnings2 = [];
+  for (const ruleId of allowRules) {
+    const category = ruleId.split("/")[0] ?? ruleId;
+    for (const entry of overrides) {
+      const severity = settingSeverity(entry.rules[ruleId]) ?? settingSeverity(entry.rules[category]);
+      if (severity !== "off") continue;
+      const scope = [
+        entry.route !== void 0 ? `route: ${formatGlob(entry.route)}` : void 0,
+        entry.files !== void 0 ? `files: ${formatGlob(entry.files)}` : void 0
+      ].filter((s) => s !== void 0).join(", ");
+      warnings2.push(
+        `--rules '${ruleId}' is scoped 'off' by overrides entry { ${scope} } \u2014 findings there will not be reported. --rules overrides a global 'off' but not a scoped one.`
+      );
+    }
+  }
+  return warnings2;
+}
 async function analyzeProject(opts = {}) {
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
@@ -62669,7 +62832,11 @@ async function analyzeProject(opts = {}) {
     ...file?.overrides !== void 0 ? { overrides: file.overrides } : {}
   });
   await detectProject(rt, cwd);
-  const warnings2 = [...loaded?.warnings ?? [], ...await checkVersionFloor(rt, cwd)];
+  const warnings2 = [
+    ...loaded?.warnings ?? [],
+    ...await checkVersionFloor(rt, cwd),
+    ...overridesOffWarnings(opts.allowRules, config.overrides)
+  ];
   const { heads, images, headings, project, components, kitModules, sourceFiles } = await collectAll(rt, cwd, config, {
     route: opts.route,
     parseCache: opts.parseCache
@@ -62707,7 +62874,7 @@ async function applyScope(results, opts) {
         "svelte-vitals: could not determine changed files (not a git repo, git unavailable, or bad ref); analyzing all."
       );
     } else {
-      scoped = filterToChangedFiles(scoped, changed);
+      scoped = filterToChangedFiles(scoped, changed, opts.config);
     }
   }
   if (opts.baseline !== void 0) {
@@ -62719,7 +62886,7 @@ async function applyScope(results, opts) {
     } else {
       try {
         const base = await analyzeProject({ ...opts.analyzeOpts, cwd: checkout.analyzeCwd });
-        scoped = filterToNewFindings(scoped, base.results);
+        scoped = filterToNewFindings(scoped, base.results, opts.config);
       } catch {
         errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
       } finally {
@@ -62730,11 +62897,16 @@ async function applyScope(results, opts) {
   if (!opts.noSuppressions && opts.config) {
     const entries = loadSuppressions(opts.cwd);
     if (entries !== void 0) {
-      const { results: afterSuppressions, suppressed, stale } = applySuppressions(scoped, entries, opts.config);
+      const {
+        results: afterSuppressions,
+        suppressed,
+        stale
+      } = applySuppressions(scoped, entries, opts.config, results);
       scoped = afterSuppressions;
-      if (suppressed > 0 || stale > 0) {
+      const routeScoped = opts.analyzeOpts?.route !== void 0;
+      if (suppressed > 0 || stale > 0 && !routeScoped) {
         errorLog(
-          `svelte-vitals: ${suppressed} finding(s) suppressed by ${SUPPRESSIONS_FILE}` + (stale > 0 ? ` (${stale} stale entr${stale === 1 ? "y" : "ies"} \u2014 re-run --update-suppressions to prune)` : "") + "."
+          `svelte-vitals: ${suppressed} finding(s) suppressed by ${SUPPRESSIONS_FILE}` + (stale > 0 && !routeScoped ? ` (${stale} stale entr${stale === 1 ? "y" : "ies"} \u2014 re-run --update-suppressions to prune)` : "") + "."
         );
       }
     }

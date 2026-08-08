@@ -15,11 +15,11 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       '@svelte-vitals/core':
-        specifier: ^0.38.0
-        version: 0.38.0
+        specifier: ^0.39.0
+        version: 0.39.0
       svelte-vitals:
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.44.1
+        version: 0.44.1
     devDependencies:
       '@changesets/cli':
         specifier: ^2.31.1
@@ -889,8 +889,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@svelte-vitals/core@0.38.0':
-    resolution: {integrity: sha512-4NGrerg6+82zm+gz7WgXLfw1y3qlo3tW9mzcydFXbOLdfgtxYBY+5YGD1VzF2z+zWCbR17P8dU0p8aJk6tX4Ow==}
+  '@svelte-vitals/core@0.39.0':
+    resolution: {integrity: sha512-alJB/9sbfmsO/0hgIKkXWsh6oOfb4uyIVLyN5R80zPG/0VrzCMYwFQzaCiPIW/y6IEnYN5b0XmAYjbJm0d7cUg==}
     engines: {node: '>=22.13.0'}
 
   '@sveltejs/acorn-typescript@1.0.11':
@@ -1747,8 +1747,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.44.0:
-    resolution: {integrity: sha512-jjM0jz7ZxMh3iVymvjCeoH3A63r7PZV+dSXhTAnyAab3rqFcIfCsm8zSEj0umo5HbSKwwsRKANihJXcwLrdJlg==}
+  svelte-vitals@0.44.1:
+    resolution: {integrity: sha512-22EdIQxGU9DmsYBwiH/NL13quS8AGWqtUZda7/P7Uywj2xuaFOBuhb56BF+wX5W/WwiiWEvKxxtBNhSUt753Rw==}
     engines: {node: '>=22.13.0'}
     hasBin: true
 
@@ -2603,7 +2603,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@svelte-vitals/core@0.38.0':
+  '@svelte-vitals/core@0.39.0':
     dependencies:
       svelte: 5.56.8
     transitivePeerDependencies:
@@ -3369,10 +3369,10 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.44.0:
+  svelte-vitals@0.44.1:
     dependencies:
       '@clack/prompts': 1.7.0
-      '@svelte-vitals/core': 0.38.0
+      '@svelte-vitals/core': 0.39.0
       log-update: 8.0.0
       magicast: 0.5.4
       svelte: 5.56.8
