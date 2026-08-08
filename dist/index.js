@@ -54820,7 +54820,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.34.0/node_modules/@svelte-vitals/core/dist/index.js
+// node_modules/.pnpm/@svelte-vitals+core@0.38.0/node_modules/@svelte-vitals/core/dist/index.js
 var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture"];
 var defaultConfig = {
   treatDynamicAs: "pass",
@@ -54975,17 +54975,9 @@ function collectEachBlocks(node, source2, acc) {
   }
 }
 var WALK_IGNORED_KEYS = /* @__PURE__ */ new Set(["type", "start", "end", "loc", "range"]);
+var NO_BOUNDARIES = /* @__PURE__ */ new Set();
 function walkEstree(node, visit) {
-  if (Array.isArray(node)) {
-    for (const child of node) walkEstree(child, visit);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  visit(node);
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    walkEstree(node[key2], visit);
-  }
+  walkEvalScope(node, (n) => void visit(n), /* @__PURE__ */ new Set(), NO_BOUNDARIES);
 }
 function isEffectCall(node) {
   const c = node?.callee;
@@ -55088,18 +55080,7 @@ function scopeIntroducedNames(node) {
   return introduced;
 }
 function walkScoped(node, visit, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) {
-    for (const child of node) walkScoped(child, visit, shadowed);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  visit(node, scope);
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    walkScoped(node[key2], visit, scope);
-  }
+  walkEvalScope(node, (n, scope) => void visit(n, scope), shadowed, NO_BOUNDARIES);
 }
 function collectStateWrites(root, stateNames, acc, kinds) {
   const record = (name, kind) => {
@@ -55577,7 +55558,7 @@ function collectPropNames(program, includeBindable) {
   let seen = 0;
   let ambiguous = false;
   walkEstree(program, (n) => {
-    if (n.type !== "VariableDeclarator" || !n.init || !isPropsCall(n.init)) return;
+    if (n.type !== "VariableDeclarator" || !n.init || !isPropsCall(unwrapTs(n.init))) return;
     seen++;
     if (n.id?.type === "Identifier") {
       names.add(n.id.name);
@@ -55650,7 +55631,7 @@ function countProps(program) {
   let seen = 0;
   let uncountable = false;
   walkEstree(program, (n) => {
-    if (n.type !== "VariableDeclarator" || !n.init || !isPropsCall(n.init)) return;
+    if (n.type !== "VariableDeclarator" || !n.init || !isPropsCall(unwrapTs(n.init))) return;
     seen++;
     const props = n.id?.type === "ObjectPattern" ? n.id.properties : void 0;
     if (!Array.isArray(props) || props.some((p) => p?.type === "RestElement")) {
@@ -55766,19 +55747,19 @@ var EVAL_SCOPE_BOUNDARIES = /* @__PURE__ */ new Set([
   "ClassDeclaration",
   "ClassExpression"
 ]);
-function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set()) {
+function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set(), boundaries = EVAL_SCOPE_BOUNDARIES) {
   if (Array.isArray(node)) {
-    for (const child of node) walkEvalScope(child, visit, shadowed);
+    for (const child of node) walkEvalScope(child, visit, shadowed, boundaries);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
   const introduced = scopeIntroducedNames(node);
   const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
   if (visit(node, scope)) return;
-  if (EVAL_SCOPE_BOUNDARIES.has(node.type)) return;
+  if (boundaries.has(node.type)) return;
   for (const key2 of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key2)) continue;
-    walkEvalScope(node[key2], visit, scope);
+    walkEvalScope(node[key2], visit, scope, boundaries);
   }
 }
 function collectEvalScopeCalls(root, source2, matcher, skipSubtree, initialShadowed) {
@@ -56069,13 +56050,13 @@ function collectModuleStateDecls(program, source2) {
     const decl = unwrapExport(stmt2);
     if (decl?.type === "VariableDeclaration") {
       for (const d of decl.declarations ?? []) {
-        if (d?.id?.type === "Identifier" && d.init && isStateDeclaration(d.init)) {
+        if (d?.id?.type === "Identifier" && d.init && isStateDeclaration(unwrapTs(d.init))) {
           out.push({ name: d.id.name, line: lineOf(source2, d.start) });
         }
       }
     } else if (decl?.type === "ClassDeclaration" && decl.id?.type === "Identifier") {
       const hasStateField = (decl.body?.body ?? []).some(
-        (m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(m.value)
+        (m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(unwrapTs(m.value))
       );
       if (hasStateField) statefulClasses.add(decl.id.name);
     }
@@ -56111,6 +56092,17 @@ function parseModuleFacts(source2, filename2) {
     for (const l of raw) basePathLinks.push({ ...l, line: shift(l.line) });
     basePathLinks.sort((a, b) => a.line - b.line);
   }
+  const importSpans = [];
+  const namespaceImports = [];
+  if (program) {
+    const rawImportSpans = [];
+    collectImportSources(program, wrapped, rawImportSpans);
+    for (const s of rawImportSpans) importSpans.push({ ...s, line: shift(s.line) });
+    const rawNamespaceImports = [];
+    collectNamespaceImports(program, wrapped, rawNamespaceImports);
+    for (const n of rawNamespaceImports) namespaceImports.push({ ...n, line: shift(n.line) });
+  }
+  const imports2 = importSpans.map((s) => s.source);
   return {
     eachBlocks: [],
     effects: [],
@@ -56118,9 +56110,9 @@ function parseModuleFacts(source2, filename2) {
     javascriptUrls: [],
     loc: 0,
     propCount: 0,
-    imports: [],
-    importSpans: [],
-    namespaceImports: [],
+    imports: imports2,
+    importSpans,
+    namespaceImports,
     constableStates: [],
     mutatedProps: [],
     stalePropDerivations: [],
@@ -56217,11 +56209,12 @@ function parseComponentFacts(source2, filename2) {
     const stateDecls = [];
     walkEstree(program, (n) => {
       if (n.type !== "VariableDeclarator" || !n.init) return;
-      if (isStateDeclaration(n.init) && n.id?.type === "Identifier") {
+      const init2 = unwrapTs(n.init);
+      if (isStateDeclaration(init2) && n.id?.type === "Identifier") {
         stateNames.add(n.id.name);
         stateDecls.push({ name: n.id.name, line: lineOf(source2, n.start) });
       }
-      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
+      if (isStateDeclaration(init2) || isDerivedDeclaration(init2) || isPropsCall(init2))
         addBoundNames(n.id, reactiveNames);
     });
     walkEstree(program, (n) => {
@@ -56248,8 +56241,10 @@ function parseComponentFacts(source2, filename2) {
     for (const stmt2 of program.body ?? []) {
       if (stmt2?.type !== "VariableDeclaration") continue;
       for (const d of stmt2.declarations ?? []) {
-        if (d?.id?.type !== "Identifier" || !d.init || !isPlainStateCall(d.init)) continue;
-        const arg = unwrapTs(d.init.arguments?.[0]);
+        if (d?.id?.type !== "Identifier" || !d.init) continue;
+        const init2 = unwrapTs(d.init);
+        if (!isPlainStateCall(init2)) continue;
+        const arg = unwrapTs(init2.arguments?.[0]);
         if (arg?.type === "ObjectExpression" || arg?.type === "ArrayExpression") {
           rawableCandidates.push({ name: d.id.name, line: lineOf(source2, d.start) });
         }
@@ -56283,8 +56278,10 @@ function parseComponentFacts(source2, filename2) {
     for (const stmt2 of program.body ?? []) {
       if (stmt2?.type !== "VariableDeclaration") continue;
       for (const d of stmt2.declarations ?? []) {
-        if (d?.id?.type !== "Identifier" || !d.init || !isPlainStateCall(d.init)) continue;
-        const arg = unwrapTs(d.init.arguments?.[0]);
+        if (d?.id?.type !== "Identifier" || !d.init) continue;
+        const init2 = unwrapTs(d.init);
+        if (!isPlainStateCall(init2)) continue;
+        const arg = unwrapTs(init2.arguments?.[0]);
         if (arg?.type === "NewExpression" && arg.callee?.type === "Identifier" && BUILTIN_STATE_TYPES.has(arg.callee.name)) {
           builtinCandidates.set(d.id.name, { type: arg.callee.name, line: lineOf(source2, d.start) });
         }
@@ -57232,8 +57229,11 @@ function isPenalized(detection, treatDynamicAs) {
   return false;
 }
 async function runRules(rules, ctx) {
-  const perRule = await Promise.all(rules.map((rule) => rule.check(ctx)));
-  return perRule.flat();
+  const examined = {};
+  const perRule = await Promise.all(
+    rules.map((rule) => rule.check({ ...ctx, recordExamined: (counts) => void (examined[rule.id] = counts) }))
+  );
+  return { results: perRule.flat(), examined };
 }
 var FIX = {
   description: "Add a <title> inside <svelte:head> (a dynamic title is fine).",
@@ -57283,7 +57283,7 @@ function detect(head, match) {
   return tag2 ? { presence: tag2.presence, value: tag2.value } : { presence: "none", value: "absent" };
 }
 function headTagRule(opts) {
-  const docsUrl11 = docsUrlFor(opts.id);
+  const docsUrl12 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -57306,7 +57306,7 @@ function headTagRule(opts) {
           location: head.file,
           message,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl11,
+          docsUrl: docsUrl12,
           // Copy per finding: opts.fix is a rule-level template shared across all
           // results this rule emits; a fresh object keeps findings independent.
           ...opts.fix ? { fix: { ...opts.fix } } : {}
@@ -57481,7 +57481,7 @@ var seoHtmlLang = {
   }
 };
 function imageRule(opts) {
-  const docsUrl11 = docsUrlFor(opts.id);
+  const docsUrl12 = docsUrlFor(opts.id);
   const category = opts.category ?? "performance";
   return {
     id: opts.id,
@@ -57505,7 +57505,7 @@ function imageRule(opts) {
             route: route.route,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl11
+            docsUrl: docsUrl12
           });
           continue;
         }
@@ -57520,7 +57520,7 @@ function imageRule(opts) {
             ...img.line > 0 ? { line: img.line } : {},
             message: `Missing ${opts.label}`,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl11,
+            docsUrl: docsUrl12,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -57572,7 +57572,7 @@ var performanceResponsiveImage = imageRule({
   ok: (img) => img.hasSrcset
 });
 function linkRule(opts) {
-  const docsUrl11 = docsUrlFor(opts.id);
+  const docsUrl12 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -57596,7 +57596,7 @@ function linkRule(opts) {
             route: head.route,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl11
+            docsUrl: docsUrl12
           });
           continue;
         }
@@ -57613,7 +57613,7 @@ function linkRule(opts) {
             location: tag2.file ?? head.file,
             message: `Missing ${opts.label}`,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl11,
+            docsUrl: docsUrl12,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -58029,7 +58029,7 @@ var seoIndexability = {
   rationale: "A noindex directive removes the page from search results; an accidental noindex on a public route silently deindexes it.",
   fix: FIX5,
   async check(ctx) {
-    const docsUrl11 = docsUrlFor("seo/indexability");
+    const docsUrl12 = docsUrlFor("seo/indexability");
     const out = [];
     for (const head of ctx.heads) {
       const noindexed = head.tags.some((t) => t.kind === "meta" && t.name === "robots" && t.noindex === true);
@@ -58044,7 +58044,7 @@ var seoIndexability = {
         location: head.file,
         message: "Route is noindex \u2014 verify this is intentional",
         recommendation: 'If this route should be indexed, remove noindex from its <meta name="robots">.',
-        docsUrl: docsUrl11,
+        docsUrl: docsUrl12,
         fix: { ...FIX5 }
       });
     }
@@ -58239,7 +58239,6 @@ var PLACEHOLDER_RES = [
   /yourcompany/i,
   /your name here/i
 ];
-var PLACEHOLDERS = PLACEHOLDER_RES.map((r) => r.source);
 function hasPlaceholder(s) {
   return PLACEHOLDER_RES.some((re) => re.test(s));
 }
@@ -58281,7 +58280,7 @@ function jsonldTags(head) {
   return head.tags.filter((t) => t.kind === "jsonld" && typeof t.jsonld === "string");
 }
 function jsonldRule(opts) {
-  const docsUrl11 = docsUrlFor(opts.id);
+  const docsUrl12 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -58309,7 +58308,7 @@ function jsonldRule(opts) {
               location: head.file,
               message: problem,
               recommendation: opts.recommendation,
-              docsUrl: docsUrl11,
+              docsUrl: docsUrl12,
               ...opts.fix ? { fix: { ...opts.fix } } : {}
             } : {
               id: opts.id,
@@ -58319,7 +58318,7 @@ function jsonldRule(opts) {
               route: head.route,
               message: opts.label,
               recommendation: opts.recommendation,
-              docsUrl: docsUrl11
+              docsUrl: docsUrl12
             }
           );
         }
@@ -58341,7 +58340,7 @@ var seoJsonLdValidity = {
     lang: "svelte"
   },
   async check(ctx) {
-    const docsUrl11 = docsUrlFor("seo/json-ld-validity");
+    const docsUrl12 = docsUrlFor("seo/json-ld-validity");
     const out = [];
     for (const head of ctx.heads) {
       for (const tag2 of jsonldTags(head)) {
@@ -58360,7 +58359,7 @@ var seoJsonLdValidity = {
             location: head.file,
             message: problem,
             recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl11,
+            docsUrl: docsUrl12,
             fix: { ...seoJsonLdValidity.fix }
           } : {
             id: "seo/json-ld-validity",
@@ -58370,7 +58369,7 @@ var seoJsonLdValidity = {
             route: head.route,
             message: "JSON-LD validity",
             recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl11
+            docsUrl: docsUrl12
           }
         );
       }
@@ -58457,17 +58456,15 @@ var seoJsonLdRequiredProps = jsonldRule({
     return hasKnownType ? void 0 : false;
   }
 });
-var segmenter = typeof Intl !== "undefined" && typeof Intl.Segmenter === "function" ? new Intl.Segmenter() : void 0;
+var segmenter = new Intl.Segmenter();
 function collapseWhitespace(s) {
   return s.trim().replace(/\s+/g, " ");
 }
 function visibleLength(s) {
-  const collapsed = collapseWhitespace(s);
-  if (!segmenter) return [...collapsed].length;
-  return [...segmenter.segment(collapsed)].length;
+  return [...segmenter.segment(collapseWhitespace(s))].length;
 }
 function lengthRule(opts) {
-  const docsUrl11 = docsUrlFor(opts.id);
+  const docsUrl12 = docsUrlFor(opts.id);
   const spec = {
     min: { kind: "integer", default: opts.min, min: 0 },
     max: { kind: "integer", default: opts.max, min: 1 }
@@ -58490,7 +58487,7 @@ function lengthRule(opts) {
         const o = resolveRuleOptions(opts.id, spec, ctx.config, { route: head.route, file: location }, compiled);
         const min = intOption(o, "min", opts.min);
         const max = intOption(o, "max", opts.max);
-        const recommendation11 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
+        const recommendation12 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
         const len = visibleLength(tag2.text);
         let problem;
         if (len < min) problem = `${opts.noun} is too short (${len} chars; aim for ${min}\u2013${max})`;
@@ -58504,8 +58501,8 @@ function lengthRule(opts) {
             route: head.route,
             location,
             message: problem,
-            recommendation: recommendation11,
-            docsUrl: docsUrl11
+            recommendation: recommendation12,
+            docsUrl: docsUrl12
           } : {
             id: opts.id,
             category: "seo",
@@ -58513,8 +58510,8 @@ function lengthRule(opts) {
             detection: PASS,
             route: head.route,
             message: opts.label,
-            recommendation: recommendation11,
-            docsUrl: docsUrl11
+            recommendation: recommendation12,
+            docsUrl: docsUrl12
           }
         );
       }
@@ -58685,7 +58682,7 @@ var seoSingleH1 = {
   }
 };
 function uniquenessRule(opts) {
-  const docsUrl11 = docsUrlFor(opts.id);
+  const docsUrl12 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -58715,7 +58712,7 @@ function uniquenessRule(opts) {
           location: e2.file,
           message: `${opts.noun} is duplicated across ${n} routes`,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl11
+          docsUrl: docsUrl12
         } : {
           id: opts.id,
           category: "seo",
@@ -58724,7 +58721,7 @@ function uniquenessRule(opts) {
           route: e2.route,
           message: opts.label,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl11
+          docsUrl: docsUrl12
         };
       });
     }
@@ -58804,7 +58801,7 @@ function isSuppressed(m, ruleId, line) {
   return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function kitModuleRule(opts) {
-  const docsUrl11 = docsUrlFor(opts.id);
+  const docsUrl12 = docsUrlFor(opts.id);
   const severity = opts.severity ?? "warning";
   return {
     id: opts.id,
@@ -58828,7 +58825,7 @@ function kitModuleRule(opts) {
             route: m.file,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl11
+            docsUrl: docsUrl12
           });
           continue;
         }
@@ -58843,7 +58840,7 @@ function kitModuleRule(opts) {
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl11,
+            docsUrl: docsUrl12,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -58875,7 +58872,7 @@ function isSuppressed2(c, ruleId, line) {
   return (c.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function componentRule(opts) {
-  const docsUrl11 = docsUrlFor(opts.id);
+  const docsUrl12 = docsUrlFor(opts.id);
   const severity = opts.severity ?? "warning";
   return {
     id: opts.id,
@@ -58891,7 +58888,7 @@ function componentRule(opts) {
       const compiled = compileOverrides(ctx.config);
       for (const c of ctx.components ?? []) {
         const o = resolveRuleOptions(opts.id, opts.options, ctx.config, { route: c.file, file: c.file }, compiled);
-        const recommendation11 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
+        const recommendation12 = typeof opts.recommendation === "function" ? opts.recommendation(o) : opts.recommendation;
         if (!opts.applies(c, o, ctx)) continue;
         const bad = opts.bad(c, o, ctx).filter((b) => !(b.line > 0 && isSuppressed2(c, opts.id, b.line)));
         if (bad.length === 0) {
@@ -58902,8 +58899,8 @@ function componentRule(opts) {
             detection: PASS3,
             route: c.file,
             message: opts.label,
-            recommendation: recommendation11,
-            docsUrl: docsUrl11
+            recommendation: recommendation12,
+            docsUrl: docsUrl12
           });
           continue;
         }
@@ -58917,8 +58914,8 @@ function componentRule(opts) {
             location: c.file,
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
-            recommendation: recommendation11,
-            docsUrl: docsUrl11,
+            recommendation: recommendation12,
+            docsUrl: docsUrl12,
             ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
@@ -59897,9 +59894,11 @@ function stem(file) {
   return dot === -1 ? file : file.slice(0, dot);
 }
 function isUnitDir(dir, filesIn) {
+  const first = baseName(dir).charCodeAt(0);
+  return first >= 65 && first <= 90 && isAnyCaseUnitDir(dir, filesIn);
+}
+function isAnyCaseUnitDir(dir, filesIn) {
   const name = baseName(dir);
-  const first = name.charCodeAt(0);
-  if (!(first >= 65 && first <= 90)) return false;
   const own = filesIn.get(dir);
   return own !== void 0 && own.some((f) => stem(f) === name);
 }
@@ -60046,7 +60045,177 @@ var architectureReservedDirectoryNames = {
     return out;
   }
 };
-var ID7 = "architecture/route-component-import";
+var ID7 = "architecture/reserved-name-placement";
+var docsUrl11 = docsUrlFor(ID7);
+var recommendation11 = "Move it to one of the places declared for this name, or declare this place for it.";
+var fixDescription = "Move the directory to one of the places declared for its name, rename it, or declare this place for the name.";
+var OPTIONS6 = {
+  placements: { kind: "string-map", default: {} },
+  capitalisedUnitPlacements: { kind: "string-map", default: {} },
+  anyCaseUnitPlacements: { kind: "string-map", default: {} },
+  exclude: { kind: "string-list", default: [] }
+};
+function parentOf(dir) {
+  const cut = dir.lastIndexOf("/");
+  return cut === -1 ? void 0 : dir.slice(0, cut);
+}
+var architectureReservedNamePlacement = {
+  id: ID7,
+  title: "Reserved name placement",
+  category: "architecture",
+  severity: "info",
+  scope: "component",
+  rationale: "A name reserved for one kind of place stops carrying that meaning the moment it appears somewhere else: a reader who has met one exception has to open the directory to learn what it holds.",
+  fix: {
+    description: fixDescription
+  },
+  options: OPTIONS6,
+  async check(ctx) {
+    const files = ctx.sourceFiles;
+    if (files === void 0) return [];
+    if (!isMentionedAnywhere(ctx.config, ID7)) return [];
+    const compiledOverrides = compileOverrides(ctx.config);
+    const dirs = /* @__PURE__ */ new Set();
+    for (const f of files) for (const d of ancestorDirs2(f)) dirs.add(d);
+    const filesIn = childFiles(files);
+    const compile = createKeyCompiler();
+    const parsed = /* @__PURE__ */ new Map();
+    const globsOf = (value) => {
+      let g = parsed.get(value);
+      if (g === void 0) parsed.set(value, g = splitNames(value));
+      return g;
+    };
+    const out = [];
+    const label = (map, name, glob2) => `${map}.${name} \u2192 ${glob2}`;
+    const globalOptions = resolveRuleOptions(ID7, OPTIONS6, ctx.config);
+    const globalMaps = {
+      placements: mapOption(globalOptions, "placements"),
+      capitalisedUnitPlacements: mapOption(globalOptions, "capitalisedUnitPlacements"),
+      anyCaseUnitPlacements: mapOption(globalOptions, "anyCaseUnitPlacements")
+    };
+    const globalAlternatives = /* @__PURE__ */ new Map();
+    const emptyNames = /* @__PURE__ */ new Map();
+    for (const map of Object.keys(globalMaps)) {
+      for (const [name, value] of Object.entries(globalMaps[map])) {
+        const globs = globsOf(value);
+        if (globs.length === 0) {
+          emptyNames.set(`${map}.${name}`, "names no position at all");
+          continue;
+        }
+        for (const glob2 of globs) globalAlternatives.set(label(map, name, glob2), { map, glob: glob2 });
+      }
+    }
+    const usedAlternatives = /* @__PURE__ */ new Set();
+    const examinedCounts = {};
+    for (const key2 of globalAlternatives.keys()) examinedCounts[key2] = 0;
+    const allDirs = [...dirs].sort();
+    for (const dir of allDirs) {
+      const o = resolveRuleOptions(ID7, OPTIONS6, ctx.config, { route: dir, file: dir }, compiledOverrides);
+      const placements = mapOption(o, "placements");
+      const capUnits = mapOption(o, "capitalisedUnitPlacements");
+      const anyUnits = mapOption(o, "anyCaseUnitPlacements");
+      if (Object.keys(placements).length === 0 && Object.keys(capUnits).length === 0 && Object.keys(anyUnits).length === 0) {
+        continue;
+      }
+      const name = baseName(dir);
+      const inPlacements = Object.hasOwn(placements, name);
+      const inCapUnits = Object.hasOwn(capUnits, name);
+      const inAnyUnits = Object.hasOwn(anyUnits, name);
+      if (!inPlacements && !inCapUnits && !inAnyUnits) continue;
+      const emptyValue = (present3, value) => present3 && globsOf(value ?? "").length === 0;
+      if (emptyValue(inPlacements, placements[name]) || emptyValue(inCapUnits, capUnits[name]) || emptyValue(inAnyUnits, anyUnits[name])) {
+        continue;
+      }
+      const excluded = compile(listOption(o, "exclude"));
+      const parent = parentOf(dir);
+      if (parent === void 0) continue;
+      if (isExcluded(dir, ancestorDirs2(dir), excluded)) {
+        continue;
+      }
+      const judged = /* @__PURE__ */ new Set();
+      const resolvedValues = [
+        ["placements", placements[name]],
+        ["capitalisedUnitPlacements", capUnits[name]],
+        ["anyCaseUnitPlacements", anyUnits[name]]
+      ];
+      for (const [map, value] of resolvedValues) {
+        if (value === void 0) continue;
+        for (const glob2 of globsOf(value)) judged.add(label(map, name, glob2));
+      }
+      for (const key2 of judged) if (globalAlternatives.has(key2)) examinedCounts[key2] = (examinedCounts[key2] ?? 0) + 1;
+      const record = (map, value, qualifies) => {
+        if (value === void 0) return false;
+        const { matched } = matchKeys(parent, compile(globsOf(value), true));
+        if (matched.length === 0) return false;
+        if (!qualifies) return false;
+        for (const glob2 of matched) usedAlternatives.add(label(map, name, glob2));
+        return true;
+      };
+      const byPlacement = record("placements", placements[name], true);
+      const byCapUnit = record("capitalisedUnitPlacements", capUnits[name], isUnitDir(parent, filesIn));
+      const byAnyUnit = record("anyCaseUnitPlacements", anyUnits[name], isAnyCaseUnitDir(parent, filesIn));
+      if (byPlacement || byCapUnit || byAnyUnit) continue;
+      const at2 = reportAt(dir, files);
+      if (at2 === void 0) continue;
+      out.push({
+        id: ID7,
+        category: "architecture",
+        severity: "info",
+        detection: { presence: "none", value: "absent" },
+        route: dir,
+        location: at2,
+        message: `${dir} is not one of the places declared for '${name}'.`,
+        recommendation: recommendation11,
+        docsUrl: docsUrl11,
+        fix: {
+          description: fixDescription
+        }
+      });
+    }
+    const notes = new Map(emptyNames);
+    const unusedLabels = [...globalAlternatives.keys()].filter((k) => !usedAlternatives.has(k));
+    const globOf = (key2) => globalAlternatives.get(key2)?.glob;
+    const stillUnused = unusedLabels.filter((k) => !notes.has(k));
+    if (stillUnused.length > 0) {
+      const globalExcluded = compile(listOption(globalOptions, "exclude"));
+      const liveDirs = allDirs.filter((d) => !isExcluded(d, ancestorDirs2(d), globalExcluded));
+      const liveUnits = {
+        capitalisedUnitPlacements: liveDirs.filter((d) => isUnitDir(d, filesIn)),
+        anyCaseUnitPlacements: liveDirs.filter((d) => isAnyCaseUnitDir(d, filesIn))
+      };
+      const globs = [...new Set(stillUnused.map(globOf))];
+      const reachesAny = keysMatchingAny(globs, allDirs, compile);
+      const reachesLive = keysMatchingAny(globs, liveDirs, compile);
+      for (const k of stillUnused) {
+        const glob2 = globOf(k);
+        if (!reachesAny.has(glob2)) notes.set(k, "matched no directory");
+        else if (!reachesLive.has(glob2)) notes.set(k, "matched only excluded directories");
+      }
+      for (const map of ["capitalisedUnitPlacements", "anyCaseUnitPlacements"]) {
+        const inMap = stillUnused.filter((k) => !notes.has(k) && globalAlternatives.get(k)?.map === map);
+        const inMapGlobs = [...new Set(inMap.map(globOf))];
+        const reachesUnit = keysMatchingAny(inMapGlobs, liveUnits[map], compile);
+        for (const k of inMap) if (!reachesUnit.has(globOf(k))) notes.set(k, "reaches no unit");
+      }
+    }
+    const reported = [...notes.keys()].sort();
+    if (reported.length > 0) {
+      const message = reported.length === 1 ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0])}.` : `These declarations do not check what they say: ${reported.map((k) => `'${k}' (${notes.get(k)})`).join(", ")}.`;
+      out.push({
+        id: ID7,
+        category: "architecture",
+        severity: "info",
+        detection: { presence: "none", value: "absent" },
+        message,
+        recommendation: "Correct the glob or the name, or remove the declaration.",
+        docsUrl: docsUrl11
+      });
+    }
+    ctx.recordExamined?.(examinedCounts);
+    return out;
+  }
+};
+var ID8 = "architecture/route-component-import";
 var EXEMPT_IMPORTERS = ["**/*.stories.svelte", "**/*.test.svelte", "**/*.spec.svelte"];
 var ROUTES_DIR = "src/routes/";
 var ROUTE_ENTRY = /^\+(page|layout)(@.*)?\.svelte$/;
@@ -60073,7 +60242,7 @@ function cachedRouteEntryImports(c, ctx) {
   return result;
 }
 var architectureRouteComponentImport = componentRule({
-  id: ID7,
+  id: ID8,
   title: "Route component import",
   category: "architecture",
   severity: "info",
@@ -60095,7 +60264,7 @@ var architectureRouteComponentImport = componentRule({
     }));
   }
 });
-var ID8 = "architecture/doc-link-target";
+var ID9 = "architecture/doc-link-target";
 function stripFragment(url) {
   const i = url.search(/[#?]/);
   return i === -1 ? url : url.slice(0, i);
@@ -60136,7 +60305,7 @@ function references(links, roots) {
   return out;
 }
 var architectureDocLinkTarget = componentRule({
-  id: ID8,
+  id: ID9,
   title: "Documentation link target",
   category: "architecture",
   severity: "info",
@@ -60349,6 +60518,7 @@ var allRules = [
   architectureUnitEntryFile,
   architectureDirectoryNaming,
   architectureReservedDirectoryNames,
+  architectureReservedNamePlacement,
   architectureRouteComponentImport,
   architectureDocLinkTarget,
   performanceHeavyImport,
@@ -60408,6 +60578,7 @@ function ruleScopes(rules) {
   return new Map(rules.map((r) => [r.id, pairKey(r.category, r.scope)]));
 }
 var CRITICAL_CAP = 79;
+var INVENTORY_FLOOR = 25;
 function clamp(n) {
   return Math.max(0, Math.min(100, n));
 }
@@ -60433,14 +60604,16 @@ function computeScore(results, config, options = {}) {
     const prev = perRule.get(r.id) ?? 0;
     if (DEDUCTION[sev] > prev) perRule.set(r.id, DEDUCTION[sev]);
   }
+  let affectedKeys = 0;
   let totalDeficit = 0;
   for (const [key2, pairs] of observed) {
     let failed = 0;
     for (const d of ruleMax.get(key2)?.values() ?? []) failed += d;
+    if (failed > 0) affectedKeys += 1;
     let inventoryWeight = 0;
     for (const p of pairs) inventoryWeight += inventory.get(p) ?? 0;
-    inventoryWeight = Math.max(inventoryWeight, failed);
-    totalDeficit += inventoryWeight === 0 ? 0 : 100 * failed / inventoryWeight;
+    inventoryWeight = Math.max(inventoryWeight, failed, INVENTORY_FLOOR);
+    totalDeficit += 100 * failed / inventoryWeight;
   }
   const keyCount = observed.size;
   const rawRouteAverage = keyCount === 0 ? 100 : 100 - totalDeficit / keyCount;
@@ -60460,7 +60633,13 @@ function computeScore(results, config, options = {}) {
   const capBinds = applyCap && anyCritical && rawUncapped > CRITICAL_CAP;
   const criticalCap = capBinds ? CRITICAL_CAP : null;
   const rawScore = clamp(capBinds ? CRITICAL_CAP : rawUncapped);
-  return { score: Math.floor(rawScore), rawScore, scoreModel: { routeAverage, sitePenalty, criticalCap } };
+  return {
+    score: Math.floor(rawScore),
+    rawScore,
+    scoreModel: { routeAverage, sitePenalty, criticalCap },
+    keys: keyCount,
+    affectedKeys
+  };
 }
 function scoresByCategory(results, config, options = {}) {
   const byCat = /* @__PURE__ */ new Map();
@@ -60519,12 +60698,15 @@ function ruleEvidence(results, config, ruleIds) {
   }
   return out;
 }
-function buildJsonReport(results, config, meta, ruleIds) {
+function buildJsonReport(results, config, meta, ruleIds, examined) {
   const { health, categories: byCat, weights } = computeHealth(results, config);
   const summary2 = summarize(results, config);
   const rules = ruleEvidence(results, config, ruleIds);
   const categories = Object.fromEntries(
-    Object.entries(byCat).map(([cat, sr]) => [cat, { score: sr.score, scoreModel: sr.scoreModel }])
+    Object.entries(byCat).map(([cat, sr]) => [
+      cat,
+      { score: sr.score, scoreModel: sr.scoreModel, keys: sr.keys, affectedKeys: sr.affectedKeys }
+    ])
   );
   const routeMap = /* @__PURE__ */ new Map();
   for (const r of results) {
@@ -60543,7 +60725,21 @@ function buildJsonReport(results, config, meta, ruleIds) {
     issues: rs.filter((r) => isPenalized(r.detection, config.treatDynamicAs)).map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }))
   }));
   const siteIssues = results.filter((r) => r.route === void 0 && isPenalized(r.detection, config.treatDynamicAs)).map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }));
-  return { version: meta.version, score: health, weights, categories, summary: summary2, rules, routes, siteIssues };
+  const inventories = Object.fromEntries(
+    [...buildInventory(config)].map(([pair, weight]) => [pair, Math.max(weight, INVENTORY_FLOOR)])
+  );
+  return {
+    version: meta.version,
+    score: health,
+    weights,
+    categories,
+    summary: summary2,
+    rules,
+    routes,
+    siteIssues,
+    inventories,
+    ...examined && Object.keys(examined).length > 0 ? { examined } : {}
+  };
 }
 function severityToGithubLevel(sev) {
   return sev === "critical" ? "error" : sev === "warning" ? "warning" : "notice";
@@ -60661,7 +60857,7 @@ function formatMarkdownReport(results, config, meta) {
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/svelte-vitals@0.39.0/node_modules/svelte-vitals/dist/chunk-2WDZJQGD.js
+// node_modules/.pnpm/svelte-vitals@0.44.0/node_modules/svelte-vitals/dist/chunk-WD5TSADH.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -61439,15 +61635,15 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// node_modules/.pnpm/svelte-vitals@0.39.0/node_modules/svelte-vitals/dist/chunk-2WDZJQGD.js
+// node_modules/.pnpm/svelte-vitals@0.44.0/node_modules/svelte-vitals/dist/chunk-WD5TSADH.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
 import { mkdtempSync, rmSync } from "fs";
 import { tmpdir } from "os";
-import { join as join3 } from "path";
-import { readFileSync as readFileSync22, writeFileSync } from "fs";
 import { join as join4 } from "path";
+import { readFileSync as readFileSync22, writeFileSync } from "fs";
+import { join as join6 } from "path";
 import { existsSync as existsSync2 } from "fs";
 import { join as join5 } from "path";
 import { pathToFileURL } from "url";
@@ -62133,16 +62329,19 @@ function readPackageVersion() {
   }
 }
 function git(args, cwd) {
-  return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).split("\n");
+  return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).split("\0");
 }
 function getChangedFiles(cwd, opts) {
   try {
-    const files = opts.staged ? git(["diff", "--name-only", "--relative", "--cached", "--diff-filter=d"], cwd) : [
-      ...git(["diff", "--name-only", "--relative", "--diff-filter=d", "--merge-base", opts.base ?? "HEAD"], cwd),
-      ...git(["ls-files", "--others", "--exclude-standard"], cwd)
+    const files = opts.staged ? git(["diff", "--name-only", "--relative", "--cached", "--diff-filter=d", "-z"], cwd) : [
+      ...git(
+        ["diff", "--name-only", "--relative", "--diff-filter=d", "--merge-base", opts.base ?? "HEAD", "-z"],
+        cwd
+      ),
+      ...git(["ls-files", "--others", "--exclude-standard", "-z"], cwd)
       // untracked / new files
     ];
-    return new Set(files.map((s) => s.trim()).filter(Boolean));
+    return new Set(files.filter(Boolean));
   } catch {
     return void 0;
   }
@@ -62161,10 +62360,10 @@ function checkoutBaseline(cwd, ref2) {
   try {
     const repoRoot = git2(["rev-parse", "--show-toplevel"], cwd).trim();
     const showPrefix = git2(["rev-parse", "--show-prefix"], cwd).trim().replace(/\/+$/, "");
-    tmp = mkdtempSync(join3(tmpdir(), "svelte-vitals-baseline-"));
-    const wt = join3(tmp, "wt");
+    tmp = mkdtempSync(join4(tmpdir(), "svelte-vitals-baseline-"));
+    const wt = join4(tmp, "wt");
     git2(["worktree", "add", "--detach", wt, ref2], repoRoot);
-    const analyzeCwd = showPrefix ? join3(wt, showPrefix) : wt;
+    const analyzeCwd = showPrefix ? join4(wt, showPrefix) : wt;
     const tmpDir = tmp;
     const cleanup = () => {
       try {
@@ -62196,12 +62395,176 @@ function filterToNewFindings(results, baselineResults) {
   const baselineKeys = new Set(baselineResults.map(findingKey));
   return results.filter((r) => !baselineKeys.has(findingKey(r)));
 }
-var SUPPRESSIONS_FILE = "svelte-vitals-suppressions.json";
+var KNOWN_IDS = new Set(allRules.map((r) => r.id));
+var RULE_BY_ID = new Map(allRules.map((r) => [r.id, r]));
+function findUnknownRuleIds(ids) {
+  return [...new Set(ids.filter((id2) => !KNOWN_IDS.has(id2)))];
+}
+function knownRuleIds() {
+  return [...KNOWN_IDS].sort();
+}
+function ruleOptionsSpec(id2) {
+  return RULE_BY_ID.get(id2)?.options;
+}
+var CONFIG_FILENAMES = ["svelte-vitals.config.mjs", "svelte-vitals.config.js", "svelte-vitals.config.ts"];
+var TREAT_DYNAMIC_AS_VALUES = ["pass", "warn", "fail"];
+var FAIL_ON_VALUES = ["critical", "warning", "info"];
+var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set(["treatDynamicAs", "metaComponents", "rules", "failOn", "weights", "overrides"]);
 function isPlainObject4(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
+function isMissingExtensionLoaderError(err) {
+  return err instanceof Error && ("code" in err && err.code === "ERR_UNKNOWN_FILE_EXTENSION" || /Unknown file extension/.test(err.message));
+}
+function validateSetting(path, where, key2, setting, allowOptions, baseline, skipRangeCheck) {
+  const errors = validateRuleSetting(`${where}.${key2}`, key2, setting, ruleOptionsSpec(key2), {
+    allowOptions,
+    ...baseline !== void 0 ? { baseline } : {},
+    ...skipRangeCheck !== void 0 ? { skipRangeCheck } : {}
+  });
+  if (errors.length > 0) throw new Error(`${path}: ${errors.join(" ")}`);
+}
+function validateConfigFile(raw, path) {
+  const warnings2 = [];
+  const config = {};
+  for (const key2 of Object.keys(raw)) {
+    if (!KNOWN_TOP_LEVEL_KEYS.has(key2)) {
+      warnings2.push(`${path}: unknown config key '${key2}' ignored.`);
+    }
+  }
+  if (raw.treatDynamicAs !== void 0) {
+    if (TREAT_DYNAMIC_AS_VALUES.includes(raw.treatDynamicAs)) {
+      config.treatDynamicAs = raw.treatDynamicAs;
+    } else {
+      warnings2.push(
+        `${path}: unknown treatDynamicAs '${String(raw.treatDynamicAs)}'; expected pass|warn|fail. Ignoring.`
+      );
+    }
+  }
+  if (raw.failOn !== void 0) {
+    if (FAIL_ON_VALUES.includes(raw.failOn)) {
+      config.failOn = raw.failOn;
+    } else {
+      warnings2.push(`${path}: unknown failOn '${String(raw.failOn)}'; expected critical|warning|info. Ignoring.`);
+    }
+  }
+  if (raw.metaComponents !== void 0) {
+    if (Array.isArray(raw.metaComponents) && raw.metaComponents.every((c) => typeof c === "string")) {
+      config.metaComponents = raw.metaComponents;
+    } else {
+      warnings2.push(`${path}: metaComponents must be an array of strings. Ignoring.`);
+    }
+  }
+  if (raw.rules !== void 0) {
+    if (!isPlainObject4(raw.rules)) {
+      throw new Error(`${path}: rules must be an object of rule-id \u2192 setting.`);
+    }
+    const rules = raw.rules;
+    const unknown = findUnknownRuleIds(Object.keys(rules));
+    if (unknown.length > 0) {
+      throw new Error(
+        `${path}: unknown rule id(s) in rules: ${unknown.join(", ")}. Known rule ids: ${knownRuleIds().join(", ")}`
+      );
+    }
+    for (const [key2, setting] of Object.entries(rules)) validateSetting(path, "rules", key2, setting, true);
+    config.rules = rules;
+  }
+  if (raw.overrides !== void 0) {
+    if (!Array.isArray(raw.overrides)) {
+      throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
+    }
+    const isGlob = (v) => typeof v === "string" && v.length > 0;
+    const isGlobs = (v) => isGlob(v) || Array.isArray(v) && v.length > 0 && v.every(isGlob);
+    const overrides = [];
+    const rawOverrides = raw.overrides;
+    rawOverrides.forEach((entry, i) => {
+      if (!isPlainObject4(entry)) {
+        throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
+      }
+      if (entry.route !== void 0 && !isGlobs(entry.route)) {
+        throw new Error(
+          `${path}: overrides[${i}].route must be a non-empty string or a non-empty array of non-empty strings.`
+        );
+      }
+      if (entry.files !== void 0 && !isGlobs(entry.files)) {
+        throw new Error(
+          `${path}: overrides[${i}].files must be a non-empty string or a non-empty array of non-empty strings.`
+        );
+      }
+      if (entry.route === void 0 && entry.files === void 0) {
+        throw new Error(`${path}: overrides[${i}] must set 'route' and/or 'files' to scope the override.`);
+      }
+      if (!isPlainObject4(entry.rules)) {
+        throw new Error(`${path}: overrides[${i}].rules must be an object of rule-id/category \u2192 setting.`);
+      }
+      if (Object.keys(entry.rules).length === 0) {
+        throw new Error(`${path}: overrides[${i}].rules must contain at least one rule id or category.`);
+      }
+      const nonCategoryKeys = Object.keys(entry.rules).filter((k) => !CATEGORIES.includes(k));
+      const unknown = findUnknownRuleIds(nonCategoryKeys);
+      if (unknown.length > 0) {
+        throw new Error(
+          `${path}: unknown rule id(s) or categories in overrides[${i}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids: ${knownRuleIds().join(", ")}`
+        );
+      }
+      for (const [key2, setting] of Object.entries(entry.rules)) {
+        const isCategory = CATEGORIES.includes(key2);
+        const baseline = isCategory ? void 0 : resolveRuleOptions(key2, ruleOptionsSpec(key2), { ...defaultConfig, rules: config.rules ?? {} });
+        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i, key2, setting);
+        validateSetting(path, `overrides[${i}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
+      }
+      overrides.push({
+        ...entry.route !== void 0 ? { route: entry.route } : {},
+        ...entry.files !== void 0 ? { files: entry.files } : {},
+        rules: entry.rules
+      });
+    });
+    config.overrides = overrides;
+  }
+  if (raw.weights !== void 0) {
+    if (!isPlainObject4(raw.weights)) {
+      throw new Error(`${path}: weights must be an object of category \u2192 number.`);
+    }
+    const weights = {};
+    for (const [rawCat, w2] of Object.entries(raw.weights)) {
+      const cat = rawCat.toLowerCase();
+      if (!CATEGORIES.includes(cat)) {
+        throw new Error(`${path}: unknown category '${rawCat}' in weights. Known categories: ${CATEGORIES.join(", ")}`);
+      }
+      if (typeof w2 !== "number" || !Number.isFinite(w2) || w2 < 0) {
+        throw new Error(`${path}: invalid weight for '${cat}': ${String(w2)}; expected a finite number >= 0.`);
+      }
+      weights[cat] = w2;
+    }
+    config.weights = weights;
+  }
+  return { config, warnings: warnings2 };
+}
+async function loadConfigFile(cwd) {
+  const found = CONFIG_FILENAMES.map((name) => join5(cwd, name)).find((path) => existsSync2(path));
+  if (!found) return void 0;
+  let mod;
+  try {
+    mod = await import(pathToFileURL(found).href);
+  } catch (err) {
+    if (found.endsWith(".ts") && isMissingExtensionLoaderError(err)) {
+      throw new Error(
+        `could not load ${found} \u2014 this Node runtime does not support TypeScript config files without a flag. Native type-stripping is unflagged from Node 22.18 / 23.6+: upgrade Node to 22.18+, re-run with --experimental-strip-types, or rename the file to .mjs/.js.`,
+        { cause: err }
+      );
+    }
+    throw err;
+  }
+  if (!isPlainObject4(mod.default)) {
+    throw new Error(
+      `${found} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`
+    );
+  }
+  return validateConfigFile(mod.default, found);
+}
+var SUPPRESSIONS_FILE = "svelte-vitals-suppressions.json";
 function loadSuppressions(cwd) {
-  const path = join4(cwd, SUPPRESSIONS_FILE);
+  const path = join6(cwd, SUPPRESSIONS_FILE);
   let raw;
   try {
     raw = readFileSync22(path, "utf8");
@@ -62265,183 +62628,42 @@ var ansiPalette = {
   green: wrap(32, 39),
   cyan: wrap(36, 39)
 };
-var KNOWN_IDS = new Set(allRules.map((r) => r.id));
-var RULE_BY_ID = new Map(allRules.map((r) => [r.id, r]));
-function findUnknownRuleIds(ids) {
-  return [...new Set(ids.filter((id2) => !KNOWN_IDS.has(id2)))];
-}
-function knownRuleIds() {
-  return [...KNOWN_IDS].sort();
-}
-function ruleOptionsSpec(id2) {
-  return RULE_BY_ID.get(id2)?.options;
-}
-var CONFIG_FILENAMES = ["svelte-vitals.config.mjs", "svelte-vitals.config.js", "svelte-vitals.config.ts"];
-var TREAT_DYNAMIC_AS_VALUES = ["pass", "warn", "fail"];
-var FAIL_ON_VALUES = ["critical", "warning", "info"];
-var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set(["treatDynamicAs", "metaComponents", "rules", "failOn", "weights", "overrides"]);
-function isPlainObject22(value) {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-function isMissingExtensionLoaderError(err) {
-  return err instanceof Error && ("code" in err && err.code === "ERR_UNKNOWN_FILE_EXTENSION" || /Unknown file extension/.test(err.message));
-}
-function validateSetting(path, where, key2, setting, allowOptions, baseline, skipRangeCheck) {
-  const errors = validateRuleSetting(`${where}.${key2}`, key2, setting, ruleOptionsSpec(key2), {
-    allowOptions,
-    ...baseline !== void 0 ? { baseline } : {},
-    ...skipRangeCheck !== void 0 ? { skipRangeCheck } : {}
-  });
-  if (errors.length > 0) throw new Error(`${path}: ${errors.join(" ")}`);
-}
-function validateConfigFile(raw, path) {
-  const warnings2 = [];
-  const config = {};
-  for (const key2 of Object.keys(raw)) {
-    if (!KNOWN_TOP_LEVEL_KEYS.has(key2)) {
-      warnings2.push(`${path}: unknown config key '${key2}' ignored.`);
+function resolveRuleSelection(input) {
+  const out = { ...input.rules ?? input.fileRules };
+  const allow = input.allowRules ?? [];
+  if (allow.length > 0) {
+    const allowed = new Set(allow);
+    for (const rule of allRules) if (!allowed.has(rule.id)) out[rule.id] = "off";
+    for (const id2 of allowed) {
+      const setting = out[id2];
+      if (setting === void 0) continue;
+      if (setting === "off") {
+        delete out[id2];
+      } else if (typeof setting === "object" && setting.severity === "off") {
+        const { severity: _forceEnabled, ...rest2 } = setting;
+        if (Object.keys(rest2).length === 0) delete out[id2];
+        else out[id2] = rest2;
+      }
     }
   }
-  if (raw.treatDynamicAs !== void 0) {
-    if (TREAT_DYNAMIC_AS_VALUES.includes(raw.treatDynamicAs)) {
-      config.treatDynamicAs = raw.treatDynamicAs;
-    } else {
-      warnings2.push(
-        `${path}: unknown treatDynamicAs '${String(raw.treatDynamicAs)}'; expected pass|warn|fail. Ignoring.`
-      );
-    }
-  }
-  if (raw.failOn !== void 0) {
-    if (FAIL_ON_VALUES.includes(raw.failOn)) {
-      config.failOn = raw.failOn;
-    } else {
-      warnings2.push(`${path}: unknown failOn '${String(raw.failOn)}'; expected critical|warning|info. Ignoring.`);
-    }
-  }
-  if (raw.metaComponents !== void 0) {
-    if (Array.isArray(raw.metaComponents) && raw.metaComponents.every((c) => typeof c === "string")) {
-      config.metaComponents = raw.metaComponents;
-    } else {
-      warnings2.push(`${path}: metaComponents must be an array of strings. Ignoring.`);
-    }
-  }
-  if (raw.rules !== void 0) {
-    if (!isPlainObject22(raw.rules)) {
-      throw new Error(`${path}: rules must be an object of rule-id \u2192 setting.`);
-    }
-    const rules = raw.rules;
-    const unknown = findUnknownRuleIds(Object.keys(rules));
-    if (unknown.length > 0) {
-      throw new Error(
-        `${path}: unknown rule id(s) in rules: ${unknown.join(", ")}. Known rule ids: ${knownRuleIds().join(", ")}`
-      );
-    }
-    for (const [key2, setting] of Object.entries(rules)) validateSetting(path, "rules", key2, setting, true);
-    config.rules = rules;
-  }
-  if (raw.overrides !== void 0) {
-    if (!Array.isArray(raw.overrides)) {
-      throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
-    }
-    const isGlob = (v) => typeof v === "string" && v.length > 0;
-    const isGlobs = (v) => isGlob(v) || Array.isArray(v) && v.length > 0 && v.every(isGlob);
-    const overrides = [];
-    const rawOverrides = raw.overrides;
-    rawOverrides.forEach((entry, i) => {
-      if (!isPlainObject22(entry)) {
-        throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
-      }
-      if (entry.route !== void 0 && !isGlobs(entry.route)) {
-        throw new Error(
-          `${path}: overrides[${i}].route must be a non-empty string or a non-empty array of non-empty strings.`
-        );
-      }
-      if (entry.files !== void 0 && !isGlobs(entry.files)) {
-        throw new Error(
-          `${path}: overrides[${i}].files must be a non-empty string or a non-empty array of non-empty strings.`
-        );
-      }
-      if (entry.route === void 0 && entry.files === void 0) {
-        throw new Error(`${path}: overrides[${i}] must set 'route' and/or 'files' to scope the override.`);
-      }
-      if (!isPlainObject22(entry.rules)) {
-        throw new Error(`${path}: overrides[${i}].rules must be an object of rule-id/category \u2192 setting.`);
-      }
-      if (Object.keys(entry.rules).length === 0) {
-        throw new Error(`${path}: overrides[${i}].rules must contain at least one rule id or category.`);
-      }
-      const nonCategoryKeys = Object.keys(entry.rules).filter((k) => !CATEGORIES.includes(k));
-      const unknown = findUnknownRuleIds(nonCategoryKeys);
-      if (unknown.length > 0) {
-        throw new Error(
-          `${path}: unknown rule id(s) or categories in overrides[${i}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids: ${knownRuleIds().join(", ")}`
-        );
-      }
-      for (const [key2, setting] of Object.entries(entry.rules)) {
-        const isCategory = CATEGORIES.includes(key2);
-        const baseline = isCategory ? void 0 : resolveRuleOptions(key2, ruleOptionsSpec(key2), { ...defaultConfig, rules: config.rules ?? {} });
-        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i, key2, setting);
-        validateSetting(path, `overrides[${i}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
-      }
-      overrides.push({
-        ...entry.route !== void 0 ? { route: entry.route } : {},
-        ...entry.files !== void 0 ? { files: entry.files } : {},
-        rules: entry.rules
-      });
-    });
-    config.overrides = overrides;
-  }
-  if (raw.weights !== void 0) {
-    if (!isPlainObject22(raw.weights)) {
-      throw new Error(`${path}: weights must be an object of category \u2192 number.`);
-    }
-    const weights = {};
-    for (const [rawCat, w2] of Object.entries(raw.weights)) {
-      const cat = rawCat.toLowerCase();
-      if (!CATEGORIES.includes(cat)) {
-        throw new Error(`${path}: unknown category '${rawCat}' in weights. Known categories: ${CATEGORIES.join(", ")}`);
-      }
-      if (typeof w2 !== "number" || !Number.isFinite(w2) || w2 < 0) {
-        throw new Error(`${path}: invalid weight for '${cat}': ${String(w2)}; expected a finite number >= 0.`);
-      }
-      weights[cat] = w2;
-    }
-    config.weights = weights;
-  }
-  return { config, warnings: warnings2 };
-}
-async function loadConfigFile(cwd) {
-  const found = CONFIG_FILENAMES.map((name) => join5(cwd, name)).find((path) => existsSync2(path));
-  if (!found) return void 0;
-  let mod;
-  try {
-    mod = await import(pathToFileURL(found).href);
-  } catch (err) {
-    if (found.endsWith(".ts") && isMissingExtensionLoaderError(err)) {
-      throw new Error(
-        `could not load ${found} \u2014 this Node runtime does not support TypeScript config files without a flag. Native type-stripping is unflagged from Node 22.18 / 23.6+: upgrade Node to 22.18+, re-run with --experimental-strip-types, or rename the file to .mjs/.js.`,
-        { cause: err }
-      );
-    }
-    throw err;
-  }
-  if (!isPlainObject22(mod.default)) {
-    throw new Error(
-      `${found} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`
-    );
-  }
-  return validateConfigFile(mod.default, found);
+  for (const id2 of input.ignoreRules ?? []) out[id2] = "off";
+  return out;
 }
 async function analyzeProject(opts = {}) {
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
-  const loaded = await loadConfigFile(cwd);
+  const loaded = opts.loadedConfig !== void 0 ? opts.loadedConfig ?? void 0 : await loadConfigFile(cwd);
   const file = loaded?.config;
   const weights = opts.weights ?? file?.weights;
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? file?.treatDynamicAs ?? "pass",
     metaComponents: opts.metaComponents ?? file?.metaComponents ?? [],
-    rules: opts.rules ?? file?.rules ?? {},
+    rules: resolveRuleSelection({
+      fileRules: file?.rules,
+      rules: opts.rules,
+      allowRules: opts.allowRules,
+      ignoreRules: opts.ignoreRules
+    }),
     failOn: opts.failOn ?? file?.failOn ?? "critical",
     ...weights !== void 0 ? { weights } : {},
     ...file?.overrides !== void 0 ? { overrides: file.overrides } : {}
@@ -62454,14 +62676,26 @@ async function analyzeProject(opts = {}) {
   });
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories.includes(r.category)) : selected;
-  const results = applyOverrides(
-    applyRuleSeverities(
-      await runRules(rules, { heads, images, headings, components, project, config, kitModules, sourceFiles }),
-      config
-    ),
-    config
-  );
-  return { results, config, version: readPackageVersion(), ruleIds: rules.map((r) => r.id), warnings: warnings2 };
+  const { results: rawResults, examined } = await runRules(rules, {
+    heads,
+    images,
+    headings,
+    components,
+    project,
+    config,
+    kitModules,
+    sourceFiles
+  });
+  const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  return {
+    results,
+    config,
+    version: readPackageVersion(),
+    ruleIds: rules.map((r) => r.id),
+    examined,
+    warnings: warnings2,
+    loadedConfig: loaded
+  };
 }
 async function applyScope(results, opts) {
   const errorLog = opts.errorLog ?? ((line) => console.error(line));
