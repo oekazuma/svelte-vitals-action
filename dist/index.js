@@ -64399,7 +64399,8 @@ async function main() {
   const baseline = getInput("baseline") || void 0;
   const token = getInput("github-token") || process.env.GITHUB_TOKEN || "";
   const analysis = await analyzeProject({ cwd: path });
-  const { config, version: version2 } = analysis;
+  const { config, version: version2, warnings: warnings2 } = analysis;
+  for (const line of warnings2) warning(line);
   const results = await applyScope(analysis.results, {
     cwd: path,
     config,

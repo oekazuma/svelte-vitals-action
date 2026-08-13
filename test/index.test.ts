@@ -38,7 +38,8 @@ const h = vi.hoisted(() => {
   const analyzeProject = vi.fn(async () => ({
     results: [],
     config: { failOn: 'critical' },
-    version: '0.0.0-test'
+    version: '0.0.0-test',
+    warnings: [] as string[]
   }));
   const applyScope = vi.fn(async (results: unknown[]) => results);
 
@@ -202,6 +203,22 @@ describe('main()', () => {
     expect(h.warning).toHaveBeenCalledTimes(1);
     expect(h.warning.mock.calls[0]![0]).toMatch(/failed to post\/update the PR comment/);
     expect(h.warning.mock.calls[0]![0]).toMatch(/boom: rate limited/);
+    expect(h.setFailed).not.toHaveBeenCalled();
+  });
+
+  it("surfaces the analyzer's non-fatal warnings without failing the build", async () => {
+    h.analyzeProject.mockResolvedValueOnce({
+      results: [],
+      config: { failOn: 'critical' },
+      version: '0.0.0-test',
+      warnings: ['rule seo/title-presence failed and was skipped: boom', 'skipped 1 unparseable file']
+    });
+
+    await main();
+
+    expect(h.warning).toHaveBeenCalledTimes(2);
+    expect(h.warning).toHaveBeenCalledWith('rule seo/title-presence failed and was skipped: boom');
+    expect(h.warning).toHaveBeenCalledWith('skipped 1 unparseable file');
     expect(h.setFailed).not.toHaveBeenCalled();
   });
 

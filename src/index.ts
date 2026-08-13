@@ -12,7 +12,11 @@ export async function main(): Promise<void> {
   const token = core.getInput('github-token') || process.env.GITHUB_TOKEN || '';
 
   const analysis = await analyzeProject({ cwd: path });
-  const { config, version } = analysis;
+  const { config, version, warnings } = analysis;
+  // Includes rules that crashed and were dropped from the run, so the scan can be
+  // incomplete while the gate below still passes — these must not stay silent.
+  for (const line of warnings) core.warning(line);
+
   const results = await applyScope(analysis.results, {
     cwd: path,
     config,
