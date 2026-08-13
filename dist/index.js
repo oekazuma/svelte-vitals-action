@@ -54820,7 +54820,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.41.1/node_modules/@svelte-vitals/core/dist/index.js
+// node_modules/.pnpm/@svelte-vitals+core@0.42.0/node_modules/@svelte-vitals/core/dist/index.js
 var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture"];
 var defaultConfig = {
   treatDynamicAs: "pass",
@@ -54845,36 +54845,29 @@ var CHILD_NODE_KEYS = [
   "catch",
   "fallback"
 ];
+var hasExpression = (nodes) => nodes.some((n2) => n2?.type === "ExpressionTag");
+function joinText(nodes) {
+  return nodes.filter((n2) => n2?.type === "Text").map((n2) => String(n2.data ?? "")).join("");
+}
 function valueFromNodes(nodes) {
   if (!Array.isArray(nodes)) return "absent";
-  if (nodes.some((n2) => n2?.type === "ExpressionTag")) return "dynamic";
-  const text2 = nodes.filter((n2) => n2?.type === "Text").map((n2) => String(n2.data ?? "")).join("");
-  return text2.trim().length > 0 ? "static" : "absent";
+  if (hasExpression(nodes)) return "dynamic";
+  return joinText(nodes).trim().length > 0 ? "static" : "absent";
 }
 function textFromNodes(nodes) {
-  if (!Array.isArray(nodes) || nodes.some((n2) => n2?.type === "ExpressionTag")) return void 0;
-  const text2 = nodes.filter((n2) => n2?.type === "Text").map((n2) => String(n2.data ?? "")).join("");
+  if (!Array.isArray(nodes) || hasExpression(nodes)) return void 0;
+  const text2 = joinText(nodes);
   return text2.trim().length > 0 ? text2 : void 0;
 }
 function attrText(attributes, name) {
-  const attr = findAttr(attributes, name);
-  if (!attr) return void 0;
-  const v = attr.value;
+  const v = findAttr(attributes, name)?.value;
   if (v === true) return "";
-  if (Array.isArray(v)) {
-    if (v.some((n2) => n2?.type === "ExpressionTag")) return void 0;
-    return v.filter((n2) => n2?.type === "Text").map((n2) => String(n2.data ?? "")).join("");
-  }
-  return void 0;
+  if (!Array.isArray(v) || hasExpression(v)) return void 0;
+  return joinText(v);
 }
 function attrValue(attributes, name) {
   const attr = findAttr(attributes, name);
-  if (!attr) return "absent";
-  const v = attr.value;
-  if (v === true) return "absent";
-  if (Array.isArray(v)) return valueFromNodes(v);
-  if (v && v.type === "ExpressionTag") return "dynamic";
-  return "absent";
+  return attr ? attrValueOf(attr) : "absent";
 }
 function lineOf(source2, offset2) {
   if (typeof offset2 !== "number" || offset2 < 0) return 0;
@@ -54896,9 +54889,7 @@ function attrValueOf(attr) {
 }
 function attrTextOf(attr) {
   const v = attr?.value;
-  if (!Array.isArray(v) || v.some((n2) => n2?.type === "ExpressionTag")) return void 0;
-  const text2 = v.filter((n2) => n2?.type === "Text").map((n2) => String(n2.data ?? "")).join("");
-  return text2.trim().length > 0 ? text2 : void 0;
+  return Array.isArray(v) ? textFromNodes(v) : void 0;
 }
 function unwrapTs(expr) {
   let cur = expr;
@@ -57516,61 +57507,71 @@ var seoHtmlLang = {
     ];
   }
 };
-function imageRule(opts) {
-  const docsUrl12 = docsUrlFor(opts.id);
-  const category = opts.category ?? "performance";
+var PENALIZED = { presence: "none", value: "absent" };
+var PASS = { presence: "own", value: "static" };
+function routeItemRule(spec) {
+  const docsUrl12 = docsUrlFor(spec.id);
   return {
-    id: opts.id,
-    title: opts.title,
-    category,
-    severity: opts.severity,
+    id: spec.id,
+    title: spec.title,
+    category: spec.category,
+    severity: spec.severity,
     scope: "route",
-    rationale: opts.rationale,
-    ...opts.fix ? { fix: opts.fix } : {},
+    rationale: spec.rationale,
+    ...spec.fix ? { fix: spec.fix } : {},
     async check(ctx) {
       const out = [];
-      for (const route of ctx.images ?? []) {
-        if (route.images.length === 0) continue;
-        const bad = route.images.filter((img) => !opts.ok(img));
+      for (const g of spec.groups(ctx)) {
+        if (g.items.length === 0) continue;
+        const bad = g.items.filter((item) => !spec.ok(item));
         if (bad.length === 0) {
           out.push({
-            id: opts.id,
-            category,
-            severity: opts.severity,
-            detection: { presence: "own", value: "static" },
-            route: route.route,
-            // No single route-level file exists here (unlike ResolvedHead.file) — the
-            // route's first image stands in as its attributed file (design
-            // 2026-08-08-pass-result-location-design.md; this uncaught inline PASS literal
-            // was missed by the design spike's grep and added to its blast-radius table
-            // afterward, maintainer ruling, same date). `route.images.length === 0` already
-            // continued above, so `[0]` is always defined here.
-            location: route.images[0].file,
-            message: opts.label,
-            recommendation: opts.recommendation,
+            id: spec.id,
+            category: spec.category,
+            severity: spec.severity,
+            detection: PASS,
+            route: g.route,
+            location: g.passLocation,
+            message: spec.label,
+            recommendation: spec.recommendation,
             docsUrl: docsUrl12
           });
           continue;
         }
-        for (const img of bad) {
+        for (const item of bad) {
+          const line = spec.line?.(item);
           out.push({
-            id: opts.id,
-            category,
-            severity: opts.severity,
-            detection: { presence: "none", value: "absent" },
-            route: route.route,
-            location: img.file,
-            ...img.line > 0 ? { line: img.line } : {},
-            message: `Missing ${opts.label}`,
-            recommendation: opts.recommendation,
+            id: spec.id,
+            category: spec.category,
+            severity: spec.severity,
+            detection: PENALIZED,
+            route: g.route,
+            location: spec.location(item, g.passLocation),
+            ...line !== void 0 && line > 0 ? { line } : {},
+            message: `Missing ${spec.label}`,
+            recommendation: spec.recommendation,
             docsUrl: docsUrl12,
-            ...opts.fix ? { fix: { ...opts.fix } } : {}
+            // Copy per finding: spec.fix is a rule-level template shared across all
+            // results this rule emits; a fresh object keeps findings independent.
+            ...spec.fix ? { fix: { ...spec.fix } } : {}
           });
         }
       }
       return out;
     }
   };
+}
+function imageRule(opts) {
+  return routeItemRule({
+    ...opts,
+    category: opts.category ?? "performance",
+    // No single route-level file exists here (unlike ResolvedHead.file) — the route's
+    // first image stands in as its attributed file; empty routes are filtered first,
+    // so `[0]` is always defined.
+    groups: (ctx) => (ctx.images ?? []).filter((r2) => r2.images.length > 0).map((r2) => ({ route: r2.route, items: r2.images, passLocation: r2.images[0].file })),
+    location: (img) => img.file,
+    line: (img) => img.line
+  });
 }
 var performanceImageDimensions = imageRule({
   id: "performance/image-dimensions",
@@ -57615,62 +57616,19 @@ var performanceResponsiveImage = imageRule({
   ok: (img) => img.hasSrcset
 });
 function linkRule(opts) {
-  const docsUrl12 = docsUrlFor(opts.id);
-  return {
-    id: opts.id,
-    title: opts.title,
+  return routeItemRule({
+    ...opts,
     category: "performance",
-    severity: opts.severity,
-    scope: "route",
-    rationale: opts.rationale,
-    ...opts.fix ? { fix: opts.fix } : {},
-    async check(ctx) {
-      const out = [];
-      for (const head of ctx.heads) {
-        const links = head.tags.filter((t2) => t2.kind === "link" && opts.relevant(t2));
-        if (links.length === 0) continue;
-        const bad = links.filter((t2) => !opts.ok(t2));
-        if (bad.length === 0) {
-          out.push({
-            id: opts.id,
-            category: "performance",
-            severity: opts.severity,
-            detection: { presence: "own", value: "static" },
-            route: head.route,
-            // The route's own attributed file (design 2026-08-08-pass-result-location-design.md)
-            // — this uncaught inline PASS literal was missed by the design spike's grep and
-            // added to its blast-radius table afterward (maintainer ruling, same date). No
-            // single per-tag location applies here (many links can back one pass), so the
-            // route's own head file is the uniform attribution; per-tag penalized locations
-            // above remain per-tag.
-            location: head.file,
-            message: opts.label,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl12
-          });
-          continue;
-        }
-        for (const tag2 of bad) {
-          out.push({
-            id: opts.id,
-            category: "performance",
-            severity: opts.severity,
-            detection: { presence: "none", value: "absent" },
-            route: head.route,
-            // Point at the file the link actually came from (a layout in static
-            // mode); fall back to the route's representative file when the tag
-            // carries no file (rendered mode).
-            location: tag2.file ?? head.file,
-            message: `Missing ${opts.label}`,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl12,
-            ...opts.fix ? { fix: { ...opts.fix } } : {}
-          });
-        }
-      }
-      return out;
-    }
-  };
+    // The route's own head file is the PASS attribution (many links can back one pass).
+    groups: (ctx) => ctx.heads.map((head) => ({
+      route: head.route,
+      items: head.tags.filter((t2) => t2.kind === "link" && opts.relevant(t2)),
+      passLocation: head.file
+    })),
+    // Point at the file the link actually came from (a layout in static mode); fall back
+    // to the route's representative file when the tag carries no file (rendered mode).
+    location: (tag2, passLocation) => tag2.file ?? passLocation
+  });
 }
 var performancePreloadMissingAs = linkRule({
   id: "performance/preload-missing-as",
@@ -57830,6 +57788,9 @@ function withFailedRulesOff(config, failedRuleIds) {
       ...Object.fromEntries(failedRuleIds.map((id2) => [id2, "off"]))
     }
   };
+}
+function formatFailedRuleWarning(f) {
+  return `rule ${f.id} failed and was skipped: ${f.message.split("\n")[0]}`;
 }
 function applyRuleSeverities(results, config) {
   return results.map((result) => {
@@ -58214,8 +58175,6 @@ var seoSitemapInRobots = {
     ];
   }
 };
-var PENALIZED = { presence: "none", value: "absent" };
-var PASS = { presence: "own", value: "static" };
 function parseJsonLd(raw) {
   let data2;
   try {
@@ -58426,1042 +58385,11 @@ function jsonldRule(opts) {
     }
   };
 }
-var SCHEMA_ORG_TYPES = /* @__PURE__ */ new Set([
-  "3DModel",
-  "AMRadioChannel",
-  "APIReference",
-  "AboutPage",
-  "AcceptAction",
-  "Accommodation",
-  "AccountingService",
-  "AchieveAction",
-  "Action",
-  "ActionAccessSpecification",
-  "ActionStatusType",
-  "ActivateAction",
-  "AddAction",
-  "AdministrativeArea",
-  "AdultEntertainment",
-  "AdultOrientedEnumeration",
-  "AdvertiserContentArticle",
-  "AggregateOffer",
-  "AggregateRating",
-  "AgreeAction",
-  "Airline",
-  "Airport",
-  "AlignmentObject",
-  "AllocateAction",
-  "AmpStory",
-  "AmusementPark",
-  "AnalysisNewsArticle",
-  "AnatomicalStructure",
-  "AnatomicalSystem",
-  "AnimalShelter",
-  "Answer",
-  "Apartment",
-  "ApartmentComplex",
-  "AppendAction",
-  "ApplyAction",
-  "ApprovedIndication",
-  "Aquarium",
-  "ArchiveComponent",
-  "ArchiveOrganization",
-  "ArriveAction",
-  "ArtGallery",
-  "Artery",
-  "Article",
-  "AskAction",
-  "AskPublicNewsArticle",
-  "AssessAction",
-  "AssignAction",
-  "Atlas",
-  "Attorney",
-  "Audience",
-  "AudioObject",
-  "AudioObjectSnapshot",
-  "Audiobook",
-  "AuthenticateAction",
-  "AuthorizeAction",
-  "AutoBodyShop",
-  "AutoDealer",
-  "AutoPartsStore",
-  "AutoRental",
-  "AutoRepair",
-  "AutoWash",
-  "AutomatedTeller",
-  "AutomotiveBusiness",
-  "BackgroundNewsArticle",
-  "Bakery",
-  "BankAccount",
-  "BankOrCreditUnion",
-  "BarOrPub",
-  "Barcode",
-  "Beach",
-  "BeautySalon",
-  "BedAndBreakfast",
-  "BedDetails",
-  "BedType",
-  "BefriendAction",
-  "BikeStore",
-  "BioChemEntity",
-  "Blog",
-  "BlogPosting",
-  "BloodTest",
-  "BoardingPolicyType",
-  "BoatReservation",
-  "BoatTerminal",
-  "BoatTrip",
-  "BodyMeasurementTypeEnumeration",
-  "BodyOfWater",
-  "Bone",
-  "Book",
-  "BookFormatType",
-  "BookSeries",
-  "BookStore",
-  "BookmarkAction",
-  "Boolean",
-  "BorrowAction",
-  "BowlingAlley",
-  "BrainStructure",
-  "Brand",
-  "BreadcrumbList",
-  "Brewery",
-  "Bridge",
-  "BroadcastChannel",
-  "BroadcastEvent",
-  "BroadcastFrequencySpecification",
-  "BroadcastService",
-  "BrokerageAccount",
-  "BuddhistTemple",
-  "BusOrCoach",
-  "BusReservation",
-  "BusStation",
-  "BusStop",
-  "BusTrip",
-  "BusinessAudience",
-  "BusinessEntityType",
-  "BusinessEvent",
-  "BusinessFunction",
-  "BuyAction",
-  "CDCPMDRecord",
-  "CableOrSatelliteService",
-  "CafeOrCoffeeShop",
-  "Campground",
-  "CampingPitch",
-  "Canal",
-  "CancelAction",
-  "Car",
-  "CarUsageType",
-  "Casino",
-  "CategoryCode",
-  "CategoryCodeSet",
-  "CatholicChurch",
-  "Cemetery",
-  "Certification",
-  "CertificationStatusEnumeration",
-  "Chapter",
-  "CheckAction",
-  "CheckInAction",
-  "CheckOutAction",
-  "CheckoutPage",
-  "ChemicalSubstance",
-  "ChildCare",
-  "ChildrensEvent",
-  "ChooseAction",
-  "Church",
-  "City",
-  "CityHall",
-  "CivicStructure",
-  "Claim",
-  "ClaimReview",
-  "Class",
-  "Clip",
-  "ClothingStore",
-  "Code",
-  "Collection",
-  "CollectionPage",
-  "CollegeOrUniversity",
-  "ComedyClub",
-  "ComedyEvent",
-  "ComicCoverArt",
-  "ComicIssue",
-  "ComicSeries",
-  "ComicStory",
-  "Comment",
-  "CommentAction",
-  "CommunicateAction",
-  "CommunityHealth",
-  "CompleteDataFeed",
-  "CompoundPriceSpecification",
-  "ComputerLanguage",
-  "ComputerStore",
-  "ConferenceEvent",
-  "ConfirmAction",
-  "Consortium",
-  "ConstraintNode",
-  "ConsumeAction",
-  "ContactPage",
-  "ContactPoint",
-  "ContactPointOption",
-  "Continent",
-  "ControlAction",
-  "ConvenienceStore",
-  "Conversation",
-  "CookAction",
-  "Cooperative",
-  "Corporation",
-  "CorrectionComment",
-  "Country",
-  "Course",
-  "CourseInstance",
-  "Courthouse",
-  "CoverArt",
-  "CovidTestingFacility",
-  "CreateAction",
-  "CreativeWork",
-  "CreativeWorkSeason",
-  "CreativeWorkSeries",
-  "Credential",
-  "CreditCard",
-  "Crematorium",
-  "CriticReview",
-  "CssSelectorType",
-  "CurrencyConversionService",
-  "DDxElement",
-  "DENonprofitType",
-  "DanceEvent",
-  "DanceGroup",
-  "DataCatalog",
-  "DataDownload",
-  "DataFeed",
-  "DataFeedItem",
-  "DataType",
-  "Dataset",
-  "Date",
-  "DateTime",
-  "DatedMoneySpecification",
-  "DayOfWeek",
-  "DaySpa",
-  "DeactivateAction",
-  "DefenceEstablishment",
-  "DefinedRegion",
-  "DefinedTerm",
-  "DefinedTermSet",
-  "DeleteAction",
-  "DeliveryChargeSpecification",
-  "DeliveryEvent",
-  "DeliveryMethod",
-  "DeliveryTimeSettings",
-  "Demand",
-  "Dentist",
-  "DepartAction",
-  "DepartmentStore",
-  "DepositAccount",
-  "Dermatology",
-  "DiagnosticLab",
-  "DiagnosticProcedure",
-  "Diet",
-  "DietNutrition",
-  "DietarySupplement",
-  "DigitalDocument",
-  "DigitalDocumentPermission",
-  "DigitalDocumentPermissionType",
-  "DigitalPlatformEnumeration",
-  "DisagreeAction",
-  "DiscoverAction",
-  "DiscussionForumPosting",
-  "DislikeAction",
-  "Distance",
-  "Distillery",
-  "DonateAction",
-  "DoseSchedule",
-  "DownloadAction",
-  "DrawAction",
-  "Drawing",
-  "DrinkAction",
-  "DriveWheelConfigurationValue",
-  "Drug",
-  "DrugClass",
-  "DrugCost",
-  "DrugCostCategory",
-  "DrugLegalStatus",
-  "DrugPregnancyCategory",
-  "DrugPrescriptionStatus",
-  "DrugStrength",
-  "DryCleaningOrLaundry",
-  "Duration",
-  "EUEnergyEfficiencyEnumeration",
-  "EatAction",
-  "EducationEvent",
-  "EducationalAudience",
-  "EducationalOccupationalCredential",
-  "EducationalOccupationalProgram",
-  "EducationalOrganization",
-  "Electrician",
-  "ElectronicsStore",
-  "ElementarySchool",
-  "EmailMessage",
-  "Embassy",
-  "Emergency",
-  "EmergencyService",
-  "EmployeeRole",
-  "EmployerAggregateRating",
-  "EmployerReview",
-  "EmploymentAgency",
-  "EndorseAction",
-  "EndorsementRating",
-  "Energy",
-  "EnergyConsumptionDetails",
-  "EnergyEfficiencyEnumeration",
-  "EnergyStarEnergyEfficiencyEnumeration",
-  "EngineSpecification",
-  "EntertainmentBusiness",
-  "EntryPoint",
-  "Enumeration",
-  "Episode",
-  "Error",
-  "Event",
-  "EventAttendanceModeEnumeration",
-  "EventReservation",
-  "EventSeries",
-  "EventStatusType",
-  "EventVenue",
-  "ExchangeRateSpecification",
-  "ExerciseAction",
-  "ExerciseGym",
-  "ExercisePlan",
-  "ExhibitionEvent",
-  "FAQPage",
-  "FMRadioChannel",
-  "FastFoodRestaurant",
-  "Festival",
-  "FilmAction",
-  "FinancialIncentive",
-  "FinancialProduct",
-  "FinancialService",
-  "FindAction",
-  "FireStation",
-  "Flight",
-  "FlightReservation",
-  "Float",
-  "FloorPlan",
-  "Florist",
-  "FollowAction",
-  "FoodEstablishment",
-  "FoodEstablishmentReservation",
-  "FoodEvent",
-  "FoodService",
-  "FulfillmentTypeEnumeration",
-  "FundingAgency",
-  "FundingScheme",
-  "FurnitureStore",
-  "Game",
-  "GameAvailabilityEnumeration",
-  "GamePlayMode",
-  "GameServer",
-  "GameServerStatus",
-  "GardenStore",
-  "GasStation",
-  "GatedResidenceCommunity",
-  "GenderType",
-  "Gene",
-  "GeneralContractor",
-  "GeoCircle",
-  "GeoCoordinates",
-  "GeoShape",
-  "GeospatialGeometry",
-  "Geriatric",
-  "GiveAction",
-  "GolfCourse",
-  "GovernmentBenefitsType",
-  "GovernmentBuilding",
-  "GovernmentOffice",
-  "GovernmentOrganization",
-  "GovernmentPermit",
-  "GovernmentService",
-  "Grant",
-  "GroceryStore",
-  "Guide",
-  "Gynecologic",
-  "HVACBusiness",
-  "Hackathon",
-  "HairSalon",
-  "HardwareStore",
-  "HealthAndBeautyBusiness",
-  "HealthAspectEnumeration",
-  "HealthClub",
-  "HealthInsurancePlan",
-  "HealthPlanCostSharingSpecification",
-  "HealthPlanFormulary",
-  "HealthPlanNetwork",
-  "HealthTopicContent",
-  "HighSchool",
-  "HinduTemple",
-  "HobbyShop",
-  "HomeAndConstructionBusiness",
-  "HomeGoodsStore",
-  "Hospital",
-  "Hostel",
-  "Hotel",
-  "HotelRoom",
-  "House",
-  "HousePainter",
-  "HowTo",
-  "HowToDirection",
-  "HowToItem",
-  "HowToSection",
-  "HowToStep",
-  "HowToSupply",
-  "HowToTip",
-  "HowToTool",
-  "HyperToc",
-  "HyperTocEntry",
-  "IPTCDigitalSourceEnumeration",
-  "ITNonprofitType",
-  "IceCreamShop",
-  "IgnoreAction",
-  "ImageGallery",
-  "ImageObject",
-  "ImageObjectSnapshot",
-  "ImagingTest",
-  "IncentiveQualifiedExpenseType",
-  "IncentiveStatus",
-  "IncentiveType",
-  "IndividualPhysician",
-  "IndividualProduct",
-  "InfectiousAgentClass",
-  "InfectiousDisease",
-  "InformAction",
-  "InsertAction",
-  "InstallAction",
-  "InstantaneousEvent",
-  "InsuranceAgency",
-  "Intangible",
-  "Integer",
-  "InteractAction",
-  "InteractionCounter",
-  "InternetCafe",
-  "InvestmentFund",
-  "InvestmentOrDeposit",
-  "InviteAction",
-  "Invoice",
-  "ItemAvailability",
-  "ItemList",
-  "ItemListOrderType",
-  "ItemPage",
-  "JewelryStore",
-  "JobPosting",
-  "JoinAction",
-  "Joint",
-  "LakeBodyOfWater",
-  "Landform",
-  "LandmarksOrHistoricalBuildings",
-  "Language",
-  "LearningResource",
-  "LeaveAction",
-  "LegalForceStatus",
-  "LegalService",
-  "LegalValueLevel",
-  "Legislation",
-  "LegislationObject",
-  "LegislativeBuilding",
-  "LendAction",
-  "Library",
-  "LibrarySystem",
-  "LifestyleModification",
-  "Ligament",
-  "LikeAction",
-  "LinkRole",
-  "LiquorStore",
-  "ListItem",
-  "ListenAction",
-  "LiteraryEvent",
-  "LiveBlogPosting",
-  "LoanOrCredit",
-  "LocalBusiness",
-  "LocationFeatureSpecification",
-  "Locksmith",
-  "LodgingBusiness",
-  "LodgingReservation",
-  "LoginAction",
-  "LoseAction",
-  "LymphaticVessel",
-  "Manuscript",
-  "Map",
-  "MapCategoryType",
-  "MarryAction",
-  "Mass",
-  "MathSolver",
-  "MaximumDoseSchedule",
-  "MeasurementMethodEnum",
-  "MeasurementTypeEnumeration",
-  "MediaEnumeration",
-  "MediaGallery",
-  "MediaManipulationRatingEnumeration",
-  "MediaObject",
-  "MediaReview",
-  "MediaReviewItem",
-  "MediaSubscription",
-  "MedicalAudience",
-  "MedicalAudienceType",
-  "MedicalBusiness",
-  "MedicalCause",
-  "MedicalClinic",
-  "MedicalCode",
-  "MedicalCondition",
-  "MedicalConditionStage",
-  "MedicalContraindication",
-  "MedicalDevice",
-  "MedicalDevicePurpose",
-  "MedicalEntity",
-  "MedicalEnumeration",
-  "MedicalEvidenceLevel",
-  "MedicalGuideline",
-  "MedicalGuidelineContraindication",
-  "MedicalGuidelineRecommendation",
-  "MedicalImagingTechnique",
-  "MedicalIndication",
-  "MedicalIntangible",
-  "MedicalObservationalStudy",
-  "MedicalObservationalStudyDesign",
-  "MedicalOrganization",
-  "MedicalProcedure",
-  "MedicalProcedureType",
-  "MedicalRiskCalculator",
-  "MedicalRiskEstimator",
-  "MedicalRiskFactor",
-  "MedicalRiskScore",
-  "MedicalScholarlyArticle",
-  "MedicalSign",
-  "MedicalSignOrSymptom",
-  "MedicalSpecialty",
-  "MedicalStudy",
-  "MedicalStudyStatus",
-  "MedicalSymptom",
-  "MedicalTest",
-  "MedicalTestPanel",
-  "MedicalTherapy",
-  "MedicalTrial",
-  "MedicalTrialDesign",
-  "MedicalWebPage",
-  "MedicineSystem",
-  "MeetingRoom",
-  "MemberProgram",
-  "MemberProgramTier",
-  "MensClothingStore",
-  "Menu",
-  "MenuItem",
-  "MenuSection",
-  "MerchantReturnEnumeration",
-  "MerchantReturnPolicy",
-  "MerchantReturnPolicySeasonalOverride",
-  "Message",
-  "MiddleSchool",
-  "Midwifery",
-  "MobileApplication",
-  "MobilePhoneStore",
-  "MolecularEntity",
-  "MonetaryAmount",
-  "MonetaryAmountDistribution",
-  "MonetaryGrant",
-  "MoneyTransfer",
-  "MortgageLoan",
-  "Mosque",
-  "Motel",
-  "Motorcycle",
-  "MotorcycleDealer",
-  "MotorcycleRepair",
-  "MotorizedBicycle",
-  "Mountain",
-  "MoveAction",
-  "Movie",
-  "MovieClip",
-  "MovieRentalStore",
-  "MovieSeries",
-  "MovieTheater",
-  "MovingCompany",
-  "Muscle",
-  "Museum",
-  "MusicAlbum",
-  "MusicAlbumProductionType",
-  "MusicAlbumReleaseType",
-  "MusicComposition",
-  "MusicEvent",
-  "MusicGroup",
-  "MusicPlaylist",
-  "MusicRecording",
-  "MusicRelease",
-  "MusicReleaseFormatType",
-  "MusicStore",
-  "MusicVenue",
-  "MusicVideoObject",
-  "NGO",
-  "NLNonprofitType",
-  "NailSalon",
-  "Nerve",
-  "NewsArticle",
-  "NewsMediaOrganization",
-  "Newspaper",
-  "NightClub",
-  "NonprofitType",
-  "Notary",
-  "NoteDigitalDocument",
-  "Number",
-  "Nursing",
-  "NutritionInformation",
-  "Observation",
-  "Obstetric",
-  "Occupation",
-  "OccupationalExperienceRequirements",
-  "OccupationalTherapy",
-  "OceanBodyOfWater",
-  "Offer",
-  "OfferCatalog",
-  "OfferForLease",
-  "OfferForPurchase",
-  "OfferItemCondition",
-  "OfferShippingDetails",
-  "OfficeEquipmentStore",
-  "OnDemandEvent",
-  "Oncologic",
-  "OnlineBusiness",
-  "OnlineMarketplace",
-  "OnlineStore",
-  "OpeningHoursSpecification",
-  "OperatingSystem",
-  "OpinionNewsArticle",
-  "Optician",
-  "Optometric",
-  "Order",
-  "OrderAction",
-  "OrderItem",
-  "OrderStatus",
-  "Organization",
-  "OrganizationRole",
-  "OrganizeAction",
-  "Otolaryngologic",
-  "OutletStore",
-  "OwnershipInfo",
-  "PaintAction",
-  "Painting",
-  "PalliativeProcedure",
-  "ParcelDelivery",
-  "ParentAudience",
-  "Park",
-  "ParkingFacility",
-  "PathologyTest",
-  "Patient",
-  "PawnShop",
-  "PayAction",
-  "PaymentCard",
-  "PaymentChargeSpecification",
-  "PaymentMethod",
-  "PaymentMethodType",
-  "PaymentService",
-  "PaymentStatusType",
-  "Pediatric",
-  "PeopleAudience",
-  "PerformAction",
-  "PerformanceRole",
-  "PerformingArtsEvent",
-  "PerformingArtsTheater",
-  "PerformingGroup",
-  "Periodical",
-  "Permit",
-  "Person",
-  "PetStore",
-  "Pharmacy",
-  "Photograph",
-  "PhotographAction",
-  "PhysicalActivity",
-  "PhysicalActivityCategory",
-  "PhysicalExam",
-  "PhysicalTherapy",
-  "Physician",
-  "PhysiciansOffice",
-  "Physiotherapy",
-  "Place",
-  "PlaceOfWorship",
-  "PlanAction",
-  "PlasticSurgery",
-  "Play",
-  "PlayAction",
-  "PlayGameAction",
-  "Playground",
-  "Plumber",
-  "PodcastEpisode",
-  "PodcastSeason",
-  "PodcastSeries",
-  "Podiatric",
-  "PoliceStation",
-  "PoliticalParty",
-  "Pond",
-  "PostOffice",
-  "PostalAddress",
-  "PostalCodeRangeSpecification",
-  "Poster",
-  "PreOrderAction",
-  "PrependAction",
-  "Preschool",
-  "PresentationDigitalDocument",
-  "PreventionIndication",
-  "PriceComponentTypeEnumeration",
-  "PriceSpecification",
-  "PriceTypeEnumeration",
-  "PrimaryCare",
-  "Product",
-  "ProductCollection",
-  "ProductGroup",
-  "ProductModel",
-  "ProductReturnEnumeration",
-  "ProductReturnPolicy",
-  "ProfessionalService",
-  "ProfilePage",
-  "ProgramMembership",
-  "Project",
-  "PronounceableText",
-  "Property",
-  "PropertyValue",
-  "PropertyValueSpecification",
-  "Protein",
-  "Psychiatric",
-  "PsychologicalTreatment",
-  "PublicHealth",
-  "PublicSwimmingPool",
-  "PublicToilet",
-  "PublicationEvent",
-  "PublicationIssue",
-  "PublicationVolume",
-  "PurchaseType",
-  "QAPage",
-  "QualitativeValue",
-  "QuantitativeValue",
-  "QuantitativeValueDistribution",
-  "Quantity",
-  "Question",
-  "Quiz",
-  "Quotation",
-  "QuoteAction",
-  "RVPark",
-  "RadiationTherapy",
-  "RadioBroadcastService",
-  "RadioChannel",
-  "RadioClip",
-  "RadioEpisode",
-  "RadioSeason",
-  "RadioSeries",
-  "RadioStation",
-  "Rating",
-  "ReactAction",
-  "ReadAction",
-  "RealEstateAgent",
-  "RealEstateListing",
-  "ReceiveAction",
-  "Recipe",
-  "Recommendation",
-  "RecommendedDoseSchedule",
-  "RecyclingCenter",
-  "RefundTypeEnumeration",
-  "RegisterAction",
-  "RejectAction",
-  "RentAction",
-  "RentalCarReservation",
-  "RepaymentSpecification",
-  "ReplaceAction",
-  "ReplyAction",
-  "Report",
-  "ReportageNewsArticle",
-  "ReportedDoseSchedule",
-  "ResearchOrganization",
-  "ResearchProject",
-  "Researcher",
-  "Reservation",
-  "ReservationPackage",
-  "ReservationStatusType",
-  "ReserveAction",
-  "Reservoir",
-  "ResetPasswordAction",
-  "Residence",
-  "Resort",
-  "RespiratoryTherapy",
-  "Restaurant",
-  "RestrictedDiet",
-  "ResumeAction",
-  "ReturnAction",
-  "ReturnFeesEnumeration",
-  "ReturnLabelSourceEnumeration",
-  "ReturnMethodEnumeration",
-  "Review",
-  "ReviewAction",
-  "ReviewNewsArticle",
-  "RiverBodyOfWater",
-  "Role",
-  "RoofingContractor",
-  "Room",
-  "RsvpAction",
-  "RsvpResponseType",
-  "RuntimePlatform",
-  "SaleEvent",
-  "SatiricalArticle",
-  "Schedule",
-  "ScheduleAction",
-  "ScholarlyArticle",
-  "School",
-  "SchoolDistrict",
-  "ScreeningEvent",
-  "Sculpture",
-  "SeaBodyOfWater",
-  "SearchAction",
-  "SearchRescueOrganization",
-  "SearchResultsPage",
-  "Season",
-  "Seat",
-  "SeekToAction",
-  "SelfStorage",
-  "SellAction",
-  "SendAction",
-  "SequentialArt",
-  "Series",
-  "Service",
-  "ServiceChannel",
-  "ServicePeriod",
-  "ShareAction",
-  "SheetMusic",
-  "ShippingConditions",
-  "ShippingDeliveryTime",
-  "ShippingRateSettings",
-  "ShippingService",
-  "ShoeStore",
-  "ShoppingCenter",
-  "ShortStory",
-  "SingleFamilyResidence",
-  "SiteNavigationElement",
-  "SizeGroupEnumeration",
-  "SizeSpecification",
-  "SizeSystemEnumeration",
-  "SkiResort",
-  "SocialEvent",
-  "SocialMediaPosting",
-  "SoftwareApplication",
-  "SoftwareSourceCode",
-  "SolveMathAction",
-  "SomeProducts",
-  "SpeakableSpecification",
-  "SpecialAnnouncement",
-  "Specialty",
-  "SportingGoodsStore",
-  "SportsActivityLocation",
-  "SportsClub",
-  "SportsEvent",
-  "SportsOrganization",
-  "SportsTeam",
-  "SpreadsheetDigitalDocument",
-  "StadiumOrArena",
-  "State",
-  "Statement",
-  "StatisticalPopulation",
-  "StatisticalVariable",
-  "StatusEnumeration",
-  "SteeringPositionValue",
-  "Store",
-  "StructuredValue",
-  "StupidType",
-  "SubscribeAction",
-  "Substance",
-  "SubwayStation",
-  "Suite",
-  "SuperficialAnatomy",
-  "SurgicalProcedure",
-  "SuspendAction",
-  "Syllabus",
-  "Synagogue",
-  "TVClip",
-  "TVEpisode",
-  "TVSeason",
-  "TVSeries",
-  "Table",
-  "TakeAction",
-  "TattooParlor",
-  "Taxi",
-  "TaxiReservation",
-  "TaxiService",
-  "TaxiStand",
-  "Taxon",
-  "TechArticle",
-  "TelevisionChannel",
-  "TelevisionStation",
-  "TennisComplex",
-  "Text",
-  "TextDigitalDocument",
-  "TextObject",
-  "TheaterEvent",
-  "TheaterGroup",
-  "TherapeuticProcedure",
-  "Thesis",
-  "Thing",
-  "Ticket",
-  "TieAction",
-  "TierBenefitEnumeration",
-  "Time",
-  "TipAction",
-  "TireShop",
-  "TouristAttraction",
-  "TouristDestination",
-  "TouristInformationCenter",
-  "TouristTrip",
-  "ToyStore",
-  "TrackAction",
-  "TradeAction",
-  "TrainReservation",
-  "TrainStation",
-  "TrainTrip",
-  "TransferAction",
-  "TravelAction",
-  "TravelAgency",
-  "TreatmentIndication",
-  "Trip",
-  "TypeAndQuantityNode",
-  "UKNonprofitType",
-  "URL",
-  "USNonprofitType",
-  "UnRegisterAction",
-  "UnitPriceSpecification",
-  "UpdateAction",
-  "UseAction",
-  "UserBlocks",
-  "UserCheckins",
-  "UserComments",
-  "UserDownloads",
-  "UserInteraction",
-  "UserLikes",
-  "UserPageVisits",
-  "UserPlays",
-  "UserPlusOnes",
-  "UserReview",
-  "UserTweets",
-  "VacationRental",
-  "Vehicle",
-  "Vein",
-  "Vessel",
-  "VeterinaryCare",
-  "VideoGallery",
-  "VideoGame",
-  "VideoGameClip",
-  "VideoGameSeries",
-  "VideoObject",
-  "VideoObjectSnapshot",
-  "ViewAction",
-  "VirtualLocation",
-  "VisualArtsEvent",
-  "VisualArtwork",
-  "VitalSign",
-  "Volcano",
-  "VoteAction",
-  "WPAdBlock",
-  "WPFooter",
-  "WPHeader",
-  "WPSideBar",
-  "WantAction",
-  "WarrantyPromise",
-  "WarrantyScope",
-  "WatchAction",
-  "Waterfall",
-  "WearAction",
-  "WearableMeasurementTypeEnumeration",
-  "WearableSizeGroupEnumeration",
-  "WearableSizeSystemEnumeration",
-  "WebAPI",
-  "WebApplication",
-  "WebContent",
-  "WebPage",
-  "WebPageElement",
-  "WebSite",
-  "WholesaleStore",
-  "WinAction",
-  "Winery",
-  "WorkBasedProgram",
-  "WorkersUnion",
-  "WriteAction",
-  "XPathType",
-  "Zoo",
-  "iflastandards_info_ns_lrm_lrmoo_F31_Performance",
-  "purl_bioontology_org_ontology_SNOMEDCT_105590001",
-  "purl_bioontology_org_ontology_SNOMEDCT_116154003",
-  "purl_bioontology_org_ontology_SNOMEDCT_277132007",
-  "purl_bioontology_org_ontology_SNOMEDCT_387713003",
-  "purl_bioontology_org_ontology_SNOMEDCT_410942007",
-  "purl_bioontology_org_ontology_SNOMEDCT_50731006",
-  "purl_bioontology_org_ontology_SNOMEDCT_51114001",
-  "purl_bioontology_org_ontology_SNOMEDCT_63653004",
-  "purl_org_dc_dcmitype_Dataset",
-  "purl_org_dc_dcmitype_Event",
-  "purl_org_dc_dcmitype_Image",
-  "purl_org_dc_dcmitype_Text",
-  "purl_org_ontology_bibo_Issue",
-  "purl_org_ontology_bibo_Periodical",
-  "rdfs_org_ns_void_Dataset",
-  "ref_gs1_org_voc_CertificationDetails",
-  "ref_gs1_org_voc_ContactPoint",
-  "ref_gs1_org_voc_Country",
-  "ref_gs1_org_voc_Organization",
-  "ref_gs1_org_voc_PostalAddress",
-  "sarif_info_Result",
-  "spec_edmcouncil_org_fibo_ontology_BE_Corporations_Corporations_Corporation",
-  "spec_edmcouncil_org_fibo_ontology_BE_LegalEntities_CorporateBodies_CooperativeSociety",
-  "spec_edmcouncil_org_fibo_ontology_BE_NotForProfitOrganizations_NotForProfitOrganizations_NonGovernmentalOrganization",
-  "spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_BankAccount",
-  "spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_PaymentMechanism",
-  "spec_edmcouncil_org_fibo_ontology_FND_Agreements_Contracts_MutualContractualAgreement",
-  "spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Certificate",
-  "spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Document",
-  "spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_LegalDocument",
-  "spec_edmcouncil_org_fibo_ontology_FND_DatesAndTimes_Occurrences_Occurrence",
-  "spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_ContactPoint",
-  "spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_Organization",
-  "spec_edmcouncil_org_fibo_ontology_FND_Places_Addresses_PostalAddress",
-  "spec_edmcouncil_org_fibo_ontology_FND_Places_Locations_Municipality",
-  "spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Offer",
-  "spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Price",
-  "spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Product",
-  "spec_edmcouncil_org_fibo_ontology_PAY_PaymentServices_PaymentServices_PaymentService",
-  "unece_org_vocab_AmountType",
-  "unece_org_vocab_BrandName",
-  "unece_org_vocab_Country",
-  "unece_org_vocab_ElectronicDocument",
-  "unece_org_vocab_FinancialCard",
-  "unece_org_vocab_GeographicalCoordinate",
-  "unece_org_vocab_Invoice",
-  "unece_org_vocab_LineTradeAgreement",
-  "unece_org_vocab_Offer",
-  "unece_org_vocab_Order",
-  "unece_org_vocab_PaymentMeans",
-  "unece_org_vocab_RequestForQuotation",
-  "unece_org_vocab_SpecifiedCertificate",
-  "unece_org_vocab_SpecifiedTradeProduct",
-  "unece_org_vocab_TradeAddress",
-  "unece_org_vocab_TradeProduct",
-  "unece_org_vocab_TransportMethod",
-  "www_omg_org_spec_Commons_Classifiers_Classifier",
-  "www_omg_org_spec_Commons_Collections_Collection",
-  "www_omg_org_spec_Commons_DatesAndTimes_Date",
-  "www_omg_org_spec_Commons_DatesAndTimes_DateTime",
-  "www_omg_org_spec_Commons_DatesAndTimes_Duration",
-  "www_omg_org_spec_Commons_GeopoliticalEntities_GeopoliticalEntity",
-  "www_omg_org_spec_Commons_GeopoliticalEntities_Subdivision",
-  "www_omg_org_spec_Commons_Locations_Address",
-  "www_omg_org_spec_Commons_Locations_GeographicCoordinate",
-  "www_omg_org_spec_Commons_Locations_Location",
-  "www_omg_org_spec_LCC_Countries_CountryRepresentation_Continent",
-  "www_omg_org_spec_LCC_Countries_CountryRepresentation_Country",
-  "www_w3_org_2006_vcard_ns_VCard",
-  "www_w3_org_ns_dcat_Catalog",
-  "www_w3_org_ns_dcat_Dataset",
-  "www_w3_org_ns_dcat_Distribution",
-  "www_w3_org_ns_hydra_core_Error",
-  "www_w3_org_ns_prov_InstantaneousEvent",
-  "www_w3_org_ns_prov_atTime",
-  "xmlns_com_foaf_0_1_Person"
-]);
+var SCHEMA_ORG_TYPES = new Set(
+  "3DModel AMRadioChannel APIReference AboutPage AcceptAction Accommodation AccountingService AchieveAction Action ActionAccessSpecification ActionStatusType ActivateAction AddAction AdministrativeArea AdultEntertainment AdultOrientedEnumeration AdvertiserContentArticle AggregateOffer AggregateRating AgreeAction Airline Airport AlignmentObject AllocateAction AmpStory AmusementPark AnalysisNewsArticle AnatomicalStructure AnatomicalSystem AnimalShelter Answer Apartment ApartmentComplex AppendAction ApplyAction ApprovedIndication Aquarium ArchiveComponent ArchiveOrganization ArriveAction ArtGallery Artery Article AskAction AskPublicNewsArticle AssessAction AssignAction Atlas Attorney Audience AudioObject AudioObjectSnapshot Audiobook AuthenticateAction AuthorizeAction AutoBodyShop AutoDealer AutoPartsStore AutoRental AutoRepair AutoWash AutomatedTeller AutomotiveBusiness BackgroundNewsArticle Bakery BankAccount BankOrCreditUnion BarOrPub Barcode Beach BeautySalon BedAndBreakfast BedDetails BedType BefriendAction BikeStore BioChemEntity Blog BlogPosting BloodTest BoardingPolicyType BoatReservation BoatTerminal BoatTrip BodyMeasurementTypeEnumeration BodyOfWater Bone Book BookFormatType BookSeries BookStore BookmarkAction Boolean BorrowAction BowlingAlley BrainStructure Brand BreadcrumbList Brewery Bridge BroadcastChannel BroadcastEvent BroadcastFrequencySpecification BroadcastService BrokerageAccount BuddhistTemple BusOrCoach BusReservation BusStation BusStop BusTrip BusinessAudience BusinessEntityType BusinessEvent BusinessFunction BuyAction CDCPMDRecord CableOrSatelliteService CafeOrCoffeeShop Campground CampingPitch Canal CancelAction Car CarUsageType Casino CategoryCode CategoryCodeSet CatholicChurch Cemetery Certification CertificationStatusEnumeration Chapter CheckAction CheckInAction CheckOutAction CheckoutPage ChemicalSubstance ChildCare ChildrensEvent ChooseAction Church City CityHall CivicStructure Claim ClaimReview Class Clip ClothingStore Code Collection CollectionPage CollegeOrUniversity ComedyClub ComedyEvent ComicCoverArt ComicIssue ComicSeries ComicStory Comment CommentAction CommunicateAction CommunityHealth CompleteDataFeed CompoundPriceSpecification ComputerLanguage ComputerStore ConferenceEvent ConfirmAction Consortium ConstraintNode ConsumeAction ContactPage ContactPoint ContactPointOption Continent ControlAction ConvenienceStore Conversation CookAction Cooperative Corporation CorrectionComment Country Course CourseInstance Courthouse CoverArt CovidTestingFacility CreateAction CreativeWork CreativeWorkSeason CreativeWorkSeries Credential CreditCard Crematorium CriticReview CssSelectorType CurrencyConversionService DDxElement DENonprofitType DanceEvent DanceGroup DataCatalog DataDownload DataFeed DataFeedItem DataType Dataset Date DateTime DatedMoneySpecification DayOfWeek DaySpa DeactivateAction DefenceEstablishment DefinedRegion DefinedTerm DefinedTermSet DeleteAction DeliveryChargeSpecification DeliveryEvent DeliveryMethod DeliveryTimeSettings Demand Dentist DepartAction DepartmentStore DepositAccount Dermatology DiagnosticLab DiagnosticProcedure Diet DietNutrition DietarySupplement DigitalDocument DigitalDocumentPermission DigitalDocumentPermissionType DigitalPlatformEnumeration DisagreeAction DiscoverAction DiscussionForumPosting DislikeAction Distance Distillery DonateAction DoseSchedule DownloadAction DrawAction Drawing DrinkAction DriveWheelConfigurationValue Drug DrugClass DrugCost DrugCostCategory DrugLegalStatus DrugPregnancyCategory DrugPrescriptionStatus DrugStrength DryCleaningOrLaundry Duration EUEnergyEfficiencyEnumeration EatAction EducationEvent EducationalAudience EducationalOccupationalCredential EducationalOccupationalProgram EducationalOrganization Electrician ElectronicsStore ElementarySchool EmailMessage Embassy Emergency EmergencyService EmployeeRole EmployerAggregateRating EmployerReview EmploymentAgency EndorseAction EndorsementRating Energy EnergyConsumptionDetails EnergyEfficiencyEnumeration EnergyStarEnergyEfficiencyEnumeration EngineSpecification EntertainmentBusiness EntryPoint Enumeration Episode Error Event EventAttendanceModeEnumeration EventReservation EventSeries EventStatusType EventVenue ExchangeRateSpecification ExerciseAction ExerciseGym ExercisePlan ExhibitionEvent FAQPage FMRadioChannel FastFoodRestaurant Festival FilmAction FinancialIncentive FinancialProduct FinancialService FindAction FireStation Flight FlightReservation Float FloorPlan Florist FollowAction FoodEstablishment FoodEstablishmentReservation FoodEvent FoodService FulfillmentTypeEnumeration FundingAgency FundingScheme FurnitureStore Game GameAvailabilityEnumeration GamePlayMode GameServer GameServerStatus GardenStore GasStation GatedResidenceCommunity GenderType Gene GeneralContractor GeoCircle GeoCoordinates GeoShape GeospatialGeometry Geriatric GiveAction GolfCourse GovernmentBenefitsType GovernmentBuilding GovernmentOffice GovernmentOrganization GovernmentPermit GovernmentService Grant GroceryStore Guide Gynecologic HVACBusiness Hackathon HairSalon HardwareStore HealthAndBeautyBusiness HealthAspectEnumeration HealthClub HealthInsurancePlan HealthPlanCostSharingSpecification HealthPlanFormulary HealthPlanNetwork HealthTopicContent HighSchool HinduTemple HobbyShop HomeAndConstructionBusiness HomeGoodsStore Hospital Hostel Hotel HotelRoom House HousePainter HowTo HowToDirection HowToItem HowToSection HowToStep HowToSupply HowToTip HowToTool HyperToc HyperTocEntry IPTCDigitalSourceEnumeration ITNonprofitType IceCreamShop IgnoreAction ImageGallery ImageObject ImageObjectSnapshot ImagingTest IncentiveQualifiedExpenseType IncentiveStatus IncentiveType IndividualPhysician IndividualProduct InfectiousAgentClass InfectiousDisease InformAction InsertAction InstallAction InstantaneousEvent InsuranceAgency Intangible Integer InteractAction InteractionCounter InternetCafe InvestmentFund InvestmentOrDeposit InviteAction Invoice ItemAvailability ItemList ItemListOrderType ItemPage JewelryStore JobPosting JoinAction Joint LakeBodyOfWater Landform LandmarksOrHistoricalBuildings Language LearningResource LeaveAction LegalForceStatus LegalService LegalValueLevel Legislation LegislationObject LegislativeBuilding LendAction Library LibrarySystem LifestyleModification Ligament LikeAction LinkRole LiquorStore ListItem ListenAction LiteraryEvent LiveBlogPosting LoanOrCredit LocalBusiness LocationFeatureSpecification Locksmith LodgingBusiness LodgingReservation LoginAction LoseAction LymphaticVessel Manuscript Map MapCategoryType MarryAction Mass MathSolver MaximumDoseSchedule MeasurementMethodEnum MeasurementTypeEnumeration MediaEnumeration MediaGallery MediaManipulationRatingEnumeration MediaObject MediaReview MediaReviewItem MediaSubscription MedicalAudience MedicalAudienceType MedicalBusiness MedicalCause MedicalClinic MedicalCode MedicalCondition MedicalConditionStage MedicalContraindication MedicalDevice MedicalDevicePurpose MedicalEntity MedicalEnumeration MedicalEvidenceLevel MedicalGuideline MedicalGuidelineContraindication MedicalGuidelineRecommendation MedicalImagingTechnique MedicalIndication MedicalIntangible MedicalObservationalStudy MedicalObservationalStudyDesign MedicalOrganization MedicalProcedure MedicalProcedureType MedicalRiskCalculator MedicalRiskEstimator MedicalRiskFactor MedicalRiskScore MedicalScholarlyArticle MedicalSign MedicalSignOrSymptom MedicalSpecialty MedicalStudy MedicalStudyStatus MedicalSymptom MedicalTest MedicalTestPanel MedicalTherapy MedicalTrial MedicalTrialDesign MedicalWebPage MedicineSystem MeetingRoom MemberProgram MemberProgramTier MensClothingStore Menu MenuItem MenuSection MerchantReturnEnumeration MerchantReturnPolicy MerchantReturnPolicySeasonalOverride Message MiddleSchool Midwifery MobileApplication MobilePhoneStore MolecularEntity MonetaryAmount MonetaryAmountDistribution MonetaryGrant MoneyTransfer MortgageLoan Mosque Motel Motorcycle MotorcycleDealer MotorcycleRepair MotorizedBicycle Mountain MoveAction Movie MovieClip MovieRentalStore MovieSeries MovieTheater MovingCompany Muscle Museum MusicAlbum MusicAlbumProductionType MusicAlbumReleaseType MusicComposition MusicEvent MusicGroup MusicPlaylist MusicRecording MusicRelease MusicReleaseFormatType MusicStore MusicVenue MusicVideoObject NGO NLNonprofitType NailSalon Nerve NewsArticle NewsMediaOrganization Newspaper NightClub NonprofitType Notary NoteDigitalDocument Number Nursing NutritionInformation Observation Obstetric Occupation OccupationalExperienceRequirements OccupationalTherapy OceanBodyOfWater Offer OfferCatalog OfferForLease OfferForPurchase OfferItemCondition OfferShippingDetails OfficeEquipmentStore OnDemandEvent Oncologic OnlineBusiness OnlineMarketplace OnlineStore OpeningHoursSpecification OperatingSystem OpinionNewsArticle Optician Optometric Order OrderAction OrderItem OrderStatus Organization OrganizationRole OrganizeAction Otolaryngologic OutletStore OwnershipInfo PaintAction Painting PalliativeProcedure ParcelDelivery ParentAudience Park ParkingFacility PathologyTest Patient PawnShop PayAction PaymentCard PaymentChargeSpecification PaymentMethod PaymentMethodType PaymentService PaymentStatusType Pediatric PeopleAudience PerformAction PerformanceRole PerformingArtsEvent PerformingArtsTheater PerformingGroup Periodical Permit Person PetStore Pharmacy Photograph PhotographAction PhysicalActivity PhysicalActivityCategory PhysicalExam PhysicalTherapy Physician PhysiciansOffice Physiotherapy Place PlaceOfWorship PlanAction PlasticSurgery Play PlayAction PlayGameAction Playground Plumber PodcastEpisode PodcastSeason PodcastSeries Podiatric PoliceStation PoliticalParty Pond PostOffice PostalAddress PostalCodeRangeSpecification Poster PreOrderAction PrependAction Preschool PresentationDigitalDocument PreventionIndication PriceComponentTypeEnumeration PriceSpecification PriceTypeEnumeration PrimaryCare Product ProductCollection ProductGroup ProductModel ProductReturnEnumeration ProductReturnPolicy ProfessionalService ProfilePage ProgramMembership Project PronounceableText Property PropertyValue PropertyValueSpecification Protein Psychiatric PsychologicalTreatment PublicHealth PublicSwimmingPool PublicToilet PublicationEvent PublicationIssue PublicationVolume PurchaseType QAPage QualitativeValue QuantitativeValue QuantitativeValueDistribution Quantity Question Quiz Quotation QuoteAction RVPark RadiationTherapy RadioBroadcastService RadioChannel RadioClip RadioEpisode RadioSeason RadioSeries RadioStation Rating ReactAction ReadAction RealEstateAgent RealEstateListing ReceiveAction Recipe Recommendation RecommendedDoseSchedule RecyclingCenter RefundTypeEnumeration RegisterAction RejectAction RentAction RentalCarReservation RepaymentSpecification ReplaceAction ReplyAction Report ReportageNewsArticle ReportedDoseSchedule ResearchOrganization ResearchProject Researcher Reservation ReservationPackage ReservationStatusType ReserveAction Reservoir ResetPasswordAction Residence Resort RespiratoryTherapy Restaurant RestrictedDiet ResumeAction ReturnAction ReturnFeesEnumeration ReturnLabelSourceEnumeration ReturnMethodEnumeration Review ReviewAction ReviewNewsArticle RiverBodyOfWater Role RoofingContractor Room RsvpAction RsvpResponseType RuntimePlatform SaleEvent SatiricalArticle Schedule ScheduleAction ScholarlyArticle School SchoolDistrict ScreeningEvent Sculpture SeaBodyOfWater SearchAction SearchRescueOrganization SearchResultsPage Season Seat SeekToAction SelfStorage SellAction SendAction SequentialArt Series Service ServiceChannel ServicePeriod ShareAction SheetMusic ShippingConditions ShippingDeliveryTime ShippingRateSettings ShippingService ShoeStore ShoppingCenter ShortStory SingleFamilyResidence SiteNavigationElement SizeGroupEnumeration SizeSpecification SizeSystemEnumeration SkiResort SocialEvent SocialMediaPosting SoftwareApplication SoftwareSourceCode SolveMathAction SomeProducts SpeakableSpecification SpecialAnnouncement Specialty SportingGoodsStore SportsActivityLocation SportsClub SportsEvent SportsOrganization SportsTeam SpreadsheetDigitalDocument StadiumOrArena State Statement StatisticalPopulation StatisticalVariable StatusEnumeration SteeringPositionValue Store StructuredValue StupidType SubscribeAction Substance SubwayStation Suite SuperficialAnatomy SurgicalProcedure SuspendAction Syllabus Synagogue TVClip TVEpisode TVSeason TVSeries Table TakeAction TattooParlor Taxi TaxiReservation TaxiService TaxiStand Taxon TechArticle TelevisionChannel TelevisionStation TennisComplex Text TextDigitalDocument TextObject TheaterEvent TheaterGroup TherapeuticProcedure Thesis Thing Ticket TieAction TierBenefitEnumeration Time TipAction TireShop TouristAttraction TouristDestination TouristInformationCenter TouristTrip ToyStore TrackAction TradeAction TrainReservation TrainStation TrainTrip TransferAction TravelAction TravelAgency TreatmentIndication Trip TypeAndQuantityNode UKNonprofitType URL USNonprofitType UnRegisterAction UnitPriceSpecification UpdateAction UseAction UserBlocks UserCheckins UserComments UserDownloads UserInteraction UserLikes UserPageVisits UserPlays UserPlusOnes UserReview UserTweets VacationRental Vehicle Vein Vessel VeterinaryCare VideoGallery VideoGame VideoGameClip VideoGameSeries VideoObject VideoObjectSnapshot ViewAction VirtualLocation VisualArtsEvent VisualArtwork VitalSign Volcano VoteAction WPAdBlock WPFooter WPHeader WPSideBar WantAction WarrantyPromise WarrantyScope WatchAction Waterfall WearAction WearableMeasurementTypeEnumeration WearableSizeGroupEnumeration WearableSizeSystemEnumeration WebAPI WebApplication WebContent WebPage WebPageElement WebSite WholesaleStore WinAction Winery WorkBasedProgram WorkersUnion WriteAction XPathType Zoo iflastandards_info_ns_lrm_lrmoo_F31_Performance purl_bioontology_org_ontology_SNOMEDCT_105590001 purl_bioontology_org_ontology_SNOMEDCT_116154003 purl_bioontology_org_ontology_SNOMEDCT_277132007 purl_bioontology_org_ontology_SNOMEDCT_387713003 purl_bioontology_org_ontology_SNOMEDCT_410942007 purl_bioontology_org_ontology_SNOMEDCT_50731006 purl_bioontology_org_ontology_SNOMEDCT_51114001 purl_bioontology_org_ontology_SNOMEDCT_63653004 purl_org_dc_dcmitype_Dataset purl_org_dc_dcmitype_Event purl_org_dc_dcmitype_Image purl_org_dc_dcmitype_Text purl_org_ontology_bibo_Issue purl_org_ontology_bibo_Periodical rdfs_org_ns_void_Dataset ref_gs1_org_voc_CertificationDetails ref_gs1_org_voc_ContactPoint ref_gs1_org_voc_Country ref_gs1_org_voc_Organization ref_gs1_org_voc_PostalAddress sarif_info_Result spec_edmcouncil_org_fibo_ontology_BE_Corporations_Corporations_Corporation spec_edmcouncil_org_fibo_ontology_BE_LegalEntities_CorporateBodies_CooperativeSociety spec_edmcouncil_org_fibo_ontology_BE_NotForProfitOrganizations_NotForProfitOrganizations_NonGovernmentalOrganization spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_BankAccount spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_PaymentMechanism spec_edmcouncil_org_fibo_ontology_FND_Agreements_Contracts_MutualContractualAgreement spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Certificate spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Document spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_LegalDocument spec_edmcouncil_org_fibo_ontology_FND_DatesAndTimes_Occurrences_Occurrence spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_ContactPoint spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_Organization spec_edmcouncil_org_fibo_ontology_FND_Places_Addresses_PostalAddress spec_edmcouncil_org_fibo_ontology_FND_Places_Locations_Municipality spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Offer spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Price spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Product spec_edmcouncil_org_fibo_ontology_PAY_PaymentServices_PaymentServices_PaymentService unece_org_vocab_AmountType unece_org_vocab_BrandName unece_org_vocab_Country unece_org_vocab_ElectronicDocument unece_org_vocab_FinancialCard unece_org_vocab_GeographicalCoordinate unece_org_vocab_Invoice unece_org_vocab_LineTradeAgreement unece_org_vocab_Offer unece_org_vocab_Order unece_org_vocab_PaymentMeans unece_org_vocab_RequestForQuotation unece_org_vocab_SpecifiedCertificate unece_org_vocab_SpecifiedTradeProduct unece_org_vocab_TradeAddress unece_org_vocab_TradeProduct unece_org_vocab_TransportMethod www_omg_org_spec_Commons_Classifiers_Classifier www_omg_org_spec_Commons_Collections_Collection www_omg_org_spec_Commons_DatesAndTimes_Date www_omg_org_spec_Commons_DatesAndTimes_DateTime www_omg_org_spec_Commons_DatesAndTimes_Duration www_omg_org_spec_Commons_GeopoliticalEntities_GeopoliticalEntity www_omg_org_spec_Commons_GeopoliticalEntities_Subdivision www_omg_org_spec_Commons_Locations_Address www_omg_org_spec_Commons_Locations_GeographicCoordinate www_omg_org_spec_Commons_Locations_Location www_omg_org_spec_LCC_Countries_CountryRepresentation_Continent www_omg_org_spec_LCC_Countries_CountryRepresentation_Country www_w3_org_2006_vcard_ns_VCard www_w3_org_ns_dcat_Catalog www_w3_org_ns_dcat_Dataset www_w3_org_ns_dcat_Distribution www_w3_org_ns_hydra_core_Error www_w3_org_ns_prov_InstantaneousEvent www_w3_org_ns_prov_atTime xmlns_com_foaf_0_1_Person".split(
+    " "
+  )
+);
 var SCHEMA_ORG_CONTEXT_RE = /^https?:\/\/schema\.org\/?$/;
 var LOWERCASE_TO_CANONICAL = new Map(
   [...SCHEMA_ORG_TYPES].map((name) => [name.toLowerCase(), name])
@@ -60044,62 +58972,77 @@ var seoHeadingLevelSkip = {
     return out;
   }
 };
-var PENALIZED2 = { presence: "none", value: "absent" };
-var PASS2 = { presence: "own", value: "static" };
-function isSuppressed(m, ruleId, line) {
-  return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
+function isSuppressed(suppressions, ruleId, line) {
+  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
-function kitModuleRule(opts) {
-  const docsUrl12 = docsUrlFor(opts.id);
-  const severity = opts.severity ?? "warning";
+function fileRule(spec) {
+  const docsUrl12 = docsUrlFor(spec.id);
   return {
-    id: opts.id,
-    title: opts.title,
-    category: opts.category,
-    severity,
+    id: spec.id,
+    title: spec.title,
+    category: spec.category,
+    severity: spec.severity,
     scope: "component",
-    rationale: opts.rationale,
-    ...opts.fix ? { fix: opts.fix } : {},
+    rationale: spec.rationale,
+    ...spec.fix ? { fix: spec.fix } : {},
+    ...spec.options ? { options: spec.options } : {},
     async check(ctx) {
       const out = [];
-      for (const m of ctx.kitModules ?? []) {
-        if (!opts.applies(m, ctx)) continue;
-        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed(m, opts.id, b.line)));
+      const compiled = compileOverrides(ctx.config);
+      for (const f of spec.facts(ctx) ?? []) {
+        const o2 = resolveRuleOptions(spec.id, spec.options, ctx.config, { route: f.file, file: f.file }, compiled);
+        if (!spec.applies(f, o2, ctx)) continue;
+        const recommendation10 = typeof spec.recommendation === "function" ? spec.recommendation(o2) : spec.recommendation;
+        const bad = spec.bad(f, o2, ctx).filter((b) => !(b.line > 0 && isSuppressed(f.suppressions, spec.id, b.line)));
         if (bad.length === 0) {
           out.push({
-            id: opts.id,
-            category: opts.category,
-            severity,
-            detection: PASS2,
-            route: m.file,
-            // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
-            // same location a penalized result for this file would carry.
-            location: m.file,
-            message: opts.label,
-            recommendation: opts.recommendation,
+            id: spec.id,
+            category: spec.category,
+            severity: spec.severity,
+            detection: PASS,
+            route: f.file,
+            location: f.file,
+            message: spec.label,
+            recommendation: recommendation10,
             docsUrl: docsUrl12
           });
           continue;
         }
         for (const b of bad) {
           out.push({
-            id: opts.id,
-            category: opts.category,
-            severity,
-            detection: PENALIZED2,
-            route: m.file,
-            location: m.file,
+            id: spec.id,
+            category: spec.category,
+            severity: spec.severity,
+            detection: PENALIZED,
+            route: f.file,
+            location: f.file,
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
-            recommendation: opts.recommendation,
+            recommendation: recommendation10,
             docsUrl: docsUrl12,
-            ...opts.fix ? { fix: { ...opts.fix } } : {}
+            ...spec.fix ? { fix: { ...spec.fix } } : {}
           });
         }
       }
       return out;
     }
   };
+}
+function componentRule(opts) {
+  return fileRule({
+    ...opts,
+    severity: opts.severity ?? "warning",
+    facts: (ctx) => ctx.components
+  });
+}
+function kitModuleRule(opts) {
+  return fileRule({
+    ...opts,
+    severity: opts.severity ?? "warning",
+    facts: (ctx) => ctx.kitModules,
+    applies: (m, _o, ctx) => opts.applies(m, ctx),
+    bad: (m, _o, ctx) => opts.bad(m, ctx)
+  });
 }
 var ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
 var PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
@@ -60118,67 +59061,6 @@ var seoSsrDisabled = kitModuleRule({
     }
   ]
 });
-var PENALIZED3 = { presence: "none", value: "absent" };
-var PASS3 = { presence: "own", value: "static" };
-function isSuppressed2(c, ruleId, line) {
-  return (c.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
-}
-function componentRule(opts) {
-  const docsUrl12 = docsUrlFor(opts.id);
-  const severity = opts.severity ?? "warning";
-  return {
-    id: opts.id,
-    title: opts.title,
-    category: opts.category,
-    severity,
-    scope: "component",
-    rationale: opts.rationale,
-    ...opts.fix ? { fix: opts.fix } : {},
-    ...opts.options ? { options: opts.options } : {},
-    async check(ctx) {
-      const out = [];
-      const compiled = compileOverrides(ctx.config);
-      for (const c of ctx.components ?? []) {
-        const o2 = resolveRuleOptions(opts.id, opts.options, ctx.config, { route: c.file, file: c.file }, compiled);
-        const recommendation10 = typeof opts.recommendation === "function" ? opts.recommendation(o2) : opts.recommendation;
-        if (!opts.applies(c, o2, ctx)) continue;
-        const bad = opts.bad(c, o2, ctx).filter((b) => !(b.line > 0 && isSuppressed2(c, opts.id, b.line)));
-        if (bad.length === 0) {
-          out.push({
-            id: opts.id,
-            category: opts.category,
-            severity,
-            detection: PASS3,
-            route: c.file,
-            // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
-            // same location a penalized result for this file would carry.
-            location: c.file,
-            message: opts.label,
-            recommendation: recommendation10,
-            docsUrl: docsUrl12
-          });
-          continue;
-        }
-        for (const b of bad) {
-          out.push({
-            id: opts.id,
-            category: opts.category,
-            severity,
-            detection: PENALIZED3,
-            route: c.file,
-            location: c.file,
-            ...b.line > 0 ? { line: b.line } : {},
-            message: b.message,
-            recommendation: recommendation10,
-            docsUrl: docsUrl12,
-            ...opts.fix ? { fix: { ...opts.fix } } : {}
-          });
-        }
-      }
-      return out;
-    }
-  };
-}
 var correctnessEachKey = componentRule({
   id: "correctness/each-key",
   title: "Keyed each block",
@@ -60321,8 +59203,6 @@ var correctnessOrphanEffect = componentRule({
     message: o2.kind === "top-level" ? "$effect at module scope runs outside component initialisation \u2014 it throws effect_orphan at runtime" : `class "${o2.className}" runs $effect in its constructor and is instantiated at module scope \u2014 it throws effect_orphan at runtime`
   }))
 });
-var PENALIZED4 = { presence: "none", value: "absent" };
-var PASS4 = { presence: "own", value: "static" };
 var ID = "correctness/orphan-lifecycle";
 var DOCS_URL = docsUrlFor(ID);
 var LABEL = "Lifecycle-call context";
@@ -60336,17 +59216,14 @@ function kitLifecycleMessage(name, kind, inHandler) {
   }
   return inHandler ? `${name}() is called in a load/handler \u2014 it runs on every request, outside component initialisation, and throws lifecycle_outside_component at runtime` : `${name}() runs outside component initialisation (module evaluation or the init hook) \u2014 it throws lifecycle_outside_component at runtime`;
 }
-function isSuppressed3(suppressions, line) {
-  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID)));
-}
 function emitFile(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed3(suppressions, b.line)));
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, ID, b.line)));
   if (bad.length === 0) {
     out.push({
       id: ID,
       category: "correctness",
       severity: "critical",
-      detection: PASS4,
+      detection: PASS,
       route: file,
       // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
       // same location a penalized result for this file would carry.
@@ -60362,7 +59239,7 @@ function emitFile(out, file, issues, suppressions) {
       id: ID,
       category: "correctness",
       severity: "critical",
-      detection: PENALIZED4,
+      detection: PENALIZED,
       route: file,
       location: file,
       ...b.line > 0 ? { line: b.line } : {},
@@ -60410,8 +59287,6 @@ var correctnessOrphanLifecycle = {
     return out;
   }
 };
-var PENALIZED5 = { presence: "none", value: "absent" };
-var PASS5 = { presence: "own", value: "static" };
 var ID2 = "correctness/base-path-navigation";
 var DOCS_URL2 = docsUrlFor(ID2);
 var LABEL2 = "Base-path-aware navigation";
@@ -60428,17 +59303,14 @@ function messageFor2(link) {
   }
   return `redirect(\u2026, '${link.path}') is root-relative \u2014 the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
 }
-function isSuppressed4(suppressions, line) {
-  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID2)));
-}
 function emitFile2(out, file, links, suppressions) {
-  const bad = links.filter((l2) => !(l2.line > 0 && isSuppressed4(suppressions, l2.line)));
+  const bad = links.filter((l2) => !(l2.line > 0 && isSuppressed(suppressions, ID2, l2.line)));
   if (bad.length === 0) {
     out.push({
       id: ID2,
       category: "correctness",
       severity: "warning",
-      detection: PASS5,
+      detection: PASS,
       route: file,
       // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
       // same location a penalized result for this file would carry.
@@ -60454,7 +59326,7 @@ function emitFile2(out, file, links, suppressions) {
       id: ID2,
       category: "correctness",
       severity: "warning",
-      detection: PENALIZED5,
+      detection: PENALIZED,
       route: file,
       location: file,
       ...l2.line > 0 ? { line: l2.line } : {},
@@ -60489,24 +59361,19 @@ var correctnessBasePathNavigation = {
     return out;
   }
 };
-var PENALIZED6 = { presence: "none", value: "absent" };
-var PASS6 = { presence: "own", value: "static" };
 var ID3 = "correctness/server-browser-global";
 var DOCS_URL3 = docsUrlFor(ID3);
 var LABEL3 = "Server-safe module code";
 var RECOMMENDATION3 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
 var moduleMessage = (name) => `${name} is accessed at module scope \u2014 it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;
-function isSuppressed5(suppressions, line) {
-  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID3)));
-}
 function emitFile3(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed5(suppressions, b.line)));
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, ID3, b.line)));
   if (bad.length === 0) {
     out.push({
       id: ID3,
       category: "correctness",
       severity: "critical",
-      detection: PASS6,
+      detection: PASS,
       route: file,
       // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
       // same location a penalized result for this file would carry.
@@ -60522,7 +59389,7 @@ function emitFile3(out, file, issues, suppressions) {
       id: ID3,
       category: "correctness",
       severity: "critical",
-      detection: PENALIZED6,
+      detection: PENALIZED,
       route: file,
       location: file,
       ...b.line > 0 ? { line: b.line } : {},
@@ -60762,7 +59629,7 @@ var architecturePrivateScopeImport = {
       }
       if (!sawScopedImport) continue;
       const visible = violations.filter(
-        (v) => !(v.line > 0 && isSuppressed2(c, "architecture/private-scope-import", v.line))
+        (v) => !(v.line > 0 && isSuppressed(c.suppressions, "architecture/private-scope-import", v.line))
       );
       if (visible.length === 0) {
         out.push({
@@ -61710,7 +60577,7 @@ var performanceNamespaceImport = componentRule({
     }));
   }
 });
-var PENALIZED7 = { presence: "none", value: "absent" };
+var PENALIZED2 = { presence: "none", value: "absent" };
 var MINIFY_DISABLED_FIX = {
   description: "Remove the minify: false override from vite.config (Vite minifies by default), or scope it to non-production builds.",
   snippet: "export default defineConfig({\n  build: {\n    // minify: false \u2014 removed; Vite minifies production builds by default\n  }\n});",
@@ -61734,7 +60601,7 @@ var performanceMinifyDisabled = {
         id: "performance/minify-disabled",
         category: "performance",
         severity: "warning",
-        detection: PENALIZED7,
+        detection: PENALIZED2,
         ...hit.file !== void 0 ? { location: hit.file } : {},
         ...hit.line !== void 0 ? { line: hit.line } : {},
         message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
@@ -62027,6 +60894,9 @@ function inlineCode(text2) {
 function mdEscape(text2) {
   return text2.replace(/\r\n|\r|\n/g, " ").replace(/<[^>]+>/g, (tag2) => inlineCode(tag2)).replace(/\[([^\]]*)\]\(([^)]*)\)/g, "[$1]\\($2\\)");
 }
+function terminalSafe(text2) {
+  return text2.replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)?/g, "").replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, "").replace(/[\x00-\x08\x0b-\x1f\x7f]/g, "");
+}
 function issueOf(result) {
   return {
     id: result.id,
@@ -62093,6 +60963,7 @@ function buildJsonReport(results, config, meta, ruleIds, examined) {
     ...examined && Object.keys(examined).length > 0 ? { examined } : {}
   };
 }
+var SEVERITY_RANK = { critical: 0, warning: 1, info: 2 };
 function severityToGithubLevel(sev) {
   return sev === "critical" ? "error" : sev === "warning" ? "warning" : "notice";
 }
@@ -62129,7 +61000,6 @@ function formatGithubReport(results, config) {
 }
 var MAX_FINDINGS = 50;
 var SEVERITY_EMOJI = { critical: "\u{1F534}", warning: "\u{1F7E1}", info: "\u{1F535}" };
-var SEVERITY_RANK2 = { critical: 0, warning: 1, info: 2 };
 function escapeCell(s) {
   return mdEscape(s).replace(/(\\*)\|/g, (_, bs) => bs + bs + "\\|");
 }
@@ -62160,7 +61030,7 @@ function flattenFindings(report2) {
       message: messageWithRecommendation(issue2)
     });
   }
-  return findings.map((f, index) => ({ f, index })).sort((a2, b) => SEVERITY_RANK2[a2.f.severity] - SEVERITY_RANK2[b.f.severity] || a2.index - b.index).map(({ f }) => f);
+  return findings.map((f, index) => ({ f, index })).sort((a2, b) => SEVERITY_RANK[a2.f.severity] - SEVERITY_RANK[b.f.severity] || a2.index - b.index).map(({ f }) => f);
 }
 function categoryRows(categories) {
   const names = Object.keys(categories).sort();
@@ -62209,7 +61079,7 @@ function formatMarkdownReport(results, config, meta) {
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/svelte-vitals@0.45.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-TFBLQUAC.js
+// node_modules/.pnpm/svelte-vitals@0.46.0_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-TFBLQUAC.js
 var KNOWN_IDS = new Set(allRules.map((r2) => r2.id));
 var RULE_BY_ID = new Map(allRules.map((r2) => [r2.id, r2]));
 function findUnknownRuleIds(ids) {
@@ -62996,7 +61866,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// node_modules/.pnpm/svelte-vitals@0.45.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-M5KM5SV7.js
+// node_modules/.pnpm/svelte-vitals@0.46.0_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-M5KM5SV7.js
 import { readFileSync as readFileSync2 } from "fs";
 
 // node_modules/.pnpm/gunshi@0.37.1/node_modules/gunshi/lib/agent.js
@@ -63186,7 +62056,7 @@ function I() {
 }
 I()?.name;
 
-// node_modules/.pnpm/svelte-vitals@0.45.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-M5KM5SV7.js
+// node_modules/.pnpm/svelte-vitals@0.46.0_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-M5KM5SV7.js
 import { existsSync as existsSync2 } from "fs";
 import { join as join3 } from "path";
 import { pathToFileURL } from "url";
@@ -63355,7 +62225,7 @@ async function loadConfigFile(cwd) {
   return validateConfigFile(mod.default, found);
 }
 
-// node_modules/.pnpm/svelte-vitals@0.45.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-VNVRHWO3.js
+// node_modules/.pnpm/svelte-vitals@0.46.0_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-FVN7R2YK.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 import { execFileSync } from "child_process";
@@ -63365,6 +62235,7 @@ import { tmpdir } from "os";
 import { join as join2 } from "path";
 import { readFileSync as readFileSync3, renameSync, unlinkSync, writeFileSync } from "fs";
 import { join as join32 } from "path";
+import { styleText } from "util";
 function createNodeRuntime() {
   return {
     readFile(path) {
@@ -64205,14 +63076,14 @@ function applySuppressions(results, entries, config, allResults) {
   const stale = [...keys].filter((k2) => !usedKeys.has(k2)).length;
   return { results: kept, suppressed, stale };
 }
-var wrap = (open3, close2 = 0) => (s) => `\x1B[${open3}m${s}\x1B[${close2}m`;
+var wrap = (format) => (s) => styleText(format, s, { validateStream: false });
 var ansiPalette = {
-  bold: wrap(1, 22),
-  dim: wrap(2, 22),
-  red: wrap(31, 39),
-  yellow: wrap(33, 39),
-  green: wrap(32, 39),
-  cyan: wrap(36, 39)
+  bold: wrap("bold"),
+  dim: wrap("dim"),
+  red: wrap("red"),
+  yellow: wrap("yellow"),
+  green: wrap("green"),
+  cyan: wrap("cyan")
 };
 function resolveRuleSelection(input) {
   const out = { ...input.rules ?? input.fileRules };
@@ -64268,7 +63139,7 @@ function skippedFileWarnings(facts) {
   ];
 }
 function failedRuleWarnings(failedRules) {
-  return failedRules.map((f) => `rule ${f.id} failed and was skipped: ${f.message.split("\n")[0]}`);
+  return failedRules.map(formatFailedRuleWarning);
 }
 async function analyzeProject(opts = {}) {
   const cwd = opts.cwd ?? process.cwd();
@@ -64316,22 +63187,22 @@ async function analyzeProject(opts = {}) {
     sourceFiles
   });
   const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
-  const scoringConfig = withFailedRulesOff(
-    config,
-    failedRules.map((f) => f.id)
-  );
+  const failedRuleIds = failedRules.map((f) => f.id);
+  const scoringConfig = withFailedRulesOff(config, failedRuleIds);
   return {
     results,
     config: scoringConfig,
     version: readPackageVersion(),
     ruleIds: rules.map((r2) => r2.id),
     examined,
+    failedRuleIds,
     warnings: [...warnings2, ...skippedFileWarnings([...components, ...kitModules]), ...failedRuleWarnings(failedRules)],
     loadedConfig: loaded
   };
 }
 async function applyScope(results, opts) {
-  const errorLog = opts.errorLog ?? ((line) => console.error(line));
+  const rawErrorLog = opts.errorLog ?? ((line) => console.error(line));
+  const errorLog = (line) => rawErrorLog(terminalSafe(line));
   let scoped = results;
   if (opts.staged || opts.diffBase !== void 0) {
     const changed = opts.staged ? getChangedFiles(opts.cwd, { staged: true }) : getChangedFiles(opts.cwd, { base: opts.diffBase });
