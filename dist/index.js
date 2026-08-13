@@ -63270,13 +63270,18 @@ async function main() {
   const baseline = getInput("baseline") || void 0;
   const token = getInput("github-token") || process.env.GITHUB_TOKEN || "";
   const analysis = await analyzeProject({ cwd: path });
-  const { config, version: version2, warnings: warnings2 } = analysis;
+  const { config, version: version2, warnings: warnings2, loadedConfig } = analysis;
   for (const line of warnings2) warning(line);
   const results = await applyScope(analysis.results, {
     cwd: path,
     config,
     diffBase: diff,
     baseline,
+    // The baseline ref is analyzed in a temp worktree with no node_modules in its
+    // ancestry, so re-loading svelte-vitals.config.* there throws whenever that config
+    // imports svelte-vitals — and the fallback is to report every finding as new. `null`
+    // means "this project has no config file", not "go looking for one".
+    analyzeOpts: { loadedConfig: loadedConfig ?? null },
     errorLog: (line) => warning(line)
   });
   const annotations = formatGithubReport(results, config);
