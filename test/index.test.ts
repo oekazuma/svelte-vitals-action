@@ -223,11 +223,14 @@ describe('main()', () => {
       warnings: [],
       loadedConfig
     });
-    h.inputs['baseline'] = 'origin/main';
 
     await main();
 
-    expect(h.applyScope.mock.calls[0]![1]).toMatchObject({ analyzeOpts: { loadedConfig } });
+    const { analyzeOpts } = h.applyScope.mock.calls[0]![1] as { analyzeOpts: Record<string, unknown> };
+    expect(analyzeOpts).toEqual({ loadedConfig });
+    // Anything beyond loadedConfig changes applyScope's behaviour: a `route` key alone
+    // flips its route-scoping signal and with it how suppressions are applied.
+    expect(Object.keys(analyzeOpts)).toEqual(['loadedConfig']);
   });
 
   it('tells the baseline worktree there is no config file rather than letting it look', async () => {
