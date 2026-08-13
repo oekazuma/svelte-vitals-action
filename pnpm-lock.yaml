@@ -15,11 +15,11 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       '@svelte-vitals/core':
-        specifier: ^0.39.0
-        version: 0.39.0
+        specifier: ^0.41.1
+        version: 0.41.1
       svelte-vitals:
-        specifier: ^0.44.1
-        version: 0.44.1
+        specifier: ^0.45.1
+        version: 0.45.1(cac@6.7.14)
     devDependencies:
       '@changesets/cli':
         specifier: ^2.31.1
@@ -83,6 +83,21 @@ packages:
   '@babel/types@7.29.7':
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
+
+  '@bomb.sh/tab@0.0.19':
+    resolution: {integrity: sha512-dTRfo9Q9B+lbLG3JCu8a/AGQSfD2XXcFcnakQzVjSOX+VvR/s9zpsH8TlqV3iHqazniRn1Ypwd1hcRlXcu/4BA==}
+    hasBin: true
+    peerDependencies:
+      cac: ^6.7.14
+      citty: ^0.1.6 || ^0.2.0
+      commander: ^13.1.0 || ^14.0.0 || ^15.0.0
+    peerDependenciesMeta:
+      cac:
+        optional: true
+      citty:
+        optional: true
+      commander:
+        optional: true
 
   '@changesets/apply-release-plan@7.1.1':
     resolution: {integrity: sha512-9qPCm/rLx/xoOFXIHGB229+4GOL76S4MC+7tyOuTsR6+1jYlfFDQORdvwR5hDA6y4FL2BPt3qpbcQIS+dW85LA==}
@@ -311,6 +326,31 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@gunshi/plugin-completion@0.37.1':
+    resolution: {integrity: sha512-6FHJiLvFYB1/bOr8waRIpwvyzdL/51vrGJL0klAFOk5CbfWogsOrv3kR+wX9WTgJHYVZJeMafg7tsZCHftZm2w==}
+    engines: {node: '>= 22'}
+    peerDependencies:
+      '@gunshi/plugin-i18n': 0.37.1
+
+  '@gunshi/plugin-i18n@0.37.1':
+    resolution: {integrity: sha512-K5L5IDeaD5JIGEPn4Wcl0cXyPggmmtj4sSQwCsqzAYc30VfJu+BQscoEt7wIoJ3UR6gnjY7BJh5dxGcmBcUvaA==}
+    engines: {node: '>= 22'}
+    peerDependencies:
+      '@gunshi/plugin-global': 0.37.1
+    peerDependenciesMeta:
+      '@gunshi/plugin-global':
+        optional: true
+
+  '@gunshi/plugin-suggestion@0.37.1':
+    resolution: {integrity: sha512-za2LC8af64c4ruGmC+1f2gA1sDpcxt8gKzbxnlOIp0mInCaRvRMlLP4KyHm2NB3LkB98VOVwUSZ6G/lujWv2NA==}
+    engines: {node: '>= 22'}
+    peerDependencies:
+      '@gunshi/plugin-i18n': 0.37.1
+
+  '@gunshi/plugin@0.37.1':
+    resolution: {integrity: sha512-ljjBaL15jCwX6tEtWRdmAQ/y/svGcMZa5mVhMPgXFeQFQ++srK/x5dx8uchQFrE2MTqaFhMMjNK9AQowCyRv9A==}
+    engines: {node: '>= 22'}
 
   '@inquirer/external-editor@1.0.3':
     resolution: {integrity: sha512-RWbSrDiYmO4LbejWY7ttpxczuwQyZLBUyygsA9Nsv95hpzUWwnNTVQmAq3xuh7vNwCp07UTmE5i11XAEExx4RA==}
@@ -889,8 +929,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@svelte-vitals/core@0.39.0':
-    resolution: {integrity: sha512-alJB/9sbfmsO/0hgIKkXWsh6oOfb4uyIVLyN5R80zPG/0VrzCMYwFQzaCiPIW/y6IEnYN5b0XmAYjbJm0d7cUg==}
+  '@svelte-vitals/core@0.41.1':
+    resolution: {integrity: sha512-gVtlNKxJxX6I4GzRkEpUf5TAY8OQOXOMILovFzffztL+6QsKI4OIDCsK1tz253bHU0Ar33N25EXOTwdIHlcTDg==}
     engines: {node: '>=22.13.0'}
 
   '@sveltejs/acorn-typescript@1.0.11':
@@ -1309,6 +1349,10 @@ packages:
 
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+
+  gunshi@0.37.1:
+    resolution: {integrity: sha512-C3t35z65PQpAHay/gzEu4J/7SNWXn2NhfC4RfZQPxyOqkPfDTizthxCPoSU48OazoVherCuCpFDKI1qcY425Gw==}
+    engines: {node: '>= 22'}
 
   human-id@4.2.0:
     resolution: {integrity: sha512-K3GbkIWqyvvlpfhBPlbEvD97TtqBpAYA4kt+cn2lD2x2HuohzZCibcA2nOlnJT6exqvJLggoB5nv2dNf192nEA==}
@@ -1747,8 +1791,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.44.1:
-    resolution: {integrity: sha512-22EdIQxGU9DmsYBwiH/NL13quS8AGWqtUZda7/P7Uywj2xuaFOBuhb56BF+wX5W/WwiiWEvKxxtBNhSUt753Rw==}
+  svelte-vitals@0.45.1:
+    resolution: {integrity: sha512-pYAFBu1iTsy+kZROxLPxIaFAU9AtyxkP8wWEka2zC+5BhlIS1V/Or7UpJa7zXhWAxsITF8KcraGSRIIQQzFGuQ==}
     engines: {node: '>=22.13.0'}
     hasBin: true
 
@@ -1996,6 +2040,10 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
+
+  '@bomb.sh/tab@0.0.19(cac@6.7.14)':
+    optionalDependencies:
+      cac: 6.7.14
 
   '@changesets/apply-release-plan@7.1.1':
     dependencies:
@@ -2245,6 +2293,27 @@ snapshots:
 
   '@esbuild/win32-x64@0.27.7':
     optional: true
+
+  '@gunshi/plugin-completion@0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)':
+    dependencies:
+      '@bomb.sh/tab': 0.0.19(cac@6.7.14)
+      '@gunshi/plugin': 0.37.1
+      '@gunshi/plugin-i18n': 0.37.1
+    transitivePeerDependencies:
+      - cac
+      - citty
+      - commander
+
+  '@gunshi/plugin-i18n@0.37.1':
+    dependencies:
+      '@gunshi/plugin': 0.37.1
+
+  '@gunshi/plugin-suggestion@0.37.1(@gunshi/plugin-i18n@0.37.1)':
+    dependencies:
+      '@gunshi/plugin': 0.37.1
+      '@gunshi/plugin-i18n': 0.37.1
+
+  '@gunshi/plugin@0.37.1': {}
 
   '@inquirer/external-editor@1.0.3(@types/node@24.13.3)':
     dependencies:
@@ -2603,7 +2672,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@svelte-vitals/core@0.39.0':
+  '@svelte-vitals/core@0.41.1':
     dependencies:
       svelte: 5.56.8
     transitivePeerDependencies:
@@ -2953,6 +3022,8 @@ snapshots:
       slash: 3.0.0
 
   graceful-fs@4.2.11: {}
+
+  gunshi@0.37.1: {}
 
   human-id@4.2.0: {}
 
@@ -3369,16 +3440,24 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.44.1:
+  svelte-vitals@0.45.1(cac@6.7.14):
     dependencies:
       '@clack/prompts': 1.7.0
-      '@svelte-vitals/core': 0.39.0
+      '@gunshi/plugin-completion': 0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)
+      '@gunshi/plugin-i18n': 0.37.1
+      '@gunshi/plugin-suggestion': 0.37.1(@gunshi/plugin-i18n@0.37.1)
+      '@svelte-vitals/core': 0.41.1
+      gunshi: 0.37.1
       log-update: 8.0.0
       magicast: 0.5.4
       svelte: 5.56.8
       tinyglobby: 0.2.17
     transitivePeerDependencies:
+      - '@gunshi/plugin-global'
       - '@typescript-eslint/types'
+      - cac
+      - citty
+      - commander
 
   svelte@5.56.8:
     dependencies:
