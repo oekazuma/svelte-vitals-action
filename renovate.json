@@ -16,7 +16,7 @@
       "automerge": true
     },
     {
-      "description": "engines.node is a deliberately chosen dev/pnpm compatibility floor (matches the main svelte-vitals repo's pnpm@11.x requirement) — never auto-bump it. The CI workflow's own node-version (a separate 'uses-with' dep) is unaffected and still updates normally.",
+      "description": "engines.node is a deliberately chosen floor, tracking the engines of the bundled svelte-vitals/@svelte-vitals/core — raised by hand when an analyzer bump raises theirs, since that is a reviewed decision rather than a version to chase. Never auto-bump it. The CI workflow's own node-version (a separate 'uses-with' dep) is unaffected and still updates normally.",
       "matchDepTypes": ["engines"],
       "enabled": false
     },
