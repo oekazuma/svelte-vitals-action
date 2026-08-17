@@ -34,14 +34,13 @@ jobs:
         id: changesets
         uses: changesets/action@198f833dd7d863100ea6e28967bc9a9fdefadb0a # v2.1.0
         with:
-          publish: pnpm changeset publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          publish-script: pnpm changeset publish
       - name: Tag and release this private package
         # This is a single-package, private (never npm-published) repo distributed via
-        # git tag/SHA — `changeset publish` bumps the version and CHANGELOG.md but (in
-        # the current stable @changesets/cli line) skips tag/release creation entirely
-        # for private packages. This step fills that in with a plain vX.Y.Z tag: no
+        # git tag/SHA. Changesets only touches this package at all because
+        # `.changeset/config.json` sets `privatePackages.version` — and that config
+        # deliberately leaves `tag` off, so changesets bumps the version and CHANGELOG.md
+        # while tagging stays here. This step fills that in with a plain vX.Y.Z tag: no
         # Renovate-comment translation is needed here (unlike the old monorepo home of
         # this package) because this repo's tags are never shared with any other
         # package's version history, so the built-in github-actions manager just works.
