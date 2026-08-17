@@ -43202,25 +43202,6 @@ function getOctokit(token, options, ...additionalPlugins) {
   return new GitHubWithPlugins(getOctokitOptions(token, options));
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.44.0/node_modules/@svelte-vitals/core/dist/chunk-2N7E4JFX.js
-var CATEGORIES = [
-  "seo",
-  "performance",
-  "correctness",
-  "security",
-  "architecture",
-  "a11y"
-];
-var defaultConfig = {
-  treatDynamicAs: "pass",
-  metaComponents: [],
-  rules: {},
-  failOn: "critical"
-};
-function defineConfig(config = {}) {
-  return { ...defaultConfig, ...config };
-}
-
 // node_modules/.pnpm/zimmerframe@1.1.4/node_modules/zimmerframe/src/walk.js
 function walk(node, state, visitors) {
   const universal = visitors._;
@@ -61639,3022 +61620,24 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.44.0/node_modules/@svelte-vitals/core/dist/internal.js
+// node_modules/.pnpm/@svelte-vitals+core@0.45.0/node_modules/@svelte-vitals/core/dist/chunk-BCJZO532.js
 var import_aria_query3 = __toESM(require_lib4(), 1);
-function foldOccurrences(nodes) {
-  const byKey = /* @__PURE__ */ new Map();
-  for (const node of nodes) {
-    if (node.repeatable) continue;
-    const list3 = byKey.get(node.key);
-    if (list3) list3.push(node);
-    else byKey.set(node.key, [node]);
-  }
-  const folded = /* @__PURE__ */ new Map();
-  for (const [key2, list3] of byKey) folded.set(key2, foldAt(list3, 0));
-  return folded;
-}
-function foldAt(nodes, depth) {
-  const unconditional = [];
-  const groups = /* @__PURE__ */ new Map();
-  for (const node of nodes) {
-    const step = node.path[depth];
-    if (!step) {
-      unconditional.push(node);
-      continue;
-    }
-    let branches = groups.get(step.group);
-    if (!branches) groups.set(step.group, branches = /* @__PURE__ */ new Map());
-    const list3 = branches.get(step.branch);
-    if (list3) list3.push(node);
-    else branches.set(step.branch, [node]);
-  }
-  const representatives2 = [...unconditional];
-  for (const branches of groups.values()) {
-    let best = [];
-    let bestBranch = Number.POSITIVE_INFINITY;
-    for (const [branch, list3] of branches) {
-      const arm = foldAt(list3, depth + 1);
-      if (arm.length > best.length || arm.length === best.length && branch < bestBranch) {
-        best = arm;
-        bestBranch = branch;
-      }
-    }
-    representatives2.push(...best);
-  }
-  return representatives2;
-}
-function decodeFragmentId(fragment2) {
-  try {
-    return decodeURIComponent(fragment2);
-  } catch {
-    return fragment2;
-  }
-}
-function splitTokens(value) {
-  return value ? value.trim().split(/\s+/).filter(Boolean) : [];
-}
-var LANDMARK_ROLES = /* @__PURE__ */ new Set(["main", "banner", "contentinfo", "complementary"]);
-var IDREF_ATTRS = [
-  "for",
-  "aria-labelledby",
-  "aria-describedby",
-  "aria-controls",
-  "aria-activedescendant"
+var CATEGORIES = [
+  "seo",
+  "performance",
+  "correctness",
+  "security",
+  "architecture",
+  "a11y"
 ];
-function isTopFragment(id2) {
-  return id2.toLowerCase() === "top";
-}
-function stripTextDirective(fragment2) {
-  const i2 = fragment2.indexOf(":~:");
-  return i2 === -1 ? fragment2 : fragment2.slice(0, i2);
-}
-function isRootRelativePath(value) {
-  return value.startsWith("/") && !value.startsWith("//");
-}
-var PREPROCESSED_STYLE_RE = /(<style\b[^>]*\slang\s*=\s*['"]?[^'"\s>]+['"]?[^>]*>)([\s\S]*?)(<\/style>)/gi;
-function parseSvelte(source2, filename2) {
-  try {
-    return parse8(source2, { modern: true, filename: filename2 });
-  } catch (err) {
-    const blanked = source2.replace(
-      PREPROCESSED_STYLE_RE,
-      (_m, open3, body, close2) => open3 + body.replace(/[^\n]/g, " ") + close2
-    );
-    if (blanked === source2) throw err;
-    return parse8(blanked, { modern: true, filename: filename2 });
-  }
-}
-var CHILD_NODE_KEYS = [
-  "fragment",
-  "nodes",
-  "consequent",
-  "alternate",
-  "body",
-  "pending",
-  "then",
-  "catch",
-  "fallback"
-];
-var hasExpression = (nodes) => nodes.some((n2) => n2?.type === "ExpressionTag");
-function joinText(nodes) {
-  return nodes.filter((n2) => n2?.type === "Text").map((n2) => String(n2.data ?? "")).join("");
-}
-function valueFromNodes(nodes) {
-  if (!Array.isArray(nodes)) return "absent";
-  if (hasExpression(nodes)) return "dynamic";
-  return joinText(nodes).trim().length > 0 ? "static" : "absent";
-}
-function textFromNodes(nodes) {
-  if (!Array.isArray(nodes) || hasExpression(nodes)) return void 0;
-  const text2 = joinText(nodes);
-  return text2.trim().length > 0 ? text2 : void 0;
-}
-function attrText(attributes, name) {
-  const v = findAttr(attributes, name)?.value;
-  if (v === true) return "";
-  if (!Array.isArray(v) || hasExpression(v)) return void 0;
-  return joinText(v);
-}
-function attrValue(attributes, name) {
-  const attr = findAttr(attributes, name);
-  return attr ? attrValueOf(attr) : "absent";
-}
-function lineOf(source2, offset2) {
-  if (typeof offset2 !== "number" || offset2 < 0) return 0;
-  let line = 1;
-  const end = Math.min(offset2, source2.length);
-  for (let i2 = 0; i2 < end; i2++) if (source2[i2] === "\n") line++;
-  return line;
-}
-function findAttr(attributes, name) {
-  if (!Array.isArray(attributes)) return void 0;
-  const wanted = name.toLowerCase();
-  return attributes.find(
-    (a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase() === wanted
-  );
-}
-function attrValueOf(attr) {
-  const v = attr?.value;
-  if (v === true) return "absent";
-  if (Array.isArray(v)) return valueFromNodes(v);
-  if (v && v.type === "ExpressionTag") return "dynamic";
-  return "absent";
-}
-function attrTextOf(attr) {
-  const v = attr?.value;
-  return Array.isArray(v) ? textFromNodes(v) : void 0;
-}
-var ARIA_1_3_ROLES = /* @__PURE__ */ new Set(["comment", "image", "sectionheader", "sectionfooter", "suggestion"]);
-var ARIA_1_3_ATTRIBUTES = /* @__PURE__ */ new Set(["aria-colindextext", "aria-rowindextext"]);
-var NO_REQUIRED_PROPS = /* @__PURE__ */ new Set(["option", "treeitem"]);
-function isKnownRole(role) {
-  return ARIA_1_3_ROLES.has(role) || import_aria_query3.roles.has(role);
-}
-function isAbstractRole(role) {
-  return import_aria_query3.roles.get(role)?.abstract === true;
-}
-function isConcreteRole(role) {
-  return isKnownRole(role) && !isAbstractRole(role);
-}
-function resolveRole(tokens) {
-  return tokens.find(isConcreteRole);
-}
-function isKnownAriaAttribute(name) {
-  return ARIA_1_3_ATTRIBUTES.has(name) || import_aria_query3.aria.has(name);
-}
-function requiredAriaProps(role) {
-  if (NO_REQUIRED_PROPS.has(role)) return [];
-  const def = import_aria_query3.roles.get(role);
-  return def ? Object.keys(def.requiredProps) : [];
-}
-function ariaValueKind(name) {
-  const def = import_aria_query3.aria.get(name);
-  if (!def) return void 0;
-  return { type: def.type, ...def.values ? { values: def.values.map(String) } : {} };
-}
-var ALWAYS_INTERACTIVE_TAGS = /* @__PURE__ */ new Set(["button", "select", "textarea", "summary", "embed", "iframe"]);
-var INTERACTIVE_ROLES = /* @__PURE__ */ new Set([
-  "button",
-  "link",
-  "checkbox",
-  "radio",
-  "switch",
-  "tab",
-  "menuitem",
-  "menuitemcheckbox",
-  "menuitemradio",
-  "option",
-  "slider",
-  "spinbutton",
-  "textbox",
-  "combobox",
-  "searchbox",
-  "scrollbar",
-  "gridcell"
-]);
-var CONTAINER_ROLES = /* @__PURE__ */ new Set([
-  "button",
-  "link",
-  "checkbox",
-  "radio",
-  "switch",
-  "tab",
-  "menuitemcheckbox",
-  "menuitemradio",
-  "option",
-  "slider",
-  "scrollbar"
-]);
-function literalOf(attrs, name) {
-  return attrs.find((a2) => a2.name === name)?.literal;
-}
-function hasRoleIn(attrs, set2) {
-  const role = resolveRole(splitTokens(literalOf(attrs, "role")));
-  return role !== void 0 && set2.has(role);
-}
-function isInteractiveElement(tag2, attrs) {
-  if (ALWAYS_INTERACTIVE_TAGS.has(tag2)) return true;
-  if (tag2 === "a" && literalOf(attrs, "href") !== void 0) return true;
-  if (tag2 === "input") {
-    const typeAttr = attrs.find((a2) => a2.name === "type");
-    if (!typeAttr) return true;
-    if (typeAttr.literal !== void 0) return typeAttr.literal.toLowerCase() !== "hidden";
-    return false;
-  }
-  if ((tag2 === "audio" || tag2 === "video") && attrs.some((a2) => a2.name === "controls")) return true;
-  const tabindex = literalOf(attrs, "tabindex")?.trim();
-  if (tabindex) {
-    const n2 = Number(tabindex);
-    if (Number.isFinite(n2) && n2 >= 0) return true;
-  }
-  return hasRoleIn(attrs, INTERACTIVE_ROLES);
-}
-function isInteractiveContainer(tag2, attrs) {
-  if (tag2 === "button") return true;
-  if (tag2 === "a") return literalOf(attrs, "href") !== void 0;
-  return hasRoleIn(attrs, CONTAINER_ROLES);
-}
-function unwrapTs(expr) {
-  let cur = expr;
-  while (cur !== void 0 && (cur.type === "TSSatisfiesExpression" || cur.type === "TSAsExpression" || cur.type === "TSNonNullExpression"))
-    cur = cur.expression;
-  return cur;
-}
-function isLengthOnlyArrayCall(expr) {
-  const e3 = unwrapTs(expr);
-  if (!e3) return false;
-  if ((e3.type === "CallExpression" || e3.type === "NewExpression") && e3.callee?.type === "Identifier" && e3.callee.name === "Array") {
-    return (e3.arguments?.length ?? 0) === 1;
-  }
-  if (e3.type === "CallExpression" && e3.callee?.type === "MemberExpression" && !e3.callee.computed && e3.callee.object?.type === "Identifier" && e3.callee.object.name === "Array" && e3.callee.property.type === "Identifier" && e3.callee.property.name === "from" && e3.arguments?.[0]?.type === "ObjectExpression") {
-    return (e3.arguments[0].properties ?? []).some(
-      (p2) => p2?.type === "Property" && !p2.computed && (p2.key?.name === "length" || p2.key?.value === "length")
-    );
-  }
-  return false;
-}
-function isIdentityFreeEach(node) {
-  const expr = unwrapTs(node.expression);
-  if (expr.type === "ArrayExpression" && Array.isArray(expr.elements)) {
-    return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
-  }
-  return isLengthOnlyArrayCall(expr);
-}
-function isIndexExpression(expr, index) {
-  const e3 = unwrapTs(expr);
-  if (e3.type === "Identifier") return e3.name === index;
-  if (e3.type === "CallExpression") {
-    const callee = e3.callee;
-    if (callee.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e3.arguments.length === 1) {
-      return isIndexExpression(e3.arguments[0], index);
-    }
-    if (callee.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "toString" && e3.arguments.length === 0) {
-      return isIndexExpression(callee.object, index);
-    }
-    return false;
-  }
-  if (e3.type === "TemplateLiteral") {
-    const exprs = e3.expressions;
-    if (exprs.length !== 1) return false;
-    const hasText = e3.quasis.some((q) => (q.value.cooked ?? q.value.raw) !== "");
-    if (hasText) return false;
-    return isIndexExpression(exprs[0], index);
-  }
-  if (e3.type === "BinaryExpression" && e3.operator === "+") {
-    const emptyString = (n2) => n2.type === "Literal" && n2.value === "";
-    if (emptyString(e3.left)) return isIndexExpression(e3.right, index);
-    if (emptyString(e3.right)) return isIndexExpression(e3.left, index);
-  }
-  return false;
-}
-function isIndexKey(each) {
-  if (typeof each.index !== "string" || each.key == null) return false;
-  return isIndexExpression(each.key, each.index);
-}
-function collectEachBlocks(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectEachBlocks(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) {
-    acc.push({
-      hasKey: node.key != null,
-      line: lineOf(source2, node.start),
-      ...isIndexKey(node) ? { indexKey: true } : {}
-    });
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectEachBlocks(node[key2], source2, acc);
-  }
-}
-var WALK_IGNORED_KEYS = /* @__PURE__ */ new Set(["type", "start", "end", "loc", "range"]);
-var NO_BOUNDARIES = /* @__PURE__ */ new Set();
-function walkEstree(node, visit) {
-  walkEvalScope(node, (n2) => void visit(n2), /* @__PURE__ */ new Set(), NO_BOUNDARIES);
-}
-function isEffectCall(node) {
-  const c = node?.callee;
-  if (c?.type === "Identifier") return c.name === "$effect";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect") {
-    return c.property?.type === "Identifier" && c.property.name === "pre";
-  }
-  return false;
-}
-function isEffectRootCall(node) {
-  const c = node?.callee;
-  return c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect" && c.property?.type === "Identifier" && c.property.name === "root";
-}
-function isStateDeclaration(node) {
-  const c = node?.callee;
-  if (c?.type === "Identifier") return c.name === "$state";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$state") {
-    return c.property?.type === "Identifier" && (c.property.name === "raw" || c.property.name === "frozen");
-  }
-  return false;
-}
-function bodyOnlyAssignsState(fn, stateNames) {
-  const isStateAssign = (expr) => expr?.type === "AssignmentExpression" && expr.operator === "=" && expr.left?.type === "Identifier" && stateNames.has(expr.left.name);
-  const body = fn?.body;
-  if (!body) return false;
-  if (body.type !== "BlockStatement") return isStateAssign(body);
-  if (body.body.length === 0) return false;
-  return body.body.every((s) => s?.type === "ExpressionStatement" && isStateAssign(s.expression));
-}
-function isDerivedDeclaration(node) {
-  const c = node?.callee;
-  if (c?.type === "Identifier") return c.name === "$derived";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$derived") {
-    return c.property?.type === "Identifier" && c.property.name === "by";
-  }
-  return false;
-}
-function addBoundNames(id2, acc) {
-  if (!id2) return;
-  switch (id2.type) {
-    case "Identifier":
-      acc.add(id2.name);
-      break;
-    case "ObjectPattern":
-      for (const p2 of id2.properties ?? []) {
-        if (p2?.type === "Property") addBoundNames(p2.value, acc);
-        else if (p2?.type === "RestElement") addBoundNames(p2.argument, acc);
-      }
-      break;
-    case "ArrayPattern":
-      for (const el of id2.elements ?? []) addBoundNames(el, acc);
-      break;
-    case "AssignmentPattern":
-      addBoundNames(id2.left, acc);
-      break;
-    case "RestElement":
-      addBoundNames(id2.argument, acc);
-      break;
-  }
-}
-function rootObjectName(node) {
-  let cur = node;
-  while (cur?.type === "MemberExpression") cur = cur.object;
-  return cur?.type === "Identifier" ? cur.name : void 0;
-}
-function scopeIntroducedNames(node) {
-  const introduced = /* @__PURE__ */ new Set();
-  if (node.type === "FunctionDeclaration" || node.type === "FunctionExpression" || node.type === "ArrowFunctionExpression") {
-    for (const p2 of node.params ?? []) addBoundNames(p2, introduced);
-  } else if (node.type === "CatchClause") {
-    addBoundNames(node.param, introduced);
-  } else if (node.type === "BlockStatement") {
-    for (const stmt2 of node.body ?? []) {
-      if (stmt2?.type === "VariableDeclaration") {
-        for (const d2 of stmt2.declarations ?? []) addBoundNames(d2.id, introduced);
-      } else if ((stmt2?.type === "FunctionDeclaration" || stmt2?.type === "ClassDeclaration") && typeof stmt2.id?.name === "string") {
-        introduced.add(stmt2.id.name);
-      }
-    }
-  } else if (node.type === "ForStatement" || node.type === "ForOfStatement" || node.type === "ForInStatement") {
-    const decl = node.type === "ForStatement" ? node.init : node.left;
-    if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) addBoundNames(d2.id, introduced);
-    }
-  } else if (node.type === "EachBlock" && node.context) {
-    addBoundNames(node.context, introduced);
-    if (typeof node.index === "string") introduced.add(node.index);
-  } else if (node.type === "SnippetBlock") {
-    for (const p2 of node.parameters ?? []) addBoundNames(p2, introduced);
-  } else if (node.type === "AwaitBlock") {
-    if (node.value) addBoundNames(node.value, introduced);
-    if (node.error) addBoundNames(node.error, introduced);
-  } else if (node.type === "Fragment") {
-    for (const child of node.nodes ?? []) {
-      if (child?.type === "ConstTag" || child?.type === "DeclarationTag") {
-        for (const d2 of child.declaration?.declarations ?? []) addBoundNames(d2.id, introduced);
-      }
-    }
-  }
-  return introduced;
-}
-function walkScoped(node, visit, shadowed = /* @__PURE__ */ new Set()) {
-  walkEvalScope(node, (n2, scope) => void visit(n2, scope), shadowed, NO_BOUNDARIES);
-}
-function collectStateWrites(root, stateNames, acc, kinds) {
-  const record = (name, kind) => {
-    acc.add(name);
-    if (kinds) {
-      let set2 = kinds.get(name);
-      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
-      set2.add(kind);
-    }
-  };
-  walkScoped(root, (n2, scope) => {
-    const shadowed = (name) => name === void 0 || scope.has(name);
-    if (n2?.type === "AssignmentExpression") {
-      if (n2.left?.type === "Identifier" && stateNames.has(n2.left.name) && !shadowed(n2.left.name)) {
-        record(n2.left.name, "reassign");
-      } else if (n2.left?.type === "MemberExpression") {
-        const r2 = rootObjectName(n2.left);
-        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      } else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
-        const bound = /* @__PURE__ */ new Set();
-        addBoundNames(n2.left, bound);
-        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) record(name, "reassign");
-      }
-    } else if (n2?.type === "UpdateExpression") {
-      if (n2.argument?.type === "Identifier") {
-        if (stateNames.has(n2.argument.name) && !shadowed(n2.argument.name)) record(n2.argument.name, "reassign");
-      } else {
-        const r2 = rootObjectName(n2.argument);
-        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      }
-    } else if (n2?.type === "UnaryExpression" && n2.operator === "delete") {
-      const r2 = rootObjectName(n2.argument);
-      if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-    } else if (n2?.type === "CallExpression") {
-      if (n2.callee?.type === "MemberExpression") {
-        const r2 = rootObjectName(n2.callee);
-        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      }
-      for (const a2 of n2.arguments ?? []) {
-        const arg = a2?.type === "SpreadElement" ? a2.argument : a2;
-        const r2 = rootObjectName(arg);
-        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "escape");
-      }
-    }
-  });
-}
-function isDeferredBody(n2) {
-  return n2?.type === "FunctionDeclaration" || n2?.type === "FunctionExpression" || n2?.type === "ArrowFunctionExpression";
-}
-function isPlainStateCall(node) {
-  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$state";
-}
-var BUILTIN_STATE_TYPES = /* @__PURE__ */ new Set(["Map", "Set", "Date", "URL", "URLSearchParams"]);
-var BUILTIN_MUTATIONS = {
-  Map: /* @__PURE__ */ new Set(["set", "delete", "clear"]),
-  Set: /* @__PURE__ */ new Set(["add", "delete", "clear"]),
-  Date: /* @__PURE__ */ new Set([
-    "setTime",
-    "setFullYear",
-    "setMonth",
-    "setDate",
-    "setHours",
-    "setMinutes",
-    "setSeconds",
-    "setMilliseconds",
-    "setYear",
-    "setUTCFullYear",
-    "setUTCMonth",
-    "setUTCDate",
-    "setUTCHours",
-    "setUTCMinutes",
-    "setUTCSeconds",
-    "setUTCMilliseconds"
-  ]),
-  URL: /* @__PURE__ */ new Set(),
-  URLSearchParams: /* @__PURE__ */ new Set(["append", "set", "delete", "sort"])
+var defaultConfig = {
+  treatDynamicAs: "pass",
+  metaComponents: [],
+  rules: {},
+  failOn: "critical"
 };
-function collectBuiltinStateSignals(node, candidates, mutated, reassigned, shadowed = /* @__PURE__ */ new Set(), inFunction = false) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectBuiltinStateSignals(child, candidates, mutated, reassigned, shadowed, inFunction);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  const boundary = isDeferredBody(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
-  const nextInFunction = inFunction || boundary;
-  const hit = (name) => typeof name === "string" && candidates.has(name) && !scope.has(name) ? name : void 0;
-  if (node.type === "AssignmentExpression") {
-    if (node.left?.type === "Identifier") {
-      const n2 = hit(node.left.name);
-      const isBareSelfAssign = node.right?.type === "Identifier" && node.right.name === n2;
-      if (n2 && !isBareSelfAssign) reassigned.add(n2);
-    } else if (node.left?.type === "ObjectPattern" || node.left?.type === "ArrayPattern") {
-      const bound = /* @__PURE__ */ new Set();
-      addBoundNames(node.left, bound);
-      for (const name of bound) {
-        const n2 = hit(name);
-        if (n2) reassigned.add(n2);
-      }
-    } else if (node.left?.type === "MemberExpression" && inFunction) {
-      const n2 = hit(rootObjectName(node.left));
-      if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
-    }
-  } else if (node.type === "UpdateExpression" && node.argument?.type === "MemberExpression" && inFunction) {
-    const n2 = hit(rootObjectName(node.argument));
-    if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
-  } else if (node.type === "UnaryExpression" && node.operator === "delete" && inFunction) {
-    const n2 = hit(rootObjectName(node.argument));
-    if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
-  } else if (node.type === "CallExpression" && node.callee?.type === "MemberExpression" && !node.callee.computed && inFunction) {
-    const method2 = node.callee.property?.name;
-    if (typeof method2 === "string") {
-      if (node.callee.object?.type === "Identifier") {
-        const n2 = hit(node.callee.object.name);
-        if (n2 && BUILTIN_MUTATIONS[candidates.get(n2)]?.has(method2)) mutated.add(n2);
-      } else if (node.callee.object?.type === "MemberExpression") {
-        const n2 = hit(rootObjectName(node.callee));
-        if (n2 && candidates.get(n2) === "URL" && BUILTIN_MUTATIONS.URLSearchParams.has(method2)) mutated.add(n2);
-      }
-    }
-  }
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    collectBuiltinStateSignals(node[key2], candidates, mutated, reassigned, scope, nextInFunction);
-  }
-}
-function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (node.type === "Identifier") return;
-  if (node.type === "ObjectPattern") {
-    for (const prop2 of node.properties ?? []) {
-      if (prop2?.type === "RestElement") {
-        collectPatternAliasRefs(prop2.argument, names, acc, scope, ownRhs);
-      } else if (prop2?.type === "Property") {
-        if (prop2.computed) collectAliasRefs(prop2.key, names, acc, scope, ownRhs);
-        collectPatternAliasRefs(prop2.value, names, acc, scope, ownRhs);
-      }
-    }
-    return;
-  }
-  if (node.type === "ArrayPattern") {
-    for (const el of node.elements ?? []) collectPatternAliasRefs(el, names, acc, scope, ownRhs);
-    return;
-  }
-  if (node.type === "AssignmentPattern") {
-    collectPatternAliasRefs(node.left, names, acc, scope, ownRhs);
-    collectAliasRefs(node.right, names, acc, scope, ownRhs);
-    return;
-  }
-  if (node.type === "RestElement") {
-    collectPatternAliasRefs(node.argument, names, acc, scope, ownRhs);
-  }
-}
-function collectAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set(), ownRhs = null) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectAliasRefs(child, names, acc, shadowed, ownRhs);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (node.type === "AssignmentExpression") {
-    const lhsIsCandidate = node.left?.type === "Identifier" && names.has(node.left.name) && !scope.has(node.left.name);
-    if (!lhsIsCandidate) collectAliasRefs(node.left, names, acc, scope, null);
-    collectAliasRefs(node.right, names, acc, scope, lhsIsCandidate ? node.left.name : null);
-    return;
-  }
-  if (node.type === "VariableDeclarator") {
-    collectPatternAliasRefs(node.id, names, acc, scope, ownRhs);
-    if (node.init) collectAliasRefs(node.init, names, acc, scope, ownRhs);
-    return;
-  }
-  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name) && node.name !== ownRhs) {
-    acc.add(node.name);
-    return;
-  }
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
-    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
-    collectAliasRefs(node[key2], names, acc, scope, ownRhs);
-  }
-}
-function collectFragmentAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectFragmentAliasRefs(child, names, acc, shadowed);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (isDeferredBody(node)) {
-    const introduced2 = scopeIntroducedNames(node);
-    const scope2 = introduced2.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced2]) : shadowed;
-    collectAliasRefs(node.body, names, acc, scope2, null);
-    return;
-  }
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (Array.isArray(node.attributes)) collectFragmentAliasRefs(node.attributes, names, acc, scope);
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
-    collectFragmentAliasRefs(node[key2], names, acc, scope);
-  }
-}
-function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectEachContextTaint(child, names, acc, shadowed);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (node.type === "EachBlock") {
-    const expr = unwrapTs(node.expression);
-    const target = expr?.type === "Identifier" ? expr.name : expr?.type === "MemberExpression" ? rootObjectName(expr) : void 0;
-    if (target !== void 0 && names.has(target) && !shadowed.has(target)) {
-      const ctxNames = /* @__PURE__ */ new Set();
-      addBoundNames(node.context, ctxNames);
-      if (typeof node.index === "string") ctxNames.add(node.index);
-      if (ctxNames.size > 0) {
-        const union = /* @__PURE__ */ new Set();
-        const kinds = /* @__PURE__ */ new Map();
-        collectStateWrites(node.body, ctxNames, union, kinds);
-        collectTemplateEscapes(node.body, ctxNames, union, kinds);
-        const dirty = [...union].some((n2) => {
-          const k2 = kinds.get(n2);
-          return !k2 || [...k2].some((kind) => kind !== "reassign");
-        });
-        if (dirty) acc.add(target);
-      }
-    }
-  }
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    collectEachContextTaint(node[key2], names, acc, scope);
-  }
-}
-function refsNamesEagerly(node, names, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) return node.some((c) => refsNamesEagerly(c, names, shadowed));
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return false;
-  if (isDeferredBody(node)) return false;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) return true;
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
-    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
-    if (refsNamesEagerly(node[key2], names, scope)) return true;
-  }
-  return false;
-}
-function containsCallLike(node) {
-  let found = false;
-  walkEstree(node, (n2) => {
-    if (n2?.type === "CallExpression" || n2?.type === "NewExpression" || n2?.type === "AwaitExpression") found = true;
-  });
-  return found;
-}
-function collectFragmentRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) {
-    for (const c of node) collectFragmentRefs(c, names, acc, shadowed);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (isDeferredBody(node)) return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) acc.add(node.name);
-  if (node.type === "EachBlock" || node.type === "AwaitBlock") {
-    collectFragmentRefs(node.expression, names, acc, shadowed);
-    for (const key2 of Object.keys(node)) {
-      if (WALK_IGNORED_KEYS.has(key2) || key2 === "expression") continue;
-      collectFragmentRefs(node[key2], names, acc, scope);
-    }
-    return;
-  }
-  if (Array.isArray(node.attributes)) collectFragmentRefs(node.attributes, names, acc, scope);
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
-    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
-    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
-    collectFragmentRefs(node[key2], names, acc, scope);
-  }
-}
-function collectStalePropCandidates(program, propNames, source2) {
-  const out = [];
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "VariableDeclaration") continue;
-    for (const d2 of stmt2.declarations ?? []) {
-      if (d2?.id?.type !== "Identifier" || !d2.init) continue;
-      if (containsCallLike(d2.init)) continue;
-      if (!refsNamesEagerly(d2.init, propNames)) continue;
-      out.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
-    }
-  }
-  return out;
-}
-var COMPONENT_LIKE_TYPES = /* @__PURE__ */ new Set(["Component", "SvelteComponent", "SvelteSelf"]);
-function collectTemplateEscapes(node, stateNames, acc, kinds) {
-  const record = (name) => {
-    acc.add(name);
-    if (kinds) {
-      let set2 = kinds.get(name);
-      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
-      set2.add("escape");
-    }
-  };
-  if (Array.isArray(node)) {
-    for (const c of node) collectTemplateEscapes(c, stateNames, acc, kinds);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (Array.isArray(node.attributes)) {
-    for (const attr of node.attributes) {
-      if (attr?.type === "BindDirective") {
-        const r2 = rootObjectName(attr.expression);
-        if (r2 && stateNames.has(r2)) record(r2);
-      } else if (COMPONENT_LIKE_TYPES.has(node.type)) {
-        walkEstree(attr, (m) => {
-          if (m?.type === "Identifier" && stateNames.has(m.name)) record(m.name);
-        });
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc, kinds);
-  }
-}
-var DIRECTIVE_ESCAPE_TYPES = /* @__PURE__ */ new Set(["UseDirective", "TransitionDirective", "AnimateDirective"]);
-function collectDirectiveEscapes(node, names, acc) {
-  if (Array.isArray(node)) {
-    for (const c of node) collectDirectiveEscapes(c, names, acc);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (Array.isArray(node.attributes)) {
-    for (const attr of node.attributes) {
-      if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) {
-        walkEstree(attr.expression, (m) => {
-          if (m?.type === "Identifier" && names.has(m.name)) acc.add(m.name);
-        });
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectDirectiveEscapes(node[key2], names, acc);
-  }
-}
-var RUNE_NAMES = /* @__PURE__ */ new Set(["$state", "$derived", "$effect", "$props", "$bindable", "$inspect", "$host"]);
-function collectImportedLocalNames(program, acc) {
-  for (const stmt2 of program?.body ?? []) {
-    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
-    for (const s of stmt2.specifiers ?? []) {
-      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
-      acc.add(s.local.name);
-    }
-  }
-}
-function collectNewExprLocalNames(program, acc) {
-  walkEstree(program, (n2) => {
-    if (n2.type !== "VariableDeclarator" || n2.id?.type !== "Identifier" || !n2.init) return;
-    if (unwrapTs(n2.init).type === "NewExpression") acc.add(n2.id.name);
-  });
-}
-function bodyReadsReactive(fn, reactiveNames) {
-  let reads = false;
-  const visit = (n2) => {
-    if (reads || !n2) return;
-    if (Array.isArray(n2)) {
-      for (const c of n2) visit(c);
-      return;
-    }
-    if (typeof n2 !== "object" || typeof n2.type !== "string") return;
-    if (n2.type === "Identifier") {
-      if (reactiveNames.has(n2.name) || n2.name.startsWith("$") && !RUNE_NAMES.has(n2.name)) reads = true;
-      return;
-    }
-    if (n2.type === "CallExpression" && n2.callee?.type === "Identifier") {
-      reads = true;
-      return;
-    }
-    if (n2.type === "MemberExpression") {
-      visit(n2.object);
-      if (n2.computed) visit(n2.property);
-      return;
-    }
-    if (n2.type === "Property") {
-      if (n2.computed) visit(n2.key);
-      visit(n2.value);
-      return;
-    }
-    for (const key2 of Object.keys(n2)) {
-      if (!WALK_IGNORED_KEYS.has(key2)) visit(n2[key2]);
-    }
-  };
-  visit(fn.body);
-  return reads;
-}
-function bodyIsEmpty(fn) {
-  const body = fn?.body;
-  if (!body) return true;
-  if (body.type === "BlockStatement") return (body.body ?? []).length === 0;
-  return false;
-}
-var URL_ATTRS = ["href", "src", "action", "formaction"];
-var CHECKABLE_INPUT_TYPES = /* @__PURE__ */ new Set(["checkbox", "radio"]);
-function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectSecurityFacts(child, source2, htmlTags, jsUrls);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "HtmlTag") htmlTags.push({ line: lineOf(source2, node.start) });
-  if ((node.type === "RegularElement" || node.type === "SvelteElement") && Array.isArray(node.attributes)) {
-    for (const name of URL_ATTRS) {
-      const attr = findAttr(node.attributes, name);
-      if (!attr) continue;
-      const value = attrTextOf(attr);
-      if (value !== void 0 && /^\s*javascript:/i.test(value)) {
-        jsUrls.push({ line: lineOf(source2, attr.start ?? node.start) });
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectSecurityFacts(node[key2], source2, htmlTags, jsUrls);
-  }
-}
-function collectCheckableBindValues(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectCheckableBindValues(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "input" && Array.isArray(node.attributes)) {
-    const typeAttr = findAttr(node.attributes, "type");
-    const typeValue = typeAttr ? attrTextOf(typeAttr) : void 0;
-    if (typeValue && CHECKABLE_INPUT_TYPES.has(typeValue)) {
-      const bindValue = node.attributes.find((a2) => a2?.type === "BindDirective" && a2.name === "value");
-      if (bindValue) {
-        acc.push({
-          kind: typeValue,
-          line: lineOf(source2, bindValue.start ?? node.start)
-        });
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectCheckableBindValues(node[key2], source2, acc);
-  }
-}
-function classifyAttrValue(value) {
-  if (value === true) return { literal: "" };
-  if (Array.isArray(value) && value.length === 1 && value[0]?.type === "Text") {
-    return { literal: String(value[0].data ?? "") };
-  }
-  return { expression: true };
-}
-function collectAriaElements(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectAriaElements(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
-    const roleAttr = findAttr(node.attributes, "role");
-    const ariaAttrs = node.attributes.filter(
-      (a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase().startsWith("aria-")
-    );
-    if (roleAttr || ariaAttrs.length > 0) {
-      const inputType = node.name === "input" ? attrText(node.attributes, "type") : void 0;
-      const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-      acc.push({
-        tag: node.name,
-        line: lineOf(source2, node.start),
-        ...roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {},
-        ...inputType !== void 0 ? { inputType: inputType.toLowerCase() } : {},
-        ...hasSpread ? { hasSpread: true } : {},
-        aria: ariaAttrs.map((a2) => ({
-          name: String(a2.name).toLowerCase(),
-          line: lineOf(source2, a2.start ?? node.start),
-          ...classifyAttrValue(a2.value)
-        }))
-      });
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectAriaElements(node[key2], source2, acc);
-  }
-}
-function elementAttrs(attributes) {
-  return attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => ({ name: String(a2.name).toLowerCase(), ...classifyAttrValue(a2.value) }));
-}
-function containerRoleOf(attrs) {
-  const role = attrs.find((a2) => a2.name === "role")?.literal;
-  return role ? resolveRole(splitTokens(role)) : void 0;
-}
-function collectInteractiveNestings(node, source2, acc, stack) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectInteractiveNestings(child, source2, acc, stack);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "SnippetBlock") {
-    for (const key2 of CHILD_NODE_KEYS) {
-      if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, []);
-    }
-    return;
-  }
-  let opened = false;
-  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
-    const attrs = elementAttrs(node.attributes);
-    if (stack.length > 0 && isInteractiveElement(node.name, attrs)) {
-      const container = stack[stack.length - 1];
-      acc.push({
-        containerTag: container.tag,
-        ...container.role ? { containerRole: container.role } : {},
-        descendantTag: node.name,
-        line: lineOf(source2, node.start)
-      });
-    }
-    if (isInteractiveContainer(node.name, attrs)) {
-      const role = node.name === "button" || node.name === "a" ? void 0 : containerRoleOf(attrs);
-      stack.push({ tag: node.name, ...role ? { role } : {} });
-      opened = true;
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, stack);
-  }
-  if (opened) stack.pop();
-}
-function hasNamingValue(attributes, name) {
-  const attr = findAttr(attributes, name);
-  if (!attr) return false;
-  const v = classifyAttrValue(attr.value);
-  return "expression" in v || v.literal !== void 0 && v.literal.trim().length > 0;
-}
-function hasNamingAttr(attributes) {
-  return ["aria-label", "aria-labelledby", "title"].some((name) => hasNamingValue(attributes, name));
-}
-function isCustomElement(node) {
-  return node.type === "RegularElement" && typeof node.name === "string" && node.name.includes("-");
-}
-function scanAccessibleNameSubtree(node, skip) {
-  if (Array.isArray(node)) {
-    const acc2 = { named: false, unknowable: false };
-    for (const child of node) {
-      const r2 = scanAccessibleNameSubtree(child, skip);
-      acc2.named ||= r2.named;
-      acc2.unknowable ||= r2.unknowable;
-    }
-    return acc2;
-  }
-  if (!node || typeof node !== "object") return { named: false, unknowable: false };
-  if (skip !== void 0 && node === skip) return { named: false, unknowable: false };
-  if (node.type === "SnippetBlock") return { named: false, unknowable: false };
-  if (node.type === "Text") return { named: String(node.data ?? "").trim().length > 0, unknowable: false };
-  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) {
-    return { named: false, unknowable: true };
-  }
-  if (node.type === "RegularElement" && node.name === "img" && Array.isArray(node.attributes)) {
-    if (hasNamingValue(node.attributes, "alt")) return { named: true, unknowable: false };
-  }
-  const acc = { named: false, unknowable: false };
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) {
-      const r2 = scanAccessibleNameSubtree(node[key2], skip);
-      acc.named ||= r2.named;
-      acc.unknowable ||= r2.unknowable;
-    }
-  }
-  return acc;
-}
-function accessibleNameTarget(node) {
-  if (node.name === "button") return "button";
-  if (node.name === "a") return attrText(node.attributes, "href") !== void 0 ? "a" : void 0;
-  if (node.name === "input") {
-    const type = attrText(node.attributes, "type");
-    return type?.toLowerCase() === "image" ? "input" : void 0;
-  }
-  return void 0;
-}
-function firstLabelableDescendant(node) {
-  if (Array.isArray(node)) {
-    for (const child of node) {
-      const hit = firstLabelableDescendant(child);
-      if (hit) return hit;
-    }
-    return void 0;
-  }
-  if (!node || typeof node !== "object") return void 0;
-  if (node.type === "SnippetBlock") return void 0;
-  if (node.type === "RegularElement" && isLabelableDescendant(node)) return node;
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) {
-      const hit = firstLabelableDescendant(node[key2]);
-      if (hit) return hit;
-    }
-  }
-  return void 0;
-}
-function collectLabelTargets(node, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectLabelTargets(child, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "label" && Array.isArray(node.attributes)) {
-    const wrapped = firstLabelableDescendant(node);
-    const scan = scanAccessibleNameSubtree(node, wrapped);
-    if (scan.named || scan.unknowable) {
-      const forId = attrText(node.attributes, "for");
-      if (forId !== void 0 && forId.trim().length > 0) acc.ids.add(forId.trim());
-      if (wrapped) acc.nodes.add(wrapped);
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectLabelTargets(node[key2], acc);
-  }
-}
-function collectUnnamedInteractive(node, source2, acc, labels) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectUnnamedInteractive(child, source2, acc, labels);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
-    const target = accessibleNameTarget(node);
-    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-    const id2 = attrText(node.attributes, "id");
-    const namedByLabel = target !== "a" && (labels.nodes.has(node) || id2 !== void 0 && labels.ids.has(id2.trim()));
-    if (target && !hasSpread && !namedByLabel) {
-      if (target === "input") {
-        if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, "alt")) {
-          acc.push({ tag: node.name, line: lineOf(source2, node.start) });
-        }
-      } else {
-        const scan = scanAccessibleNameSubtree(node);
-        if (!hasNamingAttr(node.attributes) && !scan.named && !scan.unknowable) {
-          acc.push({ tag: node.name, line: lineOf(source2, node.start) });
-        }
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectUnnamedInteractive(node[key2], source2, acc, labels);
-  }
-}
-var LABELABLE_TAGS = /* @__PURE__ */ new Set(["input", "select", "textarea", "button", "meter", "output", "progress"]);
-function isLabelableDescendant(node) {
-  if (node.type !== "RegularElement" || !LABELABLE_TAGS.has(node.name)) return false;
-  if (node.name !== "input") return true;
-  return attrText(node.attributes ?? [], "type")?.toLowerCase() !== "hidden";
-}
-function scanLabelSubtree(node) {
-  if (Array.isArray(node)) {
-    const acc2 = { hasControl: false, unknowable: false };
-    for (const child of node) {
-      const r2 = scanLabelSubtree(child);
-      acc2.hasControl ||= r2.hasControl;
-      acc2.unknowable ||= r2.unknowable;
-    }
-    return acc2;
-  }
-  if (!node || typeof node !== "object") return { hasControl: false, unknowable: false };
-  if (node.type === "SnippetBlock") return { hasControl: false, unknowable: false };
-  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) {
-    return { hasControl: false, unknowable: true };
-  }
-  if (isLabelableDescendant(node)) return { hasControl: true, unknowable: false };
-  const acc = { hasControl: false, unknowable: false };
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) {
-      const r2 = scanLabelSubtree(node[key2]);
-      acc.hasControl ||= r2.hasControl;
-      acc.unknowable ||= r2.unknowable;
-    }
-  }
-  return acc;
-}
-function collectUnassociatedLabels(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectUnassociatedLabels(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "label" && Array.isArray(node.attributes)) {
-    const hasFor = findAttr(node.attributes, "for") !== void 0;
-    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-    if (!hasFor && !hasSpread) {
-      const scan = scanLabelSubtree(node);
-      if (!scan.hasControl && !scan.unknowable) {
-        acc.push({ line: lineOf(source2, node.start) });
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectUnassociatedLabels(node[key2], source2, acc);
-  }
-}
-var BULLET_TEXT_RE = /^[•・·\-*]\s/;
-var VERBATIM_TEXT_TAGS = /* @__PURE__ */ new Set(["pre", "code", "kbd", "samp", "textarea"]);
-function collectBulletTexts(node, source2, acc, inert, afterExpression = false) {
-  if (Array.isArray(node)) {
-    let prevWasExpression = afterExpression;
-    for (const child of node) {
-      collectBulletTexts(child, source2, acc, inert, prevWasExpression);
-      if (child && typeof child === "object" && child.type !== "Comment") {
-        prevWasExpression = child.type === "ExpressionTag";
-      }
-    }
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "Text") {
-    const trimmed = String(node.data ?? "").trim();
-    if (!inert && !afterExpression && BULLET_TEXT_RE.test(trimmed)) {
-      acc.push({ line: lineOf(source2, node.start), char: trimmed[0] });
-    }
-    return;
-  }
-  if (node.type === "SnippetBlock") return;
-  const nowInert = inert || node.type === "RegularElement" && (node.name === "li" || VERBATIM_TEXT_TAGS.has(node.name));
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectBulletTexts(node[key2], source2, acc, nowInert);
-  }
-}
-function selectNeedsPlaceholder(attributes) {
-  const requiredAttr = findAttr(attributes, "required");
-  if (!requiredAttr || attrValueOf(requiredAttr) === "dynamic") return false;
-  if (findAttr(attributes, "multiple")) return false;
-  const sizeAttr = findAttr(attributes, "size");
-  if (sizeAttr) {
-    if (attrValueOf(sizeAttr) === "dynamic") return false;
-    const size = Number(attrText(attributes, "size"));
-    if (!(Number.isFinite(size) && size <= 1)) return false;
-  }
-  return true;
-}
-function firstSignificantChild(nodes) {
-  for (const child of nodes ?? []) {
-    if (!child) continue;
-    if (child.type === "Comment") continue;
-    if (child.type === "Text" && !String(child.data ?? "").trim()) continue;
-    return child;
-  }
-  return void 0;
-}
-function isPlaceholderOption(option) {
-  const attributes = option.attributes ?? [];
-  if (findAttr(attributes, "value")) {
-    const literal3 = attrText(attributes, "value");
-    return literal3 === void 0 || literal3 === "";
-  }
-  return textFromNodes(option.fragment?.nodes ?? []) === void 0;
-}
-function collectSelectsMissingPlaceholder(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectSelectsMissingPlaceholder(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "select" && Array.isArray(node.attributes)) {
-    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-    if (!hasSpread && selectNeedsPlaceholder(node.attributes)) {
-      const first = firstSignificantChild(node.fragment?.nodes);
-      if (!first) {
-        acc.push({ line: lineOf(source2, node.start) });
-      } else if (first.type === "RegularElement" && first.name === "option") {
-        const firstHasSpread = (first.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute");
-        if (!firstHasSpread && !isPlaceholderOption(first)) acc.push({ line: lineOf(source2, node.start) });
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectSelectsMissingPlaceholder(node[key2], source2, acc);
-  }
-}
-var MACHINE_READABLE_TIME = [
-  /^\d{4,}(-\d{2}){0,2}$/,
-  // year, yearless month, date
-  /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
-  // time
-  /^\d{4,}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/,
-  // local and global date-time
-  /^\d{2}-\d{2}$/,
-  // yearless date
-  /^\d{4,}-W\d{2}$/,
-  // week
-  /^(Z|[+-]\d{2}:?\d{2})$/,
-  // time-zone offset
-  // Duration, `PnDTnHnMnS` form. Anchored to the character set a duration uses rather than to the
-  // exact component order: rejecting trailing prose matters, over-narrowing the order would turn a
-  // false negative into the false positive this rule is being repaired for.
-  /^P(?=\d|T)[\d.,TYWDHMS]*$/i,
-  /^\d+(\.\d+)?\s*[wdhms](\s+\d+(\.\d+)?\s*[wdhms])*$/i
-  // duration, alternative form
-];
-function collectTimesMissingDatetime(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectTimesMissingDatetime(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "time" && findAttr(node.attributes ?? [], "datetime") === void 0 && !(node.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute")) {
-    const nodes = node.fragment?.nodes ?? [];
-    if (nodes.length > 0 && nodes.every((n2) => n2?.type === "Text")) {
-      const text2 = nodes.map((n2) => String(n2.data ?? "")).join("");
-      const trimmed = text2.trim();
-      if (trimmed.length > 0 && !MACHINE_READABLE_TIME.some((re) => re.test(trimmed))) {
-        acc.push({ line: lineOf(source2, node.start), text: trimmed });
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectTimesMissingDatetime(node[key2], source2, acc);
-  }
-}
-function collectHrefLinks(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectHrefLinks(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "a" && Array.isArray(node.attributes)) {
-    const attr = findAttr(node.attributes, "href");
-    const value = attr ? attrTextOf(attr) : void 0;
-    if (value !== void 0 && isRootRelativePath(value)) {
-      acc.push({ kind: "href", path: value, line: lineOf(source2, attr?.start ?? node.start) });
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectHrefLinks(node[key2], source2, acc);
-  }
-}
-var GOTO_NAMES = /* @__PURE__ */ new Set(["goto"]);
-function collectGotoLinks(locals, roots, source2, acc) {
-  if (locals.size === 0) return;
-  for (const root of roots) {
-    if (!root) continue;
-    walkEstree(root, (n2) => {
-      if (n2.type !== "CallExpression" || n2.callee?.type !== "Identifier" || !locals.has(n2.callee.name)) return;
-      const arg = n2.arguments?.[0];
-      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) return;
-      acc.push({ kind: "goto", path: arg.value, line: lineOf(source2, n2.start) });
-    });
-  }
-}
-function isPropsCall(node) {
-  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$props";
-}
-function isBindableCall(node) {
-  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$bindable";
-}
-function collectPropNames(program, includeBindable) {
-  const names = /* @__PURE__ */ new Set();
-  let seen = 0;
-  let ambiguous = false;
-  walkEstree(program, (n2) => {
-    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
-    seen++;
-    if (n2.id?.type === "Identifier") {
-      names.add(n2.id.name);
-      return;
-    }
-    if (n2.id?.type !== "ObjectPattern" || !Array.isArray(n2.id.properties)) {
-      ambiguous = true;
-      return;
-    }
-    for (const p2 of n2.id.properties) {
-      if (p2?.type === "RestElement") {
-        addBoundNames(p2.argument, names);
-      } else if (p2?.type === "Property") {
-        if (p2.value?.type === "AssignmentPattern") {
-          if ((includeBindable || !isBindableCall(p2.value.right)) && p2.value.left?.type === "Identifier")
-            names.add(p2.value.left.name);
-        } else if (p2.value?.type === "Identifier") {
-          names.add(p2.value.name);
-        }
-      }
-    }
-  });
-  return ambiguous || seen > 1 ? /* @__PURE__ */ new Set() : names;
-}
-function collectLegacyPropNames(program) {
-  const names = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || stmt2.declaration?.type !== "VariableDeclaration") continue;
-    for (const d2 of stmt2.declaration.declarations ?? []) {
-      if (d2?.id?.type === "Identifier") names.add(d2.id.name);
-    }
-  }
-  return names;
-}
-var MUTATING_METHODS = /* @__PURE__ */ new Set([
-  "push",
-  "pop",
-  "shift",
-  "unshift",
-  "splice",
-  "sort",
-  "reverse",
-  "copyWithin",
-  "fill",
-  "set",
-  "add",
-  "delete",
-  "clear"
-]);
-function collectPropMutations(root, propNames, source2, acc) {
-  if (propNames.size === 0) return;
-  walkScoped(root, (n2, scope) => {
-    const flag = (r2) => {
-      if (r2 && propNames.has(r2) && !scope.has(r2)) acc.push({ name: r2, line: lineOf(source2, n2.start) });
-    };
-    if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") {
-      flag(rootObjectName(n2.left));
-    } else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") {
-      flag(rootObjectName(n2.argument));
-    } else if (n2.type === "UnaryExpression" && n2.operator === "delete") {
-      flag(rootObjectName(n2.argument));
-    } else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
-      const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
-      if (method2 && MUTATING_METHODS.has(method2)) flag(rootObjectName(n2.callee.object));
-    }
-  });
-}
-function countProps(program) {
-  let count = 0;
-  let seen = 0;
-  let uncountable = false;
-  walkEstree(program, (n2) => {
-    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
-    seen++;
-    const props = n2.id?.type === "ObjectPattern" ? n2.id.properties : void 0;
-    if (!Array.isArray(props)) {
-      uncountable = true;
-      return;
-    }
-    count = props.filter((p2) => p2?.type === "Property").length;
-  });
-  return uncountable || seen > 1 ? 0 : count;
-}
-function countLines(source2) {
-  if (source2.length === 0) return 0;
-  return source2.split("\n").length - (source2.endsWith("\n") ? 1 : 0);
-}
-function isTypeOnlyImport(n2) {
-  if (n2.importKind === "type") return true;
-  const specs = n2.specifiers;
-  return Array.isArray(specs) && specs.length > 0 && specs.every((s) => s?.importKind === "type");
-}
-function collectImportSources(program, source2, acc) {
-  walkEstree(program, (n2) => {
-    if (n2.type === "ImportDeclaration" && typeof n2.source?.value === "string") {
-      acc.push({
-        source: n2.source.value,
-        line: lineOf(source2, n2.start),
-        ...isTypeOnlyImport(n2) ? { type: true } : {}
-      });
-    }
-  });
-}
-function isBareSpecifier(s) {
-  return !/^[./$#]/.test(s);
-}
-function collectNamespaceImports(program, source2, acc) {
-  walkEstree(program, (n2) => {
-    if (n2.type !== "ImportDeclaration" || n2.importKind === "type") return;
-    const spec = n2.source?.value;
-    if (typeof spec !== "string" || !isBareSpecifier(spec)) return;
-    if (Array.isArray(n2.specifiers) && n2.specifiers.some((s) => s?.type === "ImportNamespaceSpecifier")) {
-      acc.push({ source: spec, line: lineOf(source2, n2.start) });
-    }
-  });
-}
-var RULE_ID_RE = "[a-z][a-z0-9]*\\/[a-z][a-z0-9-]*";
-var JS_DIRECTIVE = new RegExp(
-  `^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*$`
-);
-var HTML_DIRECTIVE = new RegExp(
-  `^\\s*<!--\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*-->\\s*$`
-);
-function collectSuppressions(source2) {
-  const out = [];
-  const lines = source2.split("\n");
-  lines.forEach((line, i2) => {
-    const m = JS_DIRECTIVE.exec(line) ?? HTML_DIRECTIVE.exec(line);
-    if (!m) return;
-    const ruleIds = m[1]?.split(",").map((s) => s.trim());
-    out.push({ line: i2 + 2, ruleIds });
-  });
-  return out;
-}
-var MD_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
-var SCRIPT_OPEN = /<script(?:\s[^>]*)?>/;
-var SCRIPT_CLOSE = /<\/script\s*>/;
-var STYLE_OPEN = /<style(?:\s[^>]*)?>/;
-var STYLE_CLOSE = /<\/style\s*>/;
-function collectCommentLinks(source2, { wholeFileIsScript = false } = {}) {
-  const out = [];
-  let htmlOpen = false;
-  let block2 = wholeFileIsScript ? "script" : void 0;
-  source2.split("\n").forEach((line, i2) => {
-    let text2 = "";
-    if (block2 !== void 0) {
-      if (block2 === "script" && /^\s*\/\//.test(line)) text2 = line.replace(/^\s*\/\//, "");
-      if (!wholeFileIsScript && (block2 === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(line)) block2 = void 0;
-    } else {
-      let plain = "";
-      let rest2 = line;
-      while (rest2.length > 0) {
-        if (htmlOpen) {
-          const end = rest2.indexOf("-->");
-          if (end === -1) {
-            text2 += rest2;
-            break;
-          }
-          text2 += rest2.slice(0, end);
-          htmlOpen = false;
-          rest2 = rest2.slice(end + 3);
-          continue;
-        }
-        const start = rest2.indexOf("<!--");
-        if (start === -1) {
-          plain += rest2;
-          break;
-        }
-        plain += rest2.slice(0, start);
-        htmlOpen = true;
-        rest2 = rest2.slice(start + 4);
-      }
-      const opened = SCRIPT_OPEN.test(plain) ? "script" : STYLE_OPEN.test(plain) ? "style" : void 0;
-      if (opened !== void 0 && !(opened === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(plain)) block2 = opened;
-    }
-    for (const m of text2.matchAll(MD_LINK)) {
-      if (m[1] !== void 0) out.push({ url: m[1], line: i2 + 1 });
-    }
-  });
-  return out;
-}
-var EVAL_SCOPE_BOUNDARIES = /* @__PURE__ */ new Set([
-  "FunctionDeclaration",
-  "FunctionExpression",
-  "ArrowFunctionExpression",
-  "ClassDeclaration",
-  "ClassExpression"
-]);
-function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set(), boundaries = EVAL_SCOPE_BOUNDARIES) {
-  if (Array.isArray(node)) {
-    for (const child of node) walkEvalScope(child, visit, shadowed, boundaries);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (visit(node, scope)) return;
-  if (boundaries.has(node.type)) return;
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    walkEvalScope(node[key2], visit, scope, boundaries);
-  }
-}
-function collectEvalScopeCalls(root, source2, matcher, skipSubtree, initialShadowed) {
-  const out = [];
-  walkEvalScope(
-    root,
-    (n2, shadowed) => {
-      if (n2.type !== "CallExpression") return void 0;
-      if (skipSubtree?.(n2)) return true;
-      const name = matcher(n2, shadowed);
-      if (name) out.push({ name, line: lineOf(source2, n2.start) });
-      return void 0;
-    },
-    initialShadowed
-  );
-  return out;
-}
-function unwrapExport(stmt2) {
-  if (stmt2.type === "ExportNamedDeclaration") return stmt2.declaration ?? stmt2;
-  if (stmt2.type === "ExportDefaultDeclaration") return stmt2.declaration;
-  return stmt2;
-}
-function collectOrphanCalls(program, source2, matcher, skipSubtree) {
-  const out = collectEvalScopeCalls(program, source2, matcher, skipSubtree).map((c) => ({ ...c, kind: "top-level" }));
-  const body = program.body ?? [];
-  const matchingClasses = /* @__PURE__ */ new Map();
-  for (const stmt2 of body) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type !== "ClassDeclaration" || decl.id?.type !== "Identifier") continue;
-    const ctor = (decl.body?.body ?? []).find(
-      (m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body
-    );
-    if (!ctor) continue;
-    const ctorShadow = /* @__PURE__ */ new Set();
-    for (const p2 of ctor.value.params ?? []) addBoundNames(p2, ctorShadow);
-    const calls = collectEvalScopeCalls(ctor.value.body, source2, matcher, skipSubtree, ctorShadow);
-    if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0].name);
-  }
-  if (matchingClasses.size > 0) {
-    for (const stmt2 of body) {
-      const decl = unwrapExport(stmt2);
-      const isCandidate = decl?.type === "VariableDeclaration" || decl?.type === "ExpressionStatement" || stmt2.type === "ExportDefaultDeclaration" && decl?.type !== "FunctionDeclaration" && decl?.type !== "ClassDeclaration";
-      if (!isCandidate) continue;
-      walkEvalScope(decl, (n2) => {
-        if (n2.type === "NewExpression" && n2.callee?.type === "Identifier" && matchingClasses.has(n2.callee.name)) {
-          out.push({
-            name: matchingClasses.get(n2.callee.name),
-            line: lineOf(source2, n2.start),
-            kind: "constructor-instantiated",
-            className: n2.callee.name
-          });
-        }
-        return void 0;
-      });
-    }
-  }
-  return out.sort((a2, b) => a2.line - b.line);
-}
-function collectOrphanEffects(program, source2) {
-  return collectOrphanCalls(program, source2, (n2) => isEffectCall(n2) ? "$effect" : void 0, isEffectRootCall).map(
-    ({ line, kind, className }) => ({ line, kind, ...className !== void 0 ? { className } : {} })
-  );
-}
-var LIFECYCLE_NAMES = /* @__PURE__ */ new Set([
-  "onMount",
-  "onDestroy",
-  "beforeUpdate",
-  "afterUpdate",
-  "createEventDispatcher",
-  "getContext",
-  "setContext",
-  "hasContext",
-  "getAllContexts"
-]);
-function collectSvelteLifecycleImports(program) {
-  const locals = /* @__PURE__ */ new Map();
-  const namespaces = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== "svelte") continue;
-    for (const s of stmt2.specifiers ?? []) {
-      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
-      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && LIFECYCLE_NAMES.has(s.imported.name)) {
-        locals.set(s.local.name, s.imported.name);
-      } else if (s.type === "ImportNamespaceSpecifier") {
-        namespaces.add(s.local.name);
-      }
-    }
-  }
-  return { locals, namespaces };
-}
-function matchLifecycleCall(n2, imports2) {
-  const c = n2?.callee;
-  if (c?.type === "Identifier") {
-    const canonical = imports2.locals.get(c.name);
-    return canonical ? { canonical, local: c.name } : void 0;
-  }
-  if (c?.type === "MemberExpression" && !c.computed && c.object?.type === "Identifier" && imports2.namespaces.has(c.object.name) && c.property?.type === "Identifier" && LIFECYCLE_NAMES.has(c.property.name)) {
-    return { canonical: c.property.name, local: c.object.name };
-  }
-  return void 0;
-}
-function collectOrphanLifecycleCalls(program, source2) {
-  const imports2 = collectSvelteLifecycleImports(program);
-  if (imports2.locals.size === 0 && imports2.namespaces.size === 0) return [];
-  return collectOrphanCalls(program, source2, (n2, shadowed) => {
-    const m = matchLifecycleCall(n2, imports2);
-    return m && !shadowed.has(m.local) ? m.canonical : void 0;
-  });
-}
-var BROWSER_GLOBALS = /* @__PURE__ */ new Set([
-  "window",
-  "document",
-  "localStorage",
-  "sessionStorage",
-  "navigator",
-  "location",
-  "history",
-  "screen",
-  "matchMedia",
-  "requestAnimationFrame",
-  "cancelAnimationFrame",
-  "IntersectionObserver",
-  "ResizeObserver",
-  "MutationObserver",
-  "alert",
-  "confirm",
-  "prompt"
-]);
-function collectNamedImportAliases(program, moduleSource, names) {
-  const out = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== moduleSource) {
-      continue;
-    }
-    for (const s of stmt2.specifiers ?? []) {
-      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
-      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && names.has(s.imported.name)) {
-        out.add(s.local.name);
-      }
-    }
-  }
-  return out;
-}
-var BROWSER_GUARD_NAMES = /* @__PURE__ */ new Set(["browser"]);
-function collectBrowserGuardImports(program) {
-  return collectNamedImportAliases(program, "$app/environment", BROWSER_GUARD_NAMES);
-}
-function collectProgramBindings(program) {
-  const bound = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type === "ImportDeclaration") {
-      for (const s of stmt2.specifiers ?? []) if (s?.local?.type === "Identifier") bound.add(s.local.name);
-      continue;
-    }
-    const decl = unwrapExport(stmt2);
-    if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) addBoundNames(d2?.id, bound);
-    } else if ((decl?.type === "FunctionDeclaration" || decl?.type === "ClassDeclaration") && decl.id?.type === "Identifier") {
-      bound.add(decl.id.name);
-    }
-  }
-  return bound;
-}
-function guardTerminates(consequent) {
-  if (!consequent) return false;
-  if (consequent.type === "ReturnStatement" || consequent.type === "ThrowStatement") return true;
-  if (consequent.type === "BlockStatement") {
-    const last = (consequent.body ?? [])[consequent.body.length - 1];
-    return last?.type === "ReturnStatement" || last?.type === "ThrowStatement";
-  }
-  return false;
-}
-function isBrowserGuardTest(test, guardBindings) {
-  let guarded = false;
-  walkEstree(test, (n2) => {
-    if (n2.type === "Identifier" && guardBindings.has(n2.name)) guarded = true;
-    if (n2.type === "BinaryExpression" && ["===", "!==", "==", "!="].includes(n2.operator)) {
-      const sides = [n2.left, n2.right];
-      const hasTypeofGlobal = sides.some(
-        (s) => s?.type === "UnaryExpression" && s.operator === "typeof" && s.argument?.type === "Identifier" && BROWSER_GLOBALS.has(s.argument.name)
-      );
-      const hasUndefinedString = sides.some((s) => s?.type === "Literal" && s.value === "undefined");
-      if (hasTypeofGlobal && hasUndefinedString) guarded = true;
-    }
-  });
-  return guarded;
-}
-function collectDerivedGuardBindings(program, guards) {
-  const derived = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type !== "VariableDeclaration" || decl.kind !== "const" && decl.kind !== "let") continue;
-    for (const d2 of decl.declarations ?? []) {
-      if (d2?.id?.type === "Identifier" && d2.init && isBrowserGuardTest(d2.init, guards)) {
-        derived.add(d2.id.name);
-      }
-    }
-  }
-  return derived;
-}
-function collectBrowserGlobalRefs(program, source2, extra) {
-  const out = [];
-  const bound = /* @__PURE__ */ new Set([...collectProgramBindings(program), ...extra?.bound ?? []]);
-  const guards = /* @__PURE__ */ new Set([...collectBrowserGuardImports(program), ...extra?.guards ?? []]);
-  for (const name of collectDerivedGuardBindings(program, guards)) guards.add(name);
-  const visit = (n2, shadowed) => {
-    if (!n2) return;
-    if (Array.isArray(n2)) {
-      for (const c of n2) visit(c, shadowed);
-      return;
-    }
-    if (typeof n2 !== "object" || typeof n2.type !== "string") return;
-    if (EVAL_SCOPE_BOUNDARIES.has(n2.type)) return;
-    if ((n2.type === "IfStatement" || n2.type === "ConditionalExpression") && isBrowserGuardTest(n2.test, guards)) return;
-    if (n2.type === "LogicalExpression" && isBrowserGuardTest(n2.left, guards)) return;
-    const introduced = scopeIntroducedNames(n2);
-    const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-    switch (n2.type) {
-      case "Identifier":
-        if (BROWSER_GLOBALS.has(n2.name) && !bound.has(n2.name) && !scope.has(n2.name)) {
-          out.push({ name: n2.name, line: lineOf(source2, n2.start) });
-        }
-        return;
-      case "UnaryExpression":
-        if (n2.operator === "typeof" && n2.argument?.type === "Identifier") return;
-        break;
-      case "MemberExpression":
-        visit(n2.object, scope);
-        if (n2.computed) visit(n2.property, scope);
-        return;
-      case "Property":
-        if (n2.computed) visit(n2.key, scope);
-        visit(n2.value, scope);
-        return;
-      case "VariableDeclarator":
-        visit(n2.init, scope);
-        return;
-      case "LabeledStatement":
-        visit(n2.body, scope);
-        return;
-      case "BreakStatement":
-      case "ContinueStatement":
-      case "ImportDeclaration":
-      case "ExportAllDeclaration":
-        return;
-      case "ExportNamedDeclaration":
-        if (!n2.declaration) return;
-        break;
-      case "BlockStatement":
-      case "Program":
-        for (const stmt2 of n2.body ?? []) {
-          visit(stmt2, scope);
-          if (stmt2?.type === "IfStatement" && isBrowserGuardTest(stmt2.test, guards) && guardTerminates(stmt2.consequent)) {
-            break;
-          }
-        }
-        return;
-      default:
-        if (n2.type.startsWith("TS")) {
-          if (n2.type === "TSAsExpression" || n2.type === "TSSatisfiesExpression" || n2.type === "TSNonNullExpression" || n2.type === "TSInstantiationExpression") {
-            visit(n2.expression, scope);
-          }
-          return;
-        }
-    }
-    for (const key2 of Object.keys(n2)) {
-      if (WALK_IGNORED_KEYS.has(key2)) continue;
-      visit(n2[key2], scope);
-    }
-  };
-  visit(program, /* @__PURE__ */ new Set());
-  return out;
-}
-var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
-function parseModuleProgram(source2, filename2) {
-  const neutralized = source2.replace(/<\/script/gi, "<_script");
-  const wrapped = `<script lang="ts">
-${neutralized}
-</script>`;
-  const ast = parse8(wrapped, { modern: true, filename: filename2 });
-  return { program: ast.instance?.content, wrapped };
-}
-function collectModuleStateDecls(program, source2) {
-  const out = [];
-  const body = program.body ?? [];
-  const statefulClasses = /* @__PURE__ */ new Set();
-  for (const stmt2 of body) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) {
-        if (d2?.id?.type === "Identifier" && d2.init && isStateDeclaration(unwrapTs(d2.init))) {
-          out.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
-        }
-      }
-    } else if (decl?.type === "ClassDeclaration" && decl.id?.type === "Identifier") {
-      const hasStateField = (decl.body?.body ?? []).some(
-        (m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(unwrapTs(m.value))
-      );
-      if (hasStateField) statefulClasses.add(decl.id.name);
-    }
-  }
-  if (statefulClasses.size > 0) {
-    for (const stmt2 of body) {
-      const decl = unwrapExport(stmt2);
-      if (decl?.type !== "VariableDeclaration") continue;
-      for (const d2 of decl.declarations ?? []) {
-        if (d2?.init?.type === "NewExpression" && d2.init.callee?.type === "Identifier" && statefulClasses.has(d2.init.callee.name)) {
-          out.push({
-            name: d2.id?.type === "Identifier" ? d2.id.name : d2.init.callee.name,
-            line: lineOf(source2, d2.start)
-          });
-        }
-      }
-    }
-  }
-  return out.sort((a2, b) => a2.line - b.line);
-}
-function parseModuleFacts(source2, filename2) {
-  const { program, wrapped } = parseModuleProgram(source2, filename2);
-  const shift = (line) => Math.max(0, line - 1);
-  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
-  const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
-  const browserGlobalRefs = program ? collectBrowserGlobalRefs(program, wrapped).map((r2) => ({ ...r2, line: shift(r2.line), context: "module" })) : [];
-  const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d2) => ({ ...d2, line: shift(d2.line) })) : [];
-  const basePathLinks = [];
-  if (program) {
-    const locals = collectNamedImportAliases(program, "$app/navigation", GOTO_NAMES);
-    const raw = [];
-    collectGotoLinks(locals, [program], wrapped, raw);
-    for (const l2 of raw) basePathLinks.push({ ...l2, line: shift(l2.line) });
-    basePathLinks.sort((a2, b) => a2.line - b.line);
-  }
-  const importSpans = [];
-  const namespaceImports = [];
-  if (program) {
-    const rawImportSpans = [];
-    collectImportSources(program, wrapped, rawImportSpans);
-    for (const s of rawImportSpans) importSpans.push({ ...s, line: shift(s.line) });
-    const rawNamespaceImports = [];
-    collectNamespaceImports(program, wrapped, rawNamespaceImports);
-    for (const n2 of rawNamespaceImports) namespaceImports.push({ ...n2, line: shift(n2.line) });
-  }
-  const imports2 = importSpans.map((s) => s.source);
-  return {
-    eachBlocks: [],
-    effects: [],
-    htmlTags: [],
-    javascriptUrls: [],
-    loc: 0,
-    propCount: 0,
-    imports: imports2,
-    importSpans,
-    namespaceImports,
-    constableStates: [],
-    mutatedProps: [],
-    stalePropDerivations: [],
-    rawableStates: [],
-    nonreactiveBuiltinStates: [],
-    checkableBindValues: [],
-    basePathLinks,
-    suppressions: collectSuppressions(source2),
-    commentLinks: collectCommentLinks(source2, { wholeFileIsScript: true }),
-    orphanEffects,
-    orphanLifecycleCalls,
-    browserGlobalRefs,
-    moduleStateDecls
-  };
-}
-function parseComponentFacts(source2, filename2) {
-  if (MODULE_FILE_RE.test(filename2)) return parseModuleFacts(source2, filename2);
-  const ast = parseSvelte(source2, filename2);
-  const eachBlocks = [];
-  collectEachBlocks(ast.fragment ?? ast, source2, eachBlocks);
-  const htmlTags = [];
-  const javascriptUrls = [];
-  collectSecurityFacts(ast.fragment ?? ast, source2, htmlTags, javascriptUrls);
-  const checkableBindValues = [];
-  collectCheckableBindValues(ast.fragment ?? ast, source2, checkableBindValues);
-  const ariaElements = [];
-  collectAriaElements(ast.fragment ?? ast, source2, ariaElements);
-  const interactiveNestings = [];
-  collectInteractiveNestings(ast.fragment ?? ast, source2, interactiveNestings, []);
-  const unnamedInteractive = [];
-  const labelTargets = { ids: /* @__PURE__ */ new Set(), nodes: /* @__PURE__ */ new Set() };
-  collectLabelTargets(ast.fragment ?? ast, labelTargets);
-  collectUnnamedInteractive(ast.fragment ?? ast, source2, unnamedInteractive, labelTargets);
-  const unassociatedLabels = [];
-  collectUnassociatedLabels(ast.fragment ?? ast, source2, unassociatedLabels);
-  const bulletTexts = [];
-  collectBulletTexts(ast.fragment ?? ast, source2, bulletTexts, false);
-  const selectsMissingPlaceholder = [];
-  collectSelectsMissingPlaceholder(ast.fragment ?? ast, source2, selectsMissingPlaceholder);
-  const timesMissingDatetime = [];
-  collectTimesMissingDatetime(ast.fragment ?? ast, source2, timesMissingDatetime);
-  const basePathLinks = [];
-  collectHrefLinks(ast.fragment ?? ast, source2, basePathLinks);
-  const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean);
-  const gotoLocals = /* @__PURE__ */ new Set();
-  for (const p2 of gotoPrograms)
-    for (const n2 of collectNamedImportAliases(p2, "$app/navigation", GOTO_NAMES)) {
-      gotoLocals.add(n2);
-    }
-  collectGotoLinks(gotoLocals, [...gotoPrograms, ast.fragment], source2, basePathLinks);
-  basePathLinks.sort((a2, b) => a2.line - b.line);
-  const loc = countLines(source2);
-  const suppressions = collectSuppressions(source2);
-  const moduleProgram = ast.module?.content;
-  const importSpans = [];
-  const namespaceImports = [];
-  if (moduleProgram) {
-    collectImportSources(moduleProgram, source2, importSpans);
-    collectNamespaceImports(moduleProgram, source2, namespaceImports);
-  }
-  const orphanEffects = moduleProgram ? collectOrphanEffects(moduleProgram, source2) : [];
-  const orphanLifecycleCalls = moduleProgram ? collectOrphanLifecycleCalls(moduleProgram, source2) : [];
-  const browserGlobalRefs = [];
-  if (moduleProgram) {
-    for (const r2 of collectBrowserGlobalRefs(moduleProgram, source2)) {
-      browserGlobalRefs.push({ ...r2, context: "module" });
-    }
-  }
-  const effects = [];
-  const constableStates = [];
-  const mutatedProps = [];
-  const stalePropDerivations = [];
-  const rawableStates = [];
-  const nonreactiveBuiltinStates = [];
-  let propCount = 0;
-  const program = ast.instance?.content;
-  if (program) {
-    collectImportSources(program, source2, importSpans);
-    collectNamespaceImports(program, source2, namespaceImports);
-    propCount = countProps(program);
-    const legacyPropNames = collectLegacyPropNames(program);
-    const nonBindableProps = /* @__PURE__ */ new Set([...collectPropNames(program, false), ...legacyPropNames]);
-    const rawMutations = [];
-    collectPropMutations(program, nonBindableProps, source2, rawMutations);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, rawMutations);
-    for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
-    const allPropNames = /* @__PURE__ */ new Set([...collectPropNames(program, true), ...legacyPropNames]);
-    if (allPropNames.size > 0) {
-      const candidates = collectStalePropCandidates(program, allPropNames, source2);
-      if (candidates.length > 0) {
-        const candidateNames = new Set(candidates.map((c) => c.name));
-        const disqualified = /* @__PURE__ */ new Set();
-        collectStateWrites(program, candidateNames, disqualified);
-        if (ast.fragment) {
-          collectStateWrites(ast.fragment, candidateNames, disqualified);
-          collectTemplateEscapes(ast.fragment, candidateNames, disqualified);
-        }
-        const referenced = /* @__PURE__ */ new Set();
-        if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
-        const isLegacy = legacyPropNames.size > 0;
-        for (const c of candidates) {
-          if (!disqualified.has(c.name) && referenced.has(c.name)) {
-            stalePropDerivations.push(isLegacy ? { ...c, legacy: true } : c);
-          }
-        }
-      }
-    }
-    const stateNames = /* @__PURE__ */ new Set();
-    const reactiveNames = /* @__PURE__ */ new Set();
-    collectImportedLocalNames(program, reactiveNames);
-    collectNewExprLocalNames(program, reactiveNames);
-    if (moduleProgram) {
-      collectImportedLocalNames(moduleProgram, reactiveNames);
-      collectNewExprLocalNames(moduleProgram, reactiveNames);
-    }
-    const stateDecls = [];
-    walkEstree(program, (n2) => {
-      if (n2.type !== "VariableDeclarator" || !n2.init) return;
-      const init2 = unwrapTs(n2.init);
-      if (isStateDeclaration(init2) && n2.id?.type === "Identifier") {
-        stateNames.add(n2.id.name);
-        stateDecls.push({ name: n2.id.name, line: lineOf(source2, n2.start) });
-      }
-      if (isStateDeclaration(init2) || isDerivedDeclaration(init2) || isPropsCall(init2))
-        addBoundNames(n2.id, reactiveNames);
-    });
-    walkEstree(program, (n2) => {
-      if (n2.type !== "CallExpression" || !isEffectCall(n2)) return;
-      const fn = n2.arguments?.[0];
-      const isFn = fn?.type === "ArrowFunctionExpression" || fn?.type === "FunctionExpression";
-      effects.push({
-        line: lineOf(source2, n2.start),
-        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false,
-        mountOnly: isFn ? !bodyIsEmpty(fn) && !bodyReadsReactive(fn, reactiveNames) : false
-      });
-    });
-    const writtenOrEscaped = /* @__PURE__ */ new Set();
-    collectStateWrites(program, stateNames, writtenOrEscaped);
-    if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
-      collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
-      collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
-    }
-    for (const d2 of stateDecls) {
-      if (!writtenOrEscaped.has(d2.name)) constableStates.push(d2);
-    }
-    const rawableCandidates = [];
-    for (const stmt2 of program.body ?? []) {
-      if (stmt2?.type !== "VariableDeclaration") continue;
-      for (const d2 of stmt2.declarations ?? []) {
-        if (d2?.id?.type !== "Identifier" || !d2.init) continue;
-        const init2 = unwrapTs(d2.init);
-        if (!isPlainStateCall(init2)) continue;
-        const arg = unwrapTs(init2.arguments?.[0]);
-        if (arg?.type === "ObjectExpression" || arg?.type === "ArrayExpression") {
-          rawableCandidates.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
-        }
-      }
-    }
-    if (rawableCandidates.length > 0) {
-      const candNames = new Set(rawableCandidates.map((c) => c.name));
-      const union = /* @__PURE__ */ new Set();
-      const kinds = /* @__PURE__ */ new Map();
-      collectStateWrites(program, candNames, union, kinds);
-      if (ast.fragment) {
-        collectStateWrites(ast.fragment, candNames, union, kinds);
-        collectTemplateEscapes(ast.fragment, candNames, union, kinds);
-      }
-      const aliasEscapes = /* @__PURE__ */ new Set();
-      collectAliasRefs(program, candNames, aliasEscapes);
-      const eachTaint = /* @__PURE__ */ new Set();
-      if (ast.fragment) {
-        collectFragmentAliasRefs(ast.fragment, candNames, aliasEscapes);
-        collectDirectiveEscapes(ast.fragment, candNames, aliasEscapes);
-        collectEachContextTaint(ast.fragment, candNames, eachTaint);
-      }
-      for (const c of rawableCandidates) {
-        const k2 = kinds.get(c.name);
-        const reassigned = k2?.has("reassign") ?? false;
-        const dirty = k2 !== void 0 && [...k2].some((kind) => kind !== "reassign") || aliasEscapes.has(c.name) || eachTaint.has(c.name);
-        if (reassigned && !dirty) rawableStates.push(c);
-      }
-    }
-    const builtinCandidates = /* @__PURE__ */ new Map();
-    for (const stmt2 of program.body ?? []) {
-      if (stmt2?.type !== "VariableDeclaration") continue;
-      for (const d2 of stmt2.declarations ?? []) {
-        if (d2?.id?.type !== "Identifier" || !d2.init) continue;
-        const init2 = unwrapTs(d2.init);
-        if (!isPlainStateCall(init2)) continue;
-        const arg = unwrapTs(init2.arguments?.[0]);
-        if (arg?.type === "NewExpression" && arg.callee?.type === "Identifier" && BUILTIN_STATE_TYPES.has(arg.callee.name)) {
-          builtinCandidates.set(d2.id.name, { type: arg.callee.name, line: lineOf(source2, d2.start) });
-        }
-      }
-    }
-    if (builtinCandidates.size > 0) {
-      const types2 = new Map([...builtinCandidates].map(([n2, meta]) => [n2, meta.type]));
-      const mutatedBuiltins = /* @__PURE__ */ new Set();
-      const reassignedBuiltins = /* @__PURE__ */ new Set();
-      collectBuiltinStateSignals(program, types2, mutatedBuiltins, reassignedBuiltins);
-      if (ast.fragment) collectBuiltinStateSignals(ast.fragment, types2, mutatedBuiltins, reassignedBuiltins);
-      for (const [name, meta] of builtinCandidates) {
-        if (mutatedBuiltins.has(name) && !reassignedBuiltins.has(name)) {
-          nonreactiveBuiltinStates.push({ name, type: meta.type, line: meta.line });
-        }
-      }
-    }
-    let moduleExtra;
-    if (moduleProgram) {
-      const moduleBrowserImports = collectBrowserGuardImports(moduleProgram);
-      moduleExtra = {
-        guards: /* @__PURE__ */ new Set([...moduleBrowserImports, ...collectDerivedGuardBindings(moduleProgram, moduleBrowserImports)]),
-        bound: collectProgramBindings(moduleProgram)
-      };
-    }
-    for (const r2 of collectBrowserGlobalRefs(program, source2, moduleExtra)) {
-      browserGlobalRefs.push({ ...r2, context: "instance" });
-    }
-  }
-  const imports2 = importSpans.map((s) => s.source);
-  return {
-    eachBlocks,
-    effects,
-    htmlTags,
-    javascriptUrls,
-    loc,
-    propCount,
-    imports: imports2,
-    importSpans,
-    namespaceImports,
-    constableStates,
-    mutatedProps,
-    stalePropDerivations,
-    rawableStates,
-    nonreactiveBuiltinStates,
-    checkableBindValues,
-    basePathLinks,
-    orphanEffects,
-    orphanLifecycleCalls,
-    browserGlobalRefs,
-    moduleStateDecls: [],
-    suppressions,
-    commentLinks: collectCommentLinks(source2),
-    ariaElements,
-    interactiveNestings,
-    unnamedInteractive,
-    unassociatedLabels,
-    bulletTexts,
-    selectsMissingPlaceholder,
-    timesMissingDatetime
-  };
-}
-function skippedFileWarnings(facts) {
-  const list3 = (files) => {
-    const shown = files.slice(0, 10);
-    return files.length > shown.length ? `${shown.join(", ")}, \u2026 and ${files.length - shown.length} more` : shown.join(", ");
-  };
-  const names = (pick) => [...new Set(facts.filter(pick).map((f) => f.file))].sort();
-  const unread = names((f) => f.readFailed === true);
-  const unparsed = names((f) => f.parseFailed === true && f.readFailed !== true);
-  const out = [];
-  if (unread.length > 0) {
-    out.push(
-      `skipped ${unread.length} file(s) that could not be read: ${list3(unread)}`,
-      "this is an environment problem, not a code one \u2014 check file permissions and the open-file limit (`ulimit -n`)."
-    );
-  }
-  if (unparsed.length > 0) {
-    out.push(
-      `skipped ${unparsed.length} file(s) that could not be parsed: ${list3(unparsed)}`,
-      "findings for these files are unavailable until they parse."
-    );
-  }
-  return out;
-}
-function emptyComponentFacts(file) {
-  return {
-    file,
-    eachBlocks: [],
-    effects: [],
-    htmlTags: [],
-    javascriptUrls: [],
-    loc: 0,
-    propCount: 0,
-    imports: [],
-    importSpans: [],
-    namespaceImports: [],
-    constableStates: [],
-    mutatedProps: [],
-    stalePropDerivations: [],
-    rawableStates: [],
-    nonreactiveBuiltinStates: [],
-    checkableBindValues: [],
-    basePathLinks: [],
-    orphanEffects: [],
-    orphanLifecycleCalls: [],
-    browserGlobalRefs: [],
-    moduleStateDecls: [],
-    suppressions: [],
-    commentLinks: []
-  };
-}
-async function collectComponentFacts(rt, cwd) {
-  const files = await rt.glob("src/**/*.svelte{,.ts,.js}", cwd);
-  return Promise.all(
-    files.sort().map(async (rel) => {
-      let source2;
-      try {
-        source2 = await rt.readFile(rt.join(cwd, rel));
-      } catch {
-        return { ...emptyComponentFacts(rel), parseFailed: true, readFailed: true };
-      }
-      try {
-        return { file: rel, ...parseComponentFacts(source2, rel) };
-      } catch {
-        return { ...emptyComponentFacts(rel), parseFailed: true };
-      }
-    })
-  );
-}
-async function collectSourceFiles(rt, cwd) {
-  const files = await rt.glob("src/**/*", cwd);
-  return files.slice().sort();
-}
-var HANDLER_NAMES = /* @__PURE__ */ new Set([
-  "load",
-  "handle",
-  "handleFetch",
-  "handleError",
-  "GET",
-  "POST",
-  "PUT",
-  "PATCH",
-  "DELETE",
-  "HEAD",
-  "OPTIONS",
-  "fallback"
-]);
-function isFunctionNode(n2) {
-  return n2?.type === "FunctionDeclaration" || n2?.type === "FunctionExpression" || n2?.type === "ArrowFunctionExpression";
-}
-function collectTopLevelBindings(program) {
-  const bindings = /* @__PURE__ */ new Map();
-  for (const stmt2 of program.body ?? []) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type === "FunctionDeclaration" && decl.id?.type === "Identifier") {
-      bindings.set(decl.id.name, decl);
-    } else if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) {
-        if (d2?.id?.type === "Identifier" && d2.init) bindings.set(d2.id.name, unwrapTs(d2.init));
-      }
-    }
-  }
-  return bindings;
-}
-function addActionsMembers(obj, handlers) {
-  for (const p2 of obj.properties ?? []) {
-    if (p2?.type !== "Property") continue;
-    const v = unwrapTs(p2.value);
-    if (isFunctionNode(v)) handlers.add(v);
-  }
-}
-function forEachNamedExport(program, visit) {
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
-    const decl = stmt2.declaration;
-    if (decl.type === "FunctionDeclaration" && decl.id?.type === "Identifier") {
-      if (visit(decl.id.name, decl, decl)) return;
-      continue;
-    }
-    if (decl.type !== "VariableDeclaration") continue;
-    for (const d2 of decl.declarations ?? []) {
-      if (d2?.id?.type !== "Identifier" || !d2.init) continue;
-      if (visit(d2.id.name, unwrapTs(d2.init), d2)) return;
-    }
-  }
-  let bindings;
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
-      continue;
-    for (const s of stmt2.specifiers) {
-      if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
-      bindings ??= collectTopLevelBindings(program);
-      const resolved = bindings.get(s.local.name);
-      if (resolved === void 0) continue;
-      if (visit(s.exported.name, resolved, resolved)) return;
-    }
-  }
-}
-function collectHandlerFunctions(program) {
-  const handlers = /* @__PURE__ */ new Set();
-  forEachNamedExport(program, (name, value) => {
-    if (HANDLER_NAMES.has(name) && isFunctionNode(value)) handlers.add(value);
-    else if (name === "actions" && value?.type === "ObjectExpression") addActionsMembers(value, handlers);
-    return void 0;
-  });
-  return handlers;
-}
-function collectStartupFunctions(program) {
-  const startup = /* @__PURE__ */ new Set();
-  forEachNamedExport(program, (name, value) => {
-    if (name === "init" && isFunctionNode(value)) startup.add(value);
-    return void 0;
-  });
-  return startup;
-}
-function findFalseOptOut(program, source2, name) {
-  let hit;
-  forEachNamedExport(program, (exported, value, anchor) => {
-    if (exported !== name || value?.type !== "Literal" || value.value !== false) return void 0;
-    hit = { line: lineOf(source2, anchor.start) };
-    return true;
-  });
-  return hit;
-}
-function findLoadFunction(program) {
-  let load;
-  forEachNamedExport(program, (name, value) => {
-    if (name !== "load" || !isFunctionNode(value)) return void 0;
-    load = value;
-    return true;
-  });
-  return load;
-}
-function collectAwaits(node, out = []) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectAwaits(child, out);
-    return out;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
-  if (isFunctionNode(node)) return out;
-  if (node.type === "AwaitExpression") out.push(node);
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    collectAwaits(node[key2], out);
-  }
-  return out;
-}
-var REDIRECT_NAMES = /* @__PURE__ */ new Set(["redirect"]);
-function collectRedirectCalls(node, locals, out = []) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectRedirectCalls(child, locals, out);
-    return out;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
-  if (node.type === "CallExpression" && node.callee?.type === "Identifier" && locals.has(node.callee.name)) {
-    out.push(node);
-  }
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    collectRedirectCalls(node[key2], locals, out);
-  }
-  return out;
-}
-function isParentCall(arg) {
-  const e3 = unwrapTs(arg);
-  if (e3?.type !== "CallExpression") return false;
-  const callee = e3.callee;
-  if (callee?.type === "Identifier" && callee.name === "parent") return true;
-  return callee?.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "parent";
-}
-var BODY_METHODS = /* @__PURE__ */ new Set(["json", "text", "blob", "arrayBuffer", "formData", "bytes"]);
-function isBodyParseCall(arg) {
-  const e3 = unwrapTs(arg);
-  if (e3?.type !== "CallExpression" || e3.arguments?.length) return false;
-  const callee = e3.callee;
-  return callee?.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && BODY_METHODS.has(callee.property.name);
-}
-function refsTainted(node, tainted) {
-  let hit = false;
-  const walk2 = (n2, shadowed) => {
-    if (hit) return;
-    if (Array.isArray(n2)) {
-      for (const child of n2) walk2(child, shadowed);
-      return;
-    }
-    if (!n2 || typeof n2 !== "object" || typeof n2.type !== "string") return;
-    const introduced = scopeIntroducedNames(n2);
-    const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-    if (n2.type === "Identifier" && tainted.has(n2.name) && !scope.has(n2.name)) {
-      hit = true;
-      return;
-    }
-    for (const key2 of Object.keys(n2)) {
-      if (WALK_IGNORED_KEYS.has(key2)) continue;
-      if (n2.type === "MemberExpression" && key2 === "property" && !n2.computed) continue;
-      if (n2.type === "Property" && key2 === "key" && !n2.computed) continue;
-      walk2(n2[key2], scope);
-    }
-  };
-  walk2(node, /* @__PURE__ */ new Set());
-  return hit;
-}
-function collectLoadWaterfalls(program, wrapped) {
-  const dependentLines = [];
-  const independentLines = [];
-  const load = findLoadFunction(program);
-  if (!load?.body || load.body.type !== "BlockStatement") return { dependentLines, independentLines };
-  const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
-  const tainted = /* @__PURE__ */ new Set();
-  let sawAwaitSite = false;
-  const taintAssignTarget = (left) => {
-    if (left?.type === "MemberExpression") {
-      const root = rootObjectName(left);
-      if (root) tainted.add(root);
-    } else {
-      addBoundNames(left, tainted);
-    }
-  };
-  const taintOnly = (node) => {
-    if (Array.isArray(node)) {
-      for (const child of node) taintOnly(child);
-      return;
-    }
-    if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-    if (isFunctionNode(node)) return;
-    if (node.type === "AssignmentExpression") {
-      if (collectAwaits(node.right).length > 0 || refsTainted(node.right, tainted)) taintAssignTarget(node.left);
-    } else if (node.type === "VariableDeclaration") {
-      for (const d2 of node.declarations ?? []) {
-        if (d2?.id && d2.init && (collectAwaits(d2.init).length > 0 || refsTainted(d2.init, tainted))) {
-          addBoundNames(d2.id, tainted);
-        }
-      }
-    }
-    for (const key2 of Object.keys(node)) {
-      if (WALK_IGNORED_KEYS.has(key2)) continue;
-      taintOnly(node[key2]);
-    }
-  };
-  const processStatements = (body) => {
-    for (const stmt2 of body ?? []) {
-      if (!stmt2) continue;
-      if (stmt2.type === "TryStatement") {
-        if (stmt2.block?.type === "BlockStatement") processStatements(stmt2.block.body);
-        if (stmt2.handler) taintOnly(stmt2.handler);
-        if (stmt2.finalizer) taintOnly(stmt2.finalizer);
-        continue;
-      }
-      if (stmt2.type === "VariableDeclaration" || stmt2.type === "ExpressionStatement" || stmt2.type === "ReturnStatement") {
-        const sites = collectAwaits(stmt2).filter((a2) => !isParentCall(a2.argument) && !isBodyParseCall(a2.argument));
-        if (sites.length > 0) {
-          const dependent = sites.filter((a2) => refsTainted(a2.argument, tainted));
-          if (dependent.length > 0) {
-            const anchor = dependent.reduce((m, a2) => a2.start < m.start ? a2 : m);
-            dependentLines.push(line(anchor.start));
-          } else if (sawAwaitSite) {
-            const workSites = sites.filter((a2) => unwrapTs(a2.argument)?.type !== "Identifier");
-            if (workSites.length > 0) {
-              const anchor = workSites.reduce((m, a2) => a2.start < m.start ? a2 : m);
-              independentLines.push(line(anchor.start));
-            }
-          }
-          sawAwaitSite = true;
-        }
-        if (stmt2.type === "VariableDeclaration") {
-          for (const d2 of stmt2.declarations ?? []) {
-            if (!d2?.id || !d2.init) continue;
-            if (collectAwaits(d2.init).length > 0 || refsTainted(d2.init, tainted)) addBoundNames(d2.id, tainted);
-          }
-        } else if (stmt2.type === "ExpressionStatement") {
-          const expr = unwrapTs(stmt2.expression);
-          if (expr?.type === "AssignmentExpression") {
-            if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) taintAssignTarget(expr.left);
-          }
-        }
-      } else {
-        taintOnly(stmt2);
-      }
-    }
-  };
-  processStatements(load.body.body);
-  return { dependentLines, independentLines };
-}
-function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
-  if (Array.isArray(node)) {
-    for (const child of node) walkKit(child, handlerFns, startupFns, visit, shadowed, inFunction, inHandler, inStartup);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  const isBoundary = isFunctionNode(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
-  const nextInFunction = inFunction || isBoundary;
-  const nextInHandler = inHandler || handlerFns.has(node);
-  const nextInStartup = inStartup || startupFns.has(node);
-  visit(node, scope, inFunction, inHandler, inStartup);
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    walkKit(node[key2], handlerFns, startupFns, visit, scope, nextInFunction, nextInHandler, nextInStartup);
-  }
-}
-function normalizePosix(path) {
-  const out = [];
-  for (const seg of path.split("/")) {
-    if (seg === "" || seg === ".") continue;
-    if (seg === "..") {
-      if (out.length === 0) return void 0;
-      out.pop();
-    } else out.push(seg);
-  }
-  return out.join("/");
-}
-var DEFAULT_KIT_ALIASES = [{ find: "$lib", replacement: "src/lib", match: "prefix" }];
-function aliasMatches(entry, spec) {
-  if (entry.match === "exact") return spec === entry.find;
-  if (spec.startsWith(`${entry.find}/`)) return true;
-  return entry.match === "prefix" && spec === entry.find;
-}
-function resolveRepoLocalPath(spec, importerFile, aliases = DEFAULT_KIT_ALIASES) {
-  let path;
-  if (spec.startsWith("./") || spec.startsWith("../")) {
-    const dir = importerFile.split("/").slice(0, -1).join("/");
-    path = `${dir}/${spec}`;
-  } else {
-    const entry = aliases.find((a2) => aliasMatches(a2, spec));
-    if (entry?.replacement == null) return void 0;
-    if (entry.replacement.startsWith("/") || /^[A-Za-z]:\//.test(entry.replacement)) return void 0;
-    path = entry.replacement + spec.slice(entry.find.length);
-  }
-  return normalizePosix(path);
-}
-function resolveRunesModuleSpecifier(spec, importerFile, aliases) {
-  const path = resolveRepoLocalPath(spec, importerFile, aliases);
-  if (path === void 0) return void 0;
-  if (/\.svelte\.(ts|js)$/.test(path)) return path;
-  if (path.endsWith(".svelte")) return `${path}.ts`;
-  return void 0;
-}
-function libServerRoot(aliases) {
-  const lib = aliases?.find((a2) => a2.find === "$lib");
-  if (lib && lib.replacement === null) return void 0;
-  return `${lib?.replacement ?? "src/lib"}/server`;
-}
-function serverRootRelativePath(spec, importerFile, aliases) {
-  const serverRoot = libServerRoot(aliases);
-  if (serverRoot === void 0) return void 0;
-  const path = resolveRepoLocalPath(spec, importerFile, aliases);
-  if (path === void 0) return void 0;
-  return path === serverRoot || path.startsWith(`${serverRoot}/`) ? path : void 0;
-}
-function isLocalStateSpecifier(spec, importerFile, aliases) {
-  const serverRoot = libServerRoot(aliases);
-  if (serverRoot === void 0) return false;
-  const path = resolveRepoLocalPath(spec, importerFile, aliases);
-  if (path === void 0) return false;
-  return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
-}
-var IN_MEMORY_CTORS = /* @__PURE__ */ new Set(["Map", "Set", "WeakMap", "WeakSet"]);
-function isInMemoryInit(init2) {
-  if (!init2) return false;
-  if (init2.type === "ObjectExpression" || init2.type === "ArrayExpression") return true;
-  return init2.type === "NewExpression" && init2.callee?.type === "Identifier" && IN_MEMORY_CTORS.has(init2.callee.name);
-}
-function parseInMemoryExports(source2, filename2) {
-  const names = /* @__PURE__ */ new Set();
-  const { program } = parseModuleProgram(source2, filename2);
-  for (const stmt2 of program?.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
-    const decl = stmt2.declaration;
-    if (decl.type !== "VariableDeclaration") continue;
-    for (const d2 of decl.declarations ?? []) {
-      if (d2?.id?.type === "Identifier" && isInMemoryInit(d2.init)) names.add(d2.id.name);
-    }
-  }
-  return names;
-}
-function parseKitModuleFacts(source2, filename2, aliases) {
-  const suppressions = collectSuppressions(source2);
-  const { program, wrapped } = parseModuleProgram(source2, filename2);
-  const moduleStateReassignments = [];
-  const importedStateWrites = [];
-  const importedStateWritesOutsideHandlers = [];
-  const pendingServerStoreWrites = [];
-  const runesModuleImports = [];
-  const lifecycleCalls = [];
-  const browserGlobalRefs = [];
-  if (!program) {
-    return {
-      moduleStateReassignments,
-      importedStateWrites,
-      importedStateWritesOutsideHandlers,
-      pendingServerStoreWrites,
-      runesModuleImports,
-      lifecycleCalls,
-      browserGlobalRefs,
-      basePathLinks: [],
-      suppressions
-    };
-  }
-  const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
-  const importedSpecifiers = /* @__PURE__ */ new Map();
-  const importedNames = /* @__PURE__ */ new Map();
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
-    const spec = typeof stmt2.source?.value === "string" ? stmt2.source.value : "";
-    const names = [];
-    for (const s of stmt2.specifiers ?? []) {
-      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
-      names.push(s.local.name);
-      importedSpecifiers.set(s.local.name, spec);
-      importedNames.set(
-        s.local.name,
-        s.type === "ImportSpecifier" && s.imported?.type === "Identifier" ? s.imported.name : s.local.name
-      );
-    }
-    if (names.length === 0) continue;
-    const resolved = resolveRunesModuleSpecifier(spec, filename2, aliases);
-    if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt2.start) });
-  }
-  const moduleLets = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type === "VariableDeclaration" && (decl.kind === "let" || decl.kind === "var")) {
-      for (const d2 of decl.declarations ?? []) addBoundNames(d2?.id, moduleLets);
-    }
-  }
-  const handlerFns = collectHandlerFunctions(program);
-  const startupFns = collectStartupFunctions(program);
-  const svelteImports = collectSvelteLifecycleImports(program);
-  const ssrOptOut = findFalseOptOut(program, wrapped, "ssr");
-  const csrOptOut = findFalseOptOut(program, wrapped, "csr");
-  const waterfalls = collectLoadWaterfalls(program, wrapped);
-  if (!ssrOptOut) {
-    const shiftLine = (l2) => Math.max(0, l2 - 1);
-    const browserImports = collectBrowserGuardImports(program);
-    const guards = /* @__PURE__ */ new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
-    const bound = collectProgramBindings(program);
-    for (const r2 of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
-      browserGlobalRefs.push({ name: r2.name, line: shiftLine(r2.line), inHandler: false });
-    }
-    const scanFn = (fn, inHandler) => {
-      if (!fn?.body) return;
-      const params = /* @__PURE__ */ new Set();
-      for (const p2 of fn.params ?? []) addBoundNames(p2, params);
-      for (const r2 of collectBrowserGlobalRefs(fn.body, wrapped, { guards, bound: /* @__PURE__ */ new Set([...bound, ...params]) })) {
-        browserGlobalRefs.push({ name: r2.name, line: shiftLine(r2.line), inHandler });
-      }
-    };
-    for (const fn of handlerFns) scanFn(fn, true);
-    for (const fn of startupFns) {
-      if (handlerFns.has(fn)) continue;
-      scanFn(fn, false);
-    }
-  }
-  walkKit(program, handlerFns, startupFns, (n2, shadowed, inFunction, inHandler, inStartup) => {
-    if (inFunction && !inStartup) {
-      const flagLet = (name) => {
-        if (name && !shadowed.has(name) && moduleLets.has(name)) {
-          moduleStateReassignments.push({ name, line: line(n2.start), inHandler });
-        }
-      };
-      if (n2.type === "AssignmentExpression") {
-        if (n2.left?.type === "Identifier") flagLet(n2.left.name);
-        else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
-          const bound = /* @__PURE__ */ new Set();
-          addBoundNames(n2.left, bound);
-          for (const b of bound) flagLet(b);
-        }
-      } else if (n2.type === "UpdateExpression" && n2.argument?.type === "Identifier") {
-        flagLet(n2.argument.name);
-      }
-    }
-    let write;
-    const importedRoot = (expr) => {
-      const r2 = rootObjectName(expr);
-      return r2 && !shadowed.has(r2) && importedSpecifiers.has(r2) ? r2 : void 0;
-    };
-    if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") {
-      const r2 = importedRoot(n2.left);
-      if (r2) write = { name: r2, via: "assignment" };
-    } else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") {
-      const r2 = importedRoot(n2.argument);
-      if (r2) write = { name: r2, via: "assignment" };
-    } else if (n2.type === "UnaryExpression" && n2.operator === "delete") {
-      const r2 = importedRoot(n2.argument);
-      if (r2) write = { name: r2, via: "assignment" };
-    } else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
-      const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
-      if (method2 === "set" || method2 === "update") {
-        const r2 = importedRoot(n2.callee.object);
-        const spec = r2 ? importedSpecifiers.get(r2) : void 0;
-        if (r2 && spec !== void 0) {
-          if (isLocalStateSpecifier(spec, filename2, aliases)) write = { name: r2, via: "set-call" };
-          else {
-            const resolved = serverRootRelativePath(spec, filename2, aliases);
-            if (resolved !== void 0 && inHandler) {
-              pendingServerStoreWrites.push({
-                name: r2,
-                imported: importedNames.get(r2) ?? r2,
-                resolved,
-                line: line(n2.start)
-              });
-            }
-          }
-        }
-      }
-    } else if (n2.type === "AssignmentExpression" && (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern")) {
-      const scanPatternTargets = (pat) => {
-        if (!pat || write) return;
-        if (pat.type === "MemberExpression") {
-          const r2 = importedRoot(pat);
-          if (r2) write = { name: r2, via: "assignment" };
-        } else if (pat.type === "ObjectPattern") {
-          for (const p2 of pat.properties ?? []) {
-            if (p2?.type === "Property") scanPatternTargets(p2.value);
-            else if (p2?.type === "RestElement") scanPatternTargets(p2.argument);
-          }
-        } else if (pat.type === "ArrayPattern") {
-          for (const el of pat.elements ?? []) scanPatternTargets(el);
-        } else if (pat.type === "AssignmentPattern") {
-          scanPatternTargets(pat.left);
-        } else if (pat.type === "RestElement") {
-          scanPatternTargets(pat.argument);
-        }
-      };
-      scanPatternTargets(n2.left);
-    }
-    if (write) {
-      if (inHandler) importedStateWrites.push({ ...write, line: line(n2.start) });
-      else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n2.start) });
-    }
-    if (n2.type === "CallExpression" && (!inFunction || inHandler || inStartup)) {
-      const m = matchLifecycleCall(n2, svelteImports);
-      if (m && !shadowed.has(m.local)) {
-        lifecycleCalls.push({ name: m.canonical, line: line(n2.start), inHandler });
-      }
-    }
-  });
-  const byLine = (arr) => arr.sort((a2, b) => a2.line - b.line);
-  const basePathLinks = [];
-  const redirectLocals = collectNamedImportAliases(program, "@sveltejs/kit", REDIRECT_NAMES);
-  if (redirectLocals.size > 0) {
-    for (const call2 of collectRedirectCalls(program, redirectLocals)) {
-      const arg = call2.arguments?.[1];
-      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) continue;
-      basePathLinks.push({ kind: "redirect", path: arg.value, line: line(call2.start) });
-    }
-  }
-  return {
-    moduleStateReassignments: byLine(moduleStateReassignments),
-    importedStateWrites: byLine(importedStateWrites),
-    importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
-    pendingServerStoreWrites: byLine(pendingServerStoreWrites),
-    runesModuleImports: byLine(runesModuleImports),
-    lifecycleCalls: byLine(lifecycleCalls),
-    browserGlobalRefs: byLine(browserGlobalRefs),
-    basePathLinks: byLine(basePathLinks),
-    ...ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {},
-    ...csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {},
-    ...waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0 ? { loadWaterfalls: waterfalls } : {},
-    suppressions
-  };
-}
-function emptyKitModuleFacts(file, kind) {
-  return {
-    file,
-    kind,
-    moduleStateReassignments: [],
-    importedStateWrites: [],
-    importedStateWritesOutsideHandlers: [],
-    pendingServerStoreWrites: [],
-    runesModuleImports: [],
-    lifecycleCalls: [],
-    browserGlobalRefs: [],
-    basePathLinks: [],
-    suppressions: []
-  };
-}
-function kindOf(file) {
-  const base = file.split("/").pop() ?? file;
-  return base.includes(".server.") || base.startsWith("+server.") ? "server" : "universal";
-}
-async function collectKitModuleFacts(rt, cwd, aliases) {
-  const patterns = [
-    "src/routes/**/+{page,layout}.server.{ts,js}",
-    "src/routes/**/+{page,layout}.{ts,js}",
-    "src/routes/**/+server.{ts,js}",
-    "src/hooks.server.{ts,js}"
-  ];
-  const lists = await Promise.all(patterns.map((p2) => rt.glob(p2, cwd)));
-  const files = [...new Set(lists.flat())];
-  const facts = await Promise.all(
-    files.sort().map(async (rel) => {
-      const kind = kindOf(rel);
-      let source2;
-      try {
-        source2 = await rt.readFile(rt.join(cwd, rel));
-      } catch {
-        return { ...emptyKitModuleFacts(rel, kind), parseFailed: true, readFailed: true };
-      }
-      try {
-        return { file: rel, kind, ...parseKitModuleFacts(source2, rel, aliases) };
-      } catch {
-        return { ...emptyKitModuleFacts(rel, kind), parseFailed: true };
-      }
-    })
-  );
-  return arbitrateServerStoreWrites(rt, cwd, facts);
-}
-function moduleCandidates(repoPath) {
-  if (repoPath.endsWith(".js")) return [repoPath, `${repoPath.slice(0, -3)}.ts`];
-  if (repoPath.endsWith(".ts")) return [repoPath];
-  return [`${repoPath}.ts`, `${repoPath}.js`, `${repoPath}/index.ts`, `${repoPath}/index.js`];
-}
-async function inMemoryExportsOf(rt, cwd, repoPath) {
-  for (const rel of moduleCandidates(repoPath)) {
-    try {
-      if (!await rt.exists(rt.join(cwd, rel))) continue;
-      return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);
-    } catch {
-      return /* @__PURE__ */ new Set();
-    }
-  }
-  return /* @__PURE__ */ new Set();
-}
-async function arbitrateServerStoreWrites(rt, cwd, facts) {
-  const targets = [...new Set(facts.flatMap((f) => f.pendingServerStoreWrites.map((w2) => w2.resolved)))];
-  if (targets.length === 0) return facts;
-  const byPath = new Map(
-    await Promise.all(targets.map(async (t2) => [t2, await inMemoryExportsOf(rt, cwd, t2)]))
-  );
-  return facts.map((f) => {
-    const promoted = f.pendingServerStoreWrites.filter((w2) => byPath.get(w2.resolved)?.has(w2.imported)).map((w2) => ({ name: w2.name, line: w2.line, via: "set-call" }));
-    if (promoted.length === 0) return f;
-    return {
-      ...f,
-      importedStateWrites: [...f.importedStateWrites, ...promoted].sort((a2, b) => a2.line - b.line)
-    };
-  });
-}
-function propOf(obj, name) {
-  let found;
-  for (const p2 of obj.properties) {
-    if (p2.type === "SpreadElement") {
-      if (found) found = void 0;
-      continue;
-    }
-    if (p2.type !== "Property" || p2.computed) continue;
-    if (p2.key.type === "Identifier" && p2.key.name === name) found = p2;
-    else if (p2.key.type === "Literal" && p2.key.value === name) found = p2;
-  }
-  return found;
-}
-function unwrapToObjectExpression(expr, bindings) {
-  let current2 = expr;
-  for (let i2 = 0; i2 < 4 && current2; i2++) {
-    const e3 = unwrapTs(current2);
-    if (e3.type === "ObjectExpression") return e3;
-    if (e3.type === "Identifier") {
-      current2 = bindings.get(e3.name);
-      continue;
-    }
-    if (e3.type === "CallExpression") {
-      current2 = e3.arguments[0];
-      continue;
-    }
-    return void 0;
-  }
-  const final = current2 ? unwrapTs(current2) : void 0;
-  return final?.type === "ObjectExpression" ? final : void 0;
-}
-function findExportedExpression(program) {
-  let exported;
-  for (const stmt2 of program.body) {
-    if (stmt2.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
-  }
-  if (exported) return exported;
-  let cjsExported;
-  for (const stmt2 of program.body) {
-    if (stmt2.type !== "ExpressionStatement") continue;
-    const expr = stmt2.expression;
-    if (expr.type !== "AssignmentExpression" || expr.operator !== "=") continue;
-    const left = expr.left;
-    if (left.type === "MemberExpression" && !left.computed && left.object.type === "Identifier" && left.object.name === "module" && left.property.type === "Identifier" && left.property.name === "exports") {
-      cjsExported = expr.right;
-    }
-  }
-  return cjsExported;
-}
-function resolveConfigObject(program) {
-  const exported = findExportedExpression(program);
-  if (!exported) return void 0;
-  return unwrapToObjectExpression(exported, collectTopLevelBindings(program));
-}
-function findMinifyDisabled(source2) {
-  let program;
-  let wrapped;
-  try {
-    ({ program, wrapped } = parseModuleProgram(source2, "vite.config.ts"));
-  } catch {
-    return void 0;
-  }
-  if (!program) return void 0;
-  const config = resolveConfigObject(program);
-  if (!config) return void 0;
-  const build2 = propOf(config, "build");
-  const buildValue = build2 ? unwrapTs(build2.value) : void 0;
-  if (buildValue?.type !== "ObjectExpression") return void 0;
-  const minify = propOf(buildValue, "minify");
-  const minifyValue = minify ? unwrapTs(minify.value) : void 0;
-  if (!minify || minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
-  return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
-}
-function basePathOf(kitConfig, bindings) {
-  const paths = propOf(kitConfig, "paths");
-  const pathsObj = paths ? unwrapToObjectExpression(paths.value, bindings) : void 0;
-  if (!pathsObj) return void 0;
-  const base = propOf(pathsObj, "base");
-  if (!base) return void 0;
-  const value = unwrapTs(base.value);
-  if (value.type === "Literal") {
-    return typeof value.value === "string" && value.value !== "" ? { value: value.value } : void 0;
-  }
-  return {};
-}
-function keyNameOf(p2) {
-  if (p2.computed) return void 0;
-  if (p2.key.type === "Identifier") return p2.key.name;
-  if (p2.key.type === "Literal" && typeof p2.key.value === "string") return p2.key.value;
-  return void 0;
-}
-function stringValueOf(p2) {
-  const v = unwrapTs(p2.value);
-  return v.type === "Literal" && typeof v.value === "string" ? v.value : void 0;
-}
-function aliasEntriesOf(kitConfig, bindings) {
-  const alias = propOf(kitConfig, "alias");
-  if (!alias) return [];
-  const obj = unwrapToObjectExpression(alias.value, bindings);
-  if (!obj) return void 0;
-  const out = [];
-  const at2 = /* @__PURE__ */ new Map();
-  for (const p2 of obj.properties) {
-    if (p2.type !== "Property") return void 0;
-    const key2 = keyNameOf(p2);
-    if (key2 === void 0) return void 0;
-    const entry = { key: key2, value: stringValueOf(p2) ?? null };
-    const seen = at2.get(key2);
-    if (seen === void 0) {
-      at2.set(key2, out.length);
-      out.push(entry);
-    } else out[seen] = entry;
-  }
-  return out;
-}
-function filesLibOf(kitConfig, bindings) {
-  const files = propOf(kitConfig, "files");
-  const obj = files ? unwrapToObjectExpression(files.value, bindings) : void 0;
-  const lib = obj ? propOf(obj, "lib") : void 0;
-  if (!lib) return void 0;
-  return stringValueOf(lib) ?? null;
-}
-function findKitAliasesInSvelteConfig(source2) {
-  const program = programOf(source2, "svelte.config.js");
-  const config = program ? resolveConfigObject(program) : void 0;
-  if (!program || !config) return { entries: [] };
-  const bindings = collectTopLevelBindings(program);
-  const kit = propOf(config, "kit");
-  const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
-  if (!kitObj) return { entries: [] };
-  const filesLib = filesLibOf(kitObj, bindings);
-  return { entries: aliasEntriesOf(kitObj, bindings), ...filesLib !== void 0 ? { filesLib } : {} };
-}
-function normalizeAliasValue(value) {
-  const posix2 = value.replace(/\\/g, "/");
-  const noStar = posix2.endsWith("/*") ? posix2.slice(0, -2) : posix2;
-  return noStar.replace(/\/+$/, "");
-}
-function compileKitAliases(raw) {
-  const filesLib = raw.filesLib === null ? null : normalizeAliasValue(raw.filesLib ?? "src/lib");
-  const out = [{ find: "$lib", replacement: filesLib, match: "prefix" }];
-  const entries = raw.entries ?? [];
-  const declared = new Set(entries.map((e3) => e3.key));
-  for (const { key: key2, value } of entries) {
-    const star = key2.endsWith("/*");
-    out.push({
-      find: star ? key2.slice(0, -2) : key2,
-      replacement: value === null ? null : normalizeAliasValue(value),
-      match: star ? "contents" : declared.has(`${key2}/*`) ? "exact" : "prefix"
-    });
-  }
-  return out;
-}
-function resolveKitAliases(viteConfig, svelteConfig) {
-  if (viteConfig && findKitPathsBaseInViteConfig(viteConfig.source).kind !== "no-plugin-config") return void 0;
-  if (!svelteConfig) return void 0;
-  return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
-}
-function programOf(source2, filename2) {
-  try {
-    return parseModuleProgram(source2, filename2).program ?? void 0;
-  } catch {
-    return void 0;
-  }
-}
-function findKitPathsBaseInSvelteConfig(source2) {
-  const program = programOf(source2, "svelte.config.js");
-  if (!program) return void 0;
-  const config = resolveConfigObject(program);
-  if (!config) return void 0;
-  const bindings = collectTopLevelBindings(program);
-  const kit = propOf(config, "kit");
-  const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
-  return kitObj ? basePathOf(kitObj, bindings) : void 0;
-}
-function sveltekitLocalNames(program) {
-  const out = collectNamedImportAliases(program, "@sveltejs/kit/vite", /* @__PURE__ */ new Set(["sveltekit"]));
-  if (out.size === 0) out.add("sveltekit");
-  return out;
-}
-function findKitPathsBaseInViteConfig(source2) {
-  const none = { kind: "no-plugin-config" };
-  const program = programOf(source2, "vite.config.ts");
-  if (!program) return none;
-  const config = resolveConfigObject(program);
-  if (!config) return none;
-  const bindings = collectTopLevelBindings(program);
-  const plugins = propOf(config, "plugins");
-  const pluginsValue = plugins ? unwrapTs(plugins.value) : void 0;
-  if (pluginsValue?.type !== "ArrayExpression") return none;
-  const locals = sveltekitLocalNames(program);
-  for (const el of pluginsValue.elements) {
-    if (!el || el.type === "SpreadElement") continue;
-    const call2 = unwrapTs(el);
-    if (call2.type !== "CallExpression") continue;
-    if (call2.callee.type !== "Identifier" || !locals.has(call2.callee.name)) continue;
-    const arg = call2.arguments[0];
-    if (arg === void 0) return none;
-    const kitConfig = unwrapToObjectExpression(arg, bindings);
-    if (!kitConfig) return { kind: "unresolvable" };
-    const base = basePathOf(kitConfig, bindings);
-    return base ? { kind: "resolved", base } : { kind: "resolved" };
-  }
-  return none;
-}
-function resolveKitPathsBase(viteConfig, svelteConfig) {
-  if (viteConfig) {
-    const result3 = findKitPathsBaseInViteConfig(viteConfig.source);
-    if (result3.kind === "unresolvable") return void 0;
-    if (result3.kind === "resolved") {
-      return result3.base ? { ...result3.base, file: viteConfig.file } : void 0;
-    }
-  }
-  if (!svelteConfig) return void 0;
-  const base = findKitPathsBaseInSvelteConfig(svelteConfig.source);
-  return base ? { ...base, file: svelteConfig.file } : void 0;
-}
-var ROBOTS_SOURCE_PATHS = [
-  "static/robots.txt",
-  "src/routes/robots.txt/+server.ts",
-  "src/routes/robots.txt/+server.js"
-];
-var SITEMAP_SOURCE_PATHS = [
-  "static/sitemap.xml",
-  "src/routes/sitemap.xml/+server.ts",
-  "src/routes/sitemap.xml/+server.js"
-];
-var VITE_CONFIG_FILES = [
-  "vite.config.js",
-  "vite.config.mjs",
-  "vite.config.ts",
-  "vite.config.cjs",
-  "vite.config.mts",
-  "vite.config.cts"
-];
-var SVELTE_CONFIG_FILES = ["svelte.config.js", "svelte.config.ts"];
-var READ_CONCURRENCY = 64;
-function withReadLimit(readFile2, limit = READ_CONCURRENCY) {
-  let active = 0;
-  const waiting = [];
-  const release = () => {
-    active--;
-    waiting.shift()?.();
-  };
-  return async (path) => {
-    if (active >= limit) await new Promise((resolve4) => waiting.push(resolve4));
-    active++;
-    try {
-      return await readFile2(path);
-    } finally {
-      release();
-    }
-  };
+function defineConfig(config = {}) {
+  return { ...defaultConfig, ...config };
 }
 function docsUrlFor(id2) {
   return `https://oekazuma.github.io/svelte-vitals/rules/${id2.toLowerCase()}`;
@@ -64665,24 +61648,32 @@ function isPenalized(detection, treatDynamicAs) {
   if (detection.value === "dynamic") return treatDynamicAs !== "pass";
   return false;
 }
-async function runRules(rules, ctx) {
-  const examined = {};
-  const perRule = await Promise.all(
-    rules.map(async (rule) => {
-      try {
-        return await rule.check({ ...ctx, recordExamined: (counts) => void (examined[rule.id] = counts) });
-      } catch (err) {
-        return { id: rule.id, message: err instanceof Error ? err.message : String(err) };
-      }
-    })
-  );
-  const results = [];
-  const failedRules = [];
-  for (const outcome of perRule) {
-    if (Array.isArray(outcome)) results.push(...outcome);
-    else failedRules.push(outcome);
+function classify(result3, config) {
+  if (isPenalized(result3.detection, config.treatDynamicAs)) return "fail";
+  if (result3.detection.value === "dynamic") return "dynamic";
+  return "pass";
+}
+function effectiveSeverity(result3, config) {
+  if (result3.detection.value === "dynamic" && config.treatDynamicAs === "warn") return "warning";
+  return result3.severity;
+}
+function summarize(results, config) {
+  const summary2 = { critical: 0, warning: 0, info: 0, passed: 0, dynamic: 0 };
+  for (const result3 of results) {
+    const cls = classify(result3, config);
+    if (cls === "fail") {
+      summary2[effectiveSeverity(result3, config)] += 1;
+    } else {
+      summary2.passed += 1;
+      if (cls === "dynamic") summary2.dynamic += 1;
+    }
   }
-  return { results, examined, failedRules };
+  return summary2;
+}
+function hasFailureAtOrAbove(summary2, min) {
+  const order = ["info", "warning", "critical"];
+  const threshold = order.indexOf(min);
+  return order.some((sev, idx) => idx >= threshold && summary2[sev] > 0);
 }
 var FIX = {
   description: "Add a <title> inside <svelte:head> (a dynamic title is fine).",
@@ -66982,6 +63973,2618 @@ var architecturePropCount = componentRule({
     return c.propCount > max ? [{ line: 1, message: `Component takes ${c.propCount} props (over ${max})` }] : [];
   }
 });
+var PREPROCESSED_STYLE_RE = /(<style\b[^>]*\slang\s*=\s*['"]?[^'"\s>]+['"]?[^>]*>)([\s\S]*?)(<\/style>)/gi;
+function parseSvelte(source2, filename2) {
+  try {
+    return parse8(source2, { modern: true, filename: filename2 });
+  } catch (err) {
+    const blanked = source2.replace(
+      PREPROCESSED_STYLE_RE,
+      (_m, open3, body, close2) => open3 + body.replace(/[^\n]/g, " ") + close2
+    );
+    if (blanked === source2) throw err;
+    return parse8(blanked, { modern: true, filename: filename2 });
+  }
+}
+var CHILD_NODE_KEYS = [
+  "fragment",
+  "nodes",
+  "consequent",
+  "alternate",
+  "body",
+  "pending",
+  "then",
+  "catch",
+  "fallback"
+];
+var hasExpression = (nodes) => nodes.some((n2) => n2?.type === "ExpressionTag");
+function joinText(nodes) {
+  return nodes.filter((n2) => n2?.type === "Text").map((n2) => String(n2.data ?? "")).join("");
+}
+function valueFromNodes(nodes) {
+  if (!Array.isArray(nodes)) return "absent";
+  if (hasExpression(nodes)) return "dynamic";
+  return joinText(nodes).trim().length > 0 ? "static" : "absent";
+}
+function textFromNodes(nodes) {
+  if (!Array.isArray(nodes) || hasExpression(nodes)) return void 0;
+  const text2 = joinText(nodes);
+  return text2.trim().length > 0 ? text2 : void 0;
+}
+function attrText(attributes, name) {
+  const v = findAttr(attributes, name)?.value;
+  if (v === true) return "";
+  if (!Array.isArray(v) || hasExpression(v)) return void 0;
+  return joinText(v);
+}
+function attrValue(attributes, name) {
+  const attr = findAttr(attributes, name);
+  return attr ? attrValueOf(attr) : "absent";
+}
+function lineOf(source2, offset2) {
+  if (typeof offset2 !== "number" || offset2 < 0) return 0;
+  let line = 1;
+  const end = Math.min(offset2, source2.length);
+  for (let i2 = 0; i2 < end; i2++) if (source2[i2] === "\n") line++;
+  return line;
+}
+function findAttr(attributes, name) {
+  if (!Array.isArray(attributes)) return void 0;
+  const wanted = name.toLowerCase();
+  return attributes.find(
+    (a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase() === wanted
+  );
+}
+function attrValueOf(attr) {
+  const v = attr?.value;
+  if (v === true) return "absent";
+  if (Array.isArray(v)) return valueFromNodes(v);
+  if (v && v.type === "ExpressionTag") return "dynamic";
+  return "absent";
+}
+function attrTextOf(attr) {
+  const v = attr?.value;
+  return Array.isArray(v) ? textFromNodes(v) : void 0;
+}
+function foldOccurrences(nodes) {
+  const byKey = /* @__PURE__ */ new Map();
+  for (const node of nodes) {
+    if (node.repeatable) continue;
+    const list3 = byKey.get(node.key);
+    if (list3) list3.push(node);
+    else byKey.set(node.key, [node]);
+  }
+  const folded = /* @__PURE__ */ new Map();
+  for (const [key2, list3] of byKey) folded.set(key2, foldAt(list3, 0));
+  return folded;
+}
+function foldAt(nodes, depth) {
+  const unconditional = [];
+  const groups = /* @__PURE__ */ new Map();
+  for (const node of nodes) {
+    const step = node.path[depth];
+    if (!step) {
+      unconditional.push(node);
+      continue;
+    }
+    let branches = groups.get(step.group);
+    if (!branches) groups.set(step.group, branches = /* @__PURE__ */ new Map());
+    const list3 = branches.get(step.branch);
+    if (list3) list3.push(node);
+    else branches.set(step.branch, [node]);
+  }
+  const representatives2 = [...unconditional];
+  for (const branches of groups.values()) {
+    let best = [];
+    let bestBranch = Number.POSITIVE_INFINITY;
+    for (const [branch, list3] of branches) {
+      const arm = foldAt(list3, depth + 1);
+      if (arm.length > best.length || arm.length === best.length && branch < bestBranch) {
+        best = arm;
+        bestBranch = branch;
+      }
+    }
+    representatives2.push(...best);
+  }
+  return representatives2;
+}
+function decodeFragmentId(fragment2) {
+  try {
+    return decodeURIComponent(fragment2);
+  } catch {
+    return fragment2;
+  }
+}
+function splitTokens(value) {
+  return value ? value.trim().split(/\s+/).filter(Boolean) : [];
+}
+var LANDMARK_ROLES = /* @__PURE__ */ new Set(["main", "banner", "contentinfo", "complementary"]);
+var IDREF_ATTRS = [
+  "for",
+  "aria-labelledby",
+  "aria-describedby",
+  "aria-controls",
+  "aria-activedescendant"
+];
+function isTopFragment(id2) {
+  return id2.toLowerCase() === "top";
+}
+function stripTextDirective(fragment2) {
+  const i2 = fragment2.indexOf(":~:");
+  return i2 === -1 ? fragment2 : fragment2.slice(0, i2);
+}
+function isRootRelativePath(value) {
+  return value.startsWith("/") && !value.startsWith("//");
+}
+var ARIA_1_3_ROLES = /* @__PURE__ */ new Set(["comment", "image", "sectionheader", "sectionfooter", "suggestion"]);
+var ARIA_1_3_ATTRIBUTES = /* @__PURE__ */ new Set(["aria-colindextext", "aria-rowindextext"]);
+var NO_REQUIRED_PROPS = /* @__PURE__ */ new Set(["option", "treeitem"]);
+function isKnownRole(role) {
+  return ARIA_1_3_ROLES.has(role) || import_aria_query3.roles.has(role);
+}
+function isAbstractRole(role) {
+  return import_aria_query3.roles.get(role)?.abstract === true;
+}
+function isConcreteRole(role) {
+  return isKnownRole(role) && !isAbstractRole(role);
+}
+function resolveRole(tokens) {
+  return tokens.find(isConcreteRole);
+}
+function isKnownAriaAttribute(name) {
+  return ARIA_1_3_ATTRIBUTES.has(name) || import_aria_query3.aria.has(name);
+}
+function requiredAriaProps(role) {
+  if (NO_REQUIRED_PROPS.has(role)) return [];
+  const def = import_aria_query3.roles.get(role);
+  return def ? Object.keys(def.requiredProps) : [];
+}
+function ariaValueKind(name) {
+  const def = import_aria_query3.aria.get(name);
+  if (!def) return void 0;
+  return { type: def.type, ...def.values ? { values: def.values.map(String) } : {} };
+}
+var ALWAYS_INTERACTIVE_TAGS = /* @__PURE__ */ new Set(["button", "select", "textarea", "summary", "embed", "iframe"]);
+var INTERACTIVE_ROLES = /* @__PURE__ */ new Set([
+  "button",
+  "link",
+  "checkbox",
+  "radio",
+  "switch",
+  "tab",
+  "menuitem",
+  "menuitemcheckbox",
+  "menuitemradio",
+  "option",
+  "slider",
+  "spinbutton",
+  "textbox",
+  "combobox",
+  "searchbox",
+  "scrollbar",
+  "gridcell"
+]);
+var CONTAINER_ROLES = /* @__PURE__ */ new Set([
+  "button",
+  "link",
+  "checkbox",
+  "radio",
+  "switch",
+  "tab",
+  "menuitemcheckbox",
+  "menuitemradio",
+  "option",
+  "slider",
+  "scrollbar"
+]);
+function literalOf(attrs, name) {
+  return attrs.find((a2) => a2.name === name)?.literal;
+}
+function hasRoleIn(attrs, set2) {
+  const role = resolveRole(splitTokens(literalOf(attrs, "role")));
+  return role !== void 0 && set2.has(role);
+}
+function isInteractiveElement(tag2, attrs) {
+  if (ALWAYS_INTERACTIVE_TAGS.has(tag2)) return true;
+  if (tag2 === "a" && literalOf(attrs, "href") !== void 0) return true;
+  if (tag2 === "input") {
+    const typeAttr = attrs.find((a2) => a2.name === "type");
+    if (!typeAttr) return true;
+    if (typeAttr.literal !== void 0) return typeAttr.literal.toLowerCase() !== "hidden";
+    return false;
+  }
+  if ((tag2 === "audio" || tag2 === "video") && attrs.some((a2) => a2.name === "controls")) return true;
+  const tabindex = literalOf(attrs, "tabindex")?.trim();
+  if (tabindex) {
+    const n2 = Number(tabindex);
+    if (Number.isFinite(n2) && n2 >= 0) return true;
+  }
+  return hasRoleIn(attrs, INTERACTIVE_ROLES);
+}
+function isInteractiveContainer(tag2, attrs) {
+  if (tag2 === "button") return true;
+  if (tag2 === "a") return literalOf(attrs, "href") !== void 0;
+  return hasRoleIn(attrs, CONTAINER_ROLES);
+}
+function unwrapTs(expr) {
+  let cur = expr;
+  while (cur !== void 0 && (cur.type === "TSSatisfiesExpression" || cur.type === "TSAsExpression" || cur.type === "TSNonNullExpression"))
+    cur = cur.expression;
+  return cur;
+}
+function isLengthOnlyArrayCall(expr) {
+  const e3 = unwrapTs(expr);
+  if (!e3) return false;
+  if ((e3.type === "CallExpression" || e3.type === "NewExpression") && e3.callee?.type === "Identifier" && e3.callee.name === "Array") {
+    return (e3.arguments?.length ?? 0) === 1;
+  }
+  if (e3.type === "CallExpression" && e3.callee?.type === "MemberExpression" && !e3.callee.computed && e3.callee.object?.type === "Identifier" && e3.callee.object.name === "Array" && e3.callee.property.type === "Identifier" && e3.callee.property.name === "from" && e3.arguments?.[0]?.type === "ObjectExpression") {
+    return (e3.arguments[0].properties ?? []).some(
+      (p2) => p2?.type === "Property" && !p2.computed && (p2.key?.name === "length" || p2.key?.value === "length")
+    );
+  }
+  return false;
+}
+function isIdentityFreeEach(node) {
+  const expr = unwrapTs(node.expression);
+  if (expr.type === "ArrayExpression" && Array.isArray(expr.elements)) {
+    return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
+  }
+  return isLengthOnlyArrayCall(expr);
+}
+function isIndexExpression(expr, index) {
+  const e3 = unwrapTs(expr);
+  if (e3.type === "Identifier") return e3.name === index;
+  if (e3.type === "CallExpression") {
+    const callee = e3.callee;
+    if (callee.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e3.arguments.length === 1) {
+      return isIndexExpression(e3.arguments[0], index);
+    }
+    if (callee.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "toString" && e3.arguments.length === 0) {
+      return isIndexExpression(callee.object, index);
+    }
+    return false;
+  }
+  if (e3.type === "TemplateLiteral") {
+    const exprs = e3.expressions;
+    if (exprs.length !== 1) return false;
+    const hasText = e3.quasis.some((q) => (q.value.cooked ?? q.value.raw) !== "");
+    if (hasText) return false;
+    return isIndexExpression(exprs[0], index);
+  }
+  if (e3.type === "BinaryExpression" && e3.operator === "+") {
+    const emptyString = (n2) => n2.type === "Literal" && n2.value === "";
+    if (emptyString(e3.left)) return isIndexExpression(e3.right, index);
+    if (emptyString(e3.right)) return isIndexExpression(e3.left, index);
+  }
+  return false;
+}
+function isIndexKey(each) {
+  if (typeof each.index !== "string" || each.key == null) return false;
+  return isIndexExpression(each.key, each.index);
+}
+function collectEachBlocks(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectEachBlocks(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) {
+    acc.push({
+      hasKey: node.key != null,
+      line: lineOf(source2, node.start),
+      ...isIndexKey(node) ? { indexKey: true } : {}
+    });
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectEachBlocks(node[key2], source2, acc);
+  }
+}
+var WALK_IGNORED_KEYS = /* @__PURE__ */ new Set(["type", "start", "end", "loc", "range"]);
+var NO_BOUNDARIES = /* @__PURE__ */ new Set();
+function walkEstree(node, visit) {
+  walkEvalScope(node, (n2) => void visit(n2), /* @__PURE__ */ new Set(), NO_BOUNDARIES);
+}
+function isEffectCall(node) {
+  const c = node?.callee;
+  if (c?.type === "Identifier") return c.name === "$effect";
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect") {
+    return c.property?.type === "Identifier" && c.property.name === "pre";
+  }
+  return false;
+}
+function isEffectRootCall(node) {
+  const c = node?.callee;
+  return c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect" && c.property?.type === "Identifier" && c.property.name === "root";
+}
+function isStateDeclaration(node) {
+  const c = node?.callee;
+  if (c?.type === "Identifier") return c.name === "$state";
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$state") {
+    return c.property?.type === "Identifier" && (c.property.name === "raw" || c.property.name === "frozen");
+  }
+  return false;
+}
+function bodyOnlyAssignsState(fn, stateNames) {
+  const isStateAssign = (expr) => expr?.type === "AssignmentExpression" && expr.operator === "=" && expr.left?.type === "Identifier" && stateNames.has(expr.left.name);
+  const body = fn?.body;
+  if (!body) return false;
+  if (body.type !== "BlockStatement") return isStateAssign(body);
+  if (body.body.length === 0) return false;
+  return body.body.every((s) => s?.type === "ExpressionStatement" && isStateAssign(s.expression));
+}
+function isDerivedDeclaration(node) {
+  const c = node?.callee;
+  if (c?.type === "Identifier") return c.name === "$derived";
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$derived") {
+    return c.property?.type === "Identifier" && c.property.name === "by";
+  }
+  return false;
+}
+function addBoundNames(id2, acc) {
+  if (!id2) return;
+  switch (id2.type) {
+    case "Identifier":
+      acc.add(id2.name);
+      break;
+    case "ObjectPattern":
+      for (const p2 of id2.properties ?? []) {
+        if (p2?.type === "Property") addBoundNames(p2.value, acc);
+        else if (p2?.type === "RestElement") addBoundNames(p2.argument, acc);
+      }
+      break;
+    case "ArrayPattern":
+      for (const el of id2.elements ?? []) addBoundNames(el, acc);
+      break;
+    case "AssignmentPattern":
+      addBoundNames(id2.left, acc);
+      break;
+    case "RestElement":
+      addBoundNames(id2.argument, acc);
+      break;
+  }
+}
+function rootObjectName(node) {
+  let cur = node;
+  while (cur?.type === "MemberExpression") cur = cur.object;
+  return cur?.type === "Identifier" ? cur.name : void 0;
+}
+function scopeIntroducedNames(node) {
+  const introduced = /* @__PURE__ */ new Set();
+  if (node.type === "FunctionDeclaration" || node.type === "FunctionExpression" || node.type === "ArrowFunctionExpression") {
+    for (const p2 of node.params ?? []) addBoundNames(p2, introduced);
+  } else if (node.type === "CatchClause") {
+    addBoundNames(node.param, introduced);
+  } else if (node.type === "BlockStatement") {
+    for (const stmt2 of node.body ?? []) {
+      if (stmt2?.type === "VariableDeclaration") {
+        for (const d2 of stmt2.declarations ?? []) addBoundNames(d2.id, introduced);
+      } else if ((stmt2?.type === "FunctionDeclaration" || stmt2?.type === "ClassDeclaration") && typeof stmt2.id?.name === "string") {
+        introduced.add(stmt2.id.name);
+      }
+    }
+  } else if (node.type === "ForStatement" || node.type === "ForOfStatement" || node.type === "ForInStatement") {
+    const decl = node.type === "ForStatement" ? node.init : node.left;
+    if (decl?.type === "VariableDeclaration") {
+      for (const d2 of decl.declarations ?? []) addBoundNames(d2.id, introduced);
+    }
+  } else if (node.type === "EachBlock" && node.context) {
+    addBoundNames(node.context, introduced);
+    if (typeof node.index === "string") introduced.add(node.index);
+  } else if (node.type === "SnippetBlock") {
+    for (const p2 of node.parameters ?? []) addBoundNames(p2, introduced);
+  } else if (node.type === "AwaitBlock") {
+    if (node.value) addBoundNames(node.value, introduced);
+    if (node.error) addBoundNames(node.error, introduced);
+  } else if (node.type === "Fragment") {
+    for (const child of node.nodes ?? []) {
+      if (child?.type === "ConstTag" || child?.type === "DeclarationTag") {
+        for (const d2 of child.declaration?.declarations ?? []) addBoundNames(d2.id, introduced);
+      }
+    }
+  }
+  return introduced;
+}
+function walkScoped(node, visit, shadowed = /* @__PURE__ */ new Set()) {
+  walkEvalScope(node, (n2, scope) => void visit(n2, scope), shadowed, NO_BOUNDARIES);
+}
+function collectStateWrites(root, stateNames, acc, kinds) {
+  const record = (name, kind) => {
+    acc.add(name);
+    if (kinds) {
+      let set2 = kinds.get(name);
+      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
+      set2.add(kind);
+    }
+  };
+  walkScoped(root, (n2, scope) => {
+    const shadowed = (name) => name === void 0 || scope.has(name);
+    if (n2?.type === "AssignmentExpression") {
+      if (n2.left?.type === "Identifier" && stateNames.has(n2.left.name) && !shadowed(n2.left.name)) {
+        record(n2.left.name, "reassign");
+      } else if (n2.left?.type === "MemberExpression") {
+        const r2 = rootObjectName(n2.left);
+        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+      } else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
+        const bound = /* @__PURE__ */ new Set();
+        addBoundNames(n2.left, bound);
+        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) record(name, "reassign");
+      }
+    } else if (n2?.type === "UpdateExpression") {
+      if (n2.argument?.type === "Identifier") {
+        if (stateNames.has(n2.argument.name) && !shadowed(n2.argument.name)) record(n2.argument.name, "reassign");
+      } else {
+        const r2 = rootObjectName(n2.argument);
+        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+      }
+    } else if (n2?.type === "UnaryExpression" && n2.operator === "delete") {
+      const r2 = rootObjectName(n2.argument);
+      if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+    } else if (n2?.type === "CallExpression") {
+      if (n2.callee?.type === "MemberExpression") {
+        const r2 = rootObjectName(n2.callee);
+        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+      }
+      for (const a2 of n2.arguments ?? []) {
+        const arg = a2?.type === "SpreadElement" ? a2.argument : a2;
+        const r2 = rootObjectName(arg);
+        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "escape");
+      }
+    }
+  });
+}
+function isDeferredBody(n2) {
+  return n2?.type === "FunctionDeclaration" || n2?.type === "FunctionExpression" || n2?.type === "ArrowFunctionExpression";
+}
+function isPlainStateCall(node) {
+  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$state";
+}
+var BUILTIN_STATE_TYPES = /* @__PURE__ */ new Set(["Map", "Set", "Date", "URL", "URLSearchParams"]);
+var BUILTIN_MUTATIONS = {
+  Map: /* @__PURE__ */ new Set(["set", "delete", "clear"]),
+  Set: /* @__PURE__ */ new Set(["add", "delete", "clear"]),
+  Date: /* @__PURE__ */ new Set([
+    "setTime",
+    "setFullYear",
+    "setMonth",
+    "setDate",
+    "setHours",
+    "setMinutes",
+    "setSeconds",
+    "setMilliseconds",
+    "setYear",
+    "setUTCFullYear",
+    "setUTCMonth",
+    "setUTCDate",
+    "setUTCHours",
+    "setUTCMinutes",
+    "setUTCSeconds",
+    "setUTCMilliseconds"
+  ]),
+  URL: /* @__PURE__ */ new Set(),
+  URLSearchParams: /* @__PURE__ */ new Set(["append", "set", "delete", "sort"])
+};
+function collectBuiltinStateSignals(node, candidates, mutated, reassigned, shadowed = /* @__PURE__ */ new Set(), inFunction = false) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectBuiltinStateSignals(child, candidates, mutated, reassigned, shadowed, inFunction);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  const boundary = isDeferredBody(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
+  const nextInFunction = inFunction || boundary;
+  const hit = (name) => typeof name === "string" && candidates.has(name) && !scope.has(name) ? name : void 0;
+  if (node.type === "AssignmentExpression") {
+    if (node.left?.type === "Identifier") {
+      const n2 = hit(node.left.name);
+      const isBareSelfAssign = node.right?.type === "Identifier" && node.right.name === n2;
+      if (n2 && !isBareSelfAssign) reassigned.add(n2);
+    } else if (node.left?.type === "ObjectPattern" || node.left?.type === "ArrayPattern") {
+      const bound = /* @__PURE__ */ new Set();
+      addBoundNames(node.left, bound);
+      for (const name of bound) {
+        const n2 = hit(name);
+        if (n2) reassigned.add(n2);
+      }
+    } else if (node.left?.type === "MemberExpression" && inFunction) {
+      const n2 = hit(rootObjectName(node.left));
+      if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
+    }
+  } else if (node.type === "UpdateExpression" && node.argument?.type === "MemberExpression" && inFunction) {
+    const n2 = hit(rootObjectName(node.argument));
+    if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
+  } else if (node.type === "UnaryExpression" && node.operator === "delete" && inFunction) {
+    const n2 = hit(rootObjectName(node.argument));
+    if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
+  } else if (node.type === "CallExpression" && node.callee?.type === "MemberExpression" && !node.callee.computed && inFunction) {
+    const method2 = node.callee.property?.name;
+    if (typeof method2 === "string") {
+      if (node.callee.object?.type === "Identifier") {
+        const n2 = hit(node.callee.object.name);
+        if (n2 && BUILTIN_MUTATIONS[candidates.get(n2)]?.has(method2)) mutated.add(n2);
+      } else if (node.callee.object?.type === "MemberExpression") {
+        const n2 = hit(rootObjectName(node.callee));
+        if (n2 && candidates.get(n2) === "URL" && BUILTIN_MUTATIONS.URLSearchParams.has(method2)) mutated.add(n2);
+      }
+    }
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectBuiltinStateSignals(node[key2], candidates, mutated, reassigned, scope, nextInFunction);
+  }
+}
+function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (node.type === "Identifier") return;
+  if (node.type === "ObjectPattern") {
+    for (const prop2 of node.properties ?? []) {
+      if (prop2?.type === "RestElement") {
+        collectPatternAliasRefs(prop2.argument, names, acc, scope, ownRhs);
+      } else if (prop2?.type === "Property") {
+        if (prop2.computed) collectAliasRefs(prop2.key, names, acc, scope, ownRhs);
+        collectPatternAliasRefs(prop2.value, names, acc, scope, ownRhs);
+      }
+    }
+    return;
+  }
+  if (node.type === "ArrayPattern") {
+    for (const el of node.elements ?? []) collectPatternAliasRefs(el, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "AssignmentPattern") {
+    collectPatternAliasRefs(node.left, names, acc, scope, ownRhs);
+    collectAliasRefs(node.right, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "RestElement") {
+    collectPatternAliasRefs(node.argument, names, acc, scope, ownRhs);
+  }
+}
+function collectAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set(), ownRhs = null) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAliasRefs(child, names, acc, shadowed, ownRhs);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "AssignmentExpression") {
+    const lhsIsCandidate = node.left?.type === "Identifier" && names.has(node.left.name) && !scope.has(node.left.name);
+    if (!lhsIsCandidate) collectAliasRefs(node.left, names, acc, scope, null);
+    collectAliasRefs(node.right, names, acc, scope, lhsIsCandidate ? node.left.name : null);
+    return;
+  }
+  if (node.type === "VariableDeclarator") {
+    collectPatternAliasRefs(node.id, names, acc, scope, ownRhs);
+    if (node.init) collectAliasRefs(node.init, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name) && node.name !== ownRhs) {
+    acc.add(node.name);
+    return;
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    collectAliasRefs(node[key2], names, acc, scope, ownRhs);
+  }
+}
+function collectFragmentAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectFragmentAliasRefs(child, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (isDeferredBody(node)) {
+    const introduced2 = scopeIntroducedNames(node);
+    const scope2 = introduced2.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced2]) : shadowed;
+    collectAliasRefs(node.body, names, acc, scope2, null);
+    return;
+  }
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (Array.isArray(node.attributes)) collectFragmentAliasRefs(node.attributes, names, acc, scope);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
+    collectFragmentAliasRefs(node[key2], names, acc, scope);
+  }
+}
+function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectEachContextTaint(child, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "EachBlock") {
+    const expr = unwrapTs(node.expression);
+    const target = expr?.type === "Identifier" ? expr.name : expr?.type === "MemberExpression" ? rootObjectName(expr) : void 0;
+    if (target !== void 0 && names.has(target) && !shadowed.has(target)) {
+      const ctxNames = /* @__PURE__ */ new Set();
+      addBoundNames(node.context, ctxNames);
+      if (typeof node.index === "string") ctxNames.add(node.index);
+      if (ctxNames.size > 0) {
+        const union = /* @__PURE__ */ new Set();
+        const kinds = /* @__PURE__ */ new Map();
+        collectStateWrites(node.body, ctxNames, union, kinds);
+        collectTemplateEscapes(node.body, ctxNames, union, kinds);
+        const dirty = [...union].some((n2) => {
+          const k2 = kinds.get(n2);
+          return !k2 || [...k2].some((kind) => kind !== "reassign");
+        });
+        if (dirty) acc.add(target);
+      }
+    }
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectEachContextTaint(node[key2], names, acc, scope);
+  }
+}
+function refsNamesEagerly(node, names, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) return node.some((c) => refsNamesEagerly(c, names, shadowed));
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return false;
+  if (isDeferredBody(node)) return false;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) return true;
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    if (refsNamesEagerly(node[key2], names, scope)) return true;
+  }
+  return false;
+}
+function containsCallLike(node) {
+  let found = false;
+  walkEstree(node, (n2) => {
+    if (n2?.type === "CallExpression" || n2?.type === "NewExpression" || n2?.type === "AwaitExpression") found = true;
+  });
+  return found;
+}
+function collectFragmentRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const c of node) collectFragmentRefs(c, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (isDeferredBody(node)) return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) acc.add(node.name);
+  if (node.type === "EachBlock" || node.type === "AwaitBlock") {
+    collectFragmentRefs(node.expression, names, acc, shadowed);
+    for (const key2 of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key2) || key2 === "expression") continue;
+      collectFragmentRefs(node[key2], names, acc, scope);
+    }
+    return;
+  }
+  if (Array.isArray(node.attributes)) collectFragmentRefs(node.attributes, names, acc, scope);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    collectFragmentRefs(node[key2], names, acc, scope);
+  }
+}
+function collectStalePropCandidates(program, propNames, source2) {
+  const out = [];
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "VariableDeclaration") continue;
+    for (const d2 of stmt2.declarations ?? []) {
+      if (d2?.id?.type !== "Identifier" || !d2.init) continue;
+      if (containsCallLike(d2.init)) continue;
+      if (!refsNamesEagerly(d2.init, propNames)) continue;
+      out.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
+    }
+  }
+  return out;
+}
+var COMPONENT_LIKE_TYPES = /* @__PURE__ */ new Set(["Component", "SvelteComponent", "SvelteSelf"]);
+function collectTemplateEscapes(node, stateNames, acc, kinds) {
+  const record = (name) => {
+    acc.add(name);
+    if (kinds) {
+      let set2 = kinds.get(name);
+      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
+      set2.add("escape");
+    }
+  };
+  if (Array.isArray(node)) {
+    for (const c of node) collectTemplateEscapes(c, stateNames, acc, kinds);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (Array.isArray(node.attributes)) {
+    for (const attr of node.attributes) {
+      if (attr?.type === "BindDirective") {
+        const r2 = rootObjectName(attr.expression);
+        if (r2 && stateNames.has(r2)) record(r2);
+      } else if (COMPONENT_LIKE_TYPES.has(node.type)) {
+        walkEstree(attr, (m) => {
+          if (m?.type === "Identifier" && stateNames.has(m.name)) record(m.name);
+        });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc, kinds);
+  }
+}
+var DIRECTIVE_ESCAPE_TYPES = /* @__PURE__ */ new Set(["UseDirective", "TransitionDirective", "AnimateDirective"]);
+function collectDirectiveEscapes(node, names, acc) {
+  if (Array.isArray(node)) {
+    for (const c of node) collectDirectiveEscapes(c, names, acc);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (Array.isArray(node.attributes)) {
+    for (const attr of node.attributes) {
+      if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) {
+        walkEstree(attr.expression, (m) => {
+          if (m?.type === "Identifier" && names.has(m.name)) acc.add(m.name);
+        });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectDirectiveEscapes(node[key2], names, acc);
+  }
+}
+var RUNE_NAMES = /* @__PURE__ */ new Set(["$state", "$derived", "$effect", "$props", "$bindable", "$inspect", "$host"]);
+function collectImportedLocalNames(program, acc) {
+  for (const stmt2 of program?.body ?? []) {
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
+    for (const s of stmt2.specifiers ?? []) {
+      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
+      acc.add(s.local.name);
+    }
+  }
+}
+function collectNewExprLocalNames(program, acc) {
+  walkEstree(program, (n2) => {
+    if (n2.type !== "VariableDeclarator" || n2.id?.type !== "Identifier" || !n2.init) return;
+    if (unwrapTs(n2.init).type === "NewExpression") acc.add(n2.id.name);
+  });
+}
+function bodyReadsReactive(fn, reactiveNames) {
+  let reads = false;
+  const visit = (n2) => {
+    if (reads || !n2) return;
+    if (Array.isArray(n2)) {
+      for (const c of n2) visit(c);
+      return;
+    }
+    if (typeof n2 !== "object" || typeof n2.type !== "string") return;
+    if (n2.type === "Identifier") {
+      if (reactiveNames.has(n2.name) || n2.name.startsWith("$") && !RUNE_NAMES.has(n2.name)) reads = true;
+      return;
+    }
+    if (n2.type === "CallExpression" && n2.callee?.type === "Identifier") {
+      reads = true;
+      return;
+    }
+    if (n2.type === "MemberExpression") {
+      visit(n2.object);
+      if (n2.computed) visit(n2.property);
+      return;
+    }
+    if (n2.type === "Property") {
+      if (n2.computed) visit(n2.key);
+      visit(n2.value);
+      return;
+    }
+    for (const key2 of Object.keys(n2)) {
+      if (!WALK_IGNORED_KEYS.has(key2)) visit(n2[key2]);
+    }
+  };
+  visit(fn.body);
+  return reads;
+}
+function bodyIsEmpty(fn) {
+  const body = fn?.body;
+  if (!body) return true;
+  if (body.type === "BlockStatement") return (body.body ?? []).length === 0;
+  return false;
+}
+var URL_ATTRS = ["href", "src", "action", "formaction"];
+var CHECKABLE_INPUT_TYPES = /* @__PURE__ */ new Set(["checkbox", "radio"]);
+function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectSecurityFacts(child, source2, htmlTags, jsUrls);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "HtmlTag") htmlTags.push({ line: lineOf(source2, node.start) });
+  if ((node.type === "RegularElement" || node.type === "SvelteElement") && Array.isArray(node.attributes)) {
+    for (const name of URL_ATTRS) {
+      const attr = findAttr(node.attributes, name);
+      if (!attr) continue;
+      const value = attrTextOf(attr);
+      if (value !== void 0 && /^\s*javascript:/i.test(value)) {
+        jsUrls.push({ line: lineOf(source2, attr.start ?? node.start) });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectSecurityFacts(node[key2], source2, htmlTags, jsUrls);
+  }
+}
+function collectCheckableBindValues(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectCheckableBindValues(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "input" && Array.isArray(node.attributes)) {
+    const typeAttr = findAttr(node.attributes, "type");
+    const typeValue = typeAttr ? attrTextOf(typeAttr) : void 0;
+    if (typeValue && CHECKABLE_INPUT_TYPES.has(typeValue)) {
+      const bindValue = node.attributes.find((a2) => a2?.type === "BindDirective" && a2.name === "value");
+      if (bindValue) {
+        acc.push({
+          kind: typeValue,
+          line: lineOf(source2, bindValue.start ?? node.start)
+        });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectCheckableBindValues(node[key2], source2, acc);
+  }
+}
+function classifyAttrValue(value) {
+  if (value === true) return { literal: "" };
+  if (Array.isArray(value) && value.length === 1 && value[0]?.type === "Text") {
+    return { literal: String(value[0].data ?? "") };
+  }
+  return { expression: true };
+}
+function collectAriaElements(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAriaElements(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
+    const roleAttr = findAttr(node.attributes, "role");
+    const ariaAttrs = node.attributes.filter(
+      (a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase().startsWith("aria-")
+    );
+    if (roleAttr || ariaAttrs.length > 0) {
+      const inputType = node.name === "input" ? attrText(node.attributes, "type") : void 0;
+      const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+      acc.push({
+        tag: node.name,
+        line: lineOf(source2, node.start),
+        ...roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {},
+        ...inputType !== void 0 ? { inputType: inputType.toLowerCase() } : {},
+        ...hasSpread ? { hasSpread: true } : {},
+        aria: ariaAttrs.map((a2) => ({
+          name: String(a2.name).toLowerCase(),
+          line: lineOf(source2, a2.start ?? node.start),
+          ...classifyAttrValue(a2.value)
+        }))
+      });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectAriaElements(node[key2], source2, acc);
+  }
+}
+function elementAttrs(attributes) {
+  return attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => ({ name: String(a2.name).toLowerCase(), ...classifyAttrValue(a2.value) }));
+}
+function containerRoleOf(attrs) {
+  const role = attrs.find((a2) => a2.name === "role")?.literal;
+  return role ? resolveRole(splitTokens(role)) : void 0;
+}
+function collectInteractiveNestings(node, source2, acc, stack) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectInteractiveNestings(child, source2, acc, stack);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "SnippetBlock") {
+    for (const key2 of CHILD_NODE_KEYS) {
+      if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, []);
+    }
+    return;
+  }
+  let opened = false;
+  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
+    const attrs = elementAttrs(node.attributes);
+    if (stack.length > 0 && isInteractiveElement(node.name, attrs)) {
+      const container = stack[stack.length - 1];
+      acc.push({
+        containerTag: container.tag,
+        ...container.role ? { containerRole: container.role } : {},
+        descendantTag: node.name,
+        line: lineOf(source2, node.start)
+      });
+    }
+    if (isInteractiveContainer(node.name, attrs)) {
+      const role = node.name === "button" || node.name === "a" ? void 0 : containerRoleOf(attrs);
+      stack.push({ tag: node.name, ...role ? { role } : {} });
+      opened = true;
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, stack);
+  }
+  if (opened) stack.pop();
+}
+function hasNamingValue(attributes, name) {
+  const attr = findAttr(attributes, name);
+  if (!attr) return false;
+  const v = classifyAttrValue(attr.value);
+  return "expression" in v || v.literal !== void 0 && v.literal.trim().length > 0;
+}
+function hasNamingAttr(attributes) {
+  return ["aria-label", "aria-labelledby", "title"].some((name) => hasNamingValue(attributes, name));
+}
+function isCustomElement(node) {
+  return node.type === "RegularElement" && typeof node.name === "string" && node.name.includes("-");
+}
+function scanAccessibleNameSubtree(node, skip) {
+  if (Array.isArray(node)) {
+    const acc2 = { named: false, unknowable: false };
+    for (const child of node) {
+      const r2 = scanAccessibleNameSubtree(child, skip);
+      acc2.named ||= r2.named;
+      acc2.unknowable ||= r2.unknowable;
+    }
+    return acc2;
+  }
+  if (!node || typeof node !== "object") return { named: false, unknowable: false };
+  if (skip !== void 0 && node === skip) return { named: false, unknowable: false };
+  if (node.type === "SnippetBlock") return { named: false, unknowable: false };
+  if (node.type === "Text") return { named: String(node.data ?? "").trim().length > 0, unknowable: false };
+  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) {
+    return { named: false, unknowable: true };
+  }
+  if (node.type === "RegularElement" && node.name === "img" && Array.isArray(node.attributes)) {
+    if (hasNamingValue(node.attributes, "alt")) return { named: true, unknowable: false };
+  }
+  const acc = { named: false, unknowable: false };
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) {
+      const r2 = scanAccessibleNameSubtree(node[key2], skip);
+      acc.named ||= r2.named;
+      acc.unknowable ||= r2.unknowable;
+    }
+  }
+  return acc;
+}
+function accessibleNameTarget(node) {
+  if (node.name === "button") return "button";
+  if (node.name === "a") return attrText(node.attributes, "href") !== void 0 ? "a" : void 0;
+  if (node.name === "input") {
+    const type = attrText(node.attributes, "type");
+    return type?.toLowerCase() === "image" ? "input" : void 0;
+  }
+  return void 0;
+}
+function firstLabelableDescendant(node) {
+  if (Array.isArray(node)) {
+    for (const child of node) {
+      const hit = firstLabelableDescendant(child);
+      if (hit) return hit;
+    }
+    return void 0;
+  }
+  if (!node || typeof node !== "object") return void 0;
+  if (node.type === "SnippetBlock") return void 0;
+  if (node.type === "RegularElement" && isLabelableDescendant(node)) return node;
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) {
+      const hit = firstLabelableDescendant(node[key2]);
+      if (hit) return hit;
+    }
+  }
+  return void 0;
+}
+function collectLabelTargets(node, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectLabelTargets(child, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "label" && Array.isArray(node.attributes)) {
+    const wrapped = firstLabelableDescendant(node);
+    const scan = scanAccessibleNameSubtree(node, wrapped);
+    if (scan.named || scan.unknowable) {
+      const forId = attrText(node.attributes, "for");
+      if (forId !== void 0 && forId.trim().length > 0) acc.ids.add(forId.trim());
+      if (wrapped) acc.nodes.add(wrapped);
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectLabelTargets(node[key2], acc);
+  }
+}
+function collectUnnamedInteractive(node, source2, acc, labels) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectUnnamedInteractive(child, source2, acc, labels);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
+    const target = accessibleNameTarget(node);
+    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+    const id2 = attrText(node.attributes, "id");
+    const namedByLabel = target !== "a" && (labels.nodes.has(node) || id2 !== void 0 && labels.ids.has(id2.trim()));
+    if (target && !hasSpread && !namedByLabel) {
+      if (target === "input") {
+        if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, "alt")) {
+          acc.push({ tag: node.name, line: lineOf(source2, node.start) });
+        }
+      } else {
+        const scan = scanAccessibleNameSubtree(node);
+        if (!hasNamingAttr(node.attributes) && !scan.named && !scan.unknowable) {
+          acc.push({ tag: node.name, line: lineOf(source2, node.start) });
+        }
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectUnnamedInteractive(node[key2], source2, acc, labels);
+  }
+}
+var LABELABLE_TAGS = /* @__PURE__ */ new Set(["input", "select", "textarea", "button", "meter", "output", "progress"]);
+function isLabelableDescendant(node) {
+  if (node.type !== "RegularElement" || !LABELABLE_TAGS.has(node.name)) return false;
+  if (node.name !== "input") return true;
+  return attrText(node.attributes ?? [], "type")?.toLowerCase() !== "hidden";
+}
+function scanLabelSubtree(node) {
+  if (Array.isArray(node)) {
+    const acc2 = { hasControl: false, unknowable: false };
+    for (const child of node) {
+      const r2 = scanLabelSubtree(child);
+      acc2.hasControl ||= r2.hasControl;
+      acc2.unknowable ||= r2.unknowable;
+    }
+    return acc2;
+  }
+  if (!node || typeof node !== "object") return { hasControl: false, unknowable: false };
+  if (node.type === "SnippetBlock") return { hasControl: false, unknowable: false };
+  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) {
+    return { hasControl: false, unknowable: true };
+  }
+  if (isLabelableDescendant(node)) return { hasControl: true, unknowable: false };
+  const acc = { hasControl: false, unknowable: false };
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) {
+      const r2 = scanLabelSubtree(node[key2]);
+      acc.hasControl ||= r2.hasControl;
+      acc.unknowable ||= r2.unknowable;
+    }
+  }
+  return acc;
+}
+function collectUnassociatedLabels(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectUnassociatedLabels(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "label" && Array.isArray(node.attributes)) {
+    const hasFor = findAttr(node.attributes, "for") !== void 0;
+    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+    if (!hasFor && !hasSpread) {
+      const scan = scanLabelSubtree(node);
+      if (!scan.hasControl && !scan.unknowable) {
+        acc.push({ line: lineOf(source2, node.start) });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectUnassociatedLabels(node[key2], source2, acc);
+  }
+}
+var BULLET_TEXT_RE = /^[•・·\-*]\s/;
+var VERBATIM_TEXT_TAGS = /* @__PURE__ */ new Set(["pre", "code", "kbd", "samp", "textarea"]);
+function collectBulletTexts(node, source2, acc, inert, afterExpression = false) {
+  if (Array.isArray(node)) {
+    let prevWasExpression = afterExpression;
+    for (const child of node) {
+      collectBulletTexts(child, source2, acc, inert, prevWasExpression);
+      if (child && typeof child === "object" && child.type !== "Comment") {
+        prevWasExpression = child.type === "ExpressionTag";
+      }
+    }
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "Text") {
+    const trimmed = String(node.data ?? "").trim();
+    if (!inert && !afterExpression && BULLET_TEXT_RE.test(trimmed)) {
+      acc.push({ line: lineOf(source2, node.start), char: trimmed[0] });
+    }
+    return;
+  }
+  if (node.type === "SnippetBlock") return;
+  const nowInert = inert || node.type === "RegularElement" && (node.name === "li" || VERBATIM_TEXT_TAGS.has(node.name));
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectBulletTexts(node[key2], source2, acc, nowInert);
+  }
+}
+function selectNeedsPlaceholder(attributes) {
+  const requiredAttr = findAttr(attributes, "required");
+  if (!requiredAttr || attrValueOf(requiredAttr) === "dynamic") return false;
+  if (findAttr(attributes, "multiple")) return false;
+  const sizeAttr = findAttr(attributes, "size");
+  if (sizeAttr) {
+    if (attrValueOf(sizeAttr) === "dynamic") return false;
+    const size = Number(attrText(attributes, "size"));
+    if (!(Number.isFinite(size) && size <= 1)) return false;
+  }
+  return true;
+}
+function firstSignificantChild(nodes) {
+  for (const child of nodes ?? []) {
+    if (!child) continue;
+    if (child.type === "Comment") continue;
+    if (child.type === "Text" && !String(child.data ?? "").trim()) continue;
+    return child;
+  }
+  return void 0;
+}
+function isPlaceholderOption(option) {
+  const attributes = option.attributes ?? [];
+  if (findAttr(attributes, "value")) {
+    const literal3 = attrText(attributes, "value");
+    return literal3 === void 0 || literal3 === "";
+  }
+  return textFromNodes(option.fragment?.nodes ?? []) === void 0;
+}
+function collectSelectsMissingPlaceholder(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectSelectsMissingPlaceholder(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "select" && Array.isArray(node.attributes)) {
+    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+    if (!hasSpread && selectNeedsPlaceholder(node.attributes)) {
+      const first = firstSignificantChild(node.fragment?.nodes);
+      if (!first) {
+        acc.push({ line: lineOf(source2, node.start) });
+      } else if (first.type === "RegularElement" && first.name === "option") {
+        const firstHasSpread = (first.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute");
+        if (!firstHasSpread && !isPlaceholderOption(first)) acc.push({ line: lineOf(source2, node.start) });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectSelectsMissingPlaceholder(node[key2], source2, acc);
+  }
+}
+var MACHINE_READABLE_TIME = [
+  /^\d{4,}(-\d{2}){0,2}$/,
+  // year, yearless month, date
+  /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
+  // time
+  /^\d{4,}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/,
+  // local and global date-time
+  /^\d{2}-\d{2}$/,
+  // yearless date
+  /^\d{4,}-W\d{2}$/,
+  // week
+  /^(Z|[+-]\d{2}:?\d{2})$/,
+  // time-zone offset
+  // Duration, `PnDTnHnMnS` form. Anchored to the character set a duration uses rather than to the
+  // exact component order: rejecting trailing prose matters, over-narrowing the order would turn a
+  // false negative into the false positive this rule is being repaired for.
+  /^P(?=\d|T)[\d.,TYWDHMS]*$/i,
+  /^\d+(\.\d+)?\s*[wdhms](\s+\d+(\.\d+)?\s*[wdhms])*$/i
+  // duration, alternative form
+];
+function collectTimesMissingDatetime(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectTimesMissingDatetime(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "time" && findAttr(node.attributes ?? [], "datetime") === void 0 && !(node.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute")) {
+    const nodes = node.fragment?.nodes ?? [];
+    if (nodes.length > 0 && nodes.every((n2) => n2?.type === "Text")) {
+      const text2 = nodes.map((n2) => String(n2.data ?? "")).join("");
+      const trimmed = text2.trim();
+      if (trimmed.length > 0 && !MACHINE_READABLE_TIME.some((re) => re.test(trimmed))) {
+        acc.push({ line: lineOf(source2, node.start), text: trimmed });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectTimesMissingDatetime(node[key2], source2, acc);
+  }
+}
+function collectHrefLinks(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectHrefLinks(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "a" && Array.isArray(node.attributes)) {
+    const attr = findAttr(node.attributes, "href");
+    const value = attr ? attrTextOf(attr) : void 0;
+    if (value !== void 0 && isRootRelativePath(value)) {
+      acc.push({ kind: "href", path: value, line: lineOf(source2, attr?.start ?? node.start) });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectHrefLinks(node[key2], source2, acc);
+  }
+}
+var GOTO_NAMES = /* @__PURE__ */ new Set(["goto"]);
+function collectGotoLinks(locals, roots, source2, acc) {
+  if (locals.size === 0) return;
+  for (const root of roots) {
+    if (!root) continue;
+    walkEstree(root, (n2) => {
+      if (n2.type !== "CallExpression" || n2.callee?.type !== "Identifier" || !locals.has(n2.callee.name)) return;
+      const arg = n2.arguments?.[0];
+      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) return;
+      acc.push({ kind: "goto", path: arg.value, line: lineOf(source2, n2.start) });
+    });
+  }
+}
+function isPropsCall(node) {
+  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$props";
+}
+function isBindableCall(node) {
+  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$bindable";
+}
+function collectPropNames(program, includeBindable) {
+  const names = /* @__PURE__ */ new Set();
+  let seen = 0;
+  let ambiguous = false;
+  walkEstree(program, (n2) => {
+    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
+    seen++;
+    if (n2.id?.type === "Identifier") {
+      names.add(n2.id.name);
+      return;
+    }
+    if (n2.id?.type !== "ObjectPattern" || !Array.isArray(n2.id.properties)) {
+      ambiguous = true;
+      return;
+    }
+    for (const p2 of n2.id.properties) {
+      if (p2?.type === "RestElement") {
+        addBoundNames(p2.argument, names);
+      } else if (p2?.type === "Property") {
+        if (p2.value?.type === "AssignmentPattern") {
+          if ((includeBindable || !isBindableCall(p2.value.right)) && p2.value.left?.type === "Identifier")
+            names.add(p2.value.left.name);
+        } else if (p2.value?.type === "Identifier") {
+          names.add(p2.value.name);
+        }
+      }
+    }
+  });
+  return ambiguous || seen > 1 ? /* @__PURE__ */ new Set() : names;
+}
+function collectLegacyPropNames(program) {
+  const names = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || stmt2.declaration?.type !== "VariableDeclaration") continue;
+    for (const d2 of stmt2.declaration.declarations ?? []) {
+      if (d2?.id?.type === "Identifier") names.add(d2.id.name);
+    }
+  }
+  return names;
+}
+var MUTATING_METHODS = /* @__PURE__ */ new Set([
+  "push",
+  "pop",
+  "shift",
+  "unshift",
+  "splice",
+  "sort",
+  "reverse",
+  "copyWithin",
+  "fill",
+  "set",
+  "add",
+  "delete",
+  "clear"
+]);
+function collectPropMutations(root, propNames, source2, acc) {
+  if (propNames.size === 0) return;
+  walkScoped(root, (n2, scope) => {
+    const flag = (r2) => {
+      if (r2 && propNames.has(r2) && !scope.has(r2)) acc.push({ name: r2, line: lineOf(source2, n2.start) });
+    };
+    if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") {
+      flag(rootObjectName(n2.left));
+    } else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") {
+      flag(rootObjectName(n2.argument));
+    } else if (n2.type === "UnaryExpression" && n2.operator === "delete") {
+      flag(rootObjectName(n2.argument));
+    } else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
+      const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
+      if (method2 && MUTATING_METHODS.has(method2)) flag(rootObjectName(n2.callee.object));
+    }
+  });
+}
+function countProps(program) {
+  let count = 0;
+  let seen = 0;
+  let uncountable = false;
+  walkEstree(program, (n2) => {
+    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
+    seen++;
+    const props = n2.id?.type === "ObjectPattern" ? n2.id.properties : void 0;
+    if (!Array.isArray(props)) {
+      uncountable = true;
+      return;
+    }
+    count = props.filter((p2) => p2?.type === "Property").length;
+  });
+  return uncountable || seen > 1 ? 0 : count;
+}
+function countLines(source2) {
+  if (source2.length === 0) return 0;
+  return source2.split("\n").length - (source2.endsWith("\n") ? 1 : 0);
+}
+function isTypeOnlyImport(n2) {
+  if (n2.importKind === "type") return true;
+  const specs = n2.specifiers;
+  return Array.isArray(specs) && specs.length > 0 && specs.every((s) => s?.importKind === "type");
+}
+function collectImportSources(program, source2, acc) {
+  walkEstree(program, (n2) => {
+    if (n2.type === "ImportDeclaration" && typeof n2.source?.value === "string") {
+      acc.push({
+        source: n2.source.value,
+        line: lineOf(source2, n2.start),
+        ...isTypeOnlyImport(n2) ? { type: true } : {}
+      });
+    }
+  });
+}
+function isBareSpecifier(s) {
+  return !/^[./$#]/.test(s);
+}
+function collectNamespaceImports(program, source2, acc) {
+  walkEstree(program, (n2) => {
+    if (n2.type !== "ImportDeclaration" || n2.importKind === "type") return;
+    const spec = n2.source?.value;
+    if (typeof spec !== "string" || !isBareSpecifier(spec)) return;
+    if (Array.isArray(n2.specifiers) && n2.specifiers.some((s) => s?.type === "ImportNamespaceSpecifier")) {
+      acc.push({ source: spec, line: lineOf(source2, n2.start) });
+    }
+  });
+}
+var RULE_ID_RE = "[a-z][a-z0-9]*\\/[a-z][a-z0-9-]*";
+var JS_DIRECTIVE = new RegExp(
+  `^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*$`
+);
+var HTML_DIRECTIVE = new RegExp(
+  `^\\s*<!--\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*-->\\s*$`
+);
+function collectSuppressions(source2) {
+  const out = [];
+  const lines = source2.split("\n");
+  lines.forEach((line, i2) => {
+    const m = JS_DIRECTIVE.exec(line) ?? HTML_DIRECTIVE.exec(line);
+    if (!m) return;
+    const ruleIds = m[1]?.split(",").map((s) => s.trim());
+    out.push({ line: i2 + 2, ruleIds });
+  });
+  return out;
+}
+var MD_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
+var SCRIPT_OPEN = /<script(?:\s[^>]*)?>/;
+var SCRIPT_CLOSE = /<\/script\s*>/;
+var STYLE_OPEN = /<style(?:\s[^>]*)?>/;
+var STYLE_CLOSE = /<\/style\s*>/;
+function collectCommentLinks(source2, { wholeFileIsScript = false } = {}) {
+  const out = [];
+  let htmlOpen = false;
+  let block2 = wholeFileIsScript ? "script" : void 0;
+  source2.split("\n").forEach((line, i2) => {
+    let text2 = "";
+    if (block2 !== void 0) {
+      if (block2 === "script" && /^\s*\/\//.test(line)) text2 = line.replace(/^\s*\/\//, "");
+      if (!wholeFileIsScript && (block2 === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(line)) block2 = void 0;
+    } else {
+      let plain = "";
+      let rest2 = line;
+      while (rest2.length > 0) {
+        if (htmlOpen) {
+          const end = rest2.indexOf("-->");
+          if (end === -1) {
+            text2 += rest2;
+            break;
+          }
+          text2 += rest2.slice(0, end);
+          htmlOpen = false;
+          rest2 = rest2.slice(end + 3);
+          continue;
+        }
+        const start = rest2.indexOf("<!--");
+        if (start === -1) {
+          plain += rest2;
+          break;
+        }
+        plain += rest2.slice(0, start);
+        htmlOpen = true;
+        rest2 = rest2.slice(start + 4);
+      }
+      const opened = SCRIPT_OPEN.test(plain) ? "script" : STYLE_OPEN.test(plain) ? "style" : void 0;
+      if (opened !== void 0 && !(opened === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(plain)) block2 = opened;
+    }
+    for (const m of text2.matchAll(MD_LINK)) {
+      if (m[1] !== void 0) out.push({ url: m[1], line: i2 + 1 });
+    }
+  });
+  return out;
+}
+var EVAL_SCOPE_BOUNDARIES = /* @__PURE__ */ new Set([
+  "FunctionDeclaration",
+  "FunctionExpression",
+  "ArrowFunctionExpression",
+  "ClassDeclaration",
+  "ClassExpression"
+]);
+function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set(), boundaries = EVAL_SCOPE_BOUNDARIES) {
+  if (Array.isArray(node)) {
+    for (const child of node) walkEvalScope(child, visit, shadowed, boundaries);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (visit(node, scope)) return;
+  if (boundaries.has(node.type)) return;
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    walkEvalScope(node[key2], visit, scope, boundaries);
+  }
+}
+function collectEvalScopeCalls(root, source2, matcher, skipSubtree, initialShadowed) {
+  const out = [];
+  walkEvalScope(
+    root,
+    (n2, shadowed) => {
+      if (n2.type !== "CallExpression") return void 0;
+      if (skipSubtree?.(n2)) return true;
+      const name = matcher(n2, shadowed);
+      if (name) out.push({ name, line: lineOf(source2, n2.start) });
+      return void 0;
+    },
+    initialShadowed
+  );
+  return out;
+}
+function unwrapExport(stmt2) {
+  if (stmt2.type === "ExportNamedDeclaration") return stmt2.declaration ?? stmt2;
+  if (stmt2.type === "ExportDefaultDeclaration") return stmt2.declaration;
+  return stmt2;
+}
+function collectOrphanCalls(program, source2, matcher, skipSubtree) {
+  const out = collectEvalScopeCalls(program, source2, matcher, skipSubtree).map((c) => ({ ...c, kind: "top-level" }));
+  const body = program.body ?? [];
+  const matchingClasses = /* @__PURE__ */ new Map();
+  for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "ClassDeclaration" || decl.id?.type !== "Identifier") continue;
+    const ctor = (decl.body?.body ?? []).find(
+      (m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body
+    );
+    if (!ctor) continue;
+    const ctorShadow = /* @__PURE__ */ new Set();
+    for (const p2 of ctor.value.params ?? []) addBoundNames(p2, ctorShadow);
+    const calls = collectEvalScopeCalls(ctor.value.body, source2, matcher, skipSubtree, ctorShadow);
+    if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0].name);
+  }
+  if (matchingClasses.size > 0) {
+    for (const stmt2 of body) {
+      const decl = unwrapExport(stmt2);
+      const isCandidate = decl?.type === "VariableDeclaration" || decl?.type === "ExpressionStatement" || stmt2.type === "ExportDefaultDeclaration" && decl?.type !== "FunctionDeclaration" && decl?.type !== "ClassDeclaration";
+      if (!isCandidate) continue;
+      walkEvalScope(decl, (n2) => {
+        if (n2.type === "NewExpression" && n2.callee?.type === "Identifier" && matchingClasses.has(n2.callee.name)) {
+          out.push({
+            name: matchingClasses.get(n2.callee.name),
+            line: lineOf(source2, n2.start),
+            kind: "constructor-instantiated",
+            className: n2.callee.name
+          });
+        }
+        return void 0;
+      });
+    }
+  }
+  return out.sort((a2, b) => a2.line - b.line);
+}
+function collectOrphanEffects(program, source2) {
+  return collectOrphanCalls(program, source2, (n2) => isEffectCall(n2) ? "$effect" : void 0, isEffectRootCall).map(
+    ({ line, kind, className }) => ({ line, kind, ...className !== void 0 ? { className } : {} })
+  );
+}
+var LIFECYCLE_NAMES = /* @__PURE__ */ new Set([
+  "onMount",
+  "onDestroy",
+  "beforeUpdate",
+  "afterUpdate",
+  "createEventDispatcher",
+  "getContext",
+  "setContext",
+  "hasContext",
+  "getAllContexts"
+]);
+function collectSvelteLifecycleImports(program) {
+  const locals = /* @__PURE__ */ new Map();
+  const namespaces = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== "svelte") continue;
+    for (const s of stmt2.specifiers ?? []) {
+      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
+      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && LIFECYCLE_NAMES.has(s.imported.name)) {
+        locals.set(s.local.name, s.imported.name);
+      } else if (s.type === "ImportNamespaceSpecifier") {
+        namespaces.add(s.local.name);
+      }
+    }
+  }
+  return { locals, namespaces };
+}
+function matchLifecycleCall(n2, imports2) {
+  const c = n2?.callee;
+  if (c?.type === "Identifier") {
+    const canonical = imports2.locals.get(c.name);
+    return canonical ? { canonical, local: c.name } : void 0;
+  }
+  if (c?.type === "MemberExpression" && !c.computed && c.object?.type === "Identifier" && imports2.namespaces.has(c.object.name) && c.property?.type === "Identifier" && LIFECYCLE_NAMES.has(c.property.name)) {
+    return { canonical: c.property.name, local: c.object.name };
+  }
+  return void 0;
+}
+function collectOrphanLifecycleCalls(program, source2) {
+  const imports2 = collectSvelteLifecycleImports(program);
+  if (imports2.locals.size === 0 && imports2.namespaces.size === 0) return [];
+  return collectOrphanCalls(program, source2, (n2, shadowed) => {
+    const m = matchLifecycleCall(n2, imports2);
+    return m && !shadowed.has(m.local) ? m.canonical : void 0;
+  });
+}
+var BROWSER_GLOBALS = /* @__PURE__ */ new Set([
+  "window",
+  "document",
+  "localStorage",
+  "sessionStorage",
+  "navigator",
+  "location",
+  "history",
+  "screen",
+  "matchMedia",
+  "requestAnimationFrame",
+  "cancelAnimationFrame",
+  "IntersectionObserver",
+  "ResizeObserver",
+  "MutationObserver",
+  "alert",
+  "confirm",
+  "prompt"
+]);
+function collectNamedImportAliases(program, moduleSource, names) {
+  const out = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== moduleSource) {
+      continue;
+    }
+    for (const s of stmt2.specifiers ?? []) {
+      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
+      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && names.has(s.imported.name)) {
+        out.add(s.local.name);
+      }
+    }
+  }
+  return out;
+}
+var BROWSER_GUARD_NAMES = /* @__PURE__ */ new Set(["browser"]);
+function collectBrowserGuardImports(program) {
+  return collectNamedImportAliases(program, "$app/environment", BROWSER_GUARD_NAMES);
+}
+function collectProgramBindings(program) {
+  const bound = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type === "ImportDeclaration") {
+      for (const s of stmt2.specifiers ?? []) if (s?.local?.type === "Identifier") bound.add(s.local.name);
+      continue;
+    }
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "VariableDeclaration") {
+      for (const d2 of decl.declarations ?? []) addBoundNames(d2?.id, bound);
+    } else if ((decl?.type === "FunctionDeclaration" || decl?.type === "ClassDeclaration") && decl.id?.type === "Identifier") {
+      bound.add(decl.id.name);
+    }
+  }
+  return bound;
+}
+function guardTerminates(consequent) {
+  if (!consequent) return false;
+  if (consequent.type === "ReturnStatement" || consequent.type === "ThrowStatement") return true;
+  if (consequent.type === "BlockStatement") {
+    const last = (consequent.body ?? [])[consequent.body.length - 1];
+    return last?.type === "ReturnStatement" || last?.type === "ThrowStatement";
+  }
+  return false;
+}
+function isBrowserGuardTest(test, guardBindings) {
+  let guarded = false;
+  walkEstree(test, (n2) => {
+    if (n2.type === "Identifier" && guardBindings.has(n2.name)) guarded = true;
+    if (n2.type === "BinaryExpression" && ["===", "!==", "==", "!="].includes(n2.operator)) {
+      const sides = [n2.left, n2.right];
+      const hasTypeofGlobal = sides.some(
+        (s) => s?.type === "UnaryExpression" && s.operator === "typeof" && s.argument?.type === "Identifier" && BROWSER_GLOBALS.has(s.argument.name)
+      );
+      const hasUndefinedString = sides.some((s) => s?.type === "Literal" && s.value === "undefined");
+      if (hasTypeofGlobal && hasUndefinedString) guarded = true;
+    }
+  });
+  return guarded;
+}
+function collectDerivedGuardBindings(program, guards) {
+  const derived = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "VariableDeclaration" || decl.kind !== "const" && decl.kind !== "let") continue;
+    for (const d2 of decl.declarations ?? []) {
+      if (d2?.id?.type === "Identifier" && d2.init && isBrowserGuardTest(d2.init, guards)) {
+        derived.add(d2.id.name);
+      }
+    }
+  }
+  return derived;
+}
+function collectBrowserGlobalRefs(program, source2, extra) {
+  const out = [];
+  const bound = /* @__PURE__ */ new Set([...collectProgramBindings(program), ...extra?.bound ?? []]);
+  const guards = /* @__PURE__ */ new Set([...collectBrowserGuardImports(program), ...extra?.guards ?? []]);
+  for (const name of collectDerivedGuardBindings(program, guards)) guards.add(name);
+  const visit = (n2, shadowed) => {
+    if (!n2) return;
+    if (Array.isArray(n2)) {
+      for (const c of n2) visit(c, shadowed);
+      return;
+    }
+    if (typeof n2 !== "object" || typeof n2.type !== "string") return;
+    if (EVAL_SCOPE_BOUNDARIES.has(n2.type)) return;
+    if ((n2.type === "IfStatement" || n2.type === "ConditionalExpression") && isBrowserGuardTest(n2.test, guards)) return;
+    if (n2.type === "LogicalExpression" && isBrowserGuardTest(n2.left, guards)) return;
+    const introduced = scopeIntroducedNames(n2);
+    const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+    switch (n2.type) {
+      case "Identifier":
+        if (BROWSER_GLOBALS.has(n2.name) && !bound.has(n2.name) && !scope.has(n2.name)) {
+          out.push({ name: n2.name, line: lineOf(source2, n2.start) });
+        }
+        return;
+      case "UnaryExpression":
+        if (n2.operator === "typeof" && n2.argument?.type === "Identifier") return;
+        break;
+      case "MemberExpression":
+        visit(n2.object, scope);
+        if (n2.computed) visit(n2.property, scope);
+        return;
+      case "Property":
+        if (n2.computed) visit(n2.key, scope);
+        visit(n2.value, scope);
+        return;
+      case "VariableDeclarator":
+        visit(n2.init, scope);
+        return;
+      case "LabeledStatement":
+        visit(n2.body, scope);
+        return;
+      case "BreakStatement":
+      case "ContinueStatement":
+      case "ImportDeclaration":
+      case "ExportAllDeclaration":
+        return;
+      case "ExportNamedDeclaration":
+        if (!n2.declaration) return;
+        break;
+      case "BlockStatement":
+      case "Program":
+        for (const stmt2 of n2.body ?? []) {
+          visit(stmt2, scope);
+          if (stmt2?.type === "IfStatement" && isBrowserGuardTest(stmt2.test, guards) && guardTerminates(stmt2.consequent)) {
+            break;
+          }
+        }
+        return;
+      default:
+        if (n2.type.startsWith("TS")) {
+          if (n2.type === "TSAsExpression" || n2.type === "TSSatisfiesExpression" || n2.type === "TSNonNullExpression" || n2.type === "TSInstantiationExpression") {
+            visit(n2.expression, scope);
+          }
+          return;
+        }
+    }
+    for (const key2 of Object.keys(n2)) {
+      if (WALK_IGNORED_KEYS.has(key2)) continue;
+      visit(n2[key2], scope);
+    }
+  };
+  visit(program, /* @__PURE__ */ new Set());
+  return out;
+}
+var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
+function parseModuleProgram(source2, filename2) {
+  const neutralized = source2.replace(/<\/script/gi, "<_script");
+  const wrapped = `<script lang="ts">
+${neutralized}
+</script>`;
+  const ast = parse8(wrapped, { modern: true, filename: filename2 });
+  return { program: ast.instance?.content, wrapped };
+}
+function collectModuleStateDecls(program, source2) {
+  const out = [];
+  const body = program.body ?? [];
+  const statefulClasses = /* @__PURE__ */ new Set();
+  for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "VariableDeclaration") {
+      for (const d2 of decl.declarations ?? []) {
+        if (d2?.id?.type === "Identifier" && d2.init && isStateDeclaration(unwrapTs(d2.init))) {
+          out.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
+        }
+      }
+    } else if (decl?.type === "ClassDeclaration" && decl.id?.type === "Identifier") {
+      const hasStateField = (decl.body?.body ?? []).some(
+        (m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(unwrapTs(m.value))
+      );
+      if (hasStateField) statefulClasses.add(decl.id.name);
+    }
+  }
+  if (statefulClasses.size > 0) {
+    for (const stmt2 of body) {
+      const decl = unwrapExport(stmt2);
+      if (decl?.type !== "VariableDeclaration") continue;
+      for (const d2 of decl.declarations ?? []) {
+        if (d2?.init?.type === "NewExpression" && d2.init.callee?.type === "Identifier" && statefulClasses.has(d2.init.callee.name)) {
+          out.push({
+            name: d2.id?.type === "Identifier" ? d2.id.name : d2.init.callee.name,
+            line: lineOf(source2, d2.start)
+          });
+        }
+      }
+    }
+  }
+  return out.sort((a2, b) => a2.line - b.line);
+}
+function parseModuleFacts(source2, filename2) {
+  const { program, wrapped } = parseModuleProgram(source2, filename2);
+  const shift = (line) => Math.max(0, line - 1);
+  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
+  const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
+  const browserGlobalRefs = program ? collectBrowserGlobalRefs(program, wrapped).map((r2) => ({ ...r2, line: shift(r2.line), context: "module" })) : [];
+  const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d2) => ({ ...d2, line: shift(d2.line) })) : [];
+  const basePathLinks = [];
+  if (program) {
+    const locals = collectNamedImportAliases(program, "$app/navigation", GOTO_NAMES);
+    const raw = [];
+    collectGotoLinks(locals, [program], wrapped, raw);
+    for (const l2 of raw) basePathLinks.push({ ...l2, line: shift(l2.line) });
+    basePathLinks.sort((a2, b) => a2.line - b.line);
+  }
+  const importSpans = [];
+  const namespaceImports = [];
+  if (program) {
+    const rawImportSpans = [];
+    collectImportSources(program, wrapped, rawImportSpans);
+    for (const s of rawImportSpans) importSpans.push({ ...s, line: shift(s.line) });
+    const rawNamespaceImports = [];
+    collectNamespaceImports(program, wrapped, rawNamespaceImports);
+    for (const n2 of rawNamespaceImports) namespaceImports.push({ ...n2, line: shift(n2.line) });
+  }
+  const imports2 = importSpans.map((s) => s.source);
+  return {
+    eachBlocks: [],
+    effects: [],
+    htmlTags: [],
+    javascriptUrls: [],
+    loc: 0,
+    propCount: 0,
+    imports: imports2,
+    importSpans,
+    namespaceImports,
+    constableStates: [],
+    mutatedProps: [],
+    stalePropDerivations: [],
+    rawableStates: [],
+    nonreactiveBuiltinStates: [],
+    checkableBindValues: [],
+    basePathLinks,
+    suppressions: collectSuppressions(source2),
+    commentLinks: collectCommentLinks(source2, { wholeFileIsScript: true }),
+    orphanEffects,
+    orphanLifecycleCalls,
+    browserGlobalRefs,
+    moduleStateDecls
+  };
+}
+function parseComponentFacts(source2, filename2) {
+  if (MODULE_FILE_RE.test(filename2)) return parseModuleFacts(source2, filename2);
+  const ast = parseSvelte(source2, filename2);
+  const eachBlocks = [];
+  collectEachBlocks(ast.fragment ?? ast, source2, eachBlocks);
+  const htmlTags = [];
+  const javascriptUrls = [];
+  collectSecurityFacts(ast.fragment ?? ast, source2, htmlTags, javascriptUrls);
+  const checkableBindValues = [];
+  collectCheckableBindValues(ast.fragment ?? ast, source2, checkableBindValues);
+  const ariaElements = [];
+  collectAriaElements(ast.fragment ?? ast, source2, ariaElements);
+  const interactiveNestings = [];
+  collectInteractiveNestings(ast.fragment ?? ast, source2, interactiveNestings, []);
+  const unnamedInteractive = [];
+  const labelTargets = { ids: /* @__PURE__ */ new Set(), nodes: /* @__PURE__ */ new Set() };
+  collectLabelTargets(ast.fragment ?? ast, labelTargets);
+  collectUnnamedInteractive(ast.fragment ?? ast, source2, unnamedInteractive, labelTargets);
+  const unassociatedLabels = [];
+  collectUnassociatedLabels(ast.fragment ?? ast, source2, unassociatedLabels);
+  const bulletTexts = [];
+  collectBulletTexts(ast.fragment ?? ast, source2, bulletTexts, false);
+  const selectsMissingPlaceholder = [];
+  collectSelectsMissingPlaceholder(ast.fragment ?? ast, source2, selectsMissingPlaceholder);
+  const timesMissingDatetime = [];
+  collectTimesMissingDatetime(ast.fragment ?? ast, source2, timesMissingDatetime);
+  const basePathLinks = [];
+  collectHrefLinks(ast.fragment ?? ast, source2, basePathLinks);
+  const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean);
+  const gotoLocals = /* @__PURE__ */ new Set();
+  for (const p2 of gotoPrograms)
+    for (const n2 of collectNamedImportAliases(p2, "$app/navigation", GOTO_NAMES)) {
+      gotoLocals.add(n2);
+    }
+  collectGotoLinks(gotoLocals, [...gotoPrograms, ast.fragment], source2, basePathLinks);
+  basePathLinks.sort((a2, b) => a2.line - b.line);
+  const loc = countLines(source2);
+  const suppressions = collectSuppressions(source2);
+  const moduleProgram = ast.module?.content;
+  const importSpans = [];
+  const namespaceImports = [];
+  if (moduleProgram) {
+    collectImportSources(moduleProgram, source2, importSpans);
+    collectNamespaceImports(moduleProgram, source2, namespaceImports);
+  }
+  const orphanEffects = moduleProgram ? collectOrphanEffects(moduleProgram, source2) : [];
+  const orphanLifecycleCalls = moduleProgram ? collectOrphanLifecycleCalls(moduleProgram, source2) : [];
+  const browserGlobalRefs = [];
+  if (moduleProgram) {
+    for (const r2 of collectBrowserGlobalRefs(moduleProgram, source2)) {
+      browserGlobalRefs.push({ ...r2, context: "module" });
+    }
+  }
+  const effects = [];
+  const constableStates = [];
+  const mutatedProps = [];
+  const stalePropDerivations = [];
+  const rawableStates = [];
+  const nonreactiveBuiltinStates = [];
+  let propCount = 0;
+  const program = ast.instance?.content;
+  if (program) {
+    collectImportSources(program, source2, importSpans);
+    collectNamespaceImports(program, source2, namespaceImports);
+    propCount = countProps(program);
+    const legacyPropNames = collectLegacyPropNames(program);
+    const nonBindableProps = /* @__PURE__ */ new Set([...collectPropNames(program, false), ...legacyPropNames]);
+    const rawMutations = [];
+    collectPropMutations(program, nonBindableProps, source2, rawMutations);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, rawMutations);
+    for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
+    const allPropNames = /* @__PURE__ */ new Set([...collectPropNames(program, true), ...legacyPropNames]);
+    if (allPropNames.size > 0) {
+      const candidates = collectStalePropCandidates(program, allPropNames, source2);
+      if (candidates.length > 0) {
+        const candidateNames = new Set(candidates.map((c) => c.name));
+        const disqualified = /* @__PURE__ */ new Set();
+        collectStateWrites(program, candidateNames, disqualified);
+        if (ast.fragment) {
+          collectStateWrites(ast.fragment, candidateNames, disqualified);
+          collectTemplateEscapes(ast.fragment, candidateNames, disqualified);
+        }
+        const referenced = /* @__PURE__ */ new Set();
+        if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
+        const isLegacy = legacyPropNames.size > 0;
+        for (const c of candidates) {
+          if (!disqualified.has(c.name) && referenced.has(c.name)) {
+            stalePropDerivations.push(isLegacy ? { ...c, legacy: true } : c);
+          }
+        }
+      }
+    }
+    const stateNames = /* @__PURE__ */ new Set();
+    const reactiveNames = /* @__PURE__ */ new Set();
+    collectImportedLocalNames(program, reactiveNames);
+    collectNewExprLocalNames(program, reactiveNames);
+    if (moduleProgram) {
+      collectImportedLocalNames(moduleProgram, reactiveNames);
+      collectNewExprLocalNames(moduleProgram, reactiveNames);
+    }
+    const stateDecls = [];
+    walkEstree(program, (n2) => {
+      if (n2.type !== "VariableDeclarator" || !n2.init) return;
+      const init2 = unwrapTs(n2.init);
+      if (isStateDeclaration(init2) && n2.id?.type === "Identifier") {
+        stateNames.add(n2.id.name);
+        stateDecls.push({ name: n2.id.name, line: lineOf(source2, n2.start) });
+      }
+      if (isStateDeclaration(init2) || isDerivedDeclaration(init2) || isPropsCall(init2))
+        addBoundNames(n2.id, reactiveNames);
+    });
+    walkEstree(program, (n2) => {
+      if (n2.type !== "CallExpression" || !isEffectCall(n2)) return;
+      const fn = n2.arguments?.[0];
+      const isFn = fn?.type === "ArrowFunctionExpression" || fn?.type === "FunctionExpression";
+      effects.push({
+        line: lineOf(source2, n2.start),
+        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false,
+        mountOnly: isFn ? !bodyIsEmpty(fn) && !bodyReadsReactive(fn, reactiveNames) : false
+      });
+    });
+    const writtenOrEscaped = /* @__PURE__ */ new Set();
+    collectStateWrites(program, stateNames, writtenOrEscaped);
+    if (ast.fragment) {
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
+      collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
+      collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
+    }
+    for (const d2 of stateDecls) {
+      if (!writtenOrEscaped.has(d2.name)) constableStates.push(d2);
+    }
+    const rawableCandidates = [];
+    for (const stmt2 of program.body ?? []) {
+      if (stmt2?.type !== "VariableDeclaration") continue;
+      for (const d2 of stmt2.declarations ?? []) {
+        if (d2?.id?.type !== "Identifier" || !d2.init) continue;
+        const init2 = unwrapTs(d2.init);
+        if (!isPlainStateCall(init2)) continue;
+        const arg = unwrapTs(init2.arguments?.[0]);
+        if (arg?.type === "ObjectExpression" || arg?.type === "ArrayExpression") {
+          rawableCandidates.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
+        }
+      }
+    }
+    if (rawableCandidates.length > 0) {
+      const candNames = new Set(rawableCandidates.map((c) => c.name));
+      const union = /* @__PURE__ */ new Set();
+      const kinds = /* @__PURE__ */ new Map();
+      collectStateWrites(program, candNames, union, kinds);
+      if (ast.fragment) {
+        collectStateWrites(ast.fragment, candNames, union, kinds);
+        collectTemplateEscapes(ast.fragment, candNames, union, kinds);
+      }
+      const aliasEscapes = /* @__PURE__ */ new Set();
+      collectAliasRefs(program, candNames, aliasEscapes);
+      const eachTaint = /* @__PURE__ */ new Set();
+      if (ast.fragment) {
+        collectFragmentAliasRefs(ast.fragment, candNames, aliasEscapes);
+        collectDirectiveEscapes(ast.fragment, candNames, aliasEscapes);
+        collectEachContextTaint(ast.fragment, candNames, eachTaint);
+      }
+      for (const c of rawableCandidates) {
+        const k2 = kinds.get(c.name);
+        const reassigned = k2?.has("reassign") ?? false;
+        const dirty = k2 !== void 0 && [...k2].some((kind) => kind !== "reassign") || aliasEscapes.has(c.name) || eachTaint.has(c.name);
+        if (reassigned && !dirty) rawableStates.push(c);
+      }
+    }
+    const builtinCandidates = /* @__PURE__ */ new Map();
+    for (const stmt2 of program.body ?? []) {
+      if (stmt2?.type !== "VariableDeclaration") continue;
+      for (const d2 of stmt2.declarations ?? []) {
+        if (d2?.id?.type !== "Identifier" || !d2.init) continue;
+        const init2 = unwrapTs(d2.init);
+        if (!isPlainStateCall(init2)) continue;
+        const arg = unwrapTs(init2.arguments?.[0]);
+        if (arg?.type === "NewExpression" && arg.callee?.type === "Identifier" && BUILTIN_STATE_TYPES.has(arg.callee.name)) {
+          builtinCandidates.set(d2.id.name, { type: arg.callee.name, line: lineOf(source2, d2.start) });
+        }
+      }
+    }
+    if (builtinCandidates.size > 0) {
+      const types2 = new Map([...builtinCandidates].map(([n2, meta]) => [n2, meta.type]));
+      const mutatedBuiltins = /* @__PURE__ */ new Set();
+      const reassignedBuiltins = /* @__PURE__ */ new Set();
+      collectBuiltinStateSignals(program, types2, mutatedBuiltins, reassignedBuiltins);
+      if (ast.fragment) collectBuiltinStateSignals(ast.fragment, types2, mutatedBuiltins, reassignedBuiltins);
+      for (const [name, meta] of builtinCandidates) {
+        if (mutatedBuiltins.has(name) && !reassignedBuiltins.has(name)) {
+          nonreactiveBuiltinStates.push({ name, type: meta.type, line: meta.line });
+        }
+      }
+    }
+    let moduleExtra;
+    if (moduleProgram) {
+      const moduleBrowserImports = collectBrowserGuardImports(moduleProgram);
+      moduleExtra = {
+        guards: /* @__PURE__ */ new Set([...moduleBrowserImports, ...collectDerivedGuardBindings(moduleProgram, moduleBrowserImports)]),
+        bound: collectProgramBindings(moduleProgram)
+      };
+    }
+    for (const r2 of collectBrowserGlobalRefs(program, source2, moduleExtra)) {
+      browserGlobalRefs.push({ ...r2, context: "instance" });
+    }
+  }
+  const imports2 = importSpans.map((s) => s.source);
+  return {
+    eachBlocks,
+    effects,
+    htmlTags,
+    javascriptUrls,
+    loc,
+    propCount,
+    imports: imports2,
+    importSpans,
+    namespaceImports,
+    constableStates,
+    mutatedProps,
+    stalePropDerivations,
+    rawableStates,
+    nonreactiveBuiltinStates,
+    checkableBindValues,
+    basePathLinks,
+    orphanEffects,
+    orphanLifecycleCalls,
+    browserGlobalRefs,
+    moduleStateDecls: [],
+    suppressions,
+    commentLinks: collectCommentLinks(source2),
+    ariaElements,
+    interactiveNestings,
+    unnamedInteractive,
+    unassociatedLabels,
+    bulletTexts,
+    selectsMissingPlaceholder,
+    timesMissingDatetime
+  };
+}
+var HANDLER_NAMES = /* @__PURE__ */ new Set([
+  "load",
+  "handle",
+  "handleFetch",
+  "handleError",
+  "GET",
+  "POST",
+  "PUT",
+  "PATCH",
+  "DELETE",
+  "HEAD",
+  "OPTIONS",
+  "fallback"
+]);
+function isFunctionNode(n2) {
+  return n2?.type === "FunctionDeclaration" || n2?.type === "FunctionExpression" || n2?.type === "ArrowFunctionExpression";
+}
+function collectTopLevelBindings(program) {
+  const bindings = /* @__PURE__ */ new Map();
+  for (const stmt2 of program.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "FunctionDeclaration" && decl.id?.type === "Identifier") {
+      bindings.set(decl.id.name, decl);
+    } else if (decl?.type === "VariableDeclaration") {
+      for (const d2 of decl.declarations ?? []) {
+        if (d2?.id?.type === "Identifier" && d2.init) bindings.set(d2.id.name, unwrapTs(d2.init));
+      }
+    }
+  }
+  return bindings;
+}
+function addActionsMembers(obj, handlers) {
+  for (const p2 of obj.properties ?? []) {
+    if (p2?.type !== "Property") continue;
+    const v = unwrapTs(p2.value);
+    if (isFunctionNode(v)) handlers.add(v);
+  }
+}
+function forEachNamedExport(program, visit) {
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
+    const decl = stmt2.declaration;
+    if (decl.type === "FunctionDeclaration" && decl.id?.type === "Identifier") {
+      if (visit(decl.id.name, decl, decl)) return;
+      continue;
+    }
+    if (decl.type !== "VariableDeclaration") continue;
+    for (const d2 of decl.declarations ?? []) {
+      if (d2?.id?.type !== "Identifier" || !d2.init) continue;
+      if (visit(d2.id.name, unwrapTs(d2.init), d2)) return;
+    }
+  }
+  let bindings;
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
+      continue;
+    for (const s of stmt2.specifiers) {
+      if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
+      bindings ??= collectTopLevelBindings(program);
+      const resolved = bindings.get(s.local.name);
+      if (resolved === void 0) continue;
+      if (visit(s.exported.name, resolved, resolved)) return;
+    }
+  }
+}
+function collectHandlerFunctions(program) {
+  const handlers = /* @__PURE__ */ new Set();
+  forEachNamedExport(program, (name, value) => {
+    if (HANDLER_NAMES.has(name) && isFunctionNode(value)) handlers.add(value);
+    else if (name === "actions" && value?.type === "ObjectExpression") addActionsMembers(value, handlers);
+    return void 0;
+  });
+  return handlers;
+}
+function collectStartupFunctions(program) {
+  const startup = /* @__PURE__ */ new Set();
+  forEachNamedExport(program, (name, value) => {
+    if (name === "init" && isFunctionNode(value)) startup.add(value);
+    return void 0;
+  });
+  return startup;
+}
+function findFalseOptOut(program, source2, name) {
+  let hit;
+  forEachNamedExport(program, (exported, value, anchor) => {
+    if (exported !== name || value?.type !== "Literal" || value.value !== false) return void 0;
+    hit = { line: lineOf(source2, anchor.start) };
+    return true;
+  });
+  return hit;
+}
+function findLoadFunction(program) {
+  let load;
+  forEachNamedExport(program, (name, value) => {
+    if (name !== "load" || !isFunctionNode(value)) return void 0;
+    load = value;
+    return true;
+  });
+  return load;
+}
+function collectAwaits(node, out = []) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAwaits(child, out);
+    return out;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
+  if (isFunctionNode(node)) return out;
+  if (node.type === "AwaitExpression") out.push(node);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectAwaits(node[key2], out);
+  }
+  return out;
+}
+var REDIRECT_NAMES = /* @__PURE__ */ new Set(["redirect"]);
+function collectRedirectCalls(node, locals, out = []) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectRedirectCalls(child, locals, out);
+    return out;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
+  if (node.type === "CallExpression" && node.callee?.type === "Identifier" && locals.has(node.callee.name)) {
+    out.push(node);
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectRedirectCalls(node[key2], locals, out);
+  }
+  return out;
+}
+function isParentCall(arg) {
+  const e3 = unwrapTs(arg);
+  if (e3?.type !== "CallExpression") return false;
+  const callee = e3.callee;
+  if (callee?.type === "Identifier" && callee.name === "parent") return true;
+  return callee?.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "parent";
+}
+var BODY_METHODS = /* @__PURE__ */ new Set(["json", "text", "blob", "arrayBuffer", "formData", "bytes"]);
+function isBodyParseCall(arg) {
+  const e3 = unwrapTs(arg);
+  if (e3?.type !== "CallExpression" || e3.arguments?.length) return false;
+  const callee = e3.callee;
+  return callee?.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && BODY_METHODS.has(callee.property.name);
+}
+function refsTainted(node, tainted) {
+  let hit = false;
+  const walk2 = (n2, shadowed) => {
+    if (hit) return;
+    if (Array.isArray(n2)) {
+      for (const child of n2) walk2(child, shadowed);
+      return;
+    }
+    if (!n2 || typeof n2 !== "object" || typeof n2.type !== "string") return;
+    const introduced = scopeIntroducedNames(n2);
+    const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+    if (n2.type === "Identifier" && tainted.has(n2.name) && !scope.has(n2.name)) {
+      hit = true;
+      return;
+    }
+    for (const key2 of Object.keys(n2)) {
+      if (WALK_IGNORED_KEYS.has(key2)) continue;
+      if (n2.type === "MemberExpression" && key2 === "property" && !n2.computed) continue;
+      if (n2.type === "Property" && key2 === "key" && !n2.computed) continue;
+      walk2(n2[key2], scope);
+    }
+  };
+  walk2(node, /* @__PURE__ */ new Set());
+  return hit;
+}
+function collectLoadWaterfalls(program, wrapped) {
+  const dependentLines = [];
+  const independentLines = [];
+  const load = findLoadFunction(program);
+  if (!load?.body || load.body.type !== "BlockStatement") return { dependentLines, independentLines };
+  const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
+  const tainted = /* @__PURE__ */ new Set();
+  let sawAwaitSite = false;
+  const taintAssignTarget = (left) => {
+    if (left?.type === "MemberExpression") {
+      const root = rootObjectName(left);
+      if (root) tainted.add(root);
+    } else {
+      addBoundNames(left, tainted);
+    }
+  };
+  const taintOnly = (node) => {
+    if (Array.isArray(node)) {
+      for (const child of node) taintOnly(child);
+      return;
+    }
+    if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+    if (isFunctionNode(node)) return;
+    if (node.type === "AssignmentExpression") {
+      if (collectAwaits(node.right).length > 0 || refsTainted(node.right, tainted)) taintAssignTarget(node.left);
+    } else if (node.type === "VariableDeclaration") {
+      for (const d2 of node.declarations ?? []) {
+        if (d2?.id && d2.init && (collectAwaits(d2.init).length > 0 || refsTainted(d2.init, tainted))) {
+          addBoundNames(d2.id, tainted);
+        }
+      }
+    }
+    for (const key2 of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key2)) continue;
+      taintOnly(node[key2]);
+    }
+  };
+  const processStatements = (body) => {
+    for (const stmt2 of body ?? []) {
+      if (!stmt2) continue;
+      if (stmt2.type === "TryStatement") {
+        if (stmt2.block?.type === "BlockStatement") processStatements(stmt2.block.body);
+        if (stmt2.handler) taintOnly(stmt2.handler);
+        if (stmt2.finalizer) taintOnly(stmt2.finalizer);
+        continue;
+      }
+      if (stmt2.type === "VariableDeclaration" || stmt2.type === "ExpressionStatement" || stmt2.type === "ReturnStatement") {
+        const sites = collectAwaits(stmt2).filter((a2) => !isParentCall(a2.argument) && !isBodyParseCall(a2.argument));
+        if (sites.length > 0) {
+          const dependent = sites.filter((a2) => refsTainted(a2.argument, tainted));
+          if (dependent.length > 0) {
+            const anchor = dependent.reduce((m, a2) => a2.start < m.start ? a2 : m);
+            dependentLines.push(line(anchor.start));
+          } else if (sawAwaitSite) {
+            const workSites = sites.filter((a2) => unwrapTs(a2.argument)?.type !== "Identifier");
+            if (workSites.length > 0) {
+              const anchor = workSites.reduce((m, a2) => a2.start < m.start ? a2 : m);
+              independentLines.push(line(anchor.start));
+            }
+          }
+          sawAwaitSite = true;
+        }
+        if (stmt2.type === "VariableDeclaration") {
+          for (const d2 of stmt2.declarations ?? []) {
+            if (!d2?.id || !d2.init) continue;
+            if (collectAwaits(d2.init).length > 0 || refsTainted(d2.init, tainted)) addBoundNames(d2.id, tainted);
+          }
+        } else if (stmt2.type === "ExpressionStatement") {
+          const expr = unwrapTs(stmt2.expression);
+          if (expr?.type === "AssignmentExpression") {
+            if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) taintAssignTarget(expr.left);
+          }
+        }
+      } else {
+        taintOnly(stmt2);
+      }
+    }
+  };
+  processStatements(load.body.body);
+  return { dependentLines, independentLines };
+}
+function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
+  if (Array.isArray(node)) {
+    for (const child of node) walkKit(child, handlerFns, startupFns, visit, shadowed, inFunction, inHandler, inStartup);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  const isBoundary = isFunctionNode(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
+  const nextInFunction = inFunction || isBoundary;
+  const nextInHandler = inHandler || handlerFns.has(node);
+  const nextInStartup = inStartup || startupFns.has(node);
+  visit(node, scope, inFunction, inHandler, inStartup);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    walkKit(node[key2], handlerFns, startupFns, visit, scope, nextInFunction, nextInHandler, nextInStartup);
+  }
+}
+function normalizePosix(path) {
+  const out = [];
+  for (const seg of path.split("/")) {
+    if (seg === "" || seg === ".") continue;
+    if (seg === "..") {
+      if (out.length === 0) return void 0;
+      out.pop();
+    } else out.push(seg);
+  }
+  return out.join("/");
+}
+var DEFAULT_KIT_ALIASES = [{ find: "$lib", replacement: "src/lib", match: "prefix" }];
+function aliasMatches(entry, spec) {
+  if (entry.match === "exact") return spec === entry.find;
+  if (spec.startsWith(`${entry.find}/`)) return true;
+  return entry.match === "prefix" && spec === entry.find;
+}
+function resolveRepoLocalPath(spec, importerFile, aliases = DEFAULT_KIT_ALIASES) {
+  let path;
+  if (spec.startsWith("./") || spec.startsWith("../")) {
+    const dir = importerFile.split("/").slice(0, -1).join("/");
+    path = `${dir}/${spec}`;
+  } else {
+    const entry = aliases.find((a2) => aliasMatches(a2, spec));
+    if (entry?.replacement == null) return void 0;
+    if (entry.replacement.startsWith("/") || /^[A-Za-z]:\//.test(entry.replacement)) return void 0;
+    path = entry.replacement + spec.slice(entry.find.length);
+  }
+  return normalizePosix(path);
+}
+function resolveRunesModuleSpecifier(spec, importerFile, aliases) {
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
+  if (path === void 0) return void 0;
+  if (/\.svelte\.(ts|js)$/.test(path)) return path;
+  if (path.endsWith(".svelte")) return `${path}.ts`;
+  return void 0;
+}
+function libServerRoot(aliases) {
+  const lib = aliases?.find((a2) => a2.find === "$lib");
+  if (lib && lib.replacement === null) return void 0;
+  return `${lib?.replacement ?? "src/lib"}/server`;
+}
+function serverRootRelativePath(spec, importerFile, aliases) {
+  const serverRoot = libServerRoot(aliases);
+  if (serverRoot === void 0) return void 0;
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
+  if (path === void 0) return void 0;
+  return path === serverRoot || path.startsWith(`${serverRoot}/`) ? path : void 0;
+}
+function isLocalStateSpecifier(spec, importerFile, aliases) {
+  const serverRoot = libServerRoot(aliases);
+  if (serverRoot === void 0) return false;
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
+  if (path === void 0) return false;
+  return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
+}
+var IN_MEMORY_CTORS = /* @__PURE__ */ new Set(["Map", "Set", "WeakMap", "WeakSet"]);
+function isInMemoryInit(init2) {
+  if (!init2) return false;
+  if (init2.type === "ObjectExpression" || init2.type === "ArrayExpression") return true;
+  return init2.type === "NewExpression" && init2.callee?.type === "Identifier" && IN_MEMORY_CTORS.has(init2.callee.name);
+}
+function parseInMemoryExports(source2, filename2) {
+  const names = /* @__PURE__ */ new Set();
+  const { program } = parseModuleProgram(source2, filename2);
+  for (const stmt2 of program?.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
+    const decl = stmt2.declaration;
+    if (decl.type !== "VariableDeclaration") continue;
+    for (const d2 of decl.declarations ?? []) {
+      if (d2?.id?.type === "Identifier" && isInMemoryInit(d2.init)) names.add(d2.id.name);
+    }
+  }
+  return names;
+}
+function parseKitModuleFacts(source2, filename2, aliases) {
+  const suppressions = collectSuppressions(source2);
+  const { program, wrapped } = parseModuleProgram(source2, filename2);
+  const moduleStateReassignments = [];
+  const importedStateWrites = [];
+  const importedStateWritesOutsideHandlers = [];
+  const pendingServerStoreWrites = [];
+  const runesModuleImports = [];
+  const lifecycleCalls = [];
+  const browserGlobalRefs = [];
+  if (!program) {
+    return {
+      moduleStateReassignments,
+      importedStateWrites,
+      importedStateWritesOutsideHandlers,
+      pendingServerStoreWrites,
+      runesModuleImports,
+      lifecycleCalls,
+      browserGlobalRefs,
+      basePathLinks: [],
+      suppressions
+    };
+  }
+  const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
+  const importedSpecifiers = /* @__PURE__ */ new Map();
+  const importedNames = /* @__PURE__ */ new Map();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
+    const spec = typeof stmt2.source?.value === "string" ? stmt2.source.value : "";
+    const names = [];
+    for (const s of stmt2.specifiers ?? []) {
+      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
+      names.push(s.local.name);
+      importedSpecifiers.set(s.local.name, spec);
+      importedNames.set(
+        s.local.name,
+        s.type === "ImportSpecifier" && s.imported?.type === "Identifier" ? s.imported.name : s.local.name
+      );
+    }
+    if (names.length === 0) continue;
+    const resolved = resolveRunesModuleSpecifier(spec, filename2, aliases);
+    if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt2.start) });
+  }
+  const moduleLets = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "VariableDeclaration" && (decl.kind === "let" || decl.kind === "var")) {
+      for (const d2 of decl.declarations ?? []) addBoundNames(d2?.id, moduleLets);
+    }
+  }
+  const handlerFns = collectHandlerFunctions(program);
+  const startupFns = collectStartupFunctions(program);
+  const svelteImports = collectSvelteLifecycleImports(program);
+  const ssrOptOut = findFalseOptOut(program, wrapped, "ssr");
+  const csrOptOut = findFalseOptOut(program, wrapped, "csr");
+  const waterfalls = collectLoadWaterfalls(program, wrapped);
+  if (!ssrOptOut) {
+    const shiftLine = (l2) => Math.max(0, l2 - 1);
+    const browserImports = collectBrowserGuardImports(program);
+    const guards = /* @__PURE__ */ new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
+    const bound = collectProgramBindings(program);
+    for (const r2 of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
+      browserGlobalRefs.push({ name: r2.name, line: shiftLine(r2.line), inHandler: false });
+    }
+    const scanFn = (fn, inHandler) => {
+      if (!fn?.body) return;
+      const params = /* @__PURE__ */ new Set();
+      for (const p2 of fn.params ?? []) addBoundNames(p2, params);
+      for (const r2 of collectBrowserGlobalRefs(fn.body, wrapped, { guards, bound: /* @__PURE__ */ new Set([...bound, ...params]) })) {
+        browserGlobalRefs.push({ name: r2.name, line: shiftLine(r2.line), inHandler });
+      }
+    };
+    for (const fn of handlerFns) scanFn(fn, true);
+    for (const fn of startupFns) {
+      if (handlerFns.has(fn)) continue;
+      scanFn(fn, false);
+    }
+  }
+  walkKit(program, handlerFns, startupFns, (n2, shadowed, inFunction, inHandler, inStartup) => {
+    if (inFunction && !inStartup) {
+      const flagLet = (name) => {
+        if (name && !shadowed.has(name) && moduleLets.has(name)) {
+          moduleStateReassignments.push({ name, line: line(n2.start), inHandler });
+        }
+      };
+      if (n2.type === "AssignmentExpression") {
+        if (n2.left?.type === "Identifier") flagLet(n2.left.name);
+        else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
+          const bound = /* @__PURE__ */ new Set();
+          addBoundNames(n2.left, bound);
+          for (const b of bound) flagLet(b);
+        }
+      } else if (n2.type === "UpdateExpression" && n2.argument?.type === "Identifier") {
+        flagLet(n2.argument.name);
+      }
+    }
+    let write;
+    const importedRoot = (expr) => {
+      const r2 = rootObjectName(expr);
+      return r2 && !shadowed.has(r2) && importedSpecifiers.has(r2) ? r2 : void 0;
+    };
+    if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") {
+      const r2 = importedRoot(n2.left);
+      if (r2) write = { name: r2, via: "assignment" };
+    } else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") {
+      const r2 = importedRoot(n2.argument);
+      if (r2) write = { name: r2, via: "assignment" };
+    } else if (n2.type === "UnaryExpression" && n2.operator === "delete") {
+      const r2 = importedRoot(n2.argument);
+      if (r2) write = { name: r2, via: "assignment" };
+    } else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
+      const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
+      if (method2 === "set" || method2 === "update") {
+        const r2 = importedRoot(n2.callee.object);
+        const spec = r2 ? importedSpecifiers.get(r2) : void 0;
+        if (r2 && spec !== void 0) {
+          if (isLocalStateSpecifier(spec, filename2, aliases)) write = { name: r2, via: "set-call" };
+          else {
+            const resolved = serverRootRelativePath(spec, filename2, aliases);
+            if (resolved !== void 0 && inHandler) {
+              pendingServerStoreWrites.push({
+                name: r2,
+                imported: importedNames.get(r2) ?? r2,
+                resolved,
+                line: line(n2.start)
+              });
+            }
+          }
+        }
+      }
+    } else if (n2.type === "AssignmentExpression" && (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern")) {
+      const scanPatternTargets = (pat) => {
+        if (!pat || write) return;
+        if (pat.type === "MemberExpression") {
+          const r2 = importedRoot(pat);
+          if (r2) write = { name: r2, via: "assignment" };
+        } else if (pat.type === "ObjectPattern") {
+          for (const p2 of pat.properties ?? []) {
+            if (p2?.type === "Property") scanPatternTargets(p2.value);
+            else if (p2?.type === "RestElement") scanPatternTargets(p2.argument);
+          }
+        } else if (pat.type === "ArrayPattern") {
+          for (const el of pat.elements ?? []) scanPatternTargets(el);
+        } else if (pat.type === "AssignmentPattern") {
+          scanPatternTargets(pat.left);
+        } else if (pat.type === "RestElement") {
+          scanPatternTargets(pat.argument);
+        }
+      };
+      scanPatternTargets(n2.left);
+    }
+    if (write) {
+      if (inHandler) importedStateWrites.push({ ...write, line: line(n2.start) });
+      else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n2.start) });
+    }
+    if (n2.type === "CallExpression" && (!inFunction || inHandler || inStartup)) {
+      const m = matchLifecycleCall(n2, svelteImports);
+      if (m && !shadowed.has(m.local)) {
+        lifecycleCalls.push({ name: m.canonical, line: line(n2.start), inHandler });
+      }
+    }
+  });
+  const byLine = (arr) => arr.sort((a2, b) => a2.line - b.line);
+  const basePathLinks = [];
+  const redirectLocals = collectNamedImportAliases(program, "@sveltejs/kit", REDIRECT_NAMES);
+  if (redirectLocals.size > 0) {
+    for (const call2 of collectRedirectCalls(program, redirectLocals)) {
+      const arg = call2.arguments?.[1];
+      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) continue;
+      basePathLinks.push({ kind: "redirect", path: arg.value, line: line(call2.start) });
+    }
+  }
+  return {
+    moduleStateReassignments: byLine(moduleStateReassignments),
+    importedStateWrites: byLine(importedStateWrites),
+    importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
+    pendingServerStoreWrites: byLine(pendingServerStoreWrites),
+    runesModuleImports: byLine(runesModuleImports),
+    lifecycleCalls: byLine(lifecycleCalls),
+    browserGlobalRefs: byLine(browserGlobalRefs),
+    basePathLinks: byLine(basePathLinks),
+    ...ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {},
+    ...csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {},
+    ...waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0 ? { loadWaterfalls: waterfalls } : {},
+    suppressions
+  };
+}
 var docsUrl7 = docsUrlFor("architecture/private-scope-import");
 var recommendation5 = "Move the unit to the directory shared by all of its importers, or import it only from inside its own scope.";
 var OPTIONS2 = { scopes: { kind: "string-list", default: [] } };
@@ -68512,32 +68115,40 @@ var allRules = [
   a11yIdDuplication,
   a11yNoMissingIdRef
 ];
-function classify(result3, config) {
-  if (isPenalized(result3.detection, config.treatDynamicAs)) return "fail";
-  if (result3.detection.value === "dynamic") return "dynamic";
-  return "pass";
+var SEVERITY_RANK = { critical: 0, warning: 1, info: 2 };
+function severityToGithubLevel(sev) {
+  return sev === "critical" ? "error" : sev === "warning" ? "warning" : "notice";
 }
-function effectiveSeverity(result3, config) {
-  if (result3.detection.value === "dynamic" && config.treatDynamicAs === "warn") return "warning";
-  return result3.severity;
+function messageText(result3) {
+  return result3.recommendation ? `${result3.message} ${result3.recommendation}` : result3.message;
 }
-function summarize(results, config) {
-  const summary2 = { critical: 0, warning: 0, info: 0, passed: 0, dynamic: 0 };
-  for (const result3 of results) {
-    const cls = classify(result3, config);
-    if (cls === "fail") {
-      summary2[effectiveSeverity(result3, config)] += 1;
-    } else {
-      summary2.passed += 1;
-      if (cls === "dynamic") summary2.dynamic += 1;
+var RULE_META = new Map(
+  allRules.map((r2) => [r2.id, { title: r2.title, severity: r2.severity, docsUrl: docsUrlFor(r2.id) }])
+);
+function ruleMetaById(id2) {
+  return RULE_META.get(id2);
+}
+function escapeData2(s) {
+  return s.replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+}
+function escapeProp(s) {
+  return escapeData2(s).replace(/:/g, "%3A").replace(/,/g, "%2C");
+}
+function formatGithubReport(results, config) {
+  const penalized = results.filter((r2) => isPenalized(r2.detection, config.treatDynamicAs));
+  const lines = penalized.map((r2) => {
+    const level = severityToGithubLevel(effectiveSeverity(r2, config));
+    const meta = ruleMetaById(r2.id);
+    const title = meta ? `${r2.id}: ${meta.title}` : r2.id;
+    const props = [];
+    if (r2.location) {
+      props.push(`file=${escapeProp(r2.location)}`);
+      if (r2.line !== void 0) props.push(`line=${r2.line}`);
     }
-  }
-  return summary2;
-}
-function hasFailureAtOrAbove(summary2, min) {
-  const order = ["info", "warning", "critical"];
-  const threshold = order.indexOf(min);
-  return order.some((sev, idx) => idx >= threshold && summary2[sev] > 0);
+    props.push(`title=${escapeProp(title)}`);
+    return `::${level} ${props.join(",")}::${escapeData2(messageText(r2))}`;
+  });
+  return lines.join("\n");
 }
 var DEDUCTION = { critical: 15, warning: 5, info: 1 };
 function pairKey(category, scope) {
@@ -68659,27 +68270,6 @@ function computeHealth(results, config) {
   const health = averageDeficit === 0 ? 100 : Math.min(99, Math.floor(100 - averageDeficit));
   return { health, categories, weights };
 }
-function inlineCode(text2) {
-  const longestRun = Math.max(0, ...(text2.match(/`+/g) ?? []).map((run2) => run2.length));
-  const fence = "`".repeat(longestRun + 1);
-  const pad = text2.startsWith("`") || text2.endsWith("`") ? " " : "";
-  return `${fence}${pad}${text2}${pad}${fence}`;
-}
-function mdEscape(text2) {
-  return text2.replace(/\r\n|\r|\n/g, " ").replace(/<[^>]+>/g, (tag2) => inlineCode(tag2)).replace(/\[([^\]]*)\]\(([^)]*)\)/g, "[$1]\\($2\\)");
-}
-function terminalSafe(text2) {
-  return text2.replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)?/g, "").replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, "").replace(/[\x00-\x08\x0b-\x1f\x7f]/g, "");
-}
-var CATEGORY_LABEL = {
-  seo: "SEO",
-  performance: "Performance",
-  correctness: "Correctness",
-  security: "Security",
-  architecture: "Architecture",
-  a11y: "Accessibility"
-};
-var CATEGORY_ORDER = Object.keys(CATEGORY_LABEL);
 function issueOf(result3) {
   return {
     id: result3.id,
@@ -68746,40 +68336,17 @@ function buildJsonReport(results, config, meta, ruleIds, examined) {
     ...examined && Object.keys(examined).length > 0 ? { examined } : {}
   };
 }
-var SEVERITY_RANK = { critical: 0, warning: 1, info: 2 };
-function severityToGithubLevel(sev) {
-  return sev === "critical" ? "error" : sev === "warning" ? "warning" : "notice";
+function inlineCode(text2) {
+  const longestRun = Math.max(0, ...(text2.match(/`+/g) ?? []).map((run2) => run2.length));
+  const fence = "`".repeat(longestRun + 1);
+  const pad = text2.startsWith("`") || text2.endsWith("`") ? " " : "";
+  return `${fence}${pad}${text2}${pad}${fence}`;
 }
-function messageText(result3) {
-  return result3.recommendation ? `${result3.message} ${result3.recommendation}` : result3.message;
+function mdEscape(text2) {
+  return text2.replace(/\r\n|\r|\n/g, " ").replace(/<[^>]+>/g, (tag2) => inlineCode(tag2)).replace(/\[([^\]]*)\]\(([^)]*)\)/g, "[$1]\\($2\\)");
 }
-var RULE_META = new Map(
-  allRules.map((r2) => [r2.id, { title: r2.title, severity: r2.severity, docsUrl: docsUrlFor(r2.id) }])
-);
-function ruleMetaById(id2) {
-  return RULE_META.get(id2);
-}
-function escapeData2(s) {
-  return s.replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
-}
-function escapeProp(s) {
-  return escapeData2(s).replace(/:/g, "%3A").replace(/,/g, "%2C");
-}
-function formatGithubReport(results, config) {
-  const penalized = results.filter((r2) => isPenalized(r2.detection, config.treatDynamicAs));
-  const lines = penalized.map((r2) => {
-    const level = severityToGithubLevel(effectiveSeverity(r2, config));
-    const meta = ruleMetaById(r2.id);
-    const title = meta ? `${r2.id}: ${meta.title}` : r2.id;
-    const props = [];
-    if (r2.location) {
-      props.push(`file=${escapeProp(r2.location)}`);
-      if (r2.line !== void 0) props.push(`line=${r2.line}`);
-    }
-    props.push(`title=${escapeProp(title)}`);
-    return `::${level} ${props.join(",")}::${escapeData2(messageText(r2))}`;
-  });
-  return lines.join("\n");
+function terminalSafe(text2) {
+  return text2.replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)?/g, "").replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, "").replace(/[\x00-\x08\x0b-\x1f\x7f]/g, "");
 }
 var MAX_FINDINGS = 50;
 var SEVERITY_EMOJI = { critical: "\u{1F534}", warning: "\u{1F7E1}", info: "\u{1F535}" };
@@ -68861,6 +68428,439 @@ function formatMarkdownReport(results, config, meta) {
   }
   return lines.join("\n");
 }
+
+// node_modules/.pnpm/@svelte-vitals+core@0.45.0/node_modules/@svelte-vitals/core/dist/internal.js
+function skippedFileWarnings(facts) {
+  const list3 = (files) => {
+    const shown = files.slice(0, 10);
+    return files.length > shown.length ? `${shown.join(", ")}, \u2026 and ${files.length - shown.length} more` : shown.join(", ");
+  };
+  const names = (pick) => [...new Set(facts.filter(pick).map((f) => f.file))].sort();
+  const unread = names((f) => f.readFailed === true);
+  const unparsed = names((f) => f.parseFailed === true && f.readFailed !== true);
+  const out = [];
+  if (unread.length > 0) {
+    out.push(
+      `skipped ${unread.length} file(s) that could not be read: ${list3(unread)}`,
+      "this is an environment problem, not a code one \u2014 check file permissions and the open-file limit (`ulimit -n`)."
+    );
+  }
+  if (unparsed.length > 0) {
+    out.push(
+      `skipped ${unparsed.length} file(s) that could not be parsed: ${list3(unparsed)}`,
+      "findings for these files are unavailable until they parse."
+    );
+  }
+  return out;
+}
+function emptyComponentFacts(file) {
+  return {
+    file,
+    eachBlocks: [],
+    effects: [],
+    htmlTags: [],
+    javascriptUrls: [],
+    loc: 0,
+    propCount: 0,
+    imports: [],
+    importSpans: [],
+    namespaceImports: [],
+    constableStates: [],
+    mutatedProps: [],
+    stalePropDerivations: [],
+    rawableStates: [],
+    nonreactiveBuiltinStates: [],
+    checkableBindValues: [],
+    basePathLinks: [],
+    orphanEffects: [],
+    orphanLifecycleCalls: [],
+    browserGlobalRefs: [],
+    moduleStateDecls: [],
+    suppressions: [],
+    commentLinks: []
+  };
+}
+async function collectComponentFacts(rt, cwd) {
+  const files = await rt.glob("src/**/*.svelte{,.ts,.js}", cwd);
+  return Promise.all(
+    files.sort().map(async (rel) => {
+      let source2;
+      try {
+        source2 = await rt.readFile(rt.join(cwd, rel));
+      } catch {
+        return { ...emptyComponentFacts(rel), parseFailed: true, readFailed: true };
+      }
+      try {
+        return { file: rel, ...parseComponentFacts(source2, rel) };
+      } catch {
+        return { ...emptyComponentFacts(rel), parseFailed: true };
+      }
+    })
+  );
+}
+async function collectSourceFiles(rt, cwd) {
+  const files = await rt.glob("src/**/*", cwd);
+  return files.slice().sort();
+}
+function emptyKitModuleFacts(file, kind) {
+  return {
+    file,
+    kind,
+    moduleStateReassignments: [],
+    importedStateWrites: [],
+    importedStateWritesOutsideHandlers: [],
+    pendingServerStoreWrites: [],
+    runesModuleImports: [],
+    lifecycleCalls: [],
+    browserGlobalRefs: [],
+    basePathLinks: [],
+    suppressions: []
+  };
+}
+function kindOf(file) {
+  const base = file.split("/").pop() ?? file;
+  return base.includes(".server.") || base.startsWith("+server.") ? "server" : "universal";
+}
+async function collectKitModuleFacts(rt, cwd, aliases) {
+  const patterns = [
+    "src/routes/**/+{page,layout}.server.{ts,js}",
+    "src/routes/**/+{page,layout}.{ts,js}",
+    "src/routes/**/+server.{ts,js}",
+    "src/hooks.server.{ts,js}"
+  ];
+  const lists = await Promise.all(patterns.map((p2) => rt.glob(p2, cwd)));
+  const files = [...new Set(lists.flat())];
+  const facts = await Promise.all(
+    files.sort().map(async (rel) => {
+      const kind = kindOf(rel);
+      let source2;
+      try {
+        source2 = await rt.readFile(rt.join(cwd, rel));
+      } catch {
+        return { ...emptyKitModuleFacts(rel, kind), parseFailed: true, readFailed: true };
+      }
+      try {
+        return { file: rel, kind, ...parseKitModuleFacts(source2, rel, aliases) };
+      } catch {
+        return { ...emptyKitModuleFacts(rel, kind), parseFailed: true };
+      }
+    })
+  );
+  return arbitrateServerStoreWrites(rt, cwd, facts);
+}
+function moduleCandidates(repoPath) {
+  if (repoPath.endsWith(".js")) return [repoPath, `${repoPath.slice(0, -3)}.ts`];
+  if (repoPath.endsWith(".ts")) return [repoPath];
+  return [`${repoPath}.ts`, `${repoPath}.js`, `${repoPath}/index.ts`, `${repoPath}/index.js`];
+}
+async function inMemoryExportsOf(rt, cwd, repoPath) {
+  for (const rel of moduleCandidates(repoPath)) {
+    try {
+      if (!await rt.exists(rt.join(cwd, rel))) continue;
+      return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);
+    } catch {
+      return /* @__PURE__ */ new Set();
+    }
+  }
+  return /* @__PURE__ */ new Set();
+}
+async function arbitrateServerStoreWrites(rt, cwd, facts) {
+  const targets = [...new Set(facts.flatMap((f) => f.pendingServerStoreWrites.map((w2) => w2.resolved)))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(
+    await Promise.all(targets.map(async (t2) => [t2, await inMemoryExportsOf(rt, cwd, t2)]))
+  );
+  return facts.map((f) => {
+    const promoted = f.pendingServerStoreWrites.filter((w2) => byPath.get(w2.resolved)?.has(w2.imported)).map((w2) => ({ name: w2.name, line: w2.line, via: "set-call" }));
+    if (promoted.length === 0) return f;
+    return {
+      ...f,
+      importedStateWrites: [...f.importedStateWrites, ...promoted].sort((a2, b) => a2.line - b.line)
+    };
+  });
+}
+function propOf(obj, name) {
+  let found;
+  for (const p2 of obj.properties) {
+    if (p2.type === "SpreadElement") {
+      if (found) found = void 0;
+      continue;
+    }
+    if (p2.type !== "Property" || p2.computed) continue;
+    if (p2.key.type === "Identifier" && p2.key.name === name) found = p2;
+    else if (p2.key.type === "Literal" && p2.key.value === name) found = p2;
+  }
+  return found;
+}
+function unwrapToObjectExpression(expr, bindings) {
+  let current2 = expr;
+  for (let i2 = 0; i2 < 4 && current2; i2++) {
+    const e3 = unwrapTs(current2);
+    if (e3.type === "ObjectExpression") return e3;
+    if (e3.type === "Identifier") {
+      current2 = bindings.get(e3.name);
+      continue;
+    }
+    if (e3.type === "CallExpression") {
+      current2 = e3.arguments[0];
+      continue;
+    }
+    return void 0;
+  }
+  const final = current2 ? unwrapTs(current2) : void 0;
+  return final?.type === "ObjectExpression" ? final : void 0;
+}
+function findExportedExpression(program) {
+  let exported;
+  for (const stmt2 of program.body) {
+    if (stmt2.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
+  }
+  if (exported) return exported;
+  let cjsExported;
+  for (const stmt2 of program.body) {
+    if (stmt2.type !== "ExpressionStatement") continue;
+    const expr = stmt2.expression;
+    if (expr.type !== "AssignmentExpression" || expr.operator !== "=") continue;
+    const left = expr.left;
+    if (left.type === "MemberExpression" && !left.computed && left.object.type === "Identifier" && left.object.name === "module" && left.property.type === "Identifier" && left.property.name === "exports") {
+      cjsExported = expr.right;
+    }
+  }
+  return cjsExported;
+}
+function resolveConfigObject(program) {
+  const exported = findExportedExpression(program);
+  if (!exported) return void 0;
+  return unwrapToObjectExpression(exported, collectTopLevelBindings(program));
+}
+function findMinifyDisabled(source2) {
+  let program;
+  let wrapped;
+  try {
+    ({ program, wrapped } = parseModuleProgram(source2, "vite.config.ts"));
+  } catch {
+    return void 0;
+  }
+  if (!program) return void 0;
+  const config = resolveConfigObject(program);
+  if (!config) return void 0;
+  const build2 = propOf(config, "build");
+  const buildValue = build2 ? unwrapTs(build2.value) : void 0;
+  if (buildValue?.type !== "ObjectExpression") return void 0;
+  const minify = propOf(buildValue, "minify");
+  const minifyValue = minify ? unwrapTs(minify.value) : void 0;
+  if (!minify || minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
+  return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
+}
+function basePathOf(kitConfig, bindings) {
+  const paths = propOf(kitConfig, "paths");
+  const pathsObj = paths ? unwrapToObjectExpression(paths.value, bindings) : void 0;
+  if (!pathsObj) return void 0;
+  const base = propOf(pathsObj, "base");
+  if (!base) return void 0;
+  const value = unwrapTs(base.value);
+  if (value.type === "Literal") {
+    return typeof value.value === "string" && value.value !== "" ? { value: value.value } : void 0;
+  }
+  return {};
+}
+function keyNameOf(p2) {
+  if (p2.computed) return void 0;
+  if (p2.key.type === "Identifier") return p2.key.name;
+  if (p2.key.type === "Literal" && typeof p2.key.value === "string") return p2.key.value;
+  return void 0;
+}
+function stringValueOf(p2) {
+  const v = unwrapTs(p2.value);
+  return v.type === "Literal" && typeof v.value === "string" ? v.value : void 0;
+}
+function aliasEntriesOf(kitConfig, bindings) {
+  const alias = propOf(kitConfig, "alias");
+  if (!alias) return [];
+  const obj = unwrapToObjectExpression(alias.value, bindings);
+  if (!obj) return void 0;
+  const out = [];
+  const at2 = /* @__PURE__ */ new Map();
+  for (const p2 of obj.properties) {
+    if (p2.type !== "Property") return void 0;
+    const key2 = keyNameOf(p2);
+    if (key2 === void 0) return void 0;
+    const entry = { key: key2, value: stringValueOf(p2) ?? null };
+    const seen = at2.get(key2);
+    if (seen === void 0) {
+      at2.set(key2, out.length);
+      out.push(entry);
+    } else out[seen] = entry;
+  }
+  return out;
+}
+function filesLibOf(kitConfig, bindings) {
+  const files = propOf(kitConfig, "files");
+  const obj = files ? unwrapToObjectExpression(files.value, bindings) : void 0;
+  const lib = obj ? propOf(obj, "lib") : void 0;
+  if (!lib) return void 0;
+  return stringValueOf(lib) ?? null;
+}
+function findKitAliasesInSvelteConfig(source2) {
+  const program = programOf(source2, "svelte.config.js");
+  const config = program ? resolveConfigObject(program) : void 0;
+  if (!program || !config) return { entries: [] };
+  const bindings = collectTopLevelBindings(program);
+  const kit = propOf(config, "kit");
+  const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
+  if (!kitObj) return { entries: [] };
+  const filesLib = filesLibOf(kitObj, bindings);
+  return { entries: aliasEntriesOf(kitObj, bindings), ...filesLib !== void 0 ? { filesLib } : {} };
+}
+function normalizeAliasValue(value) {
+  const posix2 = value.replace(/\\/g, "/");
+  const noStar = posix2.endsWith("/*") ? posix2.slice(0, -2) : posix2;
+  return noStar.replace(/\/+$/, "");
+}
+function compileKitAliases(raw) {
+  const filesLib = raw.filesLib === null ? null : normalizeAliasValue(raw.filesLib ?? "src/lib");
+  const out = [{ find: "$lib", replacement: filesLib, match: "prefix" }];
+  const entries = raw.entries ?? [];
+  const declared = new Set(entries.map((e3) => e3.key));
+  for (const { key: key2, value } of entries) {
+    const star = key2.endsWith("/*");
+    out.push({
+      find: star ? key2.slice(0, -2) : key2,
+      replacement: value === null ? null : normalizeAliasValue(value),
+      match: star ? "contents" : declared.has(`${key2}/*`) ? "exact" : "prefix"
+    });
+  }
+  return out;
+}
+function resolveKitAliases(viteConfig, svelteConfig) {
+  if (viteConfig && findKitPathsBaseInViteConfig(viteConfig.source).kind !== "no-plugin-config") return void 0;
+  if (!svelteConfig) return void 0;
+  return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
+}
+function programOf(source2, filename2) {
+  try {
+    return parseModuleProgram(source2, filename2).program ?? void 0;
+  } catch {
+    return void 0;
+  }
+}
+function findKitPathsBaseInSvelteConfig(source2) {
+  const program = programOf(source2, "svelte.config.js");
+  if (!program) return void 0;
+  const config = resolveConfigObject(program);
+  if (!config) return void 0;
+  const bindings = collectTopLevelBindings(program);
+  const kit = propOf(config, "kit");
+  const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
+  return kitObj ? basePathOf(kitObj, bindings) : void 0;
+}
+function sveltekitLocalNames(program) {
+  const out = collectNamedImportAliases(program, "@sveltejs/kit/vite", /* @__PURE__ */ new Set(["sveltekit"]));
+  if (out.size === 0) out.add("sveltekit");
+  return out;
+}
+function findKitPathsBaseInViteConfig(source2) {
+  const none = { kind: "no-plugin-config" };
+  const program = programOf(source2, "vite.config.ts");
+  if (!program) return none;
+  const config = resolveConfigObject(program);
+  if (!config) return none;
+  const bindings = collectTopLevelBindings(program);
+  const plugins = propOf(config, "plugins");
+  const pluginsValue = plugins ? unwrapTs(plugins.value) : void 0;
+  if (pluginsValue?.type !== "ArrayExpression") return none;
+  const locals = sveltekitLocalNames(program);
+  for (const el of pluginsValue.elements) {
+    if (!el || el.type === "SpreadElement") continue;
+    const call2 = unwrapTs(el);
+    if (call2.type !== "CallExpression") continue;
+    if (call2.callee.type !== "Identifier" || !locals.has(call2.callee.name)) continue;
+    const arg = call2.arguments[0];
+    if (arg === void 0) return none;
+    const kitConfig = unwrapToObjectExpression(arg, bindings);
+    if (!kitConfig) return { kind: "unresolvable" };
+    const base = basePathOf(kitConfig, bindings);
+    return base ? { kind: "resolved", base } : { kind: "resolved" };
+  }
+  return none;
+}
+function resolveKitPathsBase(viteConfig, svelteConfig) {
+  if (viteConfig) {
+    const result3 = findKitPathsBaseInViteConfig(viteConfig.source);
+    if (result3.kind === "unresolvable") return void 0;
+    if (result3.kind === "resolved") {
+      return result3.base ? { ...result3.base, file: viteConfig.file } : void 0;
+    }
+  }
+  if (!svelteConfig) return void 0;
+  const base = findKitPathsBaseInSvelteConfig(svelteConfig.source);
+  return base ? { ...base, file: svelteConfig.file } : void 0;
+}
+var ROBOTS_SOURCE_PATHS = [
+  "static/robots.txt",
+  "src/routes/robots.txt/+server.ts",
+  "src/routes/robots.txt/+server.js"
+];
+var SITEMAP_SOURCE_PATHS = [
+  "static/sitemap.xml",
+  "src/routes/sitemap.xml/+server.ts",
+  "src/routes/sitemap.xml/+server.js"
+];
+var VITE_CONFIG_FILES = [
+  "vite.config.js",
+  "vite.config.mjs",
+  "vite.config.ts",
+  "vite.config.cjs",
+  "vite.config.mts",
+  "vite.config.cts"
+];
+var SVELTE_CONFIG_FILES = ["svelte.config.js", "svelte.config.ts"];
+var READ_CONCURRENCY = 64;
+function withReadLimit(readFile2, limit = READ_CONCURRENCY) {
+  let active = 0;
+  const waiting = [];
+  const release = () => {
+    active--;
+    waiting.shift()?.();
+  };
+  return async (path) => {
+    if (active >= limit) await new Promise((resolve4) => waiting.push(resolve4));
+    active++;
+    try {
+      return await readFile2(path);
+    } finally {
+      release();
+    }
+  };
+}
+async function runRules(rules, ctx) {
+  const examined = {};
+  const perRule = await Promise.all(
+    rules.map(async (rule) => {
+      try {
+        return await rule.check({ ...ctx, recordExamined: (counts) => void (examined[rule.id] = counts) });
+      } catch (err) {
+        return { id: rule.id, message: err instanceof Error ? err.message : String(err) };
+      }
+    })
+  );
+  const results = [];
+  const failedRules = [];
+  for (const outcome of perRule) {
+    if (Array.isArray(outcome)) results.push(...outcome);
+    else failedRules.push(outcome);
+  }
+  return { results, examined, failedRules };
+}
+var CATEGORY_LABEL = {
+  seo: "SEO",
+  performance: "Performance",
+  correctness: "Correctness",
+  security: "Security",
+  architecture: "Architecture",
+  a11y: "Accessibility"
+};
+var CATEGORY_ORDER = Object.keys(CATEGORY_LABEL);
 var APP_SCRIPT = `
 (function(){
   var BAND_COLOR = { good: '#2fa968', warn: '#e8a317', poor: '#e5484d' };
@@ -69401,7 +69401,7 @@ var APP_SCRIPT = `
 })();
 `;
 
-// node_modules/.pnpm/svelte-vitals@0.48.0_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-AI24FJ5Q.js
+// node_modules/.pnpm/svelte-vitals@0.48.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-AI24FJ5Q.js
 var KNOWN_IDS = new Set(allRules.map((r2) => r2.id));
 var RULE_BY_ID = new Map(allRules.map((r2) => [r2.id, r2]));
 function findUnknownRuleIds(ids) {
@@ -70188,7 +70188,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// node_modules/.pnpm/svelte-vitals@0.48.0_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-WGFXFKBB.js
+// node_modules/.pnpm/svelte-vitals@0.48.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-WGFXFKBB.js
 import { readFileSync as readFileSync2 } from "fs";
 
 // node_modules/.pnpm/gunshi@0.37.1/node_modules/gunshi/lib/agent.js
@@ -70378,7 +70378,7 @@ function I() {
 }
 I()?.name;
 
-// node_modules/.pnpm/svelte-vitals@0.48.0_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-WGFXFKBB.js
+// node_modules/.pnpm/svelte-vitals@0.48.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-WGFXFKBB.js
 import { existsSync as existsSync2 } from "fs";
 import { join as join3 } from "path";
 import { pathToFileURL } from "url";
@@ -70552,7 +70552,7 @@ async function loadConfigFile(cwd) {
   return validateConfigFile(mod.default, found);
 }
 
-// node_modules/.pnpm/svelte-vitals@0.48.0_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-LJPABOWU.js
+// node_modules/.pnpm/svelte-vitals@0.48.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-LJPABOWU.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 import { execFileSync } from "child_process";
