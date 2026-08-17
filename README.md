@@ -1,6 +1,6 @@
 # svelte-vitals-action
 
-First-party GitHub Action for [svelte-vitals](https://github.com/oekazuma/svelte-vitals): static SvelteKit code-health checks (SEO, Performance, Correctness, Security, Architecture) on every pull request — inline annotations on the diff, a job summary, and a single sticky PR comment that updates in place on each push.
+First-party GitHub Action for [svelte-vitals](https://github.com/oekazuma/svelte-vitals): static SvelteKit code-health checks (SEO, Performance, Correctness, Security, Architecture, Accessibility) on every pull request — inline annotations on the diff, a job summary, and a single sticky PR comment that updates in place on each push.
 
 The easiest way to set it up is the generator (no YAML to hand-write, and it pins a working commit SHA for you):
 
