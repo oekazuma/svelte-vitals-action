@@ -1,5 +1,5 @@
 ---
-'@svelte-vitals/action': major
+'@svelte-vitals/action': minor
 ---
 
 Update the bundled analyzer to `svelte-vitals` 0.48.0 / `@svelte-vitals/core` 0.44.0. The action's inputs and outputs are unchanged, but two things here can stop a workflow that currently passes, and one of them needs a file renamed.
