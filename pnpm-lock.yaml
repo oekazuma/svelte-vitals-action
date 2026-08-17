@@ -15,11 +15,11 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       '@svelte-vitals/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       svelte-vitals:
-        specifier: ^0.48.0
-        version: 0.48.0(cac@6.7.14)
+        specifier: ^0.48.1
+        version: 0.48.1(cac@6.7.14)
     devDependencies:
       '@changesets/cli':
         specifier: ^2.31.1
@@ -929,8 +929,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@svelte-vitals/core@0.44.0':
-    resolution: {integrity: sha512-P78l8V/dZzncMrfBLVL9SOZQ3nM1m3xM7mw3EHRGaS3jpOxA8LZnPAGyCKVU0465a+be1eSW8uij/o/mkyEM5g==}
+  '@svelte-vitals/core@0.45.0':
+    resolution: {integrity: sha512-wCR+dCqN0q42uSGo/k/Zu0lgdaiyjI4v3uZfdBds/IN6H1Jf7ld9hN7QppwxSr6b5IdzkCS2/LFK6fPrqxHfHA==}
     engines: {node: '>=24.16.0'}
 
   '@sveltejs/acorn-typescript@1.0.11':
@@ -1795,8 +1795,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.48.0:
-    resolution: {integrity: sha512-tDH4remCztRcnrBoAoZ8hPZifwSi2OovLD9MUmf1MQe4+pWykO2wUzvDlEVDqtphCG65EEMh+WO+Y9WYf7amtw==}
+  svelte-vitals@0.48.1:
+    resolution: {integrity: sha512-amlnbdzCeK7PbRgr1QWYt28SvwgWOp/UGLU311TOvhfMN0EYfAE65bXEFSZ4MiOekWnRcfuz6H47pOWoP6IlsQ==}
     engines: {node: '>=24.16.0'}
     hasBin: true
 
@@ -2676,7 +2676,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@svelte-vitals/core@0.44.0':
+  '@svelte-vitals/core@0.45.0':
     dependencies:
       aria-query: 5.3.2
       svelte: 5.56.9
@@ -3447,13 +3447,13 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.48.0(cac@6.7.14):
+  svelte-vitals@0.48.1(cac@6.7.14):
     dependencies:
       '@clack/prompts': 1.7.0
       '@gunshi/plugin-completion': 0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)
       '@gunshi/plugin-i18n': 0.37.1
       '@gunshi/plugin-suggestion': 0.37.1(@gunshi/plugin-i18n@0.37.1)
-      '@svelte-vitals/core': 0.44.0
+      '@svelte-vitals/core': 0.45.0
       gunshi: 0.37.1
       log-update: 8.0.0
       magicast: 0.5.4
