@@ -33,6 +33,11 @@
     {
       "groupName": "devDependencies",
       "matchDepTypes": ["devDependencies"]
+    },
+    {
+      "description": "changesets/action refuses to run against a mismatched @changesets/cli major (its v2 rejects cli v2 outright and points at action@v1), so splitting these across two PRs leaves whichever merges first with a release workflow that cannot version or publish. They arrive together and are reviewed as one change. Listed last because a later packageRule's groupName wins, and @changesets/cli would otherwise land in devDependencies.",
+      "groupName": "changesets",
+      "matchPackageNames": ["@changesets/cli", "changesets/action"]
     }
   ]
 }
