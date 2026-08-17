@@ -3,7 +3,7 @@ import { STICKY_COMMENT_MARKER } from '../src/sticky-comment.js';
 
 // `fork.ts`/`sticky-comment.ts` are pure helpers already covered by their own test
 // files — main() uses the real implementations here. Only the external SDK surface
-// (@actions/core, @actions/github, svelte-vitals, @svelte-vitals/core/internal) is mocked, using
+// (@actions/core, @actions/github, svelte-vitals, @svelte-vitals/core) is mocked, using
 // the same "vi.mock before importing the module under test" pattern as
 // packages/vite/test/plugin-error.test.ts.
 const h = vi.hoisted(() => {
@@ -96,7 +96,7 @@ vi.mock('svelte-vitals', () => ({
   applyScope: h.applyScope
 }));
 
-vi.mock('@svelte-vitals/core/internal', () => ({
+vi.mock('@svelte-vitals/core', () => ({
   formatGithubReport: h.formatGithubReport,
   formatMarkdownReport: h.formatMarkdownReport,
   summarize: h.summarize,
