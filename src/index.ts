@@ -1,7 +1,10 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import { analyzeProject, applyScope } from 'svelte-vitals';
-import { formatGithubReport, formatMarkdownReport, summarize, hasFailureAtOrAbove } from '@svelte-vitals/core';
+// Reporters and scoring live behind `/internal`, which upstream excludes from semver —
+// a patch bump there can move or rename any of these, so CI's typecheck is what stands
+// between a dependency update and a broken bundle.
+import { formatGithubReport, formatMarkdownReport, summarize, hasFailureAtOrAbove } from '@svelte-vitals/core/internal';
 import { isForkPR } from './fork.js';
 import { planStickyComment, STICKY_COMMENT_MARKER } from './sticky-comment.js';
 
