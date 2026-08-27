@@ -2091,9 +2091,9 @@ var require_dispatcher_base = __commonJS({
       }
       close(callback2) {
         if (callback2 === void 0) {
-          return new Promise((resolve4, reject) => {
+          return new Promise((resolve5, reject) => {
             this.close((err, data2) => {
-              return err ? reject(err) : resolve4(data2);
+              return err ? reject(err) : resolve5(data2);
             });
           });
         }
@@ -2131,12 +2131,12 @@ var require_dispatcher_base = __commonJS({
           err = null;
         }
         if (callback2 === void 0) {
-          return new Promise((resolve4, reject) => {
+          return new Promise((resolve5, reject) => {
             this.destroy(err, (err2, data2) => {
               return err2 ? (
                 /* istanbul ignore next: should never error */
                 reject(err2)
-              ) : resolve4(data2);
+              ) : resolve5(data2);
             });
           });
         }
@@ -3292,12 +3292,12 @@ var require_data_url = __commonJS({
       return serialized;
     }
     function collectASequenceOfCodePoints(condition, input, position) {
-      let result3 = "";
+      let result2 = "";
       while (position.position < input.length && condition(input[position.position])) {
-        result3 += input[position.position];
+        result2 += input[position.position];
         position.position++;
       }
-      return result3;
+      return result2;
     }
     function collectASequenceOfCodePointsFast(char, input, position) {
       const idx = input.indexOf(char, position.position);
@@ -3519,16 +3519,16 @@ var require_data_url = __commonJS({
       if ((2 << 15) - 1 > length) {
         return String.fromCharCode.apply(null, input);
       }
-      let result3 = "";
+      let result2 = "";
       let i2 = 0;
       let addition = (2 << 15) - 1;
       while (i2 < length) {
         if (i2 + addition > length) {
           addition = length - i2;
         }
-        result3 += String.fromCharCode.apply(null, input.subarray(i2, i2 += addition));
+        result2 += String.fromCharCode.apply(null, input.subarray(i2, i2 += addition));
       }
-      return result3;
+      return result2;
     }
     function minimizeSupportedMimeType(mimeType) {
       switch (mimeType.essence) {
@@ -3777,15 +3777,15 @@ var require_webidl = __commonJS({
             message: `${argument} ("${webidl.util.Type(O2)}") is not an Object.`
           });
         }
-        const result3 = {};
+        const result2 = {};
         if (!types2.isProxy(O2)) {
           const keys2 = [...Object.getOwnPropertyNames(O2), ...Object.getOwnPropertySymbols(O2)];
           for (const key2 of keys2) {
             const typedKey = keyConverter(key2, prefix, argument);
             const typedValue = valueConverter(O2[key2], prefix, argument);
-            result3[typedKey] = typedValue;
+            result2[typedKey] = typedValue;
           }
-          return result3;
+          return result2;
         }
         const keys = Reflect.ownKeys(O2);
         for (const key2 of keys) {
@@ -3793,10 +3793,10 @@ var require_webidl = __commonJS({
           if (desc?.enumerable) {
             const typedKey = keyConverter(key2, prefix, argument);
             const typedValue = valueConverter(O2[key2], prefix, argument);
-            result3[typedKey] = typedValue;
+            result2[typedKey] = typedValue;
           }
         }
-        return result3;
+        return result2;
       };
     };
     webidl.interfaceConverter = function(i2) {
@@ -4326,7 +4326,7 @@ var require_util2 = __commonJS({
     }
     var parseHashWithOptions = /(?<algo>sha256|sha384|sha512)-((?<hash>[A-Za-z0-9+/]+|[A-Za-z0-9_-]+)={0,2}(?:\s|$)( +[!-~]*)?)?/i;
     function parseMetadata(metadata) {
-      const result3 = [];
+      const result2 = [];
       let empty4 = true;
       for (const token of metadata.split(" ")) {
         empty4 = false;
@@ -4336,13 +4336,13 @@ var require_util2 = __commonJS({
         }
         const algorithm = parsedToken.groups.algo.toLowerCase();
         if (supportedHashes.includes(algorithm)) {
-          result3.push(parsedToken.groups);
+          result2.push(parsedToken.groups);
         }
       }
       if (empty4 === true) {
         return "no metadata";
       }
-      return result3;
+      return result2;
     }
     function getStrongestMetadata(metadataList) {
       let algorithm = metadataList[0].algo;
@@ -4403,8 +4403,8 @@ var require_util2 = __commonJS({
     function createDeferredPromise() {
       let res;
       let rej;
-      const promise2 = new Promise((resolve4, reject) => {
-        res = resolve4;
+      const promise2 = new Promise((resolve5, reject) => {
+        res = resolve5;
         rej = reject;
       });
       return { promise: promise2, resolve: res, reject: rej };
@@ -4419,12 +4419,12 @@ var require_util2 = __commonJS({
       return normalizedMethodRecordsBase[method2.toLowerCase()] ?? method2;
     }
     function serializeJavascriptValueToJSONString(value) {
-      const result3 = JSON.stringify(value);
-      if (result3 === void 0) {
+      const result2 = JSON.stringify(value);
+      if (result2 === void 0) {
         throw new TypeError("Value is not JSON serializable");
       }
-      assert2(typeof result3 === "string");
-      return result3;
+      assert2(typeof result2 === "string");
+      return result2;
     }
     var esIteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.iterator]()));
     function createIterator(name, kInternalIterator, keyIndex = 0, valueIndex = 1) {
@@ -4462,20 +4462,20 @@ var require_util2 = __commonJS({
           }
           const { [keyIndex]: key2, [valueIndex]: value } = values[index];
           this.#index = index + 1;
-          let result3;
+          let result2;
           switch (this.#kind) {
             case "key":
-              result3 = key2;
+              result2 = key2;
               break;
             case "value":
-              result3 = value;
+              result2 = value;
               break;
             case "key+value":
-              result3 = [key2, value];
+              result2 = [key2, value];
               break;
           }
           return {
-            value: result3,
+            value: result2,
             done: false
           };
         }
@@ -5166,11 +5166,11 @@ var require_formdata_parser = __commonJS({
           return "failure";
         }
         position.position += 2;
-        const result3 = parseMultipartFormDataHeaders(input, position);
-        if (result3 === "failure") {
+        const result2 = parseMultipartFormDataHeaders(input, position);
+        if (result2 === "failure") {
           return "failure";
         }
-        let { name, filename: filename2, contentType, encoding } = result3;
+        let { name, filename: filename2, contentType, encoding } = result2;
         position.position += 2;
         let body;
         {
@@ -6641,12 +6641,12 @@ upgrade: ${upgrade}\r
           cb();
         }
       }
-      const waitForDrain = () => new Promise((resolve4, reject) => {
+      const waitForDrain = () => new Promise((resolve5, reject) => {
         assert2(callback2 === null);
         if (socket[kError]) {
           reject(socket[kError]);
         } else {
-          callback2 = resolve4;
+          callback2 = resolve5;
         }
       });
       socket.on("close", onDrain).on("drain", onDrain);
@@ -6831,17 +6831,17 @@ var require_client_h2 = __commonJS({
       }
     } = http2;
     function parseH2Headers(headers) {
-      const result3 = [];
+      const result2 = [];
       for (const [name, value] of Object.entries(headers)) {
         if (Array.isArray(value)) {
           for (const subvalue of value) {
-            result3.push(Buffer.from(name), Buffer.from(subvalue));
+            result2.push(Buffer.from(name), Buffer.from(subvalue));
           }
         } else {
-          result3.push(Buffer.from(name), Buffer.from(value));
+          result2.push(Buffer.from(name), Buffer.from(value));
         }
       }
-      return result3;
+      return result2;
     }
     async function connectH2(client, socket) {
       client[kSocket] = socket;
@@ -7283,12 +7283,12 @@ var require_client_h2 = __commonJS({
           cb();
         }
       }
-      const waitForDrain = () => new Promise((resolve4, reject) => {
+      const waitForDrain = () => new Promise((resolve5, reject) => {
         assert2(callback2 === null);
         if (socket[kError]) {
           reject(socket[kError]);
         } else {
-          callback2 = resolve4;
+          callback2 = resolve5;
         }
       });
       h2stream.on("close", onDrain).on("drain", onDrain);
@@ -7766,16 +7766,16 @@ var require_client = __commonJS({
         return this[kNeedDrain] < 2;
       }
       async [kClose]() {
-        return new Promise((resolve4) => {
+        return new Promise((resolve5) => {
           if (this[kSize]) {
-            this[kClosedResolve] = resolve4;
+            this[kClosedResolve] = resolve5;
           } else {
-            resolve4(null);
+            resolve5(null);
           }
         });
       }
       async [kDestroy](err) {
-        return new Promise((resolve4) => {
+        return new Promise((resolve5) => {
           const requests = this[kQueue].splice(this[kPendingIdx]);
           for (let i2 = 0; i2 < requests.length; i2++) {
             const request2 = requests[i2];
@@ -7786,7 +7786,7 @@ var require_client = __commonJS({
               this[kClosedResolve]();
               this[kClosedResolve] = null;
             }
-            resolve4(null);
+            resolve5(null);
           };
           if (this[kHTTPContext]) {
             this[kHTTPContext].destroy(err, callback2);
@@ -7837,7 +7837,7 @@ var require_client = __commonJS({
         });
       }
       try {
-        const socket = await new Promise((resolve4, reject) => {
+        const socket = await new Promise((resolve5, reject) => {
           client[kConnector]({
             host,
             hostname,
@@ -7849,7 +7849,7 @@ var require_client = __commonJS({
             if (err) {
               reject(err);
             } else {
-              resolve4(socket2);
+              resolve5(socket2);
             }
           });
         });
@@ -8186,8 +8186,8 @@ var require_pool_base = __commonJS({
         if (this[kQueue].isEmpty()) {
           await Promise.all(this[kClients].map((c) => c.close()));
         } else {
-          await new Promise((resolve4) => {
-            this[kClosedResolve] = resolve4;
+          await new Promise((resolve5) => {
+            this[kClosedResolve] = resolve5;
           });
         }
       }
@@ -8425,11 +8425,11 @@ var require_balanced_pool = __commonJS({
         return this;
       }
       _updateBalancedPoolStats() {
-        let result3 = 0;
+        let result2 = 0;
         for (let i2 = 0; i2 < this[kClients].length; i2++) {
-          result3 = getGreatestCommonDivisor(this[kClients][i2][kWeight], result3);
+          result2 = getGreatestCommonDivisor(this[kClients][i2][kWeight], result2);
         }
-        this[kGreatestCommonDivisor] = result3;
+        this[kGreatestCommonDivisor] = result2;
       }
       removeUpstream(upstream) {
         const upstreamOrigin = parseOrigin(upstream).origin;
@@ -9402,7 +9402,7 @@ var require_readable = __commonJS({
         if (this._readableState.closeEmitted) {
           return null;
         }
-        return await new Promise((resolve4, reject) => {
+        return await new Promise((resolve5, reject) => {
           if (this[kContentLength] > limit) {
             this.destroy(new AbortError());
           }
@@ -9415,7 +9415,7 @@ var require_readable = __commonJS({
             if (signal?.aborted) {
               reject(signal.reason ?? new AbortError());
             } else {
-              resolve4(null);
+              resolve5(null);
             }
           }).on("error", noop3).on("data", function(chunk) {
             limit -= chunk.length;
@@ -9434,7 +9434,7 @@ var require_readable = __commonJS({
     }
     async function consume(stream, type) {
       assert2(!stream[kConsume]);
-      return new Promise((resolve4, reject) => {
+      return new Promise((resolve5, reject) => {
         if (isUnusable(stream)) {
           const rState = stream._readableState;
           if (rState.destroyed && rState.closeEmitted === false) {
@@ -9451,7 +9451,7 @@ var require_readable = __commonJS({
             stream[kConsume] = {
               type,
               stream,
-              resolve: resolve4,
+              resolve: resolve5,
               reject,
               length: 0,
               body: []
@@ -9521,18 +9521,18 @@ var require_readable = __commonJS({
       return buffer;
     }
     function consumeEnd(consume2) {
-      const { type, body, resolve: resolve4, stream, length } = consume2;
+      const { type, body, resolve: resolve5, stream, length } = consume2;
       try {
         if (type === "text") {
-          resolve4(chunksDecode(body, length));
+          resolve5(chunksDecode(body, length));
         } else if (type === "json") {
-          resolve4(JSON.parse(chunksDecode(body, length)));
+          resolve5(JSON.parse(chunksDecode(body, length)));
         } else if (type === "arrayBuffer") {
-          resolve4(chunksConcat(body, length).buffer);
+          resolve5(chunksConcat(body, length).buffer);
         } else if (type === "blob") {
-          resolve4(new Blob(body, { type: stream[kContentType] }));
+          resolve5(new Blob(body, { type: stream[kContentType] }));
         } else if (type === "bytes") {
-          resolve4(chunksConcat(body, length));
+          resolve5(chunksConcat(body, length));
         }
         consumeFinish(consume2);
       } catch (err) {
@@ -9790,9 +9790,9 @@ var require_api_request = __commonJS({
     };
     function request2(opts, callback2) {
       if (callback2 === void 0) {
-        return new Promise((resolve4, reject) => {
+        return new Promise((resolve5, reject) => {
           request2.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve4(data2);
+            return err ? reject(err) : resolve5(data2);
           });
         });
       }
@@ -10016,9 +10016,9 @@ var require_api_stream = __commonJS({
     };
     function stream(opts, factory, callback2) {
       if (callback2 === void 0) {
-        return new Promise((resolve4, reject) => {
+        return new Promise((resolve5, reject) => {
           stream.call(this, opts, factory, (err, data2) => {
-            return err ? reject(err) : resolve4(data2);
+            return err ? reject(err) : resolve5(data2);
           });
         });
       }
@@ -10303,9 +10303,9 @@ var require_api_upgrade = __commonJS({
     };
     function upgrade(opts, callback2) {
       if (callback2 === void 0) {
-        return new Promise((resolve4, reject) => {
+        return new Promise((resolve5, reject) => {
           upgrade.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve4(data2);
+            return err ? reject(err) : resolve5(data2);
           });
         });
       }
@@ -10397,9 +10397,9 @@ var require_api_connect = __commonJS({
     };
     function connect(opts, callback2) {
       if (callback2 === void 0) {
-        return new Promise((resolve4, reject) => {
+        return new Promise((resolve5, reject) => {
           connect.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve4(data2);
+            return err ? reject(err) : resolve5(data2);
           });
         });
       }
@@ -10648,20 +10648,20 @@ var require_mock_utils = __commonJS({
     }
     function generateKeyValues(data2) {
       const keys = Object.keys(data2);
-      const result3 = [];
+      const result2 = [];
       for (let i2 = 0; i2 < keys.length; ++i2) {
         const key2 = keys[i2];
         const value = data2[key2];
         const name = Buffer.from(`${key2}`);
         if (Array.isArray(value)) {
           for (let j2 = 0; j2 < value.length; ++j2) {
-            result3.push(name, Buffer.from(`${value[j2]}`));
+            result2.push(name, Buffer.from(`${value[j2]}`));
           }
         } else {
-          result3.push(name, Buffer.from(`${value}`));
+          result2.push(name, Buffer.from(`${value}`));
         }
       }
-      return result3;
+      return result2;
     }
     function getStatusText(statusCode) {
       return STATUS_CODES[statusCode] || "unknown";
@@ -14261,7 +14261,7 @@ var require_fetch = __commonJS({
       function dispatch({ body }) {
         const url = requestCurrentURL(request2);
         const agent = fetchParams.controller.dispatcher;
-        return new Promise((resolve4, reject) => agent.dispatch(
+        return new Promise((resolve5, reject) => agent.dispatch(
           {
             path: url.pathname + url.search,
             origin: url.origin,
@@ -14337,7 +14337,7 @@ var require_fetch = __commonJS({
                 }
               }
               const onError = this.onError.bind(this);
-              resolve4({
+              resolve5({
                 status,
                 statusText,
                 headersList,
@@ -14383,7 +14383,7 @@ var require_fetch = __commonJS({
               for (let i2 = 0; i2 < rawHeaders.length; i2 += 2) {
                 headersList.append(bufferToLowerCasedHeaderName(rawHeaders[i2]), rawHeaders[i2 + 1].toString("latin1"), true);
               }
-              resolve4({
+              resolve5({
                 status,
                 statusText: STATUS_CODES[status],
                 headersList,
@@ -14830,11 +14830,11 @@ var require_util4 = __commonJS({
               queueMicrotask(() => {
                 fr[kState] = "done";
                 try {
-                  const result3 = packageData(bytes, type, blob.type, encodingName);
+                  const result2 = packageData(bytes, type, blob.type, encodingName);
                   if (fr[kAborted]) {
                     return;
                   }
-                  fr[kResult] = result3;
+                  fr[kResult] = result2;
                   fireAProgressEvent("load", fr);
                 } catch (error2) {
                   fr[kError] = error2;
@@ -17099,10 +17099,10 @@ var require_connection = __commonJS({
       const wasClean = ws[kSentClose] === sentCloseFrameState.SENT && ws[kReceivedClose];
       let code = 1005;
       let reason = "";
-      const result3 = ws[kByteParser].closingInfo;
-      if (result3 && !result3.error) {
-        code = result3.code ?? 1005;
-        reason = result3.reason;
+      const result2 = ws[kByteParser].closingInfo;
+      if (result2 && !result2.error) {
+        code = result2.code ?? 1005;
+        reason = result2.reason;
       } else if (!ws[kReceivedClose]) {
         code = 1006;
       }
@@ -18075,8 +18075,8 @@ var require_util8 = __commonJS({
       return true;
     }
     function delay(ms) {
-      return new Promise((resolve4) => {
-        setTimeout(resolve4, ms).unref();
+      return new Promise((resolve5) => {
+        setTimeout(resolve5, ms).unref();
       });
     }
     module.exports = {
@@ -18870,21 +18870,21 @@ var require_lib = __commonJS({
       };
       return function(mod) {
         if (mod && mod.__esModule) return mod;
-        var result3 = {};
+        var result2 = {};
         if (mod != null) {
-          for (var k2 = ownKeys(mod), i2 = 0; i2 < k2.length; i2++) if (k2[i2] !== "default") __createBinding(result3, mod, k2[i2]);
+          for (var k2 = ownKeys(mod), i2 = 0; i2 < k2.length; i2++) if (k2[i2] !== "default") __createBinding(result2, mod, k2[i2]);
         }
-        __setModuleDefault(result3, mod);
-        return result3;
+        __setModuleDefault(result2, mod);
+        return result2;
       };
     })();
     var __awaiter3 = exports && exports.__awaiter || function(thisArg, _arguments, P2, generator) {
       function adopt(value) {
-        return value instanceof P2 ? value : new P2(function(resolve4) {
-          resolve4(value);
+        return value instanceof P2 ? value : new P2(function(resolve5) {
+          resolve5(value);
         });
       }
-      return new (P2 || (P2 = Promise))(function(resolve4, reject) {
+      return new (P2 || (P2 = Promise))(function(resolve5, reject) {
         function fulfilled(value) {
           try {
             step(generator.next(value));
@@ -18899,8 +18899,8 @@ var require_lib = __commonJS({
             reject(e3);
           }
         }
-        function step(result3) {
-          result3.done ? resolve4(result3.value) : adopt(result3.value).then(fulfilled, rejected);
+        function step(result2) {
+          result2.done ? resolve5(result2.value) : adopt(result2.value).then(fulfilled, rejected);
         }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
@@ -18987,26 +18987,26 @@ var require_lib = __commonJS({
       }
       readBody() {
         return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve4) => __awaiter3(this, void 0, void 0, function* () {
+          return new Promise((resolve5) => __awaiter3(this, void 0, void 0, function* () {
             let output = Buffer.alloc(0);
             this.message.on("data", (chunk) => {
               output = Buffer.concat([output, chunk]);
             });
             this.message.on("end", () => {
-              resolve4(output.toString());
+              resolve5(output.toString());
             });
           }));
         });
       }
       readBodyBuffer() {
         return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve4) => __awaiter3(this, void 0, void 0, function* () {
+          return new Promise((resolve5) => __awaiter3(this, void 0, void 0, function* () {
             const chunks = [];
             this.message.on("data", (chunk) => {
               chunks.push(chunk);
             });
             this.message.on("end", () => {
-              resolve4(Buffer.concat(chunks));
+              resolve5(Buffer.concat(chunks));
             });
           }));
         });
@@ -19214,14 +19214,14 @@ var require_lib = __commonJS({
        */
       requestRaw(info2, data2) {
         return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve4, reject) => {
+          return new Promise((resolve5, reject) => {
             function callbackForResult(err, res) {
               if (err) {
                 reject(err);
               } else if (!res) {
                 reject(new Error("Unknown error"));
               } else {
-                resolve4(res);
+                resolve5(res);
               }
             }
             this.requestRawWithCallback(info2, data2, callbackForResult);
@@ -19465,12 +19465,12 @@ var require_lib = __commonJS({
         return __awaiter3(this, void 0, void 0, function* () {
           retryNumber = Math.min(ExponentialBackoffCeiling, retryNumber);
           const ms = ExponentialBackoffTimeSlice * Math.pow(2, retryNumber);
-          return new Promise((resolve4) => setTimeout(() => resolve4(), ms));
+          return new Promise((resolve5) => setTimeout(() => resolve5(), ms));
         });
       }
       _processResponse(res, options) {
         return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve4, reject) => __awaiter3(this, void 0, void 0, function* () {
+          return new Promise((resolve5, reject) => __awaiter3(this, void 0, void 0, function* () {
             const statusCode = res.message.statusCode || 0;
             const response = {
               statusCode,
@@ -19478,7 +19478,7 @@ var require_lib = __commonJS({
               headers: {}
             };
             if (statusCode === HttpCodes2.NotFound) {
-              resolve4(response);
+              resolve5(response);
             }
             function dateTimeDeserializer(key2, value) {
               if (typeof value === "string") {
@@ -19517,7 +19517,7 @@ var require_lib = __commonJS({
               err.result = response.result;
               reject(err);
             } else {
-              resolve4(response);
+              resolve5(response);
             }
           }));
         });
@@ -19550,16 +19550,16 @@ var require_dist = __commonJS({
       if (!type || !TYPE_REGEXP.test(type)) {
         throw new TypeError(`Invalid type: ${type}`);
       }
-      let result3 = type;
+      let result2 = type;
       if (parameters) {
         for (const param of Object.keys(parameters)) {
           if (!TOKEN_REGEXP.test(param)) {
             throw new TypeError(`Invalid parameter name: ${param}`);
           }
-          result3 += `; ${param}=${qstring(parameters[param])}`;
+          result2 += `; ${param}=${qstring(parameters[param])}`;
         }
       }
-      return result3;
+      return result2;
     }
     function parse9(header, options) {
       const len = header.length;
@@ -38644,25 +38644,25 @@ var require_picomatch = __commonJS({
       }
       const matcher = (input, returnObject = false) => {
         const { isMatch, match, output } = picomatch2.test(input, regex, options, { glob: glob2, posix: posix2 });
-        const result3 = { glob: glob2, state, regex, posix: posix2, input, output, match, isMatch };
+        const result2 = { glob: glob2, state, regex, posix: posix2, input, output, match, isMatch };
         if (typeof opts.onResult === "function") {
-          opts.onResult(result3);
+          opts.onResult(result2);
         }
         if (isMatch === false) {
-          result3.isMatch = false;
-          return returnObject ? result3 : false;
+          result2.isMatch = false;
+          return returnObject ? result2 : false;
         }
         if (isIgnored(input)) {
           if (typeof opts.onIgnore === "function") {
-            opts.onIgnore(result3);
+            opts.onIgnore(result2);
           }
-          result3.isMatch = false;
-          return returnObject ? result3 : false;
+          result2.isMatch = false;
+          return returnObject ? result2 : false;
         }
         if (typeof opts.onMatch === "function") {
-          opts.onMatch(result3);
+          opts.onMatch(result2);
         }
-        return returnObject ? result3 : true;
+        return returnObject ? result2 : true;
       };
       if (returnState) {
         matcher.state = state;
@@ -38898,11 +38898,11 @@ import { EOL as EOL2 } from "os";
 import { constants, promises } from "fs";
 var __awaiter = function(thisArg, _arguments, P2, generator) {
   function adopt(value) {
-    return value instanceof P2 ? value : new P2(function(resolve4) {
-      resolve4(value);
+    return value instanceof P2 ? value : new P2(function(resolve5) {
+      resolve5(value);
     });
   }
-  return new (P2 || (P2 = Promise))(function(resolve4, reject) {
+  return new (P2 || (P2 = Promise))(function(resolve5, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
@@ -38917,8 +38917,8 @@ var __awaiter = function(thisArg, _arguments, P2, generator) {
         reject(e3);
       }
     }
-    function step(result3) {
-      result3.done ? resolve4(result3.value) : adopt(result3.value).then(fulfilled, rejected);
+    function step(result2) {
+      result2.done ? resolve5(result2.value) : adopt(result2.value).then(fulfilled, rejected);
     }
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
@@ -39280,11 +39280,11 @@ var httpClient = __toESM(require_lib(), 1);
 var import_undici2 = __toESM(require_undici(), 1);
 var __awaiter2 = function(thisArg, _arguments, P2, generator) {
   function adopt(value) {
-    return value instanceof P2 ? value : new P2(function(resolve4) {
-      resolve4(value);
+    return value instanceof P2 ? value : new P2(function(resolve5) {
+      resolve5(value);
     });
   }
-  return new (P2 || (P2 = Promise))(function(resolve4, reject) {
+  return new (P2 || (P2 = Promise))(function(resolve5, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
@@ -39299,8 +39299,8 @@ var __awaiter2 = function(thisArg, _arguments, P2, generator) {
         reject(e3);
       }
     }
-    function step(result3) {
-      result3.done ? resolve4(result3.value) : adopt(result3.value).then(fulfilled, rejected);
+    function step(result2) {
+      result2.done ? resolve5(result2.value) : adopt(result2.value).then(fulfilled, rejected);
     }
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
@@ -39392,12 +39392,12 @@ function addHook(state, kind, name, hook2) {
   }
   if (kind === "after") {
     hook2 = (method2, options) => {
-      let result3;
+      let result2;
       return Promise.resolve().then(method2.bind(null, options)).then((result_) => {
-        result3 = result_;
-        return orig(result3, options);
+        result2 = result_;
+        return orig(result2, options);
       }).then(() => {
-        return result3;
+        return result2;
       });
     };
   }
@@ -39494,16 +39494,16 @@ function isPlainObject(value) {
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
 function mergeDeep(defaults2, options) {
-  const result3 = Object.assign({}, defaults2);
+  const result2 = Object.assign({}, defaults2);
   Object.keys(options).forEach((key2) => {
     if (isPlainObject(options[key2])) {
-      if (!(key2 in defaults2)) Object.assign(result3, { [key2]: options[key2] });
-      else result3[key2] = mergeDeep(defaults2[key2], options[key2]);
+      if (!(key2 in defaults2)) Object.assign(result2, { [key2]: options[key2] });
+      else result2[key2] = mergeDeep(defaults2[key2], options[key2]);
     } else {
-      Object.assign(result3, { [key2]: options[key2] });
+      Object.assign(result2, { [key2]: options[key2] });
     }
   });
-  return result3;
+  return result2;
 }
 function removeUndefinedProperties(obj) {
   for (const key2 in obj) {
@@ -39559,13 +39559,13 @@ function extractUrlVariableNames(url) {
   return matches.map(removeNonChars).reduce((a2, b) => a2.concat(b), []);
 }
 function omit(object4, keysToOmit) {
-  const result3 = { __proto__: null };
+  const result2 = { __proto__: null };
   for (const key2 of Object.keys(object4)) {
     if (keysToOmit.indexOf(key2) === -1) {
-      result3[key2] = object4[key2];
+      result2[key2] = object4[key2];
     }
   }
-  return result3;
+  return result2;
 }
 function encodeReserved(str) {
   return str.split(/(%[0-9A-Fa-f]{2})/g).map(function(part) {
@@ -39595,28 +39595,28 @@ function isKeyOperator(operator) {
   return operator === ";" || operator === "&" || operator === "?";
 }
 function getValues(context3, operator, key2, modifier) {
-  var value = context3[key2], result3 = [];
+  var value = context3[key2], result2 = [];
   if (isDefined(value) && value !== "") {
     if (typeof value === "string" || typeof value === "number" || typeof value === "bigint" || typeof value === "boolean") {
       value = value.toString();
       if (modifier && modifier !== "*") {
         value = value.substring(0, parseInt(modifier, 10));
       }
-      result3.push(
+      result2.push(
         encodeValue(operator, value, isKeyOperator(operator) ? key2 : "")
       );
     } else {
       if (modifier === "*") {
         if (Array.isArray(value)) {
           value.filter(isDefined).forEach(function(value2) {
-            result3.push(
+            result2.push(
               encodeValue(operator, value2, isKeyOperator(operator) ? key2 : "")
             );
           });
         } else {
           Object.keys(value).forEach(function(k2) {
             if (isDefined(value[k2])) {
-              result3.push(encodeValue(operator, value[k2], k2));
+              result2.push(encodeValue(operator, value[k2], k2));
             }
           });
         }
@@ -39635,24 +39635,24 @@ function getValues(context3, operator, key2, modifier) {
           });
         }
         if (isKeyOperator(operator)) {
-          result3.push(encodeUnreserved(key2) + "=" + tmp.join(","));
+          result2.push(encodeUnreserved(key2) + "=" + tmp.join(","));
         } else if (tmp.length !== 0) {
-          result3.push(tmp.join(","));
+          result2.push(tmp.join(","));
         }
       }
     }
   } else {
     if (operator === ";") {
       if (isDefined(value)) {
-        result3.push(encodeUnreserved(key2));
+        result2.push(encodeUnreserved(key2));
       }
     } else if (value === "" && (operator === "&" || operator === "?")) {
-      result3.push(encodeUnreserved(key2) + "=");
+      result2.push(encodeUnreserved(key2) + "=");
     } else if (value === "") {
-      result3.push("");
+      result2.push("");
     }
   }
-  return result3;
+  return result2;
 }
 function parseUrl(template2) {
   return {
@@ -40000,12 +40000,12 @@ var isContextSourceSupported = () => {
     return featureCache.get(parseFingerprint);
   }
   try {
-    const result3 = JSON.parse(
+    const result2 = JSON.parse(
       "1",
       (_, __, context3) => !!context3?.source && context3.source === "1"
     );
-    featureCache.set(parseFingerprint, result3);
-    return result3;
+    featureCache.set(parseFingerprint, result2);
+    return result2;
   } catch {
     featureCache.set(parseFingerprint, false);
     return false;
@@ -40384,16 +40384,16 @@ function graphql(request2, query, options) {
   const parsedOptions = typeof query === "string" ? Object.assign({ query }, options) : query;
   const requestOptions = Object.keys(
     parsedOptions
-  ).reduce((result3, key2) => {
+  ).reduce((result2, key2) => {
     if (NON_VARIABLE_OPTIONS.includes(key2)) {
-      result3[key2] = parsedOptions[key2];
-      return result3;
+      result2[key2] = parsedOptions[key2];
+      return result2;
     }
-    if (!result3.variables) {
-      result3.variables = {};
+    if (!result2.variables) {
+      result2.variables = {};
     }
-    result3.variables[key2] = parsedOptions[key2];
-    return result3;
+    result2.variables[key2] = parsedOptions[key2];
+    return result2;
   }, {});
   const baseUrl2 = parsedOptions.baseUrl || request2.endpoint.DEFAULTS.baseUrl;
   if (GHES_V3_SUFFIX_REGEX.test(baseUrl2)) {
@@ -43142,8 +43142,8 @@ function paginate(octokit, route, parameters, mapFn) {
   );
 }
 function gather(octokit, results, iterator2, mapFn) {
-  return iterator2.next().then((result3) => {
-    if (result3.done) {
+  return iterator2.next().then((result2) => {
+    if (result2.done) {
       return results;
     }
     let earlyExit = false;
@@ -43151,7 +43151,7 @@ function gather(octokit, results, iterator2, mapFn) {
       earlyExit = true;
     }
     results = results.concat(
-      mapFn ? mapFn(result3.value, done) : result3.value.data
+      mapFn ? mapFn(result2.value, done) : result2.value.data
     );
     if (earlyExit) {
       return results;
@@ -43202,6 +43202,10 @@ function getOctokit(token, options, ...additionalPlugins) {
   return new GitHubWithPlugins(getOctokitOptions(token, options));
 }
 
+// node_modules/.pnpm/svelte-vitals@0.53.0_cac@6.7.14/node_modules/svelte-vitals/dist/src-hgEeAWHb.js
+import { existsSync as existsSync2, mkdirSync, mkdtempSync, readFileSync as readFileSync2, renameSync, rmSync, unlinkSync, writeFileSync } from "fs";
+import { dirname as dirname2, join, resolve as resolve4 } from "path";
+
 // node_modules/.pnpm/zimmerframe@1.1.4/node_modules/zimmerframe/src/walk.js
 function walk(node, state, visitors) {
   const universal = visitors._;
@@ -43212,7 +43216,7 @@ function walk(node, state, visitors) {
   function visit(node2, path, state2) {
     if (stopped) return;
     if (!node2.type) return;
-    let result3;
+    let result2;
     const mutations = {};
     const context3 = {
       path,
@@ -43230,9 +43234,9 @@ function walk(node, state, visitors) {
               for (let i2 = 0; i2 < len; i2++) {
                 const node3 = child_node[i2];
                 if (node3 && typeof node3 === "object") {
-                  const result4 = visit(node3, path, next_state);
-                  if (result4) {
-                    array_mutations[i2] = result4;
+                  const result3 = visit(node3, path, next_state);
+                  if (result3) {
+                    array_mutations[i2] = result3;
                     mutated = true;
                   }
                 }
@@ -43243,14 +43247,14 @@ function walk(node, state, visitors) {
                 );
               }
             } else {
-              const result4 = visit(
+              const result3 = visit(
                 /** @type {T} */
                 child_node,
                 path,
                 next_state
               );
-              if (result4) {
-                mutations[key2] = result4;
+              if (result3) {
+                mutations[key2] = result3;
               }
             }
           }
@@ -43265,9 +43269,9 @@ function walk(node, state, visitors) {
       },
       visit: (next_node, next_state = state2) => {
         path.push(node2);
-        const result4 = visit(next_node, path, next_state) ?? next_node;
+        const result3 = visit(next_node, path, next_state) ?? next_node;
         path.pop();
-        return result4;
+        return result3;
       }
     };
     let visitor = (
@@ -43279,7 +43283,7 @@ function walk(node, state, visitors) {
     );
     if (universal) {
       let inner_result;
-      result3 = universal(node2, {
+      result2 = universal(node2, {
         ...context3,
         /** @param {U} next_state */
         next: (next_state = state2) => {
@@ -43291,19 +43295,19 @@ function walk(node, state, visitors) {
           return inner_result;
         }
       });
-      if (!result3 && inner_result) {
-        result3 = inner_result;
+      if (!result2 && inner_result) {
+        result2 = inner_result;
       }
     } else {
-      result3 = visitor(node2, context3);
+      result2 = visitor(node2, context3);
     }
-    if (!result3) {
+    if (!result2) {
       if (Object.keys(mutations).length > 0) {
-        result3 = apply_mutations(node2, mutations);
+        result2 = apply_mutations(node2, mutations);
       }
     }
-    if (result3) {
-      return result3;
+    if (result2) {
+      return result2;
     }
   }
   return visit(node, [], state) ?? node;
@@ -43323,13 +43327,13 @@ function apply_mutations(node, mutations) {
   );
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/patterns.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/patterns.js
 var regex_starts_with_whitespaces = /^[ \t\r\n]+/;
 var regex_ends_with_whitespaces = /[ \t\r\n]+$/;
 var regex_not_whitespace = /[^ \t\r\n]/;
 var regex_not_newline_characters = /[^\n]/g;
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/constants.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/constants.js
 var EACH_INDEX_REACTIVE = 1 << 1;
 var EACH_IS_CONTROLLED = 1 << 2;
 var EACH_IS_ANIMATED = 1 << 3;
@@ -43364,7 +43368,7 @@ var IGNORABLE_RUNTIME_WARNINGS = (
   ]
 );
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
 function fuzzymatch(name, names) {
   if (names.length === 0) return null;
   const set2 = new FuzzySet(names);
@@ -43423,17 +43427,17 @@ function iterate_grams(value, gram_size = 2) {
   return results;
 }
 function gram_counter(value, gram_size = 2) {
-  const result3 = {};
+  const result2 = {};
   const grams = iterate_grams(value, gram_size);
   let i2 = 0;
   for (i2; i2 < grams.length; ++i2) {
-    if (grams[i2] in result3) {
-      result3[grams[i2]] += 1;
+    if (grams[i2] in result2) {
+      result2[grams[i2]] += 1;
     } else {
-      result3[grams[i2]] = 1;
+      result2[grams[i2]] = 1;
     }
   }
-  return result3;
+  return result2;
 }
 function sort_descending(a2, b) {
   return b[0] - a2[0];
@@ -43495,11 +43499,11 @@ var FuzzySet = class {
   /** @param {string} value */
   get(value) {
     const normalized_value = value.toLowerCase();
-    const result3 = this.exact_set[normalized_value];
-    if (result3) {
+    const result2 = this.exact_set[normalized_value];
+    if (result2) {
       return (
         /** @type {MatchTuple[]} */
-        [[1, result3]]
+        [[1, result2]]
       );
     }
     for (let gram_size = GRAM_SIZE_UPPER; gram_size >= GRAM_SIZE_LOWER; --gram_size) {
@@ -43600,7 +43604,7 @@ function getLocator(source2, options = {}) {
   return locator2;
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/utils.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/utils.js
 var VOID_ELEMENT_NAMES = [
   "area",
   "base",
@@ -43753,7 +43757,7 @@ var RUNES = (
 );
 var REGEX_VALID_TAG_NAME = /^[a-zA-Z][a-zA-Z0-9]*(-[a-zA-Z0-9.\-_\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u{10000}-\u{EFFFF}]*)?$/u;
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/state.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/state.js
 var warnings = [];
 var filename;
 var UNKNOWN_FILENAME = "(unknown)";
@@ -43787,7 +43791,7 @@ function reset(state) {
   warnings = [];
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
 var regex_tabs = /^\t+/;
 function tabs_to_spaces(str) {
   return str.replace(regex_tabs, (match) => match.split("	").join("  "));
@@ -43858,7 +43862,7 @@ ${this.frame}`;
   }
 };
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/warnings.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/warnings.js
 var InternalCompileWarning = class extends CompileDiagnostic {
   name = "CompileWarning";
   /**
@@ -44008,7 +44012,7 @@ function svelte_element_invalid_this(node) {
 https://svelte.dev/e/svelte_element_invalid_this`);
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
 var regex_svelte_ignore = /^\s*svelte-ignore\s/;
 var replacements = {
   "non-top-level-reactive-declaration": "reactive_declaration_invalid_placement",
@@ -44064,7 +44068,7 @@ function extract_svelte_ignore(offset2, text2, runes2) {
   return ignores;
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/legacy.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/legacy.js
 function remove_surrounding_whitespace_nodes(nodes) {
   const first = nodes.at(0);
   const last = nodes.at(-1);
@@ -46322,7 +46326,7 @@ pp$8.enterClassBody = function() {
 };
 pp$8.exitClassBody = function() {
   var ref2 = this.privateNameStack.pop();
-  var declared = ref2.declared;
+  var declared2 = ref2.declared;
   var used = ref2.used;
   if (!this.options.checkPrivateFields) {
     return;
@@ -46331,7 +46335,7 @@ pp$8.exitClassBody = function() {
   var parent = len === 0 ? null : this.privateNameStack[len - 1];
   for (var i2 = 0; i2 < used.length; ++i2) {
     var id2 = used[i2];
-    if (!hasOwn(declared, id2.name)) {
+    if (!hasOwn(declared2, id2.name)) {
       if (parent) {
         parent.used.push(id2);
       } else {
@@ -47295,19 +47299,19 @@ pp$5.parseExprSubscripts = function(refDestructuringErrors, forInit) {
   if (expr.type === "ArrowFunctionExpression" && this.input.slice(this.lastTokStart, this.lastTokEnd) !== ")") {
     return expr;
   }
-  var result3 = this.parseSubscripts(expr, startPos, startLoc, false, forInit);
-  if (refDestructuringErrors && result3.type === "MemberExpression") {
-    if (refDestructuringErrors.parenthesizedAssign >= result3.start) {
+  var result2 = this.parseSubscripts(expr, startPos, startLoc, false, forInit);
+  if (refDestructuringErrors && result2.type === "MemberExpression") {
+    if (refDestructuringErrors.parenthesizedAssign >= result2.start) {
       refDestructuringErrors.parenthesizedAssign = -1;
     }
-    if (refDestructuringErrors.parenthesizedBind >= result3.start) {
+    if (refDestructuringErrors.parenthesizedBind >= result2.start) {
       refDestructuringErrors.parenthesizedBind = -1;
     }
-    if (refDestructuringErrors.trailingComma >= result3.start) {
+    if (refDestructuringErrors.trailingComma >= result2.start) {
       refDestructuringErrors.trailingComma = -1;
     }
   }
-  return result3;
+  return result2;
 };
 pp$5.parseSubscripts = function(base, startPos, startLoc, noCalls, forInit) {
   var maybeAsyncArrow = this.options.ecmaVersion >= 8 && base.type === "Identifier" && base.name === "async" && this.lastTokEnd === base.end && !this.canInsertSemicolon() && base.end - base.start === 5 && this.potentialArrowAt === base.start;
@@ -49093,18 +49097,18 @@ pp$1.regexp_eatCharacterClassEscape = function(state) {
   if (state.switchU && this.options.ecmaVersion >= 9 && ((negate = ch === 80) || ch === 112)) {
     state.lastIntValue = -1;
     state.advance();
-    var result3;
+    var result2;
     if (state.eat(
       123
       /* { */
-    ) && (result3 = this.regexp_eatUnicodePropertyValueExpression(state)) && state.eat(
+    ) && (result2 = this.regexp_eatUnicodePropertyValueExpression(state)) && state.eat(
       125
       /* } */
     )) {
-      if (negate && result3 === CharSetString) {
+      if (negate && result2 === CharSetString) {
         state.raise("Invalid property name");
       }
-      return result3;
+      return result2;
     }
     state.raise("Invalid property name");
   }
@@ -49186,14 +49190,14 @@ pp$1.regexp_eatCharacterClass = function(state) {
       94
       /* ^ */
     );
-    var result3 = this.regexp_classContents(state);
+    var result2 = this.regexp_classContents(state);
     if (!state.eat(
       93
       /* ] */
     )) {
       state.raise("Unterminated character class");
     }
-    if (negate && result3 === CharSetString) {
+    if (negate && result2 === CharSetString) {
       state.raise("Negated character class may contain strings");
     }
     return true;
@@ -49281,11 +49285,11 @@ pp$1.regexp_eatClassEscape = function(state) {
   return this.regexp_eatCharacterClassEscape(state) || this.regexp_eatCharacterEscape(state);
 };
 pp$1.regexp_classSetExpression = function(state) {
-  var result3 = CharSetOk, subResult;
+  var result2 = CharSetOk, subResult;
   if (this.regexp_eatClassSetRange(state)) ;
   else if (subResult = this.regexp_eatClassSetOperand(state)) {
     if (subResult === CharSetString) {
-      result3 = CharSetString;
+      result2 = CharSetString;
     }
     var start = state.pos;
     while (state.eatChars(
@@ -49294,14 +49298,14 @@ pp$1.regexp_classSetExpression = function(state) {
     )) {
       if (state.current() !== 38 && (subResult = this.regexp_eatClassSetOperand(state))) {
         if (subResult !== CharSetString) {
-          result3 = CharSetOk;
+          result2 = CharSetOk;
         }
         continue;
       }
       state.raise("Invalid character in character class");
     }
     if (start !== state.pos) {
-      return result3;
+      return result2;
     }
     while (state.eatChars(
       [45, 45]
@@ -49313,7 +49317,7 @@ pp$1.regexp_classSetExpression = function(state) {
       state.raise("Invalid character in character class");
     }
     if (start !== state.pos) {
-      return result3;
+      return result2;
     }
   } else {
     state.raise("Invalid character in character class");
@@ -49324,10 +49328,10 @@ pp$1.regexp_classSetExpression = function(state) {
     }
     subResult = this.regexp_eatClassSetOperand(state);
     if (!subResult) {
-      return result3;
+      return result2;
     }
     if (subResult === CharSetString) {
-      result3 = CharSetString;
+      result2 = CharSetString;
     }
   }
 };
@@ -49365,15 +49369,15 @@ pp$1.regexp_eatNestedClass = function(state) {
       94
       /* ^ */
     );
-    var result3 = this.regexp_classContents(state);
+    var result2 = this.regexp_classContents(state);
     if (state.eat(
       93
       /* ] */
     )) {
-      if (negate && result3 === CharSetString) {
+      if (negate && result2 === CharSetString) {
         state.raise("Negated character class may contain strings");
       }
-      return result3;
+      return result2;
     }
     state.pos = start;
   }
@@ -49381,9 +49385,9 @@ pp$1.regexp_eatNestedClass = function(state) {
     92
     /* \ */
   )) {
-    var result$1 = this.regexp_eatCharacterClassEscape(state);
-    if (result$1) {
-      return result$1;
+    var result$12 = this.regexp_eatCharacterClassEscape(state);
+    if (result$12) {
+      return result$12;
     }
     state.pos = start;
   }
@@ -49399,12 +49403,12 @@ pp$1.regexp_eatClassStringDisjunction = function(state) {
       123
       /* { */
     )) {
-      var result3 = this.regexp_classStringDisjunctionContents(state);
+      var result2 = this.regexp_classStringDisjunctionContents(state);
       if (state.eat(
         125
         /* } */
       )) {
-        return result3;
+        return result2;
       }
     } else {
       state.raise("Invalid escape");
@@ -49414,16 +49418,16 @@ pp$1.regexp_eatClassStringDisjunction = function(state) {
   return null;
 };
 pp$1.regexp_classStringDisjunctionContents = function(state) {
-  var result3 = this.regexp_classString(state);
+  var result2 = this.regexp_classString(state);
   while (state.eat(
     124
     /* | */
   )) {
     if (this.regexp_classString(state) === CharSetString) {
-      result3 = CharSetString;
+      result2 = CharSetString;
     }
   }
-  return result3;
+  return result2;
 };
 pp$1.regexp_classString = function(state) {
   var count = 0;
@@ -52230,10 +52234,10 @@ function tsPlugin(options) {
             });
           }
           if (starttype === tokTypes.interface) {
-            const result3 = this.tsParseInterfaceDeclaration(nany, {
+            const result2 = this.tsParseInterfaceDeclaration(nany, {
               declare: true
             });
-            if (result3) return result3;
+            if (result2) return result2;
           }
           if (tokenIsIdentifier(starttype)) {
             return this.tsParseDeclaration(
@@ -52263,7 +52267,7 @@ function tsPlugin(options) {
        * If expectSuccess, parseElement should always return a defined value.
        */
       tsParseDelimitedListWorker(kind, parseElement, expectSuccess, refTrailingCommaPos) {
-        const result3 = [];
+        const result2 = [];
         let trailingCommaPos = -1;
         for (; ; ) {
           if (this.tsIsListTerminator(kind)) {
@@ -52274,7 +52278,7 @@ function tsPlugin(options) {
           if (element2 == null) {
             return void 0;
           }
-          result3.push(element2);
+          result2.push(element2);
           if (this.eat(tt.comma)) {
             trailingCommaPos = this.lastTokStart;
             continue;
@@ -52290,7 +52294,7 @@ function tsPlugin(options) {
         if (refTrailingCommaPos) {
           refTrailingCommaPos.value = trailingCommaPos;
         }
-        return result3;
+        return result2;
       }
       tsParseDelimitedList(kind, parseElement, refTrailingCommaPos) {
         return nonNull(
@@ -52311,13 +52315,13 @@ function tsPlugin(options) {
             this.expect(tt.relational);
           }
         }
-        const result3 = this.tsParseDelimitedList(kind, parseElement, refTrailingCommaPos);
+        const result2 = this.tsParseDelimitedList(kind, parseElement, refTrailingCommaPos);
         if (bracket) {
           this.expect(tt.bracketR);
         } else {
           this.expect(tt.relational);
         }
-        return result3;
+        return result2;
       }
       tsParseTypeParameterName() {
         const typeName = this.parseIdent();
@@ -52962,9 +52966,9 @@ function tsPlugin(options) {
       }
       tsTryParse(f) {
         const state = this.getCurLookaheadState();
-        const result3 = f();
-        if (result3 !== void 0 && result3 !== false) {
-          return result3;
+        const result2 = f();
+        if (result2 !== void 0 && result2 !== false) {
+          return result2;
         } else {
           this.setLookaheadState(state);
           return void 0;
@@ -53118,7 +53122,7 @@ function tsPlugin(options) {
         if (disallowAmbiguousJSXLike) {
           this.raise(this.start, TypeScriptError.ReservedTypeAssertion);
         }
-        const result3 = this.tryParse(() => {
+        const result2 = this.tryParse(() => {
           const node = this.startNode();
           const _const = this.tsTryNextParseConstantContext();
           node.typeAnnotation = _const || this.tsNextThenParseType();
@@ -53126,10 +53130,10 @@ function tsPlugin(options) {
           node.expression = this.parseMaybeUnary();
           return this.finishNode(node, "TSTypeAssertion");
         });
-        if (result3.error) {
+        if (result2.error) {
           return this.tsParseTypeParameters(this.tsParseConstModifier);
         } else {
-          return result3.node;
+          return result2.node;
         }
       }
       tsParseTypeArguments() {
@@ -53174,15 +53178,15 @@ function tsPlugin(options) {
         }
       }
       tsTryParseAndCatch(f) {
-        const result3 = this.tryParse(
+        const result2 = this.tryParse(
           (abort) => (
             // @ts-expect-error todo(flow->ts)
             f() || abort()
           )
         );
-        if (result3.aborted || !result3.node) return void 0;
-        if (result3.error) this.setLookaheadState(result3.failState);
-        return result3.node;
+        if (result2.aborted || !result2.node) return void 0;
+        if (result2.error) this.setLookaheadState(result2.failState);
+        return result2.node;
       }
       tsParseSignatureMember(kind, node) {
         this.tsFillSignature(tt.colon, node);
@@ -53285,11 +53289,11 @@ function tsPlugin(options) {
         return this.tsParsePropertyOrMethodSignature(node, !!node.readonly);
       }
       tsParseList(kind, parseElement) {
-        const result3 = [];
+        const result2 = [];
         while (!this.tsIsListTerminator(kind)) {
-          result3.push(parseElement());
+          result2.push(parseElement());
         }
-        return result3;
+        return result2;
       }
       tsParseObjectTypeMembers() {
         this.expect(tt.braceL);
@@ -53773,8 +53777,8 @@ function tsPlugin(options) {
           return this.parseClass(cls, true);
         }
         if (this.match(tokTypes.interface)) {
-          const result3 = this.tsParseInterfaceDeclaration(this.startNode());
-          if (result3) return result3;
+          const result2 = this.tsParseInterfaceDeclaration(this.startNode());
+          if (result2) return result2;
         }
         return super.parseExportDefaultDeclaration();
       }
@@ -54052,8 +54056,8 @@ function tsPlugin(options) {
           return this.tsParseEnumDeclaration(this.startNode());
         }
         if (this.ts_isContextual(tokTypes.interface)) {
-          const result3 = this.tsParseInterfaceDeclaration(this.startNode());
-          if (result3) return result3;
+          const result2 = this.tsParseInterfaceDeclaration(this.startNode());
+          if (result2) return result2;
         }
         return super.parseStatement(context3, topLevel, exports);
       }
@@ -54104,17 +54108,17 @@ function tsPlugin(options) {
         if (!this.maybeInArrowParameters || !this.match(tt.question)) {
           return this.parseConditional(expr, startPos, startLoc, forInit, refDestructuringErrors);
         }
-        const result3 = this.tryParse(
+        const result2 = this.tryParse(
           () => this.parseConditional(expr, startPos, startLoc, forInit, refDestructuringErrors)
         );
-        if (!result3.node) {
-          if (result3.error) {
-            this.setOptionalParametersError(refDestructuringErrors, result3.error);
+        if (!result2.node) {
+          if (result2.error) {
+            this.setOptionalParametersError(refDestructuringErrors, result2.error);
           }
           return expr;
         }
-        if (result3.error) this.setLookaheadState(result3.failState);
-        return result3.node;
+        if (result2.error) this.setLookaheadState(result2.failState);
+        return result2.node;
       }
       parseParenItem(node) {
         const startPos = this.start;
@@ -54718,18 +54722,18 @@ function tsPlugin(options) {
         }
         if (shouldParseArrowRes) {
           if (this.match(tt.colon)) {
-            const result3 = this.tryParse((abort) => {
+            const result2 = this.tryParse((abort) => {
               const returnType = this.tsParseTypeOrTypePredicateAnnotation(tt.colon);
               if (this.canInsertSemicolon() || !this.match(tt.arrow)) abort();
               return returnType;
             });
-            if (result3.aborted) {
+            if (result2.aborted) {
               this.shouldParseArrowReturnType = void 0;
               return false;
             }
-            if (!result3.thrown) {
-              if (result3.error) this.setLookaheadState(result3.failState);
-              this.shouldParseArrowReturnType = result3.node;
+            if (!result2.thrown) {
+              if (result2.error) this.setLookaheadState(result2.failState);
+              this.shouldParseArrowReturnType = result2.node;
             }
           }
           if (!this.match(tt.arrow)) {
@@ -54823,18 +54827,18 @@ function tsPlugin(options) {
       }
       shouldParseAsyncArrow() {
         if (this.match(tt.colon)) {
-          const result3 = this.tryParse((abort) => {
+          const result2 = this.tryParse((abort) => {
             const returnType = this.tsParseTypeOrTypePredicateAnnotation(tt.colon);
             if (this.canInsertSemicolon() || !this.match(tt.arrow)) abort();
             return returnType;
           });
-          if (result3.aborted) {
+          if (result2.aborted) {
             this.shouldParseAsyncArrowReturnType = void 0;
             return false;
           }
-          if (!result3.thrown) {
-            if (result3.error) this.setLookaheadState(result3.failState);
-            this.shouldParseAsyncArrowReturnType = result3.node;
+          if (!result2.thrown) {
+            if (result2.error) this.setLookaheadState(result2.failState);
+            this.shouldParseAsyncArrowReturnType = result2.node;
             return !this.canInsertSemicolon() && this.eat(tt.arrow);
           }
         } else {
@@ -54892,7 +54896,7 @@ function tsPlugin(options) {
         }
         if (this.tsMatchLeftRelational() || this.match(tt.bitShift)) {
           let missingParenErrorLoc;
-          const result3 = this.tsTryParseAndCatch(() => {
+          const result2 = this.tsTryParseAndCatch(() => {
             if (!noCalls && this.atPossibleAsyncArrow(base)) {
               const asyncArrowFn = this.tsTryParseGenericAsyncArrowFunction(
                 startPos,
@@ -54956,14 +54960,14 @@ function tsPlugin(options) {
           if (missingParenErrorLoc) {
             this.unexpected(missingParenErrorLoc);
           }
-          if (result3) {
-            if (result3.type === "TSInstantiationExpression" && (this.match(tt.dot) || this.match(tt.questionDot) && this.lookaheadCharCode() !== 40)) {
+          if (result2) {
+            if (result2.type === "TSInstantiationExpression" && (this.match(tt.dot) || this.match(tt.questionDot) && this.lookaheadCharCode() !== 40)) {
               this.raise(
                 this.start,
                 TypeScriptError.InvalidPropertyAccessAfterInstantiationExpression
               );
             }
-            base = result3;
+            base = result2;
             return base;
           }
         }
@@ -55471,7 +55475,7 @@ function tsPlugin(options) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/errors.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/errors.js
 var InternalCompileError = class extends Error {
   message = "";
   // ensure this property is enumerable
@@ -55733,7 +55737,7 @@ function void_element_invalid_content(node) {
 https://svelte.dev/e/void_element_invalid_content`);
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
 var JSParser = Parser;
 var TSParser = JSParser.extend(tsPlugin());
 function parse6(source2, comments, typescript, is_script) {
@@ -55912,7 +55916,7 @@ function get_comment_handlers(source2, comments, index = 0) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
 function infinity_if_negative(num) {
   if (num < 0) {
     return Infinity;
@@ -56067,7 +56071,7 @@ function match_quote(parser, start, quote) {
   unterminated_string_constant(start);
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
 function get_loose_identifier(parser, opening_token) {
   const end = find_matching_bracket(parser.template, parser.index, opening_token ?? "{");
   if (end) {
@@ -56106,7 +56110,7 @@ function read_expression(parser, opening_token, disallow_loose) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/utils/builders.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/builders.js
 function array(elements = []) {
   return { type: "ArrayExpression", elements };
 }
@@ -56121,7 +56125,7 @@ var true_instance = literal2(true);
 var false_instance = literal2(false);
 var null_instance = literal2(null);
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/utils/ast.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/ast.js
 function is_text_attribute(attribute) {
   return Array.isArray(attribute.value) && attribute.value.length === 1 && attribute.value[0].type === "Text";
 }
@@ -56135,7 +56139,7 @@ function get_attribute_expression(attribute) {
   ) : attribute.value.expression;
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
 var regex_closing_script_tag = /<\/script\s*>/;
 var regex_starts_with_closing_script_tag = /<\/script\s*>/y;
 var RESERVED_ATTRIBUTES = ["server", "client", "worker", "test", "default"];
@@ -56194,13 +56198,13 @@ function read_script(parser, start, attributes) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
 var REGEX_MATCHER = /[~^$*|]?=/y;
 var REGEX_CLOSING_BRACKET = /[\s\]]/;
 var REGEX_ATTRIBUTE_FLAGS = /[a-zA-Z]+/y;
 var REGEX_COMBINATOR = /(\+|~|>|\|\|)/y;
 var REGEX_PERCENTAGE = /\d+(\.\d+)?%/y;
-var REGEX_NTH_OF = /(even|odd|\+?(\d+|\d*n(\s*[+-]\s*\d+)?)|-\d*n(\s*\+\s*\d+))((?=\s*[,)])|\s+of\s+)/y;
+var REGEX_NTH_OF = /(even|odd|\+?(\d+|\d*n(\s*[+-]\s*\d+)?)|-\d*n(\s*\+\s*\d+))((?=\s*[,)])|\s+of(\s+|(?=[.#[*:&])))/y;
 var REGEX_WHITESPACE_OR_COLON = /[\s:]/;
 var REGEX_LEADING_HYPHEN_OR_DIGIT = /-?\d/y;
 var REGEX_VALID_IDENTIFIER_CHAR = /[a-zA-Z0-9_-]/;
@@ -56327,12 +56331,15 @@ function read_selector(parser, inside_pseudo_class = false) {
       });
     } else if (parser.eat("*")) {
       let name = "*";
+      let namespace;
       if (parser.eat("|")) {
-        name = read_identifier(parser);
+        namespace = name;
+        name = parser.eat("*") ? "*" : read_identifier(parser);
       }
       relative_selector.selectors.push({
         type: "TypeSelector",
         name,
+        ...namespace !== void 0 && { namespace },
         start,
         end: parser.index
       });
@@ -56423,12 +56430,15 @@ function read_selector(parser, inside_pseudo_class = false) {
       });
     } else if (!parser.match_regex(REGEX_COMBINATOR)) {
       let name = read_identifier(parser);
+      let namespace;
       if (parser.eat("|")) {
-        name = read_identifier(parser);
+        namespace = name;
+        name = parser.eat("*") ? "*" : read_identifier(parser);
       }
       relative_selector.selectors.push({
         type: "TypeSelector",
         name,
+        ...namespace !== void 0 && { namespace },
         start,
         end: parser.index
       });
@@ -56628,7 +56638,8 @@ function read_identifier(parser) {
     if (char === "\\") {
       const sequence2 = parser.match_regex(REGEX_UNICODE_SEQUENCE);
       if (sequence2) {
-        identifier += String.fromCodePoint(parseInt(sequence2.slice(1), 16));
+        const character = String.fromCodePoint(parseInt(sequence2.slice(1), 16));
+        identifier += character === "\\" ? "\\\\" : character;
         parser.index += sequence2.length;
       } else {
         identifier += "\\" + parser.template[parser.index + 1];
@@ -56677,7 +56688,7 @@ function read_comment(parser) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
 var entities_default = {
   "CounterClockwiseContourIntegral;": 8755,
   "ClockwiseContourIntegral;": 8754,
@@ -58912,7 +58923,7 @@ var entities_default = {
   lt: 60
 };
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
 var windows_1252 = [
   8364,
   129,
@@ -59020,7 +59031,7 @@ function validate_code(code) {
   return NUL;
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
 function create_fragment(transparent = false) {
   return {
     type: "Fragment",
@@ -59032,7 +59043,7 @@ function create_fragment(transparent = false) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/nodes.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/nodes.js
 var element_nodes = [
   "SvelteElement",
   "RegularElement",
@@ -59126,7 +59137,7 @@ var ExpressionMetadata = class {
   }
 };
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/html-tree-validation.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/html-tree-validation.js
 var autoclosing_children = {
   // based on http://developers.whatwg.org/syntax.html#syntax-tag-omission
   li: { direct: ["li"] },
@@ -59236,14 +59247,14 @@ var disallowed_children = {
   "#document": { only: ["html"] }
 };
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/utils/string.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/string.js
 function list(strings, conjunction = "or") {
   if (strings.length === 1) return strings[0];
   if (strings.length === 2) return `${strings[0]} ${conjunction} ${strings[1]}`;
   return `${strings.slice(0, -1).join(", ")} ${conjunction} ${strings[strings.length - 1]}`;
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
 var regex_invalid_unquoted_attribute_value = /(\/>|[\s"'=<>`])/y;
 var regex_closing_textarea_tag = /<\/textarea(\s[^>]*)?>/iy;
 var regex_closing_comment = /-->/;
@@ -59956,7 +59967,7 @@ function read_tag(parser, regex) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
 function read_pattern(parser) {
   const start = parser.index;
   let i2 = parser.index;
@@ -60023,7 +60034,7 @@ function read_type_annotation(parser) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
 var regex_whitespace_with_closing_curly_brace = /\s*}/y;
 var regex_supported_declaration = /(?:let|const)\b/y;
 var regex_unsupported_declaration = /(?:var|interface|enum)\b/y;
@@ -60677,7 +60688,7 @@ function special(parser) {
   expected_tag(parser.index);
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
 function text(parser) {
   const start = parser.index;
   while (parser.index < parser.template.length && !parser.match("<") && !parser.match("{")) {
@@ -60693,7 +60704,7 @@ function text(parser) {
   });
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
 function fragment(parser) {
   if (parser.match("<")) {
     return element;
@@ -60704,7 +60715,7 @@ function fragment(parser) {
   return text;
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
 function read_options(node) {
   const component_options2 = {
     start: node.start,
@@ -60907,7 +60918,7 @@ function validate_tag(attribute, tag2) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
 function disallow_children(node) {
   const { nodes } = node.fragment;
   if (nodes.length > 0) {
@@ -60917,7 +60928,7 @@ function disallow_children(node) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/1-parse/index.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/index.js
 function is_whitespace(cc) {
   if (cc === 32 || cc <= 13 && cc >= 9) return true;
   if (cc < 160) return false;
@@ -61084,9 +61095,9 @@ var Parser3 = class _Parser {
    * @param {RegExp} pattern  Should have a ^ anchor at the start so the regex doesn't search past the beginning, resulting in worse performance
    */
   read(pattern) {
-    const result3 = this.match_regex(pattern);
-    if (result3) this.index += result3.length;
-    return result3;
+    const result2 = this.match_regex(pattern);
+    if (result2) this.index += result2.length;
+    return result2;
   }
   /**
    * @returns {ESTree.Identifier & { start: number, end: number, loc: { start: Location, end: Location } }}
@@ -61171,7 +61182,7 @@ function parse7(template2, loose = false) {
   return parser.root;
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/scope.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/scope.js
 var NUMBER = /* @__PURE__ */ Symbol("number");
 var STRING = /* @__PURE__ */ Symbol("string");
 var globals = {
@@ -61224,7 +61235,7 @@ var globals = {
   "String.fromCodePoint": [STRING, String.fromCodePoint]
 };
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
 var import_aria_query = __toESM(require_lib2(), 1);
 var import_axobject_query = __toESM(require_lib3(), 1);
 var aria_attributes = "activedescendant atomic autocomplete busy checked colcount colindex colspan controls current describedby description details disabled dropeffect errormessage expanded flowto grabbed haspopup hidden invalid keyshortcuts label labelledby level live modal multiline multiselectable orientation owns placeholder posinset pressed readonly relevant required roledescription rowcount rowindex rowspan selected setsize sort valuemax valuemin valuenow valuetext".split(
@@ -61279,7 +61290,7 @@ for (const [schema, ax_object] of import_axobject_query.elementAXObjects.entries
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
 var import_aria_query2 = __toESM(require_lib2(), 1);
 var import_axobject_query2 = __toESM(require_lib3(), 1);
 
@@ -61306,19 +61317,19 @@ if (typeof window !== "undefined" && typeof window.btoa === "function") {
   btoa2 = (str) => Buffer.from(str, "utf-8").toString("base64");
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/internal/server/hydration.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/internal/server/hydration.js
 var BLOCK_OPEN = `<!--${HYDRATION_START}-->`;
 var BLOCK_OPEN_ELSE = `<!--${HYDRATION_START_ELSE}-->`;
 var BLOCK_CLOSE = `<!--${HYDRATION_END}-->`;
 var EMPTY_COMMENT = `<!---->`;
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
 var block_open = literal2(BLOCK_OPEN);
 var block_open_else = literal2(BLOCK_OPEN_ELSE);
 var block_close = literal2(BLOCK_CLOSE);
 var empty_comment = literal2(EMPTY_COMMENT);
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
 var svg_attributes = "accent-height accumulate additive alignment-baseline allowReorder alphabetic amplitude arabic-form ascent attributeName attributeType autoReverse azimuth baseFrequency baseline-shift baseProfile bbox begin bias by calcMode cap-height class clip clipPathUnits clip-path clip-rule color color-interpolation color-interpolation-filters color-profile color-rendering contentScriptType contentStyleType cursor cx cy d decelerate descent diffuseConstant direction display divisor dominant-baseline dur dx dy edgeMode elevation enable-background end exponent externalResourcesRequired fill fill-opacity fill-rule filter filterRes filterUnits flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight format from fr fx fy g1 g2 glyph-name glyph-orientation-horizontal glyph-orientation-vertical glyphRef gradientTransform gradientUnits hanging height href horiz-adv-x horiz-origin-x id ideographic image-rendering in in2 intercept k k1 k2 k3 k4 kernelMatrix kernelUnitLength kerning keyPoints keySplines keyTimes lang lengthAdjust letter-spacing lighting-color limitingConeAngle local marker-end marker-mid marker-start markerHeight markerUnits markerWidth mask maskContentUnits maskUnits mathematical max media method min mode name numOctaves offset onabort onactivate onbegin onclick onend onerror onfocusin onfocusout onload onmousedown onmousemove onmouseout onmouseover onmouseup onrepeat onresize onscroll onunload opacity operator order orient orientation origin overflow overline-position overline-thickness panose-1 paint-order pathLength patternContentUnits patternTransform patternUnits pointer-events points pointsAtX pointsAtY pointsAtZ preserveAlpha preserveAspectRatio primitiveUnits r radius refX refY rendering-intent repeatCount repeatDur requiredExtensions requiredFeatures restart result rotate rx ry scale seed shape-rendering slope spacing specularConstant specularExponent speed spreadMethod startOffset stdDeviation stemh stemv stitchTiles stop-color stop-opacity strikethrough-position strikethrough-thickness string stroke stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width style surfaceScale systemLanguage tabindex tableValues target targetX targetY text-anchor text-decoration text-rendering textLength to transform type u1 u2 underline-position underline-thickness unicode unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical values version vert-adv-y vert-origin-x vert-origin-y viewBox viewTarget visibility width widths word-spacing writing-mode x x-height x1 x2 xChannelSelector xlink:actuate xlink:arcrole xlink:href xlink:role xlink:show xlink:title xlink:type xml:base xml:lang xml:space y y1 y2 yChannelSelector z zoomAndPan".split(
   " "
 );
@@ -61327,7 +61338,7 @@ svg_attributes.forEach((name) => {
   svg_attribute_lookup.set(name.toLowerCase(), name);
 });
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/validate-options.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/validate-options.js
 var common_options = {
   filename: string("(unknown)"),
   // default to process.cwd() where it exists to replicate svelte4 behavior (and make Deno work with this as well)
@@ -61585,7 +61596,7 @@ function throw_error2(msg) {
   options_invalid_value(null, msg);
 }
 
-// node_modules/.pnpm/svelte@5.56.9/node_modules/svelte/src/compiler/index.js
+// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/index.js
 function parse8(source2, { modern, loose } = {}) {
   source2 = remove_bom(source2);
   reset({ warning: () => false, filename: void 0 });
@@ -61620,7 +61631,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.45.0/node_modules/@svelte-vitals/core/dist/chunk-BCJZO532.js
+// node_modules/.pnpm/@svelte-vitals+core@0.49.0/node_modules/@svelte-vitals/core/dist/markdown-CP5TPy-s.js
 var import_aria_query3 = __toESM(require_lib4(), 1);
 var CATEGORIES = [
   "seo",
@@ -61637,7 +61648,10 @@ var defaultConfig = {
   failOn: "critical"
 };
 function defineConfig(config = {}) {
-  return { ...defaultConfig, ...config };
+  return {
+    ...defaultConfig,
+    ...config
+  };
 }
 function docsUrlFor(id2) {
   return `https://oekazuma.github.io/svelte-vitals/rules/${id2.toLowerCase()}`;
@@ -61648,22 +61662,27 @@ function isPenalized(detection, treatDynamicAs) {
   if (detection.value === "dynamic") return treatDynamicAs !== "pass";
   return false;
 }
-function classify(result3, config) {
-  if (isPenalized(result3.detection, config.treatDynamicAs)) return "fail";
-  if (result3.detection.value === "dynamic") return "dynamic";
+function classify(result2, config) {
+  if (isPenalized(result2.detection, config.treatDynamicAs)) return "fail";
+  if (result2.detection.value === "dynamic") return "dynamic";
   return "pass";
 }
-function effectiveSeverity(result3, config) {
-  if (result3.detection.value === "dynamic" && config.treatDynamicAs === "warn") return "warning";
-  return result3.severity;
+function effectiveSeverity(result2, config) {
+  if (result2.detection.value === "dynamic" && config.treatDynamicAs === "warn") return "warning";
+  return result2.severity;
 }
 function summarize(results, config) {
-  const summary2 = { critical: 0, warning: 0, info: 0, passed: 0, dynamic: 0 };
-  for (const result3 of results) {
-    const cls = classify(result3, config);
-    if (cls === "fail") {
-      summary2[effectiveSeverity(result3, config)] += 1;
-    } else {
+  const summary2 = {
+    critical: 0,
+    warning: 0,
+    info: 0,
+    passed: 0,
+    dynamic: 0
+  };
+  for (const result2 of results) {
+    const cls = classify(result2, config);
+    if (cls === "fail") summary2[effectiveSeverity(result2, config)] += 1;
+    else {
       summary2.passed += 1;
       if (cls === "dynamic") summary2.dynamic += 1;
     }
@@ -61671,23 +61690,31 @@ function summarize(results, config) {
   return summary2;
 }
 function hasFailureAtOrAbove(summary2, min) {
-  const order = ["info", "warning", "critical"];
+  const order = [
+    "info",
+    "warning",
+    "critical"
+  ];
   const threshold = order.indexOf(min);
   return order.some((sev, idx) => idx >= threshold && summary2[sev] > 0);
 }
-var FIX = {
+var FIX$8 = {
   description: "Add a <title> inside <svelte:head> (a dynamic title is fine).",
   snippet: "<svelte:head>\n  <title>{data.title}</title>\n</svelte:head>",
   lang: "svelte"
 };
 function detectTitle(head) {
   const title = head.tags.find((t2) => t2.kind === "title");
-  if (!title) {
-    return { presence: "none", value: "absent" };
-  }
-  return { presence: title.presence, value: title.value };
+  if (!title) return {
+    presence: "none",
+    value: "absent"
+  };
+  return {
+    presence: title.presence,
+    value: title.value
+  };
 }
-function messageFor(detection) {
+function messageFor$1(detection) {
   if (detection.presence === "none") return "Missing <title>";
   if (detection.value === "absent") return "Empty <title>";
   return "<title>";
@@ -61699,7 +61726,7 @@ var seoTitlePresence = {
   severity: "critical",
   scope: "route",
   rationale: "A unique, non-empty <title> is the single strongest on-page SEO signal and the text shown in search results and browser tabs.",
-  fix: FIX,
+  fix: FIX$8,
   async check(ctx) {
     return ctx.heads.map((head) => {
       const detection = detectTitle(head);
@@ -61710,10 +61737,10 @@ var seoTitlePresence = {
         detection,
         route: head.route,
         location: head.file,
-        message: messageFor(detection),
+        message: messageFor$1(detection),
         recommendation: "Add a <title> inside <svelte:head>, e.g. <title>{data.title}</title>, or set it via your meta component.",
         docsUrl: docsUrlFor("seo/title-presence"),
-        fix: { ...FIX }
+        fix: { ...FIX$8 }
       };
     });
   }
@@ -61723,10 +61750,16 @@ function detect(head, match) {
   const rank = (t2) => (t2.value !== "absent" ? 2 : 0) + (t2.presence === "own" ? 1 : 0);
   let tag2;
   for (const m of matches) if (tag2 === void 0 || rank(m) > rank(tag2)) tag2 = m;
-  return tag2 ? { presence: tag2.presence, value: tag2.value } : { presence: "none", value: "absent" };
+  return tag2 ? {
+    presence: tag2.presence,
+    value: tag2.value
+  } : {
+    presence: "none",
+    value: "absent"
+  };
 }
 function headTagRule(opts) {
-  const docsUrl12 = docsUrlFor(opts.id);
+  const docsUrl2 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -61736,8 +61769,7 @@ function headTagRule(opts) {
     rationale: opts.rationale,
     ...opts.fix ? { fix: opts.fix } : {},
     async check(ctx) {
-      const heads = opts.appliesTo ? ctx.heads.filter(opts.appliesTo) : ctx.heads;
-      return heads.map((head) => {
+      return (opts.appliesTo ? ctx.heads.filter(opts.appliesTo) : ctx.heads).map((head) => {
         const detection = detect(head, opts.match);
         const message = detection.presence === "none" ? `Missing ${opts.label}` : detection.value === "absent" ? `Empty ${opts.label}` : opts.label;
         return {
@@ -61749,9 +61781,7 @@ function headTagRule(opts) {
           location: head.file,
           message,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl12,
-          // Copy per finding: opts.fix is a rule-level template shared across all
-          // results this rule emits; a fresh object keeps findings independent.
+          docsUrl: docsUrl2,
           ...opts.fix ? { fix: { ...opts.fix } } : {}
         };
       });
@@ -61823,17 +61853,20 @@ var seoJsonLd = headTagRule({
   recommendation: "Add JSON-LD structured data, e.g. via <svelte:head> or a JsonLd component.",
   rationale: "JSON-LD structured data lets search engines render rich results (breadcrumbs, articles, products) for the page.",
   fix: {
-    // Svelte ships <script> contents verbatim (the body is raw text, not Svelte
-    // markup), so use literal JSON here — an interpolation like {JSON.stringify(...)}
-    // would be emitted as that literal string and produce invalid JSON-LD.
     description: "Add a JSON-LD <script> inside <svelte:head> with literal JSON (Svelte emits the script body as-is).",
     snippet: '<svelte:head>\n  <script type="application/ld+json">\n    {\n      "@context": "https://schema.org",\n      "@type": "WebPage",\n      "name": "Page title"\n    }\n  </script>\n</svelte:head>',
     lang: "svelte"
   }
 });
-var present = { presence: "own", value: "static" };
-var absent = { presence: "none", value: "absent" };
-var FIX2 = {
+var present$2 = {
+  presence: "own",
+  value: "static"
+};
+var absent$2 = {
+  presence: "none",
+  value: "absent"
+};
+var FIX$7 = {
   description: "Create static/robots.txt (or a src/routes/robots.txt/+server endpoint).",
   snippet: "User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml",
   lang: "text"
@@ -61845,26 +61878,29 @@ var seoRobotsTxt = {
   severity: "warning",
   scope: "project",
   rationale: "robots.txt tells crawlers which paths they may fetch and points them to your sitemap; missing it leaves crawl behaviour to defaults.",
-  fix: FIX2,
+  fix: FIX$7,
   async check(ctx) {
-    const detection = ctx.project.hasRobotsTxt ? present : absent;
-    return [
-      {
-        id: "seo/robots-txt",
-        category: "seo",
-        severity: "warning",
-        detection,
-        message: ctx.project.hasRobotsTxt ? "robots.txt" : "Missing robots.txt",
-        recommendation: "Add static/robots.txt or a src/routes/robots.txt/+server endpoint.",
-        docsUrl: docsUrlFor("seo/robots-txt"),
-        fix: { ...FIX2 }
-      }
-    ];
+    return [{
+      id: "seo/robots-txt",
+      category: "seo",
+      severity: "warning",
+      detection: ctx.project.hasRobotsTxt ? present$2 : absent$2,
+      message: ctx.project.hasRobotsTxt ? "robots.txt" : "Missing robots.txt",
+      recommendation: "Add static/robots.txt or a src/routes/robots.txt/+server endpoint.",
+      docsUrl: docsUrlFor("seo/robots-txt"),
+      fix: { ...FIX$7 }
+    }];
   }
 };
-var present2 = { presence: "own", value: "static" };
-var absent2 = { presence: "none", value: "absent" };
-var FIX3 = {
+var present$1 = {
+  presence: "own",
+  value: "static"
+};
+var absent$1 = {
+  presence: "none",
+  value: "absent"
+};
+var FIX$6 = {
   description: "Create static/sitemap.xml (or a src/routes/sitemap.xml/+server endpoint).",
   snippet: '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.com/</loc></url>\n</urlset>',
   lang: "xml"
@@ -61876,24 +61912,21 @@ var seoSitemapXml = {
   severity: "warning",
   scope: "project",
   rationale: "A sitemap.xml lists your URLs so search engines can discover and prioritise them, especially pages not well linked internally.",
-  fix: FIX3,
+  fix: FIX$6,
   async check(ctx) {
-    const detection = ctx.project.hasSitemap ? present2 : absent2;
-    return [
-      {
-        id: "seo/sitemap-xml",
-        category: "seo",
-        severity: "warning",
-        detection,
-        message: ctx.project.hasSitemap ? "sitemap.xml" : "Missing sitemap.xml",
-        recommendation: "Add static/sitemap.xml or a src/routes/sitemap.xml/+server endpoint.",
-        docsUrl: docsUrlFor("seo/sitemap-xml"),
-        fix: { ...FIX3 }
-      }
-    ];
+    return [{
+      id: "seo/sitemap-xml",
+      category: "seo",
+      severity: "warning",
+      detection: ctx.project.hasSitemap ? present$1 : absent$1,
+      message: ctx.project.hasSitemap ? "sitemap.xml" : "Missing sitemap.xml",
+      recommendation: "Add static/sitemap.xml or a src/routes/sitemap.xml/+server endpoint.",
+      docsUrl: docsUrlFor("seo/sitemap-xml"),
+      fix: { ...FIX$6 }
+    }];
   }
 };
-var FIX4 = {
+var FIX$5 = {
   description: "Set the lang attribute on <html> in src/app.html.",
   snippet: '<html lang="en">',
   lang: "html"
@@ -61905,28 +61938,31 @@ var seoHtmlLang = {
   severity: "warning",
   scope: "project",
   rationale: "The <html lang> attribute tells screen readers how to pronounce the page, browsers whether to offer translation, and other assistive tools how to handle the content \u2014 Google has said it does not use lang for ranking.",
-  fix: FIX4,
+  fix: FIX$5,
   async check(ctx) {
     const detection = ctx.project.htmlLang;
-    const message = detection.presence === "none" ? "Missing <html lang>" : detection.value === "absent" ? "Empty <html lang>" : "<html lang>";
-    return [
-      {
-        id: "seo/html-lang",
-        category: "seo",
-        severity: "warning",
-        detection,
-        message,
-        recommendation: 'Set <html lang="..."> in src/app.html.',
-        docsUrl: docsUrlFor("seo/html-lang"),
-        fix: { ...FIX4 }
-      }
-    ];
+    return [{
+      id: "seo/html-lang",
+      category: "seo",
+      severity: "warning",
+      detection,
+      message: detection.presence === "none" ? "Missing <html lang>" : detection.value === "absent" ? "Empty <html lang>" : "<html lang>",
+      recommendation: 'Set <html lang="..."> in src/app.html.',
+      docsUrl: docsUrlFor("seo/html-lang"),
+      fix: { ...FIX$5 }
+    }];
   }
 };
-var PENALIZED = { presence: "none", value: "absent" };
-var PASS = { presence: "own", value: "static" };
+var PENALIZED$1 = {
+  presence: "none",
+  value: "absent"
+};
+var PASS = {
+  presence: "own",
+  value: "static"
+};
 function routeItemRule(spec) {
-  const docsUrl12 = docsUrlFor(spec.id);
+  const docsUrl2 = docsUrlFor(spec.id);
   return {
     id: spec.id,
     title: spec.title,
@@ -61950,7 +61986,7 @@ function routeItemRule(spec) {
             location: g.passLocation,
             message: spec.label,
             recommendation: spec.recommendation,
-            docsUrl: docsUrl12
+            docsUrl: docsUrl2
           });
           continue;
         }
@@ -61960,15 +61996,13 @@ function routeItemRule(spec) {
             id: spec.id,
             category: spec.category,
             severity: spec.severity,
-            detection: PENALIZED,
+            detection: PENALIZED$1,
             route: g.route,
             location: spec.location(item, g.passLocation),
             ...line !== void 0 && line > 0 ? { line } : {},
             message: `Missing ${spec.label}`,
             recommendation: spec.recommendation,
-            docsUrl: docsUrl12,
-            // Copy per finding: spec.fix is a rule-level template shared across all
-            // results this rule emits; a fresh object keeps findings independent.
+            docsUrl: docsUrl2,
             ...spec.fix ? { fix: { ...spec.fix } } : {}
           });
         }
@@ -61981,10 +62015,11 @@ function imageRule(opts) {
   return routeItemRule({
     ...opts,
     category: opts.category ?? "performance",
-    // No single route-level file exists here (unlike ResolvedHead.file) — the route's
-    // first image stands in as its attributed file; empty routes are filtered first,
-    // so `[0]` is always defined.
-    groups: (ctx) => (ctx.images ?? []).filter((r2) => r2.images.length > 0).map((r2) => ({ route: r2.route, items: r2.images, passLocation: r2.images[0].file })),
+    groups: (ctx) => (ctx.images ?? []).filter((r2) => r2.images.length > 0).map((r2) => ({
+      route: r2.route,
+      items: r2.images,
+      passLocation: r2.images[0].file
+    })),
     location: (img) => img.file,
     line: (img) => img.line
   });
@@ -62035,14 +62070,11 @@ function linkRule(opts) {
   return routeItemRule({
     ...opts,
     category: "performance",
-    // The route's own head file is the PASS attribution (many links can back one pass).
     groups: (ctx) => ctx.heads.map((head) => ({
       route: head.route,
       items: head.tags.filter((t2) => t2.kind === "link" && opts.relevant(t2)),
       passLocation: head.file
     })),
-    // Point at the file the link actually came from (a layout in static mode); fall back
-    // to the route's representative file when the tag carries no file (rendered mode).
     location: (tag2, passLocation) => tag2.file ?? passLocation
   });
 }
@@ -62076,8 +62108,8 @@ var performanceFontPreloadCrossorigin = linkRule({
   relevant: (t2) => t2.rel === "preload" && t2.as === "font",
   ok: (t2) => t2.hasCrossorigin === true
 });
-var docsUrl = docsUrlFor("performance/lcp-image");
-var recommendation = 'Remove loading="lazy" from the LCP/first image and consider fetchpriority="high" so it loads as early as possible.';
+var docsUrl$10 = docsUrlFor("performance/lcp-image");
+var recommendation$8 = 'Remove loading="lazy" from the LCP/first image and consider fetchpriority="high" so it loads as early as possible.';
 var performanceLcpImage = {
   id: "performance/lcp-image",
   title: "LCP image eager loading",
@@ -62095,41 +62127,41 @@ var performanceLcpImage = {
     for (const route of ctx.images ?? []) {
       const first = route.images[0];
       if (!first) continue;
-      out.push(
-        first.lazy ? {
-          id: "performance/lcp-image",
-          category: "performance",
-          severity: "warning",
-          detection: { presence: "none", value: "absent" },
-          route: route.route,
-          location: first.file,
-          ...first.line > 0 ? { line: first.line } : {},
-          message: 'First image (likely LCP) is loading="lazy"',
-          recommendation,
-          docsUrl,
-          fix: { ...performanceLcpImage.fix }
-        } : {
-          id: "performance/lcp-image",
-          category: "performance",
-          severity: "warning",
-          detection: { presence: "own", value: "static" },
-          route: route.route,
-          // Same `location` the penalized branch above uses (design
-          // 2026-08-08-pass-result-location-design.md) — this uncaught inline PASS literal
-          // was missed by the design spike's grep and added to its blast-radius table
-          // afterward (maintainer ruling, same date).
-          location: first.file,
-          message: "LCP image eager loading",
-          recommendation,
-          docsUrl
-        }
-      );
+      out.push(first.lazy ? {
+        id: "performance/lcp-image",
+        category: "performance",
+        severity: "warning",
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
+        route: route.route,
+        location: first.file,
+        ...first.line > 0 ? { line: first.line } : {},
+        message: 'First image (likely LCP) is loading="lazy"',
+        recommendation: recommendation$8,
+        docsUrl: docsUrl$10,
+        fix: { ...performanceLcpImage.fix }
+      } : {
+        id: "performance/lcp-image",
+        category: "performance",
+        severity: "warning",
+        detection: {
+          presence: "own",
+          value: "static"
+        },
+        route: route.route,
+        location: first.file,
+        message: "LCP image eager loading",
+        recommendation: recommendation$8,
+        docsUrl: docsUrl$10
+      });
     }
     return out;
   }
 };
-var docsUrl2 = docsUrlFor("performance/render-blocking-script");
-var recommendation2 = 'Add defer (or type="module"), or async, to the <script> so it does not block HTML parsing.';
+var docsUrl$9 = docsUrlFor("performance/render-blocking-script");
+var recommendation$7 = 'Add defer (or type="module"), or async, to the <script> so it does not block HTML parsing.';
 var performanceRenderBlockingScript = {
   id: "performance/render-blocking-script",
   title: "Render-blocking script",
@@ -62148,38 +62180,35 @@ var performanceRenderBlockingScript = {
       const scripts = head.tags.filter((t2) => t2.kind === "script");
       if (scripts.length === 0) continue;
       const blocking = scripts.filter((t2) => t2.blocking);
-      if (blocking.length > 0) {
-        for (const tag2 of blocking) {
-          out.push({
-            id: "performance/render-blocking-script",
-            category: "performance",
-            severity: "warning",
-            detection: { presence: "none", value: "absent" },
-            route: head.route,
-            // location is a source path (the URL stays in the message), per the rule-engine convention.
-            location: tag2.file ?? head.file,
-            message: `Render-blocking <script>${tag2.href ? ` (${tag2.href})` : ""} in <head>`,
-            recommendation: recommendation2,
-            docsUrl: docsUrl2,
-            fix: { ...performanceRenderBlockingScript.fix }
-          });
-        }
-      } else {
-        out.push({
-          id: "performance/render-blocking-script",
-          category: "performance",
-          severity: "warning",
-          detection: { presence: "own", value: "static" },
-          route: head.route,
-          // The route's own attributed file (design 2026-08-08-pass-result-location-design.md)
-          // — this uncaught inline PASS literal was missed by the design spike's grep and
-          // added to its blast-radius table afterward (maintainer ruling, same date).
-          location: head.file,
-          message: "No render-blocking scripts",
-          recommendation: recommendation2,
-          docsUrl: docsUrl2
-        });
-      }
+      if (blocking.length > 0) for (const tag2 of blocking) out.push({
+        id: "performance/render-blocking-script",
+        category: "performance",
+        severity: "warning",
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
+        route: head.route,
+        location: tag2.file ?? head.file,
+        message: `Render-blocking <script>${tag2.href ? ` (${tag2.href})` : ""} in <head>`,
+        recommendation: recommendation$7,
+        docsUrl: docsUrl$9,
+        fix: { ...performanceRenderBlockingScript.fix }
+      });
+      else out.push({
+        id: "performance/render-blocking-script",
+        category: "performance",
+        severity: "warning",
+        detection: {
+          presence: "own",
+          value: "static"
+        },
+        route: head.route,
+        location: head.file,
+        message: "No render-blocking scripts",
+        recommendation: recommendation$7,
+        docsUrl: docsUrl$9
+      });
     }
     return out;
   }
@@ -62192,8 +62221,15 @@ function settingSeverity(setting) {
 function settingOptions(setting) {
   return setting !== void 0 && typeof setting !== "string" ? setting.options : void 0;
 }
+function configuredSeverity(rule, config) {
+  const setting = config.rules[rule.id];
+  if (setting === void 0) return rule.defaultOff ? void 0 : rule.severity;
+  const severity = settingSeverity(setting);
+  if (severity === "off") return void 0;
+  return severity ?? rule.severity;
+}
 function selectRules(rules, config) {
-  return rules.filter((rule) => settingSeverity(config.rules[rule.id]) !== "off");
+  return rules.filter((rule) => configuredSeverity(rule, config) !== void 0);
 }
 function withFailedRulesOff(config, failedRuleIds) {
   if (failedRuleIds.length === 0) return config;
@@ -62209,9 +62245,12 @@ function formatFailedRuleWarning(f) {
   return `rule ${f.id} failed and was skipped: ${f.message.split("\n")[0]}`;
 }
 function applyRuleSeverities(results, config) {
-  return results.map((result3) => {
-    const severity = settingSeverity(config.rules[result3.id]);
-    return severity !== void 0 && severity !== "off" ? { ...result3, severity } : result3;
+  return results.map((result2) => {
+    const severity = settingSeverity(config.rules[result2.id]);
+    return severity !== void 0 && severity !== "off" ? {
+      ...result2,
+      severity
+    } : result2;
   });
 }
 function routeGlobToRegExp(pattern) {
@@ -62238,24 +62277,33 @@ function applyOverrides(results, config) {
   const compiled = compileOverrides(config);
   if (compiled.length === 0) return results;
   const out = [];
-  for (const result3 of results) {
+  for (const result2 of results) {
     let severity;
     for (const o2 of compiled) {
-      if (!overrideMatches(o2, { route: result3.route, file: result3.location })) continue;
-      const sev = settingSeverity(o2.rules[result3.id]) ?? settingSeverity(o2.rules[result3.category ?? "seo"]);
+      if (!overrideMatches(o2, {
+        route: result2.route,
+        file: result2.location
+      })) continue;
+      const sev = settingSeverity(o2.rules[result2.id]) ?? settingSeverity(o2.rules[result2.category ?? "seo"]);
       if (sev !== void 0) severity = sev;
     }
-    if (severity === void 0) out.push(result3);
-    else if (severity !== "off") out.push({ ...result3, severity });
+    if (severity === void 0) out.push(result2);
+    else if (severity !== "off") out.push({
+      ...result2,
+      severity
+    });
   }
   return out;
 }
-var RULE_SETTING_VALUES = ["off", "critical", "warning", "info"];
+var RULE_SETTING_VALUES = [
+  "off",
+  "critical",
+  "warning",
+  "info"
+];
 function defaultsOf(spec) {
   const out = {};
-  for (const [key2, s] of Object.entries(spec)) {
-    out[key2] = s.kind === "integer" ? s.default : s.kind === "string-list" ? [...s.default] : { ...s.default };
-  }
+  for (const [key2, s] of Object.entries(spec)) out[key2] = s.kind === "integer" ? s.default : s.kind === "string-list" ? [...s.default] : { ...s.default };
   return out;
 }
 function intOption(options, key2, fallback = 0) {
@@ -62279,9 +62327,7 @@ function resolveRuleOptions(ruleId, spec, config, target, compiled) {
   const out = defaultsOf(spec);
   const layers = [settingOptions(config.rules[ruleId])];
   if (target) {
-    for (const o2 of compiled ?? compileOverrides(config)) {
-      if (overrideMatches(o2, target)) layers.push(settingOptions(o2.rules[ruleId]));
-    }
+    for (const o2 of compiled ?? compileOverrides(config)) if (overrideMatches(o2, target)) layers.push(settingOptions(o2.rules[ruleId]));
   }
   for (const layer of layers) {
     if (!layer) continue;
@@ -62290,7 +62336,10 @@ function resolveRuleOptions(ruleId, spec, config, target, compiled) {
       if (!s) continue;
       if (s.kind === "integer") out[key2] = value;
       else if (s.kind === "string-list") out[key2] = [...out[key2], ...value];
-      else out[key2] = { ...out[key2], ...value };
+      else out[key2] = {
+        ...out[key2],
+        ...value
+      };
     }
   }
   return out;
@@ -62318,12 +62367,11 @@ function validateRuleOptions(ruleId, spec, options, baseline, skipRangeCheck) {
         badKeys.add(key2);
       }
     } else if (s.kind === "string-list") {
-      if (!Array.isArray(value) || !value.every(isNonEmptyString)) {
-        errors.push(`${ruleId}.${key2} must be an array of non-empty strings.`);
+      if (!Array.isArray(value) || !value.every(isNonEmptyString)) errors.push(`${ruleId}.${key2} must be an array of non-empty strings.`);
+      else if (s.pattern) {
+        for (const v of value) if (!s.pattern.regex.test(v)) errors.push(`${ruleId}.${key2}: '${v}' is not ${s.pattern.describe}.`);
       }
-    } else if (typeof value !== "object" || value === null || Array.isArray(value) || !Object.values(value).every(isNonEmptyString)) {
-      errors.push(`${ruleId}.${key2} must be an object of string \u2192 non-empty string.`);
-    }
+    } else if (typeof value !== "object" || value === null || Array.isArray(value) || !Object.values(value).every(isNonEmptyString)) errors.push(`${ruleId}.${key2} must be an object of string \u2192 non-empty string.`);
   }
   const minSpec = spec.min;
   const maxSpec = spec.max;
@@ -62331,9 +62379,7 @@ function validateRuleOptions(ruleId, spec, options, baseline, skipRangeCheck) {
     const base = baseline ?? defaultsOf(spec);
     const minVal = "min" in options ? options.min : base.min;
     const maxVal = "max" in options ? options.max : base.max;
-    if (typeof minVal === "number" && typeof maxVal === "number" && minVal > maxVal) {
-      errors.push(`${ruleId}: min (${minVal}) must be <= max (${maxVal}).`);
-    }
+    if (typeof minVal === "number" && typeof maxVal === "number" && minVal > maxVal) errors.push(`${ruleId}: min (${minVal}) must be <= max (${maxVal}).`);
   }
   return errors;
 }
@@ -62350,26 +62396,17 @@ function otherOverrideNarrowsOppositeSide(overrides, selfIndex, key2, side) {
 function shouldSkipRangeCheck(overrides, selfIndex, key2, setting) {
   if (!isPlainObject3(setting) || !isPlainObject3(setting.options)) return false;
   const setsMin = "min" in setting.options;
-  const setsMax = "max" in setting.options;
-  if (setsMin === setsMax) return false;
+  if (setsMin === "max" in setting.options) return false;
   return otherOverrideNarrowsOppositeSide(overrides, selfIndex, key2, setsMin ? "max" : "min");
 }
 function validateRuleSetting(label, ruleId, setting, spec, opts) {
   const expected = RULE_SETTING_VALUES.join("|");
-  if (typeof setting === "string") {
-    return RULE_SETTING_VALUES.includes(setting) ? [] : [`${label}: invalid setting '${setting}'; expected ${expected}.`];
-  }
-  if (!isPlainObject3(setting)) {
-    return [`${label}: must be ${expected} or an object with 'severity' and/or 'options'.`];
-  }
+  if (typeof setting === "string") return RULE_SETTING_VALUES.includes(setting) ? [] : [`${label}: invalid setting '${setting}'; expected ${expected}.`];
+  if (!isPlainObject3(setting)) return [`${label}: must be ${expected} or an object with 'severity' and/or 'options'.`];
   const errors = [];
   const unknownKeys = Object.keys(setting).filter((k2) => k2 !== "severity" && k2 !== "options");
-  if (unknownKeys.length > 0) {
-    errors.push(`${label}: unknown key(s) ${unknownKeys.join(", ")}; expected severity, options.`);
-  }
-  if (setting.severity !== void 0 && !RULE_SETTING_VALUES.includes(setting.severity)) {
-    errors.push(`${label}.severity: invalid setting '${String(setting.severity)}'; expected ${expected}.`);
-  }
+  if (unknownKeys.length > 0) errors.push(`${label}: unknown key(s) ${unknownKeys.join(", ")}; expected severity, options.`);
+  if (setting.severity !== void 0 && !RULE_SETTING_VALUES.includes(setting.severity)) errors.push(`${label}.severity: invalid setting '${String(setting.severity)}'; expected ${expected}.`);
   if (setting.options === void 0) return errors;
   if (!opts.allowOptions) {
     errors.push(`${label}: options are not allowed on a category key.`);
@@ -62383,10 +62420,12 @@ function validateRuleSetting(label, ruleId, setting, spec, opts) {
   if (optionErrors.length > 0) errors.push(`${label}: ${optionErrors.join(" ")}`);
   return errors;
 }
-var docsUrl3 = docsUrlFor("performance/preconnect");
-var recommendation3 = 'Add <link rel="preconnect"> (or dns-prefetch) for the third-party origin so the connection is set up early.';
-var THIRD_PARTY_ORIGINS = /* @__PURE__ */ new Set(["fonts.googleapis.com", "fonts.gstatic.com"]);
-var OPTIONS = { origins: { kind: "string-list", default: [...THIRD_PARTY_ORIGINS] } };
+var docsUrl$8 = docsUrlFor("performance/preconnect");
+var recommendation$6 = 'Add <link rel="preconnect"> (or dns-prefetch) for the third-party origin so the connection is set up early.';
+var OPTIONS$6 = { origins: {
+  kind: "string-list",
+  default: [.../* @__PURE__ */ new Set(["fonts.googleapis.com", "fonts.gstatic.com"])]
+} };
 function hostOf(href) {
   const m = /^(?:https?:)?\/\/([^/?#]+)/i.exec(href);
   return m ? m[1].toLowerCase() : void 0;
@@ -62403,7 +62442,7 @@ var performancePreconnect = {
     snippet: '<link rel="preconnect" href="https://fonts.googleapis.com" />\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />',
     lang: "html"
   },
-  options: OPTIONS,
+  options: OPTIONS$6,
   async check(ctx) {
     const out = [];
     const compiled = compileOverrides(ctx.config);
@@ -62418,14 +62457,10 @@ var performancePreconnect = {
           covered.add(host);
           continue;
         }
-        const o2 = resolveRuleOptions(
-          "performance/preconnect",
-          OPTIONS,
-          ctx.config,
-          { route: head.route, file: tag2.file ?? head.file },
-          compiled
-        );
-        if (!listOption(o2, "origins").includes(host)) continue;
+        if (!listOption(resolveRuleOptions("performance/preconnect", OPTIONS$6, ctx.config, {
+          route: head.route,
+          file: tag2.file ?? head.file
+        }, compiled), "origins").includes(host)) continue;
         if (!referenced.has(host)) referenced.set(host, tag2.file);
       }
       if (referenced.size === 0) continue;
@@ -62435,37 +62470,38 @@ var performancePreconnect = {
           id: "performance/preconnect",
           category: "performance",
           severity: "info",
-          detection: { presence: "own", value: "static" },
+          detection: {
+            presence: "own",
+            value: "static"
+          },
           route: head.route,
-          // head.file — the same target used to resolve options above (design
-          // 2026-08-08-pass-result-location-design.md) — so a `files:`-scoped override can
-          // also match this passing seed via `severity: 'off'`.
           location: head.file,
           message: "Third-party origins are preconnected",
-          recommendation: recommendation3,
-          docsUrl: docsUrl3
+          recommendation: recommendation$6,
+          docsUrl: docsUrl$8
         });
         continue;
       }
-      for (const [host, file] of missing) {
-        out.push({
-          id: "performance/preconnect",
-          category: "performance",
-          severity: "info",
-          detection: { presence: "none", value: "absent" },
-          route: head.route,
-          location: file ?? head.file,
-          message: `Third-party origin ${host} used without a preconnect`,
-          recommendation: recommendation3,
-          docsUrl: docsUrl3,
-          fix: { ...performancePreconnect.fix }
-        });
-      }
+      for (const [host, file] of missing) out.push({
+        id: "performance/preconnect",
+        category: "performance",
+        severity: "info",
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
+        route: head.route,
+        location: file ?? head.file,
+        message: `Third-party origin ${host} used without a preconnect`,
+        recommendation: recommendation$6,
+        docsUrl: docsUrl$8,
+        fix: { ...performancePreconnect.fix }
+      });
     }
     return out;
   }
 };
-var FIX5 = {
+var FIX$4 = {
   description: 'If this route should be indexed, drop noindex from its <meta name="robots">.',
   snippet: '<svelte:head>\n  <meta name="robots" content="index, follow" />\n</svelte:head>',
   lang: "svelte"
@@ -62477,25 +62513,26 @@ var seoIndexability = {
   severity: "info",
   scope: "route",
   rationale: "A noindex directive removes the page from search results; an accidental noindex on a public route silently deindexes it.",
-  fix: FIX5,
+  fix: FIX$4,
   async check(ctx) {
-    const docsUrl12 = docsUrlFor("seo/indexability");
+    const docsUrl2 = docsUrlFor("seo/indexability");
     const out = [];
     for (const head of ctx.heads) {
-      const noindexed = head.tags.some((t2) => t2.kind === "meta" && t2.name === "robots" && t2.noindex === true);
-      if (!noindexed) continue;
+      if (!head.tags.some((t2) => t2.kind === "meta" && t2.name === "robots" && t2.noindex === true)) continue;
       out.push({
         id: "seo/indexability",
         category: "seo",
         severity: "info",
-        detection: { presence: "none", value: "absent" },
-        // surfaced as an issue (isPenalized)
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
         route: head.route,
         location: head.file,
         message: "Route is noindex \u2014 verify this is intentional",
         recommendation: 'If this route should be indexed, remove noindex from its <meta name="robots">.',
-        docsUrl: docsUrl12,
-        fix: { ...FIX5 }
+        docsUrl: docsUrl2,
+        fix: { ...FIX$4 }
       });
     }
     return out;
@@ -62549,9 +62586,6 @@ var seoViewport = headTagRule({
   severity: "warning",
   match: (t2) => t2.kind === "meta" && t2.name === "viewport",
   label: '<meta name="viewport">',
-  // Viewport canonically lives in app.html, which static (CLI) mode does not
-  // resolve into head tags — only evaluate rendered heads so the rule stays
-  // silent there instead of false-flagging "missing" on every route.
   appliesTo: (head) => head.source === "rendered",
   recommendation: 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> (usually in app.html).',
   rationale: "Without a viewport meta tag mobile browsers render the page at a fixed ~980px layout viewport and scale it to fit, so text and controls end up too small to read or tap without pinch-zooming.",
@@ -62561,7 +62595,7 @@ var seoViewport = headTagRule({
     lang: "html"
   }
 });
-var FIX6 = {
+var FIX$3 = {
   description: "Add a Sitemap: line to static/robots.txt.",
   snippet: "User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml",
   lang: "text"
@@ -62573,22 +62607,23 @@ var seoSitemapInRobots = {
   severity: "info",
   scope: "project",
   rationale: "A Sitemap: line in robots.txt helps crawlers discover your sitemap; without it discovery relies on manual submission.",
-  fix: FIX6,
+  fix: FIX$3,
   async check(ctx) {
     const { hasRobotsTxt, hasSitemap, robotsReferencesSitemap } = ctx.project;
     if (!(hasRobotsTxt && hasSitemap && robotsReferencesSitemap === false)) return [];
-    return [
-      {
-        id: "seo/sitemap-in-robots",
-        category: "seo",
-        severity: "info",
-        detection: { presence: "none", value: "absent" },
-        message: "robots.txt does not reference your sitemap",
-        recommendation: "Add a Sitemap: line to static/robots.txt pointing at your sitemap.xml.",
-        docsUrl: docsUrlFor("seo/sitemap-in-robots"),
-        fix: { ...FIX6 }
-      }
-    ];
+    return [{
+      id: "seo/sitemap-in-robots",
+      category: "seo",
+      severity: "info",
+      detection: {
+        presence: "none",
+        value: "absent"
+      },
+      message: "robots.txt does not reference your sitemap",
+      recommendation: "Add a Sitemap: line to static/robots.txt pointing at your sitemap.xml.",
+      docsUrl: docsUrlFor("seo/sitemap-in-robots"),
+      fix: { ...FIX$3 }
+    }];
   }
 };
 function parseJsonLd(raw) {
@@ -62596,7 +62631,10 @@ function parseJsonLd(raw) {
   try {
     data2 = JSON.parse(raw);
   } catch {
-    return { ok: false, nodes: [] };
+    return {
+      ok: false,
+      nodes: []
+    };
   }
   const nodes = [];
   const visit = (v) => {
@@ -62611,7 +62649,10 @@ function parseJsonLd(raw) {
     }
   };
   visit(data2);
-  return { ok: true, nodes };
+  return {
+    ok: true,
+    nodes
+  };
 }
 function typeOf(node) {
   const t2 = node["@type"];
@@ -62626,14 +62667,12 @@ function collectValues(nodes, keys) {
       v.forEach(walk2);
       return;
     }
-    if (v && typeof v === "object") {
-      for (const [k2, val] of Object.entries(v)) {
-        if (keys.has(k2) && typeof val === "string") out.push(val);
-        else if (keys.has(k2) && Array.isArray(val)) {
-          for (const e3 of val) if (typeof e3 === "string") out.push(e3);
-        }
-        walk2(val);
+    if (v && typeof v === "object") for (const [k2, val] of Object.entries(v)) {
+      if (keys.has(k2) && typeof val === "string") out.push(val);
+      else if (keys.has(k2) && Array.isArray(val)) {
+        for (const e3 of val) if (typeof e3 === "string") out.push(e3);
       }
+      walk2(val);
     }
   };
   nodes.forEach(walk2);
@@ -62674,7 +62713,11 @@ function isIso8601(s) {
   }
   const tm = /^\d{4}-\d{2}-\d{2}T(\d{2}):(\d{2})(?::(\d{2}))?/.exec(str);
   if (tm) {
-    const [hh, mm, ss] = [Number(tm[1]), Number(tm[2]), tm[3] !== void 0 ? Number(tm[3]) : 0];
+    const [hh, mm, ss] = [
+      Number(tm[1]),
+      Number(tm[2]),
+      tm[3] !== void 0 ? Number(tm[3]) : 0
+    ];
     if (hh > 23 || mm > 59 || ss > 59) return false;
   }
   return true;
@@ -62690,7 +62733,14 @@ var PLACEHOLDER_RES = [
 function hasPlaceholder(s) {
   return PLACEHOLDER_RES.some((re) => re.test(s));
 }
-var URL_KEYS = /* @__PURE__ */ new Set(["url", "image", "logo", "sameAs", "contentUrl", "thumbnailUrl"]);
+var URL_KEYS = /* @__PURE__ */ new Set([
+  "url",
+  "image",
+  "logo",
+  "sameAs",
+  "contentUrl",
+  "thumbnailUrl"
+]);
 var DATE_KEYS = /* @__PURE__ */ new Set([
   "datePublished",
   "dateModified",
@@ -62708,17 +62758,19 @@ function contextValues(nodes) {
       v.forEach(walk2);
       return;
     }
-    if (v && typeof v === "object") {
-      for (const [k2, val] of Object.entries(v)) {
-        if (k2 === "@context") out.push(val);
-        walk2(val);
-      }
+    if (v && typeof v === "object") for (const [k2, val] of Object.entries(v)) {
+      if (k2 === "@context") out.push(val);
+      walk2(val);
     }
   };
   nodes.forEach(walk2);
   return out;
 }
-var DEPRECATED_TYPES = /* @__PURE__ */ new Set(["HowTo", "FAQPage", "ClaimReview"]);
+var DEPRECATED_TYPES = /* @__PURE__ */ new Set([
+  "HowTo",
+  "FAQPage",
+  "ClaimReview"
+]);
 function hasNonEmpty(node, key2) {
   if (!(key2 in node)) return false;
   const v = node[key2];
@@ -62728,12 +62780,27 @@ function hasNonEmpty(node, key2) {
   return true;
 }
 var REQUIRED_PROPS = {
-  Product: { all: ["name"], oneOf: ["review", "aggregateRating", "offers"] },
+  Product: {
+    all: ["name"],
+    oneOf: [
+      "review",
+      "aggregateRating",
+      "offers"
+    ]
+  },
   BreadcrumbList: ["itemListElement"],
   WebSite: ["name", "url"],
-  Event: ["name", "startDate", "location"],
+  Event: [
+    "name",
+    "startDate",
+    "location"
+  ],
   Recipe: ["name", "image"],
-  VideoObject: ["name", "thumbnailUrl", "uploadDate"],
+  VideoObject: [
+    "name",
+    "thumbnailUrl",
+    "uploadDate"
+  ],
   LocalBusiness: ["name", "address"]
 };
 function oneOfLabel(props) {
@@ -62741,8 +62808,7 @@ function oneOfLabel(props) {
   return props.length <= 1 ? last : `one of ${props.slice(0, -1).join(", ")} or ${last}`;
 }
 function missingRequiredProps(node, row) {
-  const all = Array.isArray(row) ? row : row.all;
-  const missing = all.filter((p2) => !hasNonEmpty(node, p2));
+  const missing = (Array.isArray(row) ? row : row.all).filter((p2) => !hasNonEmpty(node, p2));
   const oneOf = Array.isArray(row) ? void 0 : row.oneOf;
   if (oneOf && !oneOf.some((p2) => hasNonEmpty(node, p2))) missing.push(oneOfLabel(oneOf));
   return missing;
@@ -62751,7 +62817,7 @@ function jsonldTags(head) {
   return head.tags.filter((t2) => t2.kind === "jsonld" && typeof t2.jsonld === "string");
 }
 function jsonldRule(opts) {
-  const docsUrl12 = docsUrlFor(opts.id);
+  const docsUrl2 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
@@ -62762,54 +62828,42 @@ function jsonldRule(opts) {
     ...opts.fix ? { fix: opts.fix } : {},
     async check(ctx) {
       const out = [];
-      for (const head of ctx.heads) {
-        for (const tag2 of jsonldTags(head)) {
-          const parsed = parseJsonLd(tag2.jsonld);
-          if (!parsed.ok) continue;
-          if (!parsed.nodes.some((n2) => "@context" in n2) || !parsed.nodes.some((n2) => typeOf(n2).length > 0)) continue;
-          const problem = opts.problem(parsed.nodes);
-          if (problem === false) continue;
-          out.push(
-            problem ? {
-              id: opts.id,
-              category: "seo",
-              severity: opts.severity,
-              detection: PENALIZED,
-              route: head.route,
-              location: tag2.file ?? head.file,
-              message: problem,
-              recommendation: opts.recommendation,
-              docsUrl: docsUrl12,
-              ...opts.fix ? { fix: { ...opts.fix } } : {}
-            } : {
-              id: opts.id,
-              category: "seo",
-              severity: opts.severity,
-              detection: PASS,
-              route: head.route,
-              // Same `location` the penalized branch above uses (design
-              // 2026-08-08-pass-result-location-design.md).
-              location: tag2.file ?? head.file,
-              message: opts.label,
-              recommendation: opts.recommendation,
-              docsUrl: docsUrl12
-            }
-          );
-        }
+      for (const head of ctx.heads) for (const tag2 of jsonldTags(head)) {
+        const parsed = parseJsonLd(tag2.jsonld);
+        if (!parsed.ok) continue;
+        if (!parsed.nodes.some((n2) => "@context" in n2) || !parsed.nodes.some((n2) => typeOf(n2).length > 0)) continue;
+        const problem = opts.problem(parsed.nodes);
+        if (problem === false) continue;
+        out.push(problem ? {
+          id: opts.id,
+          category: "seo",
+          severity: opts.severity,
+          detection: PENALIZED$1,
+          route: head.route,
+          location: tag2.file ?? head.file,
+          message: problem,
+          recommendation: opts.recommendation,
+          docsUrl: docsUrl2,
+          ...opts.fix ? { fix: { ...opts.fix } } : {}
+        } : {
+          id: opts.id,
+          category: "seo",
+          severity: opts.severity,
+          detection: PASS,
+          route: head.route,
+          location: tag2.file ?? head.file,
+          message: opts.label,
+          recommendation: opts.recommendation,
+          docsUrl: docsUrl2
+        });
       }
       return out;
     }
   };
 }
-var SCHEMA_ORG_TYPES = new Set(
-  "3DModel AMRadioChannel APIReference AboutPage AcceptAction Accommodation AccountingService AchieveAction Action ActionAccessSpecification ActionStatusType ActivateAction AddAction AdministrativeArea AdultEntertainment AdultOrientedEnumeration AdvertiserContentArticle AggregateOffer AggregateRating AgreeAction Airline Airport AlignmentObject AllocateAction AmpStory AmusementPark AnalysisNewsArticle AnatomicalStructure AnatomicalSystem AnimalShelter Answer Apartment ApartmentComplex AppendAction ApplyAction ApprovedIndication Aquarium ArchiveComponent ArchiveOrganization ArriveAction ArtGallery Artery Article AskAction AskPublicNewsArticle AssessAction AssignAction Atlas Attorney Audience AudioObject AudioObjectSnapshot Audiobook AuthenticateAction AuthorizeAction AutoBodyShop AutoDealer AutoPartsStore AutoRental AutoRepair AutoWash AutomatedTeller AutomotiveBusiness BackgroundNewsArticle Bakery BankAccount BankOrCreditUnion BarOrPub Barcode Beach BeautySalon BedAndBreakfast BedDetails BedType BefriendAction BikeStore BioChemEntity Blog BlogPosting BloodTest BoardingPolicyType BoatReservation BoatTerminal BoatTrip BodyMeasurementTypeEnumeration BodyOfWater Bone Book BookFormatType BookSeries BookStore BookmarkAction Boolean BorrowAction BowlingAlley BrainStructure Brand BreadcrumbList Brewery Bridge BroadcastChannel BroadcastEvent BroadcastFrequencySpecification BroadcastService BrokerageAccount BuddhistTemple BusOrCoach BusReservation BusStation BusStop BusTrip BusinessAudience BusinessEntityType BusinessEvent BusinessFunction BuyAction CDCPMDRecord CableOrSatelliteService CafeOrCoffeeShop Campground CampingPitch Canal CancelAction Car CarUsageType Casino CategoryCode CategoryCodeSet CatholicChurch Cemetery Certification CertificationStatusEnumeration Chapter CheckAction CheckInAction CheckOutAction CheckoutPage ChemicalSubstance ChildCare ChildrensEvent ChooseAction Church City CityHall CivicStructure Claim ClaimReview Class Clip ClothingStore Code Collection CollectionPage CollegeOrUniversity ComedyClub ComedyEvent ComicCoverArt ComicIssue ComicSeries ComicStory Comment CommentAction CommunicateAction CommunityHealth CompleteDataFeed CompoundPriceSpecification ComputerLanguage ComputerStore ConferenceEvent ConfirmAction Consortium ConstraintNode ConsumeAction ContactPage ContactPoint ContactPointOption Continent ControlAction ConvenienceStore Conversation CookAction Cooperative Corporation CorrectionComment Country Course CourseInstance Courthouse CoverArt CovidTestingFacility CreateAction CreativeWork CreativeWorkSeason CreativeWorkSeries Credential CreditCard Crematorium CriticReview CssSelectorType CurrencyConversionService DDxElement DENonprofitType DanceEvent DanceGroup DataCatalog DataDownload DataFeed DataFeedItem DataType Dataset Date DateTime DatedMoneySpecification DayOfWeek DaySpa DeactivateAction DefenceEstablishment DefinedRegion DefinedTerm DefinedTermSet DeleteAction DeliveryChargeSpecification DeliveryEvent DeliveryMethod DeliveryTimeSettings Demand Dentist DepartAction DepartmentStore DepositAccount Dermatology DiagnosticLab DiagnosticProcedure Diet DietNutrition DietarySupplement DigitalDocument DigitalDocumentPermission DigitalDocumentPermissionType DigitalPlatformEnumeration DisagreeAction DiscoverAction DiscussionForumPosting DislikeAction Distance Distillery DonateAction DoseSchedule DownloadAction DrawAction Drawing DrinkAction DriveWheelConfigurationValue Drug DrugClass DrugCost DrugCostCategory DrugLegalStatus DrugPregnancyCategory DrugPrescriptionStatus DrugStrength DryCleaningOrLaundry Duration EUEnergyEfficiencyEnumeration EatAction EducationEvent EducationalAudience EducationalOccupationalCredential EducationalOccupationalProgram EducationalOrganization Electrician ElectronicsStore ElementarySchool EmailMessage Embassy Emergency EmergencyService EmployeeRole EmployerAggregateRating EmployerReview EmploymentAgency EndorseAction EndorsementRating Energy EnergyConsumptionDetails EnergyEfficiencyEnumeration EnergyStarEnergyEfficiencyEnumeration EngineSpecification EntertainmentBusiness EntryPoint Enumeration Episode Error Event EventAttendanceModeEnumeration EventReservation EventSeries EventStatusType EventVenue ExchangeRateSpecification ExerciseAction ExerciseGym ExercisePlan ExhibitionEvent FAQPage FMRadioChannel FastFoodRestaurant Festival FilmAction FinancialIncentive FinancialProduct FinancialService FindAction FireStation Flight FlightReservation Float FloorPlan Florist FollowAction FoodEstablishment FoodEstablishmentReservation FoodEvent FoodService FulfillmentTypeEnumeration FundingAgency FundingScheme FurnitureStore Game GameAvailabilityEnumeration GamePlayMode GameServer GameServerStatus GardenStore GasStation GatedResidenceCommunity GenderType Gene GeneralContractor GeoCircle GeoCoordinates GeoShape GeospatialGeometry Geriatric GiveAction GolfCourse GovernmentBenefitsType GovernmentBuilding GovernmentOffice GovernmentOrganization GovernmentPermit GovernmentService Grant GroceryStore Guide Gynecologic HVACBusiness Hackathon HairSalon HardwareStore HealthAndBeautyBusiness HealthAspectEnumeration HealthClub HealthInsurancePlan HealthPlanCostSharingSpecification HealthPlanFormulary HealthPlanNetwork HealthTopicContent HighSchool HinduTemple HobbyShop HomeAndConstructionBusiness HomeGoodsStore Hospital Hostel Hotel HotelRoom House HousePainter HowTo HowToDirection HowToItem HowToSection HowToStep HowToSupply HowToTip HowToTool HyperToc HyperTocEntry IPTCDigitalSourceEnumeration ITNonprofitType IceCreamShop IgnoreAction ImageGallery ImageObject ImageObjectSnapshot ImagingTest IncentiveQualifiedExpenseType IncentiveStatus IncentiveType IndividualPhysician IndividualProduct InfectiousAgentClass InfectiousDisease InformAction InsertAction InstallAction InstantaneousEvent InsuranceAgency Intangible Integer InteractAction InteractionCounter InternetCafe InvestmentFund InvestmentOrDeposit InviteAction Invoice ItemAvailability ItemList ItemListOrderType ItemPage JewelryStore JobPosting JoinAction Joint LakeBodyOfWater Landform LandmarksOrHistoricalBuildings Language LearningResource LeaveAction LegalForceStatus LegalService LegalValueLevel Legislation LegislationObject LegislativeBuilding LendAction Library LibrarySystem LifestyleModification Ligament LikeAction LinkRole LiquorStore ListItem ListenAction LiteraryEvent LiveBlogPosting LoanOrCredit LocalBusiness LocationFeatureSpecification Locksmith LodgingBusiness LodgingReservation LoginAction LoseAction LymphaticVessel Manuscript Map MapCategoryType MarryAction Mass MathSolver MaximumDoseSchedule MeasurementMethodEnum MeasurementTypeEnumeration MediaEnumeration MediaGallery MediaManipulationRatingEnumeration MediaObject MediaReview MediaReviewItem MediaSubscription MedicalAudience MedicalAudienceType MedicalBusiness MedicalCause MedicalClinic MedicalCode MedicalCondition MedicalConditionStage MedicalContraindication MedicalDevice MedicalDevicePurpose MedicalEntity MedicalEnumeration MedicalEvidenceLevel MedicalGuideline MedicalGuidelineContraindication MedicalGuidelineRecommendation MedicalImagingTechnique MedicalIndication MedicalIntangible MedicalObservationalStudy MedicalObservationalStudyDesign MedicalOrganization MedicalProcedure MedicalProcedureType MedicalRiskCalculator MedicalRiskEstimator MedicalRiskFactor MedicalRiskScore MedicalScholarlyArticle MedicalSign MedicalSignOrSymptom MedicalSpecialty MedicalStudy MedicalStudyStatus MedicalSymptom MedicalTest MedicalTestPanel MedicalTherapy MedicalTrial MedicalTrialDesign MedicalWebPage MedicineSystem MeetingRoom MemberProgram MemberProgramTier MensClothingStore Menu MenuItem MenuSection MerchantReturnEnumeration MerchantReturnPolicy MerchantReturnPolicySeasonalOverride Message MiddleSchool Midwifery MobileApplication MobilePhoneStore MolecularEntity MonetaryAmount MonetaryAmountDistribution MonetaryGrant MoneyTransfer MortgageLoan Mosque Motel Motorcycle MotorcycleDealer MotorcycleRepair MotorizedBicycle Mountain MoveAction Movie MovieClip MovieRentalStore MovieSeries MovieTheater MovingCompany Muscle Museum MusicAlbum MusicAlbumProductionType MusicAlbumReleaseType MusicComposition MusicEvent MusicGroup MusicPlaylist MusicRecording MusicRelease MusicReleaseFormatType MusicStore MusicVenue MusicVideoObject NGO NLNonprofitType NailSalon Nerve NewsArticle NewsMediaOrganization Newspaper NightClub NonprofitType Notary NoteDigitalDocument Number Nursing NutritionInformation Observation Obstetric Occupation OccupationalExperienceRequirements OccupationalTherapy OceanBodyOfWater Offer OfferCatalog OfferForLease OfferForPurchase OfferItemCondition OfferShippingDetails OfficeEquipmentStore OnDemandEvent Oncologic OnlineBusiness OnlineMarketplace OnlineStore OpeningHoursSpecification OperatingSystem OpinionNewsArticle Optician Optometric Order OrderAction OrderItem OrderStatus Organization OrganizationRole OrganizeAction Otolaryngologic OutletStore OwnershipInfo PaintAction Painting PalliativeProcedure ParcelDelivery ParentAudience Park ParkingFacility PathologyTest Patient PawnShop PayAction PaymentCard PaymentChargeSpecification PaymentMethod PaymentMethodType PaymentService PaymentStatusType Pediatric PeopleAudience PerformAction PerformanceRole PerformingArtsEvent PerformingArtsTheater PerformingGroup Periodical Permit Person PetStore Pharmacy Photograph PhotographAction PhysicalActivity PhysicalActivityCategory PhysicalExam PhysicalTherapy Physician PhysiciansOffice Physiotherapy Place PlaceOfWorship PlanAction PlasticSurgery Play PlayAction PlayGameAction Playground Plumber PodcastEpisode PodcastSeason PodcastSeries Podiatric PoliceStation PoliticalParty Pond PostOffice PostalAddress PostalCodeRangeSpecification Poster PreOrderAction PrependAction Preschool PresentationDigitalDocument PreventionIndication PriceComponentTypeEnumeration PriceSpecification PriceTypeEnumeration PrimaryCare Product ProductCollection ProductGroup ProductModel ProductReturnEnumeration ProductReturnPolicy ProfessionalService ProfilePage ProgramMembership Project PronounceableText Property PropertyValue PropertyValueSpecification Protein Psychiatric PsychologicalTreatment PublicHealth PublicSwimmingPool PublicToilet PublicationEvent PublicationIssue PublicationVolume PurchaseType QAPage QualitativeValue QuantitativeValue QuantitativeValueDistribution Quantity Question Quiz Quotation QuoteAction RVPark RadiationTherapy RadioBroadcastService RadioChannel RadioClip RadioEpisode RadioSeason RadioSeries RadioStation Rating ReactAction ReadAction RealEstateAgent RealEstateListing ReceiveAction Recipe Recommendation RecommendedDoseSchedule RecyclingCenter RefundTypeEnumeration RegisterAction RejectAction RentAction RentalCarReservation RepaymentSpecification ReplaceAction ReplyAction Report ReportageNewsArticle ReportedDoseSchedule ResearchOrganization ResearchProject Researcher Reservation ReservationPackage ReservationStatusType ReserveAction Reservoir ResetPasswordAction Residence Resort RespiratoryTherapy Restaurant RestrictedDiet ResumeAction ReturnAction ReturnFeesEnumeration ReturnLabelSourceEnumeration ReturnMethodEnumeration Review ReviewAction ReviewNewsArticle RiverBodyOfWater Role RoofingContractor Room RsvpAction RsvpResponseType RuntimePlatform SaleEvent SatiricalArticle Schedule ScheduleAction ScholarlyArticle School SchoolDistrict ScreeningEvent Sculpture SeaBodyOfWater SearchAction SearchRescueOrganization SearchResultsPage Season Seat SeekToAction SelfStorage SellAction SendAction SequentialArt Series Service ServiceChannel ServicePeriod ShareAction SheetMusic ShippingConditions ShippingDeliveryTime ShippingRateSettings ShippingService ShoeStore ShoppingCenter ShortStory SingleFamilyResidence SiteNavigationElement SizeGroupEnumeration SizeSpecification SizeSystemEnumeration SkiResort SocialEvent SocialMediaPosting SoftwareApplication SoftwareSourceCode SolveMathAction SomeProducts SpeakableSpecification SpecialAnnouncement Specialty SportingGoodsStore SportsActivityLocation SportsClub SportsEvent SportsOrganization SportsTeam SpreadsheetDigitalDocument StadiumOrArena State Statement StatisticalPopulation StatisticalVariable StatusEnumeration SteeringPositionValue Store StructuredValue StupidType SubscribeAction Substance SubwayStation Suite SuperficialAnatomy SurgicalProcedure SuspendAction Syllabus Synagogue TVClip TVEpisode TVSeason TVSeries Table TakeAction TattooParlor Taxi TaxiReservation TaxiService TaxiStand Taxon TechArticle TelevisionChannel TelevisionStation TennisComplex Text TextDigitalDocument TextObject TheaterEvent TheaterGroup TherapeuticProcedure Thesis Thing Ticket TieAction TierBenefitEnumeration Time TipAction TireShop TouristAttraction TouristDestination TouristInformationCenter TouristTrip ToyStore TrackAction TradeAction TrainReservation TrainStation TrainTrip TransferAction TravelAction TravelAgency TreatmentIndication Trip TypeAndQuantityNode UKNonprofitType URL USNonprofitType UnRegisterAction UnitPriceSpecification UpdateAction UseAction UserBlocks UserCheckins UserComments UserDownloads UserInteraction UserLikes UserPageVisits UserPlays UserPlusOnes UserReview UserTweets VacationRental Vehicle Vein Vessel VeterinaryCare VideoGallery VideoGame VideoGameClip VideoGameSeries VideoObject VideoObjectSnapshot ViewAction VirtualLocation VisualArtsEvent VisualArtwork VitalSign Volcano VoteAction WPAdBlock WPFooter WPHeader WPSideBar WantAction WarrantyPromise WarrantyScope WatchAction Waterfall WearAction WearableMeasurementTypeEnumeration WearableSizeGroupEnumeration WearableSizeSystemEnumeration WebAPI WebApplication WebContent WebPage WebPageElement WebSite WholesaleStore WinAction Winery WorkBasedProgram WorkersUnion WriteAction XPathType Zoo iflastandards_info_ns_lrm_lrmoo_F31_Performance purl_bioontology_org_ontology_SNOMEDCT_105590001 purl_bioontology_org_ontology_SNOMEDCT_116154003 purl_bioontology_org_ontology_SNOMEDCT_277132007 purl_bioontology_org_ontology_SNOMEDCT_387713003 purl_bioontology_org_ontology_SNOMEDCT_410942007 purl_bioontology_org_ontology_SNOMEDCT_50731006 purl_bioontology_org_ontology_SNOMEDCT_51114001 purl_bioontology_org_ontology_SNOMEDCT_63653004 purl_org_dc_dcmitype_Dataset purl_org_dc_dcmitype_Event purl_org_dc_dcmitype_Image purl_org_dc_dcmitype_Text purl_org_ontology_bibo_Issue purl_org_ontology_bibo_Periodical rdfs_org_ns_void_Dataset ref_gs1_org_voc_CertificationDetails ref_gs1_org_voc_ContactPoint ref_gs1_org_voc_Country ref_gs1_org_voc_Organization ref_gs1_org_voc_PostalAddress sarif_info_Result spec_edmcouncil_org_fibo_ontology_BE_Corporations_Corporations_Corporation spec_edmcouncil_org_fibo_ontology_BE_LegalEntities_CorporateBodies_CooperativeSociety spec_edmcouncil_org_fibo_ontology_BE_NotForProfitOrganizations_NotForProfitOrganizations_NonGovernmentalOrganization spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_BankAccount spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_PaymentMechanism spec_edmcouncil_org_fibo_ontology_FND_Agreements_Contracts_MutualContractualAgreement spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Certificate spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Document spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_LegalDocument spec_edmcouncil_org_fibo_ontology_FND_DatesAndTimes_Occurrences_Occurrence spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_ContactPoint spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_Organization spec_edmcouncil_org_fibo_ontology_FND_Places_Addresses_PostalAddress spec_edmcouncil_org_fibo_ontology_FND_Places_Locations_Municipality spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Offer spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Price spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Product spec_edmcouncil_org_fibo_ontology_PAY_PaymentServices_PaymentServices_PaymentService unece_org_vocab_AmountType unece_org_vocab_BrandName unece_org_vocab_Country unece_org_vocab_ElectronicDocument unece_org_vocab_FinancialCard unece_org_vocab_GeographicalCoordinate unece_org_vocab_Invoice unece_org_vocab_LineTradeAgreement unece_org_vocab_Offer unece_org_vocab_Order unece_org_vocab_PaymentMeans unece_org_vocab_RequestForQuotation unece_org_vocab_SpecifiedCertificate unece_org_vocab_SpecifiedTradeProduct unece_org_vocab_TradeAddress unece_org_vocab_TradeProduct unece_org_vocab_TransportMethod www_omg_org_spec_Commons_Classifiers_Classifier www_omg_org_spec_Commons_Collections_Collection www_omg_org_spec_Commons_DatesAndTimes_Date www_omg_org_spec_Commons_DatesAndTimes_DateTime www_omg_org_spec_Commons_DatesAndTimes_Duration www_omg_org_spec_Commons_GeopoliticalEntities_GeopoliticalEntity www_omg_org_spec_Commons_GeopoliticalEntities_Subdivision www_omg_org_spec_Commons_Locations_Address www_omg_org_spec_Commons_Locations_GeographicCoordinate www_omg_org_spec_Commons_Locations_Location www_omg_org_spec_LCC_Countries_CountryRepresentation_Continent www_omg_org_spec_LCC_Countries_CountryRepresentation_Country www_w3_org_2006_vcard_ns_VCard www_w3_org_ns_dcat_Catalog www_w3_org_ns_dcat_Dataset www_w3_org_ns_dcat_Distribution www_w3_org_ns_hydra_core_Error www_w3_org_ns_prov_InstantaneousEvent www_w3_org_ns_prov_atTime xmlns_com_foaf_0_1_Person".split(
-    " "
-  )
-);
+var SCHEMA_ORG_TYPES = new Set("3DModel AMRadioChannel APIReference AboutPage AcceptAction Accommodation AccountingService AchieveAction Action ActionAccessSpecification ActionStatusType ActivateAction AddAction AdministrativeArea AdultEntertainment AdultOrientedEnumeration AdvertiserContentArticle AggregateOffer AggregateRating AgreeAction Airline Airport AlignmentObject AllocateAction AmpStory AmusementPark AnalysisNewsArticle AnatomicalStructure AnatomicalSystem AnimalShelter Answer Apartment ApartmentComplex AppendAction ApplyAction ApprovedIndication Aquarium ArchiveComponent ArchiveOrganization ArriveAction ArtGallery Artery Article AskAction AskPublicNewsArticle AssessAction AssignAction Atlas Attorney Audience AudioObject AudioObjectSnapshot Audiobook AuthenticateAction AuthorizeAction AutoBodyShop AutoDealer AutoPartsStore AutoRental AutoRepair AutoWash AutomatedTeller AutomotiveBusiness BackgroundNewsArticle Bakery BankAccount BankOrCreditUnion BarOrPub Barcode Beach BeautySalon BedAndBreakfast BedDetails BedType BefriendAction BikeStore BioChemEntity Blog BlogPosting BloodTest BoardingPolicyType BoatReservation BoatTerminal BoatTrip BodyMeasurementTypeEnumeration BodyOfWater Bone Book BookFormatType BookSeries BookStore BookmarkAction Boolean BorrowAction BowlingAlley BrainStructure Brand BreadcrumbList Brewery Bridge BroadcastChannel BroadcastEvent BroadcastFrequencySpecification BroadcastService BrokerageAccount BuddhistTemple BusOrCoach BusReservation BusStation BusStop BusTrip BusinessAudience BusinessEntityType BusinessEvent BusinessFunction BuyAction CDCPMDRecord CableOrSatelliteService CafeOrCoffeeShop Campground CampingPitch Canal CancelAction Car CarUsageType Casino CategoryCode CategoryCodeSet CatholicChurch Cemetery Certification CertificationStatusEnumeration Chapter CheckAction CheckInAction CheckOutAction CheckoutPage ChemicalSubstance ChildCare ChildrensEvent ChooseAction Church City CityHall CivicStructure Claim ClaimReview Class Clip ClothingStore Code Collection CollectionPage CollegeOrUniversity ComedyClub ComedyEvent ComicCoverArt ComicIssue ComicSeries ComicStory Comment CommentAction CommunicateAction CommunityHealth CompleteDataFeed CompoundPriceSpecification ComputerLanguage ComputerStore ConferenceEvent ConfirmAction Consortium ConstraintNode ConsumeAction ContactPage ContactPoint ContactPointOption Continent ControlAction ConvenienceStore Conversation CookAction Cooperative Corporation CorrectionComment Country Course CourseInstance Courthouse CoverArt CovidTestingFacility CreateAction CreativeWork CreativeWorkSeason CreativeWorkSeries Credential CreditCard Crematorium CriticReview CssSelectorType CurrencyConversionService DDxElement DENonprofitType DanceEvent DanceGroup DataCatalog DataDownload DataFeed DataFeedItem DataType Dataset Date DateTime DatedMoneySpecification DayOfWeek DaySpa DeactivateAction DefenceEstablishment DefinedRegion DefinedTerm DefinedTermSet DeleteAction DeliveryChargeSpecification DeliveryEvent DeliveryMethod DeliveryTimeSettings Demand Dentist DepartAction DepartmentStore DepositAccount Dermatology DiagnosticLab DiagnosticProcedure Diet DietNutrition DietarySupplement DigitalDocument DigitalDocumentPermission DigitalDocumentPermissionType DigitalPlatformEnumeration DisagreeAction DiscoverAction DiscussionForumPosting DislikeAction Distance Distillery DonateAction DoseSchedule DownloadAction DrawAction Drawing DrinkAction DriveWheelConfigurationValue Drug DrugClass DrugCost DrugCostCategory DrugLegalStatus DrugPregnancyCategory DrugPrescriptionStatus DrugStrength DryCleaningOrLaundry Duration EUEnergyEfficiencyEnumeration EatAction EducationEvent EducationalAudience EducationalOccupationalCredential EducationalOccupationalProgram EducationalOrganization Electrician ElectronicsStore ElementarySchool EmailMessage Embassy Emergency EmergencyService EmployeeRole EmployerAggregateRating EmployerReview EmploymentAgency EndorseAction EndorsementRating Energy EnergyConsumptionDetails EnergyEfficiencyEnumeration EnergyStarEnergyEfficiencyEnumeration EngineSpecification EntertainmentBusiness EntryPoint Enumeration Episode Error Event EventAttendanceModeEnumeration EventReservation EventSeries EventStatusType EventVenue ExchangeRateSpecification ExerciseAction ExerciseGym ExercisePlan ExhibitionEvent FAQPage FMRadioChannel FastFoodRestaurant Festival FilmAction FinancialIncentive FinancialProduct FinancialService FindAction FireStation Flight FlightReservation Float FloorPlan Florist FollowAction FoodEstablishment FoodEstablishmentReservation FoodEvent FoodService FulfillmentTypeEnumeration FundingAgency FundingScheme FurnitureStore Game GameAvailabilityEnumeration GamePlayMode GameServer GameServerStatus GardenStore GasStation GatedResidenceCommunity GenderType Gene GeneralContractor GeoCircle GeoCoordinates GeoShape GeospatialGeometry Geriatric GiveAction GolfCourse GovernmentBenefitsType GovernmentBuilding GovernmentOffice GovernmentOrganization GovernmentPermit GovernmentService Grant GroceryStore Guide Gynecologic HVACBusiness Hackathon HairSalon HardwareStore HealthAndBeautyBusiness HealthAspectEnumeration HealthClub HealthInsurancePlan HealthPlanCostSharingSpecification HealthPlanFormulary HealthPlanNetwork HealthTopicContent HighSchool HinduTemple HobbyShop HomeAndConstructionBusiness HomeGoodsStore Hospital Hostel Hotel HotelRoom House HousePainter HowTo HowToDirection HowToItem HowToSection HowToStep HowToSupply HowToTip HowToTool HyperToc HyperTocEntry IPTCDigitalSourceEnumeration ITNonprofitType IceCreamShop IgnoreAction ImageGallery ImageObject ImageObjectSnapshot ImagingTest IncentiveQualifiedExpenseType IncentiveStatus IncentiveType IndividualPhysician IndividualProduct InfectiousAgentClass InfectiousDisease InformAction InsertAction InstallAction InstantaneousEvent InsuranceAgency Intangible Integer InteractAction InteractionCounter InternetCafe InvestmentFund InvestmentOrDeposit InviteAction Invoice ItemAvailability ItemList ItemListOrderType ItemPage JewelryStore JobPosting JoinAction Joint LakeBodyOfWater Landform LandmarksOrHistoricalBuildings Language LearningResource LeaveAction LegalForceStatus LegalService LegalValueLevel Legislation LegislationObject LegislativeBuilding LendAction Library LibrarySystem LifestyleModification Ligament LikeAction LinkRole LiquorStore ListItem ListenAction LiteraryEvent LiveBlogPosting LoanOrCredit LocalBusiness LocationFeatureSpecification Locksmith LodgingBusiness LodgingReservation LoginAction LoseAction LymphaticVessel Manuscript Map MapCategoryType MarryAction Mass MathSolver MaximumDoseSchedule MeasurementMethodEnum MeasurementTypeEnumeration MediaEnumeration MediaGallery MediaManipulationRatingEnumeration MediaObject MediaReview MediaReviewItem MediaSubscription MedicalAudience MedicalAudienceType MedicalBusiness MedicalCause MedicalClinic MedicalCode MedicalCondition MedicalConditionStage MedicalContraindication MedicalDevice MedicalDevicePurpose MedicalEntity MedicalEnumeration MedicalEvidenceLevel MedicalGuideline MedicalGuidelineContraindication MedicalGuidelineRecommendation MedicalImagingTechnique MedicalIndication MedicalIntangible MedicalObservationalStudy MedicalObservationalStudyDesign MedicalOrganization MedicalProcedure MedicalProcedureType MedicalRiskCalculator MedicalRiskEstimator MedicalRiskFactor MedicalRiskScore MedicalScholarlyArticle MedicalSign MedicalSignOrSymptom MedicalSpecialty MedicalStudy MedicalStudyStatus MedicalSymptom MedicalTest MedicalTestPanel MedicalTherapy MedicalTrial MedicalTrialDesign MedicalWebPage MedicineSystem MeetingRoom MemberProgram MemberProgramTier MensClothingStore Menu MenuItem MenuSection MerchantReturnEnumeration MerchantReturnPolicy MerchantReturnPolicySeasonalOverride Message MiddleSchool Midwifery MobileApplication MobilePhoneStore MolecularEntity MonetaryAmount MonetaryAmountDistribution MonetaryGrant MoneyTransfer MortgageLoan Mosque Motel Motorcycle MotorcycleDealer MotorcycleRepair MotorizedBicycle Mountain MoveAction Movie MovieClip MovieRentalStore MovieSeries MovieTheater MovingCompany Muscle Museum MusicAlbum MusicAlbumProductionType MusicAlbumReleaseType MusicComposition MusicEvent MusicGroup MusicPlaylist MusicRecording MusicRelease MusicReleaseFormatType MusicStore MusicVenue MusicVideoObject NGO NLNonprofitType NailSalon Nerve NewsArticle NewsMediaOrganization Newspaper NightClub NonprofitType Notary NoteDigitalDocument Number Nursing NutritionInformation Observation Obstetric Occupation OccupationalExperienceRequirements OccupationalTherapy OceanBodyOfWater Offer OfferCatalog OfferForLease OfferForPurchase OfferItemCondition OfferShippingDetails OfficeEquipmentStore OnDemandEvent Oncologic OnlineBusiness OnlineMarketplace OnlineStore OpeningHoursSpecification OperatingSystem OpinionNewsArticle Optician Optometric Order OrderAction OrderItem OrderStatus Organization OrganizationRole OrganizeAction Otolaryngologic OutletStore OwnershipInfo PaintAction Painting PalliativeProcedure ParcelDelivery ParentAudience Park ParkingFacility PathologyTest Patient PawnShop PayAction PaymentCard PaymentChargeSpecification PaymentMethod PaymentMethodType PaymentService PaymentStatusType Pediatric PeopleAudience PerformAction PerformanceRole PerformingArtsEvent PerformingArtsTheater PerformingGroup Periodical Permit Person PetStore Pharmacy Photograph PhotographAction PhysicalActivity PhysicalActivityCategory PhysicalExam PhysicalTherapy Physician PhysiciansOffice Physiotherapy Place PlaceOfWorship PlanAction PlasticSurgery Play PlayAction PlayGameAction Playground Plumber PodcastEpisode PodcastSeason PodcastSeries Podiatric PoliceStation PoliticalParty Pond PostOffice PostalAddress PostalCodeRangeSpecification Poster PreOrderAction PrependAction Preschool PresentationDigitalDocument PreventionIndication PriceComponentTypeEnumeration PriceSpecification PriceTypeEnumeration PrimaryCare Product ProductCollection ProductGroup ProductModel ProductReturnEnumeration ProductReturnPolicy ProfessionalService ProfilePage ProgramMembership Project PronounceableText Property PropertyValue PropertyValueSpecification Protein Psychiatric PsychologicalTreatment PublicHealth PublicSwimmingPool PublicToilet PublicationEvent PublicationIssue PublicationVolume PurchaseType QAPage QualitativeValue QuantitativeValue QuantitativeValueDistribution Quantity Question Quiz Quotation QuoteAction RVPark RadiationTherapy RadioBroadcastService RadioChannel RadioClip RadioEpisode RadioSeason RadioSeries RadioStation Rating ReactAction ReadAction RealEstateAgent RealEstateListing ReceiveAction Recipe Recommendation RecommendedDoseSchedule RecyclingCenter RefundTypeEnumeration RegisterAction RejectAction RentAction RentalCarReservation RepaymentSpecification ReplaceAction ReplyAction Report ReportageNewsArticle ReportedDoseSchedule ResearchOrganization ResearchProject Researcher Reservation ReservationPackage ReservationStatusType ReserveAction Reservoir ResetPasswordAction Residence Resort RespiratoryTherapy Restaurant RestrictedDiet ResumeAction ReturnAction ReturnFeesEnumeration ReturnLabelSourceEnumeration ReturnMethodEnumeration Review ReviewAction ReviewNewsArticle RiverBodyOfWater Role RoofingContractor Room RsvpAction RsvpResponseType RuntimePlatform SaleEvent SatiricalArticle Schedule ScheduleAction ScholarlyArticle School SchoolDistrict ScreeningEvent Sculpture SeaBodyOfWater SearchAction SearchRescueOrganization SearchResultsPage Season Seat SeekToAction SelfStorage SellAction SendAction SequentialArt Series Service ServiceChannel ServicePeriod ShareAction SheetMusic ShippingConditions ShippingDeliveryTime ShippingRateSettings ShippingService ShoeStore ShoppingCenter ShortStory SingleFamilyResidence SiteNavigationElement SizeGroupEnumeration SizeSpecification SizeSystemEnumeration SkiResort SocialEvent SocialMediaPosting SoftwareApplication SoftwareSourceCode SolveMathAction SomeProducts SpeakableSpecification SpecialAnnouncement Specialty SportingGoodsStore SportsActivityLocation SportsClub SportsEvent SportsOrganization SportsTeam SpreadsheetDigitalDocument StadiumOrArena State Statement StatisticalPopulation StatisticalVariable StatusEnumeration SteeringPositionValue Store StructuredValue StupidType SubscribeAction Substance SubwayStation Suite SuperficialAnatomy SurgicalProcedure SuspendAction Syllabus Synagogue TVClip TVEpisode TVSeason TVSeries Table TakeAction TattooParlor Taxi TaxiReservation TaxiService TaxiStand Taxon TechArticle TelevisionChannel TelevisionStation TennisComplex Text TextDigitalDocument TextObject TheaterEvent TheaterGroup TherapeuticProcedure Thesis Thing Ticket TieAction TierBenefitEnumeration Time TipAction TireShop TouristAttraction TouristDestination TouristInformationCenter TouristTrip ToyStore TrackAction TradeAction TrainReservation TrainStation TrainTrip TransferAction TravelAction TravelAgency TreatmentIndication Trip TypeAndQuantityNode UKNonprofitType URL USNonprofitType UnRegisterAction UnitPriceSpecification UpdateAction UseAction UserBlocks UserCheckins UserComments UserDownloads UserInteraction UserLikes UserPageVisits UserPlays UserPlusOnes UserReview UserTweets VacationRental Vehicle Vein Vessel VeterinaryCare VideoGallery VideoGame VideoGameClip VideoGameSeries VideoObject VideoObjectSnapshot ViewAction VirtualLocation VisualArtsEvent VisualArtwork VitalSign Volcano VoteAction WPAdBlock WPFooter WPHeader WPSideBar WantAction WarrantyPromise WarrantyScope WatchAction Waterfall WearAction WearableMeasurementTypeEnumeration WearableSizeGroupEnumeration WearableSizeSystemEnumeration WebAPI WebApplication WebContent WebPage WebPageElement WebSite WholesaleStore WinAction Winery WorkBasedProgram WorkersUnion WriteAction XPathType Zoo iflastandards_info_ns_lrm_lrmoo_F31_Performance purl_bioontology_org_ontology_SNOMEDCT_105590001 purl_bioontology_org_ontology_SNOMEDCT_116154003 purl_bioontology_org_ontology_SNOMEDCT_277132007 purl_bioontology_org_ontology_SNOMEDCT_387713003 purl_bioontology_org_ontology_SNOMEDCT_410942007 purl_bioontology_org_ontology_SNOMEDCT_50731006 purl_bioontology_org_ontology_SNOMEDCT_51114001 purl_bioontology_org_ontology_SNOMEDCT_63653004 purl_org_dc_dcmitype_Dataset purl_org_dc_dcmitype_Event purl_org_dc_dcmitype_Image purl_org_dc_dcmitype_Text purl_org_ontology_bibo_Issue purl_org_ontology_bibo_Periodical rdfs_org_ns_void_Dataset ref_gs1_org_voc_CertificationDetails ref_gs1_org_voc_ContactPoint ref_gs1_org_voc_Country ref_gs1_org_voc_Organization ref_gs1_org_voc_PostalAddress sarif_info_Result spec_edmcouncil_org_fibo_ontology_BE_Corporations_Corporations_Corporation spec_edmcouncil_org_fibo_ontology_BE_LegalEntities_CorporateBodies_CooperativeSociety spec_edmcouncil_org_fibo_ontology_BE_NotForProfitOrganizations_NotForProfitOrganizations_NonGovernmentalOrganization spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_BankAccount spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_PaymentMechanism spec_edmcouncil_org_fibo_ontology_FND_Agreements_Contracts_MutualContractualAgreement spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Certificate spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Document spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_LegalDocument spec_edmcouncil_org_fibo_ontology_FND_DatesAndTimes_Occurrences_Occurrence spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_ContactPoint spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_Organization spec_edmcouncil_org_fibo_ontology_FND_Places_Addresses_PostalAddress spec_edmcouncil_org_fibo_ontology_FND_Places_Locations_Municipality spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Offer spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Price spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Product spec_edmcouncil_org_fibo_ontology_PAY_PaymentServices_PaymentServices_PaymentService unece_org_vocab_AmountType unece_org_vocab_BrandName unece_org_vocab_Country unece_org_vocab_ElectronicDocument unece_org_vocab_FinancialCard unece_org_vocab_GeographicalCoordinate unece_org_vocab_Invoice unece_org_vocab_LineTradeAgreement unece_org_vocab_Offer unece_org_vocab_Order unece_org_vocab_PaymentMeans unece_org_vocab_RequestForQuotation unece_org_vocab_SpecifiedCertificate unece_org_vocab_SpecifiedTradeProduct unece_org_vocab_TradeAddress unece_org_vocab_TradeProduct unece_org_vocab_TransportMethod www_omg_org_spec_Commons_Classifiers_Classifier www_omg_org_spec_Commons_Collections_Collection www_omg_org_spec_Commons_DatesAndTimes_Date www_omg_org_spec_Commons_DatesAndTimes_DateTime www_omg_org_spec_Commons_DatesAndTimes_Duration www_omg_org_spec_Commons_GeopoliticalEntities_GeopoliticalEntity www_omg_org_spec_Commons_GeopoliticalEntities_Subdivision www_omg_org_spec_Commons_Locations_Address www_omg_org_spec_Commons_Locations_GeographicCoordinate www_omg_org_spec_Commons_Locations_Location www_omg_org_spec_LCC_Countries_CountryRepresentation_Continent www_omg_org_spec_LCC_Countries_CountryRepresentation_Country www_w3_org_2006_vcard_ns_VCard www_w3_org_ns_dcat_Catalog www_w3_org_ns_dcat_Dataset www_w3_org_ns_dcat_Distribution www_w3_org_ns_hydra_core_Error www_w3_org_ns_prov_InstantaneousEvent www_w3_org_ns_prov_atTime xmlns_com_foaf_0_1_Person".split(" "));
 var SCHEMA_ORG_CONTEXT_RE = /^https?:\/\/schema\.org\/?$/;
-var LOWERCASE_TO_CANONICAL = new Map(
-  [...SCHEMA_ORG_TYPES].map((name) => [name.toLowerCase(), name])
-);
+var LOWERCASE_TO_CANONICAL = new Map([...SCHEMA_ORG_TYPES].map((name) => [name.toLowerCase(), name]));
 var SORTED_TYPES = [...SCHEMA_ORG_TYPES].sort();
 var MAX_SUGGEST_DISTANCE = 2;
 function levenshteinWithin(a2, b, maxDistance) {
@@ -62832,7 +62886,7 @@ function levenshteinWithin(a2, b, maxDistance) {
 function closestType(name, catalog) {
   const lower = name.toLowerCase();
   let best;
-  let bestDistance = MAX_SUGGEST_DISTANCE + 1;
+  let bestDistance = 3;
   for (const candidate of catalog) {
     if (Math.abs(candidate.length - name.length) > MAX_SUGGEST_DISTANCE) continue;
     const d2 = levenshteinWithin(lower, candidate.toLowerCase(), MAX_SUGGEST_DISTANCE);
@@ -62857,9 +62911,7 @@ function isBareTypeName(name) {
 }
 function unknownTypeNames(nodes) {
   const seen = /* @__PURE__ */ new Set();
-  for (const name of collectValues(nodes, /* @__PURE__ */ new Set(["@type"]))) {
-    if (isBareTypeName(name) && !SCHEMA_ORG_TYPES.has(name)) seen.add(name);
-  }
+  for (const name of collectValues(nodes, /* @__PURE__ */ new Set(["@type"]))) if (isBareTypeName(name) && !SCHEMA_ORG_TYPES.has(name)) seen.add(name);
   return [...seen];
 }
 function unknownTypeMessage(name) {
@@ -62879,61 +62931,53 @@ var seoJsonLdValidity = {
     lang: "svelte"
   },
   async check(ctx) {
-    const docsUrl12 = docsUrlFor("seo/json-ld-validity");
+    const docsUrl2 = docsUrlFor("seo/json-ld-validity");
     const out = [];
-    for (const head of ctx.heads) {
-      for (const tag2 of jsonldTags(head)) {
-        const parsed = parseJsonLd(tag2.jsonld);
-        let problem;
-        if (!parsed.ok) problem = "JSON-LD is not valid JSON";
-        else if (!parsed.nodes.some((n2) => "@context" in n2)) problem = "JSON-LD is missing @context";
-        else if (!parsed.nodes.some((n2) => typeOf(n2).length > 0)) problem = "JSON-LD is missing @type";
-        if (!problem && isSchemaOrgOnly(parsed.nodes)) {
-          const unknown = unknownTypeNames(parsed.nodes);
-          if (unknown.length > 0) {
-            for (const name of unknown) {
-              out.push({
-                id: "seo/json-ld-validity",
-                category: "seo",
-                severity: "warning",
-                detection: PENALIZED,
-                route: head.route,
-                location: tag2.file ?? head.file,
-                message: unknownTypeMessage(name),
-                recommendation: "Use the exact schema.org type name (case-sensitive), e.g. 'Article', 'Product'.",
-                docsUrl: docsUrl12
-              });
-            }
-            continue;
-          }
+    for (const head of ctx.heads) for (const tag2 of jsonldTags(head)) {
+      const parsed = parseJsonLd(tag2.jsonld);
+      let problem;
+      if (!parsed.ok) problem = "JSON-LD is not valid JSON";
+      else if (!parsed.nodes.some((n2) => "@context" in n2)) problem = "JSON-LD is missing @context";
+      else if (!parsed.nodes.some((n2) => typeOf(n2).length > 0)) problem = "JSON-LD is missing @type";
+      if (!problem && isSchemaOrgOnly(parsed.nodes)) {
+        const unknown = unknownTypeNames(parsed.nodes);
+        if (unknown.length > 0) {
+          for (const name of unknown) out.push({
+            id: "seo/json-ld-validity",
+            category: "seo",
+            severity: "warning",
+            detection: PENALIZED$1,
+            route: head.route,
+            location: tag2.file ?? head.file,
+            message: unknownTypeMessage(name),
+            recommendation: "Use the exact schema.org type name (case-sensitive), e.g. 'Article', 'Product'.",
+            docsUrl: docsUrl2
+          });
+          continue;
         }
-        out.push(
-          problem ? {
-            id: "seo/json-ld-validity",
-            category: "seo",
-            severity: "warning",
-            detection: PENALIZED,
-            route: head.route,
-            location: tag2.file ?? head.file,
-            message: problem,
-            recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl12,
-            fix: { ...seoJsonLdValidity.fix }
-          } : {
-            id: "seo/json-ld-validity",
-            category: "seo",
-            severity: "warning",
-            detection: PASS,
-            route: head.route,
-            // Same `location` the penalized branch above uses (design
-            // 2026-08-08-pass-result-location-design.md).
-            location: tag2.file ?? head.file,
-            message: "JSON-LD validity",
-            recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl12
-          }
-        );
       }
+      out.push(problem ? {
+        id: "seo/json-ld-validity",
+        category: "seo",
+        severity: "warning",
+        detection: PENALIZED$1,
+        route: head.route,
+        location: tag2.file ?? head.file,
+        message: problem,
+        recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
+        docsUrl: docsUrl2,
+        fix: { ...seoJsonLdValidity.fix }
+      } : {
+        id: "seo/json-ld-validity",
+        category: "seo",
+        severity: "warning",
+        detection: PASS,
+        route: head.route,
+        location: tag2.file ?? head.file,
+        message: "JSON-LD validity",
+        recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
+        docsUrl: docsUrl2
+      });
     }
     return out;
   }
@@ -63005,14 +63049,12 @@ var seoJsonLdRequiredProps = jsonldRule({
   rationale: "A recognized @type missing its required properties is ineligible for the corresponding rich result.",
   problem: (nodes) => {
     let hasKnownType = false;
-    for (const node of nodes) {
-      for (const t2 of typeOf(node)) {
-        const required = REQUIRED_PROPS[t2];
-        if (!required) continue;
-        hasKnownType = true;
-        const missing = missingRequiredProps(node, required);
-        if (missing.length > 0) return `${t2} JSON-LD is missing required ${missing.join(", ")}`;
-      }
+    for (const node of nodes) for (const t2 of typeOf(node)) {
+      const required = REQUIRED_PROPS[t2];
+      if (!required) continue;
+      hasKnownType = true;
+      const missing = missingRequiredProps(node, required);
+      if (missing.length > 0) return `${t2} JSON-LD is missing required ${missing.join(", ")}`;
     }
     return hasKnownType ? void 0 : false;
   }
@@ -63025,10 +63067,18 @@ function visibleLength(s) {
   return [...segmenter.segment(collapseWhitespace(s))].length;
 }
 function lengthRule(opts) {
-  const docsUrl12 = docsUrlFor(opts.id);
+  const docsUrl2 = docsUrlFor(opts.id);
   const spec = {
-    min: { kind: "integer", default: opts.min, min: 0 },
-    max: { kind: "integer", default: opts.max, min: 1 }
+    min: {
+      kind: "integer",
+      default: opts.min,
+      min: 0
+    },
+    max: {
+      kind: "integer",
+      default: opts.max,
+      min: 1
+    }
   };
   return {
     id: opts.id,
@@ -63045,70 +63095,67 @@ function lengthRule(opts) {
         const tag2 = head.tags.find(opts.match);
         if (!tag2 || typeof tag2.text !== "string") continue;
         const location = tag2.file ?? head.file;
-        const o2 = resolveRuleOptions(opts.id, spec, ctx.config, { route: head.route, file: location }, compiled);
+        const o2 = resolveRuleOptions(opts.id, spec, ctx.config, {
+          route: head.route,
+          file: location
+        }, compiled);
         const min = intOption(o2, "min", opts.min);
         const max = intOption(o2, "max", opts.max);
-        const recommendation12 = typeof opts.recommendation === "function" ? opts.recommendation(o2) : opts.recommendation;
+        const recommendation2 = typeof opts.recommendation === "function" ? opts.recommendation(o2) : opts.recommendation;
         const len = visibleLength(tag2.text);
         let problem;
         if (len < min) problem = `${opts.noun} is too short (${len} chars; aim for ${min}\u2013${max})`;
         else if (len > max) problem = `${opts.noun} is too long (${len} chars; aim for ${min}\u2013${max})`;
-        out.push(
-          problem ? {
-            id: opts.id,
-            category: "seo",
-            severity: "info",
-            detection: PENALIZED,
-            route: head.route,
-            location,
-            message: problem,
-            recommendation: recommendation12,
-            docsUrl: docsUrl12
-          } : {
-            id: opts.id,
-            category: "seo",
-            severity: "info",
-            detection: PASS,
-            route: head.route,
-            // Same `location` the penalized branch above uses (design
-            // 2026-08-08-pass-result-location-design.md) — without it, a `files:`-scoped
-            // override can flip this result to PASS via its `options` but can never match
-            // it to also apply `severity: 'off'`.
-            location,
-            message: opts.label,
-            recommendation: recommendation12,
-            docsUrl: docsUrl12
-          }
-        );
+        out.push(problem ? {
+          id: opts.id,
+          category: "seo",
+          severity: "info",
+          detection: PENALIZED$1,
+          route: head.route,
+          location,
+          message: problem,
+          recommendation: recommendation2,
+          docsUrl: docsUrl2
+        } : {
+          id: opts.id,
+          category: "seo",
+          severity: "info",
+          detection: PASS,
+          route: head.route,
+          location,
+          message: opts.label,
+          recommendation: recommendation2,
+          docsUrl: docsUrl2
+        });
       }
       return out;
     }
   };
 }
-var MIN = 30;
-var MAX = 60;
+var MIN$1 = 30;
+var MAX$1 = 60;
 var seoTitleLength = lengthRule({
   id: "seo/title-length",
   title: "Title length",
   label: "Title length",
   noun: "Title",
   match: (t2) => t2.kind === "title",
-  min: MIN,
-  max: MAX,
-  recommendation: (o2) => `Aim for a title of ${intOption(o2, "min", MIN)}\u2013${intOption(o2, "max", MAX)} characters so it is not truncated in search results.`,
+  min: MIN$1,
+  max: MAX$1,
+  recommendation: (o2) => `Aim for a title of ${intOption(o2, "min", MIN$1)}\u2013${intOption(o2, "max", MAX$1)} characters so it is not truncated in search results.`,
   rationale: "A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP."
 });
-var MIN2 = 70;
-var MAX2 = 160;
+var MIN = 70;
+var MAX = 160;
 var seoDescriptionLength = lengthRule({
   id: "seo/description-length",
   title: "Description length",
   label: "Description length",
   noun: "Description",
   match: (t2) => t2.kind === "meta" && t2.name === "description",
-  min: MIN2,
-  max: MAX2,
-  recommendation: (o2) => `Aim for a meta description of ${intOption(o2, "min", MIN2)}\u2013${intOption(o2, "max", MAX2)} characters so it is not truncated in search results.`,
+  min: MIN,
+  max: MAX,
+  recommendation: (o2) => `Aim for a meta description of ${intOption(o2, "min", MIN)}\u2013${intOption(o2, "max", MAX)} characters so it is not truncated in search results.`,
   rationale: "A description that is too short under-uses the SERP snippet; one that is too long is truncated by search engines."
 });
 var seoCharset = headTagRule({
@@ -63141,10 +63188,10 @@ var seoImageAlt = imageRule({
   },
   ok: (img) => img.hasAlt
 });
-var docsUrl4 = docsUrlFor("seo/hreflang");
+var docsUrl$7 = docsUrlFor("seo/hreflang");
 var malformedRecommendation = 'Use valid hreflang codes, e.g. "en", "en-US", or the literal "x-default".';
 var noDefaultRecommendation = "x-default is a Google recommendation, not a requirement \u2014 most useful for a language-selector or auto-redirecting page. Add one if this page behaves that way; otherwise search engines fall back to matching the individual alternates.";
-var passRecommendation = 'Use valid hreflang codes (e.g. "en", "en-US", "x-default") for your language alternates.';
+var passRecommendation$1 = 'Use valid hreflang codes (e.g. "en", "en-US", "x-default") for your language alternates.';
 var HREFLANG_RE = /^[a-z]{2,3}(-[a-z]{4})?(-([a-z]{2}|\d{3}))?$/i;
 function isValidHreflang(v) {
   return v.toLowerCase() === "x-default" || HREFLANG_RE.test(v);
@@ -63159,54 +63206,49 @@ var seoHreflang = {
   async check(ctx) {
     const out = [];
     for (const head of ctx.heads) {
-      const alternates = head.tags.filter(
-        (t2) => t2.kind === "link" && t2.rel === "alternate" && typeof t2.hreflang === "string"
-      );
+      const alternates = head.tags.filter((t2) => t2.kind === "link" && t2.rel === "alternate" && typeof t2.hreflang === "string");
       if (alternates.length === 0) continue;
       const values = alternates.map((t2) => t2.hreflang);
       const badTag = alternates.find((t2) => !isValidHreflang(t2.hreflang));
       let problem;
       let location = head.file;
       if (badTag) {
-        problem = { message: `Invalid hreflang value "${badTag.hreflang}"`, recommendation: malformedRecommendation };
-        location = badTag.file ?? head.file;
-      } else if (values.length >= 2 && !values.some((v) => v.toLowerCase() === "x-default")) {
         problem = {
-          message: "Multiple hreflang alternates with no x-default declared",
-          recommendation: noDefaultRecommendation
+          message: `Invalid hreflang value "${badTag.hreflang}"`,
+          recommendation: malformedRecommendation
         };
-      }
-      out.push(
-        problem ? {
-          id: "seo/hreflang",
-          category: "seo",
-          severity: "warning",
-          detection: PENALIZED,
-          route: head.route,
-          location,
-          message: problem.message,
-          recommendation: problem.recommendation,
-          docsUrl: docsUrl4
-        } : {
-          id: "seo/hreflang",
-          category: "seo",
-          severity: "warning",
-          detection: PASS,
-          route: head.route,
-          // Same `location` the penalized branch above uses (design
-          // 2026-08-08-pass-result-location-design.md).
-          location,
-          message: "hreflang",
-          recommendation: passRecommendation,
-          docsUrl: docsUrl4
-        }
-      );
+        location = badTag.file ?? head.file;
+      } else if (values.length >= 2 && !values.some((v) => v.toLowerCase() === "x-default")) problem = {
+        message: "Multiple hreflang alternates with no x-default declared",
+        recommendation: noDefaultRecommendation
+      };
+      out.push(problem ? {
+        id: "seo/hreflang",
+        category: "seo",
+        severity: "warning",
+        detection: PENALIZED$1,
+        route: head.route,
+        location,
+        message: problem.message,
+        recommendation: problem.recommendation,
+        docsUrl: docsUrl$7
+      } : {
+        id: "seo/hreflang",
+        category: "seo",
+        severity: "warning",
+        detection: PASS,
+        route: head.route,
+        location,
+        message: "hreflang",
+        recommendation: passRecommendation$1,
+        docsUrl: docsUrl$7
+      });
     }
     return out;
   }
 };
-var docsUrl5 = docsUrlFor("seo/single-h1");
-var passRecommendation2 = "Use exactly one <h1> per page for its main topic; demote extra top-level headings to <h2>+.";
+var docsUrl$6 = docsUrlFor("seo/single-h1");
+var passRecommendation = "Use exactly one <h1> per page for its main topic; demote extra top-level headings to <h2>+.";
 var missingRecommendation = "Add a single, descriptive <h1> naming the page's main topic.";
 var multipleRecommendation = "A single, clear <h1> is the conventional signal for a page \u2014 consider demoting extra top-level headings to <h2>+.";
 var seoSingleH1 = {
@@ -63219,14 +63261,20 @@ var seoSingleH1 = {
   async check(ctx) {
     const out = [];
     for (const route of ctx.headings ?? []) {
-      const combined = [...route.headings, ...route.componentHeadings ?? []];
-      const h1 = combined.filter((h2) => h2.level === 1);
+      const h1 = [...route.headings, ...route.componentHeadings ?? []].filter((h2) => h2.level === 1);
       let problem;
       let where = {};
       if (h1.length === 0) {
-        problem = { message: "Missing <h1>", severity: "warning", recommendation: missingRecommendation };
+        problem = {
+          message: "Missing <h1>",
+          severity: "warning",
+          recommendation: missingRecommendation
+        };
         const first = route.headings[0];
-        if (first) where = { location: first.file, ...first.line > 0 ? { line: first.line } : {} };
+        if (first) where = {
+          location: first.file,
+          ...first.line > 0 ? { line: first.line } : {}
+        };
       } else if (h1.length > 1) {
         problem = {
           message: `Multiple <h1> (${h1.length}); a single <h1> is the conventional signal`,
@@ -63234,46 +63282,45 @@ var seoSingleH1 = {
           recommendation: multipleRecommendation
         };
         const extra = h1[1];
-        where = { location: extra.file, ...extra.line > 0 ? { line: extra.line } : {} };
+        where = {
+          location: extra.file,
+          ...extra.line > 0 ? { line: extra.line } : {}
+        };
       }
-      out.push(
-        problem ? {
-          id: "seo/single-h1",
-          category: "seo",
-          severity: problem.severity,
-          detection: PENALIZED,
-          route: route.route,
-          ...where,
-          message: problem.message,
-          recommendation: problem.recommendation,
-          docsUrl: docsUrl5
-        } : {
-          id: "seo/single-h1",
-          category: "seo",
-          severity: "warning",
-          detection: PASS,
-          route: route.route,
-          // No single route-level file exists here (unlike ResolvedHead.file) — the
-          // passing route's own <h1> stands in as its attributed file (design
-          // 2026-08-08-pass-result-location-design.md). Only reached when h1.length === 1.
-          location: h1[0].file,
-          message: "Heading hierarchy",
-          recommendation: passRecommendation2,
-          docsUrl: docsUrl5
-        }
-      );
+      out.push(problem ? {
+        id: "seo/single-h1",
+        category: "seo",
+        severity: problem.severity,
+        detection: PENALIZED$1,
+        route: route.route,
+        ...where,
+        message: problem.message,
+        recommendation: problem.recommendation,
+        docsUrl: docsUrl$6
+      } : {
+        id: "seo/single-h1",
+        category: "seo",
+        severity: "warning",
+        detection: PASS,
+        route: route.route,
+        location: h1[0].file,
+        message: "Heading hierarchy",
+        recommendation: passRecommendation,
+        docsUrl: docsUrl$6
+      });
     }
     return out;
   }
 };
 function uniquenessRule(opts) {
-  const docsUrl12 = docsUrlFor(opts.id);
+  const docsUrl2 = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
     category: "seo",
     severity: "warning",
     scope: "route",
+    crossRoute: true,
     rationale: opts.rationale,
     async check(ctx) {
       const entries = [];
@@ -63283,7 +63330,11 @@ function uniquenessRule(opts) {
         if (!tag2 || typeof tag2.text !== "string") continue;
         const text2 = collapseWhitespace(tag2.text);
         if (text2.length === 0) continue;
-        entries.push({ route: head.route, file: tag2.file ?? head.file, text: text2 });
+        entries.push({
+          route: head.route,
+          file: tag2.file ?? head.file,
+          text: text2
+        });
         counts.set(text2, (counts.get(text2) ?? 0) + 1);
       }
       return entries.map((e3) => {
@@ -63292,24 +63343,22 @@ function uniquenessRule(opts) {
           id: opts.id,
           category: "seo",
           severity: "warning",
-          detection: PENALIZED,
+          detection: PENALIZED$1,
           route: e3.route,
           location: e3.file,
           message: `${opts.noun} is duplicated across ${n2} routes`,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl12
+          docsUrl: docsUrl2
         } : {
           id: opts.id,
           category: "seo",
           severity: "warning",
           detection: PASS,
           route: e3.route,
-          // Same `location` the penalized branch above uses (design
-          // 2026-08-08-pass-result-location-design.md).
           location: e3.file,
           message: opts.label,
           recommendation: opts.recommendation,
-          docsUrl: docsUrl12
+          docsUrl: docsUrl2
         };
       });
     }
@@ -63333,8 +63382,8 @@ var seoDuplicateDescription = uniquenessRule({
   recommendation: "Write a unique meta description per route so each search snippet is page-specific.",
   rationale: "Duplicate meta descriptions give search engines no per-page summary, so they are often ignored or rewritten."
 });
-var docsUrl6 = docsUrlFor("seo/heading-level-skip");
-var recommendation4 = "Increase heading levels one step at a time (do not jump, e.g. from <h2> straight to <h4>).";
+var docsUrl$5 = docsUrlFor("seo/heading-level-skip");
+var recommendation$5 = "Increase heading levels one step at a time (do not jump, e.g. from <h2> straight to <h4>).";
 var seoHeadingLevelSkip = {
   id: "seo/heading-level-skip",
   title: "Heading order",
@@ -63351,39 +63400,38 @@ var seoHeadingLevelSkip = {
       for (let i2 = 1; i2 < route.headings.length; i2++) {
         const h2 = route.headings[i2];
         if (h2.level > prev + 1) {
-          skip = { level: h2.level, prev, line: h2.line, file: h2.file };
+          skip = {
+            level: h2.level,
+            prev,
+            line: h2.line,
+            file: h2.file
+          };
           break;
         }
         prev = h2.level;
       }
-      out.push(
-        skip ? {
-          id: "seo/heading-level-skip",
-          category: "seo",
-          severity: "info",
-          detection: PENALIZED,
-          route: route.route,
-          location: skip.file,
-          ...skip.line > 0 ? { line: skip.line } : {},
-          message: `Heading level skipped (<h${skip.prev}> to <h${skip.level}>)`,
-          recommendation: recommendation4,
-          docsUrl: docsUrl6
-        } : {
-          id: "seo/heading-level-skip",
-          category: "seo",
-          severity: "info",
-          detection: PASS,
-          route: route.route,
-          // No single route-level file exists here (unlike ResolvedHead.file) — the
-          // route's first heading stands in as its attributed file (design
-          // 2026-08-08-pass-result-location-design.md). `route.headings.length === 0`
-          // already continued above, so `[0]` is always defined here.
-          location: route.headings[0].file,
-          message: "Heading order",
-          recommendation: recommendation4,
-          docsUrl: docsUrl6
-        }
-      );
+      out.push(skip ? {
+        id: "seo/heading-level-skip",
+        category: "seo",
+        severity: "info",
+        detection: PENALIZED$1,
+        route: route.route,
+        location: skip.file,
+        ...skip.line > 0 ? { line: skip.line } : {},
+        message: `Heading level skipped (<h${skip.prev}> to <h${skip.level}>)`,
+        recommendation: recommendation$5,
+        docsUrl: docsUrl$5
+      } : {
+        id: "seo/heading-level-skip",
+        category: "seo",
+        severity: "info",
+        detection: PASS,
+        route: route.route,
+        location: route.headings[0].file,
+        message: "Heading order",
+        recommendation: recommendation$5,
+        docsUrl: docsUrl$5
+      });
     }
     return out;
   }
@@ -63392,12 +63440,13 @@ function isSuppressed(suppressions, ruleId, line) {
   return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function fileRule(spec) {
-  const docsUrl12 = docsUrlFor(spec.id);
+  const docsUrl2 = docsUrlFor(spec.id);
   return {
     id: spec.id,
     title: spec.title,
     category: spec.category,
     severity: spec.severity,
+    passLabel: spec.label,
     scope: "component",
     rationale: spec.rationale,
     ...spec.fix ? { fix: spec.fix } : {},
@@ -63406,9 +63455,12 @@ function fileRule(spec) {
       const out = [];
       const compiled = compileOverrides(ctx.config);
       for (const f of spec.facts(ctx) ?? []) {
-        const o2 = resolveRuleOptions(spec.id, spec.options, ctx.config, { route: f.file, file: f.file }, compiled);
+        const o2 = resolveRuleOptions(spec.id, spec.options, ctx.config, {
+          route: f.file,
+          file: f.file
+        }, compiled);
         if (!spec.applies(f, o2, ctx)) continue;
-        const recommendation12 = typeof spec.recommendation === "function" ? spec.recommendation(o2) : spec.recommendation;
+        const recommendation2 = typeof spec.recommendation === "function" ? spec.recommendation(o2) : spec.recommendation;
         const bad = spec.bad(f, o2, ctx).filter((b) => !(b.line > 0 && isSuppressed(f.suppressions, spec.id, b.line)));
         if (bad.length === 0) {
           out.push({
@@ -63419,26 +63471,24 @@ function fileRule(spec) {
             route: f.file,
             location: f.file,
             message: spec.label,
-            recommendation: recommendation12,
-            docsUrl: docsUrl12
+            recommendation: recommendation2,
+            docsUrl: docsUrl2
           });
           continue;
         }
-        for (const b of bad) {
-          out.push({
-            id: spec.id,
-            category: spec.category,
-            severity: spec.severity,
-            detection: PENALIZED,
-            route: f.file,
-            location: f.file,
-            ...b.line > 0 ? { line: b.line } : {},
-            message: b.message,
-            recommendation: recommendation12,
-            docsUrl: docsUrl12,
-            ...spec.fix ? { fix: { ...spec.fix } } : {}
-          });
-        }
+        for (const b of bad) out.push({
+          id: spec.id,
+          category: spec.category,
+          severity: b.severity ?? spec.severity,
+          detection: PENALIZED$1,
+          route: f.file,
+          location: f.file,
+          ...b.line > 0 ? { line: b.line } : {},
+          message: b.message,
+          recommendation: recommendation2,
+          docsUrl: docsUrl2,
+          ...spec.fix ? { fix: { ...spec.fix } } : {}
+        });
       }
       return out;
     }
@@ -63470,12 +63520,10 @@ var seoSsrDisabled = kitModuleRule({
   recommendation: "Keep SSR on for indexable pages; restrict ssr = false to routes that don't need SEO (authenticated dashboards, app-only views). For a deliberate SPA, turn this rule off in the config or add an inline suppression.",
   rationale: "SvelteKit's SEO guidance is to leave SSR on unless there is a good reason not to: server-rendered content is indexed more frequently and reliably, and SPA mode costs an extra network round trip before anything renders.",
   applies: (m) => m.ssrDisabled !== void 0 && PAGE_OPTION_FILE_RE.test(m.file),
-  bad: (m) => [
-    {
-      line: m.ssrDisabled.line,
-      message: ROOT_LAYOUT_RE.test(m.file) ? "SSR is disabled for the whole app \u2014 search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint" : "SSR is disabled for this route \u2014 its content is invisible to crawlers that don't execute JavaScript and indexes less reliably"
-    }
-  ]
+  bad: (m) => [{
+    line: m.ssrDisabled.line,
+    message: ROOT_LAYOUT_RE.test(m.file) ? "SSR is disabled for the whole app \u2014 search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint" : "SSR is disabled for this route \u2014 its content is invisible to crawlers that don't execute JavaScript and indexes less reliably"
+  }]
 });
 var correctnessEachKey = componentRule({
   id: "correctness/each-key",
@@ -63485,7 +63533,10 @@ var correctnessEachKey = componentRule({
   recommendation: "Add a key to the {#each} block, e.g. {#each items as item (item.id)}.",
   rationale: "An unkeyed {#each} adds/removes nodes at the end and rewrites the data of the DOM nodes in between when the list reorders, so element state/focus sticks to positions instead of items; a key lets Svelte insert, move, and delete the right nodes instead.",
   applies: (c) => c.eachBlocks.length > 0,
-  bad: (c) => c.eachBlocks.filter((e3) => !e3.hasKey).map((e3) => ({ line: e3.line, message: "{#each} block has no key" }))
+  bad: (c) => c.eachBlocks.filter((e3) => !e3.hasKey).map((e3) => ({
+    line: e3.line,
+    message: "{#each} block has no key"
+  }))
 });
 var correctnessEachIndexKey = componentRule({
   id: "correctness/each-index-key",
@@ -63508,7 +63559,10 @@ var correctnessEffectAsDerived = componentRule({
   recommendation: "Replace the state-syncing $effect with a derived value, e.g. let x = $derived(expr).",
   rationale: 'An $effect whose body only assigns to $state is the "useEffect \u2192 $effect" anti-pattern: it reruns after render and can cause extra passes or loops. $derived expresses the same dependency declaratively.',
   applies: (c) => c.effects.length > 0,
-  bad: (c) => c.effects.filter((e3) => e3.assignsOnlyState).map((e3) => ({ line: e3.line, message: "$effect only assigns state \u2014 use $derived instead" }))
+  bad: (c) => c.effects.filter((e3) => e3.assignsOnlyState).map((e3) => ({
+    line: e3.line,
+    message: "$effect only assigns state \u2014 use $derived instead"
+  }))
 });
 var correctnessEffectAsOnMount = componentRule({
   id: "correctness/effect-as-onmount",
@@ -63558,9 +63612,7 @@ var correctnessStalePropDerivation = componentRule({
   label: "Props derived reactively",
   recommendation: "Wrap the computation in $derived(...) (or $derived.by(() => ...) for a function body) in runes-mode components; prefix the assignment with $: in legacy-mode components.",
   rationale: "Svelte's guidance is to treat props as though they will change: a plain `let color = type === 'danger' ? 'red' : 'green'` freezes the first render's value, so the UI silently stops tracking the parent when the prop changes. In runes mode, $derived keeps the computation live at no cost; in legacy mode (export let props), a $: reactive statement does the same job.",
-  fix: {
-    description: "Wrap the prop-derived computation in $derived(...) (or $derived.by(() => ...) for a function body) in runes mode, or prefix the assignment with $: in legacy mode, keeping the same expression."
-  },
+  fix: { description: "Wrap the prop-derived computation in $derived(...) (or $derived.by(() => ...) for a function body) in runes mode, or prefix the assignment with $: in legacy mode, keeping the same expression." },
   applies: (c) => c.stalePropDerivations.length > 0,
   bad: (c) => c.stalePropDerivations.map((s) => ({
     line: s.line,
@@ -63575,9 +63627,7 @@ var correctnessNonreactiveBuiltinState = componentRule({
   label: "Reactive collections in $state",
   recommendation: "Import the reactive equivalent from 'svelte/reactivity' (SvelteMap, SvelteSet, SvelteDate, SvelteURL, SvelteURLSearchParams) and construct that instead.",
   rationale: "$state deep-proxies plain objects and arrays only; built-in collection, date, and URL instances stay untracked, so property-level changes never reach effects, deriveds, or the template. Svelte's own answer is the drop-in classes in svelte/reactivity.",
-  fix: {
-    description: "Import Svelte<Type> from 'svelte/reactivity' and replace new <Type>(...) with new Svelte<Type>(...) \u2014 the API is identical."
-  },
+  fix: { description: "Import Svelte<Type> from 'svelte/reactivity' and replace new <Type>(...) with new Svelte<Type>(...) \u2014 the API is identical." },
   applies: (c) => c.nonreactiveBuiltinStates.length > 0,
   bad: (c) => c.nonreactiveBuiltinStates.map((s) => ({
     line: s.line,
@@ -63592,13 +63642,30 @@ var correctnessCheckableBindValue = componentRule({
   label: "bind:checked / bind:group on checkable inputs",
   recommendation: "Replace bind:value with bind:checked (single checkbox) or bind:group (checkbox list / radio group).",
   rationale: "bind:value binds the DOM value property. A checkbox/radio's user interaction toggles checkedness, which bind:value never observes. On a checkbox this throws bind_invalid_checkbox_value in a development build; in production the check is skipped and the binding silently tracks the value attribute instead of checkedness. On a radio it throws nothing in either build \u2014 it renders once with the initial value, then silently never updates. Svelte's checked/grouped bindings (bind:checked, bind:group) are built for exactly this.",
-  fix: {
-    description: "For a single checkbox, replace bind:value={x} with bind:checked={x} (x becomes a boolean). For a checkbox list or radio group, replace bind:value={x} with bind:group={x} on every input sharing the group, keeping each input's static value attribute to identify the option."
-  },
+  fix: { description: "For a single checkbox, replace bind:value={x} with bind:checked={x} (x becomes a boolean). For a checkbox list or radio group, replace bind:value={x} with bind:group={x} on every input sharing the group, keeping each input's static value attribute to identify the option." },
   applies: (c) => c.checkableBindValues.length > 0,
   bad: (c) => c.checkableBindValues.map((v) => ({
     line: v.line,
     message: v.kind === "checkbox" ? "bind:value on a checkbox does not track its checked state \u2014 it throws bind_invalid_checkbox_value in development; in a production build it silently tracks the value attribute instead of checkedness. Use bind:checked (single checkbox) or bind:group (checkbox list) instead." : "bind:value on a radio input does not track which option is selected \u2014 the bound value silently never updates when the user picks one. Use bind:group with a shared group variable across the radio inputs instead."
+  }))
+});
+var correctnessAutoplayMuted = componentRule({
+  id: "correctness/autoplay-muted",
+  title: "Autoplay video without muted",
+  category: "correctness",
+  severity: "warning",
+  label: "Muted autoplay videos",
+  recommendation: "Add `muted` to every `<video autoplay>` (and typically `playsinline`, so iOS plays it inline instead of refusing or going fullscreen).",
+  rationale: "Browser autoplay policies block autoplay with audio: Chrome and Safari only honour `autoplay` when the video is muted (or the site has earned an autoplay allowance; a video with no audio track may also be allowed). A blocked autoplay does not throw \u2014 the video just never starts, so the page ships with a frozen poster frame for real visitors while working in development, where prior interaction often unlocks autoplay for the session. Adding `muted` is harmless even where autoplay would have been allowed.",
+  fix: {
+    description: "Add the muted attribute (and typically playsinline) to the autoplaying video.",
+    snippet: '<video autoplay muted playsinline src="/hero.mp4"></video>',
+    lang: "svelte"
+  },
+  applies: (c) => (c.videosAutoplayNoMuted ?? []).length > 0,
+  bad: (c) => (c.videosAutoplayNoMuted ?? []).map((f) => ({
+    line: f.line,
+    message: "<video autoplay> without muted \u2014 browsers block audible autoplay, so the video silently never starts playing"
   }))
 });
 var correctnessOrphanEffect = componentRule({
@@ -63609,22 +63676,23 @@ var correctnessOrphanEffect = componentRule({
   label: "$effect context",
   recommendation: "Wrap the effect in $effect.root (and own the returned cleanup), or restructure so the effect is created during component initialisation (e.g. call a setup method from a component).",
   rationale: "An $effect created outside component initialisation throws effect_orphan at runtime. The compiler does not catch it \u2014 the server compiler deletes $effect calls entirely, so SSR renders without error \u2014 and the crash happens client-side, when the module evaluates in the browser, breaking hydration rather than producing a server error.",
-  // `orphanEffects` is typed required, but a facts object built by an older/external
-  // constructor may omit it — default to empty rather than let `applies` throw and
-  // surface this rule as failed (the engine isolates a throwing rule, but this one
-  // can just work instead of getting flagged).
   applies: (c) => (c.orphanEffects ?? []).length > 0,
   bad: (c) => (c.orphanEffects ?? []).map((o2) => ({
     line: o2.line,
     message: o2.kind === "top-level" ? "$effect at module scope runs outside component initialisation \u2014 it throws effect_orphan at runtime" : `class "${o2.className}" runs $effect in its constructor and is instantiated at module scope \u2014 it throws effect_orphan at runtime`
   }))
 });
-var ID = "correctness/orphan-lifecycle";
-var DOCS_URL = docsUrlFor(ID);
-var LABEL = "Lifecycle-call context";
-var RECOMMENDATION = "Call lifecycle/context functions during component initialisation (the top level of a component's <script>). In load, return the data and call setContext in a layout/page component; in shared modules, expose a setup function that components call during init.";
+var ID$9 = "correctness/orphan-lifecycle";
+var DOCS_URL$2 = docsUrlFor(ID$9);
+var LABEL$2 = "Lifecycle-call context";
+var RECOMMENDATION$3 = "Call lifecycle/context functions during component initialisation (the top level of a component's <script>). In load, return the data and call setContext in a layout/page component; in shared modules, expose a setup function that components call during init.";
 var topLevelMessage = (name) => `${name}() runs at module evaluation, outside component initialisation \u2014 it throws lifecycle_outside_component at runtime`;
-var ALWAYS_THROWS = /* @__PURE__ */ new Set(["getContext", "setContext", "hasContext", "getAllContexts"]);
+var ALWAYS_THROWS = /* @__PURE__ */ new Set([
+  "getContext",
+  "setContext",
+  "hasContext",
+  "getAllContexts"
+]);
 function kitLifecycleMessage(name, kind, inHandler) {
   if (kind === "server" && !ALWAYS_THROWS.has(name)) {
     const where = inHandler ? `${name}() is called in a load/handler, outside component initialisation` : `${name}() runs outside component initialisation (module evaluation or the init hook)`;
@@ -63632,41 +63700,37 @@ function kitLifecycleMessage(name, kind, inHandler) {
   }
   return inHandler ? `${name}() is called in a load/handler \u2014 it runs on every request, outside component initialisation, and throws lifecycle_outside_component at runtime` : `${name}() runs outside component initialisation (module evaluation or the init hook) \u2014 it throws lifecycle_outside_component at runtime`;
 }
-function emitFile(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, ID, b.line)));
+function emitFile$2(out, file, issues, suppressions) {
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, ID$9, b.line)));
   if (bad.length === 0) {
     out.push({
-      id: ID,
+      id: ID$9,
       category: "correctness",
       severity: "critical",
       detection: PASS,
       route: file,
-      // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
-      // same location a penalized result for this file would carry.
       location: file,
-      message: LABEL,
-      recommendation: RECOMMENDATION,
-      docsUrl: DOCS_URL
+      message: LABEL$2,
+      recommendation: RECOMMENDATION$3,
+      docsUrl: DOCS_URL$2
     });
     return;
   }
-  for (const b of bad) {
-    out.push({
-      id: ID,
-      category: "correctness",
-      severity: "critical",
-      detection: PENALIZED,
-      route: file,
-      location: file,
-      ...b.line > 0 ? { line: b.line } : {},
-      message: b.message,
-      recommendation: RECOMMENDATION,
-      docsUrl: DOCS_URL
-    });
-  }
+  for (const b of bad) out.push({
+    id: ID$9,
+    category: "correctness",
+    severity: "critical",
+    detection: PENALIZED$1,
+    route: file,
+    location: file,
+    ...b.line > 0 ? { line: b.line } : {},
+    message: b.message,
+    recommendation: RECOMMENDATION$3,
+    docsUrl: DOCS_URL$2
+  });
 }
 var correctnessOrphanLifecycle = {
-  id: ID,
+  id: ID$9,
   title: "Lifecycle call outside component initialisation",
   category: "correctness",
   severity: "critical",
@@ -63677,146 +63741,122 @@ var correctnessOrphanLifecycle = {
     for (const c of ctx.components ?? []) {
       const calls = c.orphanLifecycleCalls ?? [];
       if (calls.length === 0) continue;
-      emitFile(
-        out,
-        c.file,
-        calls.map((o2) => ({
-          line: o2.line,
-          message: o2.kind === "top-level" ? topLevelMessage(o2.name) : `class "${o2.className}" calls ${o2.name}() in its constructor and is instantiated at module scope \u2014 it throws lifecycle_outside_component at runtime`
-        })),
-        c.suppressions
-      );
+      emitFile$2(out, c.file, calls.map((o2) => ({
+        line: o2.line,
+        message: o2.kind === "top-level" ? topLevelMessage(o2.name) : `class "${o2.className}" calls ${o2.name}() in its constructor and is instantiated at module scope \u2014 it throws lifecycle_outside_component at runtime`
+      })), c.suppressions);
     }
     for (const m of ctx.kitModules ?? []) {
       const calls = m.lifecycleCalls ?? [];
       if (calls.length === 0) continue;
-      emitFile(
-        out,
-        m.file,
-        calls.map((l2) => ({
-          line: l2.line,
-          message: kitLifecycleMessage(l2.name, m.kind, l2.inHandler)
-        })),
-        m.suppressions
-      );
+      emitFile$2(out, m.file, calls.map((l2) => ({
+        line: l2.line,
+        message: kitLifecycleMessage(l2.name, m.kind, l2.inHandler)
+      })), m.suppressions);
     }
     return out;
   }
 };
-var ID2 = "correctness/base-path-navigation";
-var DOCS_URL2 = docsUrlFor(ID2);
-var LABEL2 = "Base-path-aware navigation";
-var RECOMMENDATION2 = "Wrap root-relative paths in resolve() from '$app/paths' so they resolve against kit.paths.base.";
-var FIX7 = {
-  description: "Import { resolve } from '$app/paths' and wrap the path: href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login'))."
-};
-function messageFor2(link) {
-  if (link.kind === "href") {
-    return `<a href="${link.path}"> is root-relative \u2014 under this project's kit.paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
-  }
-  if (link.kind === "goto") {
-    return `goto('${link.path}') is root-relative \u2014 it navigates outside this project's kit.paths.base and 404s in production. Use goto(resolve('${link.path}')) with resolve from '$app/paths'.`;
-  }
+var ID$8 = "correctness/base-path-navigation";
+var DOCS_URL$1 = docsUrlFor(ID$8);
+var LABEL$1 = "Base-path-aware navigation";
+var RECOMMENDATION$2 = "Wrap root-relative paths in resolve() from '$app/paths' so they resolve against kit.paths.base.";
+var FIX$2 = { description: "Import { resolve } from '$app/paths' and wrap the path: href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login'))." };
+function messageFor(link) {
+  if (link.kind === "href") return `<a href="${link.path}"> is root-relative \u2014 under this project's kit.paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
+  if (link.kind === "goto") return `goto('${link.path}') is root-relative \u2014 it navigates outside this project's kit.paths.base and 404s in production. Use goto(resolve('${link.path}')) with resolve from '$app/paths'.`;
   return `redirect(\u2026, '${link.path}') is root-relative \u2014 the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
 }
-function emitFile2(out, file, links, suppressions) {
-  const bad = links.filter((l2) => !(l2.line > 0 && isSuppressed(suppressions, ID2, l2.line)));
+function emitFile$1(out, file, links, suppressions) {
+  const bad = links.filter((l2) => !(l2.line > 0 && isSuppressed(suppressions, ID$8, l2.line)));
   if (bad.length === 0) {
     out.push({
-      id: ID2,
+      id: ID$8,
       category: "correctness",
       severity: "warning",
       detection: PASS,
       route: file,
-      // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
-      // same location a penalized result for this file would carry.
       location: file,
-      message: LABEL2,
-      recommendation: RECOMMENDATION2,
-      docsUrl: DOCS_URL2
+      message: LABEL$1,
+      recommendation: RECOMMENDATION$2,
+      docsUrl: DOCS_URL$1
     });
     return;
   }
-  for (const l2 of bad) {
-    out.push({
-      id: ID2,
-      category: "correctness",
-      severity: "warning",
-      detection: PENALIZED,
-      route: file,
-      location: file,
-      ...l2.line > 0 ? { line: l2.line } : {},
-      message: messageFor2(l2),
-      recommendation: RECOMMENDATION2,
-      docsUrl: DOCS_URL2,
-      fix: { ...FIX7 }
-    });
-  }
+  for (const l2 of bad) out.push({
+    id: ID$8,
+    category: "correctness",
+    severity: "warning",
+    detection: PENALIZED$1,
+    route: file,
+    location: file,
+    ...l2.line > 0 ? { line: l2.line } : {},
+    message: messageFor(l2),
+    recommendation: RECOMMENDATION$2,
+    docsUrl: DOCS_URL$1,
+    fix: { ...FIX$2 }
+  });
 }
 var correctnessBasePathNavigation = {
-  id: ID2,
+  id: ID$8,
   title: "Root-relative navigation under a base path",
   category: "correctness",
   severity: "warning",
   scope: "component",
   rationale: "A root-relative literal resolves against the domain root, not kit.paths.base, so navigation lands outside an app served from a sub-path. The break only appears once the app is deployed under its base \u2014 locally base is usually empty, so every such link works.",
-  fix: { ...FIX7 },
+  fix: { ...FIX$2 },
   async check(ctx) {
     if (!ctx.project.kitPathsBase) return [];
     const out = [];
     for (const c of ctx.components ?? []) {
       const links = c.basePathLinks ?? [];
       if (links.length === 0) continue;
-      emitFile2(out, c.file, links, c.suppressions);
+      emitFile$1(out, c.file, links, c.suppressions);
     }
     for (const m of ctx.kitModules ?? []) {
       const links = m.basePathLinks ?? [];
       if (links.length === 0) continue;
-      emitFile2(out, m.file, links, m.suppressions);
+      emitFile$1(out, m.file, links, m.suppressions);
     }
     return out;
   }
 };
-var ID3 = "correctness/server-browser-global";
-var DOCS_URL3 = docsUrlFor(ID3);
-var LABEL3 = "Server-safe module code";
-var RECOMMENDATION3 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
+var ID$7 = "correctness/server-browser-global";
+var DOCS_URL = docsUrlFor(ID$7);
+var LABEL = "Server-safe module code";
+var RECOMMENDATION$1 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
 var moduleMessage = (name) => `${name} is accessed at module scope \u2014 it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;
-function emitFile3(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, ID3, b.line)));
+function emitFile(out, file, issues, suppressions) {
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, ID$7, b.line)));
   if (bad.length === 0) {
     out.push({
-      id: ID3,
+      id: ID$7,
       category: "correctness",
       severity: "critical",
       detection: PASS,
       route: file,
-      // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
-      // same location a penalized result for this file would carry.
       location: file,
-      message: LABEL3,
-      recommendation: RECOMMENDATION3,
-      docsUrl: DOCS_URL3
+      message: LABEL,
+      recommendation: RECOMMENDATION$1,
+      docsUrl: DOCS_URL
     });
     return;
   }
-  for (const b of bad) {
-    out.push({
-      id: ID3,
-      category: "correctness",
-      severity: "critical",
-      detection: PENALIZED,
-      route: file,
-      location: file,
-      ...b.line > 0 ? { line: b.line } : {},
-      message: b.message,
-      recommendation: RECOMMENDATION3,
-      docsUrl: DOCS_URL3
-    });
-  }
+  for (const b of bad) out.push({
+    id: ID$7,
+    category: "correctness",
+    severity: "critical",
+    detection: PENALIZED$1,
+    route: file,
+    location: file,
+    ...b.line > 0 ? { line: b.line } : {},
+    message: b.message,
+    recommendation: RECOMMENDATION$1,
+    docsUrl: DOCS_URL
+  });
 }
 var correctnessServerBrowserGlobal = {
-  id: ID3,
+  id: ID$7,
   title: "Browser global in server module code",
   category: "correctness",
   severity: "critical",
@@ -63827,25 +63867,18 @@ var correctnessServerBrowserGlobal = {
     for (const c of ctx.components ?? []) {
       const refs = (c.browserGlobalRefs ?? []).filter((r2) => r2.context === "module");
       if (refs.length === 0) continue;
-      emitFile3(
-        out,
-        c.file,
-        refs.map((r2) => ({ line: r2.line, message: moduleMessage(r2.name) })),
-        c.suppressions
-      );
+      emitFile(out, c.file, refs.map((r2) => ({
+        line: r2.line,
+        message: moduleMessage(r2.name)
+      })), c.suppressions);
     }
     for (const m of ctx.kitModules ?? []) {
       const refs = m.browserGlobalRefs ?? [];
       if (refs.length === 0) continue;
-      emitFile3(
-        out,
-        m.file,
-        refs.map((r2) => ({
-          line: r2.line,
-          message: r2.inHandler ? `${r2.name} is accessed in a load/handler \u2014 it runs on the server during SSR, where ${r2.name} is not defined` : moduleMessage(r2.name)
-        })),
-        m.suppressions
-      );
+      emitFile(out, m.file, refs.map((r2) => ({
+        line: r2.line,
+        message: r2.inHandler ? `${r2.name} is accessed in a load/handler \u2014 it runs on the server during SSR, where ${r2.name} is not defined` : moduleMessage(r2.name)
+      })), m.suppressions);
     }
     return out;
   }
@@ -63871,7 +63904,10 @@ var securityRawHtml = componentRule({
   recommendation: "Sanitize the value before {@html} (e.g. DOMPurify), or render it as text/markup instead. A sanitizer keeps {@html} in the source, so the finding persists by design \u2014 once reviewed, suppress it with the inline directive.",
   rationale: "{@html} renders its value as unescaped HTML; if the value can contain user input and is not sanitized, it is a cross-site-scripting (XSS) vector.",
   applies: (c) => c.htmlTags.length > 0,
-  bad: (c) => c.htmlTags.map((h2) => ({ line: h2.line, message: "{@html} renders unescaped HTML \u2014 ensure it is sanitized" }))
+  bad: (c) => c.htmlTags.map((h2) => ({
+    line: h2.line,
+    message: "{@html} renders unescaped HTML \u2014 ensure it is sanitized"
+  }))
 });
 var securityJavascriptUrl = componentRule({
   id: "security/javascript-url",
@@ -63881,7 +63917,10 @@ var securityJavascriptUrl = componentRule({
   recommendation: "Use an event handler or a real URL instead of a javascript: URL.",
   rationale: "A javascript: URL in href/src/action/formaction breaks under a strict Content-Security-Policy and turns what should be a real navigation into inline script execution on activation \u2014 use an event handler on a <button> instead (the same shape is also a classic XSS vector, though detection here is literal-only, so every flagged URL is author-written, not injected).",
   applies: (c) => c.javascriptUrls.length > 0,
-  bad: (c) => c.javascriptUrls.map((u2) => ({ line: u2.line, message: "javascript: URL in an attribute" }))
+  bad: (c) => c.javascriptUrls.map((u2) => ({
+    line: u2.line,
+    message: "javascript: URL in an attribute"
+  }))
 });
 var securityHandlerStateWrite = kitModuleRule({
   id: "security/handler-state-write",
@@ -63946,14 +63985,20 @@ var architectureComponentSize = componentRule({
   category: "architecture",
   severity: "info",
   label: "Component size",
-  options: { max: { kind: "integer", default: MAX_LOC, min: 1 } },
+  options: { max: {
+    kind: "integer",
+    default: MAX_LOC,
+    min: 1
+  } },
   recommendation: (o2) => `Split components over ${intOption(o2, "max", MAX_LOC)} lines into smaller, focused pieces.`,
   rationale: "A very large component is hard to read, test, and reuse, and is a common sign that several responsibilities should be split out.",
   applies: (c) => c.loc > 0,
-  // skip unanalyzable files (loc 0 = read/parse failure), don't PASS them
   bad: (c, o2) => {
     const max = intOption(o2, "max", MAX_LOC);
-    return c.loc > max ? [{ line: 1, message: `Component is ${c.loc} lines (over ${max})` }] : [];
+    return c.loc > max ? [{
+      line: 1,
+      message: `Component is ${c.loc} lines (over ${max})`
+    }] : [];
   }
 });
 var MAX_PROPS = 6;
@@ -63963,27 +64008,40 @@ var architecturePropCount = componentRule({
   category: "architecture",
   severity: "info",
   label: "Prop count",
-  options: { max: { kind: "integer", default: MAX_PROPS, min: 1 } },
+  options: { max: {
+    kind: "integer",
+    default: MAX_PROPS,
+    min: 1
+  } },
   recommendation: (o2) => `Group related props into an object, or split the component, when it takes more than ${intOption(o2, "max", MAX_PROPS)} props.`,
   rationale: "A component taking many props is usually doing too much; grouping or splitting keeps its API understandable.",
   applies: (c) => c.propCount > 0,
-  // only components whose props we could count
   bad: (c, o2) => {
     const max = intOption(o2, "max", MAX_PROPS);
-    return c.propCount > max ? [{ line: 1, message: `Component takes ${c.propCount} props (over ${max})` }] : [];
+    return c.propCount > max ? [{
+      line: 1,
+      message: `Component takes ${c.propCount} props (over ${max})`
+    }] : [];
   }
 });
+function isRootRelativePath(value) {
+  return value.startsWith("/") && !value.startsWith("//");
+}
+var HTML_SPEC = JSON.parse(`{"elements":{"a":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), a, [tabindex], :has(:model(interactive), a, [tabindex]))"}]},"aria":{"implicitRole":"link","permittedRoles":["button","checkbox","menuitem","menuitemcheckbox","menuitemradio","option","radio","switch","tab","treeitem"],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"attributionsrc":{"deprecated":true},"charset":{"deprecated":true},"coords":{"deprecated":true},"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{"deprecated":true},"ping":{},"referrerpolicy":{},"rel":{},"rev":{"deprecated":true},"shape":{"deprecated":true},"target":{},"type":{}}},"abbr":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"acronym":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"address":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(address, :model(heading), :model(sectioning), header, foooter, :has(address, :model(heading), :model(sectioning), header, foooter))"}]},"aria":{"implicitRole":"group","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"applet":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"area":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false,"descendantOf":"map"},"aria":{"implicitRole":"link","permittedRoles":[],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"alt":{"type":"Any","required":true,"condition":"[href]"},"coords":{"type":{"token":"Number","disallowToSurroundBySpaces":true,"separator":"comma"}},"download":{},"href":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{},"referrerpolicy":{},"rel":{},"shape":{"type":{"enum":["rect","circle","poly","default"],"missingValueDefault":"rect","invalidValueDefault":"rect"}},"target":{}}},"article":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"article","permittedRoles":["application","document","feed","main","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"aside":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"complementary","permittedRoles":["feed","none","note","presentation","region","search"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"audio":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{},"crossorigin":{},"disableremoteplayback":{},"loop":{},"muted":{},"preload":{},"src":{}}},"b":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"base":{"categories":["#metadata"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"href":{"type":"BaseURL"},"target":{}}},"basefont":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"bdi":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"bdo":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"dir":{}}},"bgsound":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"big":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blink":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blockquote":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"blockquote","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"body":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"generic","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"alink":{"deprecated":true},"background":{"deprecated":true},"bgcolor":{"deprecated":true},"bottommargin":{"deprecated":true},"leftmargin":{"deprecated":true},"link":{"deprecated":true},"onafterprint":{"type":"FunctionBody"},"onbeforeprint":{"type":"FunctionBody"},"onbeforeunload":{"type":"FunctionBody"},"onhashchange":{"type":"FunctionBody"},"onlanguagechange":{"type":"FunctionBody"},"onmessage":{"type":"FunctionBody"},"onmessageerror":{"type":"FunctionBody"},"onoffline":{"type":"FunctionBody"},"ononline":{"type":"FunctionBody"},"onpagehide":{"type":"FunctionBody"},"onpagereveal":{"type":"FunctionBody"},"onpageshow":{"type":"FunctionBody"},"onpageswap":{"type":"FunctionBody"},"onpopstate":{"type":"FunctionBody"},"onrejectionhandled":{"type":"FunctionBody"},"onstorage":{"type":"FunctionBody"},"onunhandledrejection":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"rightmargin":{"deprecated":true},"text":{"deprecated":true},"topmargin":{"deprecated":true},"vlink":{"deprecated":true}}},"br":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"clear":{"deprecated":true}}},"button":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"implicitRole":"button","permittedRoles":["checkbox","combobox","gridcell","link","menuitem","menuitemcheckbox","menuitemradio","option","radio","separator","slider","switch","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autofocus":{},"command":{"type":[{"enum":["toggle-popover","show-popover","hide-popover","close","request-close","show-modal"],"invalidValueDefault":"unknown","missingValueDefault":"unknown"},"ValidCustomCommand"]},"commandfor":{"type":"DOMID"},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{},"popovertarget":{"type":"DOMID"},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"}},"type":{"type":{"enum":["submit","reset","button"],"invalidValueDefault":"submit","missingValueDefault":"submit"}},"value":{"type":"Any"}}},"canvas":{"categories":["#flow","#phrasing","#embedded","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"moz-opaque":{"deprecated":true,"nonStandard":true},"width":{}}},"caption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"caption","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true}}},"center":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"cite":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"code":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"code","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"col":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"colgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"col"}],"conditional":[{"condition":"[span]","contents":false}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"data":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"value":{"type":"Any","required":true}}},"datalist":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"zeroOrMore":["option",":model(script-supporting)"]}]]}]},"aria":{"implicitRole":"listbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dd":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"del":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateTime"}}},"details":{"categories":["#flow","#interactive","#palpable"],"contentModel":{"contents":[{"require":"summary"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"},"open":{"type":"Boolean"}}},"dfn":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(dfn, :has(dfn))"}]},"aria":{"implicitRole":"term","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dialog":{"categories":["#flow"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"dialog","permittedRoles":["alertdialog"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"closedby":{"type":{"enum":["any","closerequest","none"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"open":{"type":"Boolean"},"tabindex":{"noUse":true}}},"dir":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"compact":{"deprecated":true}}},"div":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}],"conditional":[{"condition":"dl > div","contents":[{"oneOrMore":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}]}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dl":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"oneOrMore":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}],[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"div"},{"zeroOrMore":":model(script-supporting)"}]]}]},"aria":{"permittedRoles":["group","list","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"dt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":["listitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"em":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"emphasis","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"embed":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"src":{"type":"URL","required":"[itemprop]"},"type":{"type":"MIMEType"},"width":{}}},"fieldset":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"optional":"legend"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":["radiogroup","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"form":{},"name":{}}},"figcaption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["group","none","presentation"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"figure":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"require":"figcaption"},{"oneOrMore":":model(flow)"}],[{"oneOrMore":":model(flow)"},{"require":"figcaption"}],[{"oneOrMore":":model(flow)"}]]}]},"aria":{"implicitRole":"figure","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"font":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"color":{"deprecated":true},"face":{"deprecated":true},"size":{"deprecated":true}}},"footer":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}]},"aria":{"implicitRole":"contentinfo","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"form":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(form, :has(form))"}]},"aria":{"permittedRoles":["search","none","presentation"],"conditions":{":aria(has name)":{"implicitRole":"form"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"deprecated":true},"accept-charset":{"type":{"enum":["utf-8"],"caseInsensitive":true}},"action":{"type":"URL"},"autocapitalize":{},"autocomplete":{"type":{"enum":["on","off"],"invalidValueDefault":"on","missingValueDefault":"on"}},"enctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded","missingValueDefault":"application/x-www-form-urlencoded"}},"method":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get","missingValueDefault":"get"}},"name":{"type":"NoEmptyAny"},"novalidate":{"type":"Boolean"},"rel":{"type":"LinkTypeForFormElement"},"target":{"type":"NavigableTargetNameOrKeyword"}}},"frame":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"frameborder":{"deprecated":true},"marginheight":{"deprecated":true},"marginwidth":{"deprecated":true},"name":{"deprecated":true},"noresize":{"deprecated":true},"scrolling":{"deprecated":true},"src":{"deprecated":true}}},"frameset":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"cols":{"deprecated":true},"rows":{"deprecated":true}}},"h1":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h2":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h3":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h4":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h5":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h6":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"head":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":":model(metadata):not(title)"},{"require":"title"},{"zeroOrMore":":model(metadata):not(title)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"profile":{"deprecated":true}}},"header":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}]},"aria":{"implicitRole":"banner","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hgroup":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"},{"require":["h1","h2","h3","h4","h5","h6"]},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hr":{"categories":["#flow"],"contentModel":{"contents":false},"aria":{"implicitRole":"separator","permittedRoles":["presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true,"nonStandard":true},"color":{"deprecated":true,"nonStandard":true},"noshade":{"deprecated":true,"nonStandard":true},"size":{"deprecated":true,"nonStandard":true},"width":{"deprecated":true,"nonStandard":true}}},"html":{"categories":[],"contentModel":{"contents":[{"require":"head"},{"require":"body"}]},"aria":{"implicitRole":"generic","permittedRoles":["document","generic"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"version":{"deprecated":true},"xmlns":{}}},"i":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"iframe":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"allow":{"type":"SerializedPermissionsPolicy"},"allowfullscreen":{"type":"Boolean"},"allowpaymentrequest":{"deprecated":true,"nonStandard":true},"browsingtopics":{"deprecated":true,"nonStandard":true},"credentialless":{"experimental":true},"csp":{"experimental":true},"frameborder":{"deprecated":true},"height":{},"loading":{},"longdesc":{"deprecated":true},"marginheight":{"deprecated":true},"marginwidth":{"deprecated":true},"name":{"type":"NavigableTargetName"},"privateToken":{"type":"Any","experimental":true},"referrerpolicy":{},"sandbox":{"type":{"token":{"enum":["allow-forms","allow-modals","allow-orientation-lock","allow-pointer-lock","allow-popups","allow-popups-to-escape-sandbox","allow-presentation","allow-same-origin","allow-scripts","allow-top-navigation","allow-top-navigation-by-user-activation","allow-downloads","allow-custom-protocols-navigation"]},"caseInsensitive":true,"ordered":true,"unique":true,"separator":"space"}},"scrolling":{"deprecated":true},"src":{"required":"[itemprop]","ineffective":"[srcdoc]"},"srcdoc":{"type":"Any"},"width":{}}},"img":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"img","permittedRoles":["button","checkbox","link","math","menuitem","menuitemcheckbox","menuitemradio","meter","option","progressbar","radio","scrollbar","separator","slider","switch","tab","treeitem"],"conditions":{"[alt=\\"\\"]":{"implicitRole":"presentation"},":not([alt]):aria(has no name)":{"implicitRole":"img"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"alt":{"type":"Any"},"attributionsrc":{"deprecated":true},"border":{"deprecated":true},"crossorigin":{},"decoding":{"type":{"enum":["sync","async","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"elementtiming":{},"fetchpriority":{},"height":{},"hspace":{"deprecated":true},"ismap":{"type":"Boolean","condition":"a[href] img"},"loading":{},"longdesc":{"deprecated":true},"name":{"deprecated":true},"referrerpolicy":{},"sizes":{},"src":{"type":"URL","requiredEither":["srcset"]},"srcset":{"type":"Srcset","requiredEither":["src"]},"usemap":{"type":"HashName","condition":":is(:not(a):not(button)) img"},"vspace":{"deprecated":true},"width":{}}},"input":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"textbox","permittedRoles":["combobox","searchbox","spinbutton"],"conditions":{"[type='button' i]":{"implicitRole":"button"},"[type='checkbox' i]":{"implicitRole":"checkbox"},"[type='checkbox' i][aria-pressed]":{"implicitRole":"checkbox"},"[type='color' i]":{"implicitRole":false},"[type='date' i]":{"implicitRole":false},"[type='email' i]:not([list])":{"implicitRole":"textbox"},"[type='file' i]":{"implicitRole":false},"[type='hidden' i]":{"implicitRole":false},"[type='image' i]":{"implicitRole":"button"},"[type='month' i]":{"implicitRole":false},"[type='number' i]":{"implicitRole":"spinbutton"},"[type='password' i]":{"implicitRole":false},"[type='radio' i]":{"implicitRole":"radio"},"[type='range' i]":{"implicitRole":"slider"},"[type='reset' i]":{"implicitRole":"button"},"[type='search' i]:not([list])":{"implicitRole":"searchbox"},"[type='submit' i]":{"implicitRole":"button"},"[type='tel' i]:not([list])":{"implicitRole":"textbox"},":is(:not([type]), [type='text' i], [type='search' i], [type='tel' i], [type='url' i], [type='email' i])[list]":{"implicitRole":"combobox"},"[type='time' i]":{"implicitRole":false},"[type='url' i]:not([list])":{"implicitRole":"textbox"},"[type='week' i]":{"implicitRole":false}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"type":{"token":"Accept","caseInsensitive":true,"unique":true,"separator":"comma"},"condition":"[type='file' i]"},"alpha":{"type":"Boolean","experimental":true,"condition":"[type='color' i]"},"alt":{"type":"Any","condition":"[type='image' i]"},"autocapitalize":{},"autocomplete":{"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"autofocus":{},"capture":{},"checked":{"type":"Boolean","condition":["[type='checkbox' i]","[type='radio' i]"]},"colorspace":{"type":{"enum":["limited-srgb","display-p3"],"invalidValueDefault":"limited-srgb","missingValueDefault":"limited-srgb"},"experimental":true,"condition":"[type='color' i]"},"dirname":{"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='tel' i]","[type='url' i]","[type='email' i]","[type='password' i]","[type='submit' i]"]},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"height":{"condition":"[type='image' i]"},"id":{},"incremental":{"nonStandard":true},"inputmode":{},"list":{"type":"DOMID","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"max":{"type":["DateTime","Number"],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"maxlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"min":{"type":["DateTime","Number"],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"minlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"multiple":{"type":"Boolean","condition":["[type='email' i]","[type='file' i]"]},"name":{},"orient":{"nonStandard":true},"pattern":{"type":"Pattern","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"placeholder":{"type":"OneLineAny","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='number' i]"]},"popovertarget":{"type":"DOMID","condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"},"condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"readonly":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]"]},"required":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='checkbox' i]","[type='radio' i]","[type='file' i]"]},"results":{"nonStandard":true},"size":{"type":{"type":"integer","gt":0},"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"src":{"condition":"[type='image' i]"},"step":{"type":["Number",{"enum":["any"],"caseInsensitive":true}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"switch":{"type":"Boolean","experimental":true,"condition":["[type='checkbox' i]"]},"tabindex":{},"title":{},"type":{"type":{"enum":["hidden","text","search","tel","url","email","password","date","month","week","time","datetime-local","number","range","color","checkbox","radio","file","submit","image","reset","button"],"invalidValueDefault":"text","missingValueDefault":"text"}},"value":{"type":"Any"},"webkitdirectory":{"nonStandard":true},"width":{"condition":"[type='image' i]"}}},"ins":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"insertion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateTime"}}},"isindex":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"kbd":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"keygen":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"label":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(label, :has(label))"}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":"DOMID"}}},"legend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(phrasing)",":model(heading)"]}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"li":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"listitem","permittedRoles":["menuitem","menuitemcheckbox","menuitemradio","option","none","presentation","radio","separator","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"type":{"deprecated":true},"value":{"type":"Int","condition":"ol > li"}}},"link":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"as":{"type":{"enum":["fetch","audio","audioworklet","document","embed","font","frame","iframe","image","manifest","object","paintworklet","report","script","serviceworker","sharedworker","style","track","video","worker","xslt"]},"condition":["[rel='preload' i]","[rel='modulepreload' i]"]},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true},"condition":"[rel~='stylesheet' i]"},"charset":{"deprecated":true,"obsolete":true},"color":{"type":"<color>","condition":"[rel~='mask-icon' i]"},"crossorigin":{},"disabled":{"type":"Boolean"},"fetchpriority":{},"href":{},"hreflang":{},"imagesizes":{"type":"SourceSizeList","required":"[imagesrcset]","condition":"[imagesrcset][rel~='preload' i][as='image' i]"},"imagesrcset":{"type":"Srcset","required":"[imagesizes]","condition":"[imagesizes][rel~='preload' i][as='image' i]"},"integrity":{"condition":["[rel~='stylesheet' i]","[rel~='preload' i]","[rel~='modulepreload' i]"]},"itemprop":{"requiredEither":["rel"]},"media":{},"referrerpolicy":{},"rel":{"type":"LinkTypeForLinkElement","requiredEither":["itemprop"]},"rev":{"deprecated":true,"obsolete":true},"sizes":{"type":{"token":"IconSize","caseInsensitive":true,"ordered":false,"unique":true,"separator":"space"},"condition":["[rel~='icon' i]","[rel~='apple-touch-icon' i]"]},"target":{"deprecated":true},"title":{},"type":{}}},"listing":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"main":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"main","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"map":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"mark":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"marquee":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"behavior":{"deprecated":true},"bgcolor":{"deprecated":true},"direction":{"deprecated":true},"height":{"deprecated":true},"hspace":{"deprecated":true},"loop":{"deprecated":true},"scrollamount":{"deprecated":true},"scrolldelay":{"deprecated":true},"truespeed":{"deprecated":true},"vspace":{"deprecated":true},"width":{"deprecated":true}}},"math":{"categories":[],"contentModel":{"contents":true},"aria":{"implicitRole":"math","permittedRoles":[]},"globalAttrs":["#ARIAAttrs"],"attributes":{}},"menu":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"menuitem":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"meta":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"charset":{"type":{"enum":["utf-8"],"caseInsensitive":true},"condition":[":not([itemprop])",":not([name])",":not([http-equiv])"]},"content":{"type":"Any","required":["[name]","[http-equiv]","[itemprop]"],"condition":["[name]","[http-equiv]","[itemprop]"]},"http-equiv":{"type":{"enum":["content-type","default-style","refresh","x-ua-compatible","content-security-policy"]},"requiredEither":["itemprop","name","charset"],"condition":[":not([itemprop])",":not([name])",":not([charset])"]},"itemprop":{"requiredEither":["name","http-equiv","charset"],"condition":[":not([name])",":not([http-equiv])",":not([charset])"]},"media":{"condition":"[name='theme-color']"},"name":{"type":"Any","requiredEither":["itemprop","http-equiv","charset"],"condition":[":not([itemprop])",":not([http-equiv])",":not([charset])"]}}},"meter":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(meter, :has(meter))"}]},"aria":{"implicitRole":"meter","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"high":{"type":"Number"},"low":{"type":"Number"},"max":{"type":"Number"},"min":{"type":"Number"},"optimum":{"type":"Number"},"value":{"type":"Number"}}},"multicol":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nav":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"navigation","permittedRoles":["menu","menubar","none","presentation","tablist"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"nextid":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nobr":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noembed":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noframes":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noscript":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"transparent":":not(noscript)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"object":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["application","document","img"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"archive":{"deprecated":true},"border":{"deprecated":true},"classid":{"deprecated":true},"codebase":{"deprecated":true},"codetype":{"deprecated":true},"data":{"type":"URL","requiredEither":["type"]},"declare":{"deprecated":true},"form":{},"height":{},"name":{"type":"NavigableTargetName"},"standby":{"deprecated":true},"type":{"type":"MIMEType","requiredEither":["data"]},"usemap":{"deprecated":true},"width":{}}},"ol":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true,"nonStandard":true},"reversed":{"type":"Boolean"},"start":{"type":"Int"},"type":{"type":{"enum":["1","a","A","i","I"],"caseInsensitive":false,"invalidValueDefault":"decimal","missingValueDefault":"decimal"}}}},"optgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"option"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"Any","required":true}}},"option":{"categories":[],"contentModel":{"contents":[{"optional":"#text"}],"conditional":[{"condition":"[label][value]","contents":false},{"condition":"label","contents":[{"optional":"#text"}]},{"condition":"datalist > [label]","contents":[{"optional":"#text"}]}]},"aria":{"permittedRoles":[],"conditions":{":is(select, select > option, datalist) > option":{"implicitRole":"option"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"Any"},"selected":{"type":"Boolean"},"value":{"type":"Any"}}},"output":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"status","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":{"token":"DOMID","separator":"space","unique":true,"caseInsensitive":true}},"form":{},"name":{}}},"p":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"paragraph","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"param":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"name":{"deprecated":true},"type":{"deprecated":true},"value":{"deprecated":true},"valuetype":{"deprecated":true}}},"picture":{"categories":["#flow","#phrasing","#embedded"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"source"},{"zeroOrMore":":model(script-supporting)"},{"require":"img"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"plaintext":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"pre":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"width":{"deprecated":true,"nonStandard":true},"wrap":{"deprecated":true,"nonStandard":true}}},"progress":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(progress, :has(progress))"}]},"aria":{"implicitRole":"progressbar","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"max":{"type":"Number"},"value":{"type":"Number"}}},"q":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"rb":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"rp":{"categories":[],"contentModel":{"contents":[{"oneOrMore":"#text"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rtc":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"ruby":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":[{"oneOrMore":[":model(phrasing):not(ruby, :has(ruby))","ruby:not(:has(ruby))"]},{"choice":[[{"oneOrMore":"rt"}],[{"require":"rp"},{"oneOrMore":[{"require":"rt"},{"require":"rp"}]}]]}]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"s":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"samp":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"script":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"async":{"type":"Boolean","ineffective":":not([src]):not([type='module' i])","condition":["[src]","[type='module' i]"]},"attributionsrc":{"deprecated":true},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true}},"charset":{"deprecated":true},"crossorigin":{},"defer":{"type":"Boolean","ineffective":["[type='module' i]",":not([src])","[async]"],"condition":"[src]"},"fetchpriority":{},"integrity":{"condition":"[src]"},"language":{"deprecated":true,"nonStandard":true},"nomodule":{"type":"Boolean","condition":":not([type='module' i])"},"nonce":{},"referrerpolicy":{},"src":{"type":"URL"},"type":{"type":["MIMEType",{"enum":["module","importmap"],"caseInsensitive":true}]}}},"search":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"search","permittedRoles":["form","group","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"section":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["alert","alertdialog","application","banner","complementary","contentinfo","dialog","document","feed","group","log","main","marquee","navigation","none","note","presentation","search","status","tabpanel"],"conditions":{":aria(has name)":{"implicitRole":"region"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"select":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"zeroOrMore":["option","optgroup","hr","#script-supporting"]}]},"aria":{"implicitRole":"combobox","permittedRoles":["menu"],"conditions":{"[multiple], [size]:not([size=1])":{"implicitRole":"listbox"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocomplete":{},"autofocus":{},"disabled":{},"form":{},"multiple":{"type":"Boolean"},"name":{},"required":{},"size":{"type":{"type":"integer","gt":0}}}},"slot":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"small":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"source":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{"condition":"picture > source"},"media":{"type":"<media-query-list>"},"sizes":{"condition":"picture > source"},"src":{"type":"URL","required":":is(video, audio) > source","condition":":is(video, audio) > source"},"srcset":{"required":"picture > source","condition":"picture > source"},"type":{"type":"MIMEType"},"width":{"condition":"picture > source"}}},"spacer":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"span":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"strike":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"strong":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"strong","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"style":{"categories":["#metadata"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true}},"media":{"type":"<media-query-list>"},"nonce":{},"title":{},"type":{"deprecated":true}}},"sub":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"subscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"summary":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"require":":model(heading)"}]]}]},"aria":{"implicitRole":"button","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"sup":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"superscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"table":{"categories":["#flow"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"optional":"caption"},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"colgroup"},{"zeroOrMore":":model(script-supporting)"},{"optional":"thead"},{"zeroOrMore":":model(script-supporting)"},{"choice":[[{"zeroOrMore":"tbody"}],[{"oneOrMore":"tr"}]]},{"zeroOrMore":":model(script-supporting)"},{"optional":"tfoot"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"table","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"border":{"deprecated":true},"cellpadding":{"deprecated":true},"cellspacing":{"deprecated":true},"frame":{"deprecated":true},"rules":{"deprecated":true},"summary":{"deprecated":true},"width":{"deprecated":true}}},"tbody":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"td":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > td, table:is(:not([role]), [role=table]) > tr > td":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > td, table:is([role=grid], [role=treegrid]) > tr > td":{"implicitRole":"gridcell"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"deprecated":true},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"deprecated":true},"valign":{"deprecated":true},"width":{"deprecated":true}}},"template":{"categories":["#metadata","#flow","#phrasing","#script-supporting"],"contentModel":{"contents":true},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"shadowrootclonable":{"type":"Boolean"},"shadowrootdelegatesfocus":{"type":"Boolean"},"shadowrootmode":{"type":{"enum":["open","closed"],"missingValueDefault":"none","invalidValueDefault":"none"}},"shadowrootreferencetarget":{"type":"DOMID","nonStandard":true,"experimental":true},"shadowrootserializable":{"type":"Boolean"}}},"textarea":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"optional":"#text"}]},"aria":{"implicitRole":"textbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocapitalize":{},"autocomplete":{},"autocorrect":{},"autofocus":{},"cols":{"type":{"type":"integer","gt":0}},"dirname":{},"disabled":{},"form":{},"maxlength":{},"minlength":{},"name":{},"placeholder":{"type":"Any"},"readonly":{},"required":{},"rows":{"type":{"type":"integer","gt":0}},"spellcheck":{},"wrap":{"type":{"enum":["soft","hard"],"missingValueDefault":"soft","invalidValueDefault":"soft"}}}},"tfoot":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"th":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > th, table:is(:not([role]), [role=table]) > tr > th":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th, table:is([role=grid], [role=treegrid]) > tr > th":{"implicitRole":"gridcell"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > thead > tr > th:not([scope])":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(tfoot, tbody) > tr > th:not([scope]), table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th:not([scope])":{"implicitRole":"rowheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=col], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=col]":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=row], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=row]":{"implicitRole":"rowheader"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"type":"Any"},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"type":{"enum":["row","col","rowgroup","colgroup"],"missingValueDefault":"auto","invalidValueDefault":"auto"}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"thead":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"time":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"time","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"datetime":{"type":"DateTime"}}},"title":{"categories":["#metadata"],"contentModel":{"contents":[{"require":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"tr":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["th","td",":model(script-supporting)"]}]},"aria":{"implicitRole":"row","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"track":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"default":{"type":"Boolean"},"kind":{"type":{"enum":["subtitles","captions","descriptions","chapters","metadata"],"missingValueDefault":"metadata","invalidValueDefault":"metadata"}},"label":{"type":"NoEmptyAny"},"src":{"type":"URL","required":true},"srclang":{"type":"BCP47"}}},"tt":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"u":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"ul":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true},"type":{"deprecated":true}}},"var":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"video":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{"type":{"token":{"enum":["nodownload","nofullscreen","noremoteplayback"]},"ordered":false,"caseInsensitive":true,"unique":true,"separator":"space"}},"crossorigin":{},"disablepictureinpicture":{},"disableremoteplayback":{},"height":{},"loop":{},"muted":{},"playsinline":{"type":"Boolean"},"poster":{"type":"URL"},"preload":{},"src":{},"width":{}}},"wbr":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"xmp":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"svg:a":{"categories":[],"contentModel":{"conditional":[{"condition":"svg|switch > svg|a","contents":[{"transparent":"*"}]}],"contents":[{"transparent":"*, :model(SVGDescriptive):not(svg|a, :has(svg|a))"}]},"aria":{"implicitRole":"group","permittedRoles":"any","conditions":{"[href], [xlink|href]":{"implicitRole":"link"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{"experimental":true},"referrerpolicy":{},"rel":{},"target":{},"type":{},"xlink:href":{"deprecated":true}}},"svg:animate":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:animateMotion":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":[":model(SVGDescriptive)","svg|script"]},{"optional":"svg|mpath"}],[{"optional":"svg|mpath"},{"oneOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"keyPoints":{"type":"<key-points>"},"origin":{"type":"<origin>"},"path":{"type":"<svg-path>"},"rotate":{"type":"<rotate>"}}},"svg:animateTransform":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"type":{"type":{"enum":["translate","scale","rotate","skewX","skewY"]}}}},"svg:circle":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"r":{}}},"svg:clipPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)","svg|text","svg|use","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"clipPathUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"]}}}},"svg:defs":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:desc":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:discard":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"begin":{"type":"<begin-value-list>"},"href":{"type":"URL"}}},"svg:ellipse":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{}}},"svg:feBlend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"mode":{"type":"<blend-mode>"}}},"svg:feColorMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"type":{"type":{"enum":["matrix","saturate","hueRotate","luminanceToAlpha"],"disallowToSurroundBySpaces":false}},"values":{"type":"<color-matrix>"}}},"svg:feComponentTransfer":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feFuncA","svg|feFuncR","svg|feFuncB","svg|feFuncG","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feComposite":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"k1":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k2":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k3":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k4":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"operator":{"type":{"enum":["over","in","out","atop","xor","lighter","arithmetic"],"disallowToSurroundBySpaces":false}}}},"svg:feConvolveMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"bias":{"type":"<number>"},"divisor":{"type":"<number>"},"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"kernelMatrix":{"type":"<list-of-numbers>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"order":{"type":"<number-optional-number>"},"preserveAlpha":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"targetX":{"type":"<integer>"},"targetY":{"type":"<integer>"}}},"svg:feDiffuseLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"diffuseConstant":{"type":"<number>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"surfaceScale":{"type":"<number>"}}},"svg:feDisplacementMap":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"scale":{"type":"<number>"},"xChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}},"yChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}}}},"svg:feDistantLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"azimuth":{"type":"<number>"},"elevation":{"type":"<number>"}}},"svg:feDropShadow":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feFlood":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"}}},"svg:feFuncA":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncB":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncG":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncR":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feGaussianBlur":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feImage":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"crossorigin":{"type":{"enum":["anonymous","use-credentials"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"xlink:href":{"type":"URL","deprecated":true}}},"svg:feMerge":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feMergeNode","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feMergeNode":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs"],"attributes":{}},"svg:feMorphology":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"operator":{"type":{"enum":["erode","dilate"],"disallowToSurroundBySpaces":false}},"radius":{"type":"<number-optional-number>"}}},"svg:feOffset":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"}}},"svg:fePointLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feSpecularLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"kernelUnitLength":{"type":"<number-optional-number>"},"specularConstant":{"type":"<number>"},"specularExponent":{"type":"<number>"},"surfaceScale":{"type":"<number>"}}},"svg:feSpotLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"limitingConeAngle":{"type":"<number>"},"pointsAtX":{"type":"<number>"},"pointsAtY":{"type":"<number>"},"pointsAtZ":{"type":"<number>"},"specularExponent":{"type":"<number>"},"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feTile":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feTurbulence":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"baseFrequency":{"type":"<number-optional-number>"},"numOctaves":{"type":"<integer>"},"seed":{"type":"<number>"},"stitchTiles":{"type":{"enum":["noStitch","stitch"]}},"type":{"type":{"enum":["fractalNoise","turbulence"]}}}},"svg:filter":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGFilterPrimitive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"filterRes":{"type":"<number-optional-number>","deprecated":true},"filterUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"height":{},"primitiveUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"width":{},"x":{},"y":{}}},"svg:foreignObject":{"categories":[],"contentModel":{"contents":true},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"width":{},"x":{},"y":{}}},"svg:g":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:image":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"img","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"sameStates":{"anonymous":[""]}}},"decoding":{},"fetchpriority":{"nonStandard":true,"experimental":true},"height":{},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:line":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"x1":{"type":["<svg-length>","<percentage>","<number>"]},"x2":{"type":["<svg-length>","<percentage>","<number>"]},"y1":{"type":["<svg-length>","<percentage>","<number>"]},"y2":{"type":["<svg-length>","<percentage>","<number>"]}}},"svg:linearGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"x1":{"type":["<svg-length>","<percentage>"]},"x2":{"type":["<svg-length>","<percentage>"]},"xlink:href":{"deprecated":true},"y1":{"type":["<svg-length>","<percentage>"]},"y2":{"type":["<svg-length>","<percentage>"]}}},"svg:marker":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"markerHeight":{"type":["<svg-length>","<percentage>","<number>"]},"markerUnits":{"type":{"enum":["userSpaceOnUse","strokeWidth"],"disallowToSurroundBySpaces":false}},"markerWidth":{"type":["<svg-length>","<percentage>","<number>"]},"orient":{"type":[{"enum":["auto","auto-start-reverse"],"disallowToSurroundBySpaces":false},"<angle>","<number>"]},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"refY":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"viewBox":{"type":"<view-box>"}}},"svg:mask":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)",":model(SVGStructural)",":model(SVGGradient)","svg|a","svg|altGlyphDef","svg|clipPath","svg|color-profile","svg|cursor","svg|filter","svg|font","svg|font-face","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|pattern","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"mask-type":{},"maskContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"maskUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"width":{},"x":{},"y":{}}},"svg:metadata":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:mpath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"href":{"type":"URL"}}},"svg:path":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"d":{},"pathLength":{"type":"<number>"}}},"svg:pattern":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"patternContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"patternTransform":{"type":"<transform-list>"},"patternUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:polygon":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:polyline":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:radialGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"fr":{"type":["<svg-length>","<percentage>"]},"fx":{"type":["<svg-length>","<percentage>"]},"fy":{"type":["<svg-length>","<percentage>"]},"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"r":{"type":["<svg-length>","<percentage>"]},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"xlink:href":{"deprecated":true}}},"svg:rect":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{},"width":{},"x":{},"y":{}}},"svg:script":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGNeverRendered)",":model(SVGStructurallyExternal)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#XLinkAttrs"],"attributes":{"crossorigin":{"type":{"enum":["anonymous","use-credentials",""],"disallowToSurroundBySpaces":false}},"fetchpriority":{"nonStandard":true,"experimental":true},"href":{"type":"URL"},"type":{"type":"MIMEType"},"xlink:href":{"deprecated":true}}},"svg:set":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"to":{"type":"NoEmptyAny"}}},"svg:stop":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["svg:animate","svg|animateColor","svg|script","svg|set","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"offset":{"type":["<number>","<percentage>"]},"stop-color":{"type":"<color>"},"stop-opacity":{"type":"<'opacity'>"}}},"svg:style":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"media":{"type":"<media-query-list>"},"title":{"type":"Any"},"type":{"type":"MIMEType"}}},"svg:svg":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-document","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"baseProfile":{"type":"Any","deprecated":true},"contentScriptType":{"type":"Any","deprecated":true},"contentStyleType":{"type":"Any","deprecated":true},"height":{},"onunload":{"type":"FunctionBody"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"version":{"type":"Any","deprecated":true},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:switch":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGShape)","svg|a","svg|foreignObject","svg|g","svg|image","svg|svg","svg|switch","svg|text","svg|use"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"requiredExtensions":{},"systemLanguage":{}}},"svg:symbol":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<svg-length>","<percentage>","<number>",{"enum":["left","center","right"]}]},"refY":{"type":["<svg-length>","<percentage>","<number>",{"enum":["top","center","bottom"]}]},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:text":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGTextContentChild)","svg|a","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:textPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|clipPath","svg|marker","svg|mask","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"href":{"type":"URL"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"method":{"type":{"enum":["align","stretch"],"disallowToSurroundBySpaces":false}},"path":{"type":"<svg-path>","experimental":true},"side":{"type":{"enum":["left","right"],"disallowToSurroundBySpaces":false},"experimental":true},"spacing":{"type":{"enum":["auto","exact"],"disallowToSurroundBySpaces":false}},"startOffset":{"type":["<svg-length>","<percentage>"]},"textLength":{"type":["<svg-length>","<percentage>"]}}},"svg:title":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:tspan":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:use":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:view":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs"],"attributes":{"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"viewTarget":{"type":"Any","deprecated":true},"zoomAndPan":{"type":{"enum":["disable","magnify"]},"deprecated":true}}}},"contentModels":{"#metadata":["base","link","meta","noscript","script","style","template","title"],"#flow":["a","abbr","address","area","article","aside","audio","b","bdi","bdo","blockquote","br","button","canvas","cite","code","data","datalist","del","details","dfn","dialog","div","dl","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","hr","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","main","map","mark","math","menu","meta[itemprop]","meter","nav","noscript","object","ol","output","p","picture","pre","progress","q","ruby","s","samp","script","search","section","select","slot","small","span","strong","sub","sup","svg|svg","table","template","textarea","time","u","ul","var","video","wbr","#custom","#text"],"#sectioning":["article","aside","nav","section"],"#heading":["h1","h2","h3","h4","h5","h6","hgroup:has(h1,h2,h3,h4,h5,h6)"],"#phrasing":["a","abbr","area","audio","b","bdi","bdo","br","button","canvas","cite","code","data","datalist","del","dfn","em","embed","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","map","mark","math","meta[itemprop]","meter","noscript","object","output","picture","progress","q","ruby","s","samp","script","select","slot","small","span","strong","sub","sup","svg|svg","template","textarea","time","u","var","video","wbr","#custom","#text"],"#embedded":["audio","canvas","embed","iframe","img","math","object","picture","svg|svg","video"],"#interactive":["a[href]","audio[controls]","button","details","embed","iframe","img[usemap]","input:not([type='hidden' i])","label","select","textarea","video[controls]"],"#palpable":["a","abbr","address","article","aside","audio[controls]","b","bdi","bdo","blockquote","button","canvas","cite","code","data","del","details","dfn","div","dl:has(>:is(dt+dd))","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","i","iframe","img","input:not([type='hidden' i])","ins","kbd","label","main","map","mark","math","menu:has(>li)","meter","nav","object","ol:has(>li)","output","p","picture","pre","progress","q","ruby","s","samp","search","section","select","small","span","strong","sub","sup ","svg","table","textarea","time","u","ul:has(>li)","var","video","#custom","#text"],"#script-supporting":["script","template"],"#SVGAnimation":["svg|animate","svg|animateColor","svg|animateMotion","svg|animateTransform","svg|discard","svg|mpath","svg|set"],"#SVGBasicShapes":["svg|circle","svg|ellipse","svg|line","svg|polygon","svg|polyline","svg|rect"],"#SVGContainer":["svg|a","svg|defs","svg|g","svg|marker","svg|mask","svg|missing-glyph","svg|pattern","svg|svg","svg|switch","svg|symbol"],"#SVGDescriptive":["svg|desc","svg|metadata","svg|title"],"#SVGFilterPrimitive":["svg|feBlend","svg|feColorMatrix","svg|feComponentTransfer","svg|feComposite","svg|feConvolveMatrix","svg|feDiffuseLighting","svg|feDisplacementMap","svg|feDropShadow","svg|feFlood","svg|feFuncA","svg|feFuncB","svg|feFuncG","svg|feFuncR","svg|feGaussianBlur","svg|feImage","svg|feMerge","svg|feMergeNode","svg|feMorphology","svg|feOffset","svg|feSpecularLighting","svg|feTile","svg|feTurbulence"],"#SVGFont":["svg|font","svg|font-face","svg|font-face-format","svg|font-face-name","svg|font-face-src","svg|font-face-uri","svg|hkern","svg|vkern"],"#SVGGradient":["svg|linearGradient","svg|radialGradient","svg|stop"],"#SVGGraphics":["svg|circle","svg|ellipse","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|text","svg|use"],"#SVGGraphicsReferencing":["svg|use"],"#SVGLightSource":["svg|feDistantLight","svg|fePointLight","svg|feSpotLight"],"#SVGNeverRendered":["svg|clipPath","svg|defs","svg|linearGradient","svg|marker","svg|mask","svg|metadata","svg|pattern","svg|radialGradient","svg|script","svg|style","svg|symbol","svg|title"],"#SVGPaintServer":["svg|linearGradient","svg|pattern","svg|radialGradient","svg|solidcolor"],"#SVGRenderable":["svg|a","svg|circle","svg|ellipse","svg|foreignObject","svg|g","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|svg","svg|switch","svg|symbol","svg|text","svg|textPath","svg|tspan","svg|unknown","svg|use"],"#SVGShape":["svg|circle","svg|ellipse","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect"],"#SVGStructural":["svg|defs","svg|g","svg|svg","svg|symbol","svg|use"],"#SVGStructurallyExternal":[],"#SVGTextContent":["svg|altGlyph","svg|altGlyphDef","svg|altGlyphItem","svg|glyph","svg|glyphRef","svg|textPath","svg|text","svg|tref","svg|tspan"],"#SVGTextContentChild":["svg|altGlyph","svg|textPath","svg|tref","svg|tspan"]},"globalAttrs":{"#HTMLGlobalAttrs":{"accesskey":{"type":{"token":"OneCodePointChar","ordered":true,"unique":true,"number":"zeroOrMore","separator":"space"}},"autocapitalize":{"type":{"enum":["off","on","none","sentences","words","characters"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"sentences","missingValueDefault":"default","sameStates":{"none":["off"],"sentences":["on"]}}},"autocorrect":{"type":{"enum":["","on","off"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"on","missingValueDefault":"on","sameStates":{"on":[""]}}},"autofocus":{"type":"Boolean"},"contenteditable":{"type":{"enum":["","true","false","plaintext-only"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"true":[""]}}},"dir":{"type":{"enum":["ltr","rtl","auto"]}},"draggable":{"type":{"enum":["true","false"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"enterkeyhint":{"type":{"enum":["enter","done","go","next","previous","search","send"]}},"headingoffset":{"type":{"type":"integer","gte":0,"lte":8}},"headingreset":{"type":"Boolean"},"hidden":{"type":{"enum":["","hidden","until-found"]}},"inert":{"type":"Boolean"},"inputmode":{"type":{"enum":["none","text","tel","url","email","numeric","decimal","search"]}},"is":{"type":"CustomElementName"},"itemid":{"type":"URL"},"itemprop":{"type":{"token":"ItemProp","ordered":false,"unique":true,"separator":"space"}},"itemref":{"type":{"token":"DOMID","separator":"space"},"condition":"[itemscope]"},"itemscope":{"type":"Boolean"},"itemtype":{"type":{"token":"AbsoluteURL","ordered":false,"unique":true,"separator":"space"}},"lang":{"type":"BCP47"},"nonce":{"type":"Any"},"popover":{"type":{"enum":["","auto","manual","hint"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"manual","missingValueDefault":"no popover","sameStates":{"auto":[""]}}},"spellcheck":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"style":{"type":"<css-declaration-list>"},"tabindex":{"type":"TabIndex"},"title":{"type":"Any"},"translate":{"type":{"enum":["","yes","no"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"yes":[""]}}},"writingsuggestions":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"class":{"type":"Any"},"id":{"type":"DOMID"},"slot":{"type":"NoEmptyAny"},"xmlns":{"type":"URL","ineffective":"*"},"xml:lang":{"type":"BCP47","deprecated":true},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"elementtiming":{"type":"NoEmptyAny","experimental":true}},"#GlobalEventAttrs":{"onabort":{"type":"FunctionBody"},"onauxclick":{"type":"FunctionBody"},"onbeforeinput":{"type":"FunctionBody"},"onbeforematch":{"type":"FunctionBody"},"onbeforetoggle":{"type":"FunctionBody"},"onblur":{"type":"FunctionBody"},"oncancel":{"type":"FunctionBody"},"oncanplay":{"type":"FunctionBody"},"oncanplaythrough":{"type":"FunctionBody"},"onchange":{"type":"FunctionBody"},"onclick":{"type":"FunctionBody"},"onclose":{"type":"FunctionBody"},"oncommand":{"type":"FunctionBody"},"oncontextlost":{"type":"FunctionBody"},"oncompositionstart":{"type":"FunctionBody"},"oncompositionupdate":{"type":"FunctionBody"},"oncompositionend":{"type":"FunctionBody"},"oncontextmenu":{"type":"FunctionBody"},"oncontextrestored":{"type":"FunctionBody"},"oncopy":{"type":"FunctionBody"},"oncuechange":{"type":"FunctionBody"},"oncut":{"type":"FunctionBody"},"ondblclick":{"type":"FunctionBody"},"ondrag":{"type":"FunctionBody"},"ondragend":{"type":"FunctionBody"},"ondragenter":{"type":"FunctionBody"},"ondragleave":{"type":"FunctionBody"},"ondragover":{"type":"FunctionBody"},"ondragstart":{"type":"FunctionBody"},"ondrop":{"type":"FunctionBody"},"ondurationchange":{"type":"FunctionBody"},"onemptied":{"type":"FunctionBody"},"onended":{"type":"FunctionBody"},"onerror":{"type":"FunctionBody"},"onfocus":{"type":"FunctionBody"},"onformdata":{"type":"FunctionBody"},"onfocusin":{"type":"FunctionBody"},"onfocusout":{"type":"FunctionBody"},"oninput":{"type":"FunctionBody"},"oninvalid":{"type":"FunctionBody"},"onkeydown":{"type":"FunctionBody"},"onkeypress":{"type":"FunctionBody"},"onkeyup":{"type":"FunctionBody"},"onload":{"type":"FunctionBody"},"onloadeddata":{"type":"FunctionBody"},"onloadedmetadata":{"type":"FunctionBody"},"onloadstart":{"type":"FunctionBody"},"onmousedown":{"type":"FunctionBody"},"onmouseenter":{"type":"FunctionBody"},"onmouseleave":{"type":"FunctionBody"},"onmousemove":{"type":"FunctionBody"},"onmouseout":{"type":"FunctionBody"},"onmouseover":{"type":"FunctionBody"},"onmouseup":{"type":"FunctionBody"},"onpaste":{"type":"FunctionBody"},"onpause":{"type":"FunctionBody"},"onplay":{"type":"FunctionBody"},"onplaying":{"type":"FunctionBody"},"onprogress":{"type":"FunctionBody"},"onratechange":{"type":"FunctionBody"},"onreset":{"type":"FunctionBody"},"onresize":{"type":"FunctionBody"},"onscroll":{"type":"FunctionBody"},"onscrollend":{"type":"FunctionBody"},"onsecuritypolicyviolation":{"type":"FunctionBody"},"onseeked":{"type":"FunctionBody"},"onseeking":{"type":"FunctionBody"},"onselect":{"type":"FunctionBody"},"onslotchange":{"type":"FunctionBody"},"onstalled":{"type":"FunctionBody"},"onsubmit":{"type":"FunctionBody"},"onsuspend":{"type":"FunctionBody"},"ontimeupdate":{"type":"FunctionBody"},"ontoggle":{"type":"FunctionBody"},"onvolumechange":{"type":"FunctionBody"},"onwaiting":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"onwheel":{"type":"FunctionBody"},"onanimationstart":{"type":"FunctionBody"},"onanimationiteration":{"type":"FunctionBody"},"onanimationend":{"type":"FunctionBody"},"onanimationcancel":{"type":"FunctionBody"},"ontransitionrun":{"type":"FunctionBody"},"ontransitionstart":{"type":"FunctionBody"},"ontransitionend":{"type":"FunctionBody"},"ontransitioncancel":{"type":"FunctionBody"},"onwebkitanimationend":{"type":"FunctionBody","deprecated":true},"onwebkitanimationiteration":{"type":"FunctionBody","deprecated":true},"onwebkitanimationstart":{"type":"FunctionBody","deprecated":true},"onwebkittransitionend":{"type":"FunctionBody","deprecated":true}},"#HTMLLinkAndFetchingAttrs":{"href":{"type":"URL"},"target":{"type":"NavigableTargetNameOrKeyword","condition":"[href]"},"download":{"type":"Any","condition":"[href]"},"ping":{"type":{"token":"HTTPSchemaURL","separator":"space"},"condition":"[href]"},"rel":{"type":"LinkTypeForAnchorAndAreaElement","condition":"[href]"},"hreflang":{"type":"BCP47","condition":"[href]"},"type":{"type":"MIMEType","condition":"[href]"},"referrerpolicy":{"type":{"enum":["","no-referrer","no-referrer-when-downgrade","same-origin","origin","strict-origin","origin-when-cross-origin","strict-origin-when-cross-origin","unsafe-url"]},"condition":"[href], [src]"},"loading":{"type":{"enum":["lazy","eager"],"invalidValueDefault":"eager","missingValueDefault":"eager"}},"integrity":{"type":"Any"},"media":{"type":"<media-query-list>"},"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"invalidValueDefault":"anonymous","missingValueDefault":"No CORS","sameStates":{"anonymous":[""]}}},"fetchpriority":{"type":{"enum":["high","low","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}}},"#HTMLEmbededAndMediaContentAttrs":{"src":{"type":"URL"},"preload":{"type":{"enum":["none","metadata","auto"],"invalidValueDefault":"implementation-defined","missingValueDefault":"implementation-defined"}},"autoplay":{"type":"Boolean"},"loop":{"type":"Boolean"},"muted":{"type":"Boolean"},"controls":{"type":"Boolean"},"height":{"type":"Uint"},"srcset":{"type":"Srcset"},"sizes":{"type":"SourceSizeList"},"width":{"type":"Uint"}},"#HTMLFormControlElementAttrs":{"autocomplete":{"type":"AutoComplete"},"dirname":{"type":"NoEmptyAny"},"disabled":{"type":"Boolean"},"form":{"type":"DOMID"},"formaction":{"type":"URL"},"formenctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded"}},"formmethod":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get"}},"formnovalidate":{"type":"Boolean"},"formtarget":{"type":"NavigableTargetNameOrKeyword"},"name":{"type":"NoEmptyAny"},"maxlength":{"type":"Uint"},"minlength":{"type":"Uint"},"readonly":{"type":"Boolean"},"required":{"type":"Boolean"}},"#HTMLTableCellElementAttrs":{"colspan":{"type":{"type":"integer","gt":0,"lte":1000}},"rowspan":{"type":{"type":"integer","gt":0,"lte":65534}},"headers":{"type":{"token":"DOMID","ordered":false,"unique":true,"separator":"space"}}},"#ARIAAttrs":{"role":{"type":{"token":"NoEmptyAny","separator":"space"}}},"#SVGAnimationAdditionAttrs":{"additive":{"type":{"enum":["replace","sum"]}},"accumulate":{"type":{"enum":["none","sum"]}}},"#SVGAnimationAttributeTargetAttrs":{"attributeName":{"type":"XMLName"},"attributeType":{"type":{"enum":["CSS","XML","auto"]},"noUse":true}},"#SVGAnimationEventAttrs":{"onbegin":{"type":"FunctionBody"},"onend":{"type":"FunctionBody"},"onrepeat":{"type":"FunctionBody"}},"#SVGAnimationTargetElementAttrs":{"href":{"type":"URL"},"xlink:href":{"type":"URL","deprecated":true}},"#SVGAnimationTimingAttrs":{"begin":{"type":"<begin-value-list>"},"dur":{"type":["<clock-value>",{"enum":["media","indefinite"]}]},"end":{"type":"<end-value-list>"},"min":{"type":"<clock-value>"},"max":{"type":"<clock-value>"},"restart":{"type":{"enum":["always","whenNotActive","never"]}},"repeatCount":{"type":["<number>",{"enum":["indefinite"]}]},"repeatDur":{"type":["<clock-value>",{"enum":["indefinite"]}]},"fill":{"type":{"enum":["freeze","remove"]}}},"#SVGAnimationValueAttrs":{"calcMode":{"type":{"enum":["discrete","linear","paced","spline"]}},"values":{"type":"<list-of-value>"},"keyTimes":{"type":"<key-times>"},"keySplines":{"type":"<key-splines>"},"from":{"type":"<animatable-value>"},"to":{"type":"<animatable-value>"},"by":{"type":"<animatable-value>"},"accelerate":{"type":"<number-zero-one>"},"decelerate":{"type":"<number-zero-one>"},"autoReverse":{"type":{"enum":["true","false"]}},"speed":{"type":"<number>"}},"#SVGConditionalProcessingAttrs":{"requiredExtensions":{"type":{"token":"URL","unique":true,"separator":"space"}},"systemLanguage":{"type":{"token":"BCP47","unique":true,"separator":"comma"}},"requiredFeatures":{"type":"<list-of-svg-feature-string>","deprecated":true}},"#SVGCoreAttrs":{"id":{"type":"DOMID"},"tabindex":{"type":"TabIndex"},"autofocus":{"type":"Boolean"},"lang":{"type":"BCP47"},"class":{"type":"Any"},"style":{"type":"<css-declaration-list>"},"xmlns":{"type":"URL","ineffective":":not(:root)"},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"xml:lang":{"type":"BCP47","deprecated":true},"xml:base":{"type":"URL","deprecated":true}},"#SVGFilterPrimitiveAttrs":{"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"width":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<percentage>"]},"result":{"type":"<custom-ident>"},"in":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]}},"#SVGPresentationAttrs":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<'height'>"]},"width":{"type":["<svg-length>","<'width'>"]},"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"r":{"type":["<svg-length>","<percentage>"]},"rx":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"ry":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"d":{"type":"<svg-path>"},"transform":{"type":"<'transform'>"},"transform-origin":{"type":"<'transform-origin'>"},"patternTransform":{"type":"<transform-list>"},"gradientTransform":{"type":"<transform-list>"},"alignment-baseline":{"type":"<'alignment-baseline'>"},"baseline-shift":{"type":"<'baseline-shift'>"},"clip-path":{"type":"<'clip-path'>"},"clip-rule":{"type":"<'clip-rule'>"},"color":{"type":"<color>"},"color-interpolation":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"color-interpolation-filters":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"cursor":{"type":"<'cursor'>"},"direction":{"type":"<'direction'>"},"display":{"type":"<'display'>"},"dominant-baseline":{"type":"<'dominant-baseline'>"},"fill":{"type":"<'fill'>"},"fill-opacity":{"type":"<'fill-opacity'>"},"fill-rule":{"type":"<'fill-rule'>"},"filter":{"type":"<'filter'>"},"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"},"font":{"type":"<'font'>"},"font-family":{"type":"<'font-family'>"},"font-size":{"type":"<svg-font-size>"},"font-size-adjust":{"type":"<svg-font-size-adjust>"},"font-stretch":{"type":"<'font-stretch'>"},"font-style":{"type":"<'font-style'>"},"font-variant":{"type":"<'font-variant'>"},"font-weight":{"type":"<'font-weight'>"},"glyph-orientation-horizontal":{"type":"<'glyph-orientation-horizontal'>","deprecated":true},"glyph-orientation-vertical":{"type":"<'glyph-orientation-vertical'>","deprecated":true},"image-rendering":{"type":"<'image-rendering'>"},"isolation":{"type":"<'isolation'>"},"letter-spacing":{"type":"<'letter-spacing'>"},"lighting-color":{"type":"<color>"},"marker":{"type":"<'marker'>"},"marker-end":{"type":"<'marker-end'>"},"marker-mid":{"type":"<'marker-mid'>"},"marker-start":{"type":"<'marker-start'>"},"mask":{"type":"<'mask'>"},"mask-type":{"type":"<'mask-type'>"},"opacity":{"type":"<alpha-value>"},"overflow":{"type":"<'overflow'>"},"paint-order":{"type":"<'paint-order'>"},"pointer-events":{"type":"<'pointer-events'>"},"shape-rendering":{"type":"<'shape-rendering'>"},"stop-color":{"type":"<'color'>"},"stop-opacity":{"type":"<'opacity'>"},"stroke":{"type":"<'stroke'>"},"stroke-dasharray":{"type":"<'stroke-dasharray'>"},"stroke-dashoffset":{"type":"<'stroke-dashoffset'>"},"stroke-linecap":{"type":"<'stroke-linecap'>"},"stroke-linejoin":{"type":"<'stroke-linejoin'>"},"stroke-miterlimit":{"type":"<'stroke-miterlimit'>"},"stroke-opacity":{"type":"<'stroke-opacity'>"},"stroke-width":{"type":"<'stroke-width'>"},"text-anchor":{"type":"<'text-anchor'>"},"text-decoration":{"type":"<'text-decoration'>"},"text-overflow":{"type":"<'text-overflow'>"},"text-rendering":{"type":"<'text-rendering'>"},"unicode-bidi":{"type":"<'unicode-bidi'>"},"vector-effect":{"type":{"enum":["none","non-scaling-stroke","non-scaling-size","non-rotation","fixed-position"]}},"visibility":{"type":"<'visibility'>"},"white-space":{"type":"<'white-space'>"},"word-spacing":{"type":"<'word-spacing'>"},"writing-mode":{"type":"<'writing-mode'>"},"clip":{"type":"<'clip'>","deprecated":true},"color-profile":{"type":"<'color-profile'>","deprecated":true},"color-rendering":{"type":"<'color-rendering'>","deprecated":true},"enable-background":{"type":"<'enable-background'>","deprecated":true},"kerning":{"type":"<'kerning'>","deprecated":true}},"#SVGTransferFunctionAttrs":{"type":{"type":{"enum":["identity","table","discrete","linear","gamma"]}},"tableValues":{"type":"<list-of-numbers>"},"slope":{"type":"<number>"},"intercept":{"type":"<number>"},"amplitude":{"type":"<number>"},"exponent":{"type":"<number>"},"offset":{"type":"<number>"}},"#XLinkAttrs":{"xlink:href":{"type":"URL","deprecated":true},"xlink:title":{"type":"Any","deprecated":true},"xlink:type":{"type":{"enum":["simple"]},"deprecated":true},"xlink:role":{"type":"Any","deprecated":true},"xlink:arcrole":{"type":"URL","deprecated":true},"xlink:show":{"type":{"enum":["new","replace","embed","other","none"]},"deprecated":true},"xlink:actuate":{"type":"Any","deprecated":true}}},"aria":{"roles":{"alert":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"alertdialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"application":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"article":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"banner":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"blockquote":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"button":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-pressed"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"caption":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"cell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"}],"prohibitedProperties":[]},"checkbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"code":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"columnheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"combobox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"command":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"comment":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"complementary":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"composite":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"contentinfo":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"definition":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"deletion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"dialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"directory":{"deprecated":true,"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"emphasis":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"feed":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"figure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"form":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"generic":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"}],"prohibitedProperties":["aria-braillelabel","aria-brailleroledescription","aria-label","aria-labelledby","aria-roledescription"]},"grid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"gridcell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"}],"prohibitedProperties":[]},"group":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"heading":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"image":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"img":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"input":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"insertion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"landmark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"link":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"list":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"log":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"main":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"mark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"marquee":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"math":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menu":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menubar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menuitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemcheckbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemradio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"meter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"navigation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"none":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"note":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"option":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"paragraph":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"presentation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"progressbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"radio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"radiogroup":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"range":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"region":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"roletype":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"row":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"rowgroup":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"rowheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"scrollbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"search":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"searchbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"section":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionfooter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionhead":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"select":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"separator":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"slider":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"spinbutton":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"status":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"strong":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"structure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"subscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"suggestion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"superscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"switch":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tab":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"table":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"tablist":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tabpanel":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"term":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"textbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"time":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"timer":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"toolbar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tooltip":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tree":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"treegrid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"treeitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"widget":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"window":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-object":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-symbol":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]}},"deprecatedProps":["aria-dropeffect","aria-grabbed"]}}`);
 var PREPROCESSED_STYLE_RE = /(<style\b[^>]*\slang\s*=\s*['"]?[^'"\s>]+['"]?[^>]*>)([\s\S]*?)(<\/style>)/gi;
 function parseSvelte(source2, filename2) {
   try {
-    return parse8(source2, { modern: true, filename: filename2 });
+    return parse8(source2, {
+      modern: true,
+      filename: filename2
+    });
   } catch (err) {
-    const blanked = source2.replace(
-      PREPROCESSED_STYLE_RE,
-      (_m, open3, body, close2) => open3 + body.replace(/[^\n]/g, " ") + close2
-    );
+    const blanked = source2.replace(PREPROCESSED_STYLE_RE, (_m, open3, body, close2) => open3 + body.replace(/[^\n]/g, " ") + close2);
     if (blanked === source2) throw err;
-    return parse8(blanked, { modern: true, filename: filename2 });
+    return parse8(blanked, {
+      modern: true,
+      filename: filename2
+    });
   }
 }
 var CHILD_NODE_KEYS = [
@@ -64031,9 +64089,7 @@ function lineOf(source2, offset2) {
 function findAttr(attributes, name) {
   if (!Array.isArray(attributes)) return void 0;
   const wanted = name.toLowerCase();
-  return attributes.find(
-    (a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase() === wanted
-  );
+  return attributes.find((a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase() === wanted);
 }
 function attrValueOf(attr) {
   const v = attr?.value;
@@ -64098,13 +64154,27 @@ function decodeFragmentId(fragment2) {
 function splitTokens(value) {
   return value ? value.trim().split(/\s+/).filter(Boolean) : [];
 }
-var LANDMARK_ROLES = /* @__PURE__ */ new Set(["main", "banner", "contentinfo", "complementary"]);
+var LANDMARK_ROLES = /* @__PURE__ */ new Set([
+  "main",
+  "banner",
+  "contentinfo",
+  "complementary"
+]);
 var IDREF_ATTRS = [
   "for",
+  "list",
+  "headers",
+  "form",
+  "popovertarget",
+  "commandfor",
   "aria-labelledby",
   "aria-describedby",
   "aria-controls",
-  "aria-activedescendant"
+  "aria-activedescendant",
+  "aria-owns",
+  "aria-details",
+  "aria-errormessage",
+  "aria-flowto"
 ];
 function isTopFragment(id2) {
   return id2.toLowerCase() === "top";
@@ -64113,10 +64183,13 @@ function stripTextDirective(fragment2) {
   const i2 = fragment2.indexOf(":~:");
   return i2 === -1 ? fragment2 : fragment2.slice(0, i2);
 }
-function isRootRelativePath(value) {
-  return value.startsWith("/") && !value.startsWith("//");
-}
-var ARIA_1_3_ROLES = /* @__PURE__ */ new Set(["comment", "image", "sectionheader", "sectionfooter", "suggestion"]);
+var ARIA_1_3_ROLES = /* @__PURE__ */ new Set([
+  "comment",
+  "image",
+  "sectionheader",
+  "sectionfooter",
+  "suggestion"
+]);
 var ARIA_1_3_ATTRIBUTES = /* @__PURE__ */ new Set(["aria-colindextext", "aria-rowindextext"]);
 var NO_REQUIRED_PROPS = /* @__PURE__ */ new Set(["option", "treeitem"]);
 function isKnownRole(role) {
@@ -64142,9 +64215,19 @@ function requiredAriaProps(role) {
 function ariaValueKind(name) {
   const def = import_aria_query3.aria.get(name);
   if (!def) return void 0;
-  return { type: def.type, ...def.values ? { values: def.values.map(String) } : {} };
+  return {
+    type: def.type,
+    ...def.values ? { values: def.values.map(String) } : {}
+  };
 }
-var ALWAYS_INTERACTIVE_TAGS = /* @__PURE__ */ new Set(["button", "select", "textarea", "summary", "embed", "iframe"]);
+var ALWAYS_INTERACTIVE_TAGS = /* @__PURE__ */ new Set([
+  "button",
+  "select",
+  "textarea",
+  "summary",
+  "embed",
+  "iframe"
+]);
 var INTERACTIVE_ROLES = /* @__PURE__ */ new Set([
   "button",
   "link",
@@ -64194,42 +64277,37 @@ function isInteractiveElement(tag2, attrs) {
     return false;
   }
   if ((tag2 === "audio" || tag2 === "video") && attrs.some((a2) => a2.name === "controls")) return true;
-  const tabindex = literalOf(attrs, "tabindex")?.trim();
-  if (tabindex) {
-    const n2 = Number(tabindex);
-    if (Number.isFinite(n2) && n2 >= 0) return true;
-  }
+  const n2 = literalTabindexValue(literalOf(attrs, "tabindex"));
+  if (n2 !== void 0 && n2 >= 0) return true;
   return hasRoleIn(attrs, INTERACTIVE_ROLES);
+}
+function literalTabindexValue(raw) {
+  const trimmed = raw?.trim();
+  if (!trimmed) return void 0;
+  const n2 = Number(trimmed);
+  return Number.isFinite(n2) ? n2 : void 0;
 }
 function isInteractiveContainer(tag2, attrs) {
   if (tag2 === "button") return true;
   if (tag2 === "a") return literalOf(attrs, "href") !== void 0;
   return hasRoleIn(attrs, CONTAINER_ROLES);
 }
+var KNOWN_TAGS$1 = new Set(Object.keys(HTML_SPEC.elements).map((k2) => k2.replace(/^svg:/, "").toLowerCase()));
 function unwrapTs(expr) {
   let cur = expr;
-  while (cur !== void 0 && (cur.type === "TSSatisfiesExpression" || cur.type === "TSAsExpression" || cur.type === "TSNonNullExpression"))
-    cur = cur.expression;
+  while (cur !== void 0 && (cur.type === "TSSatisfiesExpression" || cur.type === "TSAsExpression" || cur.type === "TSNonNullExpression")) cur = cur.expression;
   return cur;
 }
 function isLengthOnlyArrayCall(expr) {
   const e3 = unwrapTs(expr);
   if (!e3) return false;
-  if ((e3.type === "CallExpression" || e3.type === "NewExpression") && e3.callee?.type === "Identifier" && e3.callee.name === "Array") {
-    return (e3.arguments?.length ?? 0) === 1;
-  }
-  if (e3.type === "CallExpression" && e3.callee?.type === "MemberExpression" && !e3.callee.computed && e3.callee.object?.type === "Identifier" && e3.callee.object.name === "Array" && e3.callee.property.type === "Identifier" && e3.callee.property.name === "from" && e3.arguments?.[0]?.type === "ObjectExpression") {
-    return (e3.arguments[0].properties ?? []).some(
-      (p2) => p2?.type === "Property" && !p2.computed && (p2.key?.name === "length" || p2.key?.value === "length")
-    );
-  }
+  if ((e3.type === "CallExpression" || e3.type === "NewExpression") && e3.callee?.type === "Identifier" && e3.callee.name === "Array") return (e3.arguments?.length ?? 0) === 1;
+  if (e3.type === "CallExpression" && e3.callee?.type === "MemberExpression" && !e3.callee.computed && e3.callee.object?.type === "Identifier" && e3.callee.object.name === "Array" && e3.callee.property.type === "Identifier" && e3.callee.property.name === "from" && e3.arguments?.[0]?.type === "ObjectExpression") return (e3.arguments[0].properties ?? []).some((p2) => p2?.type === "Property" && !p2.computed && (p2.key?.name === "length" || p2.key?.value === "length"));
   return false;
 }
 function isIdentityFreeEach(node) {
   const expr = unwrapTs(node.expression);
-  if (expr.type === "ArrayExpression" && Array.isArray(expr.elements)) {
-    return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
-  }
+  if (expr.type === "ArrayExpression" && Array.isArray(expr.elements)) return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
   return isLengthOnlyArrayCall(expr);
 }
 function isIndexExpression(expr, index) {
@@ -64237,19 +64315,14 @@ function isIndexExpression(expr, index) {
   if (e3.type === "Identifier") return e3.name === index;
   if (e3.type === "CallExpression") {
     const callee = e3.callee;
-    if (callee.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e3.arguments.length === 1) {
-      return isIndexExpression(e3.arguments[0], index);
-    }
-    if (callee.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "toString" && e3.arguments.length === 0) {
-      return isIndexExpression(callee.object, index);
-    }
+    if (callee.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e3.arguments.length === 1) return isIndexExpression(e3.arguments[0], index);
+    if (callee.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "toString" && e3.arguments.length === 0) return isIndexExpression(callee.object, index);
     return false;
   }
   if (e3.type === "TemplateLiteral") {
     const exprs = e3.expressions;
     if (exprs.length !== 1) return false;
-    const hasText = e3.quasis.some((q) => (q.value.cooked ?? q.value.raw) !== "");
-    if (hasText) return false;
+    if (e3.quasis.some((q) => (q.value.cooked ?? q.value.raw) !== "")) return false;
     return isIndexExpression(exprs[0], index);
   }
   if (e3.type === "BinaryExpression" && e3.operator === "+") {
@@ -64269,18 +64342,20 @@ function collectEachBlocks(node, source2, acc) {
     return;
   }
   if (!node || typeof node !== "object") return;
-  if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) {
-    acc.push({
-      hasKey: node.key != null,
-      line: lineOf(source2, node.start),
-      ...isIndexKey(node) ? { indexKey: true } : {}
-    });
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectEachBlocks(node[key2], source2, acc);
-  }
+  if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) acc.push({
+    hasKey: node.key != null,
+    line: lineOf(source2, node.start),
+    ...isIndexKey(node) ? { indexKey: true } : {}
+  });
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectEachBlocks(node[key2], source2, acc);
 }
-var WALK_IGNORED_KEYS = /* @__PURE__ */ new Set(["type", "start", "end", "loc", "range"]);
+var WALK_IGNORED_KEYS = /* @__PURE__ */ new Set([
+  "type",
+  "start",
+  "end",
+  "loc",
+  "range"
+]);
 var NO_BOUNDARIES = /* @__PURE__ */ new Set();
 function walkEstree(node, visit) {
   walkEvalScope(node, (n2) => void visit(n2), /* @__PURE__ */ new Set(), NO_BOUNDARIES);
@@ -64288,9 +64363,7 @@ function walkEstree(node, visit) {
 function isEffectCall(node) {
   const c = node?.callee;
   if (c?.type === "Identifier") return c.name === "$effect";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect") {
-    return c.property?.type === "Identifier" && c.property.name === "pre";
-  }
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect") return c.property?.type === "Identifier" && c.property.name === "pre";
   return false;
 }
 function isEffectRootCall(node) {
@@ -64300,9 +64373,7 @@ function isEffectRootCall(node) {
 function isStateDeclaration(node) {
   const c = node?.callee;
   if (c?.type === "Identifier") return c.name === "$state";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$state") {
-    return c.property?.type === "Identifier" && (c.property.name === "raw" || c.property.name === "frozen");
-  }
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$state") return c.property?.type === "Identifier" && (c.property.name === "raw" || c.property.name === "frozen");
   return false;
 }
 function bodyOnlyAssignsState(fn, stateNames) {
@@ -64316,9 +64387,7 @@ function bodyOnlyAssignsState(fn, stateNames) {
 function isDerivedDeclaration(node) {
   const c = node?.callee;
   if (c?.type === "Identifier") return c.name === "$derived";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$derived") {
-    return c.property?.type === "Identifier" && c.property.name === "by";
-  }
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$derived") return c.property?.type === "Identifier" && c.property.name === "by";
   return false;
 }
 function addBoundNames(id2, acc) {
@@ -64328,10 +64397,8 @@ function addBoundNames(id2, acc) {
       acc.add(id2.name);
       break;
     case "ObjectPattern":
-      for (const p2 of id2.properties ?? []) {
-        if (p2?.type === "Property") addBoundNames(p2.value, acc);
-        else if (p2?.type === "RestElement") addBoundNames(p2.argument, acc);
-      }
+      for (const p2 of id2.properties ?? []) if (p2?.type === "Property") addBoundNames(p2.value, acc);
+      else if (p2?.type === "RestElement") addBoundNames(p2.argument, acc);
       break;
     case "ArrayPattern":
       for (const el of id2.elements ?? []) addBoundNames(el, acc);
@@ -64341,7 +64408,6 @@ function addBoundNames(id2, acc) {
       break;
     case "RestElement":
       addBoundNames(id2.argument, acc);
-      break;
   }
 }
 function rootObjectName(node) {
@@ -64351,37 +64417,23 @@ function rootObjectName(node) {
 }
 function scopeIntroducedNames(node) {
   const introduced = /* @__PURE__ */ new Set();
-  if (node.type === "FunctionDeclaration" || node.type === "FunctionExpression" || node.type === "ArrowFunctionExpression") {
-    for (const p2 of node.params ?? []) addBoundNames(p2, introduced);
-  } else if (node.type === "CatchClause") {
-    addBoundNames(node.param, introduced);
-  } else if (node.type === "BlockStatement") {
-    for (const stmt2 of node.body ?? []) {
-      if (stmt2?.type === "VariableDeclaration") {
-        for (const d2 of stmt2.declarations ?? []) addBoundNames(d2.id, introduced);
-      } else if ((stmt2?.type === "FunctionDeclaration" || stmt2?.type === "ClassDeclaration") && typeof stmt2.id?.name === "string") {
-        introduced.add(stmt2.id.name);
-      }
-    }
+  if (node.type === "FunctionDeclaration" || node.type === "FunctionExpression" || node.type === "ArrowFunctionExpression") for (const p2 of node.params ?? []) addBoundNames(p2, introduced);
+  else if (node.type === "CatchClause") addBoundNames(node.param, introduced);
+  else if (node.type === "BlockStatement") {
+    for (const stmt2 of node.body ?? []) if (stmt2?.type === "VariableDeclaration") for (const d2 of stmt2.declarations ?? []) addBoundNames(d2.id, introduced);
+    else if ((stmt2?.type === "FunctionDeclaration" || stmt2?.type === "ClassDeclaration") && typeof stmt2.id?.name === "string") introduced.add(stmt2.id.name);
   } else if (node.type === "ForStatement" || node.type === "ForOfStatement" || node.type === "ForInStatement") {
     const decl = node.type === "ForStatement" ? node.init : node.left;
-    if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) addBoundNames(d2.id, introduced);
-    }
+    if (decl?.type === "VariableDeclaration") for (const d2 of decl.declarations ?? []) addBoundNames(d2.id, introduced);
   } else if (node.type === "EachBlock" && node.context) {
     addBoundNames(node.context, introduced);
     if (typeof node.index === "string") introduced.add(node.index);
-  } else if (node.type === "SnippetBlock") {
-    for (const p2 of node.parameters ?? []) addBoundNames(p2, introduced);
-  } else if (node.type === "AwaitBlock") {
+  } else if (node.type === "SnippetBlock") for (const p2 of node.parameters ?? []) addBoundNames(p2, introduced);
+  else if (node.type === "AwaitBlock") {
     if (node.value) addBoundNames(node.value, introduced);
     if (node.error) addBoundNames(node.error, introduced);
   } else if (node.type === "Fragment") {
-    for (const child of node.nodes ?? []) {
-      if (child?.type === "ConstTag" || child?.type === "DeclarationTag") {
-        for (const d2 of child.declaration?.declarations ?? []) addBoundNames(d2.id, introduced);
-      }
-    }
+    for (const child of node.nodes ?? []) if (child?.type === "ConstTag" || child?.type === "DeclarationTag") for (const d2 of child.declaration?.declarations ?? []) addBoundNames(d2.id, introduced);
   }
   return introduced;
 }
@@ -64400,9 +64452,8 @@ function collectStateWrites(root, stateNames, acc, kinds) {
   walkScoped(root, (n2, scope) => {
     const shadowed = (name) => name === void 0 || scope.has(name);
     if (n2?.type === "AssignmentExpression") {
-      if (n2.left?.type === "Identifier" && stateNames.has(n2.left.name) && !shadowed(n2.left.name)) {
-        record(n2.left.name, "reassign");
-      } else if (n2.left?.type === "MemberExpression") {
+      if (n2.left?.type === "Identifier" && stateNames.has(n2.left.name) && !shadowed(n2.left.name)) record(n2.left.name, "reassign");
+      else if (n2.left?.type === "MemberExpression") {
         const r2 = rootObjectName(n2.left);
         if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
       } else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
@@ -64410,14 +64461,13 @@ function collectStateWrites(root, stateNames, acc, kinds) {
         addBoundNames(n2.left, bound);
         for (const name of bound) if (stateNames.has(name) && !shadowed(name)) record(name, "reassign");
       }
-    } else if (n2?.type === "UpdateExpression") {
-      if (n2.argument?.type === "Identifier") {
-        if (stateNames.has(n2.argument.name) && !shadowed(n2.argument.name)) record(n2.argument.name, "reassign");
-      } else {
-        const r2 = rootObjectName(n2.argument);
-        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      }
-    } else if (n2?.type === "UnaryExpression" && n2.operator === "delete") {
+    } else if (n2?.type === "UpdateExpression") if (n2.argument?.type === "Identifier") {
+      if (stateNames.has(n2.argument.name) && !shadowed(n2.argument.name)) record(n2.argument.name, "reassign");
+    } else {
+      const r2 = rootObjectName(n2.argument);
+      if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+    }
+    else if (n2?.type === "UnaryExpression" && n2.operator === "delete") {
       const r2 = rootObjectName(n2.argument);
       if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
     } else if (n2?.type === "CallExpression") {
@@ -64426,8 +64476,7 @@ function collectStateWrites(root, stateNames, acc, kinds) {
         if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
       }
       for (const a2 of n2.arguments ?? []) {
-        const arg = a2?.type === "SpreadElement" ? a2.argument : a2;
-        const r2 = rootObjectName(arg);
+        const r2 = rootObjectName(a2?.type === "SpreadElement" ? a2.argument : a2);
         if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "escape");
       }
     }
@@ -64439,10 +64488,24 @@ function isDeferredBody(n2) {
 function isPlainStateCall(node) {
   return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$state";
 }
-var BUILTIN_STATE_TYPES = /* @__PURE__ */ new Set(["Map", "Set", "Date", "URL", "URLSearchParams"]);
+var BUILTIN_STATE_TYPES = /* @__PURE__ */ new Set([
+  "Map",
+  "Set",
+  "Date",
+  "URL",
+  "URLSearchParams"
+]);
 var BUILTIN_MUTATIONS = {
-  Map: /* @__PURE__ */ new Set(["set", "delete", "clear"]),
-  Set: /* @__PURE__ */ new Set(["add", "delete", "clear"]),
+  Map: /* @__PURE__ */ new Set([
+    "set",
+    "delete",
+    "clear"
+  ]),
+  Set: /* @__PURE__ */ new Set([
+    "add",
+    "delete",
+    "clear"
+  ]),
   Date: /* @__PURE__ */ new Set([
     "setTime",
     "setFullYear",
@@ -64462,7 +64525,12 @@ var BUILTIN_MUTATIONS = {
     "setUTCMilliseconds"
   ]),
   URL: /* @__PURE__ */ new Set(),
-  URLSearchParams: /* @__PURE__ */ new Set(["append", "set", "delete", "sort"])
+  URLSearchParams: /* @__PURE__ */ new Set([
+    "append",
+    "set",
+    "delete",
+    "sort"
+  ])
 };
 function collectBuiltinStateSignals(node, candidates, mutated, reassigned, shadowed = /* @__PURE__ */ new Set(), inFunction = false) {
   if (Array.isArray(node)) {
@@ -64518,13 +64586,10 @@ function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
   if (node.type === "Identifier") return;
   if (node.type === "ObjectPattern") {
-    for (const prop2 of node.properties ?? []) {
-      if (prop2?.type === "RestElement") {
-        collectPatternAliasRefs(prop2.argument, names, acc, scope, ownRhs);
-      } else if (prop2?.type === "Property") {
-        if (prop2.computed) collectAliasRefs(prop2.key, names, acc, scope, ownRhs);
-        collectPatternAliasRefs(prop2.value, names, acc, scope, ownRhs);
-      }
+    for (const prop2 of node.properties ?? []) if (prop2?.type === "RestElement") collectPatternAliasRefs(prop2.argument, names, acc, scope, ownRhs);
+    else if (prop2?.type === "Property") {
+      if (prop2.computed) collectAliasRefs(prop2.key, names, acc, scope, ownRhs);
+      collectPatternAliasRefs(prop2.value, names, acc, scope, ownRhs);
     }
     return;
   }
@@ -64537,9 +64602,7 @@ function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
     collectAliasRefs(node.right, names, acc, scope, ownRhs);
     return;
   }
-  if (node.type === "RestElement") {
-    collectPatternAliasRefs(node.argument, names, acc, scope, ownRhs);
-  }
+  if (node.type === "RestElement") collectPatternAliasRefs(node.argument, names, acc, scope, ownRhs);
 }
 function collectAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set(), ownRhs = null) {
   if (Array.isArray(node)) {
@@ -64611,11 +64674,10 @@ function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ ne
         const kinds = /* @__PURE__ */ new Map();
         collectStateWrites(node.body, ctxNames, union, kinds);
         collectTemplateEscapes(node.body, ctxNames, union, kinds);
-        const dirty = [...union].some((n2) => {
+        if ([...union].some((n2) => {
           const k2 = kinds.get(n2);
           return !k2 || [...k2].some((kind) => kind !== "reassign");
-        });
-        if (dirty) acc.add(target);
+        })) acc.add(target);
       }
     }
   }
@@ -64680,12 +64742,19 @@ function collectStalePropCandidates(program, propNames, source2) {
       if (d2?.id?.type !== "Identifier" || !d2.init) continue;
       if (containsCallLike(d2.init)) continue;
       if (!refsNamesEagerly(d2.init, propNames)) continue;
-      out.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
+      out.push({
+        name: d2.id.name,
+        line: lineOf(source2, d2.start)
+      });
     }
   }
   return out;
 }
-var COMPONENT_LIKE_TYPES = /* @__PURE__ */ new Set(["Component", "SvelteComponent", "SvelteSelf"]);
+var COMPONENT_LIKE_TYPES = /* @__PURE__ */ new Set([
+  "Component",
+  "SvelteComponent",
+  "SvelteSelf"
+]);
 function collectTemplateEscapes(node, stateNames, acc, kinds) {
   const record = (name) => {
     acc.add(name);
@@ -64701,22 +64770,20 @@ function collectTemplateEscapes(node, stateNames, acc, kinds) {
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
   if (Array.isArray(node.attributes)) {
-    for (const attr of node.attributes) {
-      if (attr?.type === "BindDirective") {
-        const r2 = rootObjectName(attr.expression);
-        if (r2 && stateNames.has(r2)) record(r2);
-      } else if (COMPONENT_LIKE_TYPES.has(node.type)) {
-        walkEstree(attr, (m) => {
-          if (m?.type === "Identifier" && stateNames.has(m.name)) record(m.name);
-        });
-      }
-    }
+    for (const attr of node.attributes) if (attr?.type === "BindDirective") {
+      const r2 = rootObjectName(attr.expression);
+      if (r2 && stateNames.has(r2)) record(r2);
+    } else if (COMPONENT_LIKE_TYPES.has(node.type)) walkEstree(attr, (m) => {
+      if (m?.type === "Identifier" && stateNames.has(m.name)) record(m.name);
+    });
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc, kinds);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc, kinds);
 }
-var DIRECTIVE_ESCAPE_TYPES = /* @__PURE__ */ new Set(["UseDirective", "TransitionDirective", "AnimateDirective"]);
+var DIRECTIVE_ESCAPE_TYPES = /* @__PURE__ */ new Set([
+  "UseDirective",
+  "TransitionDirective",
+  "AnimateDirective"
+]);
 function collectDirectiveEscapes(node, names, acc) {
   if (Array.isArray(node)) {
     for (const c of node) collectDirectiveEscapes(c, names, acc);
@@ -64724,19 +64791,21 @@ function collectDirectiveEscapes(node, names, acc) {
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
   if (Array.isArray(node.attributes)) {
-    for (const attr of node.attributes) {
-      if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) {
-        walkEstree(attr.expression, (m) => {
-          if (m?.type === "Identifier" && names.has(m.name)) acc.add(m.name);
-        });
-      }
-    }
+    for (const attr of node.attributes) if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) walkEstree(attr.expression, (m) => {
+      if (m?.type === "Identifier" && names.has(m.name)) acc.add(m.name);
+    });
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectDirectiveEscapes(node[key2], names, acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectDirectiveEscapes(node[key2], names, acc);
 }
-var RUNE_NAMES = /* @__PURE__ */ new Set(["$state", "$derived", "$effect", "$props", "$bindable", "$inspect", "$host"]);
+var RUNE_NAMES = /* @__PURE__ */ new Set([
+  "$state",
+  "$derived",
+  "$effect",
+  "$props",
+  "$bindable",
+  "$inspect",
+  "$host"
+]);
 function collectImportedLocalNames(program, acc) {
   for (const stmt2 of program?.body ?? []) {
     if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
@@ -64779,9 +64848,7 @@ function bodyReadsReactive(fn, reactiveNames) {
       visit(n2.value);
       return;
     }
-    for (const key2 of Object.keys(n2)) {
-      if (!WALK_IGNORED_KEYS.has(key2)) visit(n2[key2]);
-    }
+    for (const key2 of Object.keys(n2)) if (!WALK_IGNORED_KEYS.has(key2)) visit(n2[key2]);
   };
   visit(fn.body);
   return reads;
@@ -64792,7 +64859,12 @@ function bodyIsEmpty(fn) {
   if (body.type === "BlockStatement") return (body.body ?? []).length === 0;
   return false;
 }
-var URL_ATTRS = ["href", "src", "action", "formaction"];
+var URL_ATTRS = [
+  "href",
+  "src",
+  "action",
+  "formaction"
+];
 var CHECKABLE_INPUT_TYPES = /* @__PURE__ */ new Set(["checkbox", "radio"]);
 function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
   if (Array.isArray(node)) {
@@ -64801,19 +64873,13 @@ function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
   }
   if (!node || typeof node !== "object") return;
   if (node.type === "HtmlTag") htmlTags.push({ line: lineOf(source2, node.start) });
-  if ((node.type === "RegularElement" || node.type === "SvelteElement") && Array.isArray(node.attributes)) {
-    for (const name of URL_ATTRS) {
-      const attr = findAttr(node.attributes, name);
-      if (!attr) continue;
-      const value = attrTextOf(attr);
-      if (value !== void 0 && /^\s*javascript:/i.test(value)) {
-        jsUrls.push({ line: lineOf(source2, attr.start ?? node.start) });
-      }
-    }
+  if ((node.type === "RegularElement" || node.type === "SvelteElement") && Array.isArray(node.attributes)) for (const name of URL_ATTRS) {
+    const attr = findAttr(node.attributes, name);
+    if (!attr) continue;
+    const value = attrTextOf(attr);
+    if (value !== void 0 && /^\s*javascript:/i.test(value)) jsUrls.push({ line: lineOf(source2, attr.start ?? node.start) });
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectSecurityFacts(node[key2], source2, htmlTags, jsUrls);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectSecurityFacts(node[key2], source2, htmlTags, jsUrls);
 }
 function collectCheckableBindValues(node, source2, acc) {
   if (Array.isArray(node)) {
@@ -64826,24 +64892,77 @@ function collectCheckableBindValues(node, source2, acc) {
     const typeValue = typeAttr ? attrTextOf(typeAttr) : void 0;
     if (typeValue && CHECKABLE_INPUT_TYPES.has(typeValue)) {
       const bindValue = node.attributes.find((a2) => a2?.type === "BindDirective" && a2.name === "value");
-      if (bindValue) {
-        acc.push({
-          kind: typeValue,
-          line: lineOf(source2, bindValue.start ?? node.start)
-        });
-      }
+      if (bindValue) acc.push({
+        kind: typeValue,
+        line: lineOf(source2, bindValue.start ?? node.start)
+      });
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectCheckableBindValues(node[key2], source2, acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectCheckableBindValues(node[key2], source2, acc);
 }
 function classifyAttrValue(value) {
   if (value === true) return { literal: "" };
-  if (Array.isArray(value) && value.length === 1 && value[0]?.type === "Text") {
-    return { literal: String(value[0].data ?? "") };
-  }
+  if (Array.isArray(value) && value.length === 1 && value[0]?.type === "Text") return { literal: String(value[0].data ?? "") };
   return { expression: true };
+}
+var CHAIN_BREAKS = /* @__PURE__ */ new Set([
+  "Component",
+  "SvelteComponent",
+  "SvelteSelf",
+  "SvelteElement",
+  "SlotElement",
+  "RenderTag",
+  "HtmlTag",
+  "SnippetBlock",
+  "SvelteHead"
+]);
+var SILENT_BREAKS = /* @__PURE__ */ new Set(["SnippetBlock", "SvelteHead"]);
+function collectElements(node, source2, acc, inSvg, parent) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectElements(child, source2, acc, inSvg, parent);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  let next2 = inSvg;
+  let nextParent = parent;
+  if (typeof node.type === "string" && CHAIN_BREAKS.has(node.type)) {
+    if (parent !== void 0 && !SILENT_BREAKS.has(node.type)) acc[parent].unknownContent = true;
+    nextParent = void 0;
+  } else if (node.type === "RegularElement" && typeof node.name === "string" && Array.isArray(node.attributes)) {
+    const tag2 = node.name.toLowerCase();
+    const self = inSvg || tag2 === "svg";
+    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+    acc.push({
+      tag: tag2,
+      line: lineOf(source2, node.start),
+      attrs: node.attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => {
+        const cls = classifyAttrValue(a2.value);
+        const value = "expression" in cls ? void 0 : cls.literal;
+        return {
+          name: String(a2.name).toLowerCase(),
+          line: lineOf(source2, a2.start ?? node.start),
+          ...value !== void 0 ? { value } : {}
+        };
+      }),
+      ...self ? { inSvg: true } : {},
+      ...parent !== void 0 ? { parent } : {},
+      ...hasSpread ? { hasSpread: true } : {}
+    });
+    if (tag2.includes("-") || !KNOWN_TAGS$1.has(tag2)) {
+      if (parent !== void 0) acc[parent].unknownContent = true;
+      nextParent = void 0;
+    } else nextParent = acc.length - 1;
+    if (tag2 === "svg") next2 = true;
+    else if (tag2 === "foreignobject") next2 = false;
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectElements(node[key2], source2, acc, next2, nextParent);
+}
+function selectNativeRole(attributes) {
+  if (findAttr(attributes, "multiple") !== void 0) return "listbox";
+  const size = findAttr(attributes, "size");
+  if (size === void 0) return "combobox";
+  if (attrValueOf(size) !== "static") return void 0;
+  return Number(attrTextOf(size)) > 1 ? "listbox" : "combobox";
 }
 function collectAriaElements(node, source2, acc) {
   if (Array.isArray(node)) {
@@ -64853,17 +64972,19 @@ function collectAriaElements(node, source2, acc) {
   if (!node || typeof node !== "object") return;
   if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
     const roleAttr = findAttr(node.attributes, "role");
-    const ariaAttrs = node.attributes.filter(
-      (a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase().startsWith("aria-")
-    );
+    const ariaAttrs = node.attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase().startsWith("aria-"));
     if (roleAttr || ariaAttrs.length > 0) {
       const inputType = node.name === "input" ? attrText(node.attributes, "type") : void 0;
+      const hasList = node.name === "input" && findAttr(node.attributes, "list") !== void 0;
+      const selectKind = node.name === "select" ? selectNativeRole(node.attributes) : void 0;
       const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
       acc.push({
         tag: node.name,
         line: lineOf(source2, node.start),
         ...roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {},
         ...inputType !== void 0 ? { inputType: inputType.toLowerCase() } : {},
+        ...hasList ? { hasList: true } : {},
+        ...selectKind ? { selectKind } : {},
         ...hasSpread ? { hasSpread: true } : {},
         aria: ariaAttrs.map((a2) => ({
           name: String(a2.name).toLowerCase(),
@@ -64873,12 +64994,13 @@ function collectAriaElements(node, source2, acc) {
       });
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectAriaElements(node[key2], source2, acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectAriaElements(node[key2], source2, acc);
 }
 function elementAttrs(attributes) {
-  return attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => ({ name: String(a2.name).toLowerCase(), ...classifyAttrValue(a2.value) }));
+  return attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => ({
+    name: String(a2.name).toLowerCase(),
+    ...classifyAttrValue(a2.value)
+  }));
 }
 function containerRoleOf(attrs) {
   const role = attrs.find((a2) => a2.name === "role")?.literal;
@@ -64891,9 +65013,7 @@ function collectInteractiveNestings(node, source2, acc, stack) {
   }
   if (!node || typeof node !== "object") return;
   if (node.type === "SnippetBlock") {
-    for (const key2 of CHILD_NODE_KEYS) {
-      if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, []);
-    }
+    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, []);
     return;
   }
   let opened = false;
@@ -64910,13 +65030,14 @@ function collectInteractiveNestings(node, source2, acc, stack) {
     }
     if (isInteractiveContainer(node.name, attrs)) {
       const role = node.name === "button" || node.name === "a" ? void 0 : containerRoleOf(attrs);
-      stack.push({ tag: node.name, ...role ? { role } : {} });
+      stack.push({
+        tag: node.name,
+        ...role ? { role } : {}
+      });
       opened = true;
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, stack);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, stack);
   if (opened) stack.pop();
 }
 function hasNamingValue(attributes, name) {
@@ -64926,14 +65047,21 @@ function hasNamingValue(attributes, name) {
   return "expression" in v || v.literal !== void 0 && v.literal.trim().length > 0;
 }
 function hasNamingAttr(attributes) {
-  return ["aria-label", "aria-labelledby", "title"].some((name) => hasNamingValue(attributes, name));
+  return [
+    "aria-label",
+    "aria-labelledby",
+    "title"
+  ].some((name) => hasNamingValue(attributes, name));
 }
 function isCustomElement(node) {
   return node.type === "RegularElement" && typeof node.name === "string" && node.name.includes("-");
 }
 function scanAccessibleNameSubtree(node, skip) {
   if (Array.isArray(node)) {
-    const acc2 = { named: false, unknowable: false };
+    const acc2 = {
+      named: false,
+      unknowable: false
+    };
     for (const child of node) {
       const r2 = scanAccessibleNameSubtree(child, skip);
       acc2.named ||= r2.named;
@@ -64941,34 +65069,47 @@ function scanAccessibleNameSubtree(node, skip) {
     }
     return acc2;
   }
-  if (!node || typeof node !== "object") return { named: false, unknowable: false };
-  if (skip !== void 0 && node === skip) return { named: false, unknowable: false };
-  if (node.type === "SnippetBlock") return { named: false, unknowable: false };
-  if (node.type === "Text") return { named: String(node.data ?? "").trim().length > 0, unknowable: false };
-  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) {
-    return { named: false, unknowable: true };
-  }
+  if (!node || typeof node !== "object") return {
+    named: false,
+    unknowable: false
+  };
+  if (skip !== void 0 && node === skip) return {
+    named: false,
+    unknowable: false
+  };
+  if (node.type === "SnippetBlock") return {
+    named: false,
+    unknowable: false
+  };
+  if (node.type === "Text") return {
+    named: String(node.data ?? "").trim().length > 0,
+    unknowable: false
+  };
+  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) return {
+    named: false,
+    unknowable: true
+  };
   if (node.type === "RegularElement" && node.name === "img" && Array.isArray(node.attributes)) {
-    if (hasNamingValue(node.attributes, "alt")) return { named: true, unknowable: false };
+    if (hasNamingValue(node.attributes, "alt")) return {
+      named: true,
+      unknowable: false
+    };
   }
-  const acc = { named: false, unknowable: false };
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) {
-      const r2 = scanAccessibleNameSubtree(node[key2], skip);
-      acc.named ||= r2.named;
-      acc.unknowable ||= r2.unknowable;
-    }
+  const acc = {
+    named: false,
+    unknowable: false
+  };
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
+    const r2 = scanAccessibleNameSubtree(node[key2], skip);
+    acc.named ||= r2.named;
+    acc.unknowable ||= r2.unknowable;
   }
   return acc;
 }
 function accessibleNameTarget(node) {
   if (node.name === "button") return "button";
   if (node.name === "a") return attrText(node.attributes, "href") !== void 0 ? "a" : void 0;
-  if (node.name === "input") {
-    const type = attrText(node.attributes, "type");
-    return type?.toLowerCase() === "image" ? "input" : void 0;
-  }
-  return void 0;
+  if (node.name === "input") return attrText(node.attributes, "type")?.toLowerCase() === "image" ? "input" : void 0;
 }
 function firstLabelableDescendant(node) {
   if (Array.isArray(node)) {
@@ -64976,18 +65117,15 @@ function firstLabelableDescendant(node) {
       const hit = firstLabelableDescendant(child);
       if (hit) return hit;
     }
-    return void 0;
+    return;
   }
   if (!node || typeof node !== "object") return void 0;
   if (node.type === "SnippetBlock") return void 0;
   if (node.type === "RegularElement" && isLabelableDescendant(node)) return node;
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) {
-      const hit = firstLabelableDescendant(node[key2]);
-      if (hit) return hit;
-    }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
+    const hit = firstLabelableDescendant(node[key2]);
+    if (hit) return hit;
   }
-  return void 0;
 }
 function collectLabelTargets(node, acc) {
   if (Array.isArray(node)) {
@@ -65004,9 +65142,7 @@ function collectLabelTargets(node, acc) {
       if (wrapped) acc.nodes.add(wrapped);
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectLabelTargets(node[key2], acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectLabelTargets(node[key2], acc);
 }
 function collectUnnamedInteractive(node, source2, acc, labels) {
   if (Array.isArray(node)) {
@@ -65019,24 +65155,30 @@ function collectUnnamedInteractive(node, source2, acc, labels) {
     const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
     const id2 = attrText(node.attributes, "id");
     const namedByLabel = target !== "a" && (labels.nodes.has(node) || id2 !== void 0 && labels.ids.has(id2.trim()));
-    if (target && !hasSpread && !namedByLabel) {
-      if (target === "input") {
-        if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, "alt")) {
-          acc.push({ tag: node.name, line: lineOf(source2, node.start) });
-        }
-      } else {
-        const scan = scanAccessibleNameSubtree(node);
-        if (!hasNamingAttr(node.attributes) && !scan.named && !scan.unknowable) {
-          acc.push({ tag: node.name, line: lineOf(source2, node.start) });
-        }
-      }
+    if (target && !hasSpread && !namedByLabel) if (target === "input") {
+      if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, "alt")) acc.push({
+        tag: node.name,
+        line: lineOf(source2, node.start)
+      });
+    } else {
+      const scan = scanAccessibleNameSubtree(node);
+      if (!hasNamingAttr(node.attributes) && !scan.named && !scan.unknowable) acc.push({
+        tag: node.name,
+        line: lineOf(source2, node.start)
+      });
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectUnnamedInteractive(node[key2], source2, acc, labels);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectUnnamedInteractive(node[key2], source2, acc, labels);
 }
-var LABELABLE_TAGS = /* @__PURE__ */ new Set(["input", "select", "textarea", "button", "meter", "output", "progress"]);
+var LABELABLE_TAGS = /* @__PURE__ */ new Set([
+  "input",
+  "select",
+  "textarea",
+  "button",
+  "meter",
+  "output",
+  "progress"
+]);
 function isLabelableDescendant(node) {
   if (node.type !== "RegularElement" || !LABELABLE_TAGS.has(node.name)) return false;
   if (node.name !== "input") return true;
@@ -65044,7 +65186,10 @@ function isLabelableDescendant(node) {
 }
 function scanLabelSubtree(node) {
   if (Array.isArray(node)) {
-    const acc2 = { hasControl: false, unknowable: false };
+    const acc2 = {
+      hasControl: false,
+      unknowable: false
+    };
     for (const child of node) {
       const r2 = scanLabelSubtree(child);
       acc2.hasControl ||= r2.hasControl;
@@ -65052,19 +65197,30 @@ function scanLabelSubtree(node) {
     }
     return acc2;
   }
-  if (!node || typeof node !== "object") return { hasControl: false, unknowable: false };
-  if (node.type === "SnippetBlock") return { hasControl: false, unknowable: false };
-  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) {
-    return { hasControl: false, unknowable: true };
-  }
-  if (isLabelableDescendant(node)) return { hasControl: true, unknowable: false };
-  const acc = { hasControl: false, unknowable: false };
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) {
-      const r2 = scanLabelSubtree(node[key2]);
-      acc.hasControl ||= r2.hasControl;
-      acc.unknowable ||= r2.unknowable;
-    }
+  if (!node || typeof node !== "object") return {
+    hasControl: false,
+    unknowable: false
+  };
+  if (node.type === "SnippetBlock") return {
+    hasControl: false,
+    unknowable: false
+  };
+  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) return {
+    hasControl: false,
+    unknowable: true
+  };
+  if (isLabelableDescendant(node)) return {
+    hasControl: true,
+    unknowable: false
+  };
+  const acc = {
+    hasControl: false,
+    unknowable: false
+  };
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
+    const r2 = scanLabelSubtree(node[key2]);
+    acc.hasControl ||= r2.hasControl;
+    acc.unknowable ||= r2.unknowable;
   }
   return acc;
 }
@@ -65079,41 +65235,67 @@ function collectUnassociatedLabels(node, source2, acc) {
     const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
     if (!hasFor && !hasSpread) {
       const scan = scanLabelSubtree(node);
-      if (!scan.hasControl && !scan.unknowable) {
-        acc.push({ line: lineOf(source2, node.start) });
-      }
+      if (!scan.hasControl && !scan.unknowable) acc.push({ line: lineOf(source2, node.start) });
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectUnassociatedLabels(node[key2], source2, acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectUnassociatedLabels(node[key2], source2, acc);
 }
 var BULLET_TEXT_RE = /^[•・·\-*]\s/;
-var VERBATIM_TEXT_TAGS = /* @__PURE__ */ new Set(["pre", "code", "kbd", "samp", "textarea"]);
-function collectBulletTexts(node, source2, acc, inert, afterExpression = false) {
+var VERBATIM_TEXT_TAGS = /* @__PURE__ */ new Set([
+  "pre",
+  "code",
+  "kbd",
+  "samp",
+  "textarea"
+]);
+function collectBulletTexts(node, source2, acc, inert, afterExpression = false, reported = /* @__PURE__ */ new WeakSet()) {
   if (Array.isArray(node)) {
     let prevWasExpression = afterExpression;
-    for (const child of node) {
-      collectBulletTexts(child, source2, acc, inert, prevWasExpression);
-      if (child && typeof child === "object" && child.type !== "Comment") {
-        prevWasExpression = child.type === "ExpressionTag";
+    let group = [];
+    const flush = () => {
+      if (group.length >= 2) for (const b of group) {
+        if (reported.has(b.text)) continue;
+        reported.add(b.text);
+        acc.push({
+          line: b.line,
+          char: b.char
+        });
       }
+      group = [];
+    };
+    const bulletOf = (text2, after) => {
+      if (!text2 || typeof text2 !== "object" || text2.type !== "Text" || after) return void 0;
+      const trimmed = String(text2.data ?? "").trim();
+      return BULLET_TEXT_RE.test(trimmed) ? {
+        line: lineOf(source2, text2.start),
+        char: trimmed[0],
+        text: text2
+      } : void 0;
+    };
+    for (const child of node) {
+      if (!child || typeof child !== "object") continue;
+      if (child.type === "Text") {
+        const b = inert ? void 0 : bulletOf(child, prevWasExpression);
+        if (b) group.push(b);
+        else if (String(child.data ?? "").trim()) flush();
+      } else if (child.type === "Comment" || child.type === "RegularElement" && child.name === "br") {
+      } else {
+        let item;
+        if (!inert && child.type === "RegularElement" && child.name !== "li" && !VERBATIM_TEXT_TAGS.has(child.name)) item = bulletOf((child.fragment?.nodes ?? []).find((n2) => !(n2?.type === "Text" && !String(n2.data ?? "").trim()) && n2?.type !== "Comment"), prevWasExpression);
+        if (item) group.push(item);
+        else flush();
+        collectBulletTexts(child, source2, acc, inert, prevWasExpression, reported);
+      }
+      if (child.type !== "Comment") prevWasExpression = child.type === "ExpressionTag";
     }
+    flush();
     return;
   }
   if (!node || typeof node !== "object") return;
-  if (node.type === "Text") {
-    const trimmed = String(node.data ?? "").trim();
-    if (!inert && !afterExpression && BULLET_TEXT_RE.test(trimmed)) {
-      acc.push({ line: lineOf(source2, node.start), char: trimmed[0] });
-    }
-    return;
-  }
+  if (node.type === "Text") return;
   if (node.type === "SnippetBlock") return;
   const nowInert = inert || node.type === "RegularElement" && (node.name === "li" || VERBATIM_TEXT_TAGS.has(node.name));
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectBulletTexts(node[key2], source2, acc, nowInert);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectBulletTexts(node[key2], source2, acc, nowInert, false, reported);
 }
 function selectNeedsPlaceholder(attributes) {
   const requiredAttr = findAttr(attributes, "required");
@@ -65134,7 +65316,6 @@ function firstSignificantChild(nodes) {
     if (child.type === "Text" && !String(child.data ?? "").trim()) continue;
     return child;
   }
-  return void 0;
 }
 function isPlaceholderOption(option) {
   const attributes = option.attributes ?? [];
@@ -65151,40 +65332,25 @@ function collectSelectsMissingPlaceholder(node, source2, acc) {
   }
   if (!node || typeof node !== "object") return;
   if (node.type === "RegularElement" && node.name === "select" && Array.isArray(node.attributes)) {
-    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-    if (!hasSpread && selectNeedsPlaceholder(node.attributes)) {
+    if (!node.attributes.some((a2) => a2?.type === "SpreadAttribute") && selectNeedsPlaceholder(node.attributes)) {
       const first = firstSignificantChild(node.fragment?.nodes);
-      if (!first) {
-        acc.push({ line: lineOf(source2, node.start) });
-      } else if (first.type === "RegularElement" && first.name === "option") {
-        const firstHasSpread = (first.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute");
-        if (!firstHasSpread && !isPlaceholderOption(first)) acc.push({ line: lineOf(source2, node.start) });
+      if (!first) acc.push({ line: lineOf(source2, node.start) });
+      else if (first.type === "RegularElement" && first.name === "option") {
+        if (!(first.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute") && !isPlaceholderOption(first)) acc.push({ line: lineOf(source2, node.start) });
       }
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectSelectsMissingPlaceholder(node[key2], source2, acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectSelectsMissingPlaceholder(node[key2], source2, acc);
 }
 var MACHINE_READABLE_TIME = [
   /^\d{4,}(-\d{2}){0,2}$/,
-  // year, yearless month, date
   /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
-  // time
   /^\d{4,}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/,
-  // local and global date-time
   /^\d{2}-\d{2}$/,
-  // yearless date
   /^\d{4,}-W\d{2}$/,
-  // week
   /^(Z|[+-]\d{2}:?\d{2})$/,
-  // time-zone offset
-  // Duration, `PnDTnHnMnS` form. Anchored to the character set a duration uses rather than to the
-  // exact component order: rejecting trailing prose matters, over-narrowing the order would turn a
-  // false negative into the false positive this rule is being repaired for.
   /^P(?=\d|T)[\d.,TYWDHMS]*$/i,
   /^\d+(\.\d+)?\s*[wdhms](\s+\d+(\.\d+)?\s*[wdhms])*$/i
-  // duration, alternative form
 ];
 function collectTimesMissingDatetime(node, source2, acc) {
   if (Array.isArray(node)) {
@@ -65195,16 +65361,88 @@ function collectTimesMissingDatetime(node, source2, acc) {
   if (node.type === "RegularElement" && node.name === "time" && findAttr(node.attributes ?? [], "datetime") === void 0 && !(node.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute")) {
     const nodes = node.fragment?.nodes ?? [];
     if (nodes.length > 0 && nodes.every((n2) => n2?.type === "Text")) {
-      const text2 = nodes.map((n2) => String(n2.data ?? "")).join("");
-      const trimmed = text2.trim();
-      if (trimmed.length > 0 && !MACHINE_READABLE_TIME.some((re) => re.test(trimmed))) {
-        acc.push({ line: lineOf(source2, node.start), text: trimmed });
+      const trimmed = nodes.map((n2) => String(n2.data ?? "")).join("").trim();
+      if (trimmed.length > 0 && !MACHINE_READABLE_TIME.some((re) => re.test(trimmed))) acc.push({
+        line: lineOf(source2, node.start),
+        text: trimmed
+      });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectTimesMissingDatetime(node[key2], source2, acc);
+}
+function staticTextOf(nodes) {
+  let out = "";
+  for (const n2 of nodes) {
+    if (!n2 || typeof n2 !== "object") continue;
+    if (n2.type === "Comment") continue;
+    if (n2.type === "Text") {
+      out += String(n2.data ?? "");
+      continue;
+    }
+    if (n2.type === "RegularElement" && typeof n2.name === "string" && !n2.name.includes("-")) {
+      const inner = staticTextOf(n2.fragment?.nodes ?? []);
+      if (inner === void 0) return void 0;
+      out += inner;
+      continue;
+    }
+    return;
+  }
+  return out;
+}
+function collectDuplicateDts(node, source2, acc, inSvg) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectDuplicateDts(child, source2, acc, inSvg);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  let next2 = inSvg;
+  if (node.type === "RegularElement" && typeof node.name === "string") {
+    const tag2 = node.name.toLowerCase();
+    if (tag2 === "svg") next2 = true;
+    else if (tag2 === "foreignobject") next2 = false;
+    if (!inSvg && tag2 === "dl") {
+      const seen = /* @__PURE__ */ new Set();
+      const judge = (dt) => {
+        const raw = staticTextOf(dt.fragment?.nodes ?? []);
+        if (raw === void 0) return;
+        const name = raw.trim().replace(/\s+/g, " ");
+        if (!name) return;
+        if (seen.has(name)) acc.push({
+          line: lineOf(source2, dt.start),
+          text: name
+        });
+        else seen.add(name);
+      };
+      for (const child of node.fragment?.nodes ?? []) {
+        if (child?.type !== "RegularElement" || typeof child.name !== "string") continue;
+        const childTag = child.name.toLowerCase();
+        if (childTag === "dt") judge(child);
+        else if (childTag === "div") {
+          for (const inner of child.fragment?.nodes ?? []) if (inner?.type === "RegularElement" && typeof inner.name === "string" && inner.name.toLowerCase() === "dt") judge(inner);
+        }
       }
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectTimesMissingDatetime(node[key2], source2, acc);
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectDuplicateDts(node[key2], source2, acc, next2);
+}
+function collectVideosAutoplayNoMuted(node, source2, acc, inSvg) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectVideosAutoplayNoMuted(child, source2, acc, inSvg);
+    return;
   }
+  if (!node || typeof node !== "object") return;
+  let next2 = inSvg;
+  if (node.type === "RegularElement" && typeof node.name === "string") {
+    const tag2 = node.name.toLowerCase();
+    if (tag2 === "svg") next2 = true;
+    else if (tag2 === "foreignobject") next2 = false;
+    if (!inSvg && tag2 === "video" && Array.isArray(node.attributes)) {
+      const literalAutoplay = attrText(node.attributes, "autoplay") !== void 0;
+      const hasMuted = findAttr(node.attributes, "muted") !== void 0 || node.attributes.some((a2) => a2?.type === "BindDirective" && a2.name === "muted" || a2?.type === "SpreadAttribute");
+      if (literalAutoplay && !hasMuted) acc.push({ line: lineOf(source2, node.start) });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectVideosAutoplayNoMuted(node[key2], source2, acc, next2);
 }
 function collectHrefLinks(node, source2, acc) {
   if (Array.isArray(node)) {
@@ -65215,13 +65453,13 @@ function collectHrefLinks(node, source2, acc) {
   if (node.type === "RegularElement" && node.name === "a" && Array.isArray(node.attributes)) {
     const attr = findAttr(node.attributes, "href");
     const value = attr ? attrTextOf(attr) : void 0;
-    if (value !== void 0 && isRootRelativePath(value)) {
-      acc.push({ kind: "href", path: value, line: lineOf(source2, attr?.start ?? node.start) });
-    }
+    if (value !== void 0 && isRootRelativePath(value)) acc.push({
+      kind: "href",
+      path: value,
+      line: lineOf(source2, attr?.start ?? node.start)
+    });
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectHrefLinks(node[key2], source2, acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectHrefLinks(node[key2], source2, acc);
 }
 var GOTO_NAMES = /* @__PURE__ */ new Set(["goto"]);
 function collectGotoLinks(locals, roots, source2, acc) {
@@ -65232,7 +65470,11 @@ function collectGotoLinks(locals, roots, source2, acc) {
       if (n2.type !== "CallExpression" || n2.callee?.type !== "Identifier" || !locals.has(n2.callee.name)) return;
       const arg = n2.arguments?.[0];
       if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) return;
-      acc.push({ kind: "goto", path: arg.value, line: lineOf(source2, n2.start) });
+      acc.push({
+        kind: "goto",
+        path: arg.value,
+        line: lineOf(source2, n2.start)
+      });
     });
   }
 }
@@ -65257,17 +65499,11 @@ function collectPropNames(program, includeBindable) {
       ambiguous = true;
       return;
     }
-    for (const p2 of n2.id.properties) {
-      if (p2?.type === "RestElement") {
-        addBoundNames(p2.argument, names);
-      } else if (p2?.type === "Property") {
-        if (p2.value?.type === "AssignmentPattern") {
-          if ((includeBindable || !isBindableCall(p2.value.right)) && p2.value.left?.type === "Identifier")
-            names.add(p2.value.left.name);
-        } else if (p2.value?.type === "Identifier") {
-          names.add(p2.value.name);
-        }
-      }
+    for (const p2 of n2.id.properties) if (p2?.type === "RestElement") addBoundNames(p2.argument, names);
+    else if (p2?.type === "Property") {
+      if (p2.value?.type === "AssignmentPattern") {
+        if ((includeBindable || !isBindableCall(p2.value.right)) && p2.value.left?.type === "Identifier") names.add(p2.value.left.name);
+      } else if (p2.value?.type === "Identifier") names.add(p2.value.name);
     }
   });
   return ambiguous || seen > 1 ? /* @__PURE__ */ new Set() : names;
@@ -65276,9 +65512,7 @@ function collectLegacyPropNames(program) {
   const names = /* @__PURE__ */ new Set();
   for (const stmt2 of program.body ?? []) {
     if (stmt2?.type !== "ExportNamedDeclaration" || stmt2.declaration?.type !== "VariableDeclaration") continue;
-    for (const d2 of stmt2.declaration.declarations ?? []) {
-      if (d2?.id?.type === "Identifier") names.add(d2.id.name);
-    }
+    for (const d2 of stmt2.declaration.declarations ?? []) if (d2?.id?.type === "Identifier") names.add(d2.id.name);
   }
   return names;
 }
@@ -65301,15 +65535,15 @@ function collectPropMutations(root, propNames, source2, acc) {
   if (propNames.size === 0) return;
   walkScoped(root, (n2, scope) => {
     const flag = (r2) => {
-      if (r2 && propNames.has(r2) && !scope.has(r2)) acc.push({ name: r2, line: lineOf(source2, n2.start) });
+      if (r2 && propNames.has(r2) && !scope.has(r2)) acc.push({
+        name: r2,
+        line: lineOf(source2, n2.start)
+      });
     };
-    if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") {
-      flag(rootObjectName(n2.left));
-    } else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") {
-      flag(rootObjectName(n2.argument));
-    } else if (n2.type === "UnaryExpression" && n2.operator === "delete") {
-      flag(rootObjectName(n2.argument));
-    } else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
+    if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") flag(rootObjectName(n2.left));
+    else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") flag(rootObjectName(n2.argument));
+    else if (n2.type === "UnaryExpression" && n2.operator === "delete") flag(rootObjectName(n2.argument));
+    else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
       const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
       if (method2 && MUTATING_METHODS.has(method2)) flag(rootObjectName(n2.callee.object));
     }
@@ -65342,13 +65576,11 @@ function isTypeOnlyImport(n2) {
 }
 function collectImportSources(program, source2, acc) {
   walkEstree(program, (n2) => {
-    if (n2.type === "ImportDeclaration" && typeof n2.source?.value === "string") {
-      acc.push({
-        source: n2.source.value,
-        line: lineOf(source2, n2.start),
-        ...isTypeOnlyImport(n2) ? { type: true } : {}
-      });
-    }
+    if (n2.type === "ImportDeclaration" && typeof n2.source?.value === "string") acc.push({
+      source: n2.source.value,
+      line: lineOf(source2, n2.start),
+      ...isTypeOnlyImport(n2) ? { type: true } : {}
+    });
   });
 }
 function isBareSpecifier(s) {
@@ -65359,26 +65591,25 @@ function collectNamespaceImports(program, source2, acc) {
     if (n2.type !== "ImportDeclaration" || n2.importKind === "type") return;
     const spec = n2.source?.value;
     if (typeof spec !== "string" || !isBareSpecifier(spec)) return;
-    if (Array.isArray(n2.specifiers) && n2.specifiers.some((s) => s?.type === "ImportNamespaceSpecifier")) {
-      acc.push({ source: spec, line: lineOf(source2, n2.start) });
-    }
+    if (Array.isArray(n2.specifiers) && n2.specifiers.some((s) => s?.type === "ImportNamespaceSpecifier")) acc.push({
+      source: spec,
+      line: lineOf(source2, n2.start)
+    });
   });
 }
 var RULE_ID_RE = "[a-z][a-z0-9]*\\/[a-z][a-z0-9-]*";
-var JS_DIRECTIVE = new RegExp(
-  `^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*$`
-);
-var HTML_DIRECTIVE = new RegExp(
-  `^\\s*<!--\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*-->\\s*$`
-);
+var JS_DIRECTIVE = new RegExp(`^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*$`);
+var HTML_DIRECTIVE = new RegExp(`^\\s*<!--\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*-->\\s*$`);
 function collectSuppressions(source2) {
   const out = [];
-  const lines = source2.split("\n");
-  lines.forEach((line, i2) => {
+  source2.split("\n").forEach((line, i2) => {
     const m = JS_DIRECTIVE.exec(line) ?? HTML_DIRECTIVE.exec(line);
     if (!m) return;
     const ruleIds = m[1]?.split(",").map((s) => s.trim());
-    out.push({ line: i2 + 2, ruleIds });
+    out.push({
+      line: i2 + 2,
+      ruleIds
+    });
   });
   return out;
 }
@@ -65423,9 +65654,10 @@ function collectCommentLinks(source2, { wholeFileIsScript = false } = {}) {
       const opened = SCRIPT_OPEN.test(plain) ? "script" : STYLE_OPEN.test(plain) ? "style" : void 0;
       if (opened !== void 0 && !(opened === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(plain)) block2 = opened;
     }
-    for (const m of text2.matchAll(MD_LINK)) {
-      if (m[1] !== void 0) out.push({ url: m[1], line: i2 + 1 });
-    }
+    for (const m of text2.matchAll(MD_LINK)) if (m[1] !== void 0) out.push({
+      url: m[1],
+      line: i2 + 1
+    });
   });
   return out;
 }
@@ -65453,17 +65685,15 @@ function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set(), bounda
 }
 function collectEvalScopeCalls(root, source2, matcher, skipSubtree, initialShadowed) {
   const out = [];
-  walkEvalScope(
-    root,
-    (n2, shadowed) => {
-      if (n2.type !== "CallExpression") return void 0;
-      if (skipSubtree?.(n2)) return true;
-      const name = matcher(n2, shadowed);
-      if (name) out.push({ name, line: lineOf(source2, n2.start) });
-      return void 0;
-    },
-    initialShadowed
-  );
+  walkEvalScope(root, (n2, shadowed) => {
+    if (n2.type !== "CallExpression") return void 0;
+    if (skipSubtree?.(n2)) return true;
+    const name = matcher(n2, shadowed);
+    if (name) out.push({
+      name,
+      line: lineOf(source2, n2.start)
+    });
+  }, initialShadowed);
   return out;
 }
 function unwrapExport(stmt2) {
@@ -65472,45 +65702,42 @@ function unwrapExport(stmt2) {
   return stmt2;
 }
 function collectOrphanCalls(program, source2, matcher, skipSubtree) {
-  const out = collectEvalScopeCalls(program, source2, matcher, skipSubtree).map((c) => ({ ...c, kind: "top-level" }));
+  const out = collectEvalScopeCalls(program, source2, matcher, skipSubtree).map((c) => ({
+    ...c,
+    kind: "top-level"
+  }));
   const body = program.body ?? [];
   const matchingClasses = /* @__PURE__ */ new Map();
   for (const stmt2 of body) {
     const decl = unwrapExport(stmt2);
     if (decl?.type !== "ClassDeclaration" || decl.id?.type !== "Identifier") continue;
-    const ctor = (decl.body?.body ?? []).find(
-      (m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body
-    );
+    const ctor = (decl.body?.body ?? []).find((m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body);
     if (!ctor) continue;
     const ctorShadow = /* @__PURE__ */ new Set();
     for (const p2 of ctor.value.params ?? []) addBoundNames(p2, ctorShadow);
     const calls = collectEvalScopeCalls(ctor.value.body, source2, matcher, skipSubtree, ctorShadow);
     if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0].name);
   }
-  if (matchingClasses.size > 0) {
-    for (const stmt2 of body) {
-      const decl = unwrapExport(stmt2);
-      const isCandidate = decl?.type === "VariableDeclaration" || decl?.type === "ExpressionStatement" || stmt2.type === "ExportDefaultDeclaration" && decl?.type !== "FunctionDeclaration" && decl?.type !== "ClassDeclaration";
-      if (!isCandidate) continue;
-      walkEvalScope(decl, (n2) => {
-        if (n2.type === "NewExpression" && n2.callee?.type === "Identifier" && matchingClasses.has(n2.callee.name)) {
-          out.push({
-            name: matchingClasses.get(n2.callee.name),
-            line: lineOf(source2, n2.start),
-            kind: "constructor-instantiated",
-            className: n2.callee.name
-          });
-        }
-        return void 0;
+  if (matchingClasses.size > 0) for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (!(decl?.type === "VariableDeclaration" || decl?.type === "ExpressionStatement" || stmt2.type === "ExportDefaultDeclaration" && decl?.type !== "FunctionDeclaration" && decl?.type !== "ClassDeclaration")) continue;
+    walkEvalScope(decl, (n2) => {
+      if (n2.type === "NewExpression" && n2.callee?.type === "Identifier" && matchingClasses.has(n2.callee.name)) out.push({
+        name: matchingClasses.get(n2.callee.name),
+        line: lineOf(source2, n2.start),
+        kind: "constructor-instantiated",
+        className: n2.callee.name
       });
-    }
+    });
   }
   return out.sort((a2, b) => a2.line - b.line);
 }
 function collectOrphanEffects(program, source2) {
-  return collectOrphanCalls(program, source2, (n2) => isEffectCall(n2) ? "$effect" : void 0, isEffectRootCall).map(
-    ({ line, kind, className }) => ({ line, kind, ...className !== void 0 ? { className } : {} })
-  );
+  return collectOrphanCalls(program, source2, (n2) => isEffectCall(n2) ? "$effect" : void 0, isEffectRootCall).map(({ line, kind, className }) => ({
+    line,
+    kind,
+    ...className !== void 0 ? { className } : {}
+  }));
 }
 var LIFECYCLE_NAMES = /* @__PURE__ */ new Set([
   "onMount",
@@ -65530,25 +65757,28 @@ function collectSvelteLifecycleImports(program) {
     if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== "svelte") continue;
     for (const s of stmt2.specifiers ?? []) {
       if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
-      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && LIFECYCLE_NAMES.has(s.imported.name)) {
-        locals.set(s.local.name, s.imported.name);
-      } else if (s.type === "ImportNamespaceSpecifier") {
-        namespaces.add(s.local.name);
-      }
+      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && LIFECYCLE_NAMES.has(s.imported.name)) locals.set(s.local.name, s.imported.name);
+      else if (s.type === "ImportNamespaceSpecifier") namespaces.add(s.local.name);
     }
   }
-  return { locals, namespaces };
+  return {
+    locals,
+    namespaces
+  };
 }
 function matchLifecycleCall(n2, imports2) {
   const c = n2?.callee;
   if (c?.type === "Identifier") {
     const canonical = imports2.locals.get(c.name);
-    return canonical ? { canonical, local: c.name } : void 0;
+    return canonical ? {
+      canonical,
+      local: c.name
+    } : void 0;
   }
-  if (c?.type === "MemberExpression" && !c.computed && c.object?.type === "Identifier" && imports2.namespaces.has(c.object.name) && c.property?.type === "Identifier" && LIFECYCLE_NAMES.has(c.property.name)) {
-    return { canonical: c.property.name, local: c.object.name };
-  }
-  return void 0;
+  if (c?.type === "MemberExpression" && !c.computed && c.object?.type === "Identifier" && imports2.namespaces.has(c.object.name) && c.property?.type === "Identifier" && LIFECYCLE_NAMES.has(c.property.name)) return {
+    canonical: c.property.name,
+    local: c.object.name
+  };
 }
 function collectOrphanLifecycleCalls(program, source2) {
   const imports2 = collectSvelteLifecycleImports(program);
@@ -65580,14 +65810,10 @@ var BROWSER_GLOBALS = /* @__PURE__ */ new Set([
 function collectNamedImportAliases(program, moduleSource, names) {
   const out = /* @__PURE__ */ new Set();
   for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== moduleSource) {
-      continue;
-    }
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== moduleSource) continue;
     for (const s of stmt2.specifiers ?? []) {
       if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
-      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && names.has(s.imported.name)) {
-        out.add(s.local.name);
-      }
+      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && names.has(s.imported.name)) out.add(s.local.name);
     }
   }
   return out;
@@ -65604,11 +65830,8 @@ function collectProgramBindings(program) {
       continue;
     }
     const decl = unwrapExport(stmt2);
-    if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) addBoundNames(d2?.id, bound);
-    } else if ((decl?.type === "FunctionDeclaration" || decl?.type === "ClassDeclaration") && decl.id?.type === "Identifier") {
-      bound.add(decl.id.name);
-    }
+    if (decl?.type === "VariableDeclaration") for (const d2 of decl.declarations ?? []) addBoundNames(d2?.id, bound);
+    else if ((decl?.type === "FunctionDeclaration" || decl?.type === "ClassDeclaration") && decl.id?.type === "Identifier") bound.add(decl.id.name);
   }
   return bound;
 }
@@ -65625,11 +65848,14 @@ function isBrowserGuardTest(test, guardBindings) {
   let guarded = false;
   walkEstree(test, (n2) => {
     if (n2.type === "Identifier" && guardBindings.has(n2.name)) guarded = true;
-    if (n2.type === "BinaryExpression" && ["===", "!==", "==", "!="].includes(n2.operator)) {
+    if (n2.type === "BinaryExpression" && [
+      "===",
+      "!==",
+      "==",
+      "!="
+    ].includes(n2.operator)) {
       const sides = [n2.left, n2.right];
-      const hasTypeofGlobal = sides.some(
-        (s) => s?.type === "UnaryExpression" && s.operator === "typeof" && s.argument?.type === "Identifier" && BROWSER_GLOBALS.has(s.argument.name)
-      );
+      const hasTypeofGlobal = sides.some((s) => s?.type === "UnaryExpression" && s.operator === "typeof" && s.argument?.type === "Identifier" && BROWSER_GLOBALS.has(s.argument.name));
       const hasUndefinedString = sides.some((s) => s?.type === "Literal" && s.value === "undefined");
       if (hasTypeofGlobal && hasUndefinedString) guarded = true;
     }
@@ -65641,11 +65867,7 @@ function collectDerivedGuardBindings(program, guards) {
   for (const stmt2 of program.body ?? []) {
     const decl = unwrapExport(stmt2);
     if (decl?.type !== "VariableDeclaration" || decl.kind !== "const" && decl.kind !== "let") continue;
-    for (const d2 of decl.declarations ?? []) {
-      if (d2?.id?.type === "Identifier" && d2.init && isBrowserGuardTest(d2.init, guards)) {
-        derived.add(d2.id.name);
-      }
-    }
+    for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && d2.init && isBrowserGuardTest(d2.init, guards)) derived.add(d2.id.name);
   }
   return derived;
 }
@@ -65668,9 +65890,10 @@ function collectBrowserGlobalRefs(program, source2, extra) {
     const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
     switch (n2.type) {
       case "Identifier":
-        if (BROWSER_GLOBALS.has(n2.name) && !bound.has(n2.name) && !scope.has(n2.name)) {
-          out.push({ name: n2.name, line: lineOf(source2, n2.start) });
-        }
+        if (BROWSER_GLOBALS.has(n2.name) && !bound.has(n2.name) && !scope.has(n2.name)) out.push({
+          name: n2.name,
+          line: lineOf(source2, n2.start)
+        });
         return;
       case "UnaryExpression":
         if (n2.operator === "typeof" && n2.argument?.type === "Identifier") return;
@@ -65701,16 +65924,12 @@ function collectBrowserGlobalRefs(program, source2, extra) {
       case "Program":
         for (const stmt2 of n2.body ?? []) {
           visit(stmt2, scope);
-          if (stmt2?.type === "IfStatement" && isBrowserGuardTest(stmt2.test, guards) && guardTerminates(stmt2.consequent)) {
-            break;
-          }
+          if (stmt2?.type === "IfStatement" && isBrowserGuardTest(stmt2.test, guards) && guardTerminates(stmt2.consequent)) break;
         }
         return;
       default:
         if (n2.type.startsWith("TS")) {
-          if (n2.type === "TSAsExpression" || n2.type === "TSSatisfiesExpression" || n2.type === "TSNonNullExpression" || n2.type === "TSInstantiationExpression") {
-            visit(n2.expression, scope);
-          }
+          if (n2.type === "TSAsExpression" || n2.type === "TSSatisfiesExpression" || n2.type === "TSNonNullExpression" || n2.type === "TSInstantiationExpression") visit(n2.expression, scope);
           return;
         }
     }
@@ -65724,12 +65943,16 @@ function collectBrowserGlobalRefs(program, source2, extra) {
 }
 var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 function parseModuleProgram(source2, filename2) {
-  const neutralized = source2.replace(/<\/script/gi, "<_script");
   const wrapped = `<script lang="ts">
-${neutralized}
+${source2.replace(/<\/script/gi, "<_script")}
 </script>`;
-  const ast = parse8(wrapped, { modern: true, filename: filename2 });
-  return { program: ast.instance?.content, wrapped };
+  return {
+    program: parse8(wrapped, {
+      modern: true,
+      filename: filename2
+    }).instance?.content,
+    wrapped
+  };
 }
 function collectModuleStateDecls(program, source2) {
   const out = [];
@@ -65738,47 +65961,53 @@ function collectModuleStateDecls(program, source2) {
   for (const stmt2 of body) {
     const decl = unwrapExport(stmt2);
     if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) {
-        if (d2?.id?.type === "Identifier" && d2.init && isStateDeclaration(unwrapTs(d2.init))) {
-          out.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
-        }
-      }
+      for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && d2.init && isStateDeclaration(unwrapTs(d2.init))) out.push({
+        name: d2.id.name,
+        line: lineOf(source2, d2.start)
+      });
     } else if (decl?.type === "ClassDeclaration" && decl.id?.type === "Identifier") {
-      const hasStateField = (decl.body?.body ?? []).some(
-        (m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(unwrapTs(m.value))
-      );
-      if (hasStateField) statefulClasses.add(decl.id.name);
+      if ((decl.body?.body ?? []).some((m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(unwrapTs(m.value)))) statefulClasses.add(decl.id.name);
     }
   }
-  if (statefulClasses.size > 0) {
-    for (const stmt2 of body) {
-      const decl = unwrapExport(stmt2);
-      if (decl?.type !== "VariableDeclaration") continue;
-      for (const d2 of decl.declarations ?? []) {
-        if (d2?.init?.type === "NewExpression" && d2.init.callee?.type === "Identifier" && statefulClasses.has(d2.init.callee.name)) {
-          out.push({
-            name: d2.id?.type === "Identifier" ? d2.id.name : d2.init.callee.name,
-            line: lineOf(source2, d2.start)
-          });
-        }
-      }
-    }
+  if (statefulClasses.size > 0) for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "VariableDeclaration") continue;
+    for (const d2 of decl.declarations ?? []) if (d2?.init?.type === "NewExpression" && d2.init.callee?.type === "Identifier" && statefulClasses.has(d2.init.callee.name)) out.push({
+      name: d2.id?.type === "Identifier" ? d2.id.name : d2.init.callee.name,
+      line: lineOf(source2, d2.start)
+    });
   }
   return out.sort((a2, b) => a2.line - b.line);
 }
 function parseModuleFacts(source2, filename2) {
   const { program, wrapped } = parseModuleProgram(source2, filename2);
   const shift = (line) => Math.max(0, line - 1);
-  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
-  const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
-  const browserGlobalRefs = program ? collectBrowserGlobalRefs(program, wrapped).map((r2) => ({ ...r2, line: shift(r2.line), context: "module" })) : [];
-  const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d2) => ({ ...d2, line: shift(d2.line) })) : [];
+  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({
+    ...f,
+    line: shift(f.line)
+  })) : [];
+  const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({
+    ...f,
+    line: shift(f.line)
+  })) : [];
+  const browserGlobalRefs = program ? collectBrowserGlobalRefs(program, wrapped).map((r2) => ({
+    ...r2,
+    line: shift(r2.line),
+    context: "module"
+  })) : [];
+  const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d2) => ({
+    ...d2,
+    line: shift(d2.line)
+  })) : [];
   const basePathLinks = [];
   if (program) {
     const locals = collectNamedImportAliases(program, "$app/navigation", GOTO_NAMES);
     const raw = [];
     collectGotoLinks(locals, [program], wrapped, raw);
-    for (const l2 of raw) basePathLinks.push({ ...l2, line: shift(l2.line) });
+    for (const l2 of raw) basePathLinks.push({
+      ...l2,
+      line: shift(l2.line)
+    });
     basePathLinks.sort((a2, b) => a2.line - b.line);
   }
   const importSpans = [];
@@ -65786,12 +66015,17 @@ function parseModuleFacts(source2, filename2) {
   if (program) {
     const rawImportSpans = [];
     collectImportSources(program, wrapped, rawImportSpans);
-    for (const s of rawImportSpans) importSpans.push({ ...s, line: shift(s.line) });
+    for (const s of rawImportSpans) importSpans.push({
+      ...s,
+      line: shift(s.line)
+    });
     const rawNamespaceImports = [];
     collectNamespaceImports(program, wrapped, rawNamespaceImports);
-    for (const n2 of rawNamespaceImports) namespaceImports.push({ ...n2, line: shift(n2.line) });
+    for (const n2 of rawNamespaceImports) namespaceImports.push({
+      ...n2,
+      line: shift(n2.line)
+    });
   }
-  const imports2 = importSpans.map((s) => s.source);
   return {
     eachBlocks: [],
     effects: [],
@@ -65799,7 +66033,7 @@ function parseModuleFacts(source2, filename2) {
     javascriptUrls: [],
     loc: 0,
     propCount: 0,
-    imports: imports2,
+    imports: importSpans.map((s) => s.source),
     importSpans,
     namespaceImports,
     constableStates: [],
@@ -65829,10 +66063,15 @@ function parseComponentFacts(source2, filename2) {
   collectCheckableBindValues(ast.fragment ?? ast, source2, checkableBindValues);
   const ariaElements = [];
   collectAriaElements(ast.fragment ?? ast, source2, ariaElements);
+  const elements = [];
+  collectElements(ast.fragment ?? ast, source2, elements, ast.options?.namespace === "svg");
   const interactiveNestings = [];
   collectInteractiveNestings(ast.fragment ?? ast, source2, interactiveNestings, []);
   const unnamedInteractive = [];
-  const labelTargets = { ids: /* @__PURE__ */ new Set(), nodes: /* @__PURE__ */ new Set() };
+  const labelTargets = {
+    ids: /* @__PURE__ */ new Set(),
+    nodes: /* @__PURE__ */ new Set()
+  };
   collectLabelTargets(ast.fragment ?? ast, labelTargets);
   collectUnnamedInteractive(ast.fragment ?? ast, source2, unnamedInteractive, labelTargets);
   const unassociatedLabels = [];
@@ -65843,14 +66082,15 @@ function parseComponentFacts(source2, filename2) {
   collectSelectsMissingPlaceholder(ast.fragment ?? ast, source2, selectsMissingPlaceholder);
   const timesMissingDatetime = [];
   collectTimesMissingDatetime(ast.fragment ?? ast, source2, timesMissingDatetime);
+  const videosAutoplayNoMuted = [];
+  collectVideosAutoplayNoMuted(ast.fragment ?? ast, source2, videosAutoplayNoMuted, ast.options?.namespace === "svg");
+  const duplicateDts = [];
+  collectDuplicateDts(ast.fragment ?? ast, source2, duplicateDts, ast.options?.namespace === "svg");
   const basePathLinks = [];
   collectHrefLinks(ast.fragment ?? ast, source2, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean);
   const gotoLocals = /* @__PURE__ */ new Set();
-  for (const p2 of gotoPrograms)
-    for (const n2 of collectNamedImportAliases(p2, "$app/navigation", GOTO_NAMES)) {
-      gotoLocals.add(n2);
-    }
+  for (const p2 of gotoPrograms) for (const n2 of collectNamedImportAliases(p2, "$app/navigation", GOTO_NAMES)) gotoLocals.add(n2);
   collectGotoLinks(gotoLocals, [...gotoPrograms, ast.fragment], source2, basePathLinks);
   basePathLinks.sort((a2, b) => a2.line - b.line);
   const loc = countLines(source2);
@@ -65865,11 +66105,10 @@ function parseComponentFacts(source2, filename2) {
   const orphanEffects = moduleProgram ? collectOrphanEffects(moduleProgram, source2) : [];
   const orphanLifecycleCalls = moduleProgram ? collectOrphanLifecycleCalls(moduleProgram, source2) : [];
   const browserGlobalRefs = [];
-  if (moduleProgram) {
-    for (const r2 of collectBrowserGlobalRefs(moduleProgram, source2)) {
-      browserGlobalRefs.push({ ...r2, context: "module" });
-    }
-  }
+  if (moduleProgram) for (const r2 of collectBrowserGlobalRefs(moduleProgram, source2)) browserGlobalRefs.push({
+    ...r2,
+    context: "module"
+  });
   const effects = [];
   const constableStates = [];
   const mutatedProps = [];
@@ -65887,7 +66126,10 @@ function parseComponentFacts(source2, filename2) {
     const rawMutations = [];
     collectPropMutations(program, nonBindableProps, source2, rawMutations);
     if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, rawMutations);
-    for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
+    for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? {
+      ...m,
+      legacy: true
+    } : m);
     const allPropNames = /* @__PURE__ */ new Set([...collectPropNames(program, true), ...legacyPropNames]);
     if (allPropNames.size > 0) {
       const candidates = collectStalePropCandidates(program, allPropNames, source2);
@@ -65902,11 +66144,10 @@ function parseComponentFacts(source2, filename2) {
         const referenced = /* @__PURE__ */ new Set();
         if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
         const isLegacy = legacyPropNames.size > 0;
-        for (const c of candidates) {
-          if (!disqualified.has(c.name) && referenced.has(c.name)) {
-            stalePropDerivations.push(isLegacy ? { ...c, legacy: true } : c);
-          }
-        }
+        for (const c of candidates) if (!disqualified.has(c.name) && referenced.has(c.name)) stalePropDerivations.push(isLegacy ? {
+          ...c,
+          legacy: true
+        } : c);
       }
     }
     const stateNames = /* @__PURE__ */ new Set();
@@ -65923,10 +66164,12 @@ function parseComponentFacts(source2, filename2) {
       const init2 = unwrapTs(n2.init);
       if (isStateDeclaration(init2) && n2.id?.type === "Identifier") {
         stateNames.add(n2.id.name);
-        stateDecls.push({ name: n2.id.name, line: lineOf(source2, n2.start) });
+        stateDecls.push({
+          name: n2.id.name,
+          line: lineOf(source2, n2.start)
+        });
       }
-      if (isStateDeclaration(init2) || isDerivedDeclaration(init2) || isPropsCall(init2))
-        addBoundNames(n2.id, reactiveNames);
+      if (isStateDeclaration(init2) || isDerivedDeclaration(init2) || isPropsCall(init2)) addBoundNames(n2.id, reactiveNames);
     });
     walkEstree(program, (n2) => {
       if (n2.type !== "CallExpression" || !isEffectCall(n2)) return;
@@ -65945,9 +66188,7 @@ function parseComponentFacts(source2, filename2) {
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
     }
-    for (const d2 of stateDecls) {
-      if (!writtenOrEscaped.has(d2.name)) constableStates.push(d2);
-    }
+    for (const d2 of stateDecls) if (!writtenOrEscaped.has(d2.name)) constableStates.push(d2);
     const rawableCandidates = [];
     for (const stmt2 of program.body ?? []) {
       if (stmt2?.type !== "VariableDeclaration") continue;
@@ -65956,9 +66197,10 @@ function parseComponentFacts(source2, filename2) {
         const init2 = unwrapTs(d2.init);
         if (!isPlainStateCall(init2)) continue;
         const arg = unwrapTs(init2.arguments?.[0]);
-        if (arg?.type === "ObjectExpression" || arg?.type === "ArrayExpression") {
-          rawableCandidates.push({ name: d2.id.name, line: lineOf(source2, d2.start) });
-        }
+        if (arg?.type === "ObjectExpression" || arg?.type === "ArrayExpression") rawableCandidates.push({
+          name: d2.id.name,
+          line: lineOf(source2, d2.start)
+        });
       }
     }
     if (rawableCandidates.length > 0) {
@@ -65993,9 +66235,10 @@ function parseComponentFacts(source2, filename2) {
         const init2 = unwrapTs(d2.init);
         if (!isPlainStateCall(init2)) continue;
         const arg = unwrapTs(init2.arguments?.[0]);
-        if (arg?.type === "NewExpression" && arg.callee?.type === "Identifier" && BUILTIN_STATE_TYPES.has(arg.callee.name)) {
-          builtinCandidates.set(d2.id.name, { type: arg.callee.name, line: lineOf(source2, d2.start) });
-        }
+        if (arg?.type === "NewExpression" && arg.callee?.type === "Identifier" && BUILTIN_STATE_TYPES.has(arg.callee.name)) builtinCandidates.set(d2.id.name, {
+          type: arg.callee.name,
+          line: lineOf(source2, d2.start)
+        });
       }
     }
     if (builtinCandidates.size > 0) {
@@ -66004,11 +66247,11 @@ function parseComponentFacts(source2, filename2) {
       const reassignedBuiltins = /* @__PURE__ */ new Set();
       collectBuiltinStateSignals(program, types2, mutatedBuiltins, reassignedBuiltins);
       if (ast.fragment) collectBuiltinStateSignals(ast.fragment, types2, mutatedBuiltins, reassignedBuiltins);
-      for (const [name, meta] of builtinCandidates) {
-        if (mutatedBuiltins.has(name) && !reassignedBuiltins.has(name)) {
-          nonreactiveBuiltinStates.push({ name, type: meta.type, line: meta.line });
-        }
-      }
+      for (const [name, meta] of builtinCandidates) if (mutatedBuiltins.has(name) && !reassignedBuiltins.has(name)) nonreactiveBuiltinStates.push({
+        name,
+        type: meta.type,
+        line: meta.line
+      });
     }
     let moduleExtra;
     if (moduleProgram) {
@@ -66018,9 +66261,10 @@ function parseComponentFacts(source2, filename2) {
         bound: collectProgramBindings(moduleProgram)
       };
     }
-    for (const r2 of collectBrowserGlobalRefs(program, source2, moduleExtra)) {
-      browserGlobalRefs.push({ ...r2, context: "instance" });
-    }
+    for (const r2 of collectBrowserGlobalRefs(program, source2, moduleExtra)) browserGlobalRefs.push({
+      ...r2,
+      context: "instance"
+    });
   }
   const imports2 = importSpans.map((s) => s.source);
   return {
@@ -66047,12 +66291,15 @@ function parseComponentFacts(source2, filename2) {
     suppressions,
     commentLinks: collectCommentLinks(source2),
     ariaElements,
+    elements,
     interactiveNestings,
     unnamedInteractive,
     unassociatedLabels,
     bulletTexts,
     selectsMissingPlaceholder,
-    timesMissingDatetime
+    timesMissingDatetime,
+    videosAutoplayNoMuted,
+    duplicateDts
   };
 }
 var HANDLER_NAMES = /* @__PURE__ */ new Set([
@@ -66076,12 +66323,9 @@ function collectTopLevelBindings(program) {
   const bindings = /* @__PURE__ */ new Map();
   for (const stmt2 of program.body ?? []) {
     const decl = unwrapExport(stmt2);
-    if (decl?.type === "FunctionDeclaration" && decl.id?.type === "Identifier") {
-      bindings.set(decl.id.name, decl);
-    } else if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) {
-        if (d2?.id?.type === "Identifier" && d2.init) bindings.set(d2.id.name, unwrapTs(d2.init));
-      }
+    if (decl?.type === "FunctionDeclaration" && decl.id?.type === "Identifier") bindings.set(decl.id.name, decl);
+    else if (decl?.type === "VariableDeclaration") {
+      for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && d2.init) bindings.set(d2.id.name, unwrapTs(d2.init));
     }
   }
   return bindings;
@@ -66109,8 +66353,7 @@ function forEachNamedExport(program, visit) {
   }
   let bindings;
   for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
-      continue;
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type") continue;
     for (const s of stmt2.specifiers) {
       if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
       bindings ??= collectTopLevelBindings(program);
@@ -66125,7 +66368,6 @@ function collectHandlerFunctions(program) {
   forEachNamedExport(program, (name, value) => {
     if (HANDLER_NAMES.has(name) && isFunctionNode(value)) handlers.add(value);
     else if (name === "actions" && value?.type === "ObjectExpression") addActionsMembers(value, handlers);
-    return void 0;
   });
   return handlers;
 }
@@ -66133,7 +66375,6 @@ function collectStartupFunctions(program) {
   const startup = /* @__PURE__ */ new Set();
   forEachNamedExport(program, (name, value) => {
     if (name === "init" && isFunctionNode(value)) startup.add(value);
-    return void 0;
   });
   return startup;
 }
@@ -66176,9 +66417,7 @@ function collectRedirectCalls(node, locals, out = []) {
     return out;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
-  if (node.type === "CallExpression" && node.callee?.type === "Identifier" && locals.has(node.callee.name)) {
-    out.push(node);
-  }
+  if (node.type === "CallExpression" && node.callee?.type === "Identifier" && locals.has(node.callee.name)) out.push(node);
   for (const key2 of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key2)) continue;
     collectRedirectCalls(node[key2], locals, out);
@@ -66192,7 +66431,14 @@ function isParentCall(arg) {
   if (callee?.type === "Identifier" && callee.name === "parent") return true;
   return callee?.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "parent";
 }
-var BODY_METHODS = /* @__PURE__ */ new Set(["json", "text", "blob", "arrayBuffer", "formData", "bytes"]);
+var BODY_METHODS = /* @__PURE__ */ new Set([
+  "json",
+  "text",
+  "blob",
+  "arrayBuffer",
+  "formData",
+  "bytes"
+]);
 function isBodyParseCall(arg) {
   const e3 = unwrapTs(arg);
   if (e3?.type !== "CallExpression" || e3.arguments?.length) return false;
@@ -66228,7 +66474,10 @@ function collectLoadWaterfalls(program, wrapped) {
   const dependentLines = [];
   const independentLines = [];
   const load = findLoadFunction(program);
-  if (!load?.body || load.body.type !== "BlockStatement") return { dependentLines, independentLines };
+  if (!load?.body || load.body.type !== "BlockStatement") return {
+    dependentLines,
+    independentLines
+  };
   const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
   const tainted = /* @__PURE__ */ new Set();
   let sawAwaitSite = false;
@@ -66236,9 +66485,7 @@ function collectLoadWaterfalls(program, wrapped) {
     if (left?.type === "MemberExpression") {
       const root = rootObjectName(left);
       if (root) tainted.add(root);
-    } else {
-      addBoundNames(left, tainted);
-    }
+    } else addBoundNames(left, tainted);
   };
   const taintOnly = (node) => {
     if (Array.isArray(node)) {
@@ -66250,11 +66497,7 @@ function collectLoadWaterfalls(program, wrapped) {
     if (node.type === "AssignmentExpression") {
       if (collectAwaits(node.right).length > 0 || refsTainted(node.right, tainted)) taintAssignTarget(node.left);
     } else if (node.type === "VariableDeclaration") {
-      for (const d2 of node.declarations ?? []) {
-        if (d2?.id && d2.init && (collectAwaits(d2.init).length > 0 || refsTainted(d2.init, tainted))) {
-          addBoundNames(d2.id, tainted);
-        }
-      }
+      for (const d2 of node.declarations ?? []) if (d2?.id && d2.init && (collectAwaits(d2.init).length > 0 || refsTainted(d2.init, tainted))) addBoundNames(d2.id, tainted);
     }
     for (const key2 of Object.keys(node)) {
       if (WALK_IGNORED_KEYS.has(key2)) continue;
@@ -66286,24 +66529,24 @@ function collectLoadWaterfalls(program, wrapped) {
           }
           sawAwaitSite = true;
         }
-        if (stmt2.type === "VariableDeclaration") {
-          for (const d2 of stmt2.declarations ?? []) {
-            if (!d2?.id || !d2.init) continue;
-            if (collectAwaits(d2.init).length > 0 || refsTainted(d2.init, tainted)) addBoundNames(d2.id, tainted);
-          }
-        } else if (stmt2.type === "ExpressionStatement") {
+        if (stmt2.type === "VariableDeclaration") for (const d2 of stmt2.declarations ?? []) {
+          if (!d2?.id || !d2.init) continue;
+          if (collectAwaits(d2.init).length > 0 || refsTainted(d2.init, tainted)) addBoundNames(d2.id, tainted);
+        }
+        else if (stmt2.type === "ExpressionStatement") {
           const expr = unwrapTs(stmt2.expression);
           if (expr?.type === "AssignmentExpression") {
             if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) taintAssignTarget(expr.left);
           }
         }
-      } else {
-        taintOnly(stmt2);
-      }
+      } else taintOnly(stmt2);
     }
   };
   processStatements(load.body.body);
-  return { dependentLines, independentLines };
+  return {
+    dependentLines,
+    independentLines
+  };
 }
 function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
   if (Array.isArray(node)) {
@@ -66334,7 +66577,11 @@ function normalizePosix(path) {
   }
   return out.join("/");
 }
-var DEFAULT_KIT_ALIASES = [{ find: "$lib", replacement: "src/lib", match: "prefix" }];
+var DEFAULT_KIT_ALIASES = [{
+  find: "$lib",
+  replacement: "src/lib",
+  match: "prefix"
+}];
 function aliasMatches(entry, spec) {
   if (entry.match === "exact") return spec === entry.find;
   if (spec.startsWith(`${entry.find}/`)) return true;
@@ -66342,10 +66589,8 @@ function aliasMatches(entry, spec) {
 }
 function resolveRepoLocalPath(spec, importerFile, aliases = DEFAULT_KIT_ALIASES) {
   let path;
-  if (spec.startsWith("./") || spec.startsWith("../")) {
-    const dir = importerFile.split("/").slice(0, -1).join("/");
-    path = `${dir}/${spec}`;
-  } else {
+  if (spec.startsWith("./") || spec.startsWith("../")) path = `${importerFile.split("/").slice(0, -1).join("/")}/${spec}`;
+  else {
     const entry = aliases.find((a2) => aliasMatches(a2, spec));
     if (entry?.replacement == null) return void 0;
     if (entry.replacement.startsWith("/") || /^[A-Za-z]:\//.test(entry.replacement)) return void 0;
@@ -66358,7 +66603,6 @@ function resolveRunesModuleSpecifier(spec, importerFile, aliases) {
   if (path === void 0) return void 0;
   if (/\.svelte\.(ts|js)$/.test(path)) return path;
   if (path.endsWith(".svelte")) return `${path}.ts`;
-  return void 0;
 }
 function libServerRoot(aliases) {
   const lib = aliases?.find((a2) => a2.find === "$lib");
@@ -66379,7 +66623,12 @@ function isLocalStateSpecifier(spec, importerFile, aliases) {
   if (path === void 0) return false;
   return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
 }
-var IN_MEMORY_CTORS = /* @__PURE__ */ new Set(["Map", "Set", "WeakMap", "WeakSet"]);
+var IN_MEMORY_CTORS = /* @__PURE__ */ new Set([
+  "Map",
+  "Set",
+  "WeakMap",
+  "WeakSet"
+]);
 function isInMemoryInit(init2) {
   if (!init2) return false;
   if (init2.type === "ObjectExpression" || init2.type === "ArrayExpression") return true;
@@ -66392,9 +66641,7 @@ function parseInMemoryExports(source2, filename2) {
     if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
     const decl = stmt2.declaration;
     if (decl.type !== "VariableDeclaration") continue;
-    for (const d2 of decl.declarations ?? []) {
-      if (d2?.id?.type === "Identifier" && isInMemoryInit(d2.init)) names.add(d2.id.name);
-    }
+    for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && isInMemoryInit(d2.init)) names.add(d2.id.name);
   }
   return names;
 }
@@ -66408,19 +66655,17 @@ function parseKitModuleFacts(source2, filename2, aliases) {
   const runesModuleImports = [];
   const lifecycleCalls = [];
   const browserGlobalRefs = [];
-  if (!program) {
-    return {
-      moduleStateReassignments,
-      importedStateWrites,
-      importedStateWritesOutsideHandlers,
-      pendingServerStoreWrites,
-      runesModuleImports,
-      lifecycleCalls,
-      browserGlobalRefs,
-      basePathLinks: [],
-      suppressions
-    };
-  }
+  if (!program) return {
+    moduleStateReassignments,
+    importedStateWrites,
+    importedStateWritesOutsideHandlers,
+    pendingServerStoreWrites,
+    runesModuleImports,
+    lifecycleCalls,
+    browserGlobalRefs,
+    basePathLinks: [],
+    suppressions
+  };
   const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
   const importedSpecifiers = /* @__PURE__ */ new Map();
   const importedNames = /* @__PURE__ */ new Map();
@@ -66432,21 +66677,21 @@ function parseKitModuleFacts(source2, filename2, aliases) {
       if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
       names.push(s.local.name);
       importedSpecifiers.set(s.local.name, spec);
-      importedNames.set(
-        s.local.name,
-        s.type === "ImportSpecifier" && s.imported?.type === "Identifier" ? s.imported.name : s.local.name
-      );
+      importedNames.set(s.local.name, s.type === "ImportSpecifier" && s.imported?.type === "Identifier" ? s.imported.name : s.local.name);
     }
     if (names.length === 0) continue;
     const resolved = resolveRunesModuleSpecifier(spec, filename2, aliases);
-    if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt2.start) });
+    if (resolved) runesModuleImports.push({
+      source: spec,
+      resolved,
+      names,
+      line: line(stmt2.start)
+    });
   }
   const moduleLets = /* @__PURE__ */ new Set();
   for (const stmt2 of program.body ?? []) {
     const decl = unwrapExport(stmt2);
-    if (decl?.type === "VariableDeclaration" && (decl.kind === "let" || decl.kind === "var")) {
-      for (const d2 of decl.declarations ?? []) addBoundNames(d2?.id, moduleLets);
-    }
+    if (decl?.type === "VariableDeclaration" && (decl.kind === "let" || decl.kind === "var")) for (const d2 of decl.declarations ?? []) addBoundNames(d2?.id, moduleLets);
   }
   const handlerFns = collectHandlerFunctions(program);
   const startupFns = collectStartupFunctions(program);
@@ -66459,16 +66704,26 @@ function parseKitModuleFacts(source2, filename2, aliases) {
     const browserImports = collectBrowserGuardImports(program);
     const guards = /* @__PURE__ */ new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
     const bound = collectProgramBindings(program);
-    for (const r2 of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
-      browserGlobalRefs.push({ name: r2.name, line: shiftLine(r2.line), inHandler: false });
-    }
+    for (const r2 of collectBrowserGlobalRefs(program, wrapped, {
+      guards,
+      bound
+    })) browserGlobalRefs.push({
+      name: r2.name,
+      line: shiftLine(r2.line),
+      inHandler: false
+    });
     const scanFn = (fn, inHandler) => {
       if (!fn?.body) return;
       const params = /* @__PURE__ */ new Set();
       for (const p2 of fn.params ?? []) addBoundNames(p2, params);
-      for (const r2 of collectBrowserGlobalRefs(fn.body, wrapped, { guards, bound: /* @__PURE__ */ new Set([...bound, ...params]) })) {
-        browserGlobalRefs.push({ name: r2.name, line: shiftLine(r2.line), inHandler });
-      }
+      for (const r2 of collectBrowserGlobalRefs(fn.body, wrapped, {
+        guards,
+        bound: /* @__PURE__ */ new Set([...bound, ...params])
+      })) browserGlobalRefs.push({
+        name: r2.name,
+        line: shiftLine(r2.line),
+        inHandler
+      });
     };
     for (const fn of handlerFns) scanFn(fn, true);
     for (const fn of startupFns) {
@@ -66479,9 +66734,11 @@ function parseKitModuleFacts(source2, filename2, aliases) {
   walkKit(program, handlerFns, startupFns, (n2, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       const flagLet = (name) => {
-        if (name && !shadowed.has(name) && moduleLets.has(name)) {
-          moduleStateReassignments.push({ name, line: line(n2.start), inHandler });
-        }
+        if (name && !shadowed.has(name) && moduleLets.has(name)) moduleStateReassignments.push({
+          name,
+          line: line(n2.start),
+          inHandler
+        });
       };
       if (n2.type === "AssignmentExpression") {
         if (n2.left?.type === "Identifier") flagLet(n2.left.name);
@@ -66490,9 +66747,7 @@ function parseKitModuleFacts(source2, filename2, aliases) {
           addBoundNames(n2.left, bound);
           for (const b of bound) flagLet(b);
         }
-      } else if (n2.type === "UpdateExpression" && n2.argument?.type === "Identifier") {
-        flagLet(n2.argument.name);
-      }
+      } else if (n2.type === "UpdateExpression" && n2.argument?.type === "Identifier") flagLet(n2.argument.name);
     }
     let write;
     const importedRoot = (expr) => {
@@ -66501,31 +66756,39 @@ function parseKitModuleFacts(source2, filename2, aliases) {
     };
     if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") {
       const r2 = importedRoot(n2.left);
-      if (r2) write = { name: r2, via: "assignment" };
+      if (r2) write = {
+        name: r2,
+        via: "assignment"
+      };
     } else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") {
       const r2 = importedRoot(n2.argument);
-      if (r2) write = { name: r2, via: "assignment" };
+      if (r2) write = {
+        name: r2,
+        via: "assignment"
+      };
     } else if (n2.type === "UnaryExpression" && n2.operator === "delete") {
       const r2 = importedRoot(n2.argument);
-      if (r2) write = { name: r2, via: "assignment" };
+      if (r2) write = {
+        name: r2,
+        via: "assignment"
+      };
     } else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
       const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
       if (method2 === "set" || method2 === "update") {
         const r2 = importedRoot(n2.callee.object);
         const spec = r2 ? importedSpecifiers.get(r2) : void 0;
-        if (r2 && spec !== void 0) {
-          if (isLocalStateSpecifier(spec, filename2, aliases)) write = { name: r2, via: "set-call" };
-          else {
-            const resolved = serverRootRelativePath(spec, filename2, aliases);
-            if (resolved !== void 0 && inHandler) {
-              pendingServerStoreWrites.push({
-                name: r2,
-                imported: importedNames.get(r2) ?? r2,
-                resolved,
-                line: line(n2.start)
-              });
-            }
-          }
+        if (r2 && spec !== void 0) if (isLocalStateSpecifier(spec, filename2, aliases)) write = {
+          name: r2,
+          via: "set-call"
+        };
+        else {
+          const resolved = serverRootRelativePath(spec, filename2, aliases);
+          if (resolved !== void 0 && inHandler) pendingServerStoreWrites.push({
+            name: r2,
+            imported: importedNames.get(r2) ?? r2,
+            resolved,
+            line: line(n2.start)
+          });
         }
       }
     } else if (n2.type === "AssignmentExpression" && (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern")) {
@@ -66533,42 +66796,47 @@ function parseKitModuleFacts(source2, filename2, aliases) {
         if (!pat || write) return;
         if (pat.type === "MemberExpression") {
           const r2 = importedRoot(pat);
-          if (r2) write = { name: r2, via: "assignment" };
+          if (r2) write = {
+            name: r2,
+            via: "assignment"
+          };
         } else if (pat.type === "ObjectPattern") {
-          for (const p2 of pat.properties ?? []) {
-            if (p2?.type === "Property") scanPatternTargets(p2.value);
-            else if (p2?.type === "RestElement") scanPatternTargets(p2.argument);
-          }
-        } else if (pat.type === "ArrayPattern") {
-          for (const el of pat.elements ?? []) scanPatternTargets(el);
-        } else if (pat.type === "AssignmentPattern") {
-          scanPatternTargets(pat.left);
-        } else if (pat.type === "RestElement") {
-          scanPatternTargets(pat.argument);
-        }
+          for (const p2 of pat.properties ?? []) if (p2?.type === "Property") scanPatternTargets(p2.value);
+          else if (p2?.type === "RestElement") scanPatternTargets(p2.argument);
+        } else if (pat.type === "ArrayPattern") for (const el of pat.elements ?? []) scanPatternTargets(el);
+        else if (pat.type === "AssignmentPattern") scanPatternTargets(pat.left);
+        else if (pat.type === "RestElement") scanPatternTargets(pat.argument);
       };
       scanPatternTargets(n2.left);
     }
-    if (write) {
-      if (inHandler) importedStateWrites.push({ ...write, line: line(n2.start) });
-      else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n2.start) });
-    }
+    if (write) if (inHandler) importedStateWrites.push({
+      ...write,
+      line: line(n2.start)
+    });
+    else importedStateWritesOutsideHandlers.push({
+      name: write.name,
+      line: line(n2.start)
+    });
     if (n2.type === "CallExpression" && (!inFunction || inHandler || inStartup)) {
       const m = matchLifecycleCall(n2, svelteImports);
-      if (m && !shadowed.has(m.local)) {
-        lifecycleCalls.push({ name: m.canonical, line: line(n2.start), inHandler });
-      }
+      if (m && !shadowed.has(m.local)) lifecycleCalls.push({
+        name: m.canonical,
+        line: line(n2.start),
+        inHandler
+      });
     }
   });
   const byLine = (arr) => arr.sort((a2, b) => a2.line - b.line);
   const basePathLinks = [];
   const redirectLocals = collectNamedImportAliases(program, "@sveltejs/kit", REDIRECT_NAMES);
-  if (redirectLocals.size > 0) {
-    for (const call2 of collectRedirectCalls(program, redirectLocals)) {
-      const arg = call2.arguments?.[1];
-      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) continue;
-      basePathLinks.push({ kind: "redirect", path: arg.value, line: line(call2.start) });
-    }
+  if (redirectLocals.size > 0) for (const call2 of collectRedirectCalls(program, redirectLocals)) {
+    const arg = call2.arguments?.[1];
+    if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) continue;
+    basePathLinks.push({
+      kind: "redirect",
+      path: arg.value,
+      line: line(call2.start)
+    });
   }
   return {
     moduleStateReassignments: byLine(moduleStateReassignments),
@@ -66585,22 +66853,24 @@ function parseKitModuleFacts(source2, filename2, aliases) {
     suppressions
   };
 }
-var docsUrl7 = docsUrlFor("architecture/private-scope-import");
-var recommendation5 = "Move the unit to the directory shared by all of its importers, or import it only from inside its own scope.";
-var OPTIONS2 = { scopes: { kind: "string-list", default: [] } };
-function ancestorDirs(file) {
+var docsUrl$4 = docsUrlFor("architecture/private-scope-import");
+var recommendation$4 = "Move the unit to the directory shared by all of its importers, or import it only from inside its own scope.";
+var OPTIONS$5 = { scopes: {
+  kind: "string-list",
+  default: []
+} };
+function ancestorDirs$1(file) {
   const segments = file.split("/");
   const out = [];
   for (let i2 = segments.length - 1; i2 > 0; i2--) out.push(segments.slice(0, i2).join("/"));
   return out;
 }
 function privateScopeOf(target, patterns) {
-  for (const dir of ancestorDirs(target)) {
+  for (const dir of ancestorDirs$1(target)) {
     if (!patterns.some((p2) => p2.test(dir))) continue;
     const cut = dir.lastIndexOf("/");
     return cut === -1 ? "" : dir.slice(0, cut);
   }
-  return void 0;
 }
 function isInside(file, boundary) {
   return boundary === "" || file.startsWith(`${boundary}/`);
@@ -66612,10 +66882,8 @@ var architecturePrivateScopeImport = {
   severity: "info",
   scope: "component",
   rationale: "A unit placed inside a private directory is written for one owner; importing it from elsewhere couples two parts of the tree that were meant to move independently, and the unit belongs higher up instead.",
-  fix: {
-    description: "Move this unit out of its private scope, to the directory shared by all of its importers, and update this import."
-  },
-  options: OPTIONS2,
+  fix: { description: "Move this unit out of its private scope, to the directory shared by all of its importers, and update this import." },
+  options: OPTIONS$5,
   async check(ctx) {
     const out = [];
     const compiled = compileOverrides(ctx.config);
@@ -66625,25 +66893,23 @@ var architecturePrivateScopeImport = {
       let patterns = patternCache.get(key2);
       if (patterns === void 0) {
         patterns = scopes.map((scope) => {
-          const marker = scope.endsWith("/**") ? scope.slice(0, -3) : scope;
-          return routeGlobToRegExp(marker);
+          return routeGlobToRegExp(scope.endsWith("/**") ? scope.slice(0, -3) : scope);
         });
         patternCache.set(key2, patterns);
       }
       return patterns;
     };
     for (const c of ctx.components ?? []) {
-      const o2 = resolveRuleOptions(
-        "architecture/private-scope-import",
-        OPTIONS2,
-        ctx.config,
-        { route: c.file, file: c.file },
-        compiled
-      );
-      const scopes = listOption(o2, "scopes");
+      const scopes = listOption(resolveRuleOptions("architecture/private-scope-import", OPTIONS$5, ctx.config, {
+        route: c.file,
+        file: c.file
+      }, compiled), "scopes");
       if (scopes.length === 0) continue;
       const patterns = compileScopes(scopes);
-      const spans = c.importSpans ?? c.imports.map((source2) => ({ source: source2, line: 0 }));
+      const spans = c.importSpans ?? c.imports.map((source2) => ({
+        source: source2,
+        line: 0
+      }));
       let sawScopedImport = false;
       const violations = [];
       for (const { source: source2, line } of spans) {
@@ -66653,50 +66919,51 @@ var architecturePrivateScopeImport = {
         if (boundary === void 0) continue;
         sawScopedImport = true;
         if (isInside(c.file, boundary)) continue;
-        violations.push({ line, message: `${target} is private to ${boundary}` });
+        violations.push({
+          line,
+          message: `${target} is private to ${boundary}`
+        });
       }
       if (!sawScopedImport) continue;
-      const visible = violations.filter(
-        (v) => !(v.line > 0 && isSuppressed(c.suppressions, "architecture/private-scope-import", v.line))
-      );
+      const visible = violations.filter((v) => !(v.line > 0 && isSuppressed(c.suppressions, "architecture/private-scope-import", v.line)));
       if (visible.length === 0) {
         out.push({
           id: "architecture/private-scope-import",
           category: "architecture",
           severity: "info",
-          detection: { presence: "own", value: "static" },
+          detection: {
+            presence: "own",
+            value: "static"
+          },
           route: c.file,
-          // Same location the penalized branch below uses (design
-          // 2026-08-08-pass-result-location-design.md) — this uncaught inline PASS literal
-          // was missed by the design spike's grep and added to its blast-radius table
-          // afterward (maintainer ruling, same date).
           location: c.file,
           message: "No private-scope imports",
-          recommendation: recommendation5,
-          docsUrl: docsUrl7
+          recommendation: recommendation$4,
+          docsUrl: docsUrl$4
         });
         continue;
       }
-      for (const v of visible) {
-        out.push({
-          id: "architecture/private-scope-import",
-          category: "architecture",
-          severity: "info",
-          detection: { presence: "none", value: "absent" },
-          route: c.file,
-          location: c.file,
-          ...v.line > 0 ? { line: v.line } : {},
-          message: v.message,
-          recommendation: recommendation5,
-          docsUrl: docsUrl7,
-          fix: { ...architecturePrivateScopeImport.fix }
-        });
-      }
+      for (const v of visible) out.push({
+        id: "architecture/private-scope-import",
+        category: "architecture",
+        severity: "info",
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
+        route: c.file,
+        location: c.file,
+        ...v.line > 0 ? { line: v.line } : {},
+        message: v.message,
+        recommendation: recommendation$4,
+        docsUrl: docsUrl$4,
+        fix: { ...architecturePrivateScopeImport.fix }
+      });
     }
     return out;
   }
 };
-function ancestorDirs2(file) {
+function ancestorDirs(file) {
   const segments = file.split("/");
   const out = [];
   for (let i2 = 1; i2 < segments.length; i2++) out.push(segments.slice(0, i2).join("/"));
@@ -66744,7 +67011,10 @@ function keyShape(key2) {
   const parts = key2.split("/");
   let doubleStars = 0;
   for (const p2 of parts) if (p2 === "**") doubleStars++;
-  return { segments: parts.length, doubleStars };
+  return {
+    segments: parts.length,
+    doubleStars
+  };
 }
 function createKeyCompiler() {
   const cache = /* @__PURE__ */ new Map();
@@ -66772,7 +67042,10 @@ function matchKeys(dir, compiled) {
     matched.push(entry.key);
     if (best === void 0 || moreSpecificShaped(entry, best)) best = entry;
   }
-  return best === void 0 ? { matched } : { matched, best: best.key };
+  return best === void 0 ? { matched } : {
+    matched,
+    best: best.key
+  };
 }
 function moreSpecificShaped(a2, b) {
   if (a2.segments !== b.segments) return a2.segments > b.segments;
@@ -66781,7 +67054,13 @@ function moreSpecificShaped(a2, b) {
   return a2.key < b.key;
 }
 function moreSpecificGlob(a2, b) {
-  return moreSpecificShaped({ key: a2, ...keyShape(a2) }, { key: b, ...keyShape(b) });
+  return moreSpecificShaped({
+    key: a2,
+    ...keyShape(a2)
+  }, {
+    key: b,
+    ...keyShape(b)
+  });
 }
 function reportAt(dir, files) {
   const prefix = `${dir}/`;
@@ -66794,9 +67073,7 @@ function isExcluded(dir, ancestors, excluded) {
 function keysMatchingAny(keys, dirs, compile) {
   const hit = /* @__PURE__ */ new Set();
   if (keys.length === 0 || dirs.length === 0) return hit;
-  for (const { key: key2, re, barePrefixRe } of compile(keys, true)) {
-    if (dirs.some((d2) => !barePrefixRe?.test(d2) && re.test(d2))) hit.add(key2);
-  }
+  for (const { key: key2, re, barePrefixRe } of compile(keys, true)) if (dirs.some((d2) => !barePrefixRe?.test(d2) && re.test(d2))) hit.add(key2);
   return hit;
 }
 function classifyUnusedKeys(unused, excludedDirs, compile) {
@@ -66806,57 +67083,63 @@ function classifyUnusedKeys(unused, excludedDirs, compile) {
   for (const key2 of unused) out.set(key2, shadowed.has(key2) ? "only-excluded" : "no-match");
   return out;
 }
-var ID4 = "architecture/unit-entry-file";
-var docsUrl8 = docsUrlFor(ID4);
-var recommendation6 = "Give every declared unit directory a file named after it, or stop declaring that directory a unit.";
-var OPTIONS3 = {
-  units: { kind: "string-map", default: {} },
-  pascalCaseUnits: { kind: "string-map", default: {} },
-  exclude: { kind: "string-list", default: [] }
+var ID$6 = "architecture/unit-entry-file";
+var docsUrl$3 = docsUrlFor(ID$6);
+var recommendation$3 = "Give every declared unit directory a file named after it, or stop declaring that directory a unit.";
+var OPTIONS$4 = {
+  units: {
+    kind: "string-map",
+    default: {}
+  },
+  pascalCaseUnits: {
+    kind: "string-map",
+    default: {}
+  },
+  exclude: {
+    kind: "string-list",
+    default: []
+  }
 };
 function isPascalCase(name) {
   const c = name.charCodeAt(0);
   return c >= 65 && c <= 90;
 }
 var architectureUnitEntryFile = {
-  id: ID4,
+  id: ID$6,
   title: "Unit entry file",
   category: "architecture",
   severity: "info",
   scope: "component",
   rationale: "A directory named after a unit but missing that unit's entry file is either an incomplete unit or a grouping wearing the wrong name; either way the tree no longer says what it means, and tooling that resolves by convention starts guessing.",
-  fix: {
-    description: "Make the directory and its entry file agree \u2014 add the entry file, or stop declaring this directory a unit."
-  },
-  options: OPTIONS3,
+  fix: { description: "Make the directory and its entry file agree \u2014 add the entry file, or stop declaring this directory a unit." },
+  options: OPTIONS$4,
   async check(ctx) {
     const files = ctx.sourceFiles;
     if (files === void 0) return [];
-    if (!isMentionedAnywhere(ctx.config, ID4)) return [];
+    if (!isMentionedAnywhere(ctx.config, ID$6)) return [];
     const compiledOverrides = compileOverrides(ctx.config);
     const dirs = /* @__PURE__ */ new Set();
-    for (const f of files) for (const d2 of ancestorDirs2(f)) dirs.add(d2);
+    for (const f of files) for (const d2 of ancestorDirs(f)) dirs.add(d2);
     const fileSet = new Set(files);
     const compile = createKeyCompiler();
     const out = [];
-    const globalOptions = resolveRuleOptions(ID4, OPTIONS3, ctx.config);
-    const globalKeys = /* @__PURE__ */ new Set([
-      ...Object.keys(mapOption(globalOptions, "units")),
-      ...Object.keys(mapOption(globalOptions, "pascalCaseUnits"))
-    ]);
+    const globalOptions = resolveRuleOptions(ID$6, OPTIONS$4, ctx.config);
+    const globalKeys = /* @__PURE__ */ new Set([...Object.keys(mapOption(globalOptions, "units")), ...Object.keys(mapOption(globalOptions, "pascalCaseUnits"))]);
     const usedKeys = /* @__PURE__ */ new Set();
     const examinedCounts = {};
     for (const key2 of globalKeys) examinedCounts[key2] = 0;
     const excludedDirs = [];
     const matchedSurviving = /* @__PURE__ */ new Set();
     for (const dir of [...dirs].sort()) {
-      const o2 = resolveRuleOptions(ID4, OPTIONS3, ctx.config, { route: dir, file: dir }, compiledOverrides);
+      const o2 = resolveRuleOptions(ID$6, OPTIONS$4, ctx.config, {
+        route: dir,
+        file: dir
+      }, compiledOverrides);
       const units = mapOption(o2, "units");
       const pascalUnits = mapOption(o2, "pascalCaseUnits");
       if (Object.keys(units).length === 0 && Object.keys(pascalUnits).length === 0) continue;
       const excluded = compile(listOption(o2, "exclude"));
-      const ancestors = ancestorDirs2(dir);
-      if (isExcluded(dir, ancestors, excluded)) {
+      if (isExcluded(dir, ancestorDirs(dir), excluded)) {
         excludedDirs.push(dir);
         continue;
       }
@@ -66870,61 +67153,61 @@ var architectureUnitEntryFile = {
       }
       let ext = byPath.best === void 0 ? void 0 : units[byPath.best];
       const viaUnits = ext !== void 0;
-      if (ext === void 0 && isPascalCase(baseName(dir))) {
-        ext = byCasing.best === void 0 ? void 0 : pascalUnits[byCasing.best];
-      }
+      if (ext === void 0 && isPascalCase(baseName(dir))) ext = byCasing.best === void 0 ? void 0 : pascalUnits[byCasing.best];
       if (ext === void 0) continue;
       const winningKey = viaUnits ? byPath.best : byCasing.best;
-      if (winningKey !== void 0 && globalKeys.has(winningKey)) {
-        examinedCounts[winningKey] = (examinedCounts[winningKey] ?? 0) + 1;
-      }
+      if (winningKey !== void 0 && globalKeys.has(winningKey)) examinedCounts[winningKey] = (examinedCounts[winningKey] ?? 0) + 1;
       const expected = `${dir}/${baseName(dir)}${ext}`;
       if (fileSet.has(expected)) {
         out.push({
-          id: ID4,
+          id: ID$6,
           category: "architecture",
           severity: "info",
-          detection: { presence: "own", value: "static" },
+          detection: {
+            presence: "own",
+            value: "static"
+          },
           location: expected,
           message: "Unit entry file",
-          recommendation: recommendation6,
-          docsUrl: docsUrl8
+          recommendation: recommendation$3,
+          docsUrl: docsUrl$3
         });
         continue;
       }
       const at2 = reportAt(dir, files);
       if (at2 === void 0) continue;
       out.push({
-        id: ID4,
+        id: ID$6,
         category: "architecture",
         severity: "info",
-        detection: { presence: "none", value: "absent" },
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
         route: dir,
         location: at2,
         message: `${dir} declares a unit but has no ${expected}`,
-        recommendation: recommendation6,
-        docsUrl: docsUrl8,
-        // Which declaration matched decides the wording: a `units` match like functions/getFoo/
-        // is already camelCase, so telling its author to rename it would be nonsense.
-        fix: {
-          description: viaUnits ? `Add ${baseName(dir)}${ext} to this directory, or remove it from the units declaration.` : `Add the same-named entry file, or rename the directory to camelCase if it is a grouping.`
-        }
+        recommendation: recommendation$3,
+        docsUrl: docsUrl$3,
+        fix: { description: viaUnits ? `Add ${baseName(dir)}${ext} to this directory, or remove it from the units declaration.` : `Add the same-named entry file, or rename the directory to camelCase if it is a grouping.` }
       });
     }
     const inertKeys = [...globalKeys].filter((key2) => !usedKeys.has(key2)).sort();
     if (inertKeys.length > 0) {
-      const shadowed = inertKeys.filter((k2) => !matchedSurviving.has(k2));
-      const reasons = classifyUnusedKeys(shadowed, excludedDirs, compile);
+      const reasons = classifyUnusedKeys(inertKeys.filter((k2) => !matchedSurviving.has(k2)), excludedDirs, compile);
       const why = (k2) => reasons.get(k2) === "only-excluded" ? "matched only excluded directories" : "matched no directory";
       const message = inertKeys.length === 1 ? `The declaration '${inertKeys[0]}' ${why(inertKeys[0])}, so it checks nothing.` : `These declarations check nothing: ${inertKeys.map((k2) => `'${k2}' (${why(k2)})`).join(", ")}.`;
       out.push({
-        id: ID4,
+        id: ID$6,
         category: "architecture",
         severity: "info",
-        detection: { presence: "none", value: "absent" },
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
         message,
         recommendation: "Correct the glob, or remove the declaration.",
-        docsUrl: docsUrl8
+        docsUrl: docsUrl$3
       });
     }
     ctx.recordExamined?.(examinedCounts);
@@ -66940,11 +67223,12 @@ var CASINGS = {
 function parseCasings(value) {
   const known = [];
   const unknown = [];
-  for (const name of splitNames(value)) {
-    if (Object.hasOwn(CASINGS, name)) known.push(name);
-    else unknown.push(name);
-  }
-  return { known, unknown };
+  for (const name of splitNames(value)) if (Object.hasOwn(CASINGS, name)) known.push(name);
+  else unknown.push(name);
+  return {
+    known,
+    unknown
+  };
 }
 function decodeSegment(name) {
   let inner = name;
@@ -66961,31 +67245,35 @@ function satisfiesCasing(name, allowed) {
   if (!/[a-zA-Z]/.test(name)) return true;
   return allowed.some((c) => Object.hasOwn(CASINGS, c) && CASINGS[c].test(name));
 }
-var ID5 = "architecture/directory-naming";
-var docsUrl9 = docsUrlFor(ID5);
-var recommendation7 = "Name each directory in the casing its location declares, or narrow the declaration.";
-var OPTIONS4 = {
-  directories: { kind: "string-map", default: {} },
-  exclude: { kind: "string-list", default: [] }
+var ID$5 = "architecture/directory-naming";
+var docsUrl$2 = docsUrlFor(ID$5);
+var recommendation$2 = "Name each directory in the casing its location declares, or narrow the declaration.";
+var OPTIONS$3 = {
+  directories: {
+    kind: "string-map",
+    default: {}
+  },
+  exclude: {
+    kind: "string-list",
+    default: []
+  }
 };
 var architectureDirectoryNaming = {
-  id: ID5,
+  id: ID$5,
   title: "Directory naming",
   category: "architecture",
   severity: "info",
   scope: "component",
   rationale: "A directory whose name breaks the convention its location declares stops carrying the meaning the convention gave it, and every reader \u2014 human or agent \u2014 has to open the directory to learn what it is.",
-  fix: {
-    description: "Rename the directory to the declared casing, or narrow the declaration that governs it."
-  },
-  options: OPTIONS4,
+  fix: { description: "Rename the directory to the declared casing, or narrow the declaration that governs it." },
+  options: OPTIONS$3,
   async check(ctx) {
     const files = ctx.sourceFiles;
     if (files === void 0) return [];
-    if (!isMentionedAnywhere(ctx.config, ID5)) return [];
+    if (!isMentionedAnywhere(ctx.config, ID$5)) return [];
     const compiledOverrides = compileOverrides(ctx.config);
     const dirs = /* @__PURE__ */ new Set();
-    for (const f of files) for (const d2 of ancestorDirs2(f)) dirs.add(d2);
+    for (const f of files) for (const d2 of ancestorDirs(f)) dirs.add(d2);
     const compile = createKeyCompiler();
     const parsed = /* @__PURE__ */ new Map();
     const casingsOf = (value) => {
@@ -66994,43 +67282,47 @@ var architectureDirectoryNaming = {
       return p2;
     };
     const out = [];
-    const globalOptions = resolveRuleOptions(ID5, OPTIONS4, ctx.config);
-    const globalMap = mapOption(globalOptions, "directories");
+    const globalMap = mapOption(resolveRuleOptions(ID$5, OPTIONS$3, ctx.config), "directories");
     const globalKeys = new Set(Object.keys(globalMap));
     const examinedCounts = {};
     for (const key2 of globalKeys) examinedCounts[key2] = 0;
     const usedKeys = /* @__PURE__ */ new Set();
     const excludedDirs = [];
     for (const dir of [...dirs].sort()) {
-      const o2 = resolveRuleOptions(ID5, OPTIONS4, ctx.config, { route: dir, file: dir }, compiledOverrides);
-      const declared = mapOption(o2, "directories");
-      if (Object.keys(declared).length === 0) continue;
+      const o2 = resolveRuleOptions(ID$5, OPTIONS$3, ctx.config, {
+        route: dir,
+        file: dir
+      }, compiledOverrides);
+      const declared2 = mapOption(o2, "directories");
+      if (Object.keys(declared2).length === 0) continue;
       const excluded = compile(listOption(o2, "exclude"));
-      if (isExcluded(dir, ancestorDirs2(dir), excluded)) {
+      if (isExcluded(dir, ancestorDirs(dir), excluded)) {
         excludedDirs.push(dir);
         continue;
       }
-      const live = Object.keys(declared).filter((k2) => casingsOf(declared[k2]).known.length > 0);
-      const m = matchKeys(dir, compile(live, true));
+      const m = matchKeys(dir, compile(Object.keys(declared2).filter((k2) => casingsOf(declared2[k2]).known.length > 0), true));
       for (const k2 of m.matched) if (globalKeys.has(k2)) usedKeys.add(k2);
       if (m.best === void 0) continue;
       const decoded = decodeSegment(baseName(dir));
       if (decoded === void 0) continue;
       if (globalKeys.has(m.best)) examinedCounts[m.best] = (examinedCounts[m.best] ?? 0) + 1;
-      const allowed = casingsOf(declared[m.best]).known;
+      const allowed = casingsOf(declared2[m.best]).known;
       if (satisfiesCasing(decoded, allowed)) continue;
       const at2 = reportAt(dir, files);
       if (at2 === void 0) continue;
       out.push({
-        id: ID5,
+        id: ID$5,
         category: "architecture",
         severity: "info",
-        detection: { presence: "none", value: "absent" },
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
         route: dir,
         location: at2,
         message: `${dir} must be ${allowed.join(" or ")}.`,
-        recommendation: recommendation7,
-        docsUrl: docsUrl9,
+        recommendation: recommendation$2,
+        docsUrl: docsUrl$2,
         fix: { description: "Rename the directory, or narrow the declaration that governs it." }
       });
     }
@@ -67039,43 +67331,50 @@ var architectureDirectoryNaming = {
       const { known, unknown } = casingsOf(globalMap[key2]);
       if (known.length > 0 && unknown.length === 0) continue;
       const names = unknown.map((u2) => `'${u2}'`).join(", ");
-      notes.set(
-        key2,
-        known.length === 0 ? unknown.length === 0 ? "the value names no casing at all, so it checks nothing" : `unknown casing name ${names}, so it checks nothing` : `unknown casing name ${names}; the rest of the value still applies`
-      );
+      notes.set(key2, known.length === 0 ? unknown.length === 0 ? "the value names no casing at all, so it checks nothing" : `unknown casing name ${names}, so it checks nothing` : `unknown casing name ${names}; the rest of the value still applies`);
     }
-    const unclassified = [...globalKeys].filter(
-      (key2) => !notes.has(key2) && !usedKeys.has(key2) && casingsOf(globalMap[key2]).known.length > 0
-    );
-    const reasons = classifyUnusedKeys(unclassified, excludedDirs, compile);
-    for (const [key2, reason] of reasons) {
-      notes.set(key2, reason === "only-excluded" ? "matched only excluded directories" : "matched no directory");
-    }
+    const reasons = classifyUnusedKeys([...globalKeys].filter((key2) => !notes.has(key2) && !usedKeys.has(key2) && casingsOf(globalMap[key2]).known.length > 0), excludedDirs, compile);
+    for (const [key2, reason] of reasons) notes.set(key2, reason === "only-excluded" ? "matched only excluded directories" : "matched no directory");
     const reported = [...notes.keys()].sort();
     if (reported.length > 0) {
       const message = reported.length === 1 ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0])}.` : `These declarations do not check what they say: ${reported.map((k2) => `'${k2}' (${notes.get(k2)})`).join(", ")}.`;
       out.push({
-        id: ID5,
+        id: ID$5,
         category: "architecture",
         severity: "info",
-        detection: { presence: "none", value: "absent" },
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
         message,
         recommendation: "Correct the glob or the casing name, or remove the declaration.",
-        docsUrl: docsUrl9
+        docsUrl: docsUrl$2
       });
     }
     ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };
-var ID6 = "architecture/reserved-directory-names";
-var docsUrl10 = docsUrlFor(ID6);
-var recommendation8 = "Use one of the names this location declares, or add the new name to the declaration.";
-var OPTIONS5 = {
-  scopes: { kind: "string-map", default: {} },
-  unitScopes: { kind: "string-map", default: {} },
-  anyCaseUnitScopes: { kind: "string-map", default: {} },
-  exclude: { kind: "string-list", default: [] }
+var ID$4 = "architecture/reserved-directory-names";
+var docsUrl$1 = docsUrlFor(ID$4);
+var recommendation$1 = "Use one of the names this location declares, or add the new name to the declaration.";
+var OPTIONS$2 = {
+  scopes: {
+    kind: "string-map",
+    default: {}
+  },
+  unitScopes: {
+    kind: "string-map",
+    default: {}
+  },
+  anyCaseUnitScopes: {
+    kind: "string-map",
+    default: {}
+  },
+  exclude: {
+    kind: "string-list",
+    default: []
+  }
 };
 function stem(file) {
   const dot = file.indexOf(".");
@@ -67090,25 +67389,27 @@ function isAnyCaseUnitDir(dir, filesIn) {
   const own = filesIn.get(dir);
   return own !== void 0 && own.some((f) => stem(f) === name);
 }
-var PRIORITY = { scopes: 0, unitScopes: 1, anyCaseUnitScopes: 2 };
+var PRIORITY = {
+  scopes: 0,
+  unitScopes: 1,
+  anyCaseUnitScopes: 2
+};
 var architectureReservedDirectoryNames = {
-  id: ID6,
+  id: ID$4,
   title: "Reserved directory names",
   category: "architecture",
   severity: "info",
   scope: "component",
   rationale: "A closed set of directory names is only worth writing down if it stays closed: one directory outside it and the table stops describing the tree, so every reader has to open a directory to learn what it holds.",
-  fix: {
-    description: "Rename the directory to a declared name, move it under one of them, or add its name to the declaration."
-  },
-  options: OPTIONS5,
+  fix: { description: "Rename the directory to a declared name, move it under one of them, or add its name to the declaration." },
+  options: OPTIONS$2,
   async check(ctx) {
     const files = ctx.sourceFiles;
     if (files === void 0) return [];
-    if (!isMentionedAnywhere(ctx.config, ID6)) return [];
+    if (!isMentionedAnywhere(ctx.config, ID$4)) return [];
     const compiledOverrides = compileOverrides(ctx.config);
     const dirs = /* @__PURE__ */ new Set();
-    for (const f of files) for (const d2 of ancestorDirs2(f)) dirs.add(d2);
+    for (const f of files) for (const d2 of ancestorDirs(f)) dirs.add(d2);
     const kids = childDirs(dirs);
     const filesIn = childFiles(files);
     const compile = createKeyCompiler();
@@ -67119,7 +67420,7 @@ var architectureReservedDirectoryNames = {
       return n2;
     };
     const out = [];
-    const globalOptions = resolveRuleOptions(ID6, OPTIONS5, ctx.config);
+    const globalOptions = resolveRuleOptions(ID$4, OPTIONS$2, ctx.config);
     const globalScopes = mapOption(globalOptions, "scopes");
     const globalUnits = mapOption(globalOptions, "unitScopes");
     const globalAnyUnits = mapOption(globalOptions, "anyCaseUnitScopes");
@@ -67135,8 +67436,7 @@ var architectureReservedDirectoryNames = {
     const collisions = /* @__PURE__ */ new Map();
     const collisionMessage = (losers) => {
       const maps = ["scopes", ...losers];
-      const list3 = maps.length === 2 ? `both ${maps[0]} and ${maps[1]}` : maps.join(", ");
-      return `declared in ${list3}, so the scopes entry wins wherever ${losers.length > 1 ? "they" : "both"} apply`;
+      return `declared in ${maps.length === 2 ? `both ${maps[0]} and ${maps[1]}` : maps.join(", ")}, so the scopes entry wins wherever ${losers.length > 1 ? "they" : "both"} apply`;
     };
     const examinedCounts = {};
     for (const key2 of globalKeys) examinedCounts[key2] = 0;
@@ -67145,24 +67445,23 @@ var architectureReservedDirectoryNames = {
         if (namesOf(scopesMap[key2]).length === 0) continue;
         const losers = [];
         if (Object.hasOwn(unitMap, key2) && namesOf(unitMap[key2]).length > 0) losers.push("unitScopes");
-        if (Object.hasOwn(anyUnitMap, key2) && namesOf(anyUnitMap[key2]).length > 0) {
-          losers.push("anyCaseUnitScopes");
-        }
+        if (Object.hasOwn(anyUnitMap, key2) && namesOf(anyUnitMap[key2]).length > 0) losers.push("anyCaseUnitScopes");
         if (losers.length > 0) collisions.set(key2, collisionMessage(losers));
       }
     };
     noteCollisions(globalScopes, globalUnits, globalAnyUnits);
     for (const dir of [...dirs].sort()) {
-      const o2 = resolveRuleOptions(ID6, OPTIONS5, ctx.config, { route: dir, file: dir }, compiledOverrides);
+      const o2 = resolveRuleOptions(ID$4, OPTIONS$2, ctx.config, {
+        route: dir,
+        file: dir
+      }, compiledOverrides);
       const scopes = mapOption(o2, "scopes");
       const unitScopes = mapOption(o2, "unitScopes");
       const anyCaseUnitScopes = mapOption(o2, "anyCaseUnitScopes");
-      if (Object.keys(scopes).length === 0 && Object.keys(unitScopes).length === 0 && Object.keys(anyCaseUnitScopes).length === 0) {
-        continue;
-      }
+      if (Object.keys(scopes).length === 0 && Object.keys(unitScopes).length === 0 && Object.keys(anyCaseUnitScopes).length === 0) continue;
       noteCollisions(scopes, unitScopes, anyCaseUnitScopes);
       const excluded = compile(listOption(o2, "exclude"));
-      if (isExcluded(dir, ancestorDirs2(dir), excluded)) {
+      if (isExcluded(dir, ancestorDirs(dir), excluded)) {
         excludedDirs.push(dir);
         continue;
       }
@@ -67180,60 +67479,51 @@ var architectureReservedDirectoryNames = {
       for (const k2 of byUnit.matched) if (globalKeys.has(k2)) usedKeys.add(k2);
       for (const k2 of byAnyUnit.matched) if (globalKeys.has(k2)) usedKeys.add(k2);
       const candidates = [];
-      if (byPosition.best !== void 0) {
-        candidates.push({ kind: "scopes", best: byPosition.best, names: namesOf(scopes[byPosition.best]) });
-      }
-      if (byUnit.best !== void 0) {
-        candidates.push({
-          kind: "unitScopes",
-          best: byUnit.best,
-          names: namesOf(unitScopes[byUnit.best])
-        });
-      }
-      if (byAnyUnit.best !== void 0) {
-        candidates.push({
-          kind: "anyCaseUnitScopes",
-          best: byAnyUnit.best,
-          names: namesOf(anyCaseUnitScopes[byAnyUnit.best])
-        });
-      }
+      if (byPosition.best !== void 0) candidates.push({
+        kind: "scopes",
+        best: byPosition.best,
+        names: namesOf(scopes[byPosition.best])
+      });
+      if (byUnit.best !== void 0) candidates.push({
+        kind: "unitScopes",
+        best: byUnit.best,
+        names: namesOf(unitScopes[byUnit.best])
+      });
+      if (byAnyUnit.best !== void 0) candidates.push({
+        kind: "anyCaseUnitScopes",
+        best: byAnyUnit.best,
+        names: namesOf(anyCaseUnitScopes[byAnyUnit.best])
+      });
       let winner;
-      for (const c of candidates) {
-        if (winner === void 0 || moreSpecificGlob(c.best, winner.best)) {
-          winner = c;
-        } else if (!moreSpecificGlob(winner.best, c.best) && PRIORITY[c.kind] < PRIORITY[winner.kind]) {
-          winner = c;
-        }
-      }
+      for (const c of candidates) if (winner === void 0 || moreSpecificGlob(c.best, winner.best)) winner = c;
+      else if (!moreSpecificGlob(winner.best, c.best) && PRIORITY[c.kind] < PRIORITY[winner.kind]) winner = c;
       if (winner === void 0) continue;
       if (globalKeys.has(winner.best)) examinedCounts[winner.best] = (examinedCounts[winner.best] ?? 0) + 1;
       const allowed = new Set(winner.names);
       for (const child of kids.get(dir) ?? []) {
         if (allowed.has(baseName(child))) continue;
-        if (isExcluded(child, ancestorDirs2(child), excluded)) continue;
-        const childOptions = resolveRuleOptions(
-          ID6,
-          OPTIONS5,
-          ctx.config,
-          { route: child, file: child },
-          compiledOverrides
-        );
-        if (isExcluded(child, ancestorDirs2(child), compile(listOption(childOptions, "exclude")))) continue;
+        if (isExcluded(child, ancestorDirs(child), excluded)) continue;
+        const childOptions = resolveRuleOptions(ID$4, OPTIONS$2, ctx.config, {
+          route: child,
+          file: child
+        }, compiledOverrides);
+        if (isExcluded(child, ancestorDirs(child), compile(listOption(childOptions, "exclude")))) continue;
         const at2 = reportAt(child, files);
         if (at2 === void 0) continue;
         out.push({
-          id: ID6,
+          id: ID$4,
           category: "architecture",
           severity: "info",
-          detection: { presence: "none", value: "absent" },
+          detection: {
+            presence: "none",
+            value: "absent"
+          },
           route: child,
           location: at2,
           message: `${child} is not one of the names declared here: ${winner.names.join(", ")}.`,
-          recommendation: recommendation8,
-          docsUrl: docsUrl10,
-          fix: {
-            description: "Rename it to a declared name, move it under one of them, or add its name to the declaration."
-          }
+          recommendation: recommendation$1,
+          docsUrl: docsUrl$1,
+          fix: { description: "Rename it to a declared name, move it under one of them, or add its name to the declaration." }
         });
       }
     }
@@ -67244,77 +67534,76 @@ var architectureReservedDirectoryNames = {
       const scopesEmpty = Object.hasOwn(globalScopes, key2) && namesOf(globalScopes[key2]).length === 0;
       const unitsEmpty = Object.hasOwn(globalUnits, key2) && namesOf(globalUnits[key2]).length === 0;
       const anyUnitsEmpty = Object.hasOwn(globalAnyUnits, key2) && namesOf(globalAnyUnits[key2]).length === 0;
-      if (scopesEmpty || unitsEmpty || anyUnitsEmpty) {
-        notes.set(key2, "names no directory name at all");
-      }
+      if (scopesEmpty || unitsEmpty || anyUnitsEmpty) notes.set(key2, "names no directory name at all");
     }
     const unused = [...globalKeys].filter((k2) => !notes.has(k2) && !usedKeys.has(k2));
     const anyUnitOnly = unused.filter((k2) => Object.hasOwn(globalAnyUnits, k2) && !Object.hasOwn(globalScopes, k2));
-    for (const key2 of keysMatchingAny(anyUnitOnly, nonAnyUnitDirs, compile)) {
-      notes.set(key2, "matched directories but never a unit of either case");
-    }
-    const unitOnly = unused.filter(
-      (k2) => Object.hasOwn(globalUnits, k2) && !Object.hasOwn(globalScopes, k2) && !notes.has(k2)
-    );
-    for (const key2 of keysMatchingAny(unitOnly, nonUnitDirs, compile)) {
-      notes.set(key2, "matched directories but never a unit");
-    }
-    for (const [key2, reason] of classifyUnusedKeys(
-      unused.filter((k2) => !notes.has(k2)),
-      excludedDirs,
-      compile
-    )) {
-      notes.set(key2, reason === "only-excluded" ? "matched only excluded directories" : "matched no directory");
-    }
+    for (const key2 of keysMatchingAny(anyUnitOnly, nonAnyUnitDirs, compile)) notes.set(key2, "matched directories but never a unit of either case");
+    const unitOnly = unused.filter((k2) => Object.hasOwn(globalUnits, k2) && !Object.hasOwn(globalScopes, k2) && !notes.has(k2));
+    for (const key2 of keysMatchingAny(unitOnly, nonUnitDirs, compile)) notes.set(key2, "matched directories but never a unit");
+    for (const [key2, reason] of classifyUnusedKeys(unused.filter((k2) => !notes.has(k2)), excludedDirs, compile)) notes.set(key2, reason === "only-excluded" ? "matched only excluded directories" : "matched no directory");
     const reported = [...notes.keys()].sort();
     if (reported.length > 0) {
       const message = reported.length === 1 ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0])}.` : `These declarations do not check what they say: ${reported.map((k2) => `'${k2}' (${notes.get(k2)})`).join(", ")}.`;
       out.push({
-        id: ID6,
+        id: ID$4,
         category: "architecture",
         severity: "info",
-        detection: { presence: "none", value: "absent" },
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
         message,
         recommendation: "Correct the glob or the names, or remove the declaration.",
-        docsUrl: docsUrl10
+        docsUrl: docsUrl$1
       });
     }
     ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };
-var ID7 = "architecture/reserved-name-placement";
-var docsUrl11 = docsUrlFor(ID7);
-var recommendation9 = "Move it to one of the places declared for this name, or declare this place for it.";
+var ID$3 = "architecture/reserved-name-placement";
+var docsUrl = docsUrlFor(ID$3);
+var recommendation = "Move it to one of the places declared for this name, or declare this place for it.";
 var fixDescription = "Move the directory to one of the places declared for its name, rename it, or declare this place for the name.";
-var OPTIONS6 = {
-  placements: { kind: "string-map", default: {} },
-  capitalisedUnitPlacements: { kind: "string-map", default: {} },
-  anyCaseUnitPlacements: { kind: "string-map", default: {} },
-  exclude: { kind: "string-list", default: [] }
+var OPTIONS$1 = {
+  placements: {
+    kind: "string-map",
+    default: {}
+  },
+  capitalisedUnitPlacements: {
+    kind: "string-map",
+    default: {}
+  },
+  anyCaseUnitPlacements: {
+    kind: "string-map",
+    default: {}
+  },
+  exclude: {
+    kind: "string-list",
+    default: []
+  }
 };
 function parentOf(dir) {
   const cut = dir.lastIndexOf("/");
   return cut === -1 ? void 0 : dir.slice(0, cut);
 }
 var architectureReservedNamePlacement = {
-  id: ID7,
+  id: ID$3,
   title: "Reserved name placement",
   category: "architecture",
   severity: "info",
   scope: "component",
   rationale: "A name reserved for one kind of place stops carrying that meaning the moment it appears somewhere else: a reader who has met one exception has to open the directory to learn what it holds.",
-  fix: {
-    description: fixDescription
-  },
-  options: OPTIONS6,
+  fix: { description: fixDescription },
+  options: OPTIONS$1,
   async check(ctx) {
     const files = ctx.sourceFiles;
     if (files === void 0) return [];
-    if (!isMentionedAnywhere(ctx.config, ID7)) return [];
+    if (!isMentionedAnywhere(ctx.config, ID$3)) return [];
     const compiledOverrides = compileOverrides(ctx.config);
     const dirs = /* @__PURE__ */ new Set();
-    for (const f of files) for (const d2 of ancestorDirs2(f)) dirs.add(d2);
+    for (const f of files) for (const d2 of ancestorDirs(f)) dirs.add(d2);
     const filesIn = childFiles(files);
     const compile = createKeyCompiler();
     const parsed = /* @__PURE__ */ new Map();
@@ -67325,7 +67614,7 @@ var architectureReservedNamePlacement = {
     };
     const out = [];
     const label = (map, name, glob2) => `${map}.${name} \u2192 ${glob2}`;
-    const globalOptions = resolveRuleOptions(ID7, OPTIONS6, ctx.config);
+    const globalOptions = resolveRuleOptions(ID$3, OPTIONS$1, ctx.config);
     const globalMaps = {
       placements: mapOption(globalOptions, "placements"),
       capitalisedUnitPlacements: mapOption(globalOptions, "capitalisedUnitPlacements"),
@@ -67333,43 +67622,41 @@ var architectureReservedNamePlacement = {
     };
     const globalAlternatives = /* @__PURE__ */ new Map();
     const emptyNames = /* @__PURE__ */ new Map();
-    for (const map of Object.keys(globalMaps)) {
-      for (const [name, value] of Object.entries(globalMaps[map])) {
-        const globs = globsOf(value);
-        if (globs.length === 0) {
-          emptyNames.set(`${map}.${name}`, "names no position at all");
-          continue;
-        }
-        for (const glob2 of globs) globalAlternatives.set(label(map, name, glob2), { map, glob: glob2 });
+    for (const map of Object.keys(globalMaps)) for (const [name, value] of Object.entries(globalMaps[map])) {
+      const globs = globsOf(value);
+      if (globs.length === 0) {
+        emptyNames.set(`${map}.${name}`, "names no position at all");
+        continue;
       }
+      for (const glob2 of globs) globalAlternatives.set(label(map, name, glob2), {
+        map,
+        glob: glob2
+      });
     }
     const usedAlternatives = /* @__PURE__ */ new Set();
     const examinedCounts = {};
     for (const key2 of globalAlternatives.keys()) examinedCounts[key2] = 0;
     const allDirs = [...dirs].sort();
     for (const dir of allDirs) {
-      const o2 = resolveRuleOptions(ID7, OPTIONS6, ctx.config, { route: dir, file: dir }, compiledOverrides);
+      const o2 = resolveRuleOptions(ID$3, OPTIONS$1, ctx.config, {
+        route: dir,
+        file: dir
+      }, compiledOverrides);
       const placements = mapOption(o2, "placements");
       const capUnits = mapOption(o2, "capitalisedUnitPlacements");
       const anyUnits = mapOption(o2, "anyCaseUnitPlacements");
-      if (Object.keys(placements).length === 0 && Object.keys(capUnits).length === 0 && Object.keys(anyUnits).length === 0) {
-        continue;
-      }
+      if (Object.keys(placements).length === 0 && Object.keys(capUnits).length === 0 && Object.keys(anyUnits).length === 0) continue;
       const name = baseName(dir);
       const inPlacements = Object.hasOwn(placements, name);
       const inCapUnits = Object.hasOwn(capUnits, name);
       const inAnyUnits = Object.hasOwn(anyUnits, name);
       if (!inPlacements && !inCapUnits && !inAnyUnits) continue;
-      const emptyValue = (present4, value) => present4 && globsOf(value ?? "").length === 0;
-      if (emptyValue(inPlacements, placements[name]) || emptyValue(inCapUnits, capUnits[name]) || emptyValue(inAnyUnits, anyUnits[name])) {
-        continue;
-      }
+      const emptyValue = (present2, value) => present2 && globsOf(value ?? "").length === 0;
+      if (emptyValue(inPlacements, placements[name]) || emptyValue(inCapUnits, capUnits[name]) || emptyValue(inAnyUnits, anyUnits[name])) continue;
       const excluded = compile(listOption(o2, "exclude"));
       const parent = parentOf(dir);
       if (parent === void 0) continue;
-      if (isExcluded(dir, ancestorDirs2(dir), excluded)) {
-        continue;
-      }
+      if (isExcluded(dir, ancestorDirs(dir), excluded)) continue;
       const judged = /* @__PURE__ */ new Set();
       const resolvedValues = [
         ["placements", placements[name]],
@@ -67396,18 +67683,19 @@ var architectureReservedNamePlacement = {
       const at2 = reportAt(dir, files);
       if (at2 === void 0) continue;
       out.push({
-        id: ID7,
+        id: ID$3,
         category: "architecture",
         severity: "info",
-        detection: { presence: "none", value: "absent" },
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
         route: dir,
         location: at2,
         message: `${dir} is not one of the places declared for '${name}'.`,
-        recommendation: recommendation9,
-        docsUrl: docsUrl11,
-        fix: {
-          description: fixDescription
-        }
+        recommendation,
+        docsUrl,
+        fix: { description: fixDescription }
       });
     }
     const notes = new Map(emptyNames);
@@ -67416,7 +67704,7 @@ var architectureReservedNamePlacement = {
     const stillUnused = unusedLabels.filter((k2) => !notes.has(k2));
     if (stillUnused.length > 0) {
       const globalExcluded = compile(listOption(globalOptions, "exclude"));
-      const liveDirs = allDirs.filter((d2) => !isExcluded(d2, ancestorDirs2(d2), globalExcluded));
+      const liveDirs = allDirs.filter((d2) => !isExcluded(d2, ancestorDirs(d2), globalExcluded));
       const liveUnits = {
         capitalisedUnitPlacements: liveDirs.filter((d2) => isUnitDir(d2, filesIn)),
         anyCaseUnitPlacements: liveDirs.filter((d2) => isAnyCaseUnitDir(d2, filesIn))
@@ -67431,8 +67719,7 @@ var architectureReservedNamePlacement = {
       }
       for (const map of ["capitalisedUnitPlacements", "anyCaseUnitPlacements"]) {
         const inMap = stillUnused.filter((k2) => !notes.has(k2) && globalAlternatives.get(k2)?.map === map);
-        const inMapGlobs = [...new Set(inMap.map(globOf))];
-        const reachesUnit = keysMatchingAny(inMapGlobs, liveUnits[map], compile);
+        const reachesUnit = keysMatchingAny([...new Set(inMap.map(globOf))], liveUnits[map], compile);
         for (const k2 of inMap) if (!reachesUnit.has(globOf(k2))) notes.set(k2, "reaches no unit");
       }
     }
@@ -67440,21 +67727,28 @@ var architectureReservedNamePlacement = {
     if (reported.length > 0) {
       const message = reported.length === 1 ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0])}.` : `These declarations do not check what they say: ${reported.map((k2) => `'${k2}' (${notes.get(k2)})`).join(", ")}.`;
       out.push({
-        id: ID7,
+        id: ID$3,
         category: "architecture",
         severity: "info",
-        detection: { presence: "none", value: "absent" },
+        detection: {
+          presence: "none",
+          value: "absent"
+        },
         message,
         recommendation: "Correct the glob or the name, or remove the declaration.",
-        docsUrl: docsUrl11
+        docsUrl
       });
     }
     ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };
-var ID8 = "architecture/route-component-import";
-var EXEMPT_IMPORTERS = ["**/*.stories.svelte", "**/*.test.svelte", "**/*.spec.svelte"];
+var ID$2 = "architecture/route-component-import";
+var EXEMPT_IMPORTERS = [
+  "**/*.stories.svelte",
+  "**/*.test.svelte",
+  "**/*.spec.svelte"
+];
 var ROUTES_DIR = "src/routes/";
 var ROUTE_ENTRY = /^\+(page|layout)(@.*)?\.svelte$/;
 function isRouteEntry(path) {
@@ -67467,7 +67761,10 @@ function routeEntryImports(c, ctx) {
   for (const { source: source2, line, type } of c.importSpans ?? []) {
     if (type) continue;
     const target = resolveRepoLocalPath(source2, c.file, ctx.project.kitAliases);
-    if (target !== void 0 && isRouteEntry(target)) out.push({ line, target });
+    if (target !== void 0 && isRouteEntry(target)) out.push({
+      line,
+      target
+    });
   }
   return out;
 }
@@ -67475,34 +67772,35 @@ var routeEntryImportsCache = /* @__PURE__ */ new WeakMap();
 function cachedRouteEntryImports(c, ctx) {
   const cached = routeEntryImportsCache.get(c);
   if (cached !== void 0 && cached.aliases === ctx.project.kitAliases) return cached.result;
-  const result3 = routeEntryImports(c, ctx);
-  routeEntryImportsCache.set(c, { aliases: ctx.project.kitAliases, result: result3 });
-  return result3;
+  const result2 = routeEntryImports(c, ctx);
+  routeEntryImportsCache.set(c, {
+    aliases: ctx.project.kitAliases,
+    result: result2
+  });
+  return result2;
 }
 var architectureRouteComponentImport = componentRule({
-  id: ID8,
+  id: ID$2,
   title: "Route component import",
   category: "architecture",
   severity: "info",
   label: "Route component imports",
-  options: { exemptImporters: { kind: "string-list", default: EXEMPT_IMPORTERS } },
+  options: { exemptImporters: {
+    kind: "string-list",
+    default: EXEMPT_IMPORTERS
+  } },
   recommendation: "Extract the shared markup into a component under $lib and import that from both places, leaving the route entry to SvelteKit.",
   rationale: "A route entry is written on the assumption that SvelteKit renders it: Kit hands a page its data and params, and an error page its page.error and page.status. Imported from somewhere else it receives none of that and renders against nothing, or against the importing page data standing in for its own.",
-  // Signal present = this file imports a route entry, exempt or not. An exempt file therefore
-  // reaches `bad` and earns a PASS, rather than being called signal-free.
-  // `_o`: this rule's option is read only in `bad`, but `ctx` is the third parameter, so the
-  // second cannot simply be omitted the way every other component rule omits what it does not use.
   applies: (c, _o, ctx) => cachedRouteEntryImports(c, ctx).length > 0,
   bad: (c, o2, ctx) => {
-    const exempt = listOption(o2, "exemptImporters").map(routeGlobToRegExp);
-    if (exempt.some((re) => re.test(c.file))) return [];
+    if (listOption(o2, "exemptImporters").map(routeGlobToRegExp).some((re) => re.test(c.file))) return [];
     return cachedRouteEntryImports(c, ctx).map(({ line, target }) => ({
       line,
       message: `${target} is a SvelteKit route entry \u2014 imported here it renders without the data Kit would give it`
     }));
   }
 });
-var ID9 = "architecture/doc-link-target";
+var ID$1 = "architecture/doc-link-target";
 function stripFragment(url) {
   const i2 = url.search(/[#?]/);
   return i2 === -1 ? url : url.slice(0, i2);
@@ -67524,7 +67822,10 @@ function rootFor(url, roots) {
     const remainder = remainderUnder(url, r2);
     if (remainder === void 0) continue;
     const base = baseOf(r2);
-    if (best === void 0 || base.length > best.base.length) best = { base, remainder };
+    if (best === void 0 || base.length > best.base.length) best = {
+      base,
+      remainder
+    };
   }
   return best;
 }
@@ -67538,26 +67839,31 @@ function references(links, roots) {
     const match = rootFor(stripFragment(url), roots);
     if (match === void 0) continue;
     if (!isUnderSrc(match.remainder)) continue;
-    out.push({ line, target: match.remainder });
+    out.push({
+      line,
+      target: match.remainder
+    });
   }
   return out;
 }
 var architectureDocLinkTarget = componentRule({
-  id: ID9,
+  id: ID$1,
   title: "Documentation link target",
   category: "architecture",
   severity: "info",
   label: "Documentation link targets",
-  options: { urlRoots: { kind: "string-list", default: [] } },
+  options: { urlRoots: {
+    kind: "string-list",
+    default: []
+  } },
   recommendation: "Point the link at the unit that exists now, or remove it. A link inside a comment has nothing to resolve it, so a rename leaves it silently broken.",
   rationale: "A documentation link written in a comment is invisible to type checking, module resolution and the test runner, so a convention-driven rename leaves it pointing at nothing and only human review notices.",
   applies: (c, o2, ctx) => ctx.sourceFiles !== void 0 && references(c.commentLinks, listOption(o2, "urlRoots")).length > 0,
-  bad: (c, o2, ctx) => references(c.commentLinks, listOption(o2, "urlRoots")).filter(({ target }) => !targetExists(target, ctx.sourceFiles ?? [])).map(({ line, target }) => ({ line, message: `${target} does not exist` }))
+  bad: (c, o2, ctx) => references(c.commentLinks, listOption(o2, "urlRoots")).filter(({ target }) => !targetExists(target, ctx.sourceFiles ?? [])).map(({ line, target }) => ({
+    line,
+    message: `${target} does not exist`
+  }))
 });
-var HEAVY_PACKAGES = {
-  lodash: "import a submodule (lodash/debounce) or use lodash-es for tree-shaking",
-  moment: "use a lighter date library (date-fns or dayjs) \u2014 moment is large and not tree-shakeable"
-};
 var performanceHeavyImport = componentRule({
   id: "performance/heavy-import",
   title: "Heavy dependency import",
@@ -67566,20 +67872,29 @@ var performanceHeavyImport = componentRule({
   label: "No heavy imports",
   recommendation: "Import a submodule or switch to a lighter, tree-shakeable alternative.",
   rationale: "Importing a large, non-tree-shakeable package pulls its whole weight into the bundle even when only a fraction is used, slowing load.",
-  options: { packages: { kind: "string-map", default: HEAVY_PACKAGES } },
-  // ComponentFacts is a public @svelte-vitals/core export — an external caller compiled
-  // against an older version may still construct one without importSpans. Fall back to the
-  // line-less `imports` (line: 0, the pre-fix behavior) instead of crashing on `undefined`.
+  options: { packages: {
+    kind: "string-map",
+    default: {
+      lodash: "import a submodule (lodash/debounce) or use lodash-es for tree-shaking",
+      moment: "use a lighter date library (date-fns or dayjs) \u2014 moment is large and not tree-shakeable"
+    }
+  } },
   applies: (c) => (c.importSpans ?? c.imports).length > 0,
   bad: (c, o2) => {
     const packages = mapOption(o2, "packages");
     const seen = /* @__PURE__ */ new Set();
     const out = [];
-    const spans = c.importSpans ?? c.imports.map((source2) => ({ source: source2, line: 0 }));
+    const spans = c.importSpans ?? c.imports.map((source2) => ({
+      source: source2,
+      line: 0
+    }));
     for (const { source: src, line, type } of spans) {
       if (type || !Object.hasOwn(packages, src) || seen.has(src)) continue;
       seen.add(src);
-      out.push({ line, message: `Heavy import "${src}" \u2014 ${packages[src]}` });
+      out.push({
+        line,
+        message: `Heavy import "${src}" \u2014 ${packages[src]}`
+      });
     }
     return out;
   }
@@ -67605,13 +67920,16 @@ var performanceNamespaceImport = componentRule({
     }));
   }
 });
-var PENALIZED2 = { presence: "none", value: "absent" };
+var PENALIZED = {
+  presence: "none",
+  value: "absent"
+};
 var MINIFY_DISABLED_FIX = {
   description: "Remove the minify: false override from vite.config (Vite minifies by default), or scope it to non-production builds.",
   snippet: "export default defineConfig({\n  build: {\n    // minify: false \u2014 removed; Vite minifies production builds by default\n  }\n});",
   lang: "ts"
 };
-var RECOMMENDATION4 = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
+var RECOMMENDATION = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
 var performanceMinifyDisabled = {
   id: "performance/minify-disabled",
   title: "Minification disabled",
@@ -67624,23 +67942,21 @@ var performanceMinifyDisabled = {
     const hit = ctx.project.viteMinifyDisabled;
     if (!hit) return [];
     const provenance = hit.file === void 0 ? " The override comes from an inline (programmatic) Vite config." : hit.line === void 0 ? " The override was resolved from the actual build \u2014 it may come from a plugin or a conditional config, not a literal in the file." : "";
-    return [
-      {
-        id: "performance/minify-disabled",
-        category: "performance",
-        severity: "warning",
-        detection: PENALIZED2,
-        ...hit.file !== void 0 ? { location: hit.file } : {},
-        ...hit.line !== void 0 ? { line: hit.line } : {},
-        message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
-        recommendation: RECOMMENDATION4,
-        docsUrl: docsUrlFor("performance/minify-disabled"),
-        fix: { ...MINIFY_DISABLED_FIX }
-      }
-    ];
+    return [{
+      id: "performance/minify-disabled",
+      category: "performance",
+      severity: "warning",
+      detection: PENALIZED,
+      ...hit.file !== void 0 ? { location: hit.file } : {},
+      ...hit.line !== void 0 ? { line: hit.line } : {},
+      message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
+      recommendation: RECOMMENDATION,
+      docsUrl: docsUrlFor("performance/minify-disabled"),
+      fix: { ...MINIFY_DISABLED_FIX }
+    }];
   }
 };
-var MESSAGE = "Sequential dependent awaits in a universal load create a client-side request waterfall \u2014 each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.";
+var MESSAGE$1 = "Sequential dependent awaits in a universal load create a client-side request waterfall \u2014 each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.";
 var performanceLoadWaterfall = kitModuleRule({
   id: "performance/load-waterfall",
   title: "Load waterfall",
@@ -67655,9 +67971,12 @@ var performanceLoadWaterfall = kitModuleRule({
     lang: "ts"
   },
   applies: (m) => m.kind === "universal" && m.csrDisabled === void 0 && (m.loadWaterfalls?.dependentLines.length ?? 0) > 0,
-  bad: (m) => m.loadWaterfalls.dependentLines.map((line) => ({ line, message: MESSAGE }))
+  bad: (m) => m.loadWaterfalls.dependentLines.map((line) => ({
+    line,
+    message: MESSAGE$1
+  }))
 });
-var MESSAGE2 = "This await does not use the results of the awaits before it \u2014 the requests run sequentially for no reason. Start them together and await them with Promise.all.";
+var MESSAGE = "This await does not use the results of the awaits before it \u2014 the requests run sequentially for no reason. Start them together and await them with Promise.all.";
 var performanceSequentialAwaits = kitModuleRule({
   id: "performance/sequential-awaits",
   title: "Sequential independent awaits",
@@ -67672,7 +67991,10 @@ var performanceSequentialAwaits = kitModuleRule({
     lang: "ts"
   },
   applies: (m) => (m.loadWaterfalls?.independentLines.length ?? 0) > 0,
-  bad: (m) => m.loadWaterfalls.independentLines.map((line) => ({ line, message: MESSAGE2 }))
+  bad: (m) => m.loadWaterfalls.independentLines.map((line) => ({
+    line,
+    message: MESSAGE
+  }))
 });
 var performanceStateRaw = componentRule({
   id: "performance/state-raw",
@@ -67682,13 +68004,30 @@ var performanceStateRaw = componentRule({
   label: "Deep reactivity only where mutated",
   recommendation: "Declare it with $state.raw(...) \u2014 reassignment stays reactive; only property-level mutation needs the deep proxy.",
   rationale: "Objects and arrays in $state are made deeply reactive through proxying, which taxes every property access. A binding that is only ever reassigned \u2014 API responses are the canonical case \u2014 never uses that machinery; Svelte's own guidance is to use $state.raw for it.",
-  fix: {
-    description: "Replace $state(...) with $state.raw(...); keep the same initializer."
-  },
+  fix: { description: "Replace $state(...) with $state.raw(...); keep the same initializer." },
   applies: (c) => c.rawableStates.length > 0,
   bad: (c) => c.rawableStates.map((s) => ({
     line: s.line,
     message: `"${s.name}" is an object/array $state that is only ever reassigned, never mutated \u2014 $state.raw skips the deep-proxy overhead (reassignment stays reactive).`
+  }))
+});
+var performanceIframeLoading = componentRule({
+  id: "performance/iframe-loading",
+  title: "Iframe loading attribute",
+  category: "performance",
+  severity: "info",
+  label: "<iframe> loading attribute",
+  recommendation: 'If this iframe can be offscreen on load, add loading="lazy"; keep an above-the-fold iframe eager.',
+  rationale: 'An iframe without a loading attribute loads eagerly, and an offscreen iframe (embedded video player, map, ad slot) typically loads an entire third-party document \u2014 scripts, fonts, media \u2014 so its bandwidth and main-thread cost is usually larger than an offscreen image\u2019s. loading="lazy" defers it until the viewport approaches. Static analysis cannot tell whether the iframe is above the fold, so this is advisory.',
+  fix: {
+    description: 'Add loading="lazy" to iframes that can be offscreen on load.',
+    snippet: '<iframe src="https://example.com/embed" title="\u2026" loading="lazy"></iframe>',
+    lang: "svelte"
+  },
+  applies: (c) => (c.elements ?? []).some((e3) => !e3.inSvg && e3.tag === "iframe"),
+  bad: (c) => (c.elements ?? []).filter((e3) => !e3.inSvg && e3.tag === "iframe" && !e3.hasSpread && !e3.attrs.some((a2) => a2.name === "loading")).map((e3) => ({
+    line: e3.line,
+    message: "<iframe> without a loading attribute loads eagerly even when offscreen"
   }))
 });
 var a11yInvalidRole = componentRule({
@@ -67705,7 +68044,10 @@ var a11yInvalidRole = componentRule({
     const tokens = splitTokens(literal3);
     if (tokens.length === 0 || resolveRole(tokens) !== void 0) return [];
     const message = tokens.length === 1 ? `role="${literal3}" on <${e3.tag}> is ${isAbstractRole(tokens[0]) ? "an abstract role" : "not a WAI-ARIA role"}` : `no token in role="${literal3}" on <${e3.tag}> names a concrete WAI-ARIA role`;
-    return [{ line: e3.line, message }];
+    return [{
+      line: e3.line,
+      message
+    }];
   })
 });
 var a11yUnknownAriaAttribute = componentRule({
@@ -67716,16 +68058,31 @@ var a11yUnknownAriaAttribute = componentRule({
   rationale: "An `aria-*` name that does not exist in WAI-ARIA is not recognized by assistive technology, so the attribute is silently ignored instead of doing what the author intended.",
   recommendation: "Use a spec-defined `aria-*` attribute; unknown names are ignored by assistive technology.",
   applies: (c) => (c.ariaElements ?? []).some((e3) => e3.aria.length > 0),
-  bad: (c) => (c.ariaElements ?? []).flatMap(
-    (e3) => e3.aria.filter((a2) => !isKnownAriaAttribute(a2.name)).map((a2) => ({ line: a2.line, message: `\`${a2.name}\` is not a WAI-ARIA attribute` }))
-  )
+  bad: (c) => (c.ariaElements ?? []).flatMap((e3) => e3.aria.filter((a2) => !isKnownAriaAttribute(a2.name)).map((a2) => ({
+    line: e3.line,
+    message: `\`${a2.name}\` is not a WAI-ARIA attribute`
+  })))
 });
 var HOST_SUPPLIED = {
   "aria-checked": (e3) => e3.tag === "input" && (e3.inputType === "checkbox" || e3.inputType === "radio"),
   "aria-selected": (e3) => e3.tag === "option",
   "aria-level": (e3) => /^h[1-6]$/.test(e3.tag),
-  "aria-valuenow": (e3) => e3.tag === "input" && e3.inputType === "range" || e3.tag === "progress" || e3.tag === "meter"
+  "aria-valuenow": (e3) => e3.tag === "input" && e3.inputType === "range" || e3.tag === "progress" || e3.tag === "meter",
+  "aria-expanded": isNativeCombobox,
+  "aria-controls": isNativeCombobox
 };
+var LIST_INPUT_TYPES = /* @__PURE__ */ new Set([
+  void 0,
+  "text",
+  "search",
+  "tel",
+  "url",
+  "email"
+]);
+function isNativeCombobox(e3) {
+  if (e3.tag === "select") return e3.selectKind === "combobox";
+  return e3.tag === "input" && e3.hasList === true && LIST_INPUT_TYPES.has(e3.inputType);
+}
 var a11yRequiredAriaProps = componentRule({
   id: "a11y/required-aria-props",
   title: "Missing required ARIA props",
@@ -67733,9 +68090,7 @@ var a11yRequiredAriaProps = componentRule({
   label: "Required ARIA props",
   rationale: 'Some WAI-ARIA roles are unusable to assistive technology without their required state/property attributes \u2014 a role="checkbox" with no way to know checked/unchecked announces a control with no discoverable state.',
   recommendation: "Add the role\u2019s required `aria-*` attribute(s), or rely on native host semantics that already supply them.",
-  applies: (c) => (c.ariaElements ?? []).some(
-    (e3) => e3.role?.literal !== void 0 && resolveRole(splitTokens(e3.role.literal)) !== void 0
-  ),
+  applies: (c) => (c.ariaElements ?? []).some((e3) => e3.role?.literal !== void 0 && resolveRole(splitTokens(e3.role.literal)) !== void 0),
   bad: (c) => (c.ariaElements ?? []).flatMap((e3) => {
     if (e3.hasSpread) return [];
     const literal3 = e3.role?.literal;
@@ -67744,11 +68099,14 @@ var a11yRequiredAriaProps = componentRule({
     if (role === void 0) return [];
     const required = requiredAriaProps(role);
     if (required.length === 0) return [];
-    const present4 = new Set(e3.aria.map((a2) => a2.name));
-    const missing = required.filter((p2) => !present4.has(p2) && !HOST_SUPPLIED[p2]?.(e3));
+    const present2 = new Set(e3.aria.map((a2) => a2.name));
+    const missing = required.filter((p2) => !present2.has(p2) && !HOST_SUPPLIED[p2]?.(e3));
     if (missing.length === 0) return [];
     const named = role === literal3 ? `role="${literal3}"` : `role="${literal3}" (resolves to ${role})`;
-    return [{ line: e3.line, message: `${named} on <${e3.tag}> is missing required ${missing.join(", ")}` }];
+    return [{
+      line: e3.line,
+      message: `${named} on <${e3.tag}> is missing required ${missing.join(", ")}`
+    }];
   })
 });
 function isValid(type, values, literal3) {
@@ -67759,8 +68117,10 @@ function isValid(type, values, literal3) {
       return literal3 === "true" || literal3 === "false" || literal3 === "mixed";
     case "token":
       return (values ?? []).includes(literal3);
-    case "tokenlist":
-      return splitTokens(literal3).every((t2) => (values ?? []).includes(t2));
+    case "tokenlist": {
+      const tokens = splitTokens(literal3);
+      return tokens.length > 0 && tokens.every((t2) => (values ?? []).includes(t2));
+    }
     case "integer":
       return /^-?\d+$/.test(literal3);
     case "number":
@@ -67777,15 +68137,16 @@ var a11yInvalidAriaValue = componentRule({
   rationale: "An `aria-*` attribute whose value does not match its spec-defined type (e.g. a boolean given a non-`true`/`false` literal) is misread or ignored by assistive technology.",
   recommendation: "Use a value matching the attribute\u2019s WAI-ARIA type \u2014 see the spec for allowed values.",
   applies: (c) => (c.ariaElements ?? []).some((e3) => e3.aria.some((a2) => a2.literal !== void 0)),
-  bad: (c) => (c.ariaElements ?? []).flatMap(
-    (e3) => e3.aria.flatMap((a2) => {
-      if (a2.literal === void 0) return [];
-      const kind = ariaValueKind(a2.name);
-      if (kind === void 0) return [];
-      if (isValid(kind.type, kind.values, a2.literal)) return [];
-      return [{ line: a2.line, message: `\`${a2.name}="${a2.literal}"\` is not a valid ${kind.type} value` }];
-    })
-  )
+  bad: (c) => (c.ariaElements ?? []).flatMap((e3) => e3.aria.flatMap((a2) => {
+    if (a2.literal === void 0) return [];
+    const kind = ariaValueKind(a2.name);
+    if (kind === void 0) return [];
+    if (isValid(kind.type, kind.values, a2.literal)) return [];
+    return [{
+      line: e3.line,
+      message: `\`${a2.name}="${a2.literal}"\` is not a valid ${kind.type} value`
+    }];
+  }))
 });
 var a11yInteractiveNesting = componentRule({
   id: "a11y/interactive-nesting",
@@ -67800,15 +68161,43 @@ var a11yInteractiveNesting = componentRule({
     message: `<${f.descendantTag}> is nested inside interactive <${f.containerTag}${f.containerRole ? ` role="${f.containerRole}"` : ""}>`
   }))
 });
+var NAMING_ATTRS = /* @__PURE__ */ new Set([
+  "title",
+  "aria-label",
+  "aria-labelledby"
+]);
+function unnamedIframes(c) {
+  return (c.elements ?? []).filter((e3) => {
+    if (e3.tag !== "iframe" || e3.inSvg || e3.hasSpread) return false;
+    if (e3.attrs.some((a2) => NAMING_ATTRS.has(a2.name) && (a2.value === void 0 || a2.value.trim() !== ""))) return false;
+    const attr = (name) => e3.attrs.find((a2) => a2.name === name);
+    const ariaHidden = attr("aria-hidden");
+    if (ariaHidden && (ariaHidden.value === void 0 || ariaHidden.value.trim().toLowerCase() === "true")) return false;
+    if (attr("hidden")) return false;
+    const role = attr("role");
+    if (role) {
+      if (role.value === void 0) return false;
+      const resolved = resolveRole(splitTokens(role.value.toLowerCase()));
+      if (resolved === "presentation" || resolved === "none") return false;
+    }
+    return true;
+  });
+}
 var a11yAccessibleName = componentRule({
   id: "a11y/accessible-name",
   title: "Interactive element has no accessible name",
   category: "a11y",
   label: "Accessible names",
-  rationale: 'A button, link, or image button with no accessible name is announced by assistive technology as its bare role ("button", "link") with nothing to distinguish it from any other control on the page.',
-  recommendation: `Give the element visible text or an aria-label/aria-labelledby; a button or link whose only content is an icon image is named by that image's alt, and an <input type="image"> by its own alt.`,
-  applies: (c) => (c.unnamedInteractive ?? []).length > 0,
-  bad: (c) => (c.unnamedInteractive ?? []).map((f) => ({ line: f.line, message: `<${f.tag}> has no accessible name` }))
+  rationale: 'A button, link, or image button with no accessible name is announced by assistive technology as its bare role ("button", "link") with nothing to distinguish it from any other control on the page; an iframe without one is announced as an unnamed frame, with no way to tell an embedded video from an ad slot before entering it.',
+  recommendation: `Give the element visible text or an aria-label/aria-labelledby; a button or link whose only content is an icon image is named by that image's alt, an <input type="image"> by its own alt, and an <iframe> by its title.`,
+  applies: (c) => (c.unnamedInteractive ?? []).length > 0 || unnamedIframes(c).length > 0,
+  bad: (c) => [...(c.unnamedInteractive ?? []).map((f) => ({
+    line: f.line,
+    message: `<${f.tag}> has no accessible name`
+  })), ...unnamedIframes(c).map((e3) => ({
+    line: e3.line,
+    message: "<iframe> has no accessible name"
+  }))]
 });
 var a11yLabelHasControl = componentRule({
   id: "a11y/label-has-control",
@@ -67818,7 +68207,10 @@ var a11yLabelHasControl = componentRule({
   rationale: "A `<label>` with no associated control is announced by assistive technology as plain text \u2014 clicking or tapping it does not focus the field, and a screen reader gives no relationship between the label and its control.",
   recommendation: "Add a `for` attribute pointing at the control's `id`, or wrap the control inside the `<label>`.",
   applies: (c) => (c.unassociatedLabels ?? []).length > 0,
-  bad: (c) => (c.unassociatedLabels ?? []).map((f) => ({ line: f.line, message: "<label> has no associated control" }))
+  bad: (c) => (c.unassociatedLabels ?? []).map((f) => ({
+    line: f.line,
+    message: "<label> has no associated control"
+  }))
 });
 var a11yUseList = componentRule({
   id: "a11y/use-list",
@@ -67851,9 +68243,6 @@ var a11yRequireDatetime = componentRule({
   id: "a11y/require-datetime",
   title: "Missing datetime attribute",
   category: "a11y",
-  // `info`, not `warning`: the requirement is HTML conformance, not an accessibility criterion —
-  // a screen reader reads "last Tuesday" exactly as a sighted reader does. Severity tracks the
-  // strength of the evidence (the standard PR #428 set for the SEO category).
   severity: "info",
   label: "Time elements",
   rationale: 'A `<time>` element with no `datetime` attribute exposes its text content as the machine-readable value, and the HTML spec requires that text to be a valid date/time string. Text like "last Tuesday" reads fine but is not one, so the element exposes no standardized date \u2014 a consumer that wants it is left guessing at prose instead of reading a value.',
@@ -67864,62 +68253,693 @@ var a11yRequireDatetime = componentRule({
     message: `<time> content "${f.text}" is not machine-readable and has no datetime attribute`
   }))
 });
-var present3 = { presence: "own", value: "static" };
-var absent3 = { presence: "none", value: "absent" };
-var FIX8 = {
-  description: "Add <!doctype html> as the first line of src/app.html.",
-  snippet: "<!doctype html>",
-  lang: "html"
-};
-var a11yDoctype = {
-  id: "a11y/doctype",
-  title: "Doctype",
+var a11yPositiveTabindex = componentRule({
+  id: "a11y/positive-tabindex",
+  title: "Positive tabindex",
   category: "a11y",
-  // `info`, not `warning`: the accessibility half of this rule's premise has no source — MDN's
-  // quirks-mode guide is about layout, and WCAG 4.1.1 Parsing is obsolete and removed. The layout
-  // claim stands, so the rule stays; its weight follows the evidence that remains.
+  severity: "warning",
+  label: "Tabindex values",
+  recommendation: 'Use `tabindex="0"` and put elements in DOM order for the natural tab sequence, or `tabindex="-1"` for elements focused programmatically. A positive value is essentially never intentional-and-correct.',
+  rationale: 'A tabindex greater than 0 puts the element ahead of every naturally-ordered element on the page \u2014 a single tabindex="1" reorders keyboard navigation for the whole document, and the damage compounds with every element added later. The tab order can then diverge from the visual order, which WCAG 2.4.3 (Focus Order) requires to stay meaningful.',
+  fix: { description: 'Replace the positive tabindex with tabindex="0" and move the element into DOM order, or tabindex="-1" if it is only focused programmatically.' },
+  applies: (c) => (c.elements ?? []).some((e3) => e3.attrs.some((a2) => a2.name === "tabindex" && literalTabindexValue(a2.value) !== void 0)),
+  bad: (c) => (c.elements ?? []).flatMap((e3) => {
+    const raw = e3.attrs.find((a2) => a2.name === "tabindex")?.value;
+    if (raw === void 0) return [];
+    const n2 = literalTabindexValue(raw);
+    if (n2 === void 0 || n2 <= 0) return [];
+    return [{
+      line: e3.line,
+      message: `tabindex="${raw.trim()}" on <${e3.tag}> hijacks the tab order for the whole page \u2014 only 0 and -1 are safe values`
+    }];
+  })
+});
+var a11yNoAccesskey = componentRule({
+  id: "a11y/no-accesskey",
+  title: "Accesskey attribute",
+  category: "a11y",
+  severity: "warning",
+  label: "Accesskey attributes",
+  recommendation: "Remove the accesskey attribute. Provide visible, focusable controls instead; if a real keyboard shortcut is needed, implement it with a key handler and document it in the page.",
+  rationale: "The accesskey attribute assigns a page-level shortcut key, but the actual key combination varies by browser and OS, is undiscoverable to users, and routinely conflicts with screen reader and browser keyboard bindings. Long-standing accessibility guidance is to not use it.",
+  fix: { description: "Remove the accesskey attribute." },
+  applies: (c) => (c.elements ?? []).some((e3) => e3.attrs.some((a2) => a2.name === "accesskey")),
+  bad: (c) => (c.elements ?? []).filter((e3) => e3.attrs.some((a2) => a2.name === "accesskey")).map((e3) => ({
+    line: e3.line,
+    message: `accesskey on <${e3.tag}> \u2014 the shortcut key varies by browser and OS, is undiscoverable, and conflicts with assistive-technology bindings`
+  }))
+});
+function inShowTimeContainer(elements, start) {
+  let e3 = start;
+  while (e3 !== void 0) {
+    if (!e3.inSvg && (e3.tag === "dialog" || e3.attrs.some((a2) => a2.name === "popover"))) return true;
+    e3 = e3.parent === void 0 ? void 0 : elements[e3.parent];
+  }
+  return false;
+}
+var a11yNoAutofocus = componentRule({
+  id: "a11y/no-autofocus",
+  title: "Autofocus outside a dialog",
+  category: "a11y",
+  severity: "warning",
+  label: "Autofocus placement",
+  recommendation: "Remove the autofocus attribute and let focus start at the top of the page, or move the control into the <dialog> or popover it belongs to; focus moved in response to a user action belongs in an event handler.",
+  rationale: "autofocus moves focus on page load without the user asking, skipping everything before the target \u2014 screen reader users lose the page context they were building, and keyboard users are dropped mid-page. Inside a <dialog> or a popover it is the correct tool (their focusing steps run on show, not on load); anywhere else it is almost always a usability bug.",
+  fix: { description: "Remove the autofocus attribute, or move the element inside the <dialog>/popover container it is meant to focus." },
+  applies: (c) => literalAutofocusElements(c).length > 0,
+  bad: (c) => {
+    const elements = c.elements ?? [];
+    return literalAutofocusElements(c).filter((e3) => !inShowTimeContainer(elements, e3)).map((e3) => ({
+      line: e3.line,
+      message: `autofocus on <${e3.tag}> steals focus when the page loads \u2014 keyboard and screen reader users lose their place`
+    }));
+  }
+});
+function literalAutofocusElements(c) {
+  return (c.elements ?? []).filter((e3) => e3.attrs.some((a2) => a2.name === "autofocus" && a2.value !== void 0));
+}
+var a11yNoDuplicateDt = componentRule({
+  id: "a11y/no-duplicate-dt",
+  title: "Duplicate <dt> names in a <dl>",
+  category: "a11y",
   severity: "info",
-  scope: "project",
-  rationale: "Without a doctype browsers render in quirks mode, which applies different layout and box-model rules than the standards mode a page is otherwise laid out under.",
-  fix: FIX8,
-  async check(ctx) {
-    const { appHtmlDoctype } = ctx.project;
-    if (appHtmlDoctype === void 0) return [];
-    return [
-      {
-        id: "a11y/doctype",
-        category: "a11y",
-        severity: "info",
-        detection: appHtmlDoctype ? present3 : absent3,
-        location: "src/app.html",
-        message: appHtmlDoctype ? "<!doctype html>" : "src/app.html is missing <!doctype html>",
-        recommendation: "Add <!doctype html> as the first line of src/app.html.",
-        docsUrl: docsUrlFor("a11y/doctype"),
-        fix: { ...FIX8 }
+  label: "Description-list names",
+  rationale: "Within a single dl element, there should not be more than one dt element for each name \u2014 the HTML spec calls this out explicitly, and a duplicated term usually means a copy-paste error where two descriptions were meant to share one dt.",
+  recommendation: "Merge the descriptions under a single <dt> \u2014 one dt may be followed by several <dd> \u2014 or rename the term if the entries are genuinely different.",
+  fix: { description: "Merge the duplicated terms into one <dt> followed by both <dd> descriptions, or rename one of them." },
+  applies: (c) => (c.duplicateDts ?? []).length > 0,
+  bad: (c) => (c.duplicateDts ?? []).map((d2) => ({
+    line: d2.line,
+    message: `Duplicate <dt> "${d2.text}" in the same <dl>`
+  }))
+});
+function untitledAbbrs(c) {
+  return (c.elements ?? []).filter((e3) => e3.tag === "abbr" && !e3.inSvg && !e3.hasSpread && !e3.attrs.some((a2) => a2.name === "title" && (a2.value === void 0 || a2.value.trim() !== "")));
+}
+var a11yAbbrTitle = componentRule({
+  id: "a11y/abbr-title",
+  title: "Abbreviation without an expansion",
+  category: "a11y",
+  severity: "info",
+  label: "Abbreviation expansions",
+  rationale: "<abbr> marks an abbreviation, but without a title giving the expansion the element adds no information \u2014 visual users get no tooltip and assistive technology has nothing to expand. The spec keeps title optional (an expansion in the surrounding text is also fine), so this is a nudge toward the common case, not a conformance requirement.",
+  recommendation: "Add title with the expansion, or spell the term out in full at first use instead of using <abbr>. If the expansion is already given in the surrounding text, the markup is fine as written \u2014 silence the finding instead.",
+  fix: {
+    description: "Add a title attribute with the expansion, or spell the term out at first use.",
+    snippet: '<abbr title="HyperText Markup Language">HTML</abbr>',
+    lang: "svelte"
+  },
+  applies: (c) => untitledAbbrs(c).length > 0,
+  bad: (c) => untitledAbbrs(c).map((e3) => ({
+    line: e3.line,
+    message: "<abbr> without a title gives readers no expansion of the abbreviation"
+  }))
+});
+var PATTERN_TYPES = /* @__PURE__ */ new Set([
+  "text",
+  "search",
+  "url",
+  "tel",
+  "email",
+  "password"
+]);
+function patternInputsMissingTitle(c) {
+  return (c.elements ?? []).filter((e3) => {
+    if (e3.tag !== "input" || e3.inSvg || e3.hasSpread) return false;
+    const pattern = e3.attrs.find((a2) => a2.name === "pattern");
+    if (pattern === void 0 || pattern.value === void 0) return false;
+    const type = e3.attrs.find((a2) => a2.name === "type");
+    if (type !== void 0 && (type.value === void 0 || !PATTERN_TYPES.has(type.value.trim().toLowerCase()))) return false;
+    return !e3.attrs.some((a2) => a2.name === "title" && (a2.value === void 0 || a2.value.trim() !== ""));
+  });
+}
+var a11yPatternTitle = componentRule({
+  id: "a11y/pattern-title",
+  title: "Pattern input without a format description",
+  category: "a11y",
+  severity: "info",
+  label: "Pattern descriptions",
+  rationale: "When an <input> has a pattern attribute, the spec says authors should include a title describing the expected format \u2014 browsers surface it in the validation error, and without it a failed submit tells the user only that the value is wrong, not what right looks like.",
+  recommendation: 'Add a title describing the expected format in plain words (e.g. "Letters, a dash, then digits"), and mirror it in visible help text \u2014 title alone is unavailable to many users.',
+  fix: {
+    description: "Add a title attribute describing the expected format.",
+    snippet: '<input pattern="[A-Za-z]+-[0-9]+" title="Letters, a dash, then digits" />',
+    lang: "svelte"
+  },
+  applies: (c) => patternInputsMissingTitle(c).length > 0,
+  bad: (c) => patternInputsMissingTitle(c).map((e3) => ({
+    line: e3.line,
+    message: "<input pattern> without a title \u2014 a failed match tells the user nothing about the expected format"
+  }))
+});
+function htmlElement(tag2) {
+  return HTML_SPEC.elements[tag2.toLowerCase()];
+}
+function isObsoleteElement(tag2) {
+  return htmlElement(tag2)?.obsolete === true;
+}
+function elementAttr(tag2, name) {
+  return htmlElement(tag2)?.attributes[name.toLowerCase()];
+}
+function isDeprecatedAttr(tag2, name) {
+  const a2 = elementAttr(tag2, name);
+  return a2?.deprecated === true || a2?.obsolete === true;
+}
+var a11yDeprecatedElement = componentRule({
+  id: "a11y/deprecated-element",
+  title: "Obsolete HTML element",
+  category: "a11y",
+  severity: "info",
+  label: "Obsolete elements",
+  rationale: "Elements in the HTML standard's obsolete-features list (`<center>`, `<font>`, `<strike>`, \u2026) are non-conforming: browsers keep rendering them for legacy pages, but their semantics are unspecified for assistive technology and each has a conforming replacement.",
+  recommendation: "Replace the element with its conforming equivalent \u2014 `<s>` for `<strike>`, `<span>` plus CSS for `<font>`/`<center>`/`<big>` \u2014 and move presentation to CSS.",
+  applies: (c) => (c.elements ?? []).some((e3) => !e3.inSvg),
+  bad: (c) => (c.elements ?? []).filter((e3) => !e3.inSvg && isObsoleteElement(e3.tag)).map((e3) => ({
+    line: e3.line,
+    message: `<${e3.tag}> is an obsolete element`
+  }))
+});
+var a11yDeprecatedAttr = componentRule({
+  id: "a11y/deprecated-attr",
+  title: "Deprecated HTML attribute",
+  category: "a11y",
+  severity: "info",
+  label: "Deprecated attributes",
+  rationale: "An attribute the HTML spec data marks deprecated (`iframe[frameborder]`, `td[width]`, `body[bgcolor]`, \u2026) has its behavior defined by legacy browser compatibility rather than by the standard, and each has a CSS or modern-attribute replacement. Coverage is what the dataset marks deprecated or obsolete on that element, and its `deprecated` flag tracks MDN's status; attributes the dataset does not list at all \u2014 WHATWG-obsolete ones MDN never documented, like `p[align]` \u2014 are not reported.",
+  recommendation: "Move the presentation to CSS, or use the modern attribute the deprecated one was superseded by.",
+  applies: (c) => (c.elements ?? []).some((e3) => !e3.inSvg && e3.attrs.length > 0),
+  bad: (c) => (c.elements ?? []).filter((e3) => !e3.inSvg && !htmlElement(e3.tag)?.obsolete).flatMap((e3) => {
+    const names = e3.attrs.filter((a2) => isDeprecatedAttr(e3.tag, a2.name)).map((a2) => a2.name);
+    if (names.length === 0) return [];
+    const list3 = names.map((n2) => `\`${n2}\``).join(", ");
+    return [{
+      line: e3.line,
+      message: `${list3} on <${e3.tag}> ${names.length === 1 ? "is a deprecated attribute" : "are deprecated attributes"}`
+    }];
+  })
+});
+var ELEMENT_FACT_OVERRIDES = {
+  hgroup: { implicitRole: "group" },
+  address: { implicitRole: "group" }
+};
+function roleCandidates(e3) {
+  if (e3.role?.expression) return void 0;
+  if (e3.role?.literal !== void 0) {
+    const role = resolveRole(e3.role.literal.trim().split(/\s+/));
+    return role ? {
+      explicit: true,
+      roles: [role],
+      namingProhibited: false
+    } : void 0;
+  }
+  if (e3.hasSpread) return void 0;
+  const el = HTML_SPEC.elements[e3.tag];
+  if (!el) return void 0;
+  const aria3 = ELEMENT_FACT_OVERRIDES[e3.tag] ?? el.aria;
+  const roles2 = [aria3.implicitRole ?? false];
+  for (const c of Object.values(aria3.conditions ?? {})) if ("implicitRole" in c) roles2.push(c.implicitRole ?? false);
+  return {
+    explicit: false,
+    roles: [...new Set(roles2)],
+    namingProhibited: aria3.namingProhibited === true
+  };
+}
+function roleRow(role) {
+  return role === false ? void 0 : HTML_SPEC.aria.roles[role];
+}
+var NAMING = /* @__PURE__ */ new Set([
+  "aria-label",
+  "aria-labelledby",
+  "aria-braillelabel"
+]);
+var COMPILER_ACCEPTS = /* @__PURE__ */ new Set([
+  "listitem aria-level",
+  "tablist aria-level",
+  "listbox aria-expanded",
+  "menuitemcheckbox aria-readonly",
+  "menuitemcheckbox aria-required",
+  "menuitemradio aria-readonly",
+  "menuitemradio aria-required",
+  "graphics-document aria-expanded",
+  "graphics-object aria-expanded",
+  "graphics-symbol aria-expanded"
+]);
+var a11yDisallowedAriaProps = componentRule({
+  id: "a11y/disallowed-aria-props",
+  title: "ARIA attribute not allowed on this role",
+  category: "a11y",
+  severity: "warning",
+  label: "ARIA attributes match their role",
+  rationale: "An `aria-*` attribute the element's role does not support is ignored by assistive technology, and one the role prohibits \u2014 a name on a `generic` `<div>` or `<span>`, on a `<p>`, on `<label>` \u2014 is worse than ignored: it is a name the author believes is exposed and is not. Judged against the ARIA 1.3 role tables, on the explicit role when there is one and otherwise on every implicit role the element can have.",
+  recommendation: 'Give the element a role that supports the attribute (`role="group"`, `role="region"`, `role="img"`), move the attribute to the element that owns the semantics, or drop it.',
+  applies: (c) => (c.ariaElements ?? []).some((e3) => e3.aria.length > 0),
+  bad: (c) => (c.ariaElements ?? []).flatMap((e3) => {
+    const cand = roleCandidates(e3);
+    if (!cand) return [];
+    const rows = cand.roles.map(roleRow);
+    const ownershipKnown = rows.every((r2) => r2 !== void 0);
+    return e3.aria.flatMap((a2) => {
+      if (!isKnownAriaAttribute(a2.name)) return [];
+      if (NAMING.has(a2.name) && cand.namingProhibited) return [{
+        line: e3.line,
+        message: `\`${a2.name}\` is prohibited on <${e3.tag}> \u2014 its role does not take a name`
+      }];
+      if (!ownershipKnown) return [];
+      if (rows.every((r2) => r2.prohibitedProperties.includes(a2.name))) {
+        const role = cand.roles.join("/");
+        return [{
+          line: e3.line,
+          message: `\`${a2.name}\` is prohibited on role \`${role}\``
+        }];
       }
-    ];
+      if (rows.every((r2) => !r2.ownedProperties.some((p2) => p2.name === a2.name))) {
+        if (cand.roles.some((r2) => COMPILER_ACCEPTS.has(`${r2} ${a2.name}`))) return [];
+        const role = cand.roles.join("/");
+        return [{
+          line: e3.line,
+          message: `\`${a2.name}\` is not supported by role \`${role}\``
+        }];
+      }
+      return [];
+    });
+  })
+});
+var a11yDeprecatedAria = componentRule({
+  id: "a11y/deprecated-aria",
+  title: "Deprecated ARIA role or attribute",
+  category: "a11y",
+  severity: "info",
+  label: "ARIA roles and attributes are current",
+  rationale: "ARIA 1.3 deprecates one role (`directory`), two global attributes (`aria-dropeffect`, `aria-grabbed`), and a number of attributes on particular roles \u2014 `aria-haspopup` on `checkbox`, `aria-disabled` on `generic`, and so on. Each still works today and each has been removed from the role's definition, so its meaning there is no longer guaranteed. The Svelte compiler reports the per-role cases on explicit roles as unsupported, since its ARIA data dropped them rather than flagging them; on a bare `<div>`/`<span>` it says nothing.",
+  recommendation: 'Replace `role="directory"` with `role="list"`; drop `aria-dropeffect`/`aria-grabbed`; and move a role-deprecated attribute to an element whose role still defines it, or drop it.',
+  applies: (c) => (c.ariaElements ?? []).some((e3) => e3.role?.literal !== void 0 || e3.aria.length > 0),
+  bad: (c) => (c.ariaElements ?? []).flatMap((e3) => {
+    const out = [];
+    const cand = roleCandidates(e3);
+    if (cand?.explicit) {
+      const role = cand.roles[0];
+      if (roleRow(role)?.deprecated) out.push({
+        line: e3.line,
+        message: `role="${role}" is deprecated`
+      });
+    }
+    for (const a2 of e3.aria) {
+      if (!isKnownAriaAttribute(a2.name)) continue;
+      if (HTML_SPEC.aria.deprecatedProps.includes(a2.name)) {
+        out.push({
+          line: e3.line,
+          message: `\`${a2.name}\` is deprecated`
+        });
+        continue;
+      }
+      if (!cand) continue;
+      const rows = cand.roles.map(roleRow);
+      if (!rows.every((r2) => r2 !== void 0)) continue;
+      if (rows.every((r2) => r2.ownedProperties.some((p2) => p2.name === a2.name && p2.deprecated))) out.push({
+        line: e3.line,
+        message: `\`${a2.name}\` is deprecated on role \`${cand.roles.join("/")}\``
+      });
+    }
+    return out;
+  })
+});
+var ELEMENTS_OPTION = {
+  kind: "string-list",
+  default: [],
+  pattern: {
+    regex: /^[a-z][a-z0-9-]*$/i,
+    describe: "a bare tag name (letters, digits and hyphens; no selector syntax)"
   }
 };
-function resultFactory(id2, recommendation12) {
-  const docsUrl12 = docsUrlFor(id2);
+var declared = (o2) => new Set(listOption(o2, "elements").map((t2) => t2.toLowerCase()));
+var a11yDisallowedElement = componentRule({
+  id: "a11y/disallowed-element",
+  title: "Disallowed element",
+  category: "a11y",
+  severity: "warning",
+  label: "No disallowed elements",
+  rationale: "A project can decide that some elements have no place in its markup \u2014 `<iframe>` in content pages, `<font>` anywhere, a legacy custom element mid-migration \u2014 and this rule reports every occurrence of the tags it declares. It has no opinion of its own: with nothing declared it does nothing.",
+  recommendation: "Replace the element with the one the project prefers, or narrow the declaration with an `overrides` entry for the files where it is allowed.",
+  options: { elements: ELEMENTS_OPTION },
+  applies: (c, o2) => declared(o2).size > 0 && (c.elements ?? []).length > 0,
+  bad: (c, o2) => {
+    const set2 = declared(o2);
+    return (c.elements ?? []).filter((e3) => set2.has(e3.tag)).map((e3) => ({
+      line: e3.line,
+      message: `<${e3.tag}> is disallowed by this project's configuration`
+    }));
+  }
+});
+function splitTop(s) {
+  const out = [];
+  let depth = 0;
+  let cur = "";
+  for (const ch of s) {
+    if (ch === "(" || ch === "[") depth++;
+    else if (ch === ")" || ch === "]") depth--;
+    if (ch === "," && depth === 0) {
+      out.push(cur);
+      cur = "";
+    } else cur += ch;
+  }
+  if (cur.trim()) out.push(cur);
+  return out.map((x) => x.trim()).filter(Boolean);
+}
+var INTERACTIVE_ARM_TOKENS = /* @__PURE__ */ new Set([
+  ":model(interactive)",
+  "a",
+  "[tabindex]"
+]);
+function stripInteractiveArms(parts) {
+  return parts.filter((p2) => {
+    if (INTERACTIVE_ARM_TOKENS.has(p2)) return false;
+    const has = /^:has\((.*)\)$/.exec(p2);
+    if (has) return stripInteractiveArms(splitTop(has[1])).length > 0;
+    return true;
+  });
+}
+var Evaluator = class {
+  els;
+  children;
+  constructor(els, children) {
+    this.els = els;
+    this.children = children;
+  }
+  attr(idx, name) {
+    const el = this.els[idx];
+    if (el.hasSpread) return "unknown";
+    const a2 = el.attrs.find((x) => x.name === name);
+    if (!a2) return { present: false };
+    return {
+      present: true,
+      ...a2.value !== void 0 ? { value: a2.value } : {}
+    };
+  }
+  matchAttr(inner, idx) {
+    const m = /^([a-zA-Z-]+)(?:\s*=\s*'?([^'\s]*)'?(?:\s+i)?)?$/.exec(inner.trim());
+    if (!m) return "unknown";
+    const got = this.attr(idx, m[1].toLowerCase());
+    if (got === "unknown") return "unknown";
+    if (!got.present) return false;
+    if (m[2] === void 0) return true;
+    if (got.value === void 0) return "unknown";
+    return got.value.toLowerCase() === m[2].toLowerCase();
+  }
+  matchCategory(cat, idx) {
+    if (cat === "#custom") return false;
+    const list3 = HTML_SPEC.contentModels[cat];
+    if (!list3) return "unknown";
+    let unknown = false;
+    for (const sel of list3) {
+      if (sel === "#text") continue;
+      const r2 = this.matchSelector(sel, idx);
+      if (r2 === true) return true;
+      if (r2 === "unknown") unknown = true;
+    }
+    return unknown ? "unknown" : false;
+  }
+  /** Does the element's subtree contain a match for any of `sels`? Chain breaks bound the subtree. */
+  matchHas(sels, idx) {
+    let unknown = this.els[idx].unknownContent ? "unknown" : false;
+    const stack = [...this.children.get(idx) ?? []];
+    while (stack.length > 0) {
+      const c = stack.pop();
+      for (const sel of sels) {
+        const r2 = this.matchSelector(sel, c);
+        if (r2 === true) return true;
+        if (r2 === "unknown") unknown = "unknown";
+      }
+      if (this.els[c].unknownContent) unknown = "unknown";
+      stack.push(...this.children.get(c) ?? []);
+    }
+    return unknown;
+  }
+  matchSelector(sel, idx) {
+    sel = sel.trim();
+    const el = this.els[idx];
+    if (sel === "*") return true;
+    if (sel === "#text") return false;
+    if (sel.startsWith("#")) return this.matchCategory(sel, idx);
+    const tag2 = /^[a-zA-Z][a-zA-Z0-9|-]*/.exec(sel)?.[0];
+    if (tag2 !== void 0) {
+      if (tag2.includes("|")) {
+        if (tag2 !== "svg|svg" || el.tag !== "svg") return false;
+      } else if (tag2 !== el.tag) return false;
+    }
+    let rest2 = sel.slice(tag2?.length ?? 0);
+    if (tag2 === void 0 && rest2 === "") return "unknown";
+    let unknown = false;
+    while (rest2 !== "") if (rest2.startsWith("[")) {
+      const end = rest2.indexOf("]");
+      if (end === -1) return "unknown";
+      const r2 = this.matchAttr(rest2.slice(1, end), idx);
+      rest2 = rest2.slice(end + 1);
+      if (r2 === false) return false;
+      if (r2 === "unknown") unknown = true;
+    } else if (rest2.startsWith(":")) {
+      const open3 = rest2.indexOf("(");
+      if (open3 === -1) return "unknown";
+      const fn = rest2.slice(1, open3);
+      let depth = 1;
+      let i2 = open3 + 1;
+      for (; i2 < rest2.length && depth > 0; i2++) if (rest2[i2] === "(") depth++;
+      else if (rest2[i2] === ")") depth--;
+      const arg = rest2.slice(open3 + 1, i2 - 1);
+      rest2 = rest2.slice(i2);
+      if (fn === "model") {
+        const r2 = this.matchCategory("#" + arg, idx);
+        if (r2 === false) return false;
+        if (r2 === "unknown") unknown = true;
+      } else if (fn === "not") {
+        let any = false;
+        let unk = false;
+        for (const part of stripInteractiveArms(splitTop(arg))) {
+          const r2 = this.matchSelector(part, idx);
+          if (r2 === true) {
+            any = true;
+            break;
+          }
+          if (r2 === "unknown") unk = true;
+        }
+        if (any) return false;
+        if (unk) unknown = true;
+      } else if (fn === "has") {
+        const parts = stripInteractiveArms(splitTop(arg));
+        if (parts.length > 0) {
+          const r2 = this.matchHas(parts, idx);
+          if (r2 === false) return false;
+          if (r2 === "unknown") unknown = true;
+        }
+      } else return "unknown";
+    } else return "unknown";
+    return unknown ? "unknown" : true;
+  }
+};
+function flatten(contents, acc, filters) {
+  if (Array.isArray(contents)) {
+    for (const c of contents) flatten(c, acc, filters);
+    return;
+  }
+  if (typeof contents === "string") {
+    acc.push(contents);
+    return;
+  }
+  if (contents !== null && typeof contents === "object") {
+    const o2 = contents;
+    if (typeof o2["transparent"] === "string") filters.push(o2["transparent"]);
+    for (const k2 of [
+      "require",
+      "optional",
+      "oneOrMore",
+      "zeroOrMore",
+      "choice"
+    ]) if (k2 in o2) flatten(o2[k2], acc, filters);
+  }
+}
+function isClosedEntrySet(entries) {
+  return entries.every((e3) => !e3.startsWith("#") && !e3.includes(":model(") || /^(?:#|:model\()script-supporting\)?$/.test(e3));
+}
+function describeEntries(entries, modelTag) {
+  const tags = [...new Set(entries.filter((e3) => /^[a-zA-Z]/.test(e3) && !e3.includes("|")).map((e3) => /^[a-zA-Z0-9-]+/.exec(e3)[0]))];
+  if (isClosedEntrySet(entries)) {
+    const hasScript = entries.some((e3) => e3.includes("script-supporting"));
+    if (tags.length === 0) return `\`<${modelTag}>\` admits no element children`;
+    return `\`<${modelTag}>\` admits only ${tags.map((t2) => `\`<${t2}>\``).join(", ")}${hasScript ? " and script-supporting elements" : ""}`;
+  }
+  const cat = entries.map((e3) => /(?:^#|:model\()([a-zA-Z-]+)/.exec(e3)?.[1]).find((c) => c !== void 0 && c !== "script-supporting");
+  return cat !== void 0 ? `\`<${modelTag}>\`'s content model is ${cat} content` : `it is outside \`<${modelTag}>\`'s content model`;
+}
+var HEADINGS = /* @__PURE__ */ new Set([
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6"
+]);
+var STRUCTURE_BOUND = /* @__PURE__ */ new Set([
+  "li",
+  "dt",
+  "dd",
+  "tr",
+  "td",
+  "th",
+  "thead",
+  "tbody",
+  "tfoot",
+  "caption",
+  "col",
+  "colgroup",
+  "optgroup",
+  "figcaption",
+  "legend",
+  "summary",
+  "source",
+  "track"
+]);
+function judgeContent(els, children, ancestors, childIdx) {
+  const ev = new Evaluator(els, children);
+  const child = els[childIdx];
+  for (let i2 = ancestors.length - 1; i2 >= 0; i2--) {
+    const holder = els[ancestors[i2]];
+    const spec = HTML_SPEC.elements[holder.tag];
+    if (!spec?.contentModel) return void 0;
+    const cm = spec.contentModel;
+    if (cm.contents === true) return void 0;
+    const violation = (entries2) => ({
+      verdict: "violation",
+      closedModel: isClosedEntrySet(entries2) || HEADINGS.has(child.tag) || HEADINGS.has(holder.tag) || STRUCTURE_BOUND.has(child.tag),
+      admits: describeEntries(entries2, holder.tag),
+      modelTag: holder.tag
+    });
+    if (cm.contents === false) return violation([]);
+    let entries = [];
+    const filters = [];
+    flatten(cm.contents, entries, filters);
+    for (const f of filters) {
+      const r2 = ev.matchSelector(f, childIdx);
+      if (r2 === false) return violation(entries);
+      if (r2 === "unknown") return void 0;
+    }
+    if (cm.conditional) {
+      const grandparent = i2 >= 1 ? els[ancestors[i2 - 1]] : void 0;
+      for (const cond of cm.conditional) {
+        const applies = conditionApplies(ev, cond.condition, ancestors[i2], holder, grandparent?.tag);
+        if (applies === true) {
+          if (cond.contents === true) return void 0;
+          const repl = [];
+          const rf = [];
+          flatten(cond.contents === false ? [] : cond.contents, repl, rf);
+          for (const f of rf) {
+            const r2 = ev.matchSelector(f, childIdx);
+            if (r2 === false) return violation(repl);
+            if (r2 === "unknown") return void 0;
+          }
+          entries = repl;
+          break;
+        }
+        if (applies === "unknown") {
+          if (cond.contents === true) return void 0;
+          if (cond.contents !== false) flatten(cond.contents, entries, filters);
+        }
+      }
+    }
+    let unknown = false;
+    for (const e3 of entries) {
+      if (e3 === "#text") continue;
+      const r2 = ev.matchSelector(e3, childIdx);
+      if (r2 === true) return void 0;
+      if (r2 === "unknown") unknown = true;
+    }
+    if (unknown) return void 0;
+    if (filters.length > 0) {
+      if (i2 > 0) continue;
+      return;
+    }
+    return violation(entries);
+  }
+}
+function conditionApplies(ev, condition, holderIdx, holder, grandparentTag) {
+  const ancestorForm = /^([a-z]+) > (\[.*\]|[a-z]*(?:\[.*\])?)$/.exec(condition);
+  if (ancestorForm) {
+    const [, anc, selfSel] = ancestorForm;
+    const self = selfSel === "" || selfSel === holder.tag ? true : ev.matchSelector(selfSel.startsWith("[") ? holder.tag + selfSel : selfSel, holderIdx);
+    if (self === false) return false;
+    if (grandparentTag === void 0) return "unknown";
+    if (grandparentTag !== anc) return false;
+    return self;
+  }
+  if (condition.startsWith("[")) return ev.matchSelector(holder.tag + condition, holderIdx);
+  if (/^[a-z-]+$/.test(condition)) return ev.matchSelector(`${holder.tag}[${condition}]`, holderIdx);
+  if (/^[a-z]+\[/.test(condition)) return ev.matchSelector(condition, holderIdx);
+  return "unknown";
+}
+var KNOWN_TAGS = new Set(Object.keys(HTML_SPEC.elements).map((k2) => k2.replace(/^svg:/, "").toLowerCase()));
+var FIX$1 = { description: "Move the child to an element its parent permits (e.g. wrap list content in <li>), or change the container to one that admits it (a <div> instead of a misused <ul>, a <span> instead of a block child inside a <button>)." };
+var COMPILER_CARVEOUT = /* @__PURE__ */ new Set(["option", "optgroup"]);
+function judgeable(el) {
+  return !el.inSvg && !el.tag.includes("-") && KNOWN_TAGS.has(el.tag);
+}
+var a11yPermittedContents = componentRule({
+  id: "a11y/permitted-contents",
+  title: "Permitted contents",
+  category: "a11y",
+  severity: "warning",
+  label: "Element nesting follows the HTML content models",
+  recommendation: "Restructure the markup so each element sits inside a parent whose content model permits it.",
+  rationale: "An element outside its parent's permitted content \u2014 a `<div>` directly inside `<ul>`, a heading inside a `<button>` \u2014 is markup assistive technology mis-announces: list semantics break, headings lose or pollute their outline role. Judged per child against the HTML content models, membership only.",
+  fix: FIX$1,
+  applies: (c) => (c.elements ?? []).length > 0,
+  bad: (c) => {
+    const els = c.elements ?? [];
+    const children = /* @__PURE__ */ new Map();
+    for (let i2 = 0; i2 < els.length; i2++) {
+      const p2 = els[i2].parent;
+      if (p2 === void 0) continue;
+      const list3 = children.get(p2);
+      if (list3) list3.push(i2);
+      else children.set(p2, [i2]);
+    }
+    const out = [];
+    for (let i2 = 0; i2 < els.length; i2++) {
+      const child = els[i2];
+      if (child.parent === void 0 || !judgeable(child)) continue;
+      const ancestors = [];
+      for (let a2 = child.parent; a2 !== void 0; a2 = els[a2].parent) ancestors.unshift(a2);
+      const parent = els[child.parent];
+      if (!judgeable(parent) || COMPILER_CARVEOUT.has(parent.tag)) continue;
+      const judgment = judgeContent(els, children, ancestors, i2);
+      if (!judgment) continue;
+      out.push({
+        line: child.line,
+        message: `\`<${child.tag}>\` is not permitted content here \u2014 ${judgment.admits}`,
+        severity: judgment.closedModel ? "warning" : "info"
+      });
+    }
+    return out;
+  }
+});
+function resultFactory(id2, recommendation2, severity) {
+  const docsUrl2 = docsUrlFor(id2);
   return (route, detection, occ, message) => ({
     id: id2,
     category: "a11y",
-    severity: "warning",
+    severity,
     detection,
     route,
     location: occ.file,
     ...occ.line > 0 ? { line: occ.line } : {},
     message,
-    recommendation: recommendation12,
-    docsUrl: docsUrl12
+    recommendation: recommendation2,
+    docsUrl: docsUrl2
   });
 }
 function surplusRule(spec) {
-  const result3 = resultFactory(spec.id, spec.recommendation);
+  const result2 = resultFactory(spec.id, spec.recommendation, "warning");
   return {
     id: spec.id,
     title: spec.title,
+    passLabel: spec.passMessage,
     category: "a11y",
     severity: "warning",
     scope: "route",
@@ -67933,31 +68953,119 @@ function surplusRule(spec) {
           first ??= reps[0];
           for (let i2 = 1; i2 < reps.length; i2++) {
             surplus = true;
-            out.push(result3(route.route, PENALIZED, reps[i2], spec.message(key2, i2, reps.length)));
+            out.push(result2(route.route, PENALIZED$1, reps[i2], spec.message(key2, i2, reps.length, reps[0])));
           }
         }
-        if (first && !surplus) out.push(result3(route.route, PASS, { file: first.file, line: 0 }, spec.passMessage));
+        if (first && !surplus) out.push(result2(route.route, PASS, {
+          file: first.file,
+          line: 0
+        }, spec.passMessage));
       }
       return out;
     }
   };
 }
-var KINDS = ["main", "banner", "contentinfo"];
+var ID = "a11y/required-element";
+var OPTIONS = { elements: ELEMENTS_OPTION };
+var result$3 = resultFactory(ID, "Add the element to the route \u2014 usually in the layout the route composes \u2014 or narrow the declaration with an `overrides` entry for the routes it does not apply to.", "warning");
+var a11yRequiredElement = {
+  id: ID,
+  title: "Required element",
+  category: "a11y",
+  severity: "warning",
+  scope: "route",
+  passLabel: "Required elements present",
+  rationale: "A project can decide that every page must carry certain elements \u2014 a `<main>` landmark, an `<h1>`, a `<nav>` \u2014 and this rule reports a route that composes without one. It has no opinion of its own: with nothing declared it does nothing. Presence is judged across the whole composed route, so an element supplied by a layout, a resolved component or `app.html` counts.",
+  options: OPTIONS,
+  async check(ctx) {
+    if (!isMentionedAnywhere(ctx.config, ID)) return [];
+    const compiled = compileOverrides(ctx.config);
+    const out = [];
+    for (const route of ctx.a11y ?? []) {
+      if (route.elementTags === void 0 || route.file === void 0) continue;
+      const o2 = resolveRuleOptions(ID, OPTIONS, ctx.config, {
+        route: route.route,
+        file: route.file
+      }, compiled);
+      const declared2 = [...new Set(listOption(o2, "elements").map((t2) => t2.toLowerCase()))];
+      if (declared2.length === 0) continue;
+      const present2 = new Set(route.elementTags);
+      const missing = declared2.filter((t2) => !present2.has(t2));
+      const occ = {
+        file: route.file,
+        line: 0
+      };
+      if (missing.length === 0) {
+        out.push(result$3(route.route, PASS, occ, "Required elements present"));
+        continue;
+      }
+      if (route.elementsClosed !== true) continue;
+      for (const tag2 of missing) out.push(result$3(route.route, PENALIZED$1, occ, `<${tag2}> is required on every route by this project's configuration and this route has none`));
+    }
+    return out;
+  }
+};
+var present = {
+  presence: "own",
+  value: "static"
+};
+var absent = {
+  presence: "none",
+  value: "absent"
+};
+var FIX = {
+  description: "Add <!doctype html> as the first line of src/app.html.",
+  snippet: "<!doctype html>",
+  lang: "html"
+};
+var a11yDoctype = {
+  id: "a11y/doctype",
+  title: "Doctype",
+  category: "a11y",
+  severity: "info",
+  scope: "project",
+  rationale: "Without a doctype browsers render in quirks mode, which applies different layout and box-model rules than the standards mode a page is otherwise laid out under.",
+  fix: FIX,
+  async check(ctx) {
+    const { appHtmlDoctype } = ctx.project;
+    if (appHtmlDoctype === void 0) return [];
+    return [{
+      id: "a11y/doctype",
+      category: "a11y",
+      severity: "info",
+      detection: appHtmlDoctype ? present : absent,
+      location: "src/app.html",
+      message: appHtmlDoctype ? "<!doctype html>" : "src/app.html is missing <!doctype html>",
+      recommendation: "Add <!doctype html> as the first line of src/app.html.",
+      docsUrl: docsUrlFor("a11y/doctype"),
+      fix: { ...FIX }
+    }];
+  }
+};
+var KINDS$1 = [
+  "main",
+  "banner",
+  "contentinfo"
+];
 var a11yDuplicateLandmark = surplusRule({
   id: "a11y/duplicate-landmark",
   title: "Duplicate landmark",
   rationale: "Assistive tech users jump between landmarks to skip repeated content; more than one main, banner, or contentinfo per page leaves them guessing which one is the real one.",
   recommendation: "A route should have at most one main, banner, and contentinfo landmark.",
-  map: (route) => KINDS.flatMap((kind) => {
+  map: (route) => KINDS$1.flatMap((kind) => {
     const reps = route.landmarks[kind];
     return reps?.length ? [[kind, reps]] : [];
   }),
   message: (kind, i2, n2) => `Duplicate ${kind} landmark (${i2 + 1} of ${n2})`,
   passMessage: "No duplicate landmarks"
 });
-var recommendation10 = "A banner, main, complementary, or contentinfo landmark should not be nested inside another landmark.";
-var result = resultFactory("a11y/top-level-landmark", recommendation10);
-var KINDS2 = ["main", "banner", "complementary", "contentinfo"];
+var result$2 = resultFactory("a11y/top-level-landmark", "A banner, main, complementary, or contentinfo landmark should not be nested inside another landmark.", "warning");
+var KINDS = [
+  "main",
+  "banner",
+  "complementary",
+  "contentinfo"
+];
 var a11yTopLevelLandmark = {
   id: "a11y/top-level-landmark",
   title: "Top-level landmark",
@@ -67968,12 +69076,13 @@ var a11yTopLevelLandmark = {
   async check(ctx) {
     const out = [];
     for (const route of ctx.a11y ?? []) {
-      for (const nested of route.nestedLandmarks) {
-        out.push(result(route.route, PENALIZED, nested, `${nested.kind} landmark is nested inside ${nested.within}`));
-      }
+      for (const nested of route.nestedLandmarks) out.push(result$2(route.route, PENALIZED$1, nested, `${nested.kind} landmark is nested inside ${nested.within}`));
       if (route.nestedLandmarks.length === 0) {
-        const first = KINDS2.map((kind) => route.landmarks[kind]?.[0]).find((rep) => rep !== void 0);
-        if (first) out.push(result(route.route, PASS, { file: first.file, line: 0 }, "No nested landmarks"));
+        const first = KINDS.map((kind) => route.landmarks[kind]?.[0]).find((rep) => rep !== void 0);
+        if (first) out.push(result$2(route.route, PASS, {
+          file: first.file,
+          line: 0
+        }, "No nested landmarks"));
       }
     }
     return out;
@@ -67984,21 +69093,18 @@ var a11yIdDuplication = surplusRule({
   title: "Id duplication",
   rationale: "A duplicate id breaks label/aria-labelledby associations and in-page fragment navigation: assistive tech resolves the first match, which may not be the one the author intended.",
   recommendation: "Every id in a route should be unique.",
-  // Entries ordered by each id's first representative (file, then line): content-derived and
-  // stable — a Record's own-key enumeration would pull integer-like ids ("1") to the front.
   map: (route) => Object.entries(route.ids).sort(([, a2], [, b]) => a2[0].file.localeCompare(b[0].file) || a2[0].line - b[0].line),
-  message: (id2) => `Duplicate id "${id2}"`,
+  message: (id2, _i, _n, first) => first.file === "src/app.html" ? `Duplicate id "${id2}" \u2014 also defined by the src/app.html shell (line ${first.line})` : `Duplicate id "${id2}"`,
   passMessage: "No duplicate ids"
 });
-var recommendation11 = "An id reference should point to an id that exists somewhere in the composed route.";
-var result2 = resultFactory("a11y/no-missing-id-ref", recommendation11);
+var result$1 = resultFactory("a11y/no-missing-id-ref", "An id reference should point to an id that exists somewhere in the composed route.", "warning");
 var a11yNoMissingIdRef = {
   id: "a11y/no-missing-id-ref",
   title: "No missing id ref",
   category: "a11y",
   severity: "warning",
   scope: "route",
-  rationale: 'A `for`/`aria-labelledby`/`aria-describedby`/`aria-controls`/`aria-activedescendant`/`href="#\u2026"` pointing at an id that does not exist leaves assistive tech with a broken association or the browser with a dead in-page link.',
+  rationale: 'An id reference \u2014 `for`, `list`, `headers`, `form`, `popovertarget`, `commandfor`, the ARIA id-reference properties (`aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-owns`, \u2026), or a same-page `href="#\u2026"` \u2014 pointing at an id that does not exist leaves assistive tech with a broken association or the browser with a dead in-page link.',
   async check(ctx) {
     const out = [];
     for (const route of ctx.a11y ?? []) {
@@ -68008,18 +69114,61 @@ var a11yNoMissingIdRef = {
       for (const ref2 of route.idRefs) {
         if (candidates.has(ref2.id)) continue;
         hasMissing = true;
-        out.push(
-          result2(
-            route.route,
-            PENALIZED,
-            ref2,
-            `${ref2.attr}="${ref2.attr === "href" ? "#" : ""}${ref2.id}" references a missing id`
-          )
-        );
+        out.push(result$1(route.route, PENALIZED$1, ref2, `${ref2.attr}="${ref2.attr === "href" ? "#" : ""}${ref2.id}" references a missing id`));
       }
       if (!hasMissing) {
         const first = route.idRefs[0];
-        out.push(result2(route.route, PASS, { file: first.file, line: 0 }, "No missing id references"));
+        out.push(result$1(route.route, PASS, {
+          file: first.file,
+          line: 0
+        }, "No missing id references"));
+      }
+    }
+    return out;
+  }
+};
+var result = resultFactory("a11y/unverified-id-ref", "The reference could not be verified against the composed route. Confirm the id exists in the rendered page, or resolve the causes so a11y/no-missing-id-ref can verify it.", "info");
+var CAUSE_LABEL = {
+  component: "unresolved component",
+  spread: "spread",
+  html: "{@html}",
+  "dynamic-id": "dynamic id"
+};
+function causeList(causes) {
+  const shown = causes.slice(0, 3).map((c) => {
+    return `${c.kind === "component" && c.detail ? `${CAUSE_LABEL.component} <${c.detail}>` : CAUSE_LABEL[c.kind]} at ${c.file}:${c.line}`;
+  });
+  const rest2 = causes.length - shown.length;
+  return shown.join(", ") + (rest2 > 0 ? `, +${rest2} more` : "");
+}
+var passLabel = "All id references match literal ids (composition not fully resolved)";
+var a11yUnverifiedIdRef = {
+  id: "a11y/unverified-id-ref",
+  title: "Unverified id reference",
+  category: "a11y",
+  severity: "info",
+  scope: "route",
+  defaultOff: true,
+  passLabel,
+  rationale: "Opt-in: on routes a11y/no-missing-id-ref must skip (composition not fully resolved), an id reference that matches no literal id anywhere analyzed is reported as unverifiable \u2014 a real dangling reference and an id hidden inside an unresolved component look the same, so findings need manual confirmation.",
+  async check(ctx) {
+    const out = [];
+    for (const route of ctx.a11y ?? []) {
+      if (route.fullyResolved || route.idRefs.length === 0) continue;
+      const candidates = new Set(route.idCandidates);
+      const causes = causeList(route.unresolvedCauses ?? []);
+      let hasUnverified = false;
+      for (const ref2 of route.idRefs) {
+        if (candidates.has(ref2.id)) continue;
+        hasUnverified = true;
+        out.push(result(route.route, PENALIZED$1, ref2, `${ref2.attr}="${ref2.attr === "href" ? "#" : ""}${ref2.id}" references an id not found in any analyzed source \u2014 the route is not fully resolved (${causes}); verify the id exists at runtime`));
+      }
+      if (!hasUnverified) {
+        const first = route.idRefs[0];
+        out.push(result(route.route, PASS, {
+          file: first.file,
+          line: 0
+        }, passLabel));
       }
     }
     return out;
@@ -68074,6 +69223,7 @@ var allRules = [
   correctnessStalePropDerivation,
   correctnessNonreactiveBuiltinState,
   correctnessCheckableBindValue,
+  correctnessAutoplayMuted,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessBasePathNavigation,
@@ -68099,6 +69249,7 @@ var allRules = [
   performanceLoadWaterfall,
   performanceSequentialAwaits,
   performanceStateRaw,
+  performanceIframeLoading,
   a11yInvalidRole,
   a11yUnknownAriaAttribute,
   a11yRequiredAriaProps,
@@ -68109,22 +69260,42 @@ var allRules = [
   a11yUseList,
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
+  a11yPositiveTabindex,
+  a11yNoAccesskey,
+  a11yNoAutofocus,
+  a11yNoDuplicateDt,
+  a11yAbbrTitle,
+  a11yPatternTitle,
+  a11yDeprecatedElement,
+  a11yDeprecatedAttr,
+  a11yDisallowedAriaProps,
+  a11yDeprecatedAria,
+  a11yDisallowedElement,
+  a11yPermittedContents,
+  a11yRequiredElement,
   a11yDoctype,
   a11yDuplicateLandmark,
   a11yTopLevelLandmark,
   a11yIdDuplication,
-  a11yNoMissingIdRef
+  a11yNoMissingIdRef,
+  a11yUnverifiedIdRef
 ];
-var SEVERITY_RANK = { critical: 0, warning: 1, info: 2 };
+var SEVERITY_RANK = {
+  critical: 0,
+  warning: 1,
+  info: 2
+};
 function severityToGithubLevel(sev) {
   return sev === "critical" ? "error" : sev === "warning" ? "warning" : "notice";
 }
-function messageText(result3) {
-  return result3.recommendation ? `${result3.message} ${result3.recommendation}` : result3.message;
+function messageText(result2) {
+  return result2.recommendation ? `${result2.message} ${result2.recommendation}` : result2.message;
 }
-var RULE_META = new Map(
-  allRules.map((r2) => [r2.id, { title: r2.title, severity: r2.severity, docsUrl: docsUrlFor(r2.id) }])
-);
+var RULE_META = new Map(allRules.map((r2) => [r2.id, {
+  title: r2.title,
+  severity: r2.severity,
+  docsUrl: docsUrlFor(r2.id)
+}]));
 function ruleMetaById(id2) {
   return RULE_META.get(id2);
 }
@@ -68135,8 +69306,7 @@ function escapeProp(s) {
   return escapeData2(s).replace(/:/g, "%3A").replace(/,/g, "%2C");
 }
 function formatGithubReport(results, config) {
-  const penalized = results.filter((r2) => isPenalized(r2.detection, config.treatDynamicAs));
-  const lines = penalized.map((r2) => {
+  return results.filter((r2) => isPenalized(r2.detection, config.treatDynamicAs)).map((r2) => {
     const level = severityToGithubLevel(effectiveSeverity(r2, config));
     const meta = ruleMetaById(r2.id);
     const title = meta ? `${r2.id}: ${meta.title}` : r2.id;
@@ -68147,17 +69317,18 @@ function formatGithubReport(results, config) {
     }
     props.push(`title=${escapeProp(title)}`);
     return `::${level} ${props.join(",")}::${escapeData2(messageText(r2))}`;
-  });
-  return lines.join("\n");
+  }).join("\n");
 }
-var DEDUCTION = { critical: 15, warning: 5, info: 1 };
+var DEDUCTION = {
+  critical: 15,
+  warning: 5,
+  info: 1
+};
 function pairKey(category, scope) {
   return `${category}::${scope}`;
 }
 function severityOf(rule, config) {
-  const setting = settingSeverity(config.rules[rule.id]);
-  if (setting === "off") return void 0;
-  return setting ?? rule.severity;
+  return configuredSeverity(rule, config);
 }
 function buildInventory(config, rules = selectRules(allRules, config)) {
   const out = /* @__PURE__ */ new Map();
@@ -68173,7 +69344,6 @@ function ruleScopes(rules) {
   return new Map(rules.map((r2) => [r2.id, pairKey(r2.category, r2.scope)]));
 }
 var CRITICAL_CAP = 79;
-var INVENTORY_FLOOR = 25;
 function clamp(n2) {
   return Math.max(0, Math.min(100, n2));
 }
@@ -68207,7 +69377,7 @@ function computeScore(results, config, options = {}) {
     if (failed > 0) affectedKeys += 1;
     let inventoryWeight = 0;
     for (const p2 of pairs) inventoryWeight += inventory.get(p2) ?? 0;
-    inventoryWeight = Math.max(inventoryWeight, failed, INVENTORY_FLOOR);
+    inventoryWeight = Math.max(inventoryWeight, failed, 25);
     totalDeficit += 100 * failed / inventoryWeight;
   }
   const keyCount = observed.size;
@@ -68231,7 +69401,11 @@ function computeScore(results, config, options = {}) {
   return {
     score: Math.floor(rawScore),
     rawScore,
-    scoreModel: { routeAverage, sitePenalty, criticalCap },
+    scoreModel: {
+      routeAverage,
+      sitePenalty,
+      criticalCap
+    },
     keys: keyCount,
     affectedKeys
   };
@@ -68255,74 +69429,86 @@ function computeHealth(results, config) {
   let total = 0;
   for (const cat of Object.keys(categories)) {
     const w2 = config.weights?.[cat] ?? 1;
-    if (!Number.isFinite(w2) || w2 < 0) {
-      throw new RangeError(`invalid weight for '${cat}'; expected a finite number >= 0.`);
-    }
+    if (!Number.isFinite(w2) || w2 < 0) throw new RangeError(`invalid weight for '${cat}'; expected a finite number >= 0.`);
     weights[cat] = w2;
     weightedDeficit += (100 - categories[cat].rawScore) * w2;
     total += w2;
   }
-  if (Object.keys(weights).length === 0) return { health: 100, categories, weights };
-  if (total === 0) {
-    throw new RangeError("Health weights sum to 0; at least one present category must have a positive weight.");
-  }
+  if (Object.keys(weights).length === 0) return {
+    health: 100,
+    categories,
+    weights
+  };
+  if (total === 0) throw new RangeError("Health weights sum to 0; at least one present category must have a positive weight.");
   const averageDeficit = weightedDeficit / total;
-  const health = averageDeficit === 0 ? 100 : Math.min(99, Math.floor(100 - averageDeficit));
-  return { health, categories, weights };
-}
-function issueOf(result3) {
   return {
-    id: result3.id,
-    category: result3.category ?? "seo",
-    title: result3.message,
-    detection: result3.detection,
-    location: result3.location,
-    ...result3.line !== void 0 ? { line: result3.line } : {},
-    recommendation: result3.recommendation,
-    ...result3.docsUrl ? { docsUrl: result3.docsUrl } : {},
-    ...result3.fix ? { fix: result3.fix } : {}
+    health: averageDeficit === 0 ? 100 : Math.min(99, Math.floor(100 - averageDeficit)),
+    categories,
+    weights
+  };
+}
+function issueOf(result2) {
+  return {
+    id: result2.id,
+    category: result2.category ?? "seo",
+    title: result2.message,
+    detection: result2.detection,
+    location: result2.location,
+    ...result2.line !== void 0 ? { line: result2.line } : {},
+    recommendation: result2.recommendation,
+    ...result2.docsUrl ? { docsUrl: result2.docsUrl } : {},
+    ...result2.fix ? { fix: result2.fix } : {}
   };
 }
 function ruleEvidence(results, config, ruleIds) {
   const out = {};
-  for (const id2 of ruleIds ?? []) out[id2] = { findings: 0, passed: 0 };
+  for (const id2 of ruleIds ?? []) out[id2] = {
+    findings: 0,
+    passed: 0
+  };
   for (const r2 of results) {
-    const entry = out[r2.id] ??= { findings: 0, passed: 0 };
+    const entry = out[r2.id] ??= {
+      findings: 0,
+      passed: 0
+    };
     if (isPenalized(r2.detection, config.treatDynamicAs)) entry.findings += 1;
     else entry.passed += 1;
   }
   return out;
 }
-function buildJsonReport(results, config, meta, ruleIds, examined) {
+function buildJsonReport(results, config, meta, ruleIds, examined, skipped) {
   const { health, categories: byCat, weights } = computeHealth(results, config);
   const summary2 = summarize(results, config);
   const rules = ruleEvidence(results, config, ruleIds);
-  const categories = Object.fromEntries(
-    Object.entries(byCat).map(([cat, sr]) => [
-      cat,
-      { score: sr.score, scoreModel: sr.scoreModel, keys: sr.keys, affectedKeys: sr.affectedKeys }
-    ])
-  );
+  const categories = Object.fromEntries(Object.entries(byCat).map(([cat, sr]) => [cat, {
+    score: sr.score,
+    scoreModel: sr.scoreModel,
+    keys: sr.keys,
+    affectedKeys: sr.affectedKeys
+  }]));
   const routeMap = /* @__PURE__ */ new Map();
   for (const r2 of results) {
     if (r2.route === void 0) continue;
-    if (!routeMap.has(r2.route)) routeMap.set(r2.route, { route: r2.route, results: [] });
+    if (!routeMap.has(r2.route)) routeMap.set(r2.route, {
+      route: r2.route,
+      results: []
+    });
     routeMap.get(r2.route).results.push(r2);
   }
   const routes = [...routeMap.values()].sort((a2, b) => a2.route.localeCompare(b.route)).map(({ route, results: rs }) => ({
     route,
     score: computeScore(rs, config, { applyCriticalCap: false }).score,
-    // Per category, scored against that category's own inventory, so this is not guaranteed to average to
-    // `score` — which is one ratio over the union of the pairs the route touched.
-    categories: Object.fromEntries(
-      Object.entries(scoresByCategory(rs, config, { applyCriticalCap: false })).map(([cat, sr]) => [cat, sr.score])
-    ),
-    issues: rs.filter((r2) => isPenalized(r2.detection, config.treatDynamicAs)).map((r2) => ({ ...issueOf(r2), severity: effectiveSeverity(r2, config) }))
+    categories: Object.fromEntries(Object.entries(scoresByCategory(rs, config, { applyCriticalCap: false })).map(([cat, sr]) => [cat, sr.score])),
+    issues: rs.filter((r2) => isPenalized(r2.detection, config.treatDynamicAs)).map((r2) => ({
+      ...issueOf(r2),
+      severity: effectiveSeverity(r2, config)
+    }))
   }));
-  const siteIssues = results.filter((r2) => r2.route === void 0 && isPenalized(r2.detection, config.treatDynamicAs)).map((r2) => ({ ...issueOf(r2), severity: effectiveSeverity(r2, config) }));
-  const inventories = Object.fromEntries(
-    [...buildInventory(config)].map(([pair, weight]) => [pair, Math.max(weight, INVENTORY_FLOOR)])
-  );
+  const siteIssues = results.filter((r2) => r2.route === void 0 && isPenalized(r2.detection, config.treatDynamicAs)).map((r2) => ({
+    ...issueOf(r2),
+    severity: effectiveSeverity(r2, config)
+  }));
+  const inventories = Object.fromEntries([...buildInventory(config)].map(([pair, weight]) => [pair, Math.max(weight, 25)]));
   return {
     version: meta.version,
     score: health,
@@ -68333,7 +69519,8 @@ function buildJsonReport(results, config, meta, ruleIds, examined) {
     routes,
     siteIssues,
     inventories,
-    ...examined && Object.keys(examined).length > 0 ? { examined } : {}
+    ...examined && Object.keys(examined).length > 0 ? { examined } : {},
+    ...skipped && Object.keys(skipped).length > 0 ? { skipped } : {}
   };
 }
 function inlineCode(text2) {
@@ -68349,7 +69536,11 @@ function terminalSafe(text2) {
   return text2.replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)?/g, "").replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, "").replace(/[\x00-\x08\x0b-\x1f\x7f]/g, "");
 }
 var MAX_FINDINGS = 50;
-var SEVERITY_EMOJI = { critical: "\u{1F534}", warning: "\u{1F7E1}", info: "\u{1F535}" };
+var SEVERITY_EMOJI = {
+  critical: "\u{1F534}",
+  warning: "\u{1F7E1}",
+  info: "\u{1F535}"
+};
 function escapeCell(s) {
   return mdEscape(s).replace(/(\\*)\|/g, (_, bs) => bs + bs + "\\|");
 }
@@ -68362,29 +69553,25 @@ function messageWithRecommendation(issue2) {
 }
 function flattenFindings(report2) {
   const findings = [];
-  for (const r2 of report2.routes) {
-    for (const issue2 of r2.issues) {
-      findings.push({
-        severity: issue2.severity,
-        id: issue2.id,
-        location: locationOf(issue2, r2.route),
-        message: messageWithRecommendation(issue2)
-      });
-    }
-  }
-  for (const issue2 of report2.siteIssues) {
-    findings.push({
-      severity: issue2.severity,
-      id: issue2.id,
-      location: locationOf(issue2, void 0),
-      message: messageWithRecommendation(issue2)
-    });
-  }
-  return findings.map((f, index) => ({ f, index })).sort((a2, b) => SEVERITY_RANK[a2.f.severity] - SEVERITY_RANK[b.f.severity] || a2.index - b.index).map(({ f }) => f);
+  for (const r2 of report2.routes) for (const issue2 of r2.issues) findings.push({
+    severity: issue2.severity,
+    id: issue2.id,
+    location: locationOf(issue2, r2.route),
+    message: messageWithRecommendation(issue2)
+  });
+  for (const issue2 of report2.siteIssues) findings.push({
+    severity: issue2.severity,
+    id: issue2.id,
+    location: locationOf(issue2, void 0),
+    message: messageWithRecommendation(issue2)
+  });
+  return findings.map((f, index) => ({
+    f,
+    index
+  })).sort((a2, b) => SEVERITY_RANK[a2.f.severity] - SEVERITY_RANK[b.f.severity] || a2.index - b.index).map(({ f }) => f);
 }
 function categoryRows(categories) {
-  const names = Object.keys(categories).sort();
-  return names.map((cat) => `| ${cat} | ${categories[cat].score} |`);
+  return Object.keys(categories).sort().map((cat) => `| ${cat} | ${categories[cat].score} |`);
 }
 function formatMarkdownReport(results, config, meta) {
   const report2 = buildJsonReport(results, config, meta);
@@ -68403,9 +69590,8 @@ function formatMarkdownReport(results, config, meta) {
   lines.push(`**${critical} critical \xB7 ${warning2} warning \xB7 ${info2} info** (${passed} checks passed)`);
   lines.push("");
   const findings = flattenFindings(report2);
-  if (findings.length === 0) {
-    lines.push("\u2705 No issues found.");
-  } else {
+  if (findings.length === 0) lines.push("\u2705 No issues found.");
+  else {
     lines.push("### Findings");
     lines.push("");
     lines.push("| Severity | Rule | Location | Message |");
@@ -68413,23 +69599,65 @@ function formatMarkdownReport(results, config, meta) {
     const shown = findings.slice(0, MAX_FINDINGS);
     for (const f of shown) {
       const rule = `[${f.id}](${docsUrlFor(f.id)})`;
-      lines.push(
-        `| ${SEVERITY_EMOJI[f.severity]} ${f.severity} | ${rule} | ${escapeCell(f.location)} | ${escapeCell(f.message)} |`
-      );
+      lines.push(`| ${SEVERITY_EMOJI[f.severity]} ${f.severity} | ${rule} | ${escapeCell(f.location)} | ${escapeCell(f.message)} |`);
     }
     if (findings.length > MAX_FINDINGS) {
       lines.push("");
       lines.push(`\u2026and ${findings.length - MAX_FINDINGS} more (run \`npx svelte-vitals\` locally for the full report)`);
     }
     lines.push("");
-    lines.push(
-      "_Expected findings (e.g. routes behind auth)? See [Excluding routes or rules](https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules)._"
-    );
+    lines.push("_Expected findings (e.g. routes behind auth)? See [Excluding routes or rules](https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules)._");
   }
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.45.0/node_modules/@svelte-vitals/core/dist/internal.js
+// node_modules/.pnpm/@svelte-vitals+core@0.49.0/node_modules/@svelte-vitals/core/dist/internal.js
+function directiveFor(index, r2) {
+  const line = r2.line;
+  if (r2.location === void 0 || line === void 0 || line <= 0) return void 0;
+  return (index.get(r2.location) ?? []).find((d2) => d2.line === line && (!d2.ruleIds || d2.ruleIds.includes(r2.id)));
+}
+function applyInlineDirectives(results, index, rules, config) {
+  const labels = new Map(rules.map((r2) => [r2.id, r2.passLabel ?? r2.title]));
+  const kept = [];
+  const silenced = /* @__PURE__ */ new Map();
+  const survived = /* @__PURE__ */ new Set();
+  for (const r2 of results) {
+    if (!isPenalized(r2.detection, config.treatDynamicAs)) {
+      kept.push(r2);
+      continue;
+    }
+    const key2 = `${r2.id} ${r2.route ?? ""}`;
+    if (directiveFor(index, r2) !== void 0) {
+      if (!silenced.has(key2)) silenced.set(key2, r2);
+      continue;
+    }
+    survived.add(key2);
+    kept.push(r2);
+  }
+  for (const [key2, r2] of silenced) {
+    if (survived.has(key2)) continue;
+    kept.push({
+      id: r2.id,
+      ...r2.category ? { category: r2.category } : {},
+      severity: r2.severity,
+      detection: {
+        presence: "own",
+        value: "static"
+      },
+      ...r2.route !== void 0 ? { route: r2.route } : {},
+      ...r2.location !== void 0 ? { location: r2.location } : {},
+      message: labels.get(r2.id) ?? r2.id
+    });
+  }
+  return kept;
+}
+function unknownDirectiveIds(index, rules) {
+  const known = new Set(rules.map((r2) => r2.id));
+  const seen = /* @__PURE__ */ new Set();
+  for (const [file, directives] of index) for (const d2 of directives) for (const id2 of d2.ruleIds ?? []) if (!known.has(id2)) seen.add(`${file}:${d2.line - 1} disables unknown rule "${id2}" \u2014 run \`svelte-vitals explain --list\` for the ids.`);
+  return [...seen].sort();
+}
 function skippedFileWarnings(facts) {
   const list3 = (files) => {
     const shown = files.slice(0, 10);
@@ -68439,18 +69667,8 @@ function skippedFileWarnings(facts) {
   const unread = names((f) => f.readFailed === true);
   const unparsed = names((f) => f.parseFailed === true && f.readFailed !== true);
   const out = [];
-  if (unread.length > 0) {
-    out.push(
-      `skipped ${unread.length} file(s) that could not be read: ${list3(unread)}`,
-      "this is an environment problem, not a code one \u2014 check file permissions and the open-file limit (`ulimit -n`)."
-    );
-  }
-  if (unparsed.length > 0) {
-    out.push(
-      `skipped ${unparsed.length} file(s) that could not be parsed: ${list3(unparsed)}`,
-      "findings for these files are unavailable until they parse."
-    );
-  }
+  if (unread.length > 0) out.push(`skipped ${unread.length} file(s) that could not be read: ${list3(unread)}`, "this is an environment problem, not a code one \u2014 check file permissions and the open-file limit (`ulimit -n`).");
+  if (unparsed.length > 0) out.push(`skipped ${unparsed.length} file(s) that could not be parsed: ${list3(unparsed)}`, "findings for these files are unavailable until they parse.");
   return out;
 }
 function emptyComponentFacts(file) {
@@ -68482,25 +69700,32 @@ function emptyComponentFacts(file) {
 }
 async function collectComponentFacts(rt, cwd) {
   const files = await rt.glob("src/**/*.svelte{,.ts,.js}", cwd);
-  return Promise.all(
-    files.sort().map(async (rel) => {
-      let source2;
-      try {
-        source2 = await rt.readFile(rt.join(cwd, rel));
-      } catch {
-        return { ...emptyComponentFacts(rel), parseFailed: true, readFailed: true };
-      }
-      try {
-        return { file: rel, ...parseComponentFacts(source2, rel) };
-      } catch {
-        return { ...emptyComponentFacts(rel), parseFailed: true };
-      }
-    })
-  );
+  return Promise.all(files.sort().map(async (rel) => {
+    let source2;
+    try {
+      source2 = await rt.readFile(rt.join(cwd, rel));
+    } catch {
+      return {
+        ...emptyComponentFacts(rel),
+        parseFailed: true,
+        readFailed: true
+      };
+    }
+    try {
+      return {
+        file: rel,
+        ...parseComponentFacts(source2, rel)
+      };
+    } catch {
+      return {
+        ...emptyComponentFacts(rel),
+        parseFailed: true
+      };
+    }
+  }));
 }
 async function collectSourceFiles(rt, cwd) {
-  const files = await rt.glob("src/**/*", cwd);
-  return files.slice().sort();
+  return (await rt.glob("src/**/*", cwd)).slice().sort();
 }
 function emptyKitModuleFacts(file, kind) {
   return {
@@ -68522,56 +69747,68 @@ function kindOf(file) {
   return base.includes(".server.") || base.startsWith("+server.") ? "server" : "universal";
 }
 async function collectKitModuleFacts(rt, cwd, aliases) {
-  const patterns = [
+  const lists = await Promise.all([
     "src/routes/**/+{page,layout}.server.{ts,js}",
     "src/routes/**/+{page,layout}.{ts,js}",
     "src/routes/**/+server.{ts,js}",
     "src/hooks.server.{ts,js}"
-  ];
-  const lists = await Promise.all(patterns.map((p2) => rt.glob(p2, cwd)));
+  ].map((p2) => rt.glob(p2, cwd)));
   const files = [...new Set(lists.flat())];
-  const facts = await Promise.all(
-    files.sort().map(async (rel) => {
-      const kind = kindOf(rel);
-      let source2;
-      try {
-        source2 = await rt.readFile(rt.join(cwd, rel));
-      } catch {
-        return { ...emptyKitModuleFacts(rel, kind), parseFailed: true, readFailed: true };
-      }
-      try {
-        return { file: rel, kind, ...parseKitModuleFacts(source2, rel, aliases) };
-      } catch {
-        return { ...emptyKitModuleFacts(rel, kind), parseFailed: true };
-      }
-    })
-  );
-  return arbitrateServerStoreWrites(rt, cwd, facts);
+  return arbitrateServerStoreWrites(rt, cwd, await Promise.all(files.sort().map(async (rel) => {
+    const kind = kindOf(rel);
+    let source2;
+    try {
+      source2 = await rt.readFile(rt.join(cwd, rel));
+    } catch {
+      return {
+        ...emptyKitModuleFacts(rel, kind),
+        parseFailed: true,
+        readFailed: true
+      };
+    }
+    try {
+      return {
+        file: rel,
+        kind,
+        ...parseKitModuleFacts(source2, rel, aliases)
+      };
+    } catch {
+      return {
+        ...emptyKitModuleFacts(rel, kind),
+        parseFailed: true
+      };
+    }
+  })));
 }
 function moduleCandidates(repoPath) {
   if (repoPath.endsWith(".js")) return [repoPath, `${repoPath.slice(0, -3)}.ts`];
   if (repoPath.endsWith(".ts")) return [repoPath];
-  return [`${repoPath}.ts`, `${repoPath}.js`, `${repoPath}/index.ts`, `${repoPath}/index.js`];
+  return [
+    `${repoPath}.ts`,
+    `${repoPath}.js`,
+    `${repoPath}/index.ts`,
+    `${repoPath}/index.js`
+  ];
 }
 async function inMemoryExportsOf(rt, cwd, repoPath) {
-  for (const rel of moduleCandidates(repoPath)) {
-    try {
-      if (!await rt.exists(rt.join(cwd, rel))) continue;
-      return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);
-    } catch {
-      return /* @__PURE__ */ new Set();
-    }
+  for (const rel of moduleCandidates(repoPath)) try {
+    if (!await rt.exists(rt.join(cwd, rel))) continue;
+    return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);
+  } catch {
+    return /* @__PURE__ */ new Set();
   }
   return /* @__PURE__ */ new Set();
 }
 async function arbitrateServerStoreWrites(rt, cwd, facts) {
   const targets = [...new Set(facts.flatMap((f) => f.pendingServerStoreWrites.map((w2) => w2.resolved)))];
   if (targets.length === 0) return facts;
-  const byPath = new Map(
-    await Promise.all(targets.map(async (t2) => [t2, await inMemoryExportsOf(rt, cwd, t2)]))
-  );
+  const byPath = new Map(await Promise.all(targets.map(async (t2) => [t2, await inMemoryExportsOf(rt, cwd, t2)])));
   return facts.map((f) => {
-    const promoted = f.pendingServerStoreWrites.filter((w2) => byPath.get(w2.resolved)?.has(w2.imported)).map((w2) => ({ name: w2.name, line: w2.line, via: "set-call" }));
+    const promoted = f.pendingServerStoreWrites.filter((w2) => byPath.get(w2.resolved)?.has(w2.imported)).map((w2) => ({
+      name: w2.name,
+      line: w2.line,
+      via: "set-call"
+    }));
     if (promoted.length === 0) return f;
     return {
       ...f,
@@ -68605,16 +69842,14 @@ function unwrapToObjectExpression(expr, bindings) {
       current2 = e3.arguments[0];
       continue;
     }
-    return void 0;
+    return;
   }
   const final = current2 ? unwrapTs(current2) : void 0;
   return final?.type === "ObjectExpression" ? final : void 0;
 }
 function findExportedExpression(program) {
   let exported;
-  for (const stmt2 of program.body) {
-    if (stmt2.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
-  }
+  for (const stmt2 of program.body) if (stmt2.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
   if (exported) return exported;
   let cjsExported;
   for (const stmt2 of program.body) {
@@ -68622,9 +69857,7 @@ function findExportedExpression(program) {
     const expr = stmt2.expression;
     if (expr.type !== "AssignmentExpression" || expr.operator !== "=") continue;
     const left = expr.left;
-    if (left.type === "MemberExpression" && !left.computed && left.object.type === "Identifier" && left.object.name === "module" && left.property.type === "Identifier" && left.property.name === "exports") {
-      cjsExported = expr.right;
-    }
+    if (left.type === "MemberExpression" && !left.computed && left.object.type === "Identifier" && left.object.name === "module" && left.property.type === "Identifier" && left.property.name === "exports") cjsExported = expr.right;
   }
   return cjsExported;
 }
@@ -68639,7 +69872,7 @@ function findMinifyDisabled(source2) {
   try {
     ({ program, wrapped } = parseModuleProgram(source2, "vite.config.ts"));
   } catch {
-    return void 0;
+    return;
   }
   if (!program) return void 0;
   const config = resolveConfigObject(program);
@@ -68659,16 +69892,13 @@ function basePathOf(kitConfig, bindings) {
   const base = propOf(pathsObj, "base");
   if (!base) return void 0;
   const value = unwrapTs(base.value);
-  if (value.type === "Literal") {
-    return typeof value.value === "string" && value.value !== "" ? { value: value.value } : void 0;
-  }
+  if (value.type === "Literal") return typeof value.value === "string" && value.value !== "" ? { value: value.value } : void 0;
   return {};
 }
 function keyNameOf(p2) {
   if (p2.computed) return void 0;
   if (p2.key.type === "Identifier") return p2.key.name;
   if (p2.key.type === "Literal" && typeof p2.key.value === "string") return p2.key.value;
-  return void 0;
 }
 function stringValueOf(p2) {
   const v = unwrapTs(p2.value);
@@ -68685,7 +69915,10 @@ function aliasEntriesOf(kitConfig, bindings) {
     if (p2.type !== "Property") return void 0;
     const key2 = keyNameOf(p2);
     if (key2 === void 0) return void 0;
-    const entry = { key: key2, value: stringValueOf(p2) ?? null };
+    const entry = {
+      key: key2,
+      value: stringValueOf(p2) ?? null
+    };
     const seen = at2.get(key2);
     if (seen === void 0) {
       at2.set(key2, out.length);
@@ -68710,24 +69943,29 @@ function findKitAliasesInSvelteConfig(source2) {
   const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
   if (!kitObj) return { entries: [] };
   const filesLib = filesLibOf(kitObj, bindings);
-  return { entries: aliasEntriesOf(kitObj, bindings), ...filesLib !== void 0 ? { filesLib } : {} };
+  return {
+    entries: aliasEntriesOf(kitObj, bindings),
+    ...filesLib !== void 0 ? { filesLib } : {}
+  };
 }
 function normalizeAliasValue(value) {
   const posix2 = value.replace(/\\/g, "/");
-  const noStar = posix2.endsWith("/*") ? posix2.slice(0, -2) : posix2;
-  return noStar.replace(/\/+$/, "");
+  return (posix2.endsWith("/*") ? posix2.slice(0, -2) : posix2).replace(/\/+$/, "");
 }
 function compileKitAliases(raw) {
-  const filesLib = raw.filesLib === null ? null : normalizeAliasValue(raw.filesLib ?? "src/lib");
-  const out = [{ find: "$lib", replacement: filesLib, match: "prefix" }];
+  const out = [{
+    find: "$lib",
+    replacement: raw.filesLib === null ? null : normalizeAliasValue(raw.filesLib ?? "src/lib"),
+    match: "prefix"
+  }];
   const entries = raw.entries ?? [];
-  const declared = new Set(entries.map((e3) => e3.key));
+  const declared2 = new Set(entries.map((e3) => e3.key));
   for (const { key: key2, value } of entries) {
     const star = key2.endsWith("/*");
     out.push({
       find: star ? key2.slice(0, -2) : key2,
       replacement: value === null ? null : normalizeAliasValue(value),
-      match: star ? "contents" : declared.has(`${key2}/*`) ? "exact" : "prefix"
+      match: star ? "contents" : declared2.has(`${key2}/*`) ? "exact" : "prefix"
     });
   }
   return out;
@@ -68741,7 +69979,7 @@ function programOf(source2, filename2) {
   try {
     return parseModuleProgram(source2, filename2).program ?? void 0;
   } catch {
-    return void 0;
+    return;
   }
 }
 function findKitPathsBaseInSvelteConfig(source2) {
@@ -68780,21 +70018,28 @@ function findKitPathsBaseInViteConfig(source2) {
     const kitConfig = unwrapToObjectExpression(arg, bindings);
     if (!kitConfig) return { kind: "unresolvable" };
     const base = basePathOf(kitConfig, bindings);
-    return base ? { kind: "resolved", base } : { kind: "resolved" };
+    return base ? {
+      kind: "resolved",
+      base
+    } : { kind: "resolved" };
   }
   return none;
 }
 function resolveKitPathsBase(viteConfig, svelteConfig) {
   if (viteConfig) {
-    const result3 = findKitPathsBaseInViteConfig(viteConfig.source);
-    if (result3.kind === "unresolvable") return void 0;
-    if (result3.kind === "resolved") {
-      return result3.base ? { ...result3.base, file: viteConfig.file } : void 0;
-    }
+    const result2 = findKitPathsBaseInViteConfig(viteConfig.source);
+    if (result2.kind === "unresolvable") return void 0;
+    if (result2.kind === "resolved") return result2.base ? {
+      ...result2.base,
+      file: viteConfig.file
+    } : void 0;
   }
   if (!svelteConfig) return void 0;
   const base = findKitPathsBaseInSvelteConfig(svelteConfig.source);
-  return base ? { ...base, file: svelteConfig.file } : void 0;
+  return base ? {
+    ...base,
+    file: svelteConfig.file
+  } : void 0;
 }
 var ROBOTS_SOURCE_PATHS = [
   "static/robots.txt",
@@ -68815,8 +70060,7 @@ var VITE_CONFIG_FILES = [
   "vite.config.cts"
 ];
 var SVELTE_CONFIG_FILES = ["svelte.config.js", "svelte.config.ts"];
-var READ_CONCURRENCY = 64;
-function withReadLimit(readFile2, limit = READ_CONCURRENCY) {
+function withReadLimit(readFile2, limit = 64) {
   let active = 0;
   const waiting = [];
   const release = () => {
@@ -68824,7 +70068,7 @@ function withReadLimit(readFile2, limit = READ_CONCURRENCY) {
     waiting.shift()?.();
   };
   return async (path) => {
-    if (active >= limit) await new Promise((resolve4) => waiting.push(resolve4));
+    if (active >= limit) await new Promise((resolve5) => waiting.push(resolve5));
     active++;
     try {
       return await readFile2(path);
@@ -68835,22 +70079,28 @@ function withReadLimit(readFile2, limit = READ_CONCURRENCY) {
 }
 async function runRules(rules, ctx) {
   const examined = {};
-  const perRule = await Promise.all(
-    rules.map(async (rule) => {
-      try {
-        return await rule.check({ ...ctx, recordExamined: (counts) => void (examined[rule.id] = counts) });
-      } catch (err) {
-        return { id: rule.id, message: err instanceof Error ? err.message : String(err) };
-      }
-    })
-  );
+  const perRule = await Promise.all(rules.map(async (rule) => {
+    try {
+      return await rule.check({
+        ...ctx,
+        recordExamined: (counts) => void (examined[rule.id] = counts)
+      });
+    } catch (err) {
+      return {
+        id: rule.id,
+        message: err instanceof Error ? err.message : String(err)
+      };
+    }
+  }));
   const results = [];
   const failedRules = [];
-  for (const outcome of perRule) {
-    if (Array.isArray(outcome)) results.push(...outcome);
-    else failedRules.push(outcome);
-  }
-  return { results, examined, failedRules };
+  for (const outcome of perRule) if (Array.isArray(outcome)) results.push(...outcome);
+  else failedRules.push(outcome);
+  return {
+    results,
+    examined,
+    failedRules
+  };
 }
 var CATEGORY_LABEL = {
   seo: "SEO",
@@ -69401,18 +70651,8 @@ var APP_SCRIPT = `
 })();
 `;
 
-// node_modules/.pnpm/svelte-vitals@0.48.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-AI24FJ5Q.js
-var KNOWN_IDS = new Set(allRules.map((r2) => r2.id));
-var RULE_BY_ID = new Map(allRules.map((r2) => [r2.id, r2]));
-function findUnknownRuleIds(ids) {
-  return [...new Set(ids.filter((id2) => !KNOWN_IDS.has(id2)))];
-}
-function knownRuleIds() {
-  return [...KNOWN_IDS].sort();
-}
-function ruleOptionsSpec(id2) {
-  return RULE_BY_ID.get(id2)?.options;
-}
+// node_modules/.pnpm/svelte-vitals@0.53.0_cac@6.7.14/node_modules/svelte-vitals/dist/src-hgEeAWHb.js
+import { access as access2, readFile } from "fs/promises";
 
 // node_modules/.pnpm/tinyglobby@0.2.17/node_modules/tinyglobby/dist/index.mjs
 import { readdir as readdir2, readdirSync, realpath, realpathSync, stat as stat2, statSync } from "fs";
@@ -69980,8 +71220,8 @@ function buildFormat(cwd, root, absolute) {
     const prefix = root.slice(cwd.length + 1);
     if (prefix) return (p2, isDir) => {
       if (p2 === ".") return prefix;
-      const result3 = `${prefix}/${p2}`;
-      return isDir ? result3.slice(0, -1) : result3;
+      const result2 = `${prefix}/${p2}`;
+      return isDir ? result2.slice(0, -1) : result2;
     };
     return (p2, isDir) => isDir && p2 !== "." ? p2.slice(0, -1) : p2;
   }
@@ -69994,8 +71234,8 @@ function buildRelative(cwd, root) {
     return (p2) => `${prefix}/${p2}`;
   }
   return (p2) => {
-    const result3 = posix.relative(cwd, `${root}/${p2}`);
-    return p2[p2.length - 1] === "/" && result3 !== "" ? `${result3}/` : result3 || ".";
+    const result2 = posix.relative(cwd, `${root}/${p2}`);
+    return p2[p2.length - 1] === "/" && result2 !== "" ? `${result2}/` : result2 || ".";
   };
 }
 function ensureNonDriveRelativePath(path) {
@@ -70004,8 +71244,8 @@ function ensureNonDriveRelativePath(path) {
 var splitPatternOptions = { parts: true };
 function splitPattern(path) {
   var _result$parts;
-  const result3 = import_picomatch.default.scan(path, splitPatternOptions);
-  return ((_result$parts = result3.parts) === null || _result$parts === void 0 ? void 0 : _result$parts.length) ? result3.parts : [path];
+  const result2 = import_picomatch.default.scan(path, splitPatternOptions);
+  return ((_result$parts = result2.parts) === null || _result$parts === void 0 ? void 0 : _result$parts.length) ? result2.parts : [path];
 }
 var POSIX_UNESCAPED_GLOB_SYMBOLS = /(?<!\\)([()[\]{}*?|]|^!|[!+@](?=\()|\\(?![()[\]{}!*+?@|]))/g;
 var WIN32_UNESCAPED_GLOB_SYMBOLS = /(?<!\\)([()[\]{}]|^!|[!+@](?=\())/g;
@@ -70028,19 +71268,19 @@ var ESCAPING_BACKSLASHES = /\\(?=[()[\]{}!*+?@|])/g;
 function normalizePattern(pattern, opts, props, isIgnore) {
   var _PARENT_DIRECTORY$exe;
   const cwd = opts.cwd;
-  let result3 = pattern;
-  if (pattern[pattern.length - 1] === "/") result3 = pattern.slice(0, -1);
-  if (result3[result3.length - 1] !== "*" && opts.expandDirectories) result3 += "/**";
+  let result2 = pattern;
+  if (pattern[pattern.length - 1] === "/") result2 = pattern.slice(0, -1);
+  if (result2[result2.length - 1] !== "*" && opts.expandDirectories) result2 += "/**";
   const escapedCwd = escapePath(cwd);
-  result3 = isAbsolute(result3.replace(ESCAPING_BACKSLASHES, "")) ? posix.relative(escapedCwd, result3) : posix.normalize(result3);
-  const parentDir = (_PARENT_DIRECTORY$exe = PARENT_DIRECTORY.exec(result3)) === null || _PARENT_DIRECTORY$exe === void 0 ? void 0 : _PARENT_DIRECTORY$exe[0];
-  const parts = splitPattern(result3);
+  result2 = isAbsolute(result2.replace(ESCAPING_BACKSLASHES, "")) ? posix.relative(escapedCwd, result2) : posix.normalize(result2);
+  const parentDir = (_PARENT_DIRECTORY$exe = PARENT_DIRECTORY.exec(result2)) === null || _PARENT_DIRECTORY$exe === void 0 ? void 0 : _PARENT_DIRECTORY$exe[0];
+  const parts = splitPattern(result2);
   if (parentDir) {
     const n2 = (parentDir.length + 1) / 3;
     let i2 = 0;
     const cwdParts = escapedCwd.split("/");
     while (i2 < n2 && parts[i2 + n2] === cwdParts[cwdParts.length + i2 - n2]) {
-      result3 = result3.slice(0, (n2 - i2 - 1) * 3) + result3.slice((n2 - i2) * 3 + parts[i2 + n2].length + 1) || ".";
+      result2 = result2.slice(0, (n2 - i2 - 1) * 3) + result2.slice((n2 - i2) * 3 + parts[i2 + n2].length + 1) || ".";
       i2++;
     }
     const potentialRoot = posix.join(cwd, parentDir.slice(i2 * 3));
@@ -70067,7 +71307,7 @@ function normalizePattern(pattern, opts, props, isIgnore) {
     props.commonPath = newCommonPath;
     props.root = ensureNonDriveRelativePath(newCommonPath.length > 0 ? posix.join(cwd, ...newCommonPath) : cwd);
   }
-  return result3;
+  return result2;
 }
 function processPatterns(options, patterns, props) {
   const matchPatterns = [];
@@ -70187,9 +71427,6 @@ async function glob(globInput, options) {
   const [crawler, relative2] = getCrawler(globInput, options);
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
-
-// node_modules/.pnpm/svelte-vitals@0.48.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-WGFXFKBB.js
-import { readFileSync as readFileSync2 } from "fs";
 
 // node_modules/.pnpm/gunshi@0.37.1/node_modules/gunshi/lib/agent.js
 var e2 = globalThis.process?.env || /* @__PURE__ */ Object.create(null);
@@ -70378,191 +71615,34 @@ function I() {
 }
 I()?.name;
 
-// node_modules/.pnpm/svelte-vitals@0.48.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-WGFXFKBB.js
-import { existsSync as existsSync2 } from "fs";
-import { join as join3 } from "path";
-import { pathToFileURL } from "url";
-function readPackageVersion() {
-  try {
-    const pkg = JSON.parse(readFileSync2(new URL("../package.json", import.meta.url), "utf8"));
-    return pkg.version ?? "0.0.0";
-  } catch {
-    return "0.0.0";
-  }
-}
-var CONFIG_FILENAMES = ["svelte-vitals.config.js", "svelte-vitals.config.ts"];
-var TREAT_DYNAMIC_AS_VALUES = ["pass", "warn", "fail"];
-var FAIL_ON_VALUES = ["critical", "warning", "info"];
-var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set(["treatDynamicAs", "metaComponents", "rules", "failOn", "weights", "overrides"]);
-function isPlainObject4(value) {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-function validateSetting(path, where, key2, setting, allowOptions, baseline, skipRangeCheck) {
-  const errors = validateRuleSetting(`${where}.${key2}`, key2, setting, ruleOptionsSpec(key2), {
-    allowOptions,
-    ...baseline !== void 0 ? { baseline } : {},
-    ...skipRangeCheck !== void 0 ? { skipRangeCheck } : {}
-  });
-  if (errors.length > 0) throw new Error(`${path}: ${errors.join(" ")}`);
-}
-function validateConfigFile(raw, path) {
-  const warnings2 = [];
-  const config = {};
-  for (const key2 of Object.keys(raw)) {
-    if (!KNOWN_TOP_LEVEL_KEYS.has(key2)) {
-      warnings2.push(`${path}: unknown config key '${key2}' ignored.`);
-    }
-  }
-  if (raw.treatDynamicAs !== void 0) {
-    if (TREAT_DYNAMIC_AS_VALUES.includes(raw.treatDynamicAs)) {
-      config.treatDynamicAs = raw.treatDynamicAs;
-    } else {
-      warnings2.push(
-        `${path}: unknown treatDynamicAs '${String(raw.treatDynamicAs)}'; expected pass|warn|fail. Ignoring.`
-      );
-    }
-  }
-  if (raw.failOn !== void 0) {
-    if (FAIL_ON_VALUES.includes(raw.failOn)) {
-      config.failOn = raw.failOn;
-    } else {
-      warnings2.push(`${path}: unknown failOn '${String(raw.failOn)}'; expected critical|warning|info. Ignoring.`);
-    }
-  }
-  if (raw.metaComponents !== void 0) {
-    if (Array.isArray(raw.metaComponents) && raw.metaComponents.every((c) => typeof c === "string")) {
-      config.metaComponents = raw.metaComponents;
-    } else {
-      warnings2.push(`${path}: metaComponents must be an array of strings. Ignoring.`);
-    }
-  }
-  if (raw.rules !== void 0) {
-    if (!isPlainObject4(raw.rules)) {
-      throw new Error(`${path}: rules must be an object of rule-id \u2192 setting.`);
-    }
-    const rules = raw.rules;
-    const unknown = findUnknownRuleIds(Object.keys(rules));
-    if (unknown.length > 0) {
-      throw new Error(
-        `${path}: unknown rule id(s) in rules: ${unknown.join(", ")}. Known rule ids: ${knownRuleIds().join(", ")}`
-      );
-    }
-    for (const [key2, setting] of Object.entries(rules)) validateSetting(path, "rules", key2, setting, true);
-    config.rules = rules;
-  }
-  if (raw.overrides !== void 0) {
-    if (!Array.isArray(raw.overrides)) {
-      throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
-    }
-    const isGlob = (v) => typeof v === "string" && v.length > 0;
-    const isGlobs = (v) => isGlob(v) || Array.isArray(v) && v.length > 0 && v.every(isGlob);
-    const overrides = [];
-    const rawOverrides = raw.overrides;
-    rawOverrides.forEach((entry, i2) => {
-      if (!isPlainObject4(entry)) {
-        throw new Error(`${path}: overrides[${i2}] must be an object with 'route' and/or 'files', and 'rules'.`);
-      }
-      if (entry.route !== void 0 && !isGlobs(entry.route)) {
-        throw new Error(
-          `${path}: overrides[${i2}].route must be a non-empty string or a non-empty array of non-empty strings.`
-        );
-      }
-      if (entry.files !== void 0 && !isGlobs(entry.files)) {
-        throw new Error(
-          `${path}: overrides[${i2}].files must be a non-empty string or a non-empty array of non-empty strings.`
-        );
-      }
-      if (entry.route === void 0 && entry.files === void 0) {
-        throw new Error(`${path}: overrides[${i2}] must set 'route' and/or 'files' to scope the override.`);
-      }
-      if (!isPlainObject4(entry.rules)) {
-        throw new Error(`${path}: overrides[${i2}].rules must be an object of rule-id/category \u2192 setting.`);
-      }
-      if (Object.keys(entry.rules).length === 0) {
-        throw new Error(`${path}: overrides[${i2}].rules must contain at least one rule id or category.`);
-      }
-      const nonCategoryKeys = Object.keys(entry.rules).filter((k2) => !CATEGORIES.includes(k2));
-      const unknown = findUnknownRuleIds(nonCategoryKeys);
-      if (unknown.length > 0) {
-        throw new Error(
-          `${path}: unknown rule id(s) or categories in overrides[${i2}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids: ${knownRuleIds().join(", ")}`
-        );
-      }
-      for (const [key2, setting] of Object.entries(entry.rules)) {
-        const isCategory = CATEGORIES.includes(key2);
-        const baseline = isCategory ? void 0 : resolveRuleOptions(key2, ruleOptionsSpec(key2), { ...defaultConfig, rules: config.rules ?? {} });
-        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i2, key2, setting);
-        validateSetting(path, `overrides[${i2}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
-      }
-      overrides.push({
-        ...entry.route !== void 0 ? { route: entry.route } : {},
-        ...entry.files !== void 0 ? { files: entry.files } : {},
-        rules: entry.rules
-      });
-    });
-    config.overrides = overrides;
-  }
-  if (raw.weights !== void 0) {
-    if (!isPlainObject4(raw.weights)) {
-      throw new Error(`${path}: weights must be an object of category \u2192 number.`);
-    }
-    const weights = {};
-    for (const [rawCat, w2] of Object.entries(raw.weights)) {
-      const cat = rawCat.toLowerCase();
-      if (!CATEGORIES.includes(cat)) {
-        throw new Error(`${path}: unknown category '${rawCat}' in weights. Known categories: ${CATEGORIES.join(", ")}`);
-      }
-      if (typeof w2 !== "number" || !Number.isFinite(w2) || w2 < 0) {
-        throw new Error(`${path}: invalid weight for '${cat}': ${String(w2)}; expected a finite number >= 0.`);
-      }
-      weights[cat] = w2;
-    }
-    config.weights = weights;
-  }
-  return { config, warnings: warnings2 };
-}
-async function loadConfigFile(cwd) {
-  const found = CONFIG_FILENAMES.map((name) => join3(cwd, name)).find((path) => existsSync2(path));
-  if (!found) {
-    const retired = join3(cwd, "svelte-vitals.config.mjs");
-    if (existsSync2(retired)) {
-      throw new Error(
-        `${retired} is no longer read \u2014 svelte-vitals loads svelte-vitals.config.{js,ts} only. Rename the file to .js (the project must be "type": "module") or .ts.`
-      );
-    }
-    return void 0;
-  }
-  let mod;
-  try {
-    mod = await import(pathToFileURL(found).href);
-  } catch (err) {
-    if (found.endsWith(".js") && err instanceof SyntaxError) {
-      throw new Error(
-        `could not load ${found}: ${err.message} \u2014 config files are ESM, so a CommonJS project needs "type": "module" in package.json (SvelteKit's default) or a .ts config.`,
-        { cause: err }
-      );
-    }
-    throw err;
-  }
-  if (!isPlainObject4(mod.default)) {
-    throw new Error(
-      `${found} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`
-    );
-  }
-  return validateConfigFile(mod.default, found);
-}
-
-// node_modules/.pnpm/svelte-vitals@0.48.1_cac@6.7.14/node_modules/svelte-vitals/dist/chunk-LJPABOWU.js
-import { readFile, access as access2 } from "fs/promises";
-import { join } from "path";
+// node_modules/.pnpm/svelte-vitals@0.53.0_cac@6.7.14/node_modules/svelte-vitals/dist/src-hgEeAWHb.js
 import { execFileSync } from "child_process";
-import { execFileSync as execFileSync2 } from "child_process";
-import { mkdtempSync, rmSync } from "fs";
 import { tmpdir } from "os";
-import { join as join2 } from "path";
-import { readFileSync as readFileSync3, renameSync, unlinkSync, writeFileSync } from "fs";
-import { join as join32 } from "path";
+import { pathToFileURL } from "url";
 import { styleText } from "util";
+import { setTimeout as setTimeout2 } from "timers/promises";
+var ID_REF_RULE = "a11y/no-missing-id-ref";
+function buildIdRefSkips(a11y) {
+  return a11y.filter((r2) => !r2.fullyResolved).map((r2) => ({
+    route: r2.route,
+    refs: r2.idRefs.length,
+    causes: r2.unresolvedCauses ?? []
+  })).sort((a2, b) => a2.route.localeCompare(b.route));
+}
+var KIND_LABELS = [
+  ["component", "unresolved component"],
+  ["spread", "spread"],
+  ["html", "{@html}"],
+  ["dynamic-id", "dynamic id"]
+];
+function idRefSkipWarning(entries, analyzedRoutes) {
+  const causes = [];
+  for (const [kind, label] of KIND_LABELS) {
+    const n2 = entries.filter((e3) => e3.causes.some((c) => c.kind === kind)).length;
+    if (n2 > 0) causes.push(entries.length === 1 ? label : `${label} (${n2})`);
+  }
+  return `${ID_REF_RULE} skipped ${entries.length} of ${analyzedRoutes} analyzed route(s) \u2014 it only checks routes it can fully resolve, so this is not a failure. Causes: ${causes.join(", ")}. Per-route detail: --reporter json \u2192 "skipped". Why, and how to widen: ${docsUrlFor(ID_REF_RULE)}`;
+}
 function createNodeRuntime() {
   const boundedRead = withReadLimit((path) => readFile(path, "utf8"));
   return {
@@ -70578,7 +71658,10 @@ function createNodeRuntime() {
       }
     },
     glob(pattern, cwd) {
-      return glob(pattern, { cwd, dot: false });
+      return glob(pattern, {
+        cwd,
+        dot: false
+      });
     },
     join(...parts) {
       return join(...parts);
@@ -70591,7 +71674,7 @@ var ProjectError = class extends Error {
     this.name = "ProjectError";
   }
 };
-var ROUTES_DIR2 = "src/routes";
+var ROUTES_DIR$1 = "src/routes";
 var MIN_SVELTE_MAJOR = 5;
 var MIN_KIT_MAJOR = 2;
 function leadingMajor(range) {
@@ -70610,75 +71693,89 @@ async function checkVersionFloor(rt, cwd) {
   const warnings2 = [];
   const svelteRange = pkg.dependencies?.svelte ?? pkg.devDependencies?.svelte;
   const svelteMajor = leadingMajor(svelteRange);
-  if (svelteMajor !== void 0 && svelteMajor < MIN_SVELTE_MAJOR) {
-    warnings2.push(
-      `this project declares svelte "${svelteRange}", but rules assume Svelte ${MIN_SVELTE_MAJOR}+ (runes) \u2014 findings may miss the legacy (export let / $:) equivalent of runes-only checks.`
-    );
-  }
+  if (svelteMajor !== void 0 && svelteMajor < MIN_SVELTE_MAJOR) warnings2.push(`this project declares svelte "${svelteRange}", but rules assume Svelte ${MIN_SVELTE_MAJOR}+ (runes) \u2014 findings may miss the legacy (export let / $:) equivalent of runes-only checks.`);
   const kitRange = pkg.dependencies?.["@sveltejs/kit"] ?? pkg.devDependencies?.["@sveltejs/kit"];
   const kitMajor = leadingMajor(kitRange);
-  if (kitMajor !== void 0 && kitMajor < MIN_KIT_MAJOR) {
-    warnings2.push(
-      `this project declares @sveltejs/kit "${kitRange}", but rules assume SvelteKit ${MIN_KIT_MAJOR}+ \u2014 some checks may not apply.`
-    );
-  }
+  if (kitMajor !== void 0 && kitMajor < MIN_KIT_MAJOR) warnings2.push(`this project declares @sveltejs/kit "${kitRange}", but rules assume SvelteKit ${MIN_KIT_MAJOR}+ \u2014 some checks may not apply.`);
   return warnings2;
 }
 async function detectProject(rt, cwd) {
   const pkgPath = rt.join(cwd, "package.json");
   let hasKitDep = false;
-  if (await rt.exists(pkgPath)) {
-    try {
-      const pkg = JSON.parse(await rt.readFile(pkgPath));
-      hasKitDep = Boolean(pkg.dependencies?.["@sveltejs/kit"] ?? pkg.devDependencies?.["@sveltejs/kit"]);
-    } catch {
-    }
+  if (await rt.exists(pkgPath)) try {
+    const pkg = JSON.parse(await rt.readFile(pkgPath));
+    hasKitDep = Boolean(pkg.dependencies?.["@sveltejs/kit"] ?? pkg.devDependencies?.["@sveltejs/kit"]);
+  } catch {
   }
   const hasConfig = await rt.exists(rt.join(cwd, "svelte.config.js")) || await rt.exists(rt.join(cwd, "svelte.config.ts"));
-  const hasRoutes = await rt.exists(rt.join(cwd, ROUTES_DIR2));
+  const hasRoutes = await rt.exists(rt.join(cwd, ROUTES_DIR$1));
   if (hasKitDep || hasConfig && hasRoutes) return;
-  throw new ProjectError(
-    "No SvelteKit project found in the current directory. Run this inside a SvelteKit app, or pass a path (e.g. npx svelte-vitals apps/web). See `svelte-vitals docs show monorepo` for how the app is resolved."
-  );
+  throw new ProjectError("No SvelteKit project found in the current directory. Run this inside a SvelteKit app, or pass a path (e.g. npx svelte-vitals apps/web). See `svelte-vitals docs show monorepo` for how the app is resolved.");
 }
 async function enumerateRoutePages(rt, cwd) {
-  const [plain, breakout] = await Promise.all([
-    rt.glob(`${ROUTES_DIR2}/**/+page.svelte`, cwd),
-    rt.glob(`${ROUTES_DIR2}/**/+page@*.svelte`, cwd)
-  ]);
+  const [plain, breakout] = await Promise.all([rt.glob(`${ROUTES_DIR$1}/**/+page.svelte`, cwd), rt.glob(`${ROUTES_DIR$1}/**/+page@*.svelte`, cwd)]);
   return [.../* @__PURE__ */ new Set([...plain, ...breakout])].sort();
 }
 async function existsAny(rt, cwd, paths) {
-  const found = await Promise.all(paths.map((p2) => rt.exists(rt.join(cwd, p2))));
-  return found.some(Boolean);
+  return (await Promise.all(paths.map((p2) => rt.exists(rt.join(cwd, p2))))).some(Boolean);
 }
 function detectHtmlLang(html) {
   const match = /<html[^>]*\slang\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))/i.exec(html);
-  if (!match) return { presence: "none", value: "absent" };
-  const value = match[1] ?? match[2] ?? match[3] ?? "";
-  return { presence: "own", value: value.trim().length > 0 ? "static" : "absent" };
+  if (!match) return {
+    presence: "none",
+    value: "absent"
+  };
+  return {
+    presence: "own",
+    value: (match[1] ?? match[2] ?? match[3] ?? "").trim().length > 0 ? "static" : "absent"
+  };
+}
+function detectAppHtmlBodyTags(html) {
+  let markup = html.replace(/<!--[\s\S]*?-->/g, "").replace(/<script[\s\S]*?<\/script\s*>/gi, "").replace(/<style[\s\S]*?<\/style\s*>/gi, "");
+  const innermost = /<template\b[^>]*>(?:(?!<template\b)[\s\S])*?<\/template\s*>/gi;
+  for (let prev = ""; prev !== markup; ) {
+    prev = markup;
+    markup = markup.replace(innermost, "\0");
+  }
+  markup = markup.replaceAll("\0", "<template></template>");
+  const body = /<body\b[^>]*>([\s\S]*?)(?:<\/body\s*>|$)/i.exec(markup)?.[1];
+  if (body === void 0) return [];
+  return [...new Set([...body.matchAll(/<([a-zA-Z][a-zA-Z0-9-]*)\b/g)].map((m) => m[1].toLowerCase()))];
 }
 function detectAppHtmlIds(html) {
-  const markup = html.replace(/<!--[\s\S]*?-->/g, "").replace(/<script[\s\S]*?<\/script\s*>/gi, "").replace(/<style[\s\S]*?<\/style\s*>/gi, "");
+  const keepNewlines = (m) => m.replace(/[^\n]/g, "");
+  const markup = html.replace(/<!--[\s\S]*?-->/g, keepNewlines).replace(/<script[\s\S]*?<\/script\s*>/gi, keepNewlines).replace(/<style[\s\S]*?<\/style\s*>/gi, keepNewlines);
   const found = markup.matchAll(/(?<![\w-])id\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>{][^\s"'>]*))/gi);
-  return [...new Set([...found].map((m) => m[1] ?? m[2] ?? m[3] ?? "").filter(Boolean))];
+  const out = /* @__PURE__ */ new Map();
+  for (const m of found) {
+    const id2 = m[1] ?? m[2] ?? m[3] ?? "";
+    if (id2 && !out.has(id2)) out.set(id2, lineOf(markup, m.index));
+  }
+  return [...out].map(([id2, line]) => ({
+    id: id2,
+    line
+  }));
 }
 async function detectAppHtmlFacts(rt, cwd) {
   const appHtmlPath = rt.join(cwd, "src/app.html");
-  if (!await rt.exists(appHtmlPath)) return { htmlLang: { presence: "none", value: "absent" } };
+  if (!await rt.exists(appHtmlPath)) return { htmlLang: {
+    presence: "none",
+    value: "absent"
+  } };
   let content;
   try {
     content = await rt.readFile(appHtmlPath);
   } catch {
-    return { htmlLang: { presence: "none", value: "absent" } };
+    return { htmlLang: {
+      presence: "none",
+      value: "absent"
+    } };
   }
   return {
     htmlLang: detectHtmlLang(content),
-    // Comments are stripped first, then a simple anchored match — a starred group over a lazy
-    // [\s\S]*? is ambiguous across iterations and backtracks exponentially on a comment run
-    // with no doctype (measured: ~45 leading comments hang the process).
     appHtmlDoctype: /^\s*<!doctype\s+html/i.test(content.replace(/<!--[\s\S]*?-->/g, "")),
-    appHtmlIds: detectAppHtmlIds(content)
+    appHtmlIds: detectAppHtmlIds(content),
+    appHtmlBodyTags: detectAppHtmlBodyTags(content)
   };
 }
 async function robotsRefsSitemap(rt, cwd) {
@@ -70687,7 +71784,7 @@ async function robotsRefsSitemap(rt, cwd) {
   try {
     return /^\s*sitemap:/im.test(await rt.readFile(p2));
   } catch {
-    return void 0;
+    return;
   }
 }
 async function detectViteMinifyDisabled(rt, cwd) {
@@ -70695,10 +71792,15 @@ async function detectViteMinifyDisabled(rt, cwd) {
   const file = VITE_CONFIG_FILES[exists2.indexOf(true)];
   if (!file) return void 0;
   try {
-    const hit = findMinifyDisabled(await rt.readFile(rt.join(cwd, file)));
-    return hit ? { file, line: hit.line } : void 0;
+    const source2 = await rt.readFile(rt.join(cwd, file));
+    const hit = findMinifyDisabled(source2);
+    return hit ? {
+      file,
+      line: hit.line,
+      suppressions: collectSuppressions(source2)
+    } : void 0;
   } catch {
-    return void 0;
+    return;
   }
 }
 async function readFirstConfig(rt, cwd, files) {
@@ -70706,18 +71808,17 @@ async function readFirstConfig(rt, cwd, files) {
     const path = rt.join(cwd, file);
     if (!await rt.exists(path)) continue;
     try {
-      return { file, source: await rt.readFile(path) };
+      return {
+        file,
+        source: await rt.readFile(path)
+      };
     } catch {
-      return void 0;
+      return;
     }
   }
-  return void 0;
 }
 async function detectKitConfigFacts(rt, cwd) {
-  const [viteConfig, svelteConfig] = await Promise.all([
-    readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
-    readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES)
-  ]);
+  const [viteConfig, svelteConfig] = await Promise.all([readFirstConfig(rt, cwd, VITE_CONFIG_FILES), readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES)]);
   const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
   const kitAliases = resolveKitAliases(viteConfig, svelteConfig);
   return {
@@ -70752,9 +71853,15 @@ function exprValue(node) {
   return "dynamic";
 }
 function resolveMetaObject(attr, keyMap) {
-  if (!attr) return { tags: [], opaque: false };
+  if (!attr) return {
+    tags: [],
+    opaque: false
+  };
   const expr = attr.value !== true && !Array.isArray(attr.value) ? attr.value.expression : void 0;
-  if (!expr || expr.type !== "ObjectExpression") return { tags: [], opaque: true };
+  if (!expr || expr.type !== "ObjectExpression") return {
+    tags: [],
+    opaque: true
+  };
   const tags = [];
   let opaque = false;
   for (const prop2 of expr.properties) {
@@ -70766,20 +71873,51 @@ function resolveMetaObject(attr, keyMap) {
     const make = typeof key2 === "string" ? keyMap[key2] : void 0;
     if (make) tags.push(make(exprValue(prop2.value)));
   }
-  return { tags, opaque };
+  return {
+    tags,
+    opaque
+  };
 }
 var OPEN_GRAPH_KEYS = {
-  title: (value) => ({ kind: "meta", property: "og:title", value }),
-  description: (value) => ({ kind: "meta", property: "og:description", value }),
-  url: (value) => ({ kind: "meta", property: "og:url", value }),
-  images: (value) => ({ kind: "meta", property: "og:image", value }),
-  type: (value) => ({ kind: "meta", property: "og:type", value })
+  title: (value) => ({
+    kind: "meta",
+    property: "og:title",
+    value
+  }),
+  description: (value) => ({
+    kind: "meta",
+    property: "og:description",
+    value
+  }),
+  url: (value) => ({
+    kind: "meta",
+    property: "og:url",
+    value
+  }),
+  images: (value) => ({
+    kind: "meta",
+    property: "og:image",
+    value
+  }),
+  type: (value) => ({
+    kind: "meta",
+    property: "og:type",
+    value
+  })
 };
 var TWITTER_KEYS = {
-  cardType: (value) => ({ kind: "meta", name: "twitter:card", value }),
-  card: (value) => ({ kind: "meta", name: "twitter:card", value })
+  cardType: (value) => ({
+    kind: "meta",
+    name: "twitter:card",
+    value
+  }),
+  card: (value) => ({
+    kind: "meta",
+    name: "twitter:card",
+    value
+  })
 };
-function findAttr2(attributes, name) {
+function findAttr$2(attributes, name) {
   return attributes.find((a2) => a2.type === "Attribute" && a2.name === name);
 }
 var svelteMetaTagsAdapter = {
@@ -70791,29 +71929,48 @@ var svelteMetaTagsAdapter = {
   resolve(use) {
     const tags = [];
     const attrs = use.attributes;
-    const titleAttr = findAttr2(attrs, "title");
-    const templateAttr = findAttr2(attrs, "titleTemplate");
+    const titleAttr = findAttr$2(attrs, "title");
+    const templateAttr = findAttr$2(attrs, "titleTemplate");
     const title = titleAttr ?? templateAttr;
     if (title) {
       const value = attrValueOf(title);
       const text2 = titleAttr && !templateAttr && value === "static" ? attrTextOf(titleAttr) : void 0;
-      tags.push({ kind: "title", value, ...text2 !== void 0 ? { text: text2 } : {} });
+      tags.push({
+        kind: "title",
+        value,
+        ...text2 !== void 0 ? { text: text2 } : {}
+      });
     }
-    const description = findAttr2(attrs, "description");
+    const description = findAttr$2(attrs, "description");
     if (description) {
       const value = attrValueOf(description);
       const text2 = value === "static" ? attrTextOf(description) : void 0;
-      tags.push({ kind: "meta", name: "description", value, ...text2 !== void 0 ? { text: text2 } : {} });
+      tags.push({
+        kind: "meta",
+        name: "description",
+        value,
+        ...text2 !== void 0 ? { text: text2 } : {}
+      });
     }
-    const canonical = findAttr2(attrs, "canonical");
-    if (canonical) tags.push({ kind: "link", rel: "canonical", value: attrValueOf(canonical) });
-    const robots = findAttr2(attrs, "robots");
-    if (robots) tags.push({ kind: "meta", name: "robots", value: attrValueOf(robots) });
-    const og = resolveMetaObject(findAttr2(attrs, "openGraph"), OPEN_GRAPH_KEYS);
-    const tw = resolveMetaObject(findAttr2(attrs, "twitter"), TWITTER_KEYS);
+    const canonical = findAttr$2(attrs, "canonical");
+    if (canonical) tags.push({
+      kind: "link",
+      rel: "canonical",
+      value: attrValueOf(canonical)
+    });
+    const robots = findAttr$2(attrs, "robots");
+    if (robots) tags.push({
+      kind: "meta",
+      name: "robots",
+      value: attrValueOf(robots)
+    });
+    const og = resolveMetaObject(findAttr$2(attrs, "openGraph"), OPEN_GRAPH_KEYS);
+    const tw = resolveMetaObject(findAttr$2(attrs, "twitter"), TWITTER_KEYS);
     tags.push(...og.tags, ...tw.tags);
-    const broad = use.hasSpread || og.opaque || tw.opaque;
-    return { tags, broad };
+    return {
+      tags,
+      broad: use.hasSpread || og.opaque || tw.opaque
+    };
   }
 };
 var svelteMetaTagsJsonLdAdapter = {
@@ -70823,42 +71980,65 @@ var svelteMetaTagsJsonLdAdapter = {
     return false;
   },
   resolve() {
-    const tags = [{ kind: "jsonld", value: "dynamic" }];
-    return { tags, broad: false };
+    return {
+      tags: [{
+        kind: "jsonld",
+        value: "dynamic"
+      }],
+      broad: false
+    };
   }
 };
-function findAttr22(attributes, name) {
+function findAttr$1(attributes, name) {
   return attributes.find((a2) => a2.type === "Attribute" && a2.name === name);
 }
-var svelteSeoAdapter = {
-  match(info2) {
-    return info2.source === "svelte-seo" && info2.imported === "default";
-  },
-  resolve(use) {
-    const tags = [];
-    const attrs = use.attributes;
-    const title = findAttr22(attrs, "title");
-    if (title) {
-      const value = attrValueOf(title);
-      const text2 = value === "static" ? attrTextOf(title) : void 0;
-      tags.push({ kind: "title", value, ...text2 !== void 0 ? { text: text2 } : {} });
+var builtinAdapters = [
+  svelteMetaTagsAdapter,
+  svelteMetaTagsJsonLdAdapter,
+  {
+    match(info2) {
+      return info2.source === "svelte-seo" && info2.imported === "default";
+    },
+    resolve(use) {
+      const tags = [];
+      const attrs = use.attributes;
+      const title = findAttr$1(attrs, "title");
+      if (title) {
+        const value = attrValueOf(title);
+        const text2 = value === "static" ? attrTextOf(title) : void 0;
+        tags.push({
+          kind: "title",
+          value,
+          ...text2 !== void 0 ? { text: text2 } : {}
+        });
+      }
+      const description = findAttr$1(attrs, "description");
+      if (description) {
+        const value = attrValueOf(description);
+        const text2 = value === "static" ? attrTextOf(description) : void 0;
+        tags.push({
+          kind: "meta",
+          name: "description",
+          value,
+          ...text2 !== void 0 ? { text: text2 } : {}
+        });
+      }
+      const canonical = findAttr$1(attrs, "canonical");
+      if (canonical) tags.push({
+        kind: "link",
+        rel: "canonical",
+        value: attrValueOf(canonical)
+      });
+      const og = resolveMetaObject(findAttr$1(attrs, "openGraph"), OPEN_GRAPH_KEYS);
+      const tw = resolveMetaObject(findAttr$1(attrs, "twitter"), TWITTER_KEYS);
+      tags.push(...og.tags, ...tw.tags);
+      return {
+        tags,
+        broad: use.hasSpread || og.opaque || tw.opaque
+      };
     }
-    const description = findAttr22(attrs, "description");
-    if (description) {
-      const value = attrValueOf(description);
-      const text2 = value === "static" ? attrTextOf(description) : void 0;
-      tags.push({ kind: "meta", name: "description", value, ...text2 !== void 0 ? { text: text2 } : {} });
-    }
-    const canonical = findAttr22(attrs, "canonical");
-    if (canonical) tags.push({ kind: "link", rel: "canonical", value: attrValueOf(canonical) });
-    const og = resolveMetaObject(findAttr22(attrs, "openGraph"), OPEN_GRAPH_KEYS);
-    const tw = resolveMetaObject(findAttr22(attrs, "twitter"), TWITTER_KEYS);
-    tags.push(...og.tags, ...tw.tags);
-    const broad = use.hasSpread || og.opaque || tw.opaque;
-    return { tags, broad };
   }
-};
-var builtinAdapters = [svelteMetaTagsAdapter, svelteMetaTagsJsonLdAdapter, svelteSeoAdapter];
+];
 function findAdapter(info2) {
   return builtinAdapters.find((adapter) => adapter.match(info2));
 }
@@ -70869,11 +72049,16 @@ function addImportsFromProgram(program, map) {
     for (const spec of node.specifiers) {
       const local = spec.local?.name;
       if (!local) continue;
-      if (spec.type === "ImportDefaultSpecifier") {
-        map.set(local, { source: source2, imported: "default" });
-      } else if (spec.type === "ImportSpecifier") {
+      if (spec.type === "ImportDefaultSpecifier") map.set(local, {
+        source: source2,
+        imported: "default"
+      });
+      else if (spec.type === "ImportSpecifier") {
         const imported = spec.imported.type === "Identifier" ? spec.imported.name : spec.imported.value;
-        map.set(local, { source: source2, imported: typeof imported === "string" ? imported : local });
+        map.set(local, {
+          source: source2,
+          imported: typeof imported === "string" ? imported : local
+        });
       }
     }
   }
@@ -70894,9 +72079,7 @@ function collectSvelteHeads(node, acc) {
   }
   if (!node || typeof node !== "object") return;
   if (node.type === "SvelteHead") acc.push(node);
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectSvelteHeads(childOf(node, key2), acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectSvelteHeads(childOf(node, key2), acc);
 }
 var JS_MIME_TYPES = /* @__PURE__ */ new Set([
   "application/ecmascript",
@@ -70928,7 +72111,11 @@ function tagsFromHead(head) {
     if (node.type === "TitleElement") {
       const titleNodes = node.fragment.nodes;
       const text2 = textFromNodes(titleNodes);
-      tags.push({ kind: "title", value: valueFromNodes(titleNodes), ...text2 !== void 0 ? { text: text2 } : {} });
+      tags.push({
+        kind: "title",
+        value: valueFromNodes(titleNodes),
+        ...text2 !== void 0 ? { text: text2 } : {}
+      });
       continue;
     }
     if (node.type !== "RegularElement") continue;
@@ -70936,7 +72123,11 @@ function tagsFromHead(head) {
     if (node.name === "meta") {
       const charset = attrValue(attributes, "charset");
       if (charset !== "absent") {
-        tags.push({ kind: "meta", name: "charset", value: charset });
+        tags.push({
+          kind: "meta",
+          name: "charset",
+          value: charset
+        });
         continue;
       }
       const name = attrText(attributes, "name");
@@ -70967,7 +72158,6 @@ function tagsFromHead(head) {
         ...hasAs ? { hasAs: true } : {},
         ...asLiteral ? { as: asLiteral } : {},
         ...hasCrossorigin ? { hasCrossorigin: true } : {},
-        // Keep a literal empty hreflang="" (present-but-invalid) so seo/hreflang can flag it.
         ...hreflang !== void 0 ? { hreflang } : {},
         ...href ? { href } : {}
       });
@@ -70976,12 +72166,21 @@ function tagsFromHead(head) {
       if (type === "application/ld+json") {
         const nodes = node.fragment.nodes;
         const raw = textFromNodes(nodes);
-        tags.push({ kind: "jsonld", value: valueFromNodes(nodes), ...raw !== void 0 ? { jsonld: raw } : {} });
+        tags.push({
+          kind: "jsonld",
+          value: valueFromNodes(nodes),
+          ...raw !== void 0 ? { jsonld: raw } : {}
+        });
       } else {
         const src = attrText(attributes, "src");
         if (src) {
           const blocking = isClassicScriptType(type) && findAttr(attributes, "defer") === void 0 && findAttr(attributes, "async") === void 0;
-          tags.push({ kind: "script", value: "static", href: src, ...blocking ? { blocking: true } : {} });
+          tags.push({
+            kind: "script",
+            value: "static",
+            href: src,
+            ...blocking ? { blocking: true } : {}
+          });
         }
       }
     }
@@ -71002,9 +72201,7 @@ function collectComponents(node, acc) {
       hasSpread: attributes.some((a2) => a2.type === "SpreadAttribute")
     });
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectComponents(childOf(node, key2), acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectComponents(childOf(node, key2), acc);
 }
 function collectImages(node, source2, acc) {
   if (Array.isArray(node)) {
@@ -71020,15 +72217,12 @@ function collectImages(node, source2, acc) {
       hasHeight: hasSpread || Boolean(findAttr(attrs, "height")),
       hasLoading: hasSpread || Boolean(findAttr(attrs, "loading")),
       hasAlt: hasSpread || Boolean(findAttr(attrs, "alt")),
-      // A literal loading="lazy" only — a spread or dynamic loading={…} must not be flagged.
       lazy: attrText(attrs, "loading") === "lazy",
       hasSrcset: hasSpread || Boolean(findAttr(attrs, "srcset")),
       line: lineOf(source2, node.start)
     });
   }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectImages(childOf(node, key2), source2, acc);
-  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectImages(childOf(node, key2), source2, acc);
 }
 function collectHeadings(node, source2, acc) {
   if (Array.isArray(node)) {
@@ -71037,15 +72231,23 @@ function collectHeadings(node, source2, acc) {
   }
   if (!node || typeof node !== "object") return;
   if (node.type === "SvelteHead") return;
-  if (node.type === "RegularElement" && /^h[1-6]$/.test(node.name)) {
-    acc.push({ level: Number(node.name[1]), line: lineOf(source2, node.start) });
-  }
-  for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectHeadings(childOf(node, key2), source2, acc);
-  }
+  if (node.type === "RegularElement" && /^h[1-6]$/.test(node.name)) acc.push({
+    level: Number(node.name[1]),
+    line: lineOf(source2, node.start)
+  });
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectHeadings(childOf(node, key2), source2, acc);
 }
-var LANDMARK_TAGS = { main: "main", header: "banner", footer: "contentinfo" };
-var ASIDE_DEMOTING_TAGS = /* @__PURE__ */ new Set(["article", "aside", "nav", "section"]);
+var LANDMARK_TAGS = {
+  main: "main",
+  header: "banner",
+  footer: "contentinfo"
+};
+var ASIDE_DEMOTING_TAGS = /* @__PURE__ */ new Set([
+  "article",
+  "aside",
+  "nav",
+  "section"
+]);
 function hasAccessibleName(attrs) {
   return ["aria-label", "aria-labelledby"].some((name) => {
     const attr = findAttr(attrs, name);
@@ -71059,16 +72261,26 @@ function collectA11y(fragment2, source2) {
   const nodes = [];
   let groups = 0;
   let slotInLandmark;
-  let unknowableContent = false;
+  const unknowable = [];
+  const elementTags = /* @__PURE__ */ new Set();
+  let elementsUnknowable = false;
   const emit = (ctx, node) => {
     const inLandmark = ctx.landmarks.at(-1);
-    nodes.push({ ...node, repeatable: ctx.repeatable, path: ctx.path, ...inLandmark ? { inLandmark } : {} });
+    nodes.push({
+      ...node,
+      repeatable: ctx.repeatable,
+      path: ctx.path,
+      ...inLandmark ? { inLandmark } : {}
+    });
   };
   const noteSpread = (node) => {
     const attributes = node.attributes;
-    if (Array.isArray(attributes) && attributes.some((a2) => a2.type === "SpreadAttribute")) {
-      unknowableContent = true;
-    }
+    if (!Array.isArray(attributes)) return;
+    const spread2 = attributes.find((a2) => a2.type === "SpreadAttribute");
+    if (spread2) unknowable.push({
+      kind: "spread",
+      line: lineOf(source2, spread2.start)
+    });
   };
   const walk2 = (node, ctx) => {
     if (Array.isArray(node)) {
@@ -71079,39 +72291,73 @@ function collectA11y(fragment2, source2) {
     switch (node.type) {
       case "SvelteHead":
         return;
-      // head content never renders into the body
       case "HtmlTag":
-        unknowableContent = true;
+        unknowable.push({
+          kind: "html",
+          line: lineOf(source2, node.start)
+        });
+        elementsUnknowable = true;
         return;
       case "IfBlock":
         walkIfChain(node, ctx, groups++, 0);
         return;
       case "AwaitBlock": {
         const group = groups++;
-        walk2(node.pending, { ...ctx, path: [...ctx.path, { group, branch: 0 }] });
-        walk2(node.then, { ...ctx, path: [...ctx.path, { group, branch: 1 }] });
-        walk2(node.catch, { ...ctx, path: [...ctx.path, { group, branch: 2 }] });
+        walk2(node.pending, {
+          ...ctx,
+          path: [...ctx.path, {
+            group,
+            branch: 0
+          }]
+        });
+        walk2(node.then, {
+          ...ctx,
+          path: [...ctx.path, {
+            group,
+            branch: 1
+          }]
+        });
+        walk2(node.catch, {
+          ...ctx,
+          path: [...ctx.path, {
+            group,
+            branch: 2
+          }]
+        });
         return;
       }
       case "EachBlock":
-        walk2(node.body, { ...ctx, repeatable: true });
+        walk2(node.body, {
+          ...ctx,
+          repeatable: true
+        });
         walk2(node.fallback, ctx);
         return;
       case "SnippetBlock":
-        walk2(node.body, { ...ctx, repeatable: true });
+        walk2(node.body, {
+          ...ctx,
+          repeatable: true
+        });
         return;
-      // <svelte:element> has a dynamic tag (so no tag-derived landmark) but its literal id/idref
-      // attributes are real — dropping them would make no-missing-id-ref report phantom misses.
       case "RegularElement":
       case "SvelteElement":
+        if (node.type === "SvelteElement") elementsUnknowable = true;
+        else elementTags.add(node.name.toLowerCase());
         walkElement(node, ctx);
         return;
       case "Component":
       case "SvelteComponent":
       case "SvelteSelf":
         noteSpread(node);
-        emit(ctx, { kind: "component", key: node.name, line: lineOf(source2, node.start) });
-        walk2(node.fragment, { ...ctx, elementDepth: ctx.elementDepth + 1 });
+        emit(ctx, {
+          kind: "component",
+          key: node.name,
+          line: lineOf(source2, node.start)
+        });
+        walk2(node.fragment, {
+          ...ctx,
+          elementDepth: ctx.elementDepth + 1
+        });
         return;
       case "SlotElement":
         noteSpread(node);
@@ -71123,18 +72369,28 @@ function collectA11y(fragment2, source2) {
         return;
       default:
         noteSpread(node);
-        for (const key2 of CHILD_NODE_KEYS) {
-          if (key2 in node) walk2(childOf(node, key2), ctx);
-        }
+        for (const key2 of CHILD_NODE_KEYS) if (key2 in node) walk2(childOf(node, key2), ctx);
     }
   };
   const walkIfChain = (node, ctx, group, branch) => {
-    walk2(node.consequent, { ...ctx, path: [...ctx.path, { group, branch }] });
+    walk2(node.consequent, {
+      ...ctx,
+      path: [...ctx.path, {
+        group,
+        branch
+      }]
+    });
     if (!node.alternate) return;
     const rest2 = node.alternate.nodes.filter((n2) => n2.type !== "Text" || n2.data.trim() !== "");
     const chained = rest2.length === 1 && rest2[0].type === "IfBlock" && rest2[0].elseif ? rest2[0] : void 0;
     if (chained) walkIfChain(chained, ctx, group, branch + 1);
-    else walk2(node.alternate, { ...ctx, path: [...ctx.path, { group, branch: branch + 1 }] });
+    else walk2(node.alternate, {
+      ...ctx,
+      path: [...ctx.path, {
+        group,
+        branch: branch + 1
+      }]
+    });
   };
   const walkElement = (node, ctx) => {
     noteSpread(node);
@@ -71143,9 +72399,7 @@ function collectA11y(fragment2, source2) {
     const roleAttr = findAttr(attrs, "role");
     const role = roleAttr ? splitTokens(attrTextOf(roleAttr))[0] : void 0;
     let landmark = roleAttr ? role && LANDMARK_ROLES.has(role) ? role : void 0 : LANDMARK_TAGS[node.name];
-    if (!roleAttr && node.name === "aside") {
-      landmark = ctx.asideDemoting === 0 || hasAccessibleName(attrs) ? "complementary" : void 0;
-    }
+    if (!roleAttr && node.name === "aside") landmark = ctx.asideDemoting === 0 || hasAccessibleName(attrs) ? "complementary" : void 0;
     if (landmark) {
       const headerFooter = !roleAttr && (node.name === "header" || node.name === "footer");
       emit(ctx, {
@@ -71159,19 +72413,31 @@ function collectA11y(fragment2, source2) {
       if (attr.type !== "Attribute") continue;
       if (attr.name === "id") {
         const v = attrValueOf(attr);
-        if (v === "dynamic") emit(ctx, { kind: "id", key: "", line });
-        else if (v === "static") emit(ctx, { kind: "id", key: attrTextOf(attr), line });
+        if (v === "dynamic") emit(ctx, {
+          kind: "id",
+          key: "",
+          line
+        });
+        else if (v === "static") emit(ctx, {
+          kind: "id",
+          key: attrTextOf(attr),
+          line
+        });
       } else if (attr.name === "href") {
         const href = attrTextOf(attr);
-        const fragment22 = href?.startsWith("#") ? stripTextDirective(href.slice(1)) : "";
-        if (fragment22) {
-          emit(ctx, { kind: "idref", key: decodeFragmentId(fragment22), line, attr: "href" });
-        }
-      } else if (IDREF_ATTR_SET.has(attr.name)) {
-        for (const token of splitTokens(attrTextOf(attr))) {
-          emit(ctx, { kind: "idref", key: token, line, attr: attr.name });
-        }
-      }
+        const fragment3 = href?.startsWith("#") ? stripTextDirective(href.slice(1)) : "";
+        if (fragment3) emit(ctx, {
+          kind: "idref",
+          key: decodeFragmentId(fragment3),
+          line,
+          attr: "href"
+        });
+      } else if (IDREF_ATTR_SET.has(attr.name)) for (const token of splitTokens(attrTextOf(attr))) emit(ctx, {
+        kind: "idref",
+        key: token,
+        line,
+        attr: attr.name
+      });
     }
     const literalTag = node.type === "SvelteElement" ? node.tag.type === "Literal" && typeof node.tag.value === "string" ? node.tag.value : void 0 : node.name;
     if (literalTag === "template") return;
@@ -71182,8 +72448,20 @@ function collectA11y(fragment2, source2) {
       landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
     });
   };
-  walk2(fragment2, { path: [], repeatable: false, landmarks: [], elementDepth: 0, asideDemoting: 0 });
-  return { nodes, ...slotInLandmark ? { slotInLandmark } : {}, unknowableContent };
+  walk2(fragment2, {
+    path: [],
+    repeatable: false,
+    landmarks: [],
+    elementDepth: 0,
+    asideDemoting: 0
+  });
+  return {
+    nodes,
+    ...slotInLandmark ? { slotInLandmark } : {},
+    unknowable,
+    elementTags: [...elementTags],
+    elementsUnknowable
+  };
 }
 function isChildrenRender(node) {
   const call2 = node.expression.type === "ChainExpression" ? node.expression.expression : node.expression;
@@ -71205,7 +72483,8 @@ function parseFile(source2, filename2) {
     imports: collectImports(ast),
     images,
     headings,
-    a11y: collectA11y(ast.fragment, source2)
+    a11y: collectA11y(ast.fragment, source2),
+    suppressions: collectSuppressions(source2)
   };
 }
 function readAndParse(rt, cwd, rel, cache) {
@@ -71217,17 +72496,50 @@ function readAndParse(rt, cwd, rel, cache) {
   return hit;
 }
 var BROAD_KINDS = [
-  { kind: "title", value: "dynamic" },
-  { kind: "meta", name: "description", value: "dynamic" },
-  { kind: "link", rel: "canonical", value: "dynamic" },
-  { kind: "meta", property: "og:title", value: "dynamic" },
-  { kind: "meta", property: "og:description", value: "dynamic" },
-  { kind: "meta", property: "og:image", value: "dynamic" },
-  { kind: "meta", property: "og:url", value: "dynamic" },
-  { kind: "meta", name: "twitter:card", value: "dynamic" },
-  { kind: "meta", name: "robots", value: "dynamic" }
-  // jsonld is intentionally omitted: structured data is a distinct concern, not a
-  // meta-tag family a broad meta source implies (JsonLd has its own adapter).
+  {
+    kind: "title",
+    value: "dynamic"
+  },
+  {
+    kind: "meta",
+    name: "description",
+    value: "dynamic"
+  },
+  {
+    kind: "link",
+    rel: "canonical",
+    value: "dynamic"
+  },
+  {
+    kind: "meta",
+    property: "og:title",
+    value: "dynamic"
+  },
+  {
+    kind: "meta",
+    property: "og:description",
+    value: "dynamic"
+  },
+  {
+    kind: "meta",
+    property: "og:image",
+    value: "dynamic"
+  },
+  {
+    kind: "meta",
+    property: "og:url",
+    value: "dynamic"
+  },
+  {
+    kind: "meta",
+    name: "twitter:card",
+    value: "dynamic"
+  },
+  {
+    kind: "meta",
+    name: "robots",
+    value: "dynamic"
+  }
 ];
 function tagKey(tag2) {
   switch (tag2.kind) {
@@ -71259,13 +72571,9 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
     const info2 = parsed.imports.get(use.name);
     const adapter = info2 ? findAdapter(info2) : void 0;
     if (adapter) {
-      const result3 = adapter.resolve(use);
-      tags.push(...result3.tags);
-      broad = broad || result3.broad;
-      continue;
-    }
-    if (config.metaComponents.includes(use.name)) {
-      broad = true;
+      const result2 = adapter.resolve(use);
+      tags.push(...result2.tags);
+      broad = broad || result2.broad;
       continue;
     }
     const childRel = info2 ? resolveComponentPath(info2.source, fileRel, aliases) : void 0;
@@ -71274,27 +72582,29 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
       if (await rt.exists(abs)) {
         const childParsed = await readAndParse(rt, cwd, childRel, cache);
         const childVisited = new Set(visited).add(childRel);
-        const child = await resolveFileTags(
-          rt,
-          cwd,
-          childRel,
-          childParsed,
-          config,
-          depth - 1,
-          childVisited,
-          cache,
-          aliases
-        );
+        const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache, aliases);
         tags.push(...child.tags);
         broad = broad || child.broad;
-        for (const h2 of childParsed.headings) headings.push({ ...h2, file: childRel });
+        for (const h2 of childParsed.headings) headings.push({
+          ...h2,
+          file: childRel
+        });
         headings.push(...child.headings);
+        continue;
       }
     }
+    if (config.metaComponents.includes(use.name)) {
+      broad = true;
+      continue;
+    }
   }
-  return { tags, broad, headings };
+  return {
+    tags,
+    broad,
+    headings
+  };
 }
-var ROUTES_DIR22 = "src/routes";
+var ROUTES_DIR2 = "src/routes";
 var MAX_DEPTH = 5;
 function isGroupSegment(segment) {
   return /^\(.+\)$/.test(segment);
@@ -71304,11 +72614,11 @@ function dirOf(rel) {
   return i2 >= 0 ? rel.slice(0, i2) : "";
 }
 function dirSegments(dir) {
-  const extra = dir.slice(ROUTES_DIR22.length);
+  const extra = dir.slice(10);
   return extra.length === 0 ? [] : extra.split("/").filter(Boolean);
 }
 function dirKey(segs) {
-  return segs.length === 0 ? ROUTES_DIR22 : `${ROUTES_DIR22}/${segs.join("/")}`;
+  return segs.length === 0 ? ROUTES_DIR2 : `${ROUTES_DIR2}/${segs.join("/")}`;
 }
 function parseAt(rel) {
   const file = rel.slice(rel.lastIndexOf("/") + 1);
@@ -71319,19 +72629,14 @@ function atTarget(rel, dirSegs, strictAncestor = false) {
   const at2 = parseAt(rel);
   if (at2 === null) return null;
   if (at2 === "") return [];
-  const haystack = strictAncestor ? dirSegs.slice(0, -1) : dirSegs;
-  const i2 = haystack.lastIndexOf(at2);
+  const i2 = (strictAncestor ? dirSegs.slice(0, -1) : dirSegs).lastIndexOf(at2);
   return i2 >= 0 ? dirSegs.slice(0, i2 + 1) : null;
 }
 function deriveRoute(pageRel) {
-  const segments = dirSegments(dirOf(pageRel)).filter((s) => !isGroupSegment(s));
-  return "/" + segments.join("/");
+  return "/" + dirSegments(dirOf(pageRel)).filter((s) => !isGroupSegment(s)).join("/");
 }
 async function collectLayouts(rt, cwd) {
-  const [plain, breakout] = await Promise.all([
-    rt.glob(`${ROUTES_DIR22}/**/+layout.svelte`, cwd),
-    rt.glob(`${ROUTES_DIR22}/**/+layout@*.svelte`, cwd)
-  ]);
+  const [plain, breakout] = await Promise.all([rt.glob(`${ROUTES_DIR2}/**/+layout.svelte`, cwd), rt.glob(`${ROUTES_DIR2}/**/+layout@*.svelte`, cwd)]);
   const map = /* @__PURE__ */ new Map();
   for (const rel of [...plain, ...breakout]) map.set(dirOf(rel), rel);
   return map;
@@ -71339,7 +72644,10 @@ async function collectLayouts(rt, cwd) {
 function layoutAtOrAbove(segs, layouts) {
   for (let j2 = segs.length; j2 >= 0; j2--) {
     const rel = layouts.get(dirKey(segs.slice(0, j2)));
-    if (rel) return { segs: segs.slice(0, j2), rel };
+    if (rel) return {
+      segs: segs.slice(0, j2),
+      rel
+    };
   }
   return null;
 }
@@ -71357,41 +72665,77 @@ function chainFiles(pageRel, layouts) {
     dir = reset3 !== null && reset3.length < found.segs.length ? reset3 : found.segs.slice(0, -1);
     if (dir.length === 0 && found.segs.length === 0) dir = null;
   }
-  return [...chain.map((rel) => ({ rel, isPage: false })), { rel: pageRel, isPage: true }];
+  return [...chain.map((rel) => ({
+    rel,
+    isPage: false
+  })), {
+    rel: pageRel,
+    isPage: true
+  }];
 }
 function groupSpan(nodes) {
   let max = -1;
-  for (const node of nodes) {
-    for (const step of node.path) if (step.group > max) max = step.group;
-  }
+  for (const node of nodes) for (const step of node.path) if (step.group > max) max = step.group;
   return max + 1;
 }
+function dedupeCauses(causes) {
+  const seen = /* @__PURE__ */ new Map();
+  for (const c of causes) {
+    const key2 = `${c.kind}::${c.file}::${c.detail ?? ""}`;
+    if (!seen.has(key2)) seen.set(key2, c);
+  }
+  return [...seen.values()];
+}
 function offsetPath(path, base) {
-  return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
+  return base === 0 ? path : path.map((step) => ({
+    group: step.group + base,
+    branch: step.branch
+  }));
 }
 async function composeA11y(ctx, fileRel, parsed, depth, visited, chain) {
   const { rt, cwd, state } = ctx;
-  if (parsed.a11y.unknowableContent) state.fullyResolved = false;
+  if (parsed.a11y.unknowable.length > 0) {
+    state.fullyResolved = false;
+    for (const u2 of parsed.a11y.unknowable) state.causes.push({
+      ...u2,
+      file: fileRel
+    });
+  }
+  for (const t2 of parsed.a11y.elementTags) state.elementTags.add(t2);
+  if (parsed.a11y.elementsUnknowable) state.elementsClosed = false;
   const base = state.nextGroup;
   state.nextGroup += groupSpan(parsed.a11y.nodes);
   const composed = [];
   for (const node of parsed.a11y.nodes) {
     const path = offsetPath(node.path, base);
     if (node.kind !== "component") {
-      composed.push({ ...node, path, file: fileRel, chain });
+      composed.push({
+        ...node,
+        path,
+        file: fileRel,
+        chain
+      });
       continue;
     }
-    const info2 = ctx.config.metaComponents.includes(node.key) ? void 0 : parsed.imports.get(node.key);
+    const info2 = parsed.imports.get(node.key);
     const childRel = info2 ? resolveComponentPath(info2.source, fileRel, ctx.aliases) : void 0;
     if (!childRel || depth <= 0 || visited.has(childRel) || !await rt.exists(rt.join(cwd, childRel))) {
       state.fullyResolved = false;
+      state.causes.push({
+        kind: "component",
+        detail: node.key,
+        file: fileRel,
+        line: node.line
+      });
+      state.elementsClosed = false;
       continue;
     }
-    const childParsed = await readAndParse(rt, cwd, childRel, ctx.cache);
-    const child = await composeA11y(ctx, childRel, childParsed, depth - 1, new Set(visited).add(childRel), false);
-    for (const inner of child) {
-      composed.push({ ...inner, path: [...path, ...inner.path], repeatable: node.repeatable || inner.repeatable });
-    }
+    const child = await composeA11y(ctx, childRel, await readAndParse(rt, cwd, childRel, ctx.cache), depth - 1, new Set(visited).add(childRel), false);
+    for (const inner of child) composed.push({
+      ...inner,
+      path: [...path, ...inner.path],
+      repeatable: node.repeatable || inner.repeatable
+    });
   }
   return composed;
 }
@@ -71410,11 +72754,12 @@ function representativeOrder(chainOrder) {
 function representatives(nodes, chainOrder) {
   const folded = foldOccurrences(nodes);
   const order = representativeOrder(chainOrder);
-  return Object.fromEntries(
-    [...folded].map(([key2, list3]) => [key2, list3.sort(order).map(({ file, line }) => ({ file, line }))])
-  );
+  return Object.fromEntries([...folded].map(([key2, list3]) => [key2, list3.sort(order).map(({ file, line }) => ({
+    file,
+    line
+  }))]));
 }
-async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, appHtmlIds) {
+async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags) {
   const files = chainFiles(pageRel, layouts);
   const chainOrder = new Map(files.map((f, i2) => [f.rel, i2]));
   const composed = /* @__PURE__ */ new Map();
@@ -71424,7 +72769,19 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
   const images = [];
   const headings = [];
   const componentHeadings = [];
-  const a11yCtx = { rt, cwd, config, cache, aliases, state: { nextGroup: 0, fullyResolved: true } };
+  const a11yCtx = {
+    rt,
+    cwd,
+    cache,
+    aliases,
+    state: {
+      nextGroup: 0,
+      fullyResolved: true,
+      causes: [],
+      elementTags: new Set(appHtmlBodyTags ?? []),
+      elementsClosed: true
+    }
+  };
   const a11yNodes = [];
   const nestedLandmarks = [];
   let slotLandmark;
@@ -71434,65 +72791,109 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
     for (const node of contributed) {
       if (!node.chain || node.kind !== "landmark" || !countsAsLandmark(node) || node.repeatable) continue;
       const within = node.inLandmark ?? slotLandmark;
-      if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
+      if (within) nestedLandmarks.push({
+        kind: node.key,
+        within,
+        file: node.file,
+        line: node.line
+      });
     }
     slotLandmark = parsed.a11y.slotInLandmark ?? slotLandmark;
     a11yNodes.push(...contributed);
-    for (const img of parsed.images) {
-      images.push({ ...img, file: rel });
-    }
-    for (const heading of parsed.headings) {
-      headings.push({ ...heading, file: rel });
-    }
+    for (const img of parsed.images) images.push({
+      ...img,
+      file: rel
+    });
+    for (const heading of parsed.headings) headings.push({
+      ...heading,
+      file: rel
+    });
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, /* @__PURE__ */ new Set([rel]), cache, aliases);
     for (const tag2 of resolved.tags) {
-      const stamped = { ...tag2, presence: isPage ? "own" : "inherited", file: rel };
-      if (tag2.kind === "jsonld" || tag2.kind === "script" || tag2.kind === "link" && tag2.rel !== "canonical")
-        additiveTags.push(stamped);
+      const stamped = {
+        ...tag2,
+        presence: isPage ? "own" : "inherited",
+        file: rel
+      };
+      if (tag2.kind === "jsonld" || tag2.kind === "script" || tag2.kind === "link" && tag2.rel !== "canonical") additiveTags.push(stamped);
       else composed.set(tagKey(tag2), stamped);
     }
-    if (resolved.broad) {
-      if (isPage) broadOwn = true;
-      else broadInherited = true;
-    }
+    if (resolved.broad) if (isPage) broadOwn = true;
+    else broadInherited = true;
     componentHeadings.push(...resolved.headings);
   }
   if (broadOwn || broadInherited) {
     const presence = broadOwn ? "own" : "inherited";
     for (const tag2 of BROAD_KINDS) {
       const key2 = tagKey(tag2);
-      if (!composed.has(key2)) composed.set(key2, { ...tag2, presence });
+      if (!composed.has(key2)) composed.set(key2, {
+        ...tag2,
+        presence
+      });
     }
   }
   const idNodes = a11yNodes.filter((n2) => n2.kind === "id");
-  if (idNodes.some((n2) => n2.key === "")) a11yCtx.state.fullyResolved = false;
+  for (const n2 of idNodes) {
+    if (n2.key !== "") continue;
+    a11yCtx.state.fullyResolved = false;
+    a11yCtx.state.causes.push({
+      kind: "dynamic-id",
+      file: n2.file,
+      line: n2.line
+    });
+  }
   const literalIds = idNodes.filter((n2) => n2.key !== "");
+  const ids = representatives(literalIds, chainOrder);
+  if (appHtmlIds) {
+    const shell = new Map(appHtmlIds.map((s) => [s.id, s.line]));
+    for (const key2 of Object.keys(ids)) {
+      const line = shell.get(key2);
+      if (line !== void 0) ids[key2] = [{
+        file: "src/app.html",
+        line
+      }, ...ids[key2]];
+    }
+  }
   const route = deriveRoute(pageRel);
   return {
-    head: { route, source: "static", tags: [...composed.values(), ...additiveTags], file: pageRel },
-    images: { route, images },
-    headings: { route, headings, componentHeadings },
+    head: {
+      route,
+      source: "static",
+      tags: [...composed.values(), ...additiveTags],
+      file: pageRel
+    },
+    images: {
+      route,
+      images
+    },
+    headings: {
+      route,
+      headings,
+      componentHeadings
+    },
     a11y: {
       route,
-      landmarks: representatives(
-        a11yNodes.filter((n2) => n2.kind === "landmark" && countsAsLandmark(n2)),
-        chainOrder
-      ),
+      landmarks: representatives(a11yNodes.filter((n2) => n2.kind === "landmark" && countsAsLandmark(n2)), chainOrder),
       nestedLandmarks,
-      ids: representatives(literalIds, chainOrder),
-      // `href="#top"` scrolls to the document top with no element of that id, so it is
-      // never a missing reference (HTML's "top of the document" fragment).
-      idRefs: a11yNodes.filter((n2) => n2.kind === "idref" && !(n2.attr === "href" && isTopFragment(n2.key))).map((n2) => ({ id: n2.key, attr: n2.attr ?? "", file: n2.file, line: n2.line })),
-      idCandidates: [.../* @__PURE__ */ new Set([...literalIds.map((n2) => n2.key), ...appHtmlIds ?? []])],
-      fullyResolved: a11yCtx.state.fullyResolved
+      ids,
+      idRefs: a11yNodes.filter((n2) => n2.kind === "idref" && !(n2.attr === "href" && isTopFragment(n2.key))).map((n2) => ({
+        id: n2.key,
+        attr: n2.attr ?? "",
+        file: n2.file,
+        line: n2.line
+      })),
+      idCandidates: [.../* @__PURE__ */ new Set([...literalIds.map((n2) => n2.key), ...(appHtmlIds ?? []).map((s) => s.id)])],
+      fullyResolved: a11yCtx.state.fullyResolved,
+      ...a11yCtx.state.causes.length > 0 ? { unresolvedCauses: dedupeCauses(a11yCtx.state.causes) } : {},
+      elementTags: [...a11yCtx.state.elementTags],
+      elementsClosed: a11yCtx.state.elementsClosed,
+      file: pageRel
     }
   };
 }
-async function collectRoutes(rt, cwd, config = defaultConfig, cache = /* @__PURE__ */ new Map(), aliases, appHtmlIds) {
+async function collectRoutes(rt, cwd, config = defaultConfig, cache = /* @__PURE__ */ new Map(), aliases, appHtmlIds, appHtmlBodyTags) {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
-  const facts = await Promise.all(
-    pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds))
-  );
+  const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags)));
   return {
     heads: facts.map((f) => f.head),
     images: facts.map((f) => f.images),
@@ -71506,53 +72907,135 @@ function routeMatcher(glob2) {
   const re = new RegExp(`^${body}$`);
   return (route) => re.test(route.replace(/^\//, ""));
 }
+function globList(globs) {
+  return globs === void 0 ? [] : Array.isArray(globs) ? globs : [globs];
+}
 async function collectAll(rt, cwd, config, opts = {}) {
   const matches = routeMatcher(opts.route);
+  const parseCache = opts.parseCache ?? /* @__PURE__ */ new Map();
   const project = await collectProjectFacts(rt, cwd);
   const [collected, components, kitModules, sourceFiles] = await Promise.all([
-    collectRoutes(rt, cwd, config, opts.parseCache, project.kitAliases, project.appHtmlIds),
-    // Component (Correctness) facts are file-scoped with no route attribution yet, so a
-    // route-filtered run skips them rather than reporting unrelated components (#68 review);
-    // kitModules is skipped for the same reason.
+    collectRoutes(rt, cwd, config, parseCache, project.kitAliases, project.appHtmlIds, project.appHtmlBodyTags),
     opts.route ? [] : collectComponentFacts(rt, cwd),
     opts.route ? [] : collectKitModuleFacts(rt, cwd, project.kitAliases),
-    // Unlike its two neighbours above, the --route branch gets `undefined` here, not `[]`: an empty
-    // inventory would tell architecture/unit-entry-file that the declared unit directories truly do
-    // not exist, so it would report every declaration as inert, whereas `undefined` means the mode
-    // never collected the fact at all, and the rule stays silent instead of raising a false alarm.
     opts.route ? void 0 : collectSourceFiles(rt, cwd)
   ]);
   const heads = collected.heads.filter((h2) => matches(h2.route));
   const images = collected.images.filter((i2) => matches(i2.route));
   const headings = collected.headings.filter((h2) => matches(h2.route));
   const a11y = collected.a11y.filter((a2) => matches(a2.route));
-  return { heads, images, headings, a11y, project, components, kitModules, sourceFiles };
+  const directives = /* @__PURE__ */ new Map();
+  for (const [file, parsed] of parseCache) {
+    const suppressions = await parsed.then((parsedFile) => parsedFile.suppressions, () => void 0);
+    if (suppressions) directives.set(file, suppressions);
+  }
+  for (const c of components) directives.set(c.file, c.suppressions ?? []);
+  for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
+  const viteConfig = project.viteMinifyDisabled;
+  if (viteConfig?.file) directives.set(viteConfig.file, viteConfig.suppressions ?? []);
+  const routes = collected.heads.map((h2) => h2.route);
+  const emptySelections = [];
+  if (opts.route !== void 0 && routes.length > 0 && !routes.some(matches)) emptySelections.push(`--route '${opts.route}' matched none of the ${routes.length} route(s) found \u2014 routes are URL paths, e.g. --route '/blog/**'; list them with --reporter json \u2192 routes.`);
+  if (opts.route === void 0 && routes.length > 0) {
+    const attributable = [
+      ...directives.keys(),
+      ...ROBOTS_SOURCE_PATHS,
+      ...SITEMAP_SOURCE_PATHS,
+      ...VITE_CONFIG_FILES,
+      ...SVELTE_CONFIG_FILES
+    ];
+    const entries = config.overrides ?? [];
+    const compiled = compileOverrides(config);
+    entries.forEach((entry, i2) => {
+      globList(entry.route).forEach((glob2) => {
+        if (!routes.some(routeMatcher(glob2))) emptySelections.push(`overrides entry for route '${glob2}' matched no route \u2014 route globs are URL paths, e.g. '/blog/**'; see \`svelte-vitals docs show config\`.`);
+      });
+      globList(entry.files).forEach((glob2, j2) => {
+        const pattern = compiled[i2]?.files[j2];
+        if (pattern && !attributable.some((f) => pattern.test(f))) emptySelections.push(`overrides entry for files '${glob2}' matched no file \u2014 file globs are project-relative, e.g. 'src/lib/**'; see \`svelte-vitals docs show config\`.`);
+      });
+    });
+  }
+  return {
+    heads,
+    images,
+    headings,
+    a11y,
+    project,
+    components,
+    kitModules,
+    sourceFiles,
+    directives,
+    emptySelections
+  };
 }
-function git(args, cwd) {
-  return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).split("\0");
+function readPackageVersion() {
+  try {
+    return JSON.parse(readFileSync2(new URL("../package.json", import.meta.url), "utf8")).version ?? "0.0.0";
+  } catch {
+    return "0.0.0";
+  }
+}
+function readCoreVersion() {
+  try {
+    const entry = import.meta.resolve("@svelte-vitals/core");
+    return JSON.parse(readFileSync2(new URL("../package.json", entry), "utf8")).version ?? "0.0.0";
+  } catch {
+    return "0.0.0";
+  }
+}
+function git$1(args, cwd) {
+  return execFileSync("git", args, {
+    cwd,
+    encoding: "utf8",
+    stdio: [
+      "ignore",
+      "pipe",
+      "ignore"
+    ]
+  }).split("\0");
 }
 function getChangedFiles(cwd, opts) {
   try {
-    const files = opts.staged ? git(["diff", "--name-only", "--relative", "--cached", "--diff-filter=d", "-z"], cwd) : [
-      ...git(
-        ["diff", "--name-only", "--relative", "--diff-filter=d", "--merge-base", opts.base ?? "HEAD", "-z"],
-        cwd
-      ),
-      ...git(["ls-files", "--others", "--exclude-standard", "-z"], cwd)
-      // untracked / new files
-    ];
+    const files = opts.staged ? git$1([
+      "diff",
+      "--name-only",
+      "--relative",
+      "--cached",
+      "--diff-filter=d",
+      "-z"
+    ], cwd) : [...git$1([
+      "diff",
+      "--name-only",
+      "--relative",
+      "--diff-filter=d",
+      "--merge-base",
+      opts.base ?? "HEAD",
+      "-z"
+    ], cwd), ...git$1([
+      "ls-files",
+      "--others",
+      "--exclude-standard",
+      "-z"
+    ], cwd)];
     return new Set(files.filter(Boolean));
   } catch {
-    return void 0;
+    return;
   }
 }
 function filterToChangedFiles(results, changed, config = defaultConfig) {
-  return results.filter(
-    (r2) => r2.location !== void 0 && changed.has(r2.location) && (isPenalized(r2.detection, config.treatDynamicAs) || r2.route === void 0)
-  );
+  return results.filter((r2) => r2.location !== void 0 && changed.has(r2.location) && (isPenalized(r2.detection, config.treatDynamicAs) || r2.route === void 0));
 }
-function git2(args, cwd) {
-  return execFileSync2("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+function git(args, cwd) {
+  return execFileSync("git", args, {
+    cwd,
+    encoding: "utf8",
+    stdio: [
+      "ignore",
+      "pipe",
+      "ignore"
+    ]
+  });
 }
 function findingKey(r2) {
   return `${r2.id}::${r2.route ?? ""}::${r2.location ?? ""}`;
@@ -71560,37 +73043,65 @@ function findingKey(r2) {
 function checkoutBaseline(cwd, ref2) {
   let tmp;
   try {
-    const repoRoot = git2(["rev-parse", "--show-toplevel"], cwd).trim();
-    const showPrefix = git2(["rev-parse", "--show-prefix"], cwd).trim().replace(/\/+$/, "");
-    tmp = mkdtempSync(join2(tmpdir(), "svelte-vitals-baseline-"));
-    const wt = join2(tmp, "wt");
-    git2(["worktree", "add", "--detach", wt, ref2], repoRoot);
-    const analyzeCwd = showPrefix ? join2(wt, showPrefix) : wt;
+    const repoRoot = git(["rev-parse", "--show-toplevel"], cwd).trim();
+    const showPrefix = git(["rev-parse", "--show-prefix"], cwd).trim().replace(/\/+$/, "");
+    tmp = mkdtempSync(join(tmpdir(), "svelte-vitals-baseline-"));
+    const wt = join(tmp, "wt");
+    git([
+      "worktree",
+      "add",
+      "--detach",
+      wt,
+      ref2
+    ], repoRoot);
+    const analyzeCwd = showPrefix ? join(wt, showPrefix) : wt;
     const tmpDir = tmp;
     const cleanup = () => {
       try {
-        execFileSync2("git", ["worktree", "remove", "--force", wt], {
+        execFileSync("git", [
+          "worktree",
+          "remove",
+          "--force",
+          wt
+        ], {
           cwd: repoRoot,
           encoding: "utf8",
-          stdio: ["ignore", "pipe", "ignore"]
+          stdio: [
+            "ignore",
+            "pipe",
+            "ignore"
+          ]
         });
       } catch {
         try {
-          execFileSync2("git", ["worktree", "prune"], {
+          execFileSync("git", ["worktree", "prune"], {
             cwd: repoRoot,
             encoding: "utf8",
-            stdio: ["ignore", "pipe", "ignore"]
+            stdio: [
+              "ignore",
+              "pipe",
+              "ignore"
+            ]
           });
         } catch {
         }
       } finally {
-        rmSync(tmpDir, { recursive: true, force: true });
+        rmSync(tmpDir, {
+          recursive: true,
+          force: true
+        });
       }
     };
-    return { analyzeCwd, cleanup };
+    return {
+      analyzeCwd,
+      cleanup
+    };
   } catch {
-    if (tmp !== void 0) rmSync(tmp, { recursive: true, force: true });
-    return void 0;
+    if (tmp !== void 0) rmSync(tmp, {
+      recursive: true,
+      force: true
+    });
+    return;
   }
 }
 function filterToNewFindings(results, baselineResults, config = defaultConfig) {
@@ -71598,38 +73109,163 @@ function filterToNewFindings(results, baselineResults, config = defaultConfig) {
   const baselineKeys = new Set(penalized(baselineResults).map(findingKey));
   return penalized(results).filter((r2) => !baselineKeys.has(findingKey(r2)));
 }
+var KNOWN_IDS = new Set(allRules.map((r2) => r2.id));
+var RULE_BY_ID = new Map(allRules.map((r2) => [r2.id, r2]));
+function findUnknownRuleIds(ids) {
+  return [...new Set(ids.filter((id2) => !KNOWN_IDS.has(id2)))];
+}
+function knownRuleIds() {
+  return [...KNOWN_IDS].sort();
+}
+function ruleOptionsSpec(id2) {
+  return RULE_BY_ID.get(id2)?.options;
+}
+function registryTag() {
+  return `svelte-vitals ${readPackageVersion()}, core ${readCoreVersion()}`;
+}
+var CONFIG_FILENAMES = ["svelte-vitals.config.js", "svelte-vitals.config.ts"];
+var CONFIG_EXTENSIONS = CONFIG_FILENAMES.map((name) => name.slice(name.lastIndexOf(".")));
+var TREAT_DYNAMIC_AS_VALUES = [
+  "pass",
+  "warn",
+  "fail"
+];
+var FAIL_ON_VALUES = [
+  "critical",
+  "warning",
+  "info"
+];
+var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set([
+  "treatDynamicAs",
+  "metaComponents",
+  "rules",
+  "failOn",
+  "weights",
+  "overrides"
+]);
+function isPlainObject4(value) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+function validateSetting(path, where, key2, setting, allowOptions, baseline, skipRangeCheck) {
+  const errors = validateRuleSetting(`${where}.${key2}`, key2, setting, ruleOptionsSpec(key2), {
+    allowOptions,
+    ...baseline !== void 0 ? { baseline } : {},
+    ...skipRangeCheck !== void 0 ? { skipRangeCheck } : {}
+  });
+  if (errors.length > 0) throw new Error(`${path}: ${errors.join(" ")}`);
+}
+function validateConfigFile(raw, path) {
+  const warnings2 = [];
+  const config = {};
+  for (const key2 of Object.keys(raw)) if (!KNOWN_TOP_LEVEL_KEYS.has(key2)) warnings2.push(`${path}: unknown config key '${key2}' ignored.`);
+  if (raw.treatDynamicAs !== void 0) if (TREAT_DYNAMIC_AS_VALUES.includes(raw.treatDynamicAs)) config.treatDynamicAs = raw.treatDynamicAs;
+  else warnings2.push(`${path}: unknown treatDynamicAs '${String(raw.treatDynamicAs)}'; expected pass|warn|fail. Ignoring.`);
+  if (raw.failOn !== void 0) if (FAIL_ON_VALUES.includes(raw.failOn)) config.failOn = raw.failOn;
+  else warnings2.push(`${path}: unknown failOn '${String(raw.failOn)}'; expected critical|warning|info. Ignoring.`);
+  if (raw.metaComponents !== void 0) if (Array.isArray(raw.metaComponents) && raw.metaComponents.every((c) => typeof c === "string")) config.metaComponents = raw.metaComponents;
+  else warnings2.push(`${path}: metaComponents must be an array of strings. Ignoring.`);
+  if (raw.rules !== void 0) {
+    if (!isPlainObject4(raw.rules)) throw new Error(`${path}: rules must be an object of rule-id \u2192 setting.`);
+    const rules = raw.rules;
+    const unknown = findUnknownRuleIds(Object.keys(rules));
+    if (unknown.length > 0) throw new Error(`${path}: unknown rule id(s) in rules: ${unknown.join(", ")}. Known rule ids (${registryTag()}): ${knownRuleIds().join(", ")}`);
+    for (const [key2, setting] of Object.entries(rules)) validateSetting(path, "rules", key2, setting, true);
+    config.rules = rules;
+  }
+  if (raw.overrides !== void 0) {
+    if (!Array.isArray(raw.overrides)) throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
+    const isGlob = (v) => typeof v === "string" && v.length > 0;
+    const isGlobs = (v) => isGlob(v) || Array.isArray(v) && v.length > 0 && v.every(isGlob);
+    const overrides = [];
+    const rawOverrides = raw.overrides;
+    rawOverrides.forEach((entry, i2) => {
+      if (!isPlainObject4(entry)) throw new Error(`${path}: overrides[${i2}] must be an object with 'route' and/or 'files', and 'rules'.`);
+      if (entry.route !== void 0 && !isGlobs(entry.route)) throw new Error(`${path}: overrides[${i2}].route must be a non-empty string or a non-empty array of non-empty strings.`);
+      if (entry.files !== void 0 && !isGlobs(entry.files)) throw new Error(`${path}: overrides[${i2}].files must be a non-empty string or a non-empty array of non-empty strings.`);
+      if (entry.route === void 0 && entry.files === void 0) throw new Error(`${path}: overrides[${i2}] must set 'route' and/or 'files' to scope the override.`);
+      if (!isPlainObject4(entry.rules)) throw new Error(`${path}: overrides[${i2}].rules must be an object of rule-id/category \u2192 setting.`);
+      if (Object.keys(entry.rules).length === 0) throw new Error(`${path}: overrides[${i2}].rules must contain at least one rule id or category.`);
+      const unknown = findUnknownRuleIds(Object.keys(entry.rules).filter((k2) => !CATEGORIES.includes(k2)));
+      if (unknown.length > 0) throw new Error(`${path}: unknown rule id(s) or categories in overrides[${i2}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids (${registryTag()}): ${knownRuleIds().join(", ")}`);
+      for (const [key2, setting] of Object.entries(entry.rules)) {
+        const isCategory = CATEGORIES.includes(key2);
+        const baseline = isCategory ? void 0 : resolveRuleOptions(key2, ruleOptionsSpec(key2), {
+          ...defaultConfig,
+          rules: config.rules ?? {}
+        });
+        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i2, key2, setting);
+        validateSetting(path, `overrides[${i2}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
+      }
+      overrides.push({
+        ...entry.route !== void 0 ? { route: entry.route } : {},
+        ...entry.files !== void 0 ? { files: entry.files } : {},
+        rules: entry.rules
+      });
+    });
+    config.overrides = overrides;
+  }
+  if (raw.weights !== void 0) {
+    if (!isPlainObject4(raw.weights)) throw new Error(`${path}: weights must be an object of category \u2192 number.`);
+    const weights = {};
+    for (const [rawCat, w2] of Object.entries(raw.weights)) {
+      const cat = rawCat.toLowerCase();
+      if (!CATEGORIES.includes(cat)) throw new Error(`${path}: unknown category '${rawCat}' in weights. Known categories: ${CATEGORIES.join(", ")}`);
+      if (typeof w2 !== "number" || !Number.isFinite(w2) || w2 < 0) throw new Error(`${path}: invalid weight for '${cat}': ${String(w2)}; expected a finite number >= 0.`);
+      weights[cat] = w2;
+    }
+    config.weights = weights;
+  }
+  return {
+    config,
+    warnings: warnings2
+  };
+}
+async function loadConfigFile(cwd) {
+  const found = CONFIG_FILENAMES.map((name) => join(cwd, name)).find((path) => existsSync2(path));
+  if (!found) {
+    const retired = join(cwd, "svelte-vitals.config.mjs");
+    if (existsSync2(retired)) throw new Error(`${retired} is no longer read \u2014 svelte-vitals loads svelte-vitals.config.{js,ts} only. Rename the file to .js (the project must be "type": "module") or .ts.`);
+    return;
+  }
+  return loadFrom(found);
+}
+async function loadConfigFromPath(path) {
+  if (!CONFIG_EXTENSIONS.some((ext) => path.endsWith(ext))) throw new Error(`${path} is not a supported config file \u2014 svelte-vitals loads ${CONFIG_EXTENSIONS.join(" and ")} only.`);
+  if (!existsSync2(path)) throw new Error(`${path} does not exist.`);
+  return loadFrom(path);
+}
+async function loadFrom(path) {
+  let mod;
+  try {
+    mod = await import(pathToFileURL(path).href);
+  } catch (err) {
+    if (path.endsWith(".js") && err instanceof SyntaxError) throw new Error(`could not load ${path}: ${err.message} \u2014 config files are ESM, so the nearest package.json above the config file needs "type": "module" (SvelteKit's default), or use a .ts config.`, { cause: err });
+    throw err;
+  }
+  if (!isPlainObject4(mod.default)) throw new Error(`${path} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`);
+  return validateConfigFile(mod.default, path);
+}
 var SUPPRESSIONS_FILE = "svelte-vitals-suppressions.json";
 function loadSuppressions(cwd) {
-  const path = join32(cwd, SUPPRESSIONS_FILE);
+  const path = join(cwd, SUPPRESSIONS_FILE);
   let raw;
   try {
-    raw = readFileSync3(path, "utf8");
+    raw = readFileSync2(path, "utf8");
   } catch {
-    return void 0;
+    return;
   }
   let parsed;
   try {
     parsed = JSON.parse(raw);
   } catch (err) {
-    throw new Error(
-      `invalid ${SUPPRESSIONS_FILE}: not valid JSON (${err instanceof Error ? err.message : String(err)}).`,
-      { cause: err }
-    );
+    throw new Error(`invalid ${SUPPRESSIONS_FILE}: not valid JSON (${err instanceof Error ? err.message : String(err)}).`, { cause: err });
   }
-  if (!isPlainObject4(parsed)) {
-    throw new Error(`invalid ${SUPPRESSIONS_FILE}: expected a top-level JSON object.`);
-  }
-  if (parsed.version !== 1) {
-    throw new Error(`invalid ${SUPPRESSIONS_FILE}: expected "version": 1, got ${JSON.stringify(parsed.version)}.`);
-  }
-  if (!Array.isArray(parsed.suppressions)) {
-    throw new Error(`invalid ${SUPPRESSIONS_FILE}: "suppressions" must be an array.`);
-  }
+  if (!isPlainObject4(parsed)) throw new Error(`invalid ${SUPPRESSIONS_FILE}: expected a top-level JSON object.`);
+  if (parsed.version !== 1) throw new Error(`invalid ${SUPPRESSIONS_FILE}: expected "version": 1, got ${JSON.stringify(parsed.version)}.`);
+  if (!Array.isArray(parsed.suppressions)) throw new Error(`invalid ${SUPPRESSIONS_FILE}: "suppressions" must be an array.`);
   const entries = [];
   parsed.suppressions.forEach((entry, i2) => {
-    if (!isPlainObject4(entry) || typeof entry.id !== "string") {
-      throw new Error(`invalid ${SUPPRESSIONS_FILE}: suppressions[${i2}] must be an object with a string "id".`);
-    }
+    if (!isPlainObject4(entry) || typeof entry.id !== "string") throw new Error(`invalid ${SUPPRESSIONS_FILE}: suppressions[${i2}] must be an object with a string "id".`);
     entries.push({
       id: entry.id,
       ...typeof entry.route === "string" ? { route: entry.route } : {},
@@ -71656,7 +73292,11 @@ function applySuppressions(results, entries, config, allResults) {
     if (keys.has(key2) && isPenalized(r2.detection, config.treatDynamicAs)) usedKeys.add(key2);
   }
   const stale = [...keys].filter((k2) => !usedKeys.has(k2)).length;
-  return { results: kept, suppressed, stale };
+  return {
+    results: kept,
+    suppressed,
+    stale
+  };
 }
 var wrap = (format) => (s) => styleText(format, s, { validateStream: false });
 var ansiPalette = {
@@ -71676,13 +73316,17 @@ function resolveRuleSelection(input) {
     for (const id2 of allowed) {
       const setting = out[id2];
       if (setting === void 0) continue;
-      if (setting === "off") {
-        delete out[id2];
-      } else if (typeof setting === "object" && setting.severity === "off") {
+      if (setting === "off") delete out[id2];
+      else if (typeof setting === "object" && setting.severity === "off") {
         const { severity: _forceEnabled, ...rest2 } = setting;
         if (Object.keys(rest2).length === 0) delete out[id2];
         else out[id2] = rest2;
       }
+    }
+    for (const id2 of allowed) {
+      if (out[id2] !== void 0) continue;
+      const rule = allRules.find((r2) => r2.id === id2);
+      if (rule?.defaultOff) out[id2] = rule.severity;
     }
   }
   for (const id2 of input.ignoreRules ?? []) out[id2] = "off";
@@ -71697,15 +73341,9 @@ function overridesOffWarnings(allowRules, overrides) {
   for (const ruleId of allowRules) {
     const category = ruleId.split("/")[0] ?? ruleId;
     for (const entry of overrides) {
-      const severity = settingSeverity(entry.rules[ruleId]) ?? settingSeverity(entry.rules[category]);
-      if (severity !== "off") continue;
-      const scope = [
-        entry.route !== void 0 ? `route: ${formatGlob(entry.route)}` : void 0,
-        entry.files !== void 0 ? `files: ${formatGlob(entry.files)}` : void 0
-      ].filter((s) => s !== void 0).join(", ");
-      warnings2.push(
-        `--rules '${ruleId}' is scoped 'off' by overrides entry { ${scope} } \u2014 findings there will not be reported. --rules overrides a global 'off' but not a scoped one.`
-      );
+      if ((settingSeverity(entry.rules[ruleId]) ?? settingSeverity(entry.rules[category])) !== "off") continue;
+      const scope = [entry.route !== void 0 ? `route: ${formatGlob(entry.route)}` : void 0, entry.files !== void 0 ? `files: ${formatGlob(entry.files)}` : void 0].filter((s) => s !== void 0).join(", ");
+      warnings2.push(`--rules '${ruleId}' is scoped 'off' by overrides entry { ${scope} } \u2014 findings there will not be reported. --rules overrides a global 'off' but not a scoped one; edit that entry to check it there (see \`svelte-vitals docs show config\`).`);
     }
   }
   return warnings2;
@@ -71716,7 +73354,7 @@ function failedRuleWarnings(failedRules) {
 async function analyzeProject(opts = {}) {
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
-  const loaded = opts.loadedConfig !== void 0 ? opts.loadedConfig ?? void 0 : await loadConfigFile(cwd);
+  const loaded = opts.loadedConfig !== void 0 ? opts.loadedConfig ?? void 0 : opts.configPath !== void 0 ? await loadConfigFromPath(resolve4(opts.configPath)) : await loadConfigFile(cwd);
   const file = loaded?.config;
   const weights = opts.weights ?? file?.weights;
   const config = defineConfig({
@@ -71738,22 +73376,21 @@ async function analyzeProject(opts = {}) {
     ...await checkVersionFloor(rt, cwd),
     ...overridesOffWarnings(opts.allowRules, config.overrides)
   ];
-  const { heads, images, headings, a11y, project, components, kitModules, sourceFiles } = await collectAll(
-    rt,
-    cwd,
-    config,
-    {
-      route: opts.route,
-      parseCache: opts.parseCache
-    }
-  );
+  const { heads, images, headings, a11y, project, components, kitModules, sourceFiles, directives, emptySelections } = await collectAll(rt, cwd, config, {
+    route: opts.route,
+    parseCache: opts.parseCache
+  });
+  warnings2.push(...emptySelections);
+  if (opts.route === void 0) warnings2.push(...unknownDirectiveIds(directives, allRules));
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r2) => opts.categories.includes(r2.category)) : selected;
-  const {
-    results: rawResults,
-    examined,
-    failedRules
-  } = await runRules(rules, {
+  const idRefSkips = rules.some((r2) => r2.id === "a11y/no-missing-id-ref") ? buildIdRefSkips(a11y) : [];
+  if (idRefSkips.length > 0) warnings2.push(idRefSkipWarning(idRefSkips, a11y.length));
+  if (opts.route !== void 0 && opts.allowRules?.length) {
+    const starved = rules.filter((r2) => opts.allowRules.includes(r2.id) && r2.scope === "component").map((r2) => r2.id);
+    if (starved.length > 0) warnings2.push(`--rules ${starved.map((id2) => `'${id2}'`).join(", ")} examined nothing: --route analyzes routes only, and that rule reads component/config files \u2014 run without --route to check it.`);
+  }
+  const { results: rawResults, examined, failedRules } = await runRules(rules, {
     heads,
     images,
     headings,
@@ -71764,17 +73401,21 @@ async function analyzeProject(opts = {}) {
     kitModules,
     sourceFiles
   });
-  const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  const results = applyInlineDirectives(applyOverrides(applyRuleSeverities(rawResults, config), config), directives, rules, config);
   const failedRuleIds = failedRules.map((f) => f.id);
-  const scoringConfig = withFailedRulesOff(config, failedRuleIds);
   return {
     results,
-    config: scoringConfig,
+    config: withFailedRulesOff(config, failedRuleIds),
     version: readPackageVersion(),
     ruleIds: rules.map((r2) => r2.id),
     examined,
+    ...idRefSkips.length > 0 ? { skipped: { [ID_REF_RULE]: idRefSkips } } : {},
     failedRuleIds,
-    warnings: [...warnings2, ...skippedFileWarnings([...components, ...kitModules]), ...failedRuleWarnings(failedRules)],
+    warnings: [
+      ...warnings2,
+      ...skippedFileWarnings([...components, ...kitModules]),
+      ...failedRuleWarnings(failedRules)
+    ],
     loadedConfig: loaded
   };
 }
@@ -71784,46 +73425,31 @@ async function applyScope(results, opts) {
   let scoped = results;
   if (opts.staged || opts.diffBase !== void 0) {
     const changed = opts.staged ? getChangedFiles(opts.cwd, { staged: true }) : getChangedFiles(opts.cwd, { base: opts.diffBase });
-    if (changed === void 0) {
-      errorLog(
-        "svelte-vitals: could not determine changed files (not a git repo, git unavailable, or bad ref); analyzing all."
-      );
-    } else {
-      scoped = filterToChangedFiles(scoped, changed, opts.config);
-    }
+    if (changed === void 0) errorLog("svelte-vitals: could not determine changed files (not a git repo, git unavailable, or bad ref); analyzing all.");
+    else scoped = filterToChangedFiles(scoped, changed, opts.config);
   }
   if (opts.baseline !== void 0) {
     const checkout = checkoutBaseline(opts.cwd, opts.baseline);
-    if (checkout === void 0) {
-      errorLog(
-        `svelte-vitals: could not analyze baseline '${opts.baseline}' (not a git repo, git unavailable, or bad ref); reporting all findings.`
-      );
-    } else {
-      try {
-        const base = await analyzeProject({ ...opts.analyzeOpts, cwd: checkout.analyzeCwd });
-        scoped = filterToNewFindings(scoped, base.results, opts.config);
-      } catch {
-        errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
-      } finally {
-        checkout.cleanup();
-      }
+    if (checkout === void 0) errorLog(`svelte-vitals: could not analyze baseline '${opts.baseline}' (not a git repo, git unavailable, or bad ref); reporting all findings.`);
+    else try {
+      const base = await analyzeProject({
+        ...opts.analyzeOpts,
+        cwd: checkout.analyzeCwd
+      });
+      scoped = filterToNewFindings(scoped, base.results, opts.config);
+    } catch {
+      errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
+    } finally {
+      checkout.cleanup();
     }
   }
   if (!opts.noSuppressions && opts.config) {
     const entries = loadSuppressions(opts.cwd);
     if (entries !== void 0) {
-      const {
-        results: afterSuppressions,
-        suppressed,
-        stale
-      } = applySuppressions(scoped, entries, opts.config, results);
+      const { results: afterSuppressions, suppressed, stale } = applySuppressions(scoped, entries, opts.config, results);
       scoped = afterSuppressions;
       const routeScoped = opts.analyzeOpts?.route !== void 0;
-      if (suppressed > 0 || stale > 0 && !routeScoped) {
-        errorLog(
-          `svelte-vitals: ${suppressed} finding(s) suppressed by ${SUPPRESSIONS_FILE}` + (stale > 0 && !routeScoped ? ` (${stale} stale entr${stale === 1 ? "y" : "ies"} \u2014 re-run --update-suppressions to prune)` : "") + "."
-        );
-      }
+      if (suppressed > 0 || stale > 0 && !routeScoped) errorLog(`svelte-vitals: ${suppressed} finding(s) suppressed by ${SUPPRESSIONS_FILE}` + (stale > 0 && !routeScoped ? ` (${stale} stale entr${stale === 1 ? "y" : "ies"} \u2014 re-run --update-suppressions to prune)` : "") + ".");
     }
   }
   return scoped;
@@ -71941,6 +73567,33 @@ content-type/dist/index.js:
 @octokit/request/dist-bundle/index.js:
   (* v8 ignore next -- @preserve *)
   (* v8 ignore else -- @preserve *)
+
+@svelte-vitals/core/dist/markdown-CP5TPy-s.js:
+  (*!
+  * HTML spec data projected from @markuplint/html-spec@4.18.0 — https://github.com/markuplint/markuplint
+  *
+  * MIT License
+  *
+  * Copyright (c) 2017-2024 Yusuke Hirao
+  *
+  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  * of this software and associated documentation files (the "Software"), to deal
+  * in the Software without restriction, including without limitation the rights
+  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  * copies of the Software, and to permit persons to whom the Software is
+  * furnished to do so, subject to the following conditions:
+  *
+  * The above copyright notice and this permission notice shall be included in all
+  * copies or substantial portions of the Software.
+  *
+  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  * SOFTWARE.
+  *)
 
 gunshi/lib/agent.js:
   (**
