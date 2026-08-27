@@ -4,7 +4,10 @@
   "minimumReleaseAge": "3 days",
   "labels": ["renovate"],
   "lockFileMaintenance": {
-    "enabled": true
+    "description": "automerge, but never platformAutomerge: a lockfile refresh pulls versions younger than minimumReleaseAge, and GitHub's auto-merge only waits for required checks — it would merge past the pending renovate/stability-days status, while Renovate-side automerge waits for its own stability check. This still does not merge unattended: a refresh moves bundled transitive code (undici under @actions/github, say), so dist/ goes stale and CI stays red until the bundle is rebuilt and committed. Automerge fires after that lands.",
+    "enabled": true,
+    "automerge": true,
+    "platformAutomerge": false
   },
   "rangeStrategy": "bump",
   "platformAutomerge": true,

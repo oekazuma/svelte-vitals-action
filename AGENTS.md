@@ -38,6 +38,11 @@ Run these yourself and confirm they pass before claiming a task is complete. CI 
   rulesets — one lets Renovate bypass the review requirement, a separate one enforces the `ci`
   status check with no bypass for Renovate). A `svelte-vitals`/`@svelte-vitals/core` bump needs a
   manually-added changeset before merging, or the version never actually gets released.
+- **Lock file maintenance is not hands-off either**, despite being on Renovate's automerge list. A
+  refresh moves transitive code that the bundle carries — `undici` under `@actions/github`, for one
+  — so `dist/` goes stale and CI stays red until it is rebuilt and committed. Treat these PRs like
+  an analyzer bump: rebuild `dist/`, add a `patch` changeset (the bundle consumers run really did
+  change), push, and let automerge take it from there.
 
 ## Skills
 
