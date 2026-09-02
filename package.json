@@ -22,8 +22,8 @@
     "release": "changeset publish"
   },
   "dependencies": {
-    "svelte-vitals": "^0.53.0",
-    "@svelte-vitals/core": "^0.49.0",
+    "svelte-vitals": "^0.54.2",
+    "@svelte-vitals/core": "^0.51.0",
     "@actions/core": "^3.0.1",
     "@actions/github": "^9.1.1"
   },

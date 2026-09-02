@@ -11,7 +11,7 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
   if (typeof require !== "undefined") return require.apply(this, arguments);
   throw Error('Dynamic require of "' + x + '" is not supported');
 });
-var __commonJS = (cb, mod) => function __require3() {
+var __commonJS = (cb, mod) => function __require2() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __export = (target, all) => {
@@ -2096,31 +2096,31 @@ var require_dispatcher_base = __commonJS({
         }
         this[kInterceptors] = newInterceptors;
       }
-      close(callback2) {
-        if (callback2 === void 0) {
-          return new Promise((resolve5, reject) => {
+      close(callback) {
+        if (callback === void 0) {
+          return new Promise((resolve3, reject) => {
             this.close((err, data2) => {
-              return err ? reject(err) : resolve5(data2);
+              return err ? reject(err) : resolve3(data2);
             });
           });
         }
-        if (typeof callback2 !== "function") {
+        if (typeof callback !== "function") {
           throw new InvalidArgumentError("invalid callback");
         }
         if (this[kDestroyed]) {
-          queueMicrotask(() => callback2(new ClientDestroyedError(), null));
+          queueMicrotask(() => callback(new ClientDestroyedError(), null));
           return;
         }
         if (this[kClosed]) {
           if (this[kOnClosed]) {
-            this[kOnClosed].push(callback2);
+            this[kOnClosed].push(callback);
           } else {
-            queueMicrotask(() => callback2(null, null));
+            queueMicrotask(() => callback(null, null));
           }
           return;
         }
         this[kClosed] = true;
-        this[kOnClosed].push(callback2);
+        this[kOnClosed].push(callback);
         const onClosed = () => {
           const callbacks = this[kOnClosed];
           this[kOnClosed] = null;
@@ -2132,29 +2132,29 @@ var require_dispatcher_base = __commonJS({
           queueMicrotask(onClosed);
         });
       }
-      destroy(err, callback2) {
+      destroy(err, callback) {
         if (typeof err === "function") {
-          callback2 = err;
+          callback = err;
           err = null;
         }
-        if (callback2 === void 0) {
-          return new Promise((resolve5, reject) => {
+        if (callback === void 0) {
+          return new Promise((resolve3, reject) => {
             this.destroy(err, (err2, data2) => {
               return err2 ? (
                 /* istanbul ignore next: should never error */
                 reject(err2)
-              ) : resolve5(data2);
+              ) : resolve3(data2);
             });
           });
         }
-        if (typeof callback2 !== "function") {
+        if (typeof callback !== "function") {
           throw new InvalidArgumentError("invalid callback");
         }
         if (this[kDestroyed]) {
           if (this[kOnDestroyed]) {
-            this[kOnDestroyed].push(callback2);
+            this[kOnDestroyed].push(callback);
           } else {
-            queueMicrotask(() => callback2(null, null));
+            queueMicrotask(() => callback(null, null));
           }
           return;
         }
@@ -2163,7 +2163,7 @@ var require_dispatcher_base = __commonJS({
         }
         this[kDestroyed] = true;
         this[kOnDestroyed] = this[kOnDestroyed] || [];
-        this[kOnDestroyed].push(callback2);
+        this[kOnDestroyed].push(callback);
         const onDestroyed = () => {
           const callbacks = this[kOnDestroyed];
           this[kOnDestroyed] = null;
@@ -2318,8 +2318,8 @@ var require_timers = __commonJS({
        * before the specified function or code is executed.
        * @param {*} arg
        */
-      constructor(callback2, delay, arg) {
-        this._onTimeout = callback2;
+      constructor(callback, delay, arg) {
+        this._onTimeout = callback;
         this._idleTimeout = delay;
         this._timerArg = arg;
         this.refresh();
@@ -2365,8 +2365,8 @@ var require_timers = __commonJS({
        * when the timer expires.
        * @returns {NodeJS.Timeout|FastTimer}
        */
-      setTimeout(callback2, delay, arg) {
-        return delay <= RESOLUTION_MS ? setTimeout(callback2, delay, arg) : new FastTimer(callback2, delay, arg);
+      setTimeout(callback, delay, arg) {
+        return delay <= RESOLUTION_MS ? setTimeout(callback, delay, arg) : new FastTimer(callback, delay, arg);
       },
       /**
        * The clearTimeout method cancels an instantiated Timer previously created
@@ -2392,8 +2392,8 @@ var require_timers = __commonJS({
        * when the timer expires.
        * @returns {FastTimer}
        */
-      setFastTimeout(callback2, delay, arg) {
-        return new FastTimer(callback2, delay, arg);
+      setFastTimeout(callback, delay, arg) {
+        return new FastTimer(callback, delay, arg);
       },
       /**
        * The clearTimeout method cancels an instantiated FastTimer previously
@@ -2515,7 +2515,7 @@ var require_connect = __commonJS({
       const sessionCache = new SessionCache(maxCachedSessions == null ? 100 : maxCachedSessions);
       timeout = timeout == null ? 1e4 : timeout;
       allowH2 = allowH2 != null ? allowH2 : false;
-      return function connect({ hostname, host, protocol, port, servername, localAddress, httpSocket }, callback2) {
+      return function connect({ hostname, host, protocol, port, servername, localAddress, httpSocket }, callback) {
         let socket;
         if (protocol === "https:") {
           if (!tls) {
@@ -2562,16 +2562,16 @@ var require_connect = __commonJS({
         const clearConnectTimeout = setupConnectTimeout(new WeakRef(socket), { timeout, hostname, port });
         socket.setNoDelay(true).once(protocol === "https:" ? "secureConnect" : "connect", function() {
           queueMicrotask(clearConnectTimeout);
-          if (callback2) {
-            const cb = callback2;
-            callback2 = null;
+          if (callback) {
+            const cb = callback;
+            callback = null;
             cb(null, this);
           }
         }).on("error", function(err) {
           queueMicrotask(clearConnectTimeout);
-          if (callback2) {
-            const cb = callback2;
-            callback2 = null;
+          if (callback) {
+            const cb = callback;
+            callback = null;
             cb(err);
           }
         });
@@ -4334,9 +4334,9 @@ var require_util2 = __commonJS({
     var parseHashWithOptions = /(?<algo>sha256|sha384|sha512)-((?<hash>[A-Za-z0-9+/]+|[A-Za-z0-9_-]+)={0,2}(?:\s|$)( +[!-~]*)?)?/i;
     function parseMetadata(metadata) {
       const result2 = [];
-      let empty4 = true;
+      let empty3 = true;
       for (const token of metadata.split(" ")) {
-        empty4 = false;
+        empty3 = false;
         const parsedToken = parseHashWithOptions.exec(token);
         if (parsedToken === null || parsedToken.groups === void 0 || parsedToken.groups.algo === void 0) {
           continue;
@@ -4346,7 +4346,7 @@ var require_util2 = __commonJS({
           result2.push(parsedToken.groups);
         }
       }
-      if (empty4 === true) {
+      if (empty3 === true) {
         return "no metadata";
       }
       return result2;
@@ -4410,11 +4410,11 @@ var require_util2 = __commonJS({
     function createDeferredPromise() {
       let res;
       let rej;
-      const promise2 = new Promise((resolve5, reject) => {
-        res = resolve5;
+      const promise = new Promise((resolve3, reject) => {
+        res = resolve3;
         rej = reject;
       });
-      return { promise: promise2, resolve: res, reject: rej };
+      return { promise, resolve: res, reject: rej };
     }
     function isAborted(fetchParams) {
       return fetchParams.controller.state === "aborted";
@@ -4709,10 +4709,10 @@ var require_util2 = __commonJS({
         super();
         this.#zlibOptions = zlibOptions;
       }
-      _transform(chunk, encoding, callback2) {
+      _transform(chunk, encoding, callback) {
         if (!this._inflateStream) {
           if (chunk.length === 0) {
-            callback2();
+            callback();
             return;
           }
           this._inflateStream = (chunk[0] & 15) === 8 ? zlib.createInflate(this.#zlibOptions) : zlib.createInflateRaw(this.#zlibOptions);
@@ -4720,14 +4720,14 @@ var require_util2 = __commonJS({
           this._inflateStream.on("end", () => this.push(null));
           this._inflateStream.on("error", (err) => this.destroy(err));
         }
-        this._inflateStream.write(chunk, encoding, callback2);
+        this._inflateStream.write(chunk, encoding, callback);
       }
-      _final(callback2) {
+      _final(callback) {
         if (this._inflateStream) {
           this._inflateStream.end();
           this._inflateStream = null;
         }
-        callback2();
+        callback();
       }
     };
     function createInflate(zlibOptions) {
@@ -5626,21 +5626,21 @@ Content-Type: ${value.type || "application/octet-stream"}\r
         throw new TypeError("Body is unusable: Body has already been read");
       }
       throwIfAborted(object4[kState]);
-      const promise2 = createDeferredPromise();
-      const errorSteps = (error2) => promise2.reject(error2);
+      const promise = createDeferredPromise();
+      const errorSteps = (error2) => promise.reject(error2);
       const successSteps = (data2) => {
         try {
-          promise2.resolve(convertBytesToJSValue(data2));
+          promise.resolve(convertBytesToJSValue(data2));
         } catch (e3) {
           errorSteps(e3);
         }
       };
       if (object4[kState].body == null) {
         successSteps(Buffer.allocUnsafe(0));
-        return promise2.promise;
+        return promise.promise;
       }
       await fullyReadBody(object4[kState].body, successSteps, errorSteps);
-      return promise2.promise;
+      return promise.promise;
     }
     function bodyUnusable(object4) {
       const body = object4[kState].body;
@@ -6296,11 +6296,11 @@ var require_client_h1 = __commonJS({
         resume() {
           resumeH1(client);
         },
-        destroy(err, callback2) {
+        destroy(err, callback) {
           if (closed) {
-            queueMicrotask(callback2);
+            queueMicrotask(callback);
           } else {
-            socket.destroy(err).on("close", callback2);
+            socket.destroy(err).on("close", callback);
           }
         },
         get destroyed() {
@@ -6649,20 +6649,20 @@ upgrade: ${upgrade}\r
     }
     async function writeIterable(abort, body, client, request2, socket, contentLength, header, expectsPayload) {
       assert2(contentLength !== 0 || client[kRunning] === 0, "iterator body cannot be pipelined");
-      let callback2 = null;
+      let callback = null;
       function onDrain() {
-        if (callback2) {
-          const cb = callback2;
-          callback2 = null;
+        if (callback) {
+          const cb = callback;
+          callback = null;
           cb();
         }
       }
-      const waitForDrain = () => new Promise((resolve5, reject) => {
-        assert2(callback2 === null);
+      const waitForDrain = () => new Promise((resolve3, reject) => {
+        assert2(callback === null);
         if (socket[kError]) {
           reject(socket[kError]);
         } else {
-          callback2 = resolve5;
+          callback = resolve3;
         }
       });
       socket.on("close", onDrain).on("drain", onDrain);
@@ -6927,11 +6927,11 @@ var require_client_h2 = __commonJS({
         resume() {
           resumeH2(client);
         },
-        destroy(err, callback2) {
+        destroy(err, callback) {
           if (closed) {
-            queueMicrotask(callback2);
+            queueMicrotask(callback);
           } else {
-            socket.destroy(err).on("close", callback2);
+            socket.destroy(err).on("close", callback);
           }
         },
         get destroyed() {
@@ -7291,20 +7291,20 @@ var require_client_h2 = __commonJS({
     }
     async function writeIterable(abort, h2stream, body, client, request2, socket, contentLength, expectsPayload) {
       assert2(contentLength !== 0 || client[kRunning] === 0, "iterator body cannot be pipelined");
-      let callback2 = null;
+      let callback = null;
       function onDrain() {
-        if (callback2) {
-          const cb = callback2;
-          callback2 = null;
+        if (callback) {
+          const cb = callback;
+          callback = null;
           cb();
         }
       }
-      const waitForDrain = () => new Promise((resolve5, reject) => {
-        assert2(callback2 === null);
+      const waitForDrain = () => new Promise((resolve3, reject) => {
+        assert2(callback === null);
         if (socket[kError]) {
           reject(socket[kError]);
         } else {
-          callback2 = resolve5;
+          callback = resolve3;
         }
       });
       h2stream.on("close", onDrain).on("drain", onDrain);
@@ -7733,7 +7733,7 @@ var require_client = __commonJS({
         this[kQueue] = [];
         this[kRunningIdx] = 0;
         this[kPendingIdx] = 0;
-        this[kResume] = (sync2) => resume(this, sync2);
+        this[kResume] = (sync) => resume(this, sync);
         this[kOnError] = (err) => onError(this, err);
       }
       get pipelining() {
@@ -7782,33 +7782,33 @@ var require_client = __commonJS({
         return this[kNeedDrain] < 2;
       }
       async [kClose]() {
-        return new Promise((resolve5) => {
+        return new Promise((resolve3) => {
           if (this[kSize]) {
-            this[kClosedResolve] = resolve5;
+            this[kClosedResolve] = resolve3;
           } else {
-            resolve5(null);
+            resolve3(null);
           }
         });
       }
       async [kDestroy](err) {
-        return new Promise((resolve5) => {
+        return new Promise((resolve3) => {
           const requests = this[kQueue].splice(this[kPendingIdx]);
           for (let i2 = 0; i2 < requests.length; i2++) {
             const request2 = requests[i2];
             util.errorRequest(this, request2, err);
           }
-          const callback2 = () => {
+          const callback = () => {
             if (this[kClosedResolve]) {
               this[kClosedResolve]();
               this[kClosedResolve] = null;
             }
-            resolve5(null);
+            resolve3(null);
           };
           if (this[kHTTPContext]) {
-            this[kHTTPContext].destroy(err, callback2);
+            this[kHTTPContext].destroy(err, callback);
             this[kHTTPContext] = null;
           } else {
-            queueMicrotask(callback2);
+            queueMicrotask(callback);
           }
           this[kResume]();
         });
@@ -7853,7 +7853,7 @@ var require_client = __commonJS({
         });
       }
       try {
-        const socket = await new Promise((resolve5, reject) => {
+        const socket = await new Promise((resolve3, reject) => {
           client[kConnector]({
             host,
             hostname,
@@ -7865,7 +7865,7 @@ var require_client = __commonJS({
             if (err) {
               reject(err);
             } else {
-              resolve5(socket2);
+              resolve3(socket2);
             }
           });
         });
@@ -7938,12 +7938,12 @@ var require_client = __commonJS({
       client[kNeedDrain] = 0;
       client.emit("drain", client[kUrl], [client]);
     }
-    function resume(client, sync2) {
+    function resume(client, sync) {
       if (client[kResuming] === 2) {
         return;
       }
       client[kResuming] = 2;
-      _resume(client, sync2);
+      _resume(client, sync);
       client[kResuming] = 0;
       if (client[kRunningIdx] > 256) {
         client[kQueue].splice(0, client[kRunningIdx]);
@@ -7951,7 +7951,7 @@ var require_client = __commonJS({
         client[kRunningIdx] = 0;
       }
     }
-    function _resume(client, sync2) {
+    function _resume(client, sync) {
       while (true) {
         if (client.destroyed) {
           assert2(client[kPending] === 0);
@@ -7968,7 +7968,7 @@ var require_client = __commonJS({
         if (client[kBusy]) {
           client[kNeedDrain] = 2;
         } else if (client[kNeedDrain] === 2) {
-          if (sync2) {
+          if (sync) {
             client[kNeedDrain] = 1;
             queueMicrotask(() => emitDrain(client));
           } else {
@@ -8202,8 +8202,8 @@ var require_pool_base = __commonJS({
         if (this[kQueue].isEmpty()) {
           await Promise.all(this[kClients].map((c) => c.close()));
         } else {
-          await new Promise((resolve5) => {
-            this[kClosedResolve] = resolve5;
+          await new Promise((resolve3) => {
+            this[kClosedResolve] = resolve3;
           });
         }
       }
@@ -8718,7 +8718,7 @@ var require_proxy_agent = __commonJS({
         this[kAgent] = new Agent({
           ...opts,
           factory,
-          connect: async (opts2, callback2) => {
+          connect: async (opts2, callback) => {
             let requestedPath = opts2.host;
             if (!opts2.port) {
               requestedPath += `:${defaultProtocolPort(opts2.protocol)}`;
@@ -8737,10 +8737,10 @@ var require_proxy_agent = __commonJS({
               });
               if (statusCode !== 200) {
                 socket.on("error", noop3).destroy();
-                callback2(new RequestAbortedError(`Proxy response (${statusCode}) !== 200 when HTTP Tunneling`));
+                callback(new RequestAbortedError(`Proxy response (${statusCode}) !== 200 when HTTP Tunneling`));
               }
               if (opts2.protocol !== "https:") {
-                callback2(null, socket);
+                callback(null, socket);
                 return;
               }
               let servername;
@@ -8749,12 +8749,12 @@ var require_proxy_agent = __commonJS({
               } else {
                 servername = opts2.servername;
               }
-              this[kConnectEndpoint]({ ...opts2, servername, httpSocket: socket }, callback2);
+              this[kConnectEndpoint]({ ...opts2, servername, httpSocket: socket }, callback);
             } catch (err) {
               if (err.code === "ERR_TLS_CERT_ALTNAME_INVALID") {
-                callback2(new SecureProxyConnectionError(err));
+                callback(new SecureProxyConnectionError(err));
               } else {
-                callback2(err);
+                callback(err);
               }
             }
           }
@@ -9362,13 +9362,13 @@ var require_readable = __commonJS({
         }
         return super.destroy(err);
       }
-      _destroy(err, callback2) {
+      _destroy(err, callback) {
         if (!this[kReading]) {
           setImmediate(() => {
-            callback2(err);
+            callback(err);
           });
         } else {
-          callback2(err);
+          callback(err);
         }
       }
       on(ev, ...args) {
@@ -9446,7 +9446,7 @@ var require_readable = __commonJS({
         if (this._readableState.closeEmitted) {
           return null;
         }
-        return await new Promise((resolve5, reject) => {
+        return await new Promise((resolve3, reject) => {
           if (this[kContentLength] > limit) {
             this.destroy(new AbortError());
           }
@@ -9459,7 +9459,7 @@ var require_readable = __commonJS({
             if (signal?.aborted) {
               reject(signal.reason ?? new AbortError());
             } else {
-              resolve5(null);
+              resolve3(null);
             }
           }).on("error", noop3).on("data", function(chunk) {
             limit -= chunk.length;
@@ -9478,7 +9478,7 @@ var require_readable = __commonJS({
     }
     async function consume(stream, type) {
       assert2(!stream[kConsume]);
-      return new Promise((resolve5, reject) => {
+      return new Promise((resolve3, reject) => {
         if (isUnusable(stream)) {
           const rState = stream._readableState;
           if (rState.destroyed && rState.closeEmitted === false) {
@@ -9495,7 +9495,7 @@ var require_readable = __commonJS({
             stream[kConsume] = {
               type,
               stream,
-              resolve: resolve5,
+              resolve: resolve3,
               reject,
               length: 0,
               body: []
@@ -9565,18 +9565,18 @@ var require_readable = __commonJS({
       return buffer;
     }
     function consumeEnd(consume2) {
-      const { type, body, resolve: resolve5, stream, length } = consume2;
+      const { type, body, resolve: resolve3, stream, length } = consume2;
       try {
         if (type === "text") {
-          resolve5(chunksDecode(body, length));
+          resolve3(chunksDecode(body, length));
         } else if (type === "json") {
-          resolve5(JSON.parse(chunksDecode(body, length)));
+          resolve3(JSON.parse(chunksDecode(body, length)));
         } else if (type === "arrayBuffer") {
-          resolve5(chunksConcat(body, length).buffer);
+          resolve3(chunksConcat(body, length).buffer);
         } else if (type === "blob") {
-          resolve5(new Blob(body, { type: stream[kContentType] }));
+          resolve3(new Blob(body, { type: stream[kContentType] }));
         } else if (type === "bytes") {
-          resolve5(chunksConcat(body, length));
+          resolve3(chunksConcat(body, length));
         }
         consumeFinish(consume2);
       } catch (err) {
@@ -9617,7 +9617,7 @@ var require_util3 = __commonJS({
     } = require_errors();
     var { chunksDecode } = require_readable();
     var CHUNK_LIMIT = 128 * 1024;
-    async function getResolveErrorBodyCallback({ callback: callback2, body, contentType, statusCode, statusMessage, headers }) {
+    async function getResolveErrorBodyCallback({ callback, body, contentType, statusCode, statusMessage, headers }) {
       assert2(body);
       let chunks = [];
       let length = 0;
@@ -9637,7 +9637,7 @@ var require_util3 = __commonJS({
       }
       const message = `Response status code ${statusCode}${statusMessage ? `: ${statusMessage}` : ""}`;
       if (statusCode === 204 || !contentType || !length) {
-        queueMicrotask(() => callback2(new ResponseStatusCodeError(message, statusCode, headers)));
+        queueMicrotask(() => callback(new ResponseStatusCodeError(message, statusCode, headers)));
         return;
       }
       const stackTraceLimit = Error.stackTraceLimit;
@@ -9653,7 +9653,7 @@ var require_util3 = __commonJS({
       } finally {
         Error.stackTraceLimit = stackTraceLimit;
       }
-      queueMicrotask(() => callback2(new ResponseStatusCodeError(message, statusCode, headers, payload)));
+      queueMicrotask(() => callback(new ResponseStatusCodeError(message, statusCode, headers, payload)));
     }
     var isContentTypeApplicationJson = (contentType) => {
       return contentType.length > 15 && contentType[11] === "/" && contentType[0] === "a" && contentType[1] === "p" && contentType[2] === "p" && contentType[3] === "l" && contentType[4] === "i" && contentType[5] === "c" && contentType[6] === "a" && contentType[7] === "t" && contentType[8] === "i" && contentType[9] === "o" && contentType[10] === "n" && contentType[12] === "j" && contentType[13] === "s" && contentType[14] === "o" && contentType[15] === "n";
@@ -9680,13 +9680,13 @@ var require_api_request = __commonJS({
     var { getResolveErrorBodyCallback } = require_util3();
     var { AsyncResource } = __require("async_hooks");
     var RequestHandler = class extends AsyncResource {
-      constructor(opts, callback2) {
+      constructor(opts, callback) {
         if (!opts || typeof opts !== "object") {
           throw new InvalidArgumentError("invalid opts");
         }
         const { signal, method: method2, opaque, body, onInfo, responseHeaders, throwOnError, highWaterMark } = opts;
         try {
-          if (typeof callback2 !== "function") {
+          if (typeof callback !== "function") {
             throw new InvalidArgumentError("invalid callback");
           }
           if (highWaterMark && (typeof highWaterMark !== "number" || highWaterMark < 0)) {
@@ -9711,7 +9711,7 @@ var require_api_request = __commonJS({
         this.method = method2;
         this.responseHeaders = responseHeaders || null;
         this.opaque = opaque || null;
-        this.callback = callback2;
+        this.callback = callback;
         this.res = null;
         this.abort = null;
         this.body = body;
@@ -9758,7 +9758,7 @@ var require_api_request = __commonJS({
         this.context = context3;
       }
       onHeaders(statusCode, rawHeaders, resume, statusMessage) {
-        const { callback: callback2, opaque, abort, context: context3, responseHeaders, highWaterMark } = this;
+        const { callback, opaque, abort, context: context3, responseHeaders, highWaterMark } = this;
         const headers = responseHeaders === "raw" ? util.parseRawHeaders(rawHeaders) : util.parseHeaders(rawHeaders);
         if (statusCode < 200) {
           if (this.onInfo) {
@@ -9781,15 +9781,15 @@ var require_api_request = __commonJS({
         }
         this.callback = null;
         this.res = res;
-        if (callback2 !== null) {
+        if (callback !== null) {
           if (this.throwOnError && statusCode >= 400) {
             this.runInAsyncScope(
               getResolveErrorBodyCallback,
               null,
-              { callback: callback2, body: res, contentType, statusCode, statusMessage, headers }
+              { callback, body: res, contentType, statusCode, statusMessage, headers }
             );
           } else {
-            this.runInAsyncScope(callback2, null, null, {
+            this.runInAsyncScope(callback, null, null, {
               statusCode,
               headers,
               trailers: this.trailers,
@@ -9808,11 +9808,11 @@ var require_api_request = __commonJS({
         this.res.push(null);
       }
       onError(err) {
-        const { res, callback: callback2, body, opaque } = this;
-        if (callback2) {
+        const { res, callback, body, opaque } = this;
+        if (callback) {
           this.callback = null;
           queueMicrotask(() => {
-            this.runInAsyncScope(callback2, null, err, { opaque });
+            this.runInAsyncScope(callback, null, err, { opaque });
           });
         }
         if (res) {
@@ -9832,22 +9832,22 @@ var require_api_request = __commonJS({
         }
       }
     };
-    function request2(opts, callback2) {
-      if (callback2 === void 0) {
-        return new Promise((resolve5, reject) => {
+    function request2(opts, callback) {
+      if (callback === void 0) {
+        return new Promise((resolve3, reject) => {
           request2.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve5(data2);
+            return err ? reject(err) : resolve3(data2);
           });
         });
       }
       try {
-        this.dispatch(opts, new RequestHandler(opts, callback2));
+        this.dispatch(opts, new RequestHandler(opts, callback));
       } catch (err) {
-        if (typeof callback2 !== "function") {
+        if (typeof callback !== "function") {
           throw err;
         }
         const opaque = opts?.opaque;
-        queueMicrotask(() => callback2(err, { opaque }));
+        queueMicrotask(() => callback(err, { opaque }));
       }
     }
     module.exports = request2;
@@ -9919,13 +9919,13 @@ var require_api_stream = __commonJS({
     var { AsyncResource } = __require("async_hooks");
     var { addSignal, removeSignal } = require_abort_signal();
     var StreamHandler = class extends AsyncResource {
-      constructor(opts, factory, callback2) {
+      constructor(opts, factory, callback) {
         if (!opts || typeof opts !== "object") {
           throw new InvalidArgumentError("invalid opts");
         }
         const { signal, method: method2, opaque, body, onInfo, responseHeaders, throwOnError } = opts;
         try {
-          if (typeof callback2 !== "function") {
+          if (typeof callback !== "function") {
             throw new InvalidArgumentError("invalid callback");
           }
           if (typeof factory !== "function") {
@@ -9950,7 +9950,7 @@ var require_api_stream = __commonJS({
         this.responseHeaders = responseHeaders || null;
         this.opaque = opaque || null;
         this.factory = factory;
-        this.callback = callback2;
+        this.callback = callback;
         this.res = null;
         this.abort = null;
         this.context = null;
@@ -9975,7 +9975,7 @@ var require_api_stream = __commonJS({
         this.context = context3;
       }
       onHeaders(statusCode, rawHeaders, resume, statusMessage) {
-        const { factory, opaque, context: context3, callback: callback2, responseHeaders } = this;
+        const { factory, opaque, context: context3, callback, responseHeaders } = this;
         const headers = responseHeaders === "raw" ? util.parseRawHeaders(rawHeaders) : util.parseHeaders(rawHeaders);
         if (statusCode < 200) {
           if (this.onInfo) {
@@ -9993,7 +9993,7 @@ var require_api_stream = __commonJS({
           this.runInAsyncScope(
             getResolveErrorBodyCallback,
             null,
-            { callback: callback2, body: res, contentType, statusCode, statusMessage, headers }
+            { callback, body: res, contentType, statusCode, statusMessage, headers }
           );
         } else {
           if (factory === null) {
@@ -10009,13 +10009,13 @@ var require_api_stream = __commonJS({
             throw new InvalidReturnValueError("expected Writable");
           }
           finished(res, { readable: false }, (err) => {
-            const { callback: callback3, res: res2, opaque: opaque2, trailers, abort } = this;
+            const { callback: callback2, res: res2, opaque: opaque2, trailers, abort } = this;
             this.res = null;
             if (err || !res2.readable) {
               util.destroy(res2, err);
             }
             this.callback = null;
-            this.runInAsyncScope(callback3, null, err || null, { opaque: opaque2, trailers });
+            this.runInAsyncScope(callback2, null, err || null, { opaque: opaque2, trailers });
             if (err) {
               abort();
             }
@@ -10040,16 +10040,16 @@ var require_api_stream = __commonJS({
         res.end();
       }
       onError(err) {
-        const { res, callback: callback2, opaque, body } = this;
+        const { res, callback, opaque, body } = this;
         removeSignal(this);
         this.factory = null;
         if (res) {
           this.res = null;
           util.destroy(res, err);
-        } else if (callback2) {
+        } else if (callback) {
           this.callback = null;
           queueMicrotask(() => {
-            this.runInAsyncScope(callback2, null, err, { opaque });
+            this.runInAsyncScope(callback, null, err, { opaque });
           });
         }
         if (body) {
@@ -10058,22 +10058,22 @@ var require_api_stream = __commonJS({
         }
       }
     };
-    function stream(opts, factory, callback2) {
-      if (callback2 === void 0) {
-        return new Promise((resolve5, reject) => {
+    function stream(opts, factory, callback) {
+      if (callback === void 0) {
+        return new Promise((resolve3, reject) => {
           stream.call(this, opts, factory, (err, data2) => {
-            return err ? reject(err) : resolve5(data2);
+            return err ? reject(err) : resolve3(data2);
           });
         });
       }
       try {
-        this.dispatch(opts, new StreamHandler(opts, factory, callback2));
+        this.dispatch(opts, new StreamHandler(opts, factory, callback));
       } catch (err) {
-        if (typeof callback2 !== "function") {
+        if (typeof callback !== "function") {
           throw err;
         }
         const opaque = opts?.opaque;
-        queueMicrotask(() => callback2(err, { opaque }));
+        queueMicrotask(() => callback(err, { opaque }));
       }
     }
     module.exports = stream;
@@ -10111,9 +10111,9 @@ var require_api_pipeline = __commonJS({
           resume();
         }
       }
-      _destroy(err, callback2) {
+      _destroy(err, callback) {
         this._read();
-        callback2(err);
+        callback(err);
       }
     };
     var PipelineResponse = class extends Readable {
@@ -10124,11 +10124,11 @@ var require_api_pipeline = __commonJS({
       _read() {
         this[kResume]();
       }
-      _destroy(err, callback2) {
+      _destroy(err, callback) {
         if (!err && !this._readableState.endEmitted) {
           err = new RequestAbortedError();
         }
-        callback2(err);
+        callback(err);
       }
     };
     var PipelineHandler = class extends AsyncResource {
@@ -10166,15 +10166,15 @@ var require_api_pipeline = __commonJS({
               body.resume();
             }
           },
-          write: (chunk, encoding, callback2) => {
+          write: (chunk, encoding, callback) => {
             const { req } = this;
             if (req.push(chunk, encoding) || req._readableState.destroyed) {
-              callback2();
+              callback();
             } else {
-              req[kResume] = callback2;
+              req[kResume] = callback;
             }
           },
-          destroy: (err, callback2) => {
+          destroy: (err, callback) => {
             const { body, req, res, ret, abort } = this;
             if (!err && !ret._readableState.endEmitted) {
               err = new RequestAbortedError();
@@ -10186,7 +10186,7 @@ var require_api_pipeline = __commonJS({
             util.destroy(req, err);
             util.destroy(res, err);
             removeSignal(this);
-            callback2(err);
+            callback(err);
           }
         }).on("prefinish", () => {
           const { req } = this;
@@ -10290,11 +10290,11 @@ var require_api_upgrade = __commonJS({
     var { addSignal, removeSignal } = require_abort_signal();
     var assert2 = __require("assert");
     var UpgradeHandler = class extends AsyncResource {
-      constructor(opts, callback2) {
+      constructor(opts, callback) {
         if (!opts || typeof opts !== "object") {
           throw new InvalidArgumentError("invalid opts");
         }
-        if (typeof callback2 !== "function") {
+        if (typeof callback !== "function") {
           throw new InvalidArgumentError("invalid callback");
         }
         const { signal, opaque, responseHeaders } = opts;
@@ -10304,7 +10304,7 @@ var require_api_upgrade = __commonJS({
         super("UNDICI_UPGRADE");
         this.responseHeaders = responseHeaders || null;
         this.opaque = opaque || null;
-        this.callback = callback2;
+        this.callback = callback;
         this.abort = null;
         this.context = null;
         addSignal(this, signal);
@@ -10323,11 +10323,11 @@ var require_api_upgrade = __commonJS({
       }
       onUpgrade(statusCode, rawHeaders, socket) {
         assert2(statusCode === 101);
-        const { callback: callback2, opaque, context: context3 } = this;
+        const { callback, opaque, context: context3 } = this;
         removeSignal(this);
         this.callback = null;
         const headers = this.responseHeaders === "raw" ? util.parseRawHeaders(rawHeaders) : util.parseHeaders(rawHeaders);
-        this.runInAsyncScope(callback2, null, null, {
+        this.runInAsyncScope(callback, null, null, {
           headers,
           socket,
           opaque,
@@ -10335,37 +10335,37 @@ var require_api_upgrade = __commonJS({
         });
       }
       onError(err) {
-        const { callback: callback2, opaque } = this;
+        const { callback, opaque } = this;
         removeSignal(this);
-        if (callback2) {
+        if (callback) {
           this.callback = null;
           queueMicrotask(() => {
-            this.runInAsyncScope(callback2, null, err, { opaque });
+            this.runInAsyncScope(callback, null, err, { opaque });
           });
         }
       }
     };
-    function upgrade(opts, callback2) {
-      if (callback2 === void 0) {
-        return new Promise((resolve5, reject) => {
+    function upgrade(opts, callback) {
+      if (callback === void 0) {
+        return new Promise((resolve3, reject) => {
           upgrade.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve5(data2);
+            return err ? reject(err) : resolve3(data2);
           });
         });
       }
       try {
-        const upgradeHandler = new UpgradeHandler(opts, callback2);
+        const upgradeHandler = new UpgradeHandler(opts, callback);
         this.dispatch({
           ...opts,
           method: opts.method || "GET",
           upgrade: opts.protocol || "Websocket"
         }, upgradeHandler);
       } catch (err) {
-        if (typeof callback2 !== "function") {
+        if (typeof callback !== "function") {
           throw err;
         }
         const opaque = opts?.opaque;
-        queueMicrotask(() => callback2(err, { opaque }));
+        queueMicrotask(() => callback(err, { opaque }));
       }
     }
     module.exports = upgrade;
@@ -10382,11 +10382,11 @@ var require_api_connect = __commonJS({
     var util = require_util();
     var { addSignal, removeSignal } = require_abort_signal();
     var ConnectHandler = class extends AsyncResource {
-      constructor(opts, callback2) {
+      constructor(opts, callback) {
         if (!opts || typeof opts !== "object") {
           throw new InvalidArgumentError("invalid opts");
         }
-        if (typeof callback2 !== "function") {
+        if (typeof callback !== "function") {
           throw new InvalidArgumentError("invalid callback");
         }
         const { signal, opaque, responseHeaders } = opts;
@@ -10396,7 +10396,7 @@ var require_api_connect = __commonJS({
         super("UNDICI_CONNECT");
         this.opaque = opaque || null;
         this.responseHeaders = responseHeaders || null;
-        this.callback = callback2;
+        this.callback = callback;
         this.abort = null;
         addSignal(this, signal);
       }
@@ -10413,14 +10413,14 @@ var require_api_connect = __commonJS({
         throw new SocketError("bad connect", null);
       }
       onUpgrade(statusCode, rawHeaders, socket) {
-        const { callback: callback2, opaque, context: context3 } = this;
+        const { callback, opaque, context: context3 } = this;
         removeSignal(this);
         this.callback = null;
         let headers = rawHeaders;
         if (headers != null) {
           headers = this.responseHeaders === "raw" ? util.parseRawHeaders(rawHeaders) : util.parseHeaders(rawHeaders);
         }
-        this.runInAsyncScope(callback2, null, null, {
+        this.runInAsyncScope(callback, null, null, {
           statusCode,
           headers,
           socket,
@@ -10429,33 +10429,33 @@ var require_api_connect = __commonJS({
         });
       }
       onError(err) {
-        const { callback: callback2, opaque } = this;
+        const { callback, opaque } = this;
         removeSignal(this);
-        if (callback2) {
+        if (callback) {
           this.callback = null;
           queueMicrotask(() => {
-            this.runInAsyncScope(callback2, null, err, { opaque });
+            this.runInAsyncScope(callback, null, err, { opaque });
           });
         }
       }
     };
-    function connect(opts, callback2) {
-      if (callback2 === void 0) {
-        return new Promise((resolve5, reject) => {
+    function connect(opts, callback) {
+      if (callback === void 0) {
+        return new Promise((resolve3, reject) => {
           connect.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve5(data2);
+            return err ? reject(err) : resolve3(data2);
           });
         });
       }
       try {
-        const connectHandler = new ConnectHandler(opts, callback2);
+        const connectHandler = new ConnectHandler(opts, callback);
         this.dispatch({ ...opts, method: "CONNECT" }, connectHandler);
       } catch (err) {
-        if (typeof callback2 !== "function") {
+        if (typeof callback !== "function") {
           throw err;
         }
         const opaque = opts?.opaque;
-        queueMicrotask(() => callback2(err, { opaque }));
+        queueMicrotask(() => callback(err, { opaque }));
       }
     }
     module.exports = connect;
@@ -14305,7 +14305,7 @@ var require_fetch = __commonJS({
       function dispatch({ body }) {
         const url = requestCurrentURL(request2);
         const agent = fetchParams.controller.dispatcher;
-        return new Promise((resolve5, reject) => agent.dispatch(
+        return new Promise((resolve3, reject) => agent.dispatch(
           {
             path: url.pathname + url.search,
             origin: url.origin,
@@ -14381,7 +14381,7 @@ var require_fetch = __commonJS({
                 }
               }
               const onError = this.onError.bind(this);
-              resolve5({
+              resolve3({
                 status,
                 statusText,
                 headersList,
@@ -14427,7 +14427,7 @@ var require_fetch = __commonJS({
               for (let i2 = 0; i2 < rawHeaders.length; i2 += 2) {
                 headersList.append(bufferToLowerCasedHeaderName(rawHeaders[i2]), rawHeaders[i2 + 1].toString("latin1"), true);
               }
-              resolve5({
+              resolve3({
                 status,
                 statusText: STATUS_CODES[status],
                 headersList,
@@ -15604,7 +15604,7 @@ var require_cache = __commonJS({
             r2 = new Request(request2)[kState];
           }
         }
-        const promise2 = createDeferredPromise();
+        const promise = createDeferredPromise();
         const requests = [];
         if (request2 === void 0) {
           for (const requestResponse of this.#relevantRequestResponseList) {
@@ -15626,9 +15626,9 @@ var require_cache = __commonJS({
             );
             requestList.push(requestObject);
           }
-          promise2.resolve(Object.freeze(requestList));
+          promise.resolve(Object.freeze(requestList));
         });
-        return promise2.promise;
+        return promise.promise;
       }
       /**
        * @see https://w3c.github.io/ServiceWorker/#batch-cache-operations-algorithm
@@ -17246,12 +17246,12 @@ var require_permessage_deflate = __commonJS({
        * @param {boolean} fin Final fragment flag
        * @param {Function} callback Callback function
        */
-      decompress(chunk, fin, callback2) {
+      decompress(chunk, fin, callback) {
         if (!this.#inflate) {
           let windowBits = Z_DEFAULT_WINDOWBITS;
           if (this.#options.serverMaxWindowBits) {
             if (!isValidClientWindowBits(this.#options.serverMaxWindowBits)) {
-              callback2(new Error("Invalid server_max_window_bits"));
+              callback(new Error("Invalid server_max_window_bits"));
               return;
             }
             windowBits = Number.parseInt(this.#options.serverMaxWindowBits);
@@ -17259,7 +17259,7 @@ var require_permessage_deflate = __commonJS({
           try {
             this.#inflate = createInflateRaw({ windowBits });
           } catch (err) {
-            callback2(err);
+            callback(err);
             return;
           }
           this.#inflate[kBuffer] = [];
@@ -17267,7 +17267,7 @@ var require_permessage_deflate = __commonJS({
           this.#inflate.on("data", (data2) => {
             this.#inflate[kLength] += data2.length;
             if (this.#maxPayloadSize > 0 && this.#inflate[kLength] > this.#maxPayloadSize) {
-              callback2(new MessageSizeExceededError());
+              callback(new MessageSizeExceededError());
               this.#inflate.removeAllListeners();
               this.#inflate = null;
               return;
@@ -17276,7 +17276,7 @@ var require_permessage_deflate = __commonJS({
           });
           this.#inflate.on("error", (err) => {
             this.#inflate = null;
-            callback2(err);
+            callback(err);
           });
         }
         this.#inflate.write(chunk);
@@ -17290,7 +17290,7 @@ var require_permessage_deflate = __commonJS({
           const full = Buffer.concat(this.#inflate[kBuffer], this.#inflate[kLength]);
           this.#inflate[kBuffer].length = 0;
           this.#inflate[kLength] = 0;
-          callback2(null, full);
+          callback(null, full);
         });
       }
     };
@@ -17358,11 +17358,11 @@ var require_receiver = __commonJS({
        * @param {Buffer} chunk
        * @param {() => void} callback
        */
-      _write(chunk, _, callback2) {
+      _write(chunk, _, callback) {
         this.#buffers.push(chunk);
         this.#byteOffset += chunk.length;
         this.#loop = true;
-        this.run(callback2);
+        this.run(callback);
       }
       #validatePayloadLength() {
         if (this.#maxPayloadSize > 0 && !isControlFrame(this.#info.opcode) && this.#info.payloadLength + this.#fragmentsBytes > this.#maxPayloadSize) {
@@ -17376,11 +17376,11 @@ var require_receiver = __commonJS({
        * Callback is called whenever there are no more chunks buffering,
        * or not enough bytes are buffered to parse.
        */
-      run(callback2) {
+      run(callback) {
         while (this.#loop) {
           if (this.#state === parserStates.INFO) {
             if (this.#byteOffset < 2) {
-              return callback2();
+              return callback();
             }
             const buffer = this.consume(2);
             const fin = (buffer[0] & 128) !== 0;
@@ -17393,11 +17393,11 @@ var require_receiver = __commonJS({
             const rsv3 = buffer[0] & 16;
             if (!isValidOpcode(opcode)) {
               failWebsocketConnection(this.ws, "Invalid opcode received");
-              return callback2();
+              return callback();
             }
             if (masked) {
               failWebsocketConnection(this.ws, "Frame cannot be masked");
-              return callback2();
+              return callback();
             }
             if (rsv1 !== 0 && !this.#extensions.has("permessage-deflate")) {
               failWebsocketConnection(this.ws, "Expected RSV1 to be clear.");
@@ -17448,7 +17448,7 @@ var require_receiver = __commonJS({
             this.#info.fragmented = fragmented;
           } else if (this.#state === parserStates.PAYLOADLENGTH_16) {
             if (this.#byteOffset < 2) {
-              return callback2();
+              return callback();
             }
             const buffer = this.consume(2);
             this.#info.payloadLength = buffer.readUInt16BE(0);
@@ -17458,7 +17458,7 @@ var require_receiver = __commonJS({
             }
           } else if (this.#state === parserStates.PAYLOADLENGTH_64) {
             if (this.#byteOffset < 8) {
-              return callback2();
+              return callback();
             }
             const buffer = this.consume(8);
             const upper = buffer.readUInt32BE(0);
@@ -17474,7 +17474,7 @@ var require_receiver = __commonJS({
             }
           } else if (this.#state === parserStates.READ_DATA) {
             if (this.#byteOffset < this.#info.payloadLength) {
-              return callback2();
+              return callback();
             }
             const body = this.consume(this.#info.payloadLength);
             if (isControlFrame(this.#info.opcode)) {
@@ -17513,13 +17513,13 @@ var require_receiver = __commonJS({
                     if (!this.#info.fin) {
                       this.#state = parserStates.INFO;
                       this.#loop = true;
-                      this.run(callback2);
+                      this.run(callback);
                       return;
                     }
                     websocketMessageReceived(this.ws, this.#info.binaryType, this.consumeFragments());
                     this.#loop = true;
                     this.#state = parserStates.INFO;
-                    this.run(callback2);
+                    this.run(callback);
                   }
                 );
                 this.#loop = false;
@@ -18157,8 +18157,8 @@ var require_util8 = __commonJS({
       return true;
     }
     function delay(ms) {
-      return new Promise((resolve5) => {
-        setTimeout(resolve5, ms).unref();
+      return new Promise((resolve3) => {
+        setTimeout(resolve3, ms).unref();
       });
     }
     module.exports = {
@@ -18228,9 +18228,9 @@ var require_eventsource_stream = __commonJS({
        * @param {Function} callback
        * @returns {void}
        */
-      _transform(chunk, _encoding, callback2) {
+      _transform(chunk, _encoding, callback) {
         if (chunk.length === 0) {
-          callback2();
+          callback();
           return;
         }
         if (this.buffer) {
@@ -18242,15 +18242,15 @@ var require_eventsource_stream = __commonJS({
           switch (this.buffer.length) {
             case 1:
               if (this.buffer[0] === BOM[0]) {
-                callback2();
+                callback();
                 return;
               }
               this.checkBOM = false;
-              callback2();
+              callback();
               return;
             case 2:
               if (this.buffer[0] === BOM[0] && this.buffer[1] === BOM[1]) {
-                callback2();
+                callback();
                 return;
               }
               this.checkBOM = false;
@@ -18259,7 +18259,7 @@ var require_eventsource_stream = __commonJS({
               if (this.buffer[0] === BOM[0] && this.buffer[1] === BOM[1] && this.buffer[2] === BOM[2]) {
                 this.buffer = Buffer.alloc(0);
                 this.checkBOM = false;
-                callback2();
+                callback();
                 return;
               }
               this.checkBOM = false;
@@ -18310,7 +18310,7 @@ var require_eventsource_stream = __commonJS({
           }
           this.pos++;
         }
-        callback2();
+        callback();
       }
       /**
        * @param {Buffer} line
@@ -18962,11 +18962,11 @@ var require_lib = __commonJS({
     })();
     var __awaiter3 = exports && exports.__awaiter || function(thisArg, _arguments, P2, generator) {
       function adopt(value) {
-        return value instanceof P2 ? value : new P2(function(resolve5) {
-          resolve5(value);
+        return value instanceof P2 ? value : new P2(function(resolve3) {
+          resolve3(value);
         });
       }
-      return new (P2 || (P2 = Promise))(function(resolve5, reject) {
+      return new (P2 || (P2 = Promise))(function(resolve3, reject) {
         function fulfilled(value) {
           try {
             step(generator.next(value));
@@ -18982,7 +18982,7 @@ var require_lib = __commonJS({
           }
         }
         function step(result2) {
-          result2.done ? resolve5(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+          result2.done ? resolve3(result2.value) : adopt(result2.value).then(fulfilled, rejected);
         }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
@@ -18993,7 +18993,7 @@ var require_lib = __commonJS({
     exports.isHttps = isHttps;
     var http = __importStar(__require("http"));
     var https = __importStar(__require("https"));
-    var pm2 = __importStar(require_proxy());
+    var pm = __importStar(require_proxy());
     var tunnel2 = __importStar(require_tunnel2());
     var undici_1 = require_undici();
     var HttpCodes2;
@@ -19036,7 +19036,7 @@ var require_lib = __commonJS({
       MediaTypes3["ApplicationJson"] = "application/json";
     })(MediaTypes2 || (exports.MediaTypes = MediaTypes2 = {}));
     function getProxyUrl2(serverUrl) {
-      const proxyUrl = pm2.getProxyUrl(new URL(serverUrl));
+      const proxyUrl = pm.getProxyUrl(new URL(serverUrl));
       return proxyUrl ? proxyUrl.href : "";
     }
     var HttpRedirectCodes2 = [
@@ -19069,26 +19069,26 @@ var require_lib = __commonJS({
       }
       readBody() {
         return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve5) => __awaiter3(this, void 0, void 0, function* () {
+          return new Promise((resolve3) => __awaiter3(this, void 0, void 0, function* () {
             let output = Buffer.alloc(0);
             this.message.on("data", (chunk) => {
               output = Buffer.concat([output, chunk]);
             });
             this.message.on("end", () => {
-              resolve5(output.toString());
+              resolve3(output.toString());
             });
           }));
         });
       }
       readBodyBuffer() {
         return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve5) => __awaiter3(this, void 0, void 0, function* () {
+          return new Promise((resolve3) => __awaiter3(this, void 0, void 0, function* () {
             const chunks = [];
             this.message.on("data", (chunk) => {
               chunks.push(chunk);
             });
             this.message.on("end", () => {
-              resolve5(Buffer.concat(chunks));
+              resolve3(Buffer.concat(chunks));
             });
           }));
         });
@@ -19296,14 +19296,14 @@ var require_lib = __commonJS({
        */
       requestRaw(info2, data2) {
         return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve5, reject) => {
+          return new Promise((resolve3, reject) => {
             function callbackForResult(err, res) {
               if (err) {
                 reject(err);
               } else if (!res) {
                 reject(new Error("Unknown error"));
               } else {
-                resolve5(res);
+                resolve3(res);
               }
             }
             this.requestRawWithCallback(info2, data2, callbackForResult);
@@ -19370,7 +19370,7 @@ var require_lib = __commonJS({
       }
       getAgentDispatcher(serverUrl) {
         const parsedUrl = new URL(serverUrl);
-        const proxyUrl = pm2.getProxyUrl(parsedUrl);
+        const proxyUrl = pm.getProxyUrl(parsedUrl);
         const useProxy = proxyUrl && proxyUrl.hostname;
         if (!useProxy) {
           return;
@@ -19468,7 +19468,7 @@ var require_lib = __commonJS({
       }
       _getAgent(parsedUrl) {
         let agent;
-        const proxyUrl = pm2.getProxyUrl(parsedUrl);
+        const proxyUrl = pm.getProxyUrl(parsedUrl);
         const useProxy = proxyUrl && proxyUrl.hostname;
         if (this._keepAlive && useProxy) {
           agent = this._proxyAgent;
@@ -19547,12 +19547,12 @@ var require_lib = __commonJS({
         return __awaiter3(this, void 0, void 0, function* () {
           retryNumber = Math.min(ExponentialBackoffCeiling, retryNumber);
           const ms = ExponentialBackoffTimeSlice * Math.pow(2, retryNumber);
-          return new Promise((resolve5) => setTimeout(() => resolve5(), ms));
+          return new Promise((resolve3) => setTimeout(() => resolve3(), ms));
         });
       }
       _processResponse(res, options) {
         return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve5, reject) => __awaiter3(this, void 0, void 0, function* () {
+          return new Promise((resolve3, reject) => __awaiter3(this, void 0, void 0, function* () {
             const statusCode = res.message.statusCode || 0;
             const response = {
               statusCode,
@@ -19560,7 +19560,7 @@ var require_lib = __commonJS({
               headers: {}
             };
             if (statusCode === HttpCodes2.NotFound) {
-              resolve5(response);
+              resolve3(response);
             }
             function dateTimeDeserializer(key2, value) {
               if (typeof value === "string") {
@@ -19599,7 +19599,7 @@ var require_lib = __commonJS({
               err.result = response.result;
               reject(err);
             } else {
-              resolve5(response);
+              resolve3(response);
             }
           }));
         });
@@ -36948,1782 +36948,6 @@ var require_lib4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/constants.js
-var require_constants6 = __commonJS({
-  "node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/constants.js"(exports, module) {
-    "use strict";
-    var WIN_SLASH = "\\\\/";
-    var WIN_NO_SLASH = `[^${WIN_SLASH}]`;
-    var DEFAULT_MAX_EXTGLOB_RECURSION = 0;
-    var DOT_LITERAL = "\\.";
-    var PLUS_LITERAL = "\\+";
-    var QMARK_LITERAL = "\\?";
-    var SLASH_LITERAL = "\\/";
-    var ONE_CHAR = "(?=.)";
-    var QMARK = "[^/]";
-    var END_ANCHOR = `(?:${SLASH_LITERAL}|$)`;
-    var START_ANCHOR = `(?:^|${SLASH_LITERAL})`;
-    var DOTS_SLASH = `${DOT_LITERAL}{1,2}${END_ANCHOR}`;
-    var NO_DOT = `(?!${DOT_LITERAL})`;
-    var NO_DOTS = `(?!${START_ANCHOR}${DOTS_SLASH})`;
-    var NO_DOT_SLASH = `(?!${DOT_LITERAL}{0,1}${END_ANCHOR})`;
-    var NO_DOTS_SLASH = `(?!${DOTS_SLASH})`;
-    var QMARK_NO_DOT = `[^.${SLASH_LITERAL}]`;
-    var STAR = `${QMARK}*?`;
-    var SEP = "/";
-    var POSIX_CHARS = {
-      DOT_LITERAL,
-      PLUS_LITERAL,
-      QMARK_LITERAL,
-      SLASH_LITERAL,
-      ONE_CHAR,
-      QMARK,
-      END_ANCHOR,
-      DOTS_SLASH,
-      NO_DOT,
-      NO_DOTS,
-      NO_DOT_SLASH,
-      NO_DOTS_SLASH,
-      QMARK_NO_DOT,
-      STAR,
-      START_ANCHOR,
-      SEP
-    };
-    var WINDOWS_CHARS = {
-      ...POSIX_CHARS,
-      SLASH_LITERAL: `[${WIN_SLASH}]`,
-      QMARK: WIN_NO_SLASH,
-      STAR: `${WIN_NO_SLASH}*?`,
-      DOTS_SLASH: `${DOT_LITERAL}{1,2}(?:[${WIN_SLASH}]|$)`,
-      NO_DOT: `(?!${DOT_LITERAL})`,
-      NO_DOTS: `(?!(?:^|[${WIN_SLASH}])${DOT_LITERAL}{1,2}(?:[${WIN_SLASH}]|$))`,
-      NO_DOT_SLASH: `(?!${DOT_LITERAL}{0,1}(?:[${WIN_SLASH}]|$))`,
-      NO_DOTS_SLASH: `(?!${DOT_LITERAL}{1,2}(?:[${WIN_SLASH}]|$))`,
-      QMARK_NO_DOT: `[^.${WIN_SLASH}]`,
-      START_ANCHOR: `(?:^|[${WIN_SLASH}])`,
-      END_ANCHOR: `(?:[${WIN_SLASH}]|$)`,
-      SEP: "\\"
-    };
-    var POSIX_REGEX_SOURCE = {
-      __proto__: null,
-      alnum: "a-zA-Z0-9",
-      alpha: "a-zA-Z",
-      ascii: "\\x00-\\x7F",
-      blank: " \\t",
-      cntrl: "\\x00-\\x1F\\x7F",
-      digit: "0-9",
-      graph: "\\x21-\\x7E",
-      lower: "a-z",
-      print: "\\x20-\\x7E ",
-      punct: "\\-!\"#$%&'()\\*+,./:;<=>?@[\\]^_`{|}~",
-      space: " \\t\\r\\n\\v\\f",
-      upper: "A-Z",
-      word: "A-Za-z0-9_",
-      xdigit: "A-Fa-f0-9"
-    };
-    module.exports = {
-      DEFAULT_MAX_EXTGLOB_RECURSION,
-      MAX_LENGTH: 1024 * 64,
-      POSIX_REGEX_SOURCE,
-      // regular expressions
-      REGEX_BACKSLASH: /\\(?![*+?^${}(|)[\]])/g,
-      REGEX_NON_SPECIAL_CHARS: /^[^@![\].,$*+?^{}()|\\/]+/,
-      REGEX_SPECIAL_CHARS: /[-*+?.^${}(|)[\]]/,
-      REGEX_SPECIAL_CHARS_BACKREF: /(\\?)((\W)(\3*))/g,
-      REGEX_SPECIAL_CHARS_GLOBAL: /([-*+?.^${}(|)[\]])/g,
-      REGEX_REMOVE_BACKSLASH: /(?:\[.*?[^\\]\]|\\(?=.))/g,
-      // Replace globs with equivalent patterns to reduce parsing time.
-      REPLACEMENTS: {
-        __proto__: null,
-        "***": "*",
-        "**/**": "**",
-        "**/**/**": "**"
-      },
-      // Digits
-      CHAR_0: 48,
-      /* 0 */
-      CHAR_9: 57,
-      /* 9 */
-      // Alphabet chars.
-      CHAR_UPPERCASE_A: 65,
-      /* A */
-      CHAR_LOWERCASE_A: 97,
-      /* a */
-      CHAR_UPPERCASE_Z: 90,
-      /* Z */
-      CHAR_LOWERCASE_Z: 122,
-      /* z */
-      CHAR_LEFT_PARENTHESES: 40,
-      /* ( */
-      CHAR_RIGHT_PARENTHESES: 41,
-      /* ) */
-      CHAR_ASTERISK: 42,
-      /* * */
-      // Non-alphabetic chars.
-      CHAR_AMPERSAND: 38,
-      /* & */
-      CHAR_AT: 64,
-      /* @ */
-      CHAR_BACKWARD_SLASH: 92,
-      /* \ */
-      CHAR_CARRIAGE_RETURN: 13,
-      /* \r */
-      CHAR_CIRCUMFLEX_ACCENT: 94,
-      /* ^ */
-      CHAR_COLON: 58,
-      /* : */
-      CHAR_COMMA: 44,
-      /* , */
-      CHAR_DOT: 46,
-      /* . */
-      CHAR_DOUBLE_QUOTE: 34,
-      /* " */
-      CHAR_EQUAL: 61,
-      /* = */
-      CHAR_EXCLAMATION_MARK: 33,
-      /* ! */
-      CHAR_FORM_FEED: 12,
-      /* \f */
-      CHAR_FORWARD_SLASH: 47,
-      /* / */
-      CHAR_GRAVE_ACCENT: 96,
-      /* ` */
-      CHAR_HASH: 35,
-      /* # */
-      CHAR_HYPHEN_MINUS: 45,
-      /* - */
-      CHAR_LEFT_ANGLE_BRACKET: 60,
-      /* < */
-      CHAR_LEFT_CURLY_BRACE: 123,
-      /* { */
-      CHAR_LEFT_SQUARE_BRACKET: 91,
-      /* [ */
-      CHAR_LINE_FEED: 10,
-      /* \n */
-      CHAR_NO_BREAK_SPACE: 160,
-      /* \u00A0 */
-      CHAR_PERCENT: 37,
-      /* % */
-      CHAR_PLUS: 43,
-      /* + */
-      CHAR_QUESTION_MARK: 63,
-      /* ? */
-      CHAR_RIGHT_ANGLE_BRACKET: 62,
-      /* > */
-      CHAR_RIGHT_CURLY_BRACE: 125,
-      /* } */
-      CHAR_RIGHT_SQUARE_BRACKET: 93,
-      /* ] */
-      CHAR_SEMICOLON: 59,
-      /* ; */
-      CHAR_SINGLE_QUOTE: 39,
-      /* ' */
-      CHAR_SPACE: 32,
-      /*   */
-      CHAR_TAB: 9,
-      /* \t */
-      CHAR_UNDERSCORE: 95,
-      /* _ */
-      CHAR_VERTICAL_LINE: 124,
-      /* | */
-      CHAR_ZERO_WIDTH_NOBREAK_SPACE: 65279,
-      /* \uFEFF */
-      /**
-       * Create EXTGLOB_CHARS
-       */
-      extglobChars(chars2) {
-        return {
-          "!": { type: "negate", open: "(?:(?!(?:", close: `))${chars2.STAR})` },
-          "?": { type: "qmark", open: "(?:", close: ")?" },
-          "+": { type: "plus", open: "(?:", close: ")+" },
-          "*": { type: "star", open: "(?:", close: ")*" },
-          "@": { type: "at", open: "(?:", close: ")" }
-        };
-      },
-      /**
-       * Create GLOB_CHARS
-       */
-      globChars(win32) {
-        return win32 === true ? WINDOWS_CHARS : POSIX_CHARS;
-      }
-    };
-  }
-});
-
-// node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/utils.js
-var require_utils2 = __commonJS({
-  "node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/utils.js"(exports) {
-    "use strict";
-    var {
-      REGEX_BACKSLASH,
-      REGEX_REMOVE_BACKSLASH,
-      REGEX_SPECIAL_CHARS,
-      REGEX_SPECIAL_CHARS_GLOBAL
-    } = require_constants6();
-    exports.isObject = (val) => val !== null && typeof val === "object" && !Array.isArray(val);
-    exports.hasRegexChars = (str) => REGEX_SPECIAL_CHARS.test(str);
-    exports.isRegexChar = (str) => str.length === 1 && exports.hasRegexChars(str);
-    exports.escapeRegex = (str) => str.replace(REGEX_SPECIAL_CHARS_GLOBAL, "\\$1");
-    exports.toPosixSlashes = (str) => str.replace(REGEX_BACKSLASH, "/");
-    exports.isWindows = () => {
-      if (typeof navigator !== "undefined" && navigator.platform) {
-        const platform2 = navigator.platform.toLowerCase();
-        return platform2 === "win32" || platform2 === "windows";
-      }
-      if (typeof process !== "undefined" && process.platform) {
-        return process.platform === "win32";
-      }
-      return false;
-    };
-    exports.removeBackslashes = (str) => {
-      return str.replace(REGEX_REMOVE_BACKSLASH, (match) => {
-        return match === "\\" ? "" : match;
-      });
-    };
-    exports.escapeLast = (input, char, lastIdx) => {
-      const idx = input.lastIndexOf(char, lastIdx);
-      if (idx === -1) return input;
-      if (input[idx - 1] === "\\") return exports.escapeLast(input, char, idx - 1);
-      return `${input.slice(0, idx)}\\${input.slice(idx)}`;
-    };
-    exports.removePrefix = (input, state = {}) => {
-      let output = input;
-      if (output.startsWith("./")) {
-        output = output.slice(2);
-        state.prefix = "./";
-      }
-      return output;
-    };
-    exports.wrapOutput = (input, state = {}, options = {}) => {
-      const prepend = options.contains ? "" : "^";
-      const append = options.contains ? "" : "$";
-      let output = `${prepend}(?:${input})${append}`;
-      if (state.negated === true) {
-        output = `(?:^(?!${output}).*$)`;
-      }
-      return output;
-    };
-    exports.basename = (path, { windows } = {}) => {
-      const segs = path.split(windows ? /[\\/]/ : "/");
-      const last = segs[segs.length - 1];
-      if (last === "") {
-        return segs[segs.length - 2];
-      }
-      return last;
-    };
-  }
-});
-
-// node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/scan.js
-var require_scan = __commonJS({
-  "node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/scan.js"(exports, module) {
-    "use strict";
-    var utils = require_utils2();
-    var {
-      CHAR_ASTERISK,
-      /* * */
-      CHAR_AT,
-      /* @ */
-      CHAR_BACKWARD_SLASH,
-      /* \ */
-      CHAR_COMMA,
-      /* , */
-      CHAR_DOT,
-      /* . */
-      CHAR_EXCLAMATION_MARK,
-      /* ! */
-      CHAR_FORWARD_SLASH,
-      /* / */
-      CHAR_LEFT_CURLY_BRACE,
-      /* { */
-      CHAR_LEFT_PARENTHESES,
-      /* ( */
-      CHAR_LEFT_SQUARE_BRACKET,
-      /* [ */
-      CHAR_PLUS,
-      /* + */
-      CHAR_QUESTION_MARK,
-      /* ? */
-      CHAR_RIGHT_CURLY_BRACE,
-      /* } */
-      CHAR_RIGHT_PARENTHESES,
-      /* ) */
-      CHAR_RIGHT_SQUARE_BRACKET
-      /* ] */
-    } = require_constants6();
-    var isPathSeparator = (code) => {
-      return code === CHAR_FORWARD_SLASH || code === CHAR_BACKWARD_SLASH;
-    };
-    var depth = (token) => {
-      if (token.isPrefix !== true) {
-        token.depth = token.isGlobstar ? Infinity : 1;
-      }
-    };
-    var scan = (input, options) => {
-      const opts = options || {};
-      const length = input.length - 1;
-      const scanToEnd = opts.parts === true || opts.tokens === true || opts.scanToEnd === true;
-      const slashes = [];
-      const tokens = [];
-      const parts = [];
-      let str = input;
-      let index = -1;
-      let start = 0;
-      let lastIndex = 0;
-      let isBrace = false;
-      let isBracket = false;
-      let isGlob = false;
-      let isExtglob = false;
-      let isGlobstar = false;
-      let braceEscaped = false;
-      let backslashes = false;
-      let negated = false;
-      let negatedExtglob = false;
-      let finished = false;
-      let braces = 0;
-      let prev;
-      let code;
-      let token = { value: "", depth: 0, isGlob: false };
-      const eos = () => index >= length;
-      const peek = () => str.charCodeAt(index + 1);
-      const advance2 = () => {
-        prev = code;
-        return str.charCodeAt(++index);
-      };
-      while (index < length) {
-        code = advance2();
-        let next2;
-        if (code === CHAR_BACKWARD_SLASH) {
-          backslashes = token.backslashes = true;
-          code = advance2();
-          if (code === CHAR_LEFT_CURLY_BRACE) {
-            braceEscaped = true;
-          }
-          continue;
-        }
-        if (braceEscaped === true || code === CHAR_LEFT_CURLY_BRACE) {
-          braces++;
-          while (eos() !== true && (code = advance2())) {
-            if (code === CHAR_BACKWARD_SLASH) {
-              backslashes = token.backslashes = true;
-              advance2();
-              continue;
-            }
-            if (code === CHAR_LEFT_CURLY_BRACE) {
-              braces++;
-              continue;
-            }
-            if (braceEscaped !== true && code === CHAR_DOT && (code = advance2()) === CHAR_DOT) {
-              isBrace = token.isBrace = true;
-              isGlob = token.isGlob = true;
-              finished = true;
-              if (scanToEnd === true) {
-                continue;
-              }
-              break;
-            }
-            if (braceEscaped !== true && code === CHAR_COMMA) {
-              isBrace = token.isBrace = true;
-              isGlob = token.isGlob = true;
-              finished = true;
-              if (scanToEnd === true) {
-                continue;
-              }
-              break;
-            }
-            if (code === CHAR_RIGHT_CURLY_BRACE) {
-              braces--;
-              if (braces === 0) {
-                braceEscaped = false;
-                isBrace = token.isBrace = true;
-                finished = true;
-                break;
-              }
-            }
-          }
-          if (scanToEnd === true) {
-            continue;
-          }
-          break;
-        }
-        if (code === CHAR_FORWARD_SLASH) {
-          slashes.push(index);
-          tokens.push(token);
-          token = { value: "", depth: 0, isGlob: false };
-          if (finished === true) continue;
-          if (prev === CHAR_DOT && index === start + 1) {
-            start += 2;
-            continue;
-          }
-          lastIndex = index + 1;
-          continue;
-        }
-        if (opts.noext !== true) {
-          const isExtglobChar = code === CHAR_PLUS || code === CHAR_AT || code === CHAR_ASTERISK || code === CHAR_QUESTION_MARK || code === CHAR_EXCLAMATION_MARK;
-          if (isExtglobChar === true && peek() === CHAR_LEFT_PARENTHESES) {
-            isGlob = token.isGlob = true;
-            isExtglob = token.isExtglob = true;
-            finished = true;
-            if (code === CHAR_EXCLAMATION_MARK && index === start) {
-              negatedExtglob = true;
-            }
-            if (scanToEnd === true) {
-              let parens = 0;
-              while (eos() !== true && (code = advance2())) {
-                if (code === CHAR_BACKWARD_SLASH) {
-                  backslashes = token.backslashes = true;
-                  advance2();
-                  continue;
-                }
-                if (code === CHAR_LEFT_PARENTHESES) {
-                  parens++;
-                  continue;
-                }
-                if (code === CHAR_RIGHT_PARENTHESES && --parens === 0) {
-                  finished = true;
-                  break;
-                }
-              }
-              continue;
-            }
-            break;
-          }
-        }
-        if (code === CHAR_ASTERISK) {
-          if (prev === CHAR_ASTERISK) isGlobstar = token.isGlobstar = true;
-          isGlob = token.isGlob = true;
-          finished = true;
-          if (scanToEnd === true) {
-            continue;
-          }
-          break;
-        }
-        if (code === CHAR_QUESTION_MARK) {
-          isGlob = token.isGlob = true;
-          finished = true;
-          if (scanToEnd === true) {
-            continue;
-          }
-          break;
-        }
-        if (code === CHAR_LEFT_SQUARE_BRACKET) {
-          while (eos() !== true && (next2 = advance2())) {
-            if (next2 === CHAR_BACKWARD_SLASH) {
-              backslashes = token.backslashes = true;
-              advance2();
-              continue;
-            }
-            if (next2 === CHAR_RIGHT_SQUARE_BRACKET) {
-              isBracket = token.isBracket = true;
-              isGlob = token.isGlob = true;
-              finished = true;
-              break;
-            }
-          }
-          if (scanToEnd === true) {
-            continue;
-          }
-          break;
-        }
-        if (opts.nonegate !== true && code === CHAR_EXCLAMATION_MARK && index === start) {
-          negated = token.negated = true;
-          start++;
-          continue;
-        }
-        if (opts.noparen !== true && code === CHAR_LEFT_PARENTHESES) {
-          isGlob = token.isGlob = true;
-          if (scanToEnd === true) {
-            let parens = 1;
-            while (eos() !== true && (code = advance2())) {
-              if (code === CHAR_BACKWARD_SLASH) {
-                backslashes = token.backslashes = true;
-                advance2();
-                continue;
-              }
-              if (code === CHAR_LEFT_PARENTHESES) {
-                parens++;
-                continue;
-              }
-              if (code === CHAR_RIGHT_PARENTHESES && --parens === 0) {
-                finished = true;
-                break;
-              }
-            }
-            continue;
-          }
-          break;
-        }
-        if (isGlob === true) {
-          finished = true;
-          if (scanToEnd === true) {
-            continue;
-          }
-          break;
-        }
-      }
-      if (opts.noext === true) {
-        isExtglob = false;
-        isGlob = false;
-      }
-      let base = str;
-      let prefix = "";
-      let glob2 = "";
-      if (start > 0) {
-        prefix = str.slice(0, start);
-        str = str.slice(start);
-        lastIndex -= start;
-      }
-      if (base && isGlob === true && lastIndex > 0) {
-        base = str.slice(0, lastIndex);
-        glob2 = str.slice(lastIndex);
-      } else if (isGlob === true) {
-        base = "";
-        glob2 = str;
-      } else {
-        base = str;
-      }
-      if (base && base !== "" && base !== "/" && base !== str) {
-        if (isPathSeparator(base.charCodeAt(base.length - 1))) {
-          base = base.slice(0, -1);
-        }
-      }
-      if (opts.unescape === true) {
-        if (glob2) glob2 = utils.removeBackslashes(glob2);
-        if (base && backslashes === true) {
-          base = utils.removeBackslashes(base);
-        }
-      }
-      const state = {
-        prefix,
-        input,
-        start,
-        base,
-        glob: glob2,
-        isBrace,
-        isBracket,
-        isGlob,
-        isExtglob,
-        isGlobstar,
-        negated,
-        negatedExtglob
-      };
-      if (opts.tokens === true) {
-        state.maxDepth = 0;
-        if (!isPathSeparator(code)) {
-          tokens.push(token);
-        }
-        state.tokens = tokens;
-      }
-      if (opts.parts === true || opts.tokens === true) {
-        let prevIndex;
-        for (let idx = 0; idx < slashes.length; idx++) {
-          const n3 = prevIndex !== void 0 ? prevIndex + 1 : start;
-          const i2 = slashes[idx];
-          const value2 = input.slice(n3, i2);
-          if (opts.tokens) {
-            if (idx === 0 && start !== 0) {
-              tokens[idx].isPrefix = true;
-              tokens[idx].value = prefix;
-            } else {
-              tokens[idx].value = value2;
-            }
-            depth(tokens[idx]);
-            state.maxDepth += tokens[idx].depth;
-          }
-          if (i2 >= start) {
-            parts.push(value2);
-            prevIndex = i2;
-          }
-        }
-        const n2 = prevIndex !== void 0 ? prevIndex + 1 : start;
-        const value = input.slice(n2);
-        parts.push(value);
-        if (opts.tokens && prevIndex && prevIndex + 1 < input.length) {
-          tokens[tokens.length - 1].value = value;
-          depth(tokens[tokens.length - 1]);
-          state.maxDepth += tokens[tokens.length - 1].depth;
-        }
-        state.slashes = slashes;
-        state.parts = parts;
-      }
-      return state;
-    };
-    module.exports = scan;
-  }
-});
-
-// node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/parse.js
-var require_parse2 = __commonJS({
-  "node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/parse.js"(exports, module) {
-    "use strict";
-    var constants3 = require_constants6();
-    var utils = require_utils2();
-    var {
-      MAX_LENGTH,
-      POSIX_REGEX_SOURCE,
-      REGEX_NON_SPECIAL_CHARS,
-      REGEX_SPECIAL_CHARS_BACKREF,
-      REPLACEMENTS
-    } = constants3;
-    var expandRange = (args, options) => {
-      if (typeof options.expandRange === "function") {
-        return options.expandRange(...args, options);
-      }
-      args.sort();
-      const value = `[${args.join("-")}]`;
-      try {
-        new RegExp(value);
-      } catch (ex) {
-        return args.map((v) => utils.escapeRegex(v)).join("..");
-      }
-      return value;
-    };
-    var syntaxError = (type, char) => {
-      return `Missing ${type}: "${char}" - use "\\\\${char}" to match literal characters`;
-    };
-    var splitTopLevel = (input) => {
-      const parts = [];
-      let bracket = 0;
-      let paren = 0;
-      let quote = 0;
-      let value = "";
-      let escaped = false;
-      for (const ch of input) {
-        if (escaped === true) {
-          value += ch;
-          escaped = false;
-          continue;
-        }
-        if (ch === "\\") {
-          value += ch;
-          escaped = true;
-          continue;
-        }
-        if (ch === '"') {
-          quote = quote === 1 ? 0 : 1;
-          value += ch;
-          continue;
-        }
-        if (quote === 0) {
-          if (ch === "[") {
-            bracket++;
-          } else if (ch === "]" && bracket > 0) {
-            bracket--;
-          } else if (bracket === 0) {
-            if (ch === "(") {
-              paren++;
-            } else if (ch === ")" && paren > 0) {
-              paren--;
-            } else if (ch === "|" && paren === 0) {
-              parts.push(value);
-              value = "";
-              continue;
-            }
-          }
-        }
-        value += ch;
-      }
-      parts.push(value);
-      return parts;
-    };
-    var isPlainBranch = (branch) => {
-      let escaped = false;
-      for (const ch of branch) {
-        if (escaped === true) {
-          escaped = false;
-          continue;
-        }
-        if (ch === "\\") {
-          escaped = true;
-          continue;
-        }
-        if (/[?*+@!()[\]{}]/.test(ch)) {
-          return false;
-        }
-      }
-      return true;
-    };
-    var normalizeSimpleBranch = (branch) => {
-      let value = branch.trim();
-      let changed = true;
-      while (changed === true) {
-        changed = false;
-        if (/^@\([^\\()[\]{}|]+\)$/.test(value)) {
-          value = value.slice(2, -1);
-          changed = true;
-        }
-      }
-      if (!isPlainBranch(value)) {
-        return;
-      }
-      return value.replace(/\\(.)/g, "$1");
-    };
-    var hasRepeatedCharPrefixOverlap = (branches) => {
-      const values = branches.map(normalizeSimpleBranch).filter(Boolean);
-      for (let i2 = 0; i2 < values.length; i2++) {
-        for (let j2 = i2 + 1; j2 < values.length; j2++) {
-          const a2 = values[i2];
-          const b = values[j2];
-          const char = a2[0];
-          if (!char || a2 !== char.repeat(a2.length) || b !== char.repeat(b.length)) {
-            continue;
-          }
-          if (a2 === b || a2.startsWith(b) || b.startsWith(a2)) {
-            return true;
-          }
-        }
-      }
-      return false;
-    };
-    var parseRepeatedExtglob = (pattern, requireEnd = true) => {
-      if (pattern[0] !== "+" && pattern[0] !== "*" || pattern[1] !== "(") {
-        return;
-      }
-      let bracket = 0;
-      let paren = 0;
-      let quote = 0;
-      let escaped = false;
-      for (let i2 = 1; i2 < pattern.length; i2++) {
-        const ch = pattern[i2];
-        if (escaped === true) {
-          escaped = false;
-          continue;
-        }
-        if (ch === "\\") {
-          escaped = true;
-          continue;
-        }
-        if (ch === '"') {
-          quote = quote === 1 ? 0 : 1;
-          continue;
-        }
-        if (quote === 1) {
-          continue;
-        }
-        if (ch === "[") {
-          bracket++;
-          continue;
-        }
-        if (ch === "]" && bracket > 0) {
-          bracket--;
-          continue;
-        }
-        if (bracket > 0) {
-          continue;
-        }
-        if (ch === "(") {
-          paren++;
-          continue;
-        }
-        if (ch === ")") {
-          paren--;
-          if (paren === 0) {
-            if (requireEnd === true && i2 !== pattern.length - 1) {
-              return;
-            }
-            return {
-              type: pattern[0],
-              body: pattern.slice(2, i2),
-              end: i2
-            };
-          }
-        }
-      }
-    };
-    var buildCharClassStar = (chars2) => {
-      const source2 = chars2.length === 1 ? utils.escapeRegex(chars2[0]) : `[${chars2.map((ch) => utils.escapeRegex(ch)).join("")}]`;
-      return `${source2}*`;
-    };
-    var getStarExtglobSequenceChars = (pattern) => {
-      let index = 0;
-      const chars2 = [];
-      while (index < pattern.length) {
-        const match = parseRepeatedExtglob(pattern.slice(index), false);
-        if (!match || match.type !== "*") {
-          return;
-        }
-        const branches = splitTopLevel(match.body).map((branch2) => branch2.trim());
-        if (branches.length !== 1) {
-          return;
-        }
-        const branch = normalizeSimpleBranch(branches[0]);
-        if (!branch || branch.length !== 1) {
-          return;
-        }
-        chars2.push(branch);
-        index += match.end + 1;
-      }
-      if (chars2.length < 1) {
-        return;
-      }
-      return chars2;
-    };
-    var repeatedExtglobRecursion = (pattern) => {
-      let depth = 0;
-      let value = pattern.trim();
-      let match = parseRepeatedExtglob(value);
-      while (match) {
-        depth++;
-        value = match.body.trim();
-        match = parseRepeatedExtglob(value);
-      }
-      return depth;
-    };
-    var analyzeRepeatedExtglob = (body, options) => {
-      if (options.maxExtglobRecursion === false) {
-        return { risky: false };
-      }
-      const max = typeof options.maxExtglobRecursion === "number" ? options.maxExtglobRecursion : constants3.DEFAULT_MAX_EXTGLOB_RECURSION;
-      const branches = splitTopLevel(body).map((branch) => branch.trim());
-      if (branches.length > 1) {
-        if (branches.some((branch) => branch === "") || branches.some((branch) => /^[*?]+$/.test(branch)) || hasRepeatedCharPrefixOverlap(branches)) {
-          return { risky: true };
-        }
-      }
-      const safeChars = [];
-      let sawStarSequence = false;
-      let combinable = true;
-      for (const branch of branches) {
-        const chars2 = getStarExtglobSequenceChars(branch);
-        if (chars2) {
-          sawStarSequence = true;
-          safeChars.push(...chars2);
-          continue;
-        }
-        const literal3 = normalizeSimpleBranch(branch);
-        if (literal3 && literal3.length === 1) {
-          safeChars.push(literal3);
-          continue;
-        }
-        combinable = false;
-        if (repeatedExtglobRecursion(branch) > max) {
-          return { risky: true };
-        }
-      }
-      if (sawStarSequence) {
-        return combinable ? { risky: true, safeOutput: buildCharClassStar([...new Set(safeChars)]) } : { risky: true };
-      }
-      return { risky: false };
-    };
-    var parse9 = (input, options) => {
-      if (typeof input !== "string") {
-        throw new TypeError("Expected a string");
-      }
-      input = REPLACEMENTS[input] || input;
-      const opts = { ...options };
-      const max = typeof opts.maxLength === "number" ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
-      let len = input.length;
-      if (len > max) {
-        throw new SyntaxError(`Input length: ${len}, exceeds maximum allowed length: ${max}`);
-      }
-      const bos = { type: "bos", value: "", output: opts.prepend || "" };
-      const tokens = [bos];
-      const capture = opts.capture ? "" : "?:";
-      const PLATFORM_CHARS = constants3.globChars(opts.windows);
-      const EXTGLOB_CHARS = constants3.extglobChars(PLATFORM_CHARS);
-      const {
-        DOT_LITERAL,
-        PLUS_LITERAL,
-        SLASH_LITERAL,
-        ONE_CHAR,
-        DOTS_SLASH,
-        NO_DOT,
-        NO_DOT_SLASH,
-        NO_DOTS_SLASH,
-        QMARK,
-        QMARK_NO_DOT,
-        STAR,
-        START_ANCHOR
-      } = PLATFORM_CHARS;
-      const globstar = (opts2) => {
-        return `(${capture}(?:(?!${START_ANCHOR}${opts2.dot ? DOTS_SLASH : DOT_LITERAL}).)*?)`;
-      };
-      const nodot = opts.dot ? "" : NO_DOT;
-      const qmarkNoDot = opts.dot ? QMARK : QMARK_NO_DOT;
-      let star = opts.bash === true ? globstar(opts) : STAR;
-      if (opts.capture) {
-        star = `(${star})`;
-      }
-      if (typeof opts.noext === "boolean") {
-        opts.noextglob = opts.noext;
-      }
-      const state = {
-        input,
-        index: -1,
-        start: 0,
-        dot: opts.dot === true,
-        consumed: "",
-        output: "",
-        prefix: "",
-        backtrack: false,
-        negated: false,
-        brackets: 0,
-        braces: 0,
-        parens: 0,
-        quotes: 0,
-        globstar: false,
-        tokens
-      };
-      input = utils.removePrefix(input, state);
-      len = input.length;
-      const extglobs = [];
-      const braces = [];
-      const stack = [];
-      let prev = bos;
-      let value;
-      const eos = () => state.index === len - 1;
-      const peek = state.peek = (n2 = 1) => input[state.index + n2];
-      const advance2 = state.advance = () => input[++state.index] || "";
-      const remaining = () => input.slice(state.index + 1);
-      const consume = (value2 = "", num = 0) => {
-        state.consumed += value2;
-        state.index += num;
-      };
-      const append = (token) => {
-        state.output += token.output != null ? token.output : token.value;
-        consume(token.value);
-      };
-      const negate = () => {
-        let count = 1;
-        while (peek() === "!" && (peek(2) !== "(" || peek(3) === "?")) {
-          advance2();
-          state.start++;
-          count++;
-        }
-        if (count % 2 === 0) {
-          return false;
-        }
-        state.negated = true;
-        state.start++;
-        return true;
-      };
-      const increment = (type) => {
-        state[type]++;
-        stack.push(type);
-      };
-      const decrement = (type) => {
-        state[type]--;
-        stack.pop();
-      };
-      const push = (tok) => {
-        if (prev.type === "globstar") {
-          const isBrace = state.braces > 0 && (tok.type === "comma" || tok.type === "brace");
-          const isExtglob = tok.extglob === true || extglobs.length && (tok.type === "pipe" || tok.type === "paren");
-          if (tok.type !== "slash" && tok.type !== "paren" && !isBrace && !isExtglob) {
-            state.output = state.output.slice(0, -prev.output.length);
-            prev.type = "star";
-            prev.value = "*";
-            prev.output = star;
-            state.output += prev.output;
-          }
-        }
-        if (extglobs.length && tok.type !== "paren") {
-          extglobs[extglobs.length - 1].inner += tok.value;
-        }
-        if (tok.value || tok.output) append(tok);
-        if (prev && prev.type === "text" && tok.type === "text") {
-          prev.output = (prev.output || prev.value) + tok.value;
-          prev.value += tok.value;
-          return;
-        }
-        tok.prev = prev;
-        tokens.push(tok);
-        prev = tok;
-      };
-      const extglobOpen = (type, value2) => {
-        const token = { ...EXTGLOB_CHARS[value2], conditions: 1, inner: "" };
-        token.prev = prev;
-        token.parens = state.parens;
-        token.output = state.output;
-        token.startIndex = state.index;
-        token.tokensIndex = tokens.length;
-        const output = (opts.capture ? "(" : "") + token.open;
-        increment("parens");
-        push({ type, value: value2, output: state.output ? "" : ONE_CHAR });
-        push({ type: "paren", extglob: true, value: advance2(), output });
-        extglobs.push(token);
-      };
-      const extglobClose = (token) => {
-        const literal3 = input.slice(token.startIndex, state.index + 1);
-        const body = input.slice(token.startIndex + 2, state.index);
-        const analysis = analyzeRepeatedExtglob(body, opts);
-        if ((token.type === "plus" || token.type === "star") && analysis.risky) {
-          const safeOutput = analysis.safeOutput ? (token.output ? "" : ONE_CHAR) + (opts.capture ? `(${analysis.safeOutput})` : analysis.safeOutput) : void 0;
-          const open3 = tokens[token.tokensIndex];
-          open3.type = "text";
-          open3.value = literal3;
-          open3.output = safeOutput || utils.escapeRegex(literal3);
-          for (let i2 = token.tokensIndex + 1; i2 < tokens.length; i2++) {
-            tokens[i2].value = "";
-            tokens[i2].output = "";
-            delete tokens[i2].suffix;
-          }
-          state.output = token.output + open3.output;
-          state.backtrack = true;
-          push({ type: "paren", extglob: true, value, output: "" });
-          decrement("parens");
-          return;
-        }
-        let output = token.close + (opts.capture ? ")" : "");
-        let rest2;
-        if (token.type === "negate") {
-          let extglobStar = star;
-          if (token.inner && token.inner.length > 1 && token.inner.includes("/")) {
-            extglobStar = globstar(opts);
-          }
-          if (extglobStar !== star || eos() || /^\)+$/.test(remaining())) {
-            output = token.close = `)$))${extglobStar}`;
-          }
-          if (token.inner.includes("*") && (rest2 = remaining()) && /^\.[^\\/.]+$/.test(rest2)) {
-            const expression = parse9(rest2, { ...options, fastpaths: false }).output;
-            output = token.close = `)${expression})${extglobStar})`;
-          }
-          if (token.prev.type === "bos") {
-            state.negatedExtglob = true;
-          }
-        }
-        push({ type: "paren", extglob: true, value, output });
-        decrement("parens");
-      };
-      if (opts.fastpaths !== false && !/(^[*!]|[/()[\]{}"])/.test(input)) {
-        let backslashes = false;
-        let output = input.replace(REGEX_SPECIAL_CHARS_BACKREF, (m, esc, chars2, first, rest2, index) => {
-          if (first === "\\") {
-            backslashes = true;
-            return m;
-          }
-          if (first === "?") {
-            if (esc) {
-              return esc + first + (rest2 ? QMARK.repeat(rest2.length) : "");
-            }
-            if (index === 0) {
-              return qmarkNoDot + (rest2 ? QMARK.repeat(rest2.length) : "");
-            }
-            return QMARK.repeat(chars2.length);
-          }
-          if (first === ".") {
-            return DOT_LITERAL.repeat(chars2.length);
-          }
-          if (first === "*") {
-            if (esc) {
-              return esc + first + (rest2 ? star : "");
-            }
-            return star;
-          }
-          return esc ? m : `\\${m}`;
-        });
-        if (backslashes === true) {
-          if (opts.unescape === true) {
-            output = output.replace(/\\/g, "");
-          } else {
-            output = output.replace(/\\+/g, (m) => {
-              return m.length % 2 === 0 ? "\\\\" : m ? "\\" : "";
-            });
-          }
-        }
-        if (output === input && opts.contains === true) {
-          state.output = input;
-          return state;
-        }
-        state.output = utils.wrapOutput(output, state, options);
-        return state;
-      }
-      while (!eos()) {
-        value = advance2();
-        if (value === "\0") {
-          continue;
-        }
-        if (value === "\\") {
-          const next2 = peek();
-          if (next2 === "/" && opts.bash !== true) {
-            continue;
-          }
-          if (next2 === "." || next2 === ";") {
-            continue;
-          }
-          if (!next2) {
-            value += "\\";
-            push({ type: "text", value });
-            continue;
-          }
-          const match = /^\\+/.exec(remaining());
-          let slashes = 0;
-          if (match && match[0].length > 2) {
-            slashes = match[0].length;
-            state.index += slashes;
-            if (slashes % 2 !== 0) {
-              value += "\\";
-            }
-          }
-          if (opts.unescape === true) {
-            value = advance2();
-          } else {
-            value += advance2();
-          }
-          if (state.brackets === 0) {
-            push({ type: "text", value });
-            continue;
-          }
-        }
-        if (state.brackets > 0 && (value !== "]" || prev.value === "[" || prev.value === "[^")) {
-          if (opts.posix !== false && value === ":") {
-            const inner = prev.value.slice(1);
-            if (inner.includes("[")) {
-              prev.posix = true;
-              if (inner.includes(":")) {
-                const idx = prev.value.lastIndexOf("[");
-                const pre = prev.value.slice(0, idx);
-                const rest3 = prev.value.slice(idx + 2);
-                const posix2 = POSIX_REGEX_SOURCE[rest3];
-                if (posix2) {
-                  prev.value = pre + posix2;
-                  state.backtrack = true;
-                  advance2();
-                  if (!bos.output && tokens.indexOf(prev) === 1) {
-                    bos.output = ONE_CHAR;
-                  }
-                  continue;
-                }
-              }
-            }
-          }
-          if (value === "[" && peek() !== ":" || value === "-" && peek() === "]") {
-            value = `\\${value}`;
-          }
-          if (value === "]" && (prev.value === "[" || prev.value === "[^")) {
-            value = `\\${value}`;
-          }
-          if (opts.posix === true && value === "!" && prev.value === "[") {
-            value = "^";
-          }
-          prev.value += value;
-          append({ value });
-          continue;
-        }
-        if (state.quotes === 1 && value !== '"') {
-          value = utils.escapeRegex(value);
-          prev.value += value;
-          append({ value });
-          continue;
-        }
-        if (value === '"') {
-          state.quotes = state.quotes === 1 ? 0 : 1;
-          if (opts.keepQuotes === true) {
-            push({ type: "text", value });
-          }
-          continue;
-        }
-        if (value === "(") {
-          increment("parens");
-          push({ type: "paren", value });
-          continue;
-        }
-        if (value === ")") {
-          if (state.parens === 0 && opts.strictBrackets === true) {
-            throw new SyntaxError(syntaxError("opening", "("));
-          }
-          const extglob = extglobs[extglobs.length - 1];
-          if (extglob && state.parens === extglob.parens + 1) {
-            extglobClose(extglobs.pop());
-            continue;
-          }
-          push({ type: "paren", value, output: state.parens ? ")" : "\\)" });
-          decrement("parens");
-          continue;
-        }
-        if (value === "[") {
-          if (opts.nobracket === true || !remaining().includes("]")) {
-            if (opts.nobracket !== true && opts.strictBrackets === true) {
-              throw new SyntaxError(syntaxError("closing", "]"));
-            }
-            value = `\\${value}`;
-          } else {
-            increment("brackets");
-          }
-          push({ type: "bracket", value });
-          continue;
-        }
-        if (value === "]") {
-          if (opts.nobracket === true || prev && prev.type === "bracket" && prev.value.length === 1) {
-            push({ type: "text", value, output: `\\${value}` });
-            continue;
-          }
-          if (state.brackets === 0) {
-            if (opts.strictBrackets === true) {
-              throw new SyntaxError(syntaxError("opening", "["));
-            }
-            push({ type: "text", value, output: `\\${value}` });
-            continue;
-          }
-          decrement("brackets");
-          const prevValue = prev.value.slice(1);
-          if (prev.posix !== true && prevValue[0] === "^" && !prevValue.includes("/")) {
-            value = `/${value}`;
-          }
-          prev.value += value;
-          append({ value });
-          if (opts.literalBrackets === false || utils.hasRegexChars(prevValue)) {
-            continue;
-          }
-          const escaped = utils.escapeRegex(prev.value);
-          state.output = state.output.slice(0, -prev.value.length);
-          if (opts.literalBrackets === true) {
-            state.output += escaped;
-            prev.value = escaped;
-            continue;
-          }
-          prev.value = `(${capture}${escaped}|${prev.value})`;
-          state.output += prev.value;
-          continue;
-        }
-        if (value === "{" && opts.nobrace !== true) {
-          increment("braces");
-          const open3 = {
-            type: "brace",
-            value,
-            output: "(",
-            outputIndex: state.output.length,
-            tokensIndex: state.tokens.length
-          };
-          braces.push(open3);
-          push(open3);
-          continue;
-        }
-        if (value === "}") {
-          const brace = braces[braces.length - 1];
-          if (opts.nobrace === true || !brace) {
-            push({ type: "text", value, output: value });
-            continue;
-          }
-          let output = ")";
-          if (brace.dots === true) {
-            const arr = tokens.slice();
-            const range = [];
-            for (let i2 = arr.length - 1; i2 >= 0; i2--) {
-              tokens.pop();
-              if (arr[i2].type === "brace") {
-                break;
-              }
-              if (arr[i2].type !== "dots") {
-                range.unshift(arr[i2].value);
-              }
-            }
-            output = expandRange(range, opts);
-            state.backtrack = true;
-          }
-          if (brace.comma !== true && brace.dots !== true) {
-            const out = state.output.slice(0, brace.outputIndex);
-            const toks = state.tokens.slice(brace.tokensIndex);
-            brace.value = brace.output = "\\{";
-            value = output = "\\}";
-            state.output = out;
-            for (const t2 of toks) {
-              state.output += t2.output || t2.value;
-            }
-          }
-          push({ type: "brace", value, output });
-          decrement("braces");
-          braces.pop();
-          continue;
-        }
-        if (value === "|") {
-          if (extglobs.length > 0) {
-            extglobs[extglobs.length - 1].conditions++;
-          }
-          push({ type: "text", value });
-          continue;
-        }
-        if (value === ",") {
-          let output = value;
-          const brace = braces[braces.length - 1];
-          if (brace && stack[stack.length - 1] === "braces") {
-            brace.comma = true;
-            output = "|";
-          }
-          push({ type: "comma", value, output });
-          continue;
-        }
-        if (value === "/") {
-          if (prev.type === "dot" && state.index === state.start + 1) {
-            state.start = state.index + 1;
-            state.consumed = "";
-            state.output = "";
-            tokens.pop();
-            prev = bos;
-            continue;
-          }
-          push({ type: "slash", value, output: SLASH_LITERAL });
-          continue;
-        }
-        if (value === ".") {
-          if (state.braces > 0 && prev.type === "dot") {
-            if (prev.value === ".") prev.output = DOT_LITERAL;
-            const brace = braces[braces.length - 1];
-            prev.type = "dots";
-            prev.output += value;
-            prev.value += value;
-            brace.dots = true;
-            continue;
-          }
-          if (state.braces + state.parens === 0 && prev.type !== "bos" && prev.type !== "slash") {
-            push({ type: "text", value, output: DOT_LITERAL });
-            continue;
-          }
-          push({ type: "dot", value, output: DOT_LITERAL });
-          continue;
-        }
-        if (value === "?") {
-          const isGroup = prev && prev.value === "(";
-          if (!isGroup && opts.noextglob !== true && peek() === "(" && peek(2) !== "?") {
-            extglobOpen("qmark", value);
-            continue;
-          }
-          if (prev && prev.type === "paren") {
-            const next2 = peek();
-            let output = value;
-            if (prev.value === "(" && !/[!=<:]/.test(next2) || next2 === "<" && !/<([!=]|\w+>)/.test(remaining())) {
-              output = `\\${value}`;
-            }
-            push({ type: "text", value, output });
-            continue;
-          }
-          if (opts.dot !== true && (prev.type === "slash" || prev.type === "bos")) {
-            push({ type: "qmark", value, output: QMARK_NO_DOT });
-            continue;
-          }
-          push({ type: "qmark", value, output: QMARK });
-          continue;
-        }
-        if (value === "!") {
-          if (opts.noextglob !== true && peek() === "(") {
-            if (peek(2) !== "?" || !/[!=<:]/.test(peek(3))) {
-              extglobOpen("negate", value);
-              continue;
-            }
-          }
-          if (opts.nonegate !== true && state.index === 0) {
-            negate();
-            continue;
-          }
-        }
-        if (value === "+") {
-          if (opts.noextglob !== true && peek() === "(" && peek(2) !== "?") {
-            extglobOpen("plus", value);
-            continue;
-          }
-          if (prev && prev.value === "(" || opts.regex === false) {
-            push({ type: "plus", value, output: PLUS_LITERAL });
-            continue;
-          }
-          if (prev && (prev.type === "bracket" || prev.type === "paren" || prev.type === "brace") || state.parens > 0) {
-            push({ type: "plus", value });
-            continue;
-          }
-          push({ type: "plus", value: PLUS_LITERAL });
-          continue;
-        }
-        if (value === "@") {
-          if (opts.noextglob !== true && peek() === "(" && peek(2) !== "?") {
-            push({ type: "at", extglob: true, value, output: "" });
-            continue;
-          }
-          push({ type: "text", value });
-          continue;
-        }
-        if (value !== "*") {
-          if (value === "$" || value === "^") {
-            value = `\\${value}`;
-          }
-          const match = REGEX_NON_SPECIAL_CHARS.exec(remaining());
-          if (match) {
-            value += match[0];
-            state.index += match[0].length;
-          }
-          push({ type: "text", value });
-          continue;
-        }
-        if (prev && (prev.type === "globstar" || prev.star === true)) {
-          prev.type = "star";
-          prev.star = true;
-          prev.value += value;
-          prev.output = star;
-          state.backtrack = true;
-          state.globstar = true;
-          consume(value);
-          continue;
-        }
-        let rest2 = remaining();
-        if (opts.noextglob !== true && /^\([^?]/.test(rest2)) {
-          extglobOpen("star", value);
-          continue;
-        }
-        if (prev.type === "star") {
-          if (opts.noglobstar === true) {
-            consume(value);
-            continue;
-          }
-          const prior = prev.prev;
-          const before = prior.prev;
-          const isStart = prior.type === "slash" || prior.type === "bos";
-          const afterStar = before && (before.type === "star" || before.type === "globstar");
-          if (opts.bash === true && (!isStart || rest2[0] && rest2[0] !== "/")) {
-            push({ type: "star", value, output: "" });
-            continue;
-          }
-          const isBrace = state.braces > 0 && (prior.type === "comma" || prior.type === "brace");
-          const isExtglob = extglobs.length && (prior.type === "pipe" || prior.type === "paren");
-          if (!isStart && prior.type !== "paren" && !isBrace && !isExtglob) {
-            push({ type: "star", value, output: "" });
-            continue;
-          }
-          while (rest2.slice(0, 3) === "/**") {
-            const after = input[state.index + 4];
-            if (after && after !== "/") {
-              break;
-            }
-            rest2 = rest2.slice(3);
-            consume("/**", 3);
-          }
-          const isEnd = eos() || state.parens > 0 && rest2 === ")".repeat(state.parens) && !extglobs.some((extglob) => extglob.type === "negate");
-          if (prior.type === "bos" && eos()) {
-            prev.type = "globstar";
-            prev.value += value;
-            prev.output = globstar(opts);
-            state.output = prev.output;
-            state.globstar = true;
-            consume(value);
-            continue;
-          }
-          if (prior.type === "slash" && prior.prev.type !== "bos" && !afterStar && isEnd) {
-            state.output = state.output.slice(0, -(prior.output + prev.output).length);
-            prior.output = `(?:${prior.output}`;
-            prev.type = "globstar";
-            prev.output = globstar(opts) + (opts.strictSlashes ? ")" : "|$)");
-            prev.value += value;
-            state.globstar = true;
-            state.output += prior.output + prev.output;
-            consume(value);
-            continue;
-          }
-          if (prior.type === "slash" && prior.prev.type !== "bos" && rest2[0] === "/") {
-            const end = rest2[1] !== void 0 ? "|$" : "";
-            state.output = state.output.slice(0, -(prior.output + prev.output).length);
-            prior.output = `(?:${prior.output}`;
-            prev.type = "globstar";
-            prev.output = `${globstar(opts)}${SLASH_LITERAL}|${SLASH_LITERAL}${end})`;
-            prev.value += value;
-            state.output += prior.output + prev.output;
-            state.globstar = true;
-            consume(value + advance2());
-            push({ type: "slash", value: "/", output: "" });
-            continue;
-          }
-          if (prior.type === "bos" && rest2[0] === "/") {
-            prev.type = "globstar";
-            prev.value += value;
-            prev.output = `(?:^|${SLASH_LITERAL}|${globstar(opts)}${SLASH_LITERAL})`;
-            state.output = prev.output;
-            state.globstar = true;
-            consume(value + advance2());
-            push({ type: "slash", value: "/", output: "" });
-            continue;
-          }
-          state.output = state.output.slice(0, -prev.output.length);
-          prev.type = "globstar";
-          prev.output = globstar(opts);
-          prev.value += value;
-          state.output += prev.output;
-          state.globstar = true;
-          consume(value);
-          continue;
-        }
-        const token = { type: "star", value, output: star };
-        if (opts.bash === true) {
-          token.output = ".*?";
-          if (prev.type === "bos" || prev.type === "slash") {
-            token.output = nodot + token.output;
-          }
-          push(token);
-          continue;
-        }
-        if (prev && (prev.type === "bracket" || prev.type === "paren") && opts.regex === true) {
-          token.output = value;
-          push(token);
-          continue;
-        }
-        if (state.index === state.start || prev.type === "slash" || prev.type === "dot") {
-          if (prev.type === "dot") {
-            state.output += NO_DOT_SLASH;
-            prev.output += NO_DOT_SLASH;
-          } else if (opts.dot === true) {
-            state.output += NO_DOTS_SLASH;
-            prev.output += NO_DOTS_SLASH;
-          } else {
-            state.output += nodot;
-            prev.output += nodot;
-          }
-          if (peek() !== "*") {
-            state.output += ONE_CHAR;
-            prev.output += ONE_CHAR;
-          }
-        }
-        push(token);
-      }
-      while (state.brackets > 0) {
-        if (opts.strictBrackets === true) throw new SyntaxError(syntaxError("closing", "]"));
-        state.output = utils.escapeLast(state.output, "[");
-        decrement("brackets");
-      }
-      while (state.parens > 0) {
-        if (opts.strictBrackets === true) throw new SyntaxError(syntaxError("closing", ")"));
-        state.output = utils.escapeLast(state.output, "(");
-        decrement("parens");
-      }
-      while (state.braces > 0) {
-        if (opts.strictBrackets === true) throw new SyntaxError(syntaxError("closing", "}"));
-        state.output = utils.escapeLast(state.output, "{");
-        decrement("braces");
-      }
-      if (opts.strictSlashes !== true && (prev.type === "star" || prev.type === "bracket")) {
-        push({ type: "maybe_slash", value: "", output: `${SLASH_LITERAL}?` });
-      }
-      if (state.backtrack === true) {
-        state.output = "";
-        for (const token of state.tokens) {
-          state.output += token.output != null ? token.output : token.value;
-          if (token.suffix) {
-            state.output += token.suffix;
-          }
-        }
-      }
-      return state;
-    };
-    parse9.fastpaths = (input, options) => {
-      const opts = { ...options };
-      const max = typeof opts.maxLength === "number" ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
-      const len = input.length;
-      if (len > max) {
-        throw new SyntaxError(`Input length: ${len}, exceeds maximum allowed length: ${max}`);
-      }
-      input = REPLACEMENTS[input] || input;
-      const {
-        DOT_LITERAL,
-        SLASH_LITERAL,
-        ONE_CHAR,
-        DOTS_SLASH,
-        NO_DOT,
-        NO_DOTS,
-        NO_DOTS_SLASH,
-        STAR,
-        START_ANCHOR
-      } = constants3.globChars(opts.windows);
-      const nodot = opts.dot ? NO_DOTS : NO_DOT;
-      const slashDot = opts.dot ? NO_DOTS_SLASH : NO_DOT;
-      const capture = opts.capture ? "" : "?:";
-      const state = { negated: false, prefix: "" };
-      let star = opts.bash === true ? ".*?" : STAR;
-      if (opts.capture) {
-        star = `(${star})`;
-      }
-      const globstar = (opts2) => {
-        if (opts2.noglobstar === true) return star;
-        return `(${capture}(?:(?!${START_ANCHOR}${opts2.dot ? DOTS_SLASH : DOT_LITERAL}).)*?)`;
-      };
-      const create = (str) => {
-        switch (str) {
-          case "*":
-            return `${nodot}${ONE_CHAR}${star}`;
-          case ".*":
-            return `${DOT_LITERAL}${ONE_CHAR}${star}`;
-          case "*.*":
-            return `${nodot}${star}${DOT_LITERAL}${ONE_CHAR}${star}`;
-          case "*/*":
-            return `${nodot}${star}${SLASH_LITERAL}${ONE_CHAR}${slashDot}${star}`;
-          case "**":
-            return nodot + globstar(opts);
-          case "**/*":
-            return `(?:${nodot}${globstar(opts)}${SLASH_LITERAL})?${slashDot}${ONE_CHAR}${star}`;
-          case "**/*.*":
-            return `(?:${nodot}${globstar(opts)}${SLASH_LITERAL})?${slashDot}${star}${DOT_LITERAL}${ONE_CHAR}${star}`;
-          case "**/.*":
-            return `(?:${nodot}${globstar(opts)}${SLASH_LITERAL})?${DOT_LITERAL}${ONE_CHAR}${star}`;
-          default: {
-            const match = /^(.*?)\.(\w+)$/.exec(str);
-            if (!match) return;
-            const source3 = create(match[1]);
-            if (!source3) return;
-            return source3 + DOT_LITERAL + match[2];
-          }
-        }
-      };
-      const output = utils.removePrefix(input, state);
-      let source2 = create(output);
-      if (source2 && opts.strictSlashes !== true) {
-        source2 += `${SLASH_LITERAL}?`;
-      }
-      return source2;
-    };
-    module.exports = parse9;
-  }
-});
-
-// node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/picomatch.js
-var require_picomatch = __commonJS({
-  "node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/lib/picomatch.js"(exports, module) {
-    "use strict";
-    var scan = require_scan();
-    var parse9 = require_parse2();
-    var utils = require_utils2();
-    var constants3 = require_constants6();
-    var isObject = (val) => val && typeof val === "object" && !Array.isArray(val);
-    var picomatch2 = (glob2, options, returnState = false) => {
-      if (Array.isArray(glob2)) {
-        const fns = glob2.map((input) => picomatch2(input, options, returnState));
-        const arrayMatcher = (str) => {
-          for (const isMatch of fns) {
-            const state2 = isMatch(str);
-            if (state2) return state2;
-          }
-          return false;
-        };
-        return arrayMatcher;
-      }
-      const isState = isObject(glob2) && glob2.tokens && glob2.input;
-      if (glob2 === "" || typeof glob2 !== "string" && !isState) {
-        throw new TypeError("Expected pattern to be a non-empty string");
-      }
-      const opts = options || {};
-      const posix2 = opts.windows;
-      const regex = isState ? picomatch2.compileRe(glob2, options) : picomatch2.makeRe(glob2, options, false, true);
-      const state = regex.state;
-      delete regex.state;
-      let isIgnored = () => false;
-      if (opts.ignore) {
-        const ignoreOpts = { ...options, ignore: null, onMatch: null, onResult: null };
-        isIgnored = picomatch2(opts.ignore, ignoreOpts, returnState);
-      }
-      const matcher = (input, returnObject = false) => {
-        const { isMatch, match, output } = picomatch2.test(input, regex, options, { glob: glob2, posix: posix2 });
-        const result2 = { glob: glob2, state, regex, posix: posix2, input, output, match, isMatch };
-        if (typeof opts.onResult === "function") {
-          opts.onResult(result2);
-        }
-        if (isMatch === false) {
-          result2.isMatch = false;
-          return returnObject ? result2 : false;
-        }
-        if (isIgnored(input)) {
-          if (typeof opts.onIgnore === "function") {
-            opts.onIgnore(result2);
-          }
-          result2.isMatch = false;
-          return returnObject ? result2 : false;
-        }
-        if (typeof opts.onMatch === "function") {
-          opts.onMatch(result2);
-        }
-        return returnObject ? result2 : true;
-      };
-      if (returnState) {
-        matcher.state = state;
-      }
-      return matcher;
-    };
-    picomatch2.test = (input, regex, options, { glob: glob2, posix: posix2 } = {}) => {
-      if (typeof input !== "string") {
-        throw new TypeError("Expected input to be a string");
-      }
-      if (input === "") {
-        return { isMatch: false, output: "" };
-      }
-      const opts = options || {};
-      const format = opts.format || (posix2 ? utils.toPosixSlashes : null);
-      let match = input === glob2;
-      let output = match && format ? format(input) : input;
-      if (match === false) {
-        output = format ? format(input) : input;
-        match = output === glob2;
-      }
-      if (match === false || opts.capture === true) {
-        if (opts.matchBase === true || opts.basename === true) {
-          match = picomatch2.matchBase(input, regex, options, posix2);
-        } else {
-          match = regex.exec(output);
-        }
-      }
-      return { isMatch: Boolean(match), match, output };
-    };
-    picomatch2.matchBase = (input, glob2, options, posix2 = options && options.windows) => {
-      const regex = glob2 instanceof RegExp ? glob2 : picomatch2.makeRe(glob2, options);
-      return regex.test(utils.basename(input, { windows: posix2 }));
-    };
-    picomatch2.isMatch = (str, patterns, options) => picomatch2(patterns, options)(str);
-    picomatch2.parse = (pattern, options) => {
-      if (Array.isArray(pattern)) return pattern.map((p2) => picomatch2.parse(p2, options));
-      return parse9(pattern, { ...options, fastpaths: false });
-    };
-    picomatch2.scan = (input, options) => scan(input, options);
-    picomatch2.compileRe = (state, options, returnOutput = false, returnState = false) => {
-      if (returnOutput === true) {
-        return state.output;
-      }
-      const opts = options || {};
-      const prepend = opts.contains ? "" : "^";
-      const append = opts.contains ? "" : "$";
-      let source2 = `${prepend}(?:${state.output})${append}`;
-      if (state && state.negated === true) {
-        source2 = `^(?!${source2}).*$`;
-      }
-      const regex = picomatch2.toRegex(source2, options);
-      if (returnState === true) {
-        regex.state = state;
-      }
-      return regex;
-    };
-    picomatch2.makeRe = (input, options = {}, returnOutput = false, returnState = false) => {
-      if (!input || typeof input !== "string") {
-        throw new TypeError("Expected a non-empty string");
-      }
-      let parsed = { negated: false, fastpaths: true };
-      if (options.fastpaths !== false && (input[0] === "." || input[0] === "*")) {
-        parsed.output = parse9.fastpaths(input, options);
-      }
-      if (!parsed.output) {
-        parsed = parse9(input, options);
-      }
-      return picomatch2.compileRe(parsed, options, returnOutput, returnState);
-    };
-    picomatch2.toRegex = (source2, options) => {
-      try {
-        const opts = options || {};
-        return new RegExp(source2, opts.flags || (opts.nocase ? "i" : ""));
-      } catch (err) {
-        if (options && options.debug === true) throw err;
-        return /$^/;
-      }
-    };
-    picomatch2.constants = constants3;
-    module.exports = picomatch2;
-  }
-});
-
-// node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/index.js
-var require_picomatch2 = __commonJS({
-  "node_modules/.pnpm/picomatch@4.0.7/node_modules/picomatch/index.js"(exports, module) {
-    "use strict";
-    var pico = require_picomatch();
-    var utils = require_utils2();
-    function picomatch2(glob2, options, returnState = false) {
-      if (options && (options.windows === null || options.windows === void 0)) {
-        options = { ...options, windows: utils.isWindows() };
-      }
-      return pico(glob2, options, returnState);
-    }
-    Object.assign(picomatch2, pico);
-    module.exports = picomatch2;
-  }
-});
-
 // node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/command.js
 import * as os from "os";
 
@@ -38858,11 +37082,11 @@ import { EOL as EOL2 } from "os";
 import { constants, promises } from "fs";
 var __awaiter = function(thisArg, _arguments, P2, generator) {
   function adopt(value) {
-    return value instanceof P2 ? value : new P2(function(resolve5) {
-      resolve5(value);
+    return value instanceof P2 ? value : new P2(function(resolve3) {
+      resolve3(value);
     });
   }
-  return new (P2 || (P2 = Promise))(function(resolve5, reject) {
+  return new (P2 || (P2 = Promise))(function(resolve3, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
@@ -38878,7 +37102,7 @@ var __awaiter = function(thisArg, _arguments, P2, generator) {
       }
     }
     function step(result2) {
-      result2.done ? resolve5(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+      result2.done ? resolve3(result2.value) : adopt(result2.value).then(fulfilled, rejected);
     }
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
@@ -39240,11 +37464,11 @@ var httpClient = __toESM(require_lib(), 1);
 var import_undici2 = __toESM(require_undici(), 1);
 var __awaiter2 = function(thisArg, _arguments, P2, generator) {
   function adopt(value) {
-    return value instanceof P2 ? value : new P2(function(resolve5) {
-      resolve5(value);
+    return value instanceof P2 ? value : new P2(function(resolve3) {
+      resolve3(value);
     });
   }
-  return new (P2 || (P2 = Promise))(function(resolve5, reject) {
+  return new (P2 || (P2 = Promise))(function(resolve3, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
@@ -39260,7 +37484,7 @@ var __awaiter2 = function(thisArg, _arguments, P2, generator) {
       }
     }
     function step(result2) {
-      result2.done ? resolve5(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+      result2.done ? resolve3(result2.value) : adopt(result2.value).then(fulfilled, rejected);
     }
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
@@ -39325,8 +37549,8 @@ function register(state, name, method2, options) {
     options = {};
   }
   if (Array.isArray(name)) {
-    return name.reverse().reduce((callback2, name2) => {
-      return register.bind(null, state, name2, callback2, options);
+    return name.reverse().reduce((callback, name2) => {
+      return register.bind(null, state, name2, callback, options);
     }, method2)();
   }
   return Promise.resolve().then(() => {
@@ -40236,7 +38460,7 @@ async function fetchWrapper(requestOptions) {
       "fetch is not set. Please pass a fetch implementation as new Octokit({ request: { fetch }}). Learn more at https://github.com/octokit/octokit.js/#fetch-missing"
     );
   }
-  const log2 = requestOptions.request?.log || console;
+  const log = requestOptions.request?.log || console;
   const parseSuccessResponseBody = requestOptions.request?.parseSuccessResponseBody !== false;
   const body = isPlainObject2(requestOptions.body) || Array.isArray(requestOptions.body) ? JSONStringify(requestOptions.body) : requestOptions.body;
   const requestHeaders = Object.fromEntries(
@@ -40294,7 +38518,7 @@ async function fetchWrapper(requestOptions) {
   if ("deprecation" in responseHeaders) {
     const matches = responseHeaders.link && responseHeaders.link.match(/<([^<>]+)>; rel="deprecation"/);
     const deprecationLink = matches && matches.pop();
-    log2.warn(
+    log.warn(
       `[@octokit/request] "${requestOptions.method} ${requestOptions.url}" is deprecated. It is scheduled to be removed on ${responseHeaders.sunset}${deprecationLink ? `. See ${deprecationLink}` : ""}`
     );
   }
@@ -43269,9 +41493,9 @@ function getOctokit(token, options, ...additionalPlugins) {
   return new GitHubWithPlugins(getOctokitOptions(token, options));
 }
 
-// node_modules/.pnpm/svelte-vitals@0.53.0_cac@6.7.14/node_modules/svelte-vitals/dist/src-hgEeAWHb.js
+// node_modules/.pnpm/svelte-vitals@0.54.2_cac@6.7.14/node_modules/svelte-vitals/dist/src-BV_3ylhu.js
 import { existsSync as existsSync2, mkdirSync, mkdtempSync, readFileSync as readFileSync2, renameSync, rmSync, unlinkSync, writeFileSync } from "fs";
-import { dirname as dirname2, join, resolve as resolve4 } from "path";
+import { dirname, join, relative, resolve as resolve2, sep as sep2 } from "path";
 
 // node_modules/.pnpm/zimmerframe@1.1.4/node_modules/zimmerframe/src/walk.js
 function walk(node, state, visitors) {
@@ -43394,13 +41618,13 @@ function apply_mutations(node, mutations) {
   );
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/patterns.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/patterns.js
 var regex_starts_with_whitespaces = /^[ \t\r\n]+/;
 var regex_ends_with_whitespaces = /[ \t\r\n]+$/;
 var regex_not_whitespace = /[^ \t\r\n]/;
 var regex_not_newline_characters = /[^\n]/g;
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/constants.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/constants.js
 var EACH_INDEX_REACTIVE = 1 << 1;
 var EACH_IS_CONTROLLED = 1 << 2;
 var EACH_IS_ANIMATED = 1 << 3;
@@ -43435,7 +41659,7 @@ var IGNORABLE_RUNTIME_WARNINGS = (
   ]
 );
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
 function fuzzymatch(name, names) {
   if (names.length === 0) return null;
   const set2 = new FuzzySet(names);
@@ -43671,7 +41895,7 @@ function getLocator(source2, options = {}) {
   return locator2;
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/utils.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/utils.js
 var VOID_ELEMENT_NAMES = [
   "area",
   "base",
@@ -43824,7 +42048,7 @@ var RUNES = (
 );
 var REGEX_VALID_TAG_NAME = /^[a-zA-Z][a-zA-Z0-9]*(-[a-zA-Z0-9.\-_\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u{10000}-\u{EFFFF}]*)?$/u;
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/state.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/state.js
 var warnings = [];
 var filename;
 var UNKNOWN_FILENAME = "(unknown)";
@@ -43858,7 +42082,7 @@ function reset(state) {
   warnings = [];
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
 var regex_tabs = /^\t+/;
 function tabs_to_spaces(str) {
   return str.replace(regex_tabs, (match) => match.split("	").join("  "));
@@ -43929,7 +42153,7 @@ ${this.frame}`;
   }
 };
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/warnings.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/warnings.js
 var InternalCompileWarning = class extends CompileDiagnostic {
   name = "CompileWarning";
   /**
@@ -44079,7 +42303,7 @@ function svelte_element_invalid_this(node) {
 https://svelte.dev/e/svelte_element_invalid_this`);
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
 var regex_svelte_ignore = /^\s*svelte-ignore\s/;
 var replacements = {
   "non-top-level-reactive-declaration": "reactive_declaration_invalid_placement",
@@ -44135,7 +42359,7 @@ function extract_svelte_ignore(offset2, text2, runes2) {
   return ignores;
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/legacy.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/legacy.js
 function remove_surrounding_whitespace_nodes(nodes) {
   const first = nodes.at(0);
   const last = nodes.at(-1);
@@ -51611,10 +49835,10 @@ var ParseEffects = class {
   captureCallbacks() {
     let captured = false;
     for (const name of parserCallbackNames) {
-      const callback2 = this.options[name];
-      if (!callback2) continue;
+      const callback = this.options[name];
+      if (!callback) continue;
       captured = true;
-      this.callbacks[name] = callback2;
+      this.callbacks[name] = callback;
       this.callbackWrappers[name] = (...args) => {
         this.emit({
           name,
@@ -51626,17 +49850,17 @@ var ParseEffects = class {
   }
   activateCallbacks() {
     for (const name of parserCallbackNames) {
-      const callback2 = this.callbackWrappers[name];
-      if (callback2) {
-        this.options[name] = callback2;
+      const callback = this.callbackWrappers[name];
+      if (callback) {
+        this.options[name] = callback;
       }
     }
   }
   deactivateCallbacks() {
     for (const name of parserCallbackNames) {
-      const callback2 = this.callbacks[name];
-      if (callback2) {
-        this.options[name] = callback2;
+      const callback = this.callbacks[name];
+      if (callback) {
+        this.options[name] = callback;
       }
     }
   }
@@ -51681,8 +49905,8 @@ var ParseEffects = class {
     }
   }
   invoke(event) {
-    const callback2 = this.callbacks[event.name];
-    callback2?.apply(this.options, event.args);
+    const callback = this.callbacks[event.name];
+    callback?.apply(this.options, event.args);
   }
   currentFrame() {
     return this.frames[this.frames.length - 1];
@@ -56150,7 +54374,7 @@ function tsPlugin(options) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/errors.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/errors.js
 var InternalCompileError = class extends Error {
   message = "";
   // ensure this property is enumerable
@@ -56412,7 +54636,7 @@ function void_element_invalid_content(node) {
 https://svelte.dev/e/void_element_invalid_content`);
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
 var JSParser = Parser;
 var TSParser = JSParser.extend(tsPlugin());
 function parse6(source2, comments, typescript, is_script) {
@@ -56591,7 +54815,7 @@ function get_comment_handlers(source2, comments, index = 0) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
 function infinity_if_negative(num) {
   if (num < 0) {
     return Infinity;
@@ -56746,7 +54970,7 @@ function match_quote(parser, start, quote) {
   unterminated_string_constant(start);
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
 function get_loose_identifier(parser, opening_token) {
   const end = find_matching_bracket(parser.template, parser.index, opening_token ?? "{");
   if (end) {
@@ -56785,7 +55009,7 @@ function read_expression(parser, opening_token, disallow_loose) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/builders.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/utils/builders.js
 function array(elements = []) {
   return { type: "ArrayExpression", elements };
 }
@@ -56800,7 +55024,7 @@ var true_instance = literal2(true);
 var false_instance = literal2(false);
 var null_instance = literal2(null);
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/ast.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/utils/ast.js
 function is_text_attribute(attribute) {
   return Array.isArray(attribute.value) && attribute.value.length === 1 && attribute.value[0].type === "Text";
 }
@@ -56814,7 +55038,7 @@ function get_attribute_expression(attribute) {
   ) : attribute.value.expression;
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
 var regex_closing_script_tag = /<\/script\s*>/;
 var regex_starts_with_closing_script_tag = /<\/script\s*>/y;
 var RESERVED_ATTRIBUTES = ["server", "client", "worker", "test", "default"];
@@ -56873,7 +55097,7 @@ function read_script(parser, start, attributes) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
 var REGEX_MATCHER = /[~^$*|]?=/y;
 var REGEX_CLOSING_BRACKET = /[\s\]]/;
 var REGEX_ATTRIBUTE_FLAGS = /[a-zA-Z]+/y;
@@ -57363,7 +55587,7 @@ function read_comment(parser) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
 var entities_default = {
   "CounterClockwiseContourIntegral;": 8755,
   "ClockwiseContourIntegral;": 8754,
@@ -59598,7 +57822,7 @@ var entities_default = {
   lt: 60
 };
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
 var windows_1252 = [
   8364,
   129,
@@ -59640,7 +57864,7 @@ function reg_exp_entity(entity_name, is_attribute_value) {
   return entity_name;
 }
 function get_entity_pattern(is_attribute_value) {
-  const reg_exp_num = "#(?:x[a-fA-F\\d]+|\\d+)(?:;)?";
+  const reg_exp_num = "#(?:[xX][a-fA-F\\d]+|\\d+)(?:;)?";
   const reg_exp_entities = Object.keys(entities_default).map(
     /** @param {any} entity_name */
     (entity_name) => reg_exp_entity(entity_name, is_attribute_value)
@@ -59662,7 +57886,7 @@ function decode_character_references(html, is_attribute_value) {
       let code;
       if (entity[0] !== "#") {
         code = entities_default[entity];
-      } else if (entity[1] === "x") {
+      } else if (entity[1] === "x" || entity[1] === "X") {
         code = parseInt(entity.substring(2), 16);
       } else {
         code = parseInt(entity.substring(1), 10);
@@ -59670,13 +57894,13 @@ function decode_character_references(html, is_attribute_value) {
       if (!code) {
         return match;
       }
-      return String.fromCodePoint(validate_code(code));
+      return String.fromCodePoint(validate_code(code, is_attribute_value));
     }
   );
 }
 var NUL = 0;
-function validate_code(code) {
-  if (code === 10) {
+function validate_code(code, is_attribute_value) {
+  if (code === 10 && !is_attribute_value) {
     return 32;
   }
   if (code < 128) {
@@ -59706,7 +57930,7 @@ function validate_code(code) {
   return NUL;
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
 function create_fragment(transparent = false) {
   return {
     type: "Fragment",
@@ -59718,7 +57942,7 @@ function create_fragment(transparent = false) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/nodes.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/nodes.js
 var element_nodes = [
   "SvelteElement",
   "RegularElement",
@@ -59752,6 +57976,8 @@ var ExpressionMetadata = class {
   has_call = false;
   /** True if the expression contains `await` */
   has_await = false;
+  /** True if an `await` restores the reaction context afterwards, so the thunk must end it */
+  has_pickled_await = false;
   /** True if the expression includes a member expression */
   has_member_expression = false;
   /** True if the expression includes an assignment or an update */
@@ -59804,6 +58030,7 @@ var ExpressionMetadata = class {
     this.has_state ||= source2.has_state;
     this.has_call ||= source2.has_call;
     this.has_await ||= source2.has_await;
+    this.has_pickled_await ||= source2.has_pickled_await;
     this.has_member_expression ||= source2.has_member_expression;
     this.has_assignment ||= source2.has_assignment;
     this.#blockers = null;
@@ -59812,7 +58039,7 @@ var ExpressionMetadata = class {
   }
 };
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/html-tree-validation.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/html-tree-validation.js
 var autoclosing_children = {
   // based on http://developers.whatwg.org/syntax.html#syntax-tag-omission
   li: { direct: ["li"] },
@@ -59922,14 +58149,14 @@ var disallowed_children = {
   "#document": { only: ["html"] }
 };
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/utils/string.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/utils/string.js
 function list(strings, conjunction = "or") {
   if (strings.length === 1) return strings[0];
   if (strings.length === 2) return `${strings[0]} ${conjunction} ${strings[1]}`;
   return `${strings.slice(0, -1).join(", ")} ${conjunction} ${strings[strings.length - 1]}`;
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
 var regex_invalid_unquoted_attribute_value = /(\/>|[\s"'=<>`])/y;
 var regex_closing_textarea_tag = /<\/textarea(\s[^>]*)?>/iy;
 var regex_closing_comment = /-->/;
@@ -60642,7 +58869,7 @@ function read_tag(parser, regex) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
 function read_pattern(parser) {
   const start = parser.index;
   let i2 = parser.index;
@@ -60709,7 +58936,7 @@ function read_type_annotation(parser) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
 var regex_whitespace_with_closing_curly_brace = /\s*}/y;
 var regex_supported_declaration = /(?:let|const)\b/y;
 var regex_unsupported_declaration = /(?:var|interface|enum)\b/y;
@@ -61363,7 +59590,7 @@ function special(parser) {
   expected_tag(parser.index);
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
 function text(parser) {
   const start = parser.index;
   while (parser.index < parser.template.length && !parser.match("<") && !parser.match("{")) {
@@ -61379,7 +59606,7 @@ function text(parser) {
   });
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
 function fragment(parser) {
   if (parser.match("<")) {
     return element;
@@ -61390,7 +59617,7 @@ function fragment(parser) {
   return text;
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
 function read_options(node) {
   const component_options2 = {
     start: node.start,
@@ -61593,7 +59820,7 @@ function validate_tag(attribute, tag2) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
 function disallow_children(node) {
   const { nodes } = node.fragment;
   if (nodes.length > 0) {
@@ -61603,7 +59830,7 @@ function disallow_children(node) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/1-parse/index.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/1-parse/index.js
 function is_whitespace(cc) {
   if (cc === 32 || cc <= 13 && cc >= 9) return true;
   if (cc < 160) return false;
@@ -61857,7 +60084,7 @@ function parse7(template2, loose = false) {
   return parser.root;
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/scope.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/scope.js
 var NUMBER = /* @__PURE__ */ Symbol("number");
 var STRING = /* @__PURE__ */ Symbol("string");
 var globals = {
@@ -61910,7 +60137,7 @@ var globals = {
   "String.fromCodePoint": [STRING, String.fromCodePoint]
 };
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
 var import_aria_query = __toESM(require_lib2(), 1);
 var import_axobject_query = __toESM(require_lib3(), 1);
 var aria_attributes = "activedescendant atomic autocomplete busy checked colcount colindex colspan controls current describedby description details disabled dropeffect errormessage expanded flowto grabbed haspopup hidden invalid keyshortcuts label labelledby level live modal multiline multiselectable orientation owns placeholder posinset pressed readonly relevant required roledescription rowcount rowindex rowspan selected setsize sort valuemax valuemin valuenow valuetext".split(
@@ -61965,7 +60192,7 @@ for (const [schema, ax_object] of import_axobject_query.elementAXObjects.entries
   }
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
 var import_aria_query2 = __toESM(require_lib2(), 1);
 var import_axobject_query2 = __toESM(require_lib3(), 1);
 
@@ -61992,19 +60219,19 @@ if (typeof window !== "undefined" && typeof window.btoa === "function") {
   btoa2 = (str) => Buffer.from(str, "utf-8").toString("base64");
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/internal/server/hydration.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/internal/server/hydration.js
 var BLOCK_OPEN = `<!--${HYDRATION_START}-->`;
 var BLOCK_OPEN_ELSE = `<!--${HYDRATION_START_ELSE}-->`;
 var BLOCK_CLOSE = `<!--${HYDRATION_END}-->`;
 var EMPTY_COMMENT = `<!---->`;
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
 var block_open = literal2(BLOCK_OPEN);
 var block_open_else = literal2(BLOCK_OPEN_ELSE);
 var block_close = literal2(BLOCK_CLOSE);
 var empty_comment = literal2(EMPTY_COMMENT);
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
 var svg_attributes = "accent-height accumulate additive alignment-baseline allowReorder alphabetic amplitude arabic-form ascent attributeName attributeType autoReverse azimuth baseFrequency baseline-shift baseProfile bbox begin bias by calcMode cap-height class clip clipPathUnits clip-path clip-rule color color-interpolation color-interpolation-filters color-profile color-rendering contentScriptType contentStyleType cursor cx cy d decelerate descent diffuseConstant direction display divisor dominant-baseline dur dx dy edgeMode elevation enable-background end exponent externalResourcesRequired fill fill-opacity fill-rule filter filterRes filterUnits flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight format from fr fx fy g1 g2 glyph-name glyph-orientation-horizontal glyph-orientation-vertical glyphRef gradientTransform gradientUnits hanging height href horiz-adv-x horiz-origin-x id ideographic image-rendering in in2 intercept k k1 k2 k3 k4 kernelMatrix kernelUnitLength kerning keyPoints keySplines keyTimes lang lengthAdjust letter-spacing lighting-color limitingConeAngle local marker-end marker-mid marker-start markerHeight markerUnits markerWidth mask maskContentUnits maskUnits mathematical max media method min mode name numOctaves offset onabort onactivate onbegin onclick onend onerror onfocusin onfocusout onload onmousedown onmousemove onmouseout onmouseover onmouseup onrepeat onresize onscroll onunload opacity operator order orient orientation origin overflow overline-position overline-thickness panose-1 paint-order pathLength patternContentUnits patternTransform patternUnits pointer-events points pointsAtX pointsAtY pointsAtZ preserveAlpha preserveAspectRatio primitiveUnits r radius refX refY rendering-intent repeatCount repeatDur requiredExtensions requiredFeatures restart result rotate rx ry scale seed shape-rendering slope spacing specularConstant specularExponent speed spreadMethod startOffset stdDeviation stemh stemv stitchTiles stop-color stop-opacity strikethrough-position strikethrough-thickness string stroke stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width style surfaceScale systemLanguage tabindex tableValues target targetX targetY text-anchor text-decoration text-rendering textLength to transform type u1 u2 underline-position underline-thickness unicode unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical values version vert-adv-y vert-origin-x vert-origin-y viewBox viewTarget visibility width widths word-spacing writing-mode x x-height x1 x2 xChannelSelector xlink:actuate xlink:arcrole xlink:href xlink:role xlink:show xlink:title xlink:type xml:base xml:lang xml:space y y1 y2 yChannelSelector z zoomAndPan".split(
   " "
 );
@@ -62013,7 +60240,7 @@ svg_attributes.forEach((name) => {
   svg_attribute_lookup.set(name.toLowerCase(), name);
 });
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/validate-options.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/validate-options.js
 var common_options = {
   filename: string("(unknown)"),
   // default to process.cwd() where it exists to replicate svelte4 behavior (and make Deno work with this as well)
@@ -62246,20 +60473,20 @@ function fun(fallback) {
     return input;
   });
 }
-function parametric(fallback, normalize2 = (value) => (
+function parametric(fallback, normalize = (value) => (
   /** @type {ReturnType<F>} */
   value
 )) {
   return validator(fallback, (input, keypath) => {
     if (typeof input === "function") {
-      const normalized2 = (...args) => normalize2(input(...args), keypath);
+      const normalized2 = (...args) => normalize(input(...args), keypath);
       return (
         /** @type {F} */
         /** @type {unknown} */
         normalized2
       );
     }
-    const normalized = (..._args) => normalize2(input, keypath);
+    const normalized = (..._args) => normalize(input, keypath);
     return (
       /** @type {F} */
       /** @type {unknown} */
@@ -62271,7 +60498,7 @@ function throw_error2(msg) {
   options_invalid_value(null, msg);
 }
 
-// node_modules/.pnpm/svelte@5.56.10/node_modules/svelte/src/compiler/index.js
+// node_modules/.pnpm/svelte@5.57.0/node_modules/svelte/src/compiler/index.js
 function parse8(source2, { modern, loose } = {}) {
   source2 = remove_bom(source2);
   reset({ warning: () => false, filename: void 0 });
@@ -62306,7 +60533,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.49.0/node_modules/@svelte-vitals/core/dist/markdown-CP5TPy-s.js
+// node_modules/.pnpm/@svelte-vitals+core@0.51.0/node_modules/@svelte-vitals/core/dist/markdown-CD7sqanK.js
 var import_aria_query3 = __toESM(require_lib4(), 1);
 var CATEGORIES = [
   "seo",
@@ -64699,10 +62926,6 @@ var architecturePropCount = componentRule({
     }] : [];
   }
 });
-function isRootRelativePath(value) {
-  return value.startsWith("/") && !value.startsWith("//");
-}
-var HTML_SPEC = JSON.parse(`{"elements":{"a":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), a, [tabindex], :has(:model(interactive), a, [tabindex]))"}]},"aria":{"implicitRole":"link","permittedRoles":["button","checkbox","menuitem","menuitemcheckbox","menuitemradio","option","radio","switch","tab","treeitem"],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"attributionsrc":{"deprecated":true},"charset":{"deprecated":true},"coords":{"deprecated":true},"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{"deprecated":true},"ping":{},"referrerpolicy":{},"rel":{},"rev":{"deprecated":true},"shape":{"deprecated":true},"target":{},"type":{}}},"abbr":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"acronym":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"address":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(address, :model(heading), :model(sectioning), header, foooter, :has(address, :model(heading), :model(sectioning), header, foooter))"}]},"aria":{"implicitRole":"group","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"applet":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"area":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false,"descendantOf":"map"},"aria":{"implicitRole":"link","permittedRoles":[],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"alt":{"type":"Any","required":true,"condition":"[href]"},"coords":{"type":{"token":"Number","disallowToSurroundBySpaces":true,"separator":"comma"}},"download":{},"href":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{},"referrerpolicy":{},"rel":{},"shape":{"type":{"enum":["rect","circle","poly","default"],"missingValueDefault":"rect","invalidValueDefault":"rect"}},"target":{}}},"article":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"article","permittedRoles":["application","document","feed","main","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"aside":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"complementary","permittedRoles":["feed","none","note","presentation","region","search"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"audio":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{},"crossorigin":{},"disableremoteplayback":{},"loop":{},"muted":{},"preload":{},"src":{}}},"b":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"base":{"categories":["#metadata"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"href":{"type":"BaseURL"},"target":{}}},"basefont":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"bdi":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"bdo":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"dir":{}}},"bgsound":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"big":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blink":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blockquote":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"blockquote","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"body":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"generic","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"alink":{"deprecated":true},"background":{"deprecated":true},"bgcolor":{"deprecated":true},"bottommargin":{"deprecated":true},"leftmargin":{"deprecated":true},"link":{"deprecated":true},"onafterprint":{"type":"FunctionBody"},"onbeforeprint":{"type":"FunctionBody"},"onbeforeunload":{"type":"FunctionBody"},"onhashchange":{"type":"FunctionBody"},"onlanguagechange":{"type":"FunctionBody"},"onmessage":{"type":"FunctionBody"},"onmessageerror":{"type":"FunctionBody"},"onoffline":{"type":"FunctionBody"},"ononline":{"type":"FunctionBody"},"onpagehide":{"type":"FunctionBody"},"onpagereveal":{"type":"FunctionBody"},"onpageshow":{"type":"FunctionBody"},"onpageswap":{"type":"FunctionBody"},"onpopstate":{"type":"FunctionBody"},"onrejectionhandled":{"type":"FunctionBody"},"onstorage":{"type":"FunctionBody"},"onunhandledrejection":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"rightmargin":{"deprecated":true},"text":{"deprecated":true},"topmargin":{"deprecated":true},"vlink":{"deprecated":true}}},"br":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"clear":{"deprecated":true}}},"button":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"implicitRole":"button","permittedRoles":["checkbox","combobox","gridcell","link","menuitem","menuitemcheckbox","menuitemradio","option","radio","separator","slider","switch","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autofocus":{},"command":{"type":[{"enum":["toggle-popover","show-popover","hide-popover","close","request-close","show-modal"],"invalidValueDefault":"unknown","missingValueDefault":"unknown"},"ValidCustomCommand"]},"commandfor":{"type":"DOMID"},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{},"popovertarget":{"type":"DOMID"},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"}},"type":{"type":{"enum":["submit","reset","button"],"invalidValueDefault":"submit","missingValueDefault":"submit"}},"value":{"type":"Any"}}},"canvas":{"categories":["#flow","#phrasing","#embedded","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"moz-opaque":{"deprecated":true,"nonStandard":true},"width":{}}},"caption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"caption","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true}}},"center":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"cite":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"code":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"code","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"col":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"colgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"col"}],"conditional":[{"condition":"[span]","contents":false}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"data":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"value":{"type":"Any","required":true}}},"datalist":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"zeroOrMore":["option",":model(script-supporting)"]}]]}]},"aria":{"implicitRole":"listbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dd":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"del":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateTime"}}},"details":{"categories":["#flow","#interactive","#palpable"],"contentModel":{"contents":[{"require":"summary"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"},"open":{"type":"Boolean"}}},"dfn":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(dfn, :has(dfn))"}]},"aria":{"implicitRole":"term","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dialog":{"categories":["#flow"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"dialog","permittedRoles":["alertdialog"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"closedby":{"type":{"enum":["any","closerequest","none"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"open":{"type":"Boolean"},"tabindex":{"noUse":true}}},"dir":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"compact":{"deprecated":true}}},"div":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}],"conditional":[{"condition":"dl > div","contents":[{"oneOrMore":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}]}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dl":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"oneOrMore":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}],[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"div"},{"zeroOrMore":":model(script-supporting)"}]]}]},"aria":{"permittedRoles":["group","list","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"dt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":["listitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"em":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"emphasis","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"embed":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"src":{"type":"URL","required":"[itemprop]"},"type":{"type":"MIMEType"},"width":{}}},"fieldset":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"optional":"legend"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":["radiogroup","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"form":{},"name":{}}},"figcaption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["group","none","presentation"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"figure":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"require":"figcaption"},{"oneOrMore":":model(flow)"}],[{"oneOrMore":":model(flow)"},{"require":"figcaption"}],[{"oneOrMore":":model(flow)"}]]}]},"aria":{"implicitRole":"figure","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"font":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"color":{"deprecated":true},"face":{"deprecated":true},"size":{"deprecated":true}}},"footer":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}]},"aria":{"implicitRole":"contentinfo","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"form":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(form, :has(form))"}]},"aria":{"permittedRoles":["search","none","presentation"],"conditions":{":aria(has name)":{"implicitRole":"form"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"deprecated":true},"accept-charset":{"type":{"enum":["utf-8"],"caseInsensitive":true}},"action":{"type":"URL"},"autocapitalize":{},"autocomplete":{"type":{"enum":["on","off"],"invalidValueDefault":"on","missingValueDefault":"on"}},"enctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded","missingValueDefault":"application/x-www-form-urlencoded"}},"method":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get","missingValueDefault":"get"}},"name":{"type":"NoEmptyAny"},"novalidate":{"type":"Boolean"},"rel":{"type":"LinkTypeForFormElement"},"target":{"type":"NavigableTargetNameOrKeyword"}}},"frame":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"frameborder":{"deprecated":true},"marginheight":{"deprecated":true},"marginwidth":{"deprecated":true},"name":{"deprecated":true},"noresize":{"deprecated":true},"scrolling":{"deprecated":true},"src":{"deprecated":true}}},"frameset":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"cols":{"deprecated":true},"rows":{"deprecated":true}}},"h1":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h2":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h3":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h4":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h5":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h6":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"head":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":":model(metadata):not(title)"},{"require":"title"},{"zeroOrMore":":model(metadata):not(title)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"profile":{"deprecated":true}}},"header":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}]},"aria":{"implicitRole":"banner","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hgroup":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"},{"require":["h1","h2","h3","h4","h5","h6"]},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hr":{"categories":["#flow"],"contentModel":{"contents":false},"aria":{"implicitRole":"separator","permittedRoles":["presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true,"nonStandard":true},"color":{"deprecated":true,"nonStandard":true},"noshade":{"deprecated":true,"nonStandard":true},"size":{"deprecated":true,"nonStandard":true},"width":{"deprecated":true,"nonStandard":true}}},"html":{"categories":[],"contentModel":{"contents":[{"require":"head"},{"require":"body"}]},"aria":{"implicitRole":"generic","permittedRoles":["document","generic"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"version":{"deprecated":true},"xmlns":{}}},"i":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"iframe":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"allow":{"type":"SerializedPermissionsPolicy"},"allowfullscreen":{"type":"Boolean"},"allowpaymentrequest":{"deprecated":true,"nonStandard":true},"browsingtopics":{"deprecated":true,"nonStandard":true},"credentialless":{"experimental":true},"csp":{"experimental":true},"frameborder":{"deprecated":true},"height":{},"loading":{},"longdesc":{"deprecated":true},"marginheight":{"deprecated":true},"marginwidth":{"deprecated":true},"name":{"type":"NavigableTargetName"},"privateToken":{"type":"Any","experimental":true},"referrerpolicy":{},"sandbox":{"type":{"token":{"enum":["allow-forms","allow-modals","allow-orientation-lock","allow-pointer-lock","allow-popups","allow-popups-to-escape-sandbox","allow-presentation","allow-same-origin","allow-scripts","allow-top-navigation","allow-top-navigation-by-user-activation","allow-downloads","allow-custom-protocols-navigation"]},"caseInsensitive":true,"ordered":true,"unique":true,"separator":"space"}},"scrolling":{"deprecated":true},"src":{"required":"[itemprop]","ineffective":"[srcdoc]"},"srcdoc":{"type":"Any"},"width":{}}},"img":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"img","permittedRoles":["button","checkbox","link","math","menuitem","menuitemcheckbox","menuitemradio","meter","option","progressbar","radio","scrollbar","separator","slider","switch","tab","treeitem"],"conditions":{"[alt=\\"\\"]":{"implicitRole":"presentation"},":not([alt]):aria(has no name)":{"implicitRole":"img"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"alt":{"type":"Any"},"attributionsrc":{"deprecated":true},"border":{"deprecated":true},"crossorigin":{},"decoding":{"type":{"enum":["sync","async","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"elementtiming":{},"fetchpriority":{},"height":{},"hspace":{"deprecated":true},"ismap":{"type":"Boolean","condition":"a[href] img"},"loading":{},"longdesc":{"deprecated":true},"name":{"deprecated":true},"referrerpolicy":{},"sizes":{},"src":{"type":"URL","requiredEither":["srcset"]},"srcset":{"type":"Srcset","requiredEither":["src"]},"usemap":{"type":"HashName","condition":":is(:not(a):not(button)) img"},"vspace":{"deprecated":true},"width":{}}},"input":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"textbox","permittedRoles":["combobox","searchbox","spinbutton"],"conditions":{"[type='button' i]":{"implicitRole":"button"},"[type='checkbox' i]":{"implicitRole":"checkbox"},"[type='checkbox' i][aria-pressed]":{"implicitRole":"checkbox"},"[type='color' i]":{"implicitRole":false},"[type='date' i]":{"implicitRole":false},"[type='email' i]:not([list])":{"implicitRole":"textbox"},"[type='file' i]":{"implicitRole":false},"[type='hidden' i]":{"implicitRole":false},"[type='image' i]":{"implicitRole":"button"},"[type='month' i]":{"implicitRole":false},"[type='number' i]":{"implicitRole":"spinbutton"},"[type='password' i]":{"implicitRole":false},"[type='radio' i]":{"implicitRole":"radio"},"[type='range' i]":{"implicitRole":"slider"},"[type='reset' i]":{"implicitRole":"button"},"[type='search' i]:not([list])":{"implicitRole":"searchbox"},"[type='submit' i]":{"implicitRole":"button"},"[type='tel' i]:not([list])":{"implicitRole":"textbox"},":is(:not([type]), [type='text' i], [type='search' i], [type='tel' i], [type='url' i], [type='email' i])[list]":{"implicitRole":"combobox"},"[type='time' i]":{"implicitRole":false},"[type='url' i]:not([list])":{"implicitRole":"textbox"},"[type='week' i]":{"implicitRole":false}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"type":{"token":"Accept","caseInsensitive":true,"unique":true,"separator":"comma"},"condition":"[type='file' i]"},"alpha":{"type":"Boolean","experimental":true,"condition":"[type='color' i]"},"alt":{"type":"Any","condition":"[type='image' i]"},"autocapitalize":{},"autocomplete":{"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"autofocus":{},"capture":{},"checked":{"type":"Boolean","condition":["[type='checkbox' i]","[type='radio' i]"]},"colorspace":{"type":{"enum":["limited-srgb","display-p3"],"invalidValueDefault":"limited-srgb","missingValueDefault":"limited-srgb"},"experimental":true,"condition":"[type='color' i]"},"dirname":{"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='tel' i]","[type='url' i]","[type='email' i]","[type='password' i]","[type='submit' i]"]},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"height":{"condition":"[type='image' i]"},"id":{},"incremental":{"nonStandard":true},"inputmode":{},"list":{"type":"DOMID","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"max":{"type":["DateTime","Number"],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"maxlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"min":{"type":["DateTime","Number"],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"minlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"multiple":{"type":"Boolean","condition":["[type='email' i]","[type='file' i]"]},"name":{},"orient":{"nonStandard":true},"pattern":{"type":"Pattern","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"placeholder":{"type":"OneLineAny","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='number' i]"]},"popovertarget":{"type":"DOMID","condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"},"condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"readonly":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]"]},"required":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='checkbox' i]","[type='radio' i]","[type='file' i]"]},"results":{"nonStandard":true},"size":{"type":{"type":"integer","gt":0},"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"src":{"condition":"[type='image' i]"},"step":{"type":["Number",{"enum":["any"],"caseInsensitive":true}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"switch":{"type":"Boolean","experimental":true,"condition":["[type='checkbox' i]"]},"tabindex":{},"title":{},"type":{"type":{"enum":["hidden","text","search","tel","url","email","password","date","month","week","time","datetime-local","number","range","color","checkbox","radio","file","submit","image","reset","button"],"invalidValueDefault":"text","missingValueDefault":"text"}},"value":{"type":"Any"},"webkitdirectory":{"nonStandard":true},"width":{"condition":"[type='image' i]"}}},"ins":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"insertion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateTime"}}},"isindex":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"kbd":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"keygen":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"label":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(label, :has(label))"}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":"DOMID"}}},"legend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(phrasing)",":model(heading)"]}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"li":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"listitem","permittedRoles":["menuitem","menuitemcheckbox","menuitemradio","option","none","presentation","radio","separator","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"type":{"deprecated":true},"value":{"type":"Int","condition":"ol > li"}}},"link":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"as":{"type":{"enum":["fetch","audio","audioworklet","document","embed","font","frame","iframe","image","manifest","object","paintworklet","report","script","serviceworker","sharedworker","style","track","video","worker","xslt"]},"condition":["[rel='preload' i]","[rel='modulepreload' i]"]},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true},"condition":"[rel~='stylesheet' i]"},"charset":{"deprecated":true,"obsolete":true},"color":{"type":"<color>","condition":"[rel~='mask-icon' i]"},"crossorigin":{},"disabled":{"type":"Boolean"},"fetchpriority":{},"href":{},"hreflang":{},"imagesizes":{"type":"SourceSizeList","required":"[imagesrcset]","condition":"[imagesrcset][rel~='preload' i][as='image' i]"},"imagesrcset":{"type":"Srcset","required":"[imagesizes]","condition":"[imagesizes][rel~='preload' i][as='image' i]"},"integrity":{"condition":["[rel~='stylesheet' i]","[rel~='preload' i]","[rel~='modulepreload' i]"]},"itemprop":{"requiredEither":["rel"]},"media":{},"referrerpolicy":{},"rel":{"type":"LinkTypeForLinkElement","requiredEither":["itemprop"]},"rev":{"deprecated":true,"obsolete":true},"sizes":{"type":{"token":"IconSize","caseInsensitive":true,"ordered":false,"unique":true,"separator":"space"},"condition":["[rel~='icon' i]","[rel~='apple-touch-icon' i]"]},"target":{"deprecated":true},"title":{},"type":{}}},"listing":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"main":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"main","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"map":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"mark":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"marquee":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"behavior":{"deprecated":true},"bgcolor":{"deprecated":true},"direction":{"deprecated":true},"height":{"deprecated":true},"hspace":{"deprecated":true},"loop":{"deprecated":true},"scrollamount":{"deprecated":true},"scrolldelay":{"deprecated":true},"truespeed":{"deprecated":true},"vspace":{"deprecated":true},"width":{"deprecated":true}}},"math":{"categories":[],"contentModel":{"contents":true},"aria":{"implicitRole":"math","permittedRoles":[]},"globalAttrs":["#ARIAAttrs"],"attributes":{}},"menu":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"menuitem":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"meta":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"charset":{"type":{"enum":["utf-8"],"caseInsensitive":true},"condition":[":not([itemprop])",":not([name])",":not([http-equiv])"]},"content":{"type":"Any","required":["[name]","[http-equiv]","[itemprop]"],"condition":["[name]","[http-equiv]","[itemprop]"]},"http-equiv":{"type":{"enum":["content-type","default-style","refresh","x-ua-compatible","content-security-policy"]},"requiredEither":["itemprop","name","charset"],"condition":[":not([itemprop])",":not([name])",":not([charset])"]},"itemprop":{"requiredEither":["name","http-equiv","charset"],"condition":[":not([name])",":not([http-equiv])",":not([charset])"]},"media":{"condition":"[name='theme-color']"},"name":{"type":"Any","requiredEither":["itemprop","http-equiv","charset"],"condition":[":not([itemprop])",":not([http-equiv])",":not([charset])"]}}},"meter":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(meter, :has(meter))"}]},"aria":{"implicitRole":"meter","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"high":{"type":"Number"},"low":{"type":"Number"},"max":{"type":"Number"},"min":{"type":"Number"},"optimum":{"type":"Number"},"value":{"type":"Number"}}},"multicol":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nav":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"navigation","permittedRoles":["menu","menubar","none","presentation","tablist"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"nextid":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nobr":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noembed":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noframes":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noscript":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"transparent":":not(noscript)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"object":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["application","document","img"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"archive":{"deprecated":true},"border":{"deprecated":true},"classid":{"deprecated":true},"codebase":{"deprecated":true},"codetype":{"deprecated":true},"data":{"type":"URL","requiredEither":["type"]},"declare":{"deprecated":true},"form":{},"height":{},"name":{"type":"NavigableTargetName"},"standby":{"deprecated":true},"type":{"type":"MIMEType","requiredEither":["data"]},"usemap":{"deprecated":true},"width":{}}},"ol":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true,"nonStandard":true},"reversed":{"type":"Boolean"},"start":{"type":"Int"},"type":{"type":{"enum":["1","a","A","i","I"],"caseInsensitive":false,"invalidValueDefault":"decimal","missingValueDefault":"decimal"}}}},"optgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"option"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"Any","required":true}}},"option":{"categories":[],"contentModel":{"contents":[{"optional":"#text"}],"conditional":[{"condition":"[label][value]","contents":false},{"condition":"label","contents":[{"optional":"#text"}]},{"condition":"datalist > [label]","contents":[{"optional":"#text"}]}]},"aria":{"permittedRoles":[],"conditions":{":is(select, select > option, datalist) > option":{"implicitRole":"option"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"Any"},"selected":{"type":"Boolean"},"value":{"type":"Any"}}},"output":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"status","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":{"token":"DOMID","separator":"space","unique":true,"caseInsensitive":true}},"form":{},"name":{}}},"p":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"paragraph","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"param":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"name":{"deprecated":true},"type":{"deprecated":true},"value":{"deprecated":true},"valuetype":{"deprecated":true}}},"picture":{"categories":["#flow","#phrasing","#embedded"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"source"},{"zeroOrMore":":model(script-supporting)"},{"require":"img"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"plaintext":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"pre":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"width":{"deprecated":true,"nonStandard":true},"wrap":{"deprecated":true,"nonStandard":true}}},"progress":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(progress, :has(progress))"}]},"aria":{"implicitRole":"progressbar","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"max":{"type":"Number"},"value":{"type":"Number"}}},"q":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"rb":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"rp":{"categories":[],"contentModel":{"contents":[{"oneOrMore":"#text"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rtc":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"ruby":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":[{"oneOrMore":[":model(phrasing):not(ruby, :has(ruby))","ruby:not(:has(ruby))"]},{"choice":[[{"oneOrMore":"rt"}],[{"require":"rp"},{"oneOrMore":[{"require":"rt"},{"require":"rp"}]}]]}]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"s":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"samp":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"script":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"async":{"type":"Boolean","ineffective":":not([src]):not([type='module' i])","condition":["[src]","[type='module' i]"]},"attributionsrc":{"deprecated":true},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true}},"charset":{"deprecated":true},"crossorigin":{},"defer":{"type":"Boolean","ineffective":["[type='module' i]",":not([src])","[async]"],"condition":"[src]"},"fetchpriority":{},"integrity":{"condition":"[src]"},"language":{"deprecated":true,"nonStandard":true},"nomodule":{"type":"Boolean","condition":":not([type='module' i])"},"nonce":{},"referrerpolicy":{},"src":{"type":"URL"},"type":{"type":["MIMEType",{"enum":["module","importmap"],"caseInsensitive":true}]}}},"search":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"search","permittedRoles":["form","group","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"section":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["alert","alertdialog","application","banner","complementary","contentinfo","dialog","document","feed","group","log","main","marquee","navigation","none","note","presentation","search","status","tabpanel"],"conditions":{":aria(has name)":{"implicitRole":"region"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"select":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"zeroOrMore":["option","optgroup","hr","#script-supporting"]}]},"aria":{"implicitRole":"combobox","permittedRoles":["menu"],"conditions":{"[multiple], [size]:not([size=1])":{"implicitRole":"listbox"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocomplete":{},"autofocus":{},"disabled":{},"form":{},"multiple":{"type":"Boolean"},"name":{},"required":{},"size":{"type":{"type":"integer","gt":0}}}},"slot":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"small":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"source":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{"condition":"picture > source"},"media":{"type":"<media-query-list>"},"sizes":{"condition":"picture > source"},"src":{"type":"URL","required":":is(video, audio) > source","condition":":is(video, audio) > source"},"srcset":{"required":"picture > source","condition":"picture > source"},"type":{"type":"MIMEType"},"width":{"condition":"picture > source"}}},"spacer":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"span":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"strike":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"strong":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"strong","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"style":{"categories":["#metadata"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true}},"media":{"type":"<media-query-list>"},"nonce":{},"title":{},"type":{"deprecated":true}}},"sub":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"subscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"summary":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"require":":model(heading)"}]]}]},"aria":{"implicitRole":"button","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"sup":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"superscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"table":{"categories":["#flow"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"optional":"caption"},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"colgroup"},{"zeroOrMore":":model(script-supporting)"},{"optional":"thead"},{"zeroOrMore":":model(script-supporting)"},{"choice":[[{"zeroOrMore":"tbody"}],[{"oneOrMore":"tr"}]]},{"zeroOrMore":":model(script-supporting)"},{"optional":"tfoot"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"table","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"border":{"deprecated":true},"cellpadding":{"deprecated":true},"cellspacing":{"deprecated":true},"frame":{"deprecated":true},"rules":{"deprecated":true},"summary":{"deprecated":true},"width":{"deprecated":true}}},"tbody":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"td":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > td, table:is(:not([role]), [role=table]) > tr > td":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > td, table:is([role=grid], [role=treegrid]) > tr > td":{"implicitRole":"gridcell"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"deprecated":true},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"deprecated":true},"valign":{"deprecated":true},"width":{"deprecated":true}}},"template":{"categories":["#metadata","#flow","#phrasing","#script-supporting"],"contentModel":{"contents":true},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"shadowrootclonable":{"type":"Boolean"},"shadowrootdelegatesfocus":{"type":"Boolean"},"shadowrootmode":{"type":{"enum":["open","closed"],"missingValueDefault":"none","invalidValueDefault":"none"}},"shadowrootreferencetarget":{"type":"DOMID","nonStandard":true,"experimental":true},"shadowrootserializable":{"type":"Boolean"}}},"textarea":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"optional":"#text"}]},"aria":{"implicitRole":"textbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocapitalize":{},"autocomplete":{},"autocorrect":{},"autofocus":{},"cols":{"type":{"type":"integer","gt":0}},"dirname":{},"disabled":{},"form":{},"maxlength":{},"minlength":{},"name":{},"placeholder":{"type":"Any"},"readonly":{},"required":{},"rows":{"type":{"type":"integer","gt":0}},"spellcheck":{},"wrap":{"type":{"enum":["soft","hard"],"missingValueDefault":"soft","invalidValueDefault":"soft"}}}},"tfoot":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"th":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > th, table:is(:not([role]), [role=table]) > tr > th":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th, table:is([role=grid], [role=treegrid]) > tr > th":{"implicitRole":"gridcell"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > thead > tr > th:not([scope])":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(tfoot, tbody) > tr > th:not([scope]), table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th:not([scope])":{"implicitRole":"rowheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=col], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=col]":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=row], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=row]":{"implicitRole":"rowheader"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"type":"Any"},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"type":{"enum":["row","col","rowgroup","colgroup"],"missingValueDefault":"auto","invalidValueDefault":"auto"}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"thead":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"time":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"time","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"datetime":{"type":"DateTime"}}},"title":{"categories":["#metadata"],"contentModel":{"contents":[{"require":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"tr":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["th","td",":model(script-supporting)"]}]},"aria":{"implicitRole":"row","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"track":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"default":{"type":"Boolean"},"kind":{"type":{"enum":["subtitles","captions","descriptions","chapters","metadata"],"missingValueDefault":"metadata","invalidValueDefault":"metadata"}},"label":{"type":"NoEmptyAny"},"src":{"type":"URL","required":true},"srclang":{"type":"BCP47"}}},"tt":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"u":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"ul":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true},"type":{"deprecated":true}}},"var":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"video":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{"type":{"token":{"enum":["nodownload","nofullscreen","noremoteplayback"]},"ordered":false,"caseInsensitive":true,"unique":true,"separator":"space"}},"crossorigin":{},"disablepictureinpicture":{},"disableremoteplayback":{},"height":{},"loop":{},"muted":{},"playsinline":{"type":"Boolean"},"poster":{"type":"URL"},"preload":{},"src":{},"width":{}}},"wbr":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"xmp":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"svg:a":{"categories":[],"contentModel":{"conditional":[{"condition":"svg|switch > svg|a","contents":[{"transparent":"*"}]}],"contents":[{"transparent":"*, :model(SVGDescriptive):not(svg|a, :has(svg|a))"}]},"aria":{"implicitRole":"group","permittedRoles":"any","conditions":{"[href], [xlink|href]":{"implicitRole":"link"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{"experimental":true},"referrerpolicy":{},"rel":{},"target":{},"type":{},"xlink:href":{"deprecated":true}}},"svg:animate":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:animateMotion":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":[":model(SVGDescriptive)","svg|script"]},{"optional":"svg|mpath"}],[{"optional":"svg|mpath"},{"oneOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"keyPoints":{"type":"<key-points>"},"origin":{"type":"<origin>"},"path":{"type":"<svg-path>"},"rotate":{"type":"<rotate>"}}},"svg:animateTransform":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"type":{"type":{"enum":["translate","scale","rotate","skewX","skewY"]}}}},"svg:circle":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"r":{}}},"svg:clipPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)","svg|text","svg|use","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"clipPathUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"]}}}},"svg:defs":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:desc":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:discard":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"begin":{"type":"<begin-value-list>"},"href":{"type":"URL"}}},"svg:ellipse":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{}}},"svg:feBlend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"mode":{"type":"<blend-mode>"}}},"svg:feColorMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"type":{"type":{"enum":["matrix","saturate","hueRotate","luminanceToAlpha"],"disallowToSurroundBySpaces":false}},"values":{"type":"<color-matrix>"}}},"svg:feComponentTransfer":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feFuncA","svg|feFuncR","svg|feFuncB","svg|feFuncG","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feComposite":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"k1":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k2":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k3":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k4":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"operator":{"type":{"enum":["over","in","out","atop","xor","lighter","arithmetic"],"disallowToSurroundBySpaces":false}}}},"svg:feConvolveMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"bias":{"type":"<number>"},"divisor":{"type":"<number>"},"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"kernelMatrix":{"type":"<list-of-numbers>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"order":{"type":"<number-optional-number>"},"preserveAlpha":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"targetX":{"type":"<integer>"},"targetY":{"type":"<integer>"}}},"svg:feDiffuseLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"diffuseConstant":{"type":"<number>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"surfaceScale":{"type":"<number>"}}},"svg:feDisplacementMap":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"scale":{"type":"<number>"},"xChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}},"yChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}}}},"svg:feDistantLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"azimuth":{"type":"<number>"},"elevation":{"type":"<number>"}}},"svg:feDropShadow":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feFlood":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"}}},"svg:feFuncA":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncB":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncG":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncR":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feGaussianBlur":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feImage":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"crossorigin":{"type":{"enum":["anonymous","use-credentials"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"xlink:href":{"type":"URL","deprecated":true}}},"svg:feMerge":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feMergeNode","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feMergeNode":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs"],"attributes":{}},"svg:feMorphology":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"operator":{"type":{"enum":["erode","dilate"],"disallowToSurroundBySpaces":false}},"radius":{"type":"<number-optional-number>"}}},"svg:feOffset":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"}}},"svg:fePointLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feSpecularLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"kernelUnitLength":{"type":"<number-optional-number>"},"specularConstant":{"type":"<number>"},"specularExponent":{"type":"<number>"},"surfaceScale":{"type":"<number>"}}},"svg:feSpotLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"limitingConeAngle":{"type":"<number>"},"pointsAtX":{"type":"<number>"},"pointsAtY":{"type":"<number>"},"pointsAtZ":{"type":"<number>"},"specularExponent":{"type":"<number>"},"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feTile":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feTurbulence":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"baseFrequency":{"type":"<number-optional-number>"},"numOctaves":{"type":"<integer>"},"seed":{"type":"<number>"},"stitchTiles":{"type":{"enum":["noStitch","stitch"]}},"type":{"type":{"enum":["fractalNoise","turbulence"]}}}},"svg:filter":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGFilterPrimitive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"filterRes":{"type":"<number-optional-number>","deprecated":true},"filterUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"height":{},"primitiveUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"width":{},"x":{},"y":{}}},"svg:foreignObject":{"categories":[],"contentModel":{"contents":true},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"width":{},"x":{},"y":{}}},"svg:g":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:image":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"img","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"sameStates":{"anonymous":[""]}}},"decoding":{},"fetchpriority":{"nonStandard":true,"experimental":true},"height":{},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:line":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"x1":{"type":["<svg-length>","<percentage>","<number>"]},"x2":{"type":["<svg-length>","<percentage>","<number>"]},"y1":{"type":["<svg-length>","<percentage>","<number>"]},"y2":{"type":["<svg-length>","<percentage>","<number>"]}}},"svg:linearGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"x1":{"type":["<svg-length>","<percentage>"]},"x2":{"type":["<svg-length>","<percentage>"]},"xlink:href":{"deprecated":true},"y1":{"type":["<svg-length>","<percentage>"]},"y2":{"type":["<svg-length>","<percentage>"]}}},"svg:marker":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"markerHeight":{"type":["<svg-length>","<percentage>","<number>"]},"markerUnits":{"type":{"enum":["userSpaceOnUse","strokeWidth"],"disallowToSurroundBySpaces":false}},"markerWidth":{"type":["<svg-length>","<percentage>","<number>"]},"orient":{"type":[{"enum":["auto","auto-start-reverse"],"disallowToSurroundBySpaces":false},"<angle>","<number>"]},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"refY":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"viewBox":{"type":"<view-box>"}}},"svg:mask":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)",":model(SVGStructural)",":model(SVGGradient)","svg|a","svg|altGlyphDef","svg|clipPath","svg|color-profile","svg|cursor","svg|filter","svg|font","svg|font-face","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|pattern","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"mask-type":{},"maskContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"maskUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"width":{},"x":{},"y":{}}},"svg:metadata":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:mpath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"href":{"type":"URL"}}},"svg:path":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"d":{},"pathLength":{"type":"<number>"}}},"svg:pattern":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"patternContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"patternTransform":{"type":"<transform-list>"},"patternUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:polygon":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:polyline":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:radialGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"fr":{"type":["<svg-length>","<percentage>"]},"fx":{"type":["<svg-length>","<percentage>"]},"fy":{"type":["<svg-length>","<percentage>"]},"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"r":{"type":["<svg-length>","<percentage>"]},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"xlink:href":{"deprecated":true}}},"svg:rect":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{},"width":{},"x":{},"y":{}}},"svg:script":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGNeverRendered)",":model(SVGStructurallyExternal)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#XLinkAttrs"],"attributes":{"crossorigin":{"type":{"enum":["anonymous","use-credentials",""],"disallowToSurroundBySpaces":false}},"fetchpriority":{"nonStandard":true,"experimental":true},"href":{"type":"URL"},"type":{"type":"MIMEType"},"xlink:href":{"deprecated":true}}},"svg:set":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"to":{"type":"NoEmptyAny"}}},"svg:stop":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["svg:animate","svg|animateColor","svg|script","svg|set","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"offset":{"type":["<number>","<percentage>"]},"stop-color":{"type":"<color>"},"stop-opacity":{"type":"<'opacity'>"}}},"svg:style":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"media":{"type":"<media-query-list>"},"title":{"type":"Any"},"type":{"type":"MIMEType"}}},"svg:svg":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-document","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"baseProfile":{"type":"Any","deprecated":true},"contentScriptType":{"type":"Any","deprecated":true},"contentStyleType":{"type":"Any","deprecated":true},"height":{},"onunload":{"type":"FunctionBody"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"version":{"type":"Any","deprecated":true},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:switch":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGShape)","svg|a","svg|foreignObject","svg|g","svg|image","svg|svg","svg|switch","svg|text","svg|use"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"requiredExtensions":{},"systemLanguage":{}}},"svg:symbol":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<svg-length>","<percentage>","<number>",{"enum":["left","center","right"]}]},"refY":{"type":["<svg-length>","<percentage>","<number>",{"enum":["top","center","bottom"]}]},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:text":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGTextContentChild)","svg|a","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:textPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|clipPath","svg|marker","svg|mask","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"href":{"type":"URL"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"method":{"type":{"enum":["align","stretch"],"disallowToSurroundBySpaces":false}},"path":{"type":"<svg-path>","experimental":true},"side":{"type":{"enum":["left","right"],"disallowToSurroundBySpaces":false},"experimental":true},"spacing":{"type":{"enum":["auto","exact"],"disallowToSurroundBySpaces":false}},"startOffset":{"type":["<svg-length>","<percentage>"]},"textLength":{"type":["<svg-length>","<percentage>"]}}},"svg:title":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:tspan":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:use":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:view":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs"],"attributes":{"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"viewTarget":{"type":"Any","deprecated":true},"zoomAndPan":{"type":{"enum":["disable","magnify"]},"deprecated":true}}}},"contentModels":{"#metadata":["base","link","meta","noscript","script","style","template","title"],"#flow":["a","abbr","address","area","article","aside","audio","b","bdi","bdo","blockquote","br","button","canvas","cite","code","data","datalist","del","details","dfn","dialog","div","dl","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","hr","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","main","map","mark","math","menu","meta[itemprop]","meter","nav","noscript","object","ol","output","p","picture","pre","progress","q","ruby","s","samp","script","search","section","select","slot","small","span","strong","sub","sup","svg|svg","table","template","textarea","time","u","ul","var","video","wbr","#custom","#text"],"#sectioning":["article","aside","nav","section"],"#heading":["h1","h2","h3","h4","h5","h6","hgroup:has(h1,h2,h3,h4,h5,h6)"],"#phrasing":["a","abbr","area","audio","b","bdi","bdo","br","button","canvas","cite","code","data","datalist","del","dfn","em","embed","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","map","mark","math","meta[itemprop]","meter","noscript","object","output","picture","progress","q","ruby","s","samp","script","select","slot","small","span","strong","sub","sup","svg|svg","template","textarea","time","u","var","video","wbr","#custom","#text"],"#embedded":["audio","canvas","embed","iframe","img","math","object","picture","svg|svg","video"],"#interactive":["a[href]","audio[controls]","button","details","embed","iframe","img[usemap]","input:not([type='hidden' i])","label","select","textarea","video[controls]"],"#palpable":["a","abbr","address","article","aside","audio[controls]","b","bdi","bdo","blockquote","button","canvas","cite","code","data","del","details","dfn","div","dl:has(>:is(dt+dd))","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","i","iframe","img","input:not([type='hidden' i])","ins","kbd","label","main","map","mark","math","menu:has(>li)","meter","nav","object","ol:has(>li)","output","p","picture","pre","progress","q","ruby","s","samp","search","section","select","small","span","strong","sub","sup ","svg","table","textarea","time","u","ul:has(>li)","var","video","#custom","#text"],"#script-supporting":["script","template"],"#SVGAnimation":["svg|animate","svg|animateColor","svg|animateMotion","svg|animateTransform","svg|discard","svg|mpath","svg|set"],"#SVGBasicShapes":["svg|circle","svg|ellipse","svg|line","svg|polygon","svg|polyline","svg|rect"],"#SVGContainer":["svg|a","svg|defs","svg|g","svg|marker","svg|mask","svg|missing-glyph","svg|pattern","svg|svg","svg|switch","svg|symbol"],"#SVGDescriptive":["svg|desc","svg|metadata","svg|title"],"#SVGFilterPrimitive":["svg|feBlend","svg|feColorMatrix","svg|feComponentTransfer","svg|feComposite","svg|feConvolveMatrix","svg|feDiffuseLighting","svg|feDisplacementMap","svg|feDropShadow","svg|feFlood","svg|feFuncA","svg|feFuncB","svg|feFuncG","svg|feFuncR","svg|feGaussianBlur","svg|feImage","svg|feMerge","svg|feMergeNode","svg|feMorphology","svg|feOffset","svg|feSpecularLighting","svg|feTile","svg|feTurbulence"],"#SVGFont":["svg|font","svg|font-face","svg|font-face-format","svg|font-face-name","svg|font-face-src","svg|font-face-uri","svg|hkern","svg|vkern"],"#SVGGradient":["svg|linearGradient","svg|radialGradient","svg|stop"],"#SVGGraphics":["svg|circle","svg|ellipse","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|text","svg|use"],"#SVGGraphicsReferencing":["svg|use"],"#SVGLightSource":["svg|feDistantLight","svg|fePointLight","svg|feSpotLight"],"#SVGNeverRendered":["svg|clipPath","svg|defs","svg|linearGradient","svg|marker","svg|mask","svg|metadata","svg|pattern","svg|radialGradient","svg|script","svg|style","svg|symbol","svg|title"],"#SVGPaintServer":["svg|linearGradient","svg|pattern","svg|radialGradient","svg|solidcolor"],"#SVGRenderable":["svg|a","svg|circle","svg|ellipse","svg|foreignObject","svg|g","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|svg","svg|switch","svg|symbol","svg|text","svg|textPath","svg|tspan","svg|unknown","svg|use"],"#SVGShape":["svg|circle","svg|ellipse","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect"],"#SVGStructural":["svg|defs","svg|g","svg|svg","svg|symbol","svg|use"],"#SVGStructurallyExternal":[],"#SVGTextContent":["svg|altGlyph","svg|altGlyphDef","svg|altGlyphItem","svg|glyph","svg|glyphRef","svg|textPath","svg|text","svg|tref","svg|tspan"],"#SVGTextContentChild":["svg|altGlyph","svg|textPath","svg|tref","svg|tspan"]},"globalAttrs":{"#HTMLGlobalAttrs":{"accesskey":{"type":{"token":"OneCodePointChar","ordered":true,"unique":true,"number":"zeroOrMore","separator":"space"}},"autocapitalize":{"type":{"enum":["off","on","none","sentences","words","characters"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"sentences","missingValueDefault":"default","sameStates":{"none":["off"],"sentences":["on"]}}},"autocorrect":{"type":{"enum":["","on","off"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"on","missingValueDefault":"on","sameStates":{"on":[""]}}},"autofocus":{"type":"Boolean"},"contenteditable":{"type":{"enum":["","true","false","plaintext-only"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"true":[""]}}},"dir":{"type":{"enum":["ltr","rtl","auto"]}},"draggable":{"type":{"enum":["true","false"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"enterkeyhint":{"type":{"enum":["enter","done","go","next","previous","search","send"]}},"headingoffset":{"type":{"type":"integer","gte":0,"lte":8}},"headingreset":{"type":"Boolean"},"hidden":{"type":{"enum":["","hidden","until-found"]}},"inert":{"type":"Boolean"},"inputmode":{"type":{"enum":["none","text","tel","url","email","numeric","decimal","search"]}},"is":{"type":"CustomElementName"},"itemid":{"type":"URL"},"itemprop":{"type":{"token":"ItemProp","ordered":false,"unique":true,"separator":"space"}},"itemref":{"type":{"token":"DOMID","separator":"space"},"condition":"[itemscope]"},"itemscope":{"type":"Boolean"},"itemtype":{"type":{"token":"AbsoluteURL","ordered":false,"unique":true,"separator":"space"}},"lang":{"type":"BCP47"},"nonce":{"type":"Any"},"popover":{"type":{"enum":["","auto","manual","hint"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"manual","missingValueDefault":"no popover","sameStates":{"auto":[""]}}},"spellcheck":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"style":{"type":"<css-declaration-list>"},"tabindex":{"type":"TabIndex"},"title":{"type":"Any"},"translate":{"type":{"enum":["","yes","no"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"yes":[""]}}},"writingsuggestions":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"class":{"type":"Any"},"id":{"type":"DOMID"},"slot":{"type":"NoEmptyAny"},"xmlns":{"type":"URL","ineffective":"*"},"xml:lang":{"type":"BCP47","deprecated":true},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"elementtiming":{"type":"NoEmptyAny","experimental":true}},"#GlobalEventAttrs":{"onabort":{"type":"FunctionBody"},"onauxclick":{"type":"FunctionBody"},"onbeforeinput":{"type":"FunctionBody"},"onbeforematch":{"type":"FunctionBody"},"onbeforetoggle":{"type":"FunctionBody"},"onblur":{"type":"FunctionBody"},"oncancel":{"type":"FunctionBody"},"oncanplay":{"type":"FunctionBody"},"oncanplaythrough":{"type":"FunctionBody"},"onchange":{"type":"FunctionBody"},"onclick":{"type":"FunctionBody"},"onclose":{"type":"FunctionBody"},"oncommand":{"type":"FunctionBody"},"oncontextlost":{"type":"FunctionBody"},"oncompositionstart":{"type":"FunctionBody"},"oncompositionupdate":{"type":"FunctionBody"},"oncompositionend":{"type":"FunctionBody"},"oncontextmenu":{"type":"FunctionBody"},"oncontextrestored":{"type":"FunctionBody"},"oncopy":{"type":"FunctionBody"},"oncuechange":{"type":"FunctionBody"},"oncut":{"type":"FunctionBody"},"ondblclick":{"type":"FunctionBody"},"ondrag":{"type":"FunctionBody"},"ondragend":{"type":"FunctionBody"},"ondragenter":{"type":"FunctionBody"},"ondragleave":{"type":"FunctionBody"},"ondragover":{"type":"FunctionBody"},"ondragstart":{"type":"FunctionBody"},"ondrop":{"type":"FunctionBody"},"ondurationchange":{"type":"FunctionBody"},"onemptied":{"type":"FunctionBody"},"onended":{"type":"FunctionBody"},"onerror":{"type":"FunctionBody"},"onfocus":{"type":"FunctionBody"},"onformdata":{"type":"FunctionBody"},"onfocusin":{"type":"FunctionBody"},"onfocusout":{"type":"FunctionBody"},"oninput":{"type":"FunctionBody"},"oninvalid":{"type":"FunctionBody"},"onkeydown":{"type":"FunctionBody"},"onkeypress":{"type":"FunctionBody"},"onkeyup":{"type":"FunctionBody"},"onload":{"type":"FunctionBody"},"onloadeddata":{"type":"FunctionBody"},"onloadedmetadata":{"type":"FunctionBody"},"onloadstart":{"type":"FunctionBody"},"onmousedown":{"type":"FunctionBody"},"onmouseenter":{"type":"FunctionBody"},"onmouseleave":{"type":"FunctionBody"},"onmousemove":{"type":"FunctionBody"},"onmouseout":{"type":"FunctionBody"},"onmouseover":{"type":"FunctionBody"},"onmouseup":{"type":"FunctionBody"},"onpaste":{"type":"FunctionBody"},"onpause":{"type":"FunctionBody"},"onplay":{"type":"FunctionBody"},"onplaying":{"type":"FunctionBody"},"onprogress":{"type":"FunctionBody"},"onratechange":{"type":"FunctionBody"},"onreset":{"type":"FunctionBody"},"onresize":{"type":"FunctionBody"},"onscroll":{"type":"FunctionBody"},"onscrollend":{"type":"FunctionBody"},"onsecuritypolicyviolation":{"type":"FunctionBody"},"onseeked":{"type":"FunctionBody"},"onseeking":{"type":"FunctionBody"},"onselect":{"type":"FunctionBody"},"onslotchange":{"type":"FunctionBody"},"onstalled":{"type":"FunctionBody"},"onsubmit":{"type":"FunctionBody"},"onsuspend":{"type":"FunctionBody"},"ontimeupdate":{"type":"FunctionBody"},"ontoggle":{"type":"FunctionBody"},"onvolumechange":{"type":"FunctionBody"},"onwaiting":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"onwheel":{"type":"FunctionBody"},"onanimationstart":{"type":"FunctionBody"},"onanimationiteration":{"type":"FunctionBody"},"onanimationend":{"type":"FunctionBody"},"onanimationcancel":{"type":"FunctionBody"},"ontransitionrun":{"type":"FunctionBody"},"ontransitionstart":{"type":"FunctionBody"},"ontransitionend":{"type":"FunctionBody"},"ontransitioncancel":{"type":"FunctionBody"},"onwebkitanimationend":{"type":"FunctionBody","deprecated":true},"onwebkitanimationiteration":{"type":"FunctionBody","deprecated":true},"onwebkitanimationstart":{"type":"FunctionBody","deprecated":true},"onwebkittransitionend":{"type":"FunctionBody","deprecated":true}},"#HTMLLinkAndFetchingAttrs":{"href":{"type":"URL"},"target":{"type":"NavigableTargetNameOrKeyword","condition":"[href]"},"download":{"type":"Any","condition":"[href]"},"ping":{"type":{"token":"HTTPSchemaURL","separator":"space"},"condition":"[href]"},"rel":{"type":"LinkTypeForAnchorAndAreaElement","condition":"[href]"},"hreflang":{"type":"BCP47","condition":"[href]"},"type":{"type":"MIMEType","condition":"[href]"},"referrerpolicy":{"type":{"enum":["","no-referrer","no-referrer-when-downgrade","same-origin","origin","strict-origin","origin-when-cross-origin","strict-origin-when-cross-origin","unsafe-url"]},"condition":"[href], [src]"},"loading":{"type":{"enum":["lazy","eager"],"invalidValueDefault":"eager","missingValueDefault":"eager"}},"integrity":{"type":"Any"},"media":{"type":"<media-query-list>"},"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"invalidValueDefault":"anonymous","missingValueDefault":"No CORS","sameStates":{"anonymous":[""]}}},"fetchpriority":{"type":{"enum":["high","low","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}}},"#HTMLEmbededAndMediaContentAttrs":{"src":{"type":"URL"},"preload":{"type":{"enum":["none","metadata","auto"],"invalidValueDefault":"implementation-defined","missingValueDefault":"implementation-defined"}},"autoplay":{"type":"Boolean"},"loop":{"type":"Boolean"},"muted":{"type":"Boolean"},"controls":{"type":"Boolean"},"height":{"type":"Uint"},"srcset":{"type":"Srcset"},"sizes":{"type":"SourceSizeList"},"width":{"type":"Uint"}},"#HTMLFormControlElementAttrs":{"autocomplete":{"type":"AutoComplete"},"dirname":{"type":"NoEmptyAny"},"disabled":{"type":"Boolean"},"form":{"type":"DOMID"},"formaction":{"type":"URL"},"formenctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded"}},"formmethod":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get"}},"formnovalidate":{"type":"Boolean"},"formtarget":{"type":"NavigableTargetNameOrKeyword"},"name":{"type":"NoEmptyAny"},"maxlength":{"type":"Uint"},"minlength":{"type":"Uint"},"readonly":{"type":"Boolean"},"required":{"type":"Boolean"}},"#HTMLTableCellElementAttrs":{"colspan":{"type":{"type":"integer","gt":0,"lte":1000}},"rowspan":{"type":{"type":"integer","gt":0,"lte":65534}},"headers":{"type":{"token":"DOMID","ordered":false,"unique":true,"separator":"space"}}},"#ARIAAttrs":{"role":{"type":{"token":"NoEmptyAny","separator":"space"}}},"#SVGAnimationAdditionAttrs":{"additive":{"type":{"enum":["replace","sum"]}},"accumulate":{"type":{"enum":["none","sum"]}}},"#SVGAnimationAttributeTargetAttrs":{"attributeName":{"type":"XMLName"},"attributeType":{"type":{"enum":["CSS","XML","auto"]},"noUse":true}},"#SVGAnimationEventAttrs":{"onbegin":{"type":"FunctionBody"},"onend":{"type":"FunctionBody"},"onrepeat":{"type":"FunctionBody"}},"#SVGAnimationTargetElementAttrs":{"href":{"type":"URL"},"xlink:href":{"type":"URL","deprecated":true}},"#SVGAnimationTimingAttrs":{"begin":{"type":"<begin-value-list>"},"dur":{"type":["<clock-value>",{"enum":["media","indefinite"]}]},"end":{"type":"<end-value-list>"},"min":{"type":"<clock-value>"},"max":{"type":"<clock-value>"},"restart":{"type":{"enum":["always","whenNotActive","never"]}},"repeatCount":{"type":["<number>",{"enum":["indefinite"]}]},"repeatDur":{"type":["<clock-value>",{"enum":["indefinite"]}]},"fill":{"type":{"enum":["freeze","remove"]}}},"#SVGAnimationValueAttrs":{"calcMode":{"type":{"enum":["discrete","linear","paced","spline"]}},"values":{"type":"<list-of-value>"},"keyTimes":{"type":"<key-times>"},"keySplines":{"type":"<key-splines>"},"from":{"type":"<animatable-value>"},"to":{"type":"<animatable-value>"},"by":{"type":"<animatable-value>"},"accelerate":{"type":"<number-zero-one>"},"decelerate":{"type":"<number-zero-one>"},"autoReverse":{"type":{"enum":["true","false"]}},"speed":{"type":"<number>"}},"#SVGConditionalProcessingAttrs":{"requiredExtensions":{"type":{"token":"URL","unique":true,"separator":"space"}},"systemLanguage":{"type":{"token":"BCP47","unique":true,"separator":"comma"}},"requiredFeatures":{"type":"<list-of-svg-feature-string>","deprecated":true}},"#SVGCoreAttrs":{"id":{"type":"DOMID"},"tabindex":{"type":"TabIndex"},"autofocus":{"type":"Boolean"},"lang":{"type":"BCP47"},"class":{"type":"Any"},"style":{"type":"<css-declaration-list>"},"xmlns":{"type":"URL","ineffective":":not(:root)"},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"xml:lang":{"type":"BCP47","deprecated":true},"xml:base":{"type":"URL","deprecated":true}},"#SVGFilterPrimitiveAttrs":{"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"width":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<percentage>"]},"result":{"type":"<custom-ident>"},"in":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]}},"#SVGPresentationAttrs":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<'height'>"]},"width":{"type":["<svg-length>","<'width'>"]},"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"r":{"type":["<svg-length>","<percentage>"]},"rx":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"ry":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"d":{"type":"<svg-path>"},"transform":{"type":"<'transform'>"},"transform-origin":{"type":"<'transform-origin'>"},"patternTransform":{"type":"<transform-list>"},"gradientTransform":{"type":"<transform-list>"},"alignment-baseline":{"type":"<'alignment-baseline'>"},"baseline-shift":{"type":"<'baseline-shift'>"},"clip-path":{"type":"<'clip-path'>"},"clip-rule":{"type":"<'clip-rule'>"},"color":{"type":"<color>"},"color-interpolation":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"color-interpolation-filters":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"cursor":{"type":"<'cursor'>"},"direction":{"type":"<'direction'>"},"display":{"type":"<'display'>"},"dominant-baseline":{"type":"<'dominant-baseline'>"},"fill":{"type":"<'fill'>"},"fill-opacity":{"type":"<'fill-opacity'>"},"fill-rule":{"type":"<'fill-rule'>"},"filter":{"type":"<'filter'>"},"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"},"font":{"type":"<'font'>"},"font-family":{"type":"<'font-family'>"},"font-size":{"type":"<svg-font-size>"},"font-size-adjust":{"type":"<svg-font-size-adjust>"},"font-stretch":{"type":"<'font-stretch'>"},"font-style":{"type":"<'font-style'>"},"font-variant":{"type":"<'font-variant'>"},"font-weight":{"type":"<'font-weight'>"},"glyph-orientation-horizontal":{"type":"<'glyph-orientation-horizontal'>","deprecated":true},"glyph-orientation-vertical":{"type":"<'glyph-orientation-vertical'>","deprecated":true},"image-rendering":{"type":"<'image-rendering'>"},"isolation":{"type":"<'isolation'>"},"letter-spacing":{"type":"<'letter-spacing'>"},"lighting-color":{"type":"<color>"},"marker":{"type":"<'marker'>"},"marker-end":{"type":"<'marker-end'>"},"marker-mid":{"type":"<'marker-mid'>"},"marker-start":{"type":"<'marker-start'>"},"mask":{"type":"<'mask'>"},"mask-type":{"type":"<'mask-type'>"},"opacity":{"type":"<alpha-value>"},"overflow":{"type":"<'overflow'>"},"paint-order":{"type":"<'paint-order'>"},"pointer-events":{"type":"<'pointer-events'>"},"shape-rendering":{"type":"<'shape-rendering'>"},"stop-color":{"type":"<'color'>"},"stop-opacity":{"type":"<'opacity'>"},"stroke":{"type":"<'stroke'>"},"stroke-dasharray":{"type":"<'stroke-dasharray'>"},"stroke-dashoffset":{"type":"<'stroke-dashoffset'>"},"stroke-linecap":{"type":"<'stroke-linecap'>"},"stroke-linejoin":{"type":"<'stroke-linejoin'>"},"stroke-miterlimit":{"type":"<'stroke-miterlimit'>"},"stroke-opacity":{"type":"<'stroke-opacity'>"},"stroke-width":{"type":"<'stroke-width'>"},"text-anchor":{"type":"<'text-anchor'>"},"text-decoration":{"type":"<'text-decoration'>"},"text-overflow":{"type":"<'text-overflow'>"},"text-rendering":{"type":"<'text-rendering'>"},"unicode-bidi":{"type":"<'unicode-bidi'>"},"vector-effect":{"type":{"enum":["none","non-scaling-stroke","non-scaling-size","non-rotation","fixed-position"]}},"visibility":{"type":"<'visibility'>"},"white-space":{"type":"<'white-space'>"},"word-spacing":{"type":"<'word-spacing'>"},"writing-mode":{"type":"<'writing-mode'>"},"clip":{"type":"<'clip'>","deprecated":true},"color-profile":{"type":"<'color-profile'>","deprecated":true},"color-rendering":{"type":"<'color-rendering'>","deprecated":true},"enable-background":{"type":"<'enable-background'>","deprecated":true},"kerning":{"type":"<'kerning'>","deprecated":true}},"#SVGTransferFunctionAttrs":{"type":{"type":{"enum":["identity","table","discrete","linear","gamma"]}},"tableValues":{"type":"<list-of-numbers>"},"slope":{"type":"<number>"},"intercept":{"type":"<number>"},"amplitude":{"type":"<number>"},"exponent":{"type":"<number>"},"offset":{"type":"<number>"}},"#XLinkAttrs":{"xlink:href":{"type":"URL","deprecated":true},"xlink:title":{"type":"Any","deprecated":true},"xlink:type":{"type":{"enum":["simple"]},"deprecated":true},"xlink:role":{"type":"Any","deprecated":true},"xlink:arcrole":{"type":"URL","deprecated":true},"xlink:show":{"type":{"enum":["new","replace","embed","other","none"]},"deprecated":true},"xlink:actuate":{"type":"Any","deprecated":true}}},"aria":{"roles":{"alert":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"alertdialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"application":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"article":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"banner":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"blockquote":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"button":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-pressed"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"caption":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"cell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"}],"prohibitedProperties":[]},"checkbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"code":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"columnheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"combobox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"command":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"comment":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"complementary":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"composite":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"contentinfo":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"definition":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"deletion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"dialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"directory":{"deprecated":true,"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"emphasis":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"feed":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"figure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"form":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"generic":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"}],"prohibitedProperties":["aria-braillelabel","aria-brailleroledescription","aria-label","aria-labelledby","aria-roledescription"]},"grid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"gridcell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"}],"prohibitedProperties":[]},"group":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"heading":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"image":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"img":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"input":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"insertion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"landmark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"link":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"list":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"log":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"main":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"mark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"marquee":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"math":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menu":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menubar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menuitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemcheckbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemradio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"meter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"navigation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"none":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"note":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"option":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"paragraph":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"presentation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"progressbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"radio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"radiogroup":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"range":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"region":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"roletype":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"row":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"rowgroup":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"rowheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"scrollbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"search":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"searchbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"section":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionfooter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionhead":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"select":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"separator":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"slider":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"spinbutton":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"status":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"strong":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"structure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"subscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"suggestion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"superscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"switch":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tab":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"table":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"tablist":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tabpanel":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"term":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"textbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"time":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"timer":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"toolbar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tooltip":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tree":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"treegrid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"treeitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"widget":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"window":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-object":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-symbol":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]}},"deprecatedProps":["aria-dropeffect","aria-grabbed"]}}`);
 var PREPROCESSED_STYLE_RE = /(<style\b[^>]*\slang\s*=\s*['"]?[^'"\s>]+['"]?[^>]*>)([\s\S]*?)(<\/style>)/gi;
 function parseSvelte(source2, filename2) {
   try {
@@ -64777,252 +63000,10 @@ function attrTextOf(attr) {
   const v = attr?.value;
   return Array.isArray(v) ? textFromNodes(v) : void 0;
 }
-function foldOccurrences(nodes) {
-  const byKey = /* @__PURE__ */ new Map();
-  for (const node of nodes) {
-    if (node.repeatable) continue;
-    const list3 = byKey.get(node.key);
-    if (list3) list3.push(node);
-    else byKey.set(node.key, [node]);
-  }
-  const folded = /* @__PURE__ */ new Map();
-  for (const [key2, list3] of byKey) folded.set(key2, foldAt(list3, 0));
-  return folded;
-}
-function foldAt(nodes, depth) {
-  const unconditional = [];
-  const groups = /* @__PURE__ */ new Map();
-  for (const node of nodes) {
-    const step = node.path[depth];
-    if (!step) {
-      unconditional.push(node);
-      continue;
-    }
-    let branches = groups.get(step.group);
-    if (!branches) groups.set(step.group, branches = /* @__PURE__ */ new Map());
-    const list3 = branches.get(step.branch);
-    if (list3) list3.push(node);
-    else branches.set(step.branch, [node]);
-  }
-  const representatives2 = [...unconditional];
-  for (const branches of groups.values()) {
-    let best = [];
-    let bestBranch = Number.POSITIVE_INFINITY;
-    for (const [branch, list3] of branches) {
-      const arm = foldAt(list3, depth + 1);
-      if (arm.length > best.length || arm.length === best.length && branch < bestBranch) {
-        best = arm;
-        bestBranch = branch;
-      }
-    }
-    representatives2.push(...best);
-  }
-  return representatives2;
-}
-function decodeFragmentId(fragment2) {
-  try {
-    return decodeURIComponent(fragment2);
-  } catch {
-    return fragment2;
-  }
-}
-function splitTokens(value) {
-  return value ? value.trim().split(/\s+/).filter(Boolean) : [];
-}
-var LANDMARK_ROLES = /* @__PURE__ */ new Set([
-  "main",
-  "banner",
-  "contentinfo",
-  "complementary"
-]);
-var IDREF_ATTRS = [
-  "for",
-  "list",
-  "headers",
-  "form",
-  "popovertarget",
-  "commandfor",
-  "aria-labelledby",
-  "aria-describedby",
-  "aria-controls",
-  "aria-activedescendant",
-  "aria-owns",
-  "aria-details",
-  "aria-errormessage",
-  "aria-flowto"
-];
-function isTopFragment(id2) {
-  return id2.toLowerCase() === "top";
-}
-function stripTextDirective(fragment2) {
-  const i2 = fragment2.indexOf(":~:");
-  return i2 === -1 ? fragment2 : fragment2.slice(0, i2);
-}
-var ARIA_1_3_ROLES = /* @__PURE__ */ new Set([
-  "comment",
-  "image",
-  "sectionheader",
-  "sectionfooter",
-  "suggestion"
-]);
-var ARIA_1_3_ATTRIBUTES = /* @__PURE__ */ new Set(["aria-colindextext", "aria-rowindextext"]);
-var NO_REQUIRED_PROPS = /* @__PURE__ */ new Set(["option", "treeitem"]);
-function isKnownRole(role) {
-  return ARIA_1_3_ROLES.has(role) || import_aria_query3.roles.has(role);
-}
-function isAbstractRole(role) {
-  return import_aria_query3.roles.get(role)?.abstract === true;
-}
-function isConcreteRole(role) {
-  return isKnownRole(role) && !isAbstractRole(role);
-}
-function resolveRole(tokens) {
-  return tokens.find(isConcreteRole);
-}
-function isKnownAriaAttribute(name) {
-  return ARIA_1_3_ATTRIBUTES.has(name) || import_aria_query3.aria.has(name);
-}
-function requiredAriaProps(role) {
-  if (NO_REQUIRED_PROPS.has(role)) return [];
-  const def = import_aria_query3.roles.get(role);
-  return def ? Object.keys(def.requiredProps) : [];
-}
-function ariaValueKind(name) {
-  const def = import_aria_query3.aria.get(name);
-  if (!def) return void 0;
-  return {
-    type: def.type,
-    ...def.values ? { values: def.values.map(String) } : {}
-  };
-}
-var ALWAYS_INTERACTIVE_TAGS = /* @__PURE__ */ new Set([
-  "button",
-  "select",
-  "textarea",
-  "summary",
-  "embed",
-  "iframe"
-]);
-var INTERACTIVE_ROLES = /* @__PURE__ */ new Set([
-  "button",
-  "link",
-  "checkbox",
-  "radio",
-  "switch",
-  "tab",
-  "menuitem",
-  "menuitemcheckbox",
-  "menuitemradio",
-  "option",
-  "slider",
-  "spinbutton",
-  "textbox",
-  "combobox",
-  "searchbox",
-  "scrollbar",
-  "gridcell"
-]);
-var CONTAINER_ROLES = /* @__PURE__ */ new Set([
-  "button",
-  "link",
-  "checkbox",
-  "radio",
-  "switch",
-  "tab",
-  "menuitemcheckbox",
-  "menuitemradio",
-  "option",
-  "slider",
-  "scrollbar"
-]);
-function literalOf(attrs, name) {
-  return attrs.find((a2) => a2.name === name)?.literal;
-}
-function hasRoleIn(attrs, set2) {
-  const role = resolveRole(splitTokens(literalOf(attrs, "role")));
-  return role !== void 0 && set2.has(role);
-}
-function isInteractiveElement(tag2, attrs) {
-  if (ALWAYS_INTERACTIVE_TAGS.has(tag2)) return true;
-  if (tag2 === "a" && literalOf(attrs, "href") !== void 0) return true;
-  if (tag2 === "input") {
-    const typeAttr = attrs.find((a2) => a2.name === "type");
-    if (!typeAttr) return true;
-    if (typeAttr.literal !== void 0) return typeAttr.literal.toLowerCase() !== "hidden";
-    return false;
-  }
-  if ((tag2 === "audio" || tag2 === "video") && attrs.some((a2) => a2.name === "controls")) return true;
-  const n2 = literalTabindexValue(literalOf(attrs, "tabindex"));
-  if (n2 !== void 0 && n2 >= 0) return true;
-  return hasRoleIn(attrs, INTERACTIVE_ROLES);
-}
-function literalTabindexValue(raw) {
-  const trimmed = raw?.trim();
-  if (!trimmed) return void 0;
-  const n2 = Number(trimmed);
-  return Number.isFinite(n2) ? n2 : void 0;
-}
-function isInteractiveContainer(tag2, attrs) {
-  if (tag2 === "button") return true;
-  if (tag2 === "a") return literalOf(attrs, "href") !== void 0;
-  return hasRoleIn(attrs, CONTAINER_ROLES);
-}
-var KNOWN_TAGS$1 = new Set(Object.keys(HTML_SPEC.elements).map((k2) => k2.replace(/^svg:/, "").toLowerCase()));
 function unwrapTs(expr) {
   let cur = expr;
   while (cur !== void 0 && (cur.type === "TSSatisfiesExpression" || cur.type === "TSAsExpression" || cur.type === "TSNonNullExpression")) cur = cur.expression;
   return cur;
-}
-function isLengthOnlyArrayCall(expr) {
-  const e3 = unwrapTs(expr);
-  if (!e3) return false;
-  if ((e3.type === "CallExpression" || e3.type === "NewExpression") && e3.callee?.type === "Identifier" && e3.callee.name === "Array") return (e3.arguments?.length ?? 0) === 1;
-  if (e3.type === "CallExpression" && e3.callee?.type === "MemberExpression" && !e3.callee.computed && e3.callee.object?.type === "Identifier" && e3.callee.object.name === "Array" && e3.callee.property.type === "Identifier" && e3.callee.property.name === "from" && e3.arguments?.[0]?.type === "ObjectExpression") return (e3.arguments[0].properties ?? []).some((p2) => p2?.type === "Property" && !p2.computed && (p2.key?.name === "length" || p2.key?.value === "length"));
-  return false;
-}
-function isIdentityFreeEach(node) {
-  const expr = unwrapTs(node.expression);
-  if (expr.type === "ArrayExpression" && Array.isArray(expr.elements)) return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
-  return isLengthOnlyArrayCall(expr);
-}
-function isIndexExpression(expr, index) {
-  const e3 = unwrapTs(expr);
-  if (e3.type === "Identifier") return e3.name === index;
-  if (e3.type === "CallExpression") {
-    const callee = e3.callee;
-    if (callee.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e3.arguments.length === 1) return isIndexExpression(e3.arguments[0], index);
-    if (callee.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "toString" && e3.arguments.length === 0) return isIndexExpression(callee.object, index);
-    return false;
-  }
-  if (e3.type === "TemplateLiteral") {
-    const exprs = e3.expressions;
-    if (exprs.length !== 1) return false;
-    if (e3.quasis.some((q) => (q.value.cooked ?? q.value.raw) !== "")) return false;
-    return isIndexExpression(exprs[0], index);
-  }
-  if (e3.type === "BinaryExpression" && e3.operator === "+") {
-    const emptyString = (n2) => n2.type === "Literal" && n2.value === "";
-    if (emptyString(e3.left)) return isIndexExpression(e3.right, index);
-    if (emptyString(e3.right)) return isIndexExpression(e3.left, index);
-  }
-  return false;
-}
-function isIndexKey(each) {
-  if (typeof each.index !== "string" || each.key == null) return false;
-  return isIndexExpression(each.key, each.index);
-}
-function collectEachBlocks(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectEachBlocks(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) acc.push({
-    hasKey: node.key != null,
-    line: lineOf(source2, node.start),
-    ...isIndexKey(node) ? { indexKey: true } : {}
-  });
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectEachBlocks(node[key2], source2, acc);
 }
 var WALK_IGNORED_KEYS = /* @__PURE__ */ new Set([
   "type",
@@ -65035,35 +63016,8 @@ var NO_BOUNDARIES = /* @__PURE__ */ new Set();
 function walkEstree(node, visit) {
   walkEvalScope(node, (n2) => void visit(n2), /* @__PURE__ */ new Set(), NO_BOUNDARIES);
 }
-function isEffectCall(node) {
-  const c = node?.callee;
-  if (c?.type === "Identifier") return c.name === "$effect";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect") return c.property?.type === "Identifier" && c.property.name === "pre";
-  return false;
-}
-function isEffectRootCall(node) {
-  const c = node?.callee;
-  return c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect" && c.property?.type === "Identifier" && c.property.name === "root";
-}
-function isStateDeclaration(node) {
-  const c = node?.callee;
-  if (c?.type === "Identifier") return c.name === "$state";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$state") return c.property?.type === "Identifier" && (c.property.name === "raw" || c.property.name === "frozen");
-  return false;
-}
-function bodyOnlyAssignsState(fn, stateNames) {
-  const isStateAssign = (expr) => expr?.type === "AssignmentExpression" && expr.operator === "=" && expr.left?.type === "Identifier" && stateNames.has(expr.left.name);
-  const body = fn?.body;
-  if (!body) return false;
-  if (body.type !== "BlockStatement") return isStateAssign(body);
-  if (body.body.length === 0) return false;
-  return body.body.every((s) => s?.type === "ExpressionStatement" && isStateAssign(s.expression));
-}
-function isDerivedDeclaration(node) {
-  const c = node?.callee;
-  if (c?.type === "Identifier") return c.name === "$derived";
-  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$derived") return c.property?.type === "Identifier" && c.property.name === "by";
-  return false;
+function walkScoped(node, visit, shadowed = /* @__PURE__ */ new Set()) {
+  walkEvalScope(node, (n2, scope) => void visit(n2, scope), shadowed, NO_BOUNDARIES);
 }
 function addBoundNames(id2, acc) {
   if (!id2) return;
@@ -65112,1166 +63066,6 @@ function scopeIntroducedNames(node) {
   }
   return introduced;
 }
-function walkScoped(node, visit, shadowed = /* @__PURE__ */ new Set()) {
-  walkEvalScope(node, (n2, scope) => void visit(n2, scope), shadowed, NO_BOUNDARIES);
-}
-function collectStateWrites(root, stateNames, acc, kinds) {
-  const record = (name, kind) => {
-    acc.add(name);
-    if (kinds) {
-      let set2 = kinds.get(name);
-      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
-      set2.add(kind);
-    }
-  };
-  walkScoped(root, (n2, scope) => {
-    const shadowed = (name) => name === void 0 || scope.has(name);
-    if (n2?.type === "AssignmentExpression") {
-      if (n2.left?.type === "Identifier" && stateNames.has(n2.left.name) && !shadowed(n2.left.name)) record(n2.left.name, "reassign");
-      else if (n2.left?.type === "MemberExpression") {
-        const r2 = rootObjectName(n2.left);
-        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      } else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
-        const bound = /* @__PURE__ */ new Set();
-        addBoundNames(n2.left, bound);
-        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) record(name, "reassign");
-      }
-    } else if (n2?.type === "UpdateExpression") if (n2.argument?.type === "Identifier") {
-      if (stateNames.has(n2.argument.name) && !shadowed(n2.argument.name)) record(n2.argument.name, "reassign");
-    } else {
-      const r2 = rootObjectName(n2.argument);
-      if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-    }
-    else if (n2?.type === "UnaryExpression" && n2.operator === "delete") {
-      const r2 = rootObjectName(n2.argument);
-      if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-    } else if (n2?.type === "CallExpression") {
-      if (n2.callee?.type === "MemberExpression") {
-        const r2 = rootObjectName(n2.callee);
-        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      }
-      for (const a2 of n2.arguments ?? []) {
-        const r2 = rootObjectName(a2?.type === "SpreadElement" ? a2.argument : a2);
-        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "escape");
-      }
-    }
-  });
-}
-function isDeferredBody(n2) {
-  return n2?.type === "FunctionDeclaration" || n2?.type === "FunctionExpression" || n2?.type === "ArrowFunctionExpression";
-}
-function isPlainStateCall(node) {
-  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$state";
-}
-var BUILTIN_STATE_TYPES = /* @__PURE__ */ new Set([
-  "Map",
-  "Set",
-  "Date",
-  "URL",
-  "URLSearchParams"
-]);
-var BUILTIN_MUTATIONS = {
-  Map: /* @__PURE__ */ new Set([
-    "set",
-    "delete",
-    "clear"
-  ]),
-  Set: /* @__PURE__ */ new Set([
-    "add",
-    "delete",
-    "clear"
-  ]),
-  Date: /* @__PURE__ */ new Set([
-    "setTime",
-    "setFullYear",
-    "setMonth",
-    "setDate",
-    "setHours",
-    "setMinutes",
-    "setSeconds",
-    "setMilliseconds",
-    "setYear",
-    "setUTCFullYear",
-    "setUTCMonth",
-    "setUTCDate",
-    "setUTCHours",
-    "setUTCMinutes",
-    "setUTCSeconds",
-    "setUTCMilliseconds"
-  ]),
-  URL: /* @__PURE__ */ new Set(),
-  URLSearchParams: /* @__PURE__ */ new Set([
-    "append",
-    "set",
-    "delete",
-    "sort"
-  ])
-};
-function collectBuiltinStateSignals(node, candidates, mutated, reassigned, shadowed = /* @__PURE__ */ new Set(), inFunction = false) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectBuiltinStateSignals(child, candidates, mutated, reassigned, shadowed, inFunction);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  const boundary = isDeferredBody(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
-  const nextInFunction = inFunction || boundary;
-  const hit = (name) => typeof name === "string" && candidates.has(name) && !scope.has(name) ? name : void 0;
-  if (node.type === "AssignmentExpression") {
-    if (node.left?.type === "Identifier") {
-      const n2 = hit(node.left.name);
-      const isBareSelfAssign = node.right?.type === "Identifier" && node.right.name === n2;
-      if (n2 && !isBareSelfAssign) reassigned.add(n2);
-    } else if (node.left?.type === "ObjectPattern" || node.left?.type === "ArrayPattern") {
-      const bound = /* @__PURE__ */ new Set();
-      addBoundNames(node.left, bound);
-      for (const name of bound) {
-        const n2 = hit(name);
-        if (n2) reassigned.add(n2);
-      }
-    } else if (node.left?.type === "MemberExpression" && inFunction) {
-      const n2 = hit(rootObjectName(node.left));
-      if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
-    }
-  } else if (node.type === "UpdateExpression" && node.argument?.type === "MemberExpression" && inFunction) {
-    const n2 = hit(rootObjectName(node.argument));
-    if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
-  } else if (node.type === "UnaryExpression" && node.operator === "delete" && inFunction) {
-    const n2 = hit(rootObjectName(node.argument));
-    if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
-  } else if (node.type === "CallExpression" && node.callee?.type === "MemberExpression" && !node.callee.computed && inFunction) {
-    const method2 = node.callee.property?.name;
-    if (typeof method2 === "string") {
-      if (node.callee.object?.type === "Identifier") {
-        const n2 = hit(node.callee.object.name);
-        if (n2 && BUILTIN_MUTATIONS[candidates.get(n2)]?.has(method2)) mutated.add(n2);
-      } else if (node.callee.object?.type === "MemberExpression") {
-        const n2 = hit(rootObjectName(node.callee));
-        if (n2 && candidates.get(n2) === "URL" && BUILTIN_MUTATIONS.URLSearchParams.has(method2)) mutated.add(n2);
-      }
-    }
-  }
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    collectBuiltinStateSignals(node[key2], candidates, mutated, reassigned, scope, nextInFunction);
-  }
-}
-function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (node.type === "Identifier") return;
-  if (node.type === "ObjectPattern") {
-    for (const prop2 of node.properties ?? []) if (prop2?.type === "RestElement") collectPatternAliasRefs(prop2.argument, names, acc, scope, ownRhs);
-    else if (prop2?.type === "Property") {
-      if (prop2.computed) collectAliasRefs(prop2.key, names, acc, scope, ownRhs);
-      collectPatternAliasRefs(prop2.value, names, acc, scope, ownRhs);
-    }
-    return;
-  }
-  if (node.type === "ArrayPattern") {
-    for (const el of node.elements ?? []) collectPatternAliasRefs(el, names, acc, scope, ownRhs);
-    return;
-  }
-  if (node.type === "AssignmentPattern") {
-    collectPatternAliasRefs(node.left, names, acc, scope, ownRhs);
-    collectAliasRefs(node.right, names, acc, scope, ownRhs);
-    return;
-  }
-  if (node.type === "RestElement") collectPatternAliasRefs(node.argument, names, acc, scope, ownRhs);
-}
-function collectAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set(), ownRhs = null) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectAliasRefs(child, names, acc, shadowed, ownRhs);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (node.type === "AssignmentExpression") {
-    const lhsIsCandidate = node.left?.type === "Identifier" && names.has(node.left.name) && !scope.has(node.left.name);
-    if (!lhsIsCandidate) collectAliasRefs(node.left, names, acc, scope, null);
-    collectAliasRefs(node.right, names, acc, scope, lhsIsCandidate ? node.left.name : null);
-    return;
-  }
-  if (node.type === "VariableDeclarator") {
-    collectPatternAliasRefs(node.id, names, acc, scope, ownRhs);
-    if (node.init) collectAliasRefs(node.init, names, acc, scope, ownRhs);
-    return;
-  }
-  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name) && node.name !== ownRhs) {
-    acc.add(node.name);
-    return;
-  }
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
-    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
-    collectAliasRefs(node[key2], names, acc, scope, ownRhs);
-  }
-}
-function collectFragmentAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectFragmentAliasRefs(child, names, acc, shadowed);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (isDeferredBody(node)) {
-    const introduced2 = scopeIntroducedNames(node);
-    const scope2 = introduced2.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced2]) : shadowed;
-    collectAliasRefs(node.body, names, acc, scope2, null);
-    return;
-  }
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (Array.isArray(node.attributes)) collectFragmentAliasRefs(node.attributes, names, acc, scope);
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
-    collectFragmentAliasRefs(node[key2], names, acc, scope);
-  }
-}
-function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectEachContextTaint(child, names, acc, shadowed);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (node.type === "EachBlock") {
-    const expr = unwrapTs(node.expression);
-    const target = expr?.type === "Identifier" ? expr.name : expr?.type === "MemberExpression" ? rootObjectName(expr) : void 0;
-    if (target !== void 0 && names.has(target) && !shadowed.has(target)) {
-      const ctxNames = /* @__PURE__ */ new Set();
-      addBoundNames(node.context, ctxNames);
-      if (typeof node.index === "string") ctxNames.add(node.index);
-      if (ctxNames.size > 0) {
-        const union = /* @__PURE__ */ new Set();
-        const kinds = /* @__PURE__ */ new Map();
-        collectStateWrites(node.body, ctxNames, union, kinds);
-        collectTemplateEscapes(node.body, ctxNames, union, kinds);
-        if ([...union].some((n2) => {
-          const k2 = kinds.get(n2);
-          return !k2 || [...k2].some((kind) => kind !== "reassign");
-        })) acc.add(target);
-      }
-    }
-  }
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    collectEachContextTaint(node[key2], names, acc, scope);
-  }
-}
-function refsNamesEagerly(node, names, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) return node.some((c) => refsNamesEagerly(c, names, shadowed));
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return false;
-  if (isDeferredBody(node)) return false;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) return true;
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2)) continue;
-    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
-    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
-    if (refsNamesEagerly(node[key2], names, scope)) return true;
-  }
-  return false;
-}
-function containsCallLike(node) {
-  let found = false;
-  walkEstree(node, (n2) => {
-    if (n2?.type === "CallExpression" || n2?.type === "NewExpression" || n2?.type === "AwaitExpression") found = true;
-  });
-  return found;
-}
-function collectFragmentRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
-  if (Array.isArray(node)) {
-    for (const c of node) collectFragmentRefs(c, names, acc, shadowed);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (isDeferredBody(node)) return;
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
-  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) acc.add(node.name);
-  if (node.type === "EachBlock" || node.type === "AwaitBlock") {
-    collectFragmentRefs(node.expression, names, acc, shadowed);
-    for (const key2 of Object.keys(node)) {
-      if (WALK_IGNORED_KEYS.has(key2) || key2 === "expression") continue;
-      collectFragmentRefs(node[key2], names, acc, scope);
-    }
-    return;
-  }
-  if (Array.isArray(node.attributes)) collectFragmentRefs(node.attributes, names, acc, scope);
-  for (const key2 of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
-    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
-    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
-    collectFragmentRefs(node[key2], names, acc, scope);
-  }
-}
-function collectStalePropCandidates(program, propNames, source2) {
-  const out = [];
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "VariableDeclaration") continue;
-    for (const d2 of stmt2.declarations ?? []) {
-      if (d2?.id?.type !== "Identifier" || !d2.init) continue;
-      if (containsCallLike(d2.init)) continue;
-      if (!refsNamesEagerly(d2.init, propNames)) continue;
-      out.push({
-        name: d2.id.name,
-        line: lineOf(source2, d2.start)
-      });
-    }
-  }
-  return out;
-}
-var COMPONENT_LIKE_TYPES = /* @__PURE__ */ new Set([
-  "Component",
-  "SvelteComponent",
-  "SvelteSelf"
-]);
-function collectTemplateEscapes(node, stateNames, acc, kinds) {
-  const record = (name) => {
-    acc.add(name);
-    if (kinds) {
-      let set2 = kinds.get(name);
-      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
-      set2.add("escape");
-    }
-  };
-  if (Array.isArray(node)) {
-    for (const c of node) collectTemplateEscapes(c, stateNames, acc, kinds);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (Array.isArray(node.attributes)) {
-    for (const attr of node.attributes) if (attr?.type === "BindDirective") {
-      const r2 = rootObjectName(attr.expression);
-      if (r2 && stateNames.has(r2)) record(r2);
-    } else if (COMPONENT_LIKE_TYPES.has(node.type)) walkEstree(attr, (m) => {
-      if (m?.type === "Identifier" && stateNames.has(m.name)) record(m.name);
-    });
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc, kinds);
-}
-var DIRECTIVE_ESCAPE_TYPES = /* @__PURE__ */ new Set([
-  "UseDirective",
-  "TransitionDirective",
-  "AnimateDirective"
-]);
-function collectDirectiveEscapes(node, names, acc) {
-  if (Array.isArray(node)) {
-    for (const c of node) collectDirectiveEscapes(c, names, acc);
-    return;
-  }
-  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (Array.isArray(node.attributes)) {
-    for (const attr of node.attributes) if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) walkEstree(attr.expression, (m) => {
-      if (m?.type === "Identifier" && names.has(m.name)) acc.add(m.name);
-    });
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectDirectiveEscapes(node[key2], names, acc);
-}
-var RUNE_NAMES = /* @__PURE__ */ new Set([
-  "$state",
-  "$derived",
-  "$effect",
-  "$props",
-  "$bindable",
-  "$inspect",
-  "$host"
-]);
-function collectImportedLocalNames(program, acc) {
-  for (const stmt2 of program?.body ?? []) {
-    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
-    for (const s of stmt2.specifiers ?? []) {
-      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
-      acc.add(s.local.name);
-    }
-  }
-}
-function collectNewExprLocalNames(program, acc) {
-  walkEstree(program, (n2) => {
-    if (n2.type !== "VariableDeclarator" || n2.id?.type !== "Identifier" || !n2.init) return;
-    if (unwrapTs(n2.init).type === "NewExpression") acc.add(n2.id.name);
-  });
-}
-function bodyReadsReactive(fn, reactiveNames) {
-  let reads = false;
-  const visit = (n2) => {
-    if (reads || !n2) return;
-    if (Array.isArray(n2)) {
-      for (const c of n2) visit(c);
-      return;
-    }
-    if (typeof n2 !== "object" || typeof n2.type !== "string") return;
-    if (n2.type === "Identifier") {
-      if (reactiveNames.has(n2.name) || n2.name.startsWith("$") && !RUNE_NAMES.has(n2.name)) reads = true;
-      return;
-    }
-    if (n2.type === "CallExpression" && n2.callee?.type === "Identifier") {
-      reads = true;
-      return;
-    }
-    if (n2.type === "MemberExpression") {
-      visit(n2.object);
-      if (n2.computed) visit(n2.property);
-      return;
-    }
-    if (n2.type === "Property") {
-      if (n2.computed) visit(n2.key);
-      visit(n2.value);
-      return;
-    }
-    for (const key2 of Object.keys(n2)) if (!WALK_IGNORED_KEYS.has(key2)) visit(n2[key2]);
-  };
-  visit(fn.body);
-  return reads;
-}
-function bodyIsEmpty(fn) {
-  const body = fn?.body;
-  if (!body) return true;
-  if (body.type === "BlockStatement") return (body.body ?? []).length === 0;
-  return false;
-}
-var URL_ATTRS = [
-  "href",
-  "src",
-  "action",
-  "formaction"
-];
-var CHECKABLE_INPUT_TYPES = /* @__PURE__ */ new Set(["checkbox", "radio"]);
-function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectSecurityFacts(child, source2, htmlTags, jsUrls);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "HtmlTag") htmlTags.push({ line: lineOf(source2, node.start) });
-  if ((node.type === "RegularElement" || node.type === "SvelteElement") && Array.isArray(node.attributes)) for (const name of URL_ATTRS) {
-    const attr = findAttr(node.attributes, name);
-    if (!attr) continue;
-    const value = attrTextOf(attr);
-    if (value !== void 0 && /^\s*javascript:/i.test(value)) jsUrls.push({ line: lineOf(source2, attr.start ?? node.start) });
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectSecurityFacts(node[key2], source2, htmlTags, jsUrls);
-}
-function collectCheckableBindValues(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectCheckableBindValues(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "input" && Array.isArray(node.attributes)) {
-    const typeAttr = findAttr(node.attributes, "type");
-    const typeValue = typeAttr ? attrTextOf(typeAttr) : void 0;
-    if (typeValue && CHECKABLE_INPUT_TYPES.has(typeValue)) {
-      const bindValue = node.attributes.find((a2) => a2?.type === "BindDirective" && a2.name === "value");
-      if (bindValue) acc.push({
-        kind: typeValue,
-        line: lineOf(source2, bindValue.start ?? node.start)
-      });
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectCheckableBindValues(node[key2], source2, acc);
-}
-function classifyAttrValue(value) {
-  if (value === true) return { literal: "" };
-  if (Array.isArray(value) && value.length === 1 && value[0]?.type === "Text") return { literal: String(value[0].data ?? "") };
-  return { expression: true };
-}
-var CHAIN_BREAKS = /* @__PURE__ */ new Set([
-  "Component",
-  "SvelteComponent",
-  "SvelteSelf",
-  "SvelteElement",
-  "SlotElement",
-  "RenderTag",
-  "HtmlTag",
-  "SnippetBlock",
-  "SvelteHead"
-]);
-var SILENT_BREAKS = /* @__PURE__ */ new Set(["SnippetBlock", "SvelteHead"]);
-function collectElements(node, source2, acc, inSvg, parent) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectElements(child, source2, acc, inSvg, parent);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  let next2 = inSvg;
-  let nextParent = parent;
-  if (typeof node.type === "string" && CHAIN_BREAKS.has(node.type)) {
-    if (parent !== void 0 && !SILENT_BREAKS.has(node.type)) acc[parent].unknownContent = true;
-    nextParent = void 0;
-  } else if (node.type === "RegularElement" && typeof node.name === "string" && Array.isArray(node.attributes)) {
-    const tag2 = node.name.toLowerCase();
-    const self = inSvg || tag2 === "svg";
-    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-    acc.push({
-      tag: tag2,
-      line: lineOf(source2, node.start),
-      attrs: node.attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => {
-        const cls = classifyAttrValue(a2.value);
-        const value = "expression" in cls ? void 0 : cls.literal;
-        return {
-          name: String(a2.name).toLowerCase(),
-          line: lineOf(source2, a2.start ?? node.start),
-          ...value !== void 0 ? { value } : {}
-        };
-      }),
-      ...self ? { inSvg: true } : {},
-      ...parent !== void 0 ? { parent } : {},
-      ...hasSpread ? { hasSpread: true } : {}
-    });
-    if (tag2.includes("-") || !KNOWN_TAGS$1.has(tag2)) {
-      if (parent !== void 0) acc[parent].unknownContent = true;
-      nextParent = void 0;
-    } else nextParent = acc.length - 1;
-    if (tag2 === "svg") next2 = true;
-    else if (tag2 === "foreignobject") next2 = false;
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectElements(node[key2], source2, acc, next2, nextParent);
-}
-function selectNativeRole(attributes) {
-  if (findAttr(attributes, "multiple") !== void 0) return "listbox";
-  const size = findAttr(attributes, "size");
-  if (size === void 0) return "combobox";
-  if (attrValueOf(size) !== "static") return void 0;
-  return Number(attrTextOf(size)) > 1 ? "listbox" : "combobox";
-}
-function collectAriaElements(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectAriaElements(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
-    const roleAttr = findAttr(node.attributes, "role");
-    const ariaAttrs = node.attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase().startsWith("aria-"));
-    if (roleAttr || ariaAttrs.length > 0) {
-      const inputType = node.name === "input" ? attrText(node.attributes, "type") : void 0;
-      const hasList = node.name === "input" && findAttr(node.attributes, "list") !== void 0;
-      const selectKind = node.name === "select" ? selectNativeRole(node.attributes) : void 0;
-      const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-      acc.push({
-        tag: node.name,
-        line: lineOf(source2, node.start),
-        ...roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {},
-        ...inputType !== void 0 ? { inputType: inputType.toLowerCase() } : {},
-        ...hasList ? { hasList: true } : {},
-        ...selectKind ? { selectKind } : {},
-        ...hasSpread ? { hasSpread: true } : {},
-        aria: ariaAttrs.map((a2) => ({
-          name: String(a2.name).toLowerCase(),
-          line: lineOf(source2, a2.start ?? node.start),
-          ...classifyAttrValue(a2.value)
-        }))
-      });
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectAriaElements(node[key2], source2, acc);
-}
-function elementAttrs(attributes) {
-  return attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => ({
-    name: String(a2.name).toLowerCase(),
-    ...classifyAttrValue(a2.value)
-  }));
-}
-function containerRoleOf(attrs) {
-  const role = attrs.find((a2) => a2.name === "role")?.literal;
-  return role ? resolveRole(splitTokens(role)) : void 0;
-}
-function collectInteractiveNestings(node, source2, acc, stack) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectInteractiveNestings(child, source2, acc, stack);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "SnippetBlock") {
-    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, []);
-    return;
-  }
-  let opened = false;
-  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
-    const attrs = elementAttrs(node.attributes);
-    if (stack.length > 0 && isInteractiveElement(node.name, attrs)) {
-      const container = stack[stack.length - 1];
-      acc.push({
-        containerTag: container.tag,
-        ...container.role ? { containerRole: container.role } : {},
-        descendantTag: node.name,
-        line: lineOf(source2, node.start)
-      });
-    }
-    if (isInteractiveContainer(node.name, attrs)) {
-      const role = node.name === "button" || node.name === "a" ? void 0 : containerRoleOf(attrs);
-      stack.push({
-        tag: node.name,
-        ...role ? { role } : {}
-      });
-      opened = true;
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, stack);
-  if (opened) stack.pop();
-}
-function hasNamingValue(attributes, name) {
-  const attr = findAttr(attributes, name);
-  if (!attr) return false;
-  const v = classifyAttrValue(attr.value);
-  return "expression" in v || v.literal !== void 0 && v.literal.trim().length > 0;
-}
-function hasNamingAttr(attributes) {
-  return [
-    "aria-label",
-    "aria-labelledby",
-    "title"
-  ].some((name) => hasNamingValue(attributes, name));
-}
-function isCustomElement(node) {
-  return node.type === "RegularElement" && typeof node.name === "string" && node.name.includes("-");
-}
-function scanAccessibleNameSubtree(node, skip) {
-  if (Array.isArray(node)) {
-    const acc2 = {
-      named: false,
-      unknowable: false
-    };
-    for (const child of node) {
-      const r2 = scanAccessibleNameSubtree(child, skip);
-      acc2.named ||= r2.named;
-      acc2.unknowable ||= r2.unknowable;
-    }
-    return acc2;
-  }
-  if (!node || typeof node !== "object") return {
-    named: false,
-    unknowable: false
-  };
-  if (skip !== void 0 && node === skip) return {
-    named: false,
-    unknowable: false
-  };
-  if (node.type === "SnippetBlock") return {
-    named: false,
-    unknowable: false
-  };
-  if (node.type === "Text") return {
-    named: String(node.data ?? "").trim().length > 0,
-    unknowable: false
-  };
-  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) return {
-    named: false,
-    unknowable: true
-  };
-  if (node.type === "RegularElement" && node.name === "img" && Array.isArray(node.attributes)) {
-    if (hasNamingValue(node.attributes, "alt")) return {
-      named: true,
-      unknowable: false
-    };
-  }
-  const acc = {
-    named: false,
-    unknowable: false
-  };
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
-    const r2 = scanAccessibleNameSubtree(node[key2], skip);
-    acc.named ||= r2.named;
-    acc.unknowable ||= r2.unknowable;
-  }
-  return acc;
-}
-function accessibleNameTarget(node) {
-  if (node.name === "button") return "button";
-  if (node.name === "a") return attrText(node.attributes, "href") !== void 0 ? "a" : void 0;
-  if (node.name === "input") return attrText(node.attributes, "type")?.toLowerCase() === "image" ? "input" : void 0;
-}
-function firstLabelableDescendant(node) {
-  if (Array.isArray(node)) {
-    for (const child of node) {
-      const hit = firstLabelableDescendant(child);
-      if (hit) return hit;
-    }
-    return;
-  }
-  if (!node || typeof node !== "object") return void 0;
-  if (node.type === "SnippetBlock") return void 0;
-  if (node.type === "RegularElement" && isLabelableDescendant(node)) return node;
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
-    const hit = firstLabelableDescendant(node[key2]);
-    if (hit) return hit;
-  }
-}
-function collectLabelTargets(node, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectLabelTargets(child, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "label" && Array.isArray(node.attributes)) {
-    const wrapped = firstLabelableDescendant(node);
-    const scan = scanAccessibleNameSubtree(node, wrapped);
-    if (scan.named || scan.unknowable) {
-      const forId = attrText(node.attributes, "for");
-      if (forId !== void 0 && forId.trim().length > 0) acc.ids.add(forId.trim());
-      if (wrapped) acc.nodes.add(wrapped);
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectLabelTargets(node[key2], acc);
-}
-function collectUnnamedInteractive(node, source2, acc, labels) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectUnnamedInteractive(child, source2, acc, labels);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
-    const target = accessibleNameTarget(node);
-    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-    const id2 = attrText(node.attributes, "id");
-    const namedByLabel = target !== "a" && (labels.nodes.has(node) || id2 !== void 0 && labels.ids.has(id2.trim()));
-    if (target && !hasSpread && !namedByLabel) if (target === "input") {
-      if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, "alt")) acc.push({
-        tag: node.name,
-        line: lineOf(source2, node.start)
-      });
-    } else {
-      const scan = scanAccessibleNameSubtree(node);
-      if (!hasNamingAttr(node.attributes) && !scan.named && !scan.unknowable) acc.push({
-        tag: node.name,
-        line: lineOf(source2, node.start)
-      });
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectUnnamedInteractive(node[key2], source2, acc, labels);
-}
-var LABELABLE_TAGS = /* @__PURE__ */ new Set([
-  "input",
-  "select",
-  "textarea",
-  "button",
-  "meter",
-  "output",
-  "progress"
-]);
-function isLabelableDescendant(node) {
-  if (node.type !== "RegularElement" || !LABELABLE_TAGS.has(node.name)) return false;
-  if (node.name !== "input") return true;
-  return attrText(node.attributes ?? [], "type")?.toLowerCase() !== "hidden";
-}
-function scanLabelSubtree(node) {
-  if (Array.isArray(node)) {
-    const acc2 = {
-      hasControl: false,
-      unknowable: false
-    };
-    for (const child of node) {
-      const r2 = scanLabelSubtree(child);
-      acc2.hasControl ||= r2.hasControl;
-      acc2.unknowable ||= r2.unknowable;
-    }
-    return acc2;
-  }
-  if (!node || typeof node !== "object") return {
-    hasControl: false,
-    unknowable: false
-  };
-  if (node.type === "SnippetBlock") return {
-    hasControl: false,
-    unknowable: false
-  };
-  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) return {
-    hasControl: false,
-    unknowable: true
-  };
-  if (isLabelableDescendant(node)) return {
-    hasControl: true,
-    unknowable: false
-  };
-  const acc = {
-    hasControl: false,
-    unknowable: false
-  };
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
-    const r2 = scanLabelSubtree(node[key2]);
-    acc.hasControl ||= r2.hasControl;
-    acc.unknowable ||= r2.unknowable;
-  }
-  return acc;
-}
-function collectUnassociatedLabels(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectUnassociatedLabels(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "label" && Array.isArray(node.attributes)) {
-    const hasFor = findAttr(node.attributes, "for") !== void 0;
-    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-    if (!hasFor && !hasSpread) {
-      const scan = scanLabelSubtree(node);
-      if (!scan.hasControl && !scan.unknowable) acc.push({ line: lineOf(source2, node.start) });
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectUnassociatedLabels(node[key2], source2, acc);
-}
-var BULLET_TEXT_RE = /^[•・·\-*]\s/;
-var VERBATIM_TEXT_TAGS = /* @__PURE__ */ new Set([
-  "pre",
-  "code",
-  "kbd",
-  "samp",
-  "textarea"
-]);
-function collectBulletTexts(node, source2, acc, inert, afterExpression = false, reported = /* @__PURE__ */ new WeakSet()) {
-  if (Array.isArray(node)) {
-    let prevWasExpression = afterExpression;
-    let group = [];
-    const flush = () => {
-      if (group.length >= 2) for (const b of group) {
-        if (reported.has(b.text)) continue;
-        reported.add(b.text);
-        acc.push({
-          line: b.line,
-          char: b.char
-        });
-      }
-      group = [];
-    };
-    const bulletOf = (text2, after) => {
-      if (!text2 || typeof text2 !== "object" || text2.type !== "Text" || after) return void 0;
-      const trimmed = String(text2.data ?? "").trim();
-      return BULLET_TEXT_RE.test(trimmed) ? {
-        line: lineOf(source2, text2.start),
-        char: trimmed[0],
-        text: text2
-      } : void 0;
-    };
-    for (const child of node) {
-      if (!child || typeof child !== "object") continue;
-      if (child.type === "Text") {
-        const b = inert ? void 0 : bulletOf(child, prevWasExpression);
-        if (b) group.push(b);
-        else if (String(child.data ?? "").trim()) flush();
-      } else if (child.type === "Comment" || child.type === "RegularElement" && child.name === "br") {
-      } else {
-        let item;
-        if (!inert && child.type === "RegularElement" && child.name !== "li" && !VERBATIM_TEXT_TAGS.has(child.name)) item = bulletOf((child.fragment?.nodes ?? []).find((n2) => !(n2?.type === "Text" && !String(n2.data ?? "").trim()) && n2?.type !== "Comment"), prevWasExpression);
-        if (item) group.push(item);
-        else flush();
-        collectBulletTexts(child, source2, acc, inert, prevWasExpression, reported);
-      }
-      if (child.type !== "Comment") prevWasExpression = child.type === "ExpressionTag";
-    }
-    flush();
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "Text") return;
-  if (node.type === "SnippetBlock") return;
-  const nowInert = inert || node.type === "RegularElement" && (node.name === "li" || VERBATIM_TEXT_TAGS.has(node.name));
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectBulletTexts(node[key2], source2, acc, nowInert, false, reported);
-}
-function selectNeedsPlaceholder(attributes) {
-  const requiredAttr = findAttr(attributes, "required");
-  if (!requiredAttr || attrValueOf(requiredAttr) === "dynamic") return false;
-  if (findAttr(attributes, "multiple")) return false;
-  const sizeAttr = findAttr(attributes, "size");
-  if (sizeAttr) {
-    if (attrValueOf(sizeAttr) === "dynamic") return false;
-    const size = Number(attrText(attributes, "size"));
-    if (!(Number.isFinite(size) && size <= 1)) return false;
-  }
-  return true;
-}
-function firstSignificantChild(nodes) {
-  for (const child of nodes ?? []) {
-    if (!child) continue;
-    if (child.type === "Comment") continue;
-    if (child.type === "Text" && !String(child.data ?? "").trim()) continue;
-    return child;
-  }
-}
-function isPlaceholderOption(option) {
-  const attributes = option.attributes ?? [];
-  if (findAttr(attributes, "value")) {
-    const literal3 = attrText(attributes, "value");
-    return literal3 === void 0 || literal3 === "";
-  }
-  return textFromNodes(option.fragment?.nodes ?? []) === void 0;
-}
-function collectSelectsMissingPlaceholder(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectSelectsMissingPlaceholder(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "select" && Array.isArray(node.attributes)) {
-    if (!node.attributes.some((a2) => a2?.type === "SpreadAttribute") && selectNeedsPlaceholder(node.attributes)) {
-      const first = firstSignificantChild(node.fragment?.nodes);
-      if (!first) acc.push({ line: lineOf(source2, node.start) });
-      else if (first.type === "RegularElement" && first.name === "option") {
-        if (!(first.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute") && !isPlaceholderOption(first)) acc.push({ line: lineOf(source2, node.start) });
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectSelectsMissingPlaceholder(node[key2], source2, acc);
-}
-var MACHINE_READABLE_TIME = [
-  /^\d{4,}(-\d{2}){0,2}$/,
-  /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
-  /^\d{4,}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/,
-  /^\d{2}-\d{2}$/,
-  /^\d{4,}-W\d{2}$/,
-  /^(Z|[+-]\d{2}:?\d{2})$/,
-  /^P(?=\d|T)[\d.,TYWDHMS]*$/i,
-  /^\d+(\.\d+)?\s*[wdhms](\s+\d+(\.\d+)?\s*[wdhms])*$/i
-];
-function collectTimesMissingDatetime(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectTimesMissingDatetime(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "time" && findAttr(node.attributes ?? [], "datetime") === void 0 && !(node.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute")) {
-    const nodes = node.fragment?.nodes ?? [];
-    if (nodes.length > 0 && nodes.every((n2) => n2?.type === "Text")) {
-      const trimmed = nodes.map((n2) => String(n2.data ?? "")).join("").trim();
-      if (trimmed.length > 0 && !MACHINE_READABLE_TIME.some((re) => re.test(trimmed))) acc.push({
-        line: lineOf(source2, node.start),
-        text: trimmed
-      });
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectTimesMissingDatetime(node[key2], source2, acc);
-}
-function staticTextOf(nodes) {
-  let out = "";
-  for (const n2 of nodes) {
-    if (!n2 || typeof n2 !== "object") continue;
-    if (n2.type === "Comment") continue;
-    if (n2.type === "Text") {
-      out += String(n2.data ?? "");
-      continue;
-    }
-    if (n2.type === "RegularElement" && typeof n2.name === "string" && !n2.name.includes("-")) {
-      const inner = staticTextOf(n2.fragment?.nodes ?? []);
-      if (inner === void 0) return void 0;
-      out += inner;
-      continue;
-    }
-    return;
-  }
-  return out;
-}
-function collectDuplicateDts(node, source2, acc, inSvg) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectDuplicateDts(child, source2, acc, inSvg);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  let next2 = inSvg;
-  if (node.type === "RegularElement" && typeof node.name === "string") {
-    const tag2 = node.name.toLowerCase();
-    if (tag2 === "svg") next2 = true;
-    else if (tag2 === "foreignobject") next2 = false;
-    if (!inSvg && tag2 === "dl") {
-      const seen = /* @__PURE__ */ new Set();
-      const judge = (dt) => {
-        const raw = staticTextOf(dt.fragment?.nodes ?? []);
-        if (raw === void 0) return;
-        const name = raw.trim().replace(/\s+/g, " ");
-        if (!name) return;
-        if (seen.has(name)) acc.push({
-          line: lineOf(source2, dt.start),
-          text: name
-        });
-        else seen.add(name);
-      };
-      for (const child of node.fragment?.nodes ?? []) {
-        if (child?.type !== "RegularElement" || typeof child.name !== "string") continue;
-        const childTag = child.name.toLowerCase();
-        if (childTag === "dt") judge(child);
-        else if (childTag === "div") {
-          for (const inner of child.fragment?.nodes ?? []) if (inner?.type === "RegularElement" && typeof inner.name === "string" && inner.name.toLowerCase() === "dt") judge(inner);
-        }
-      }
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectDuplicateDts(node[key2], source2, acc, next2);
-}
-function collectVideosAutoplayNoMuted(node, source2, acc, inSvg) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectVideosAutoplayNoMuted(child, source2, acc, inSvg);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  let next2 = inSvg;
-  if (node.type === "RegularElement" && typeof node.name === "string") {
-    const tag2 = node.name.toLowerCase();
-    if (tag2 === "svg") next2 = true;
-    else if (tag2 === "foreignobject") next2 = false;
-    if (!inSvg && tag2 === "video" && Array.isArray(node.attributes)) {
-      const literalAutoplay = attrText(node.attributes, "autoplay") !== void 0;
-      const hasMuted = findAttr(node.attributes, "muted") !== void 0 || node.attributes.some((a2) => a2?.type === "BindDirective" && a2.name === "muted" || a2?.type === "SpreadAttribute");
-      if (literalAutoplay && !hasMuted) acc.push({ line: lineOf(source2, node.start) });
-    }
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectVideosAutoplayNoMuted(node[key2], source2, acc, next2);
-}
-function collectHrefLinks(node, source2, acc) {
-  if (Array.isArray(node)) {
-    for (const child of node) collectHrefLinks(child, source2, acc);
-    return;
-  }
-  if (!node || typeof node !== "object") return;
-  if (node.type === "RegularElement" && node.name === "a" && Array.isArray(node.attributes)) {
-    const attr = findAttr(node.attributes, "href");
-    const value = attr ? attrTextOf(attr) : void 0;
-    if (value !== void 0 && isRootRelativePath(value)) acc.push({
-      kind: "href",
-      path: value,
-      line: lineOf(source2, attr?.start ?? node.start)
-    });
-  }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectHrefLinks(node[key2], source2, acc);
-}
-var GOTO_NAMES = /* @__PURE__ */ new Set(["goto"]);
-function collectGotoLinks(locals, roots, source2, acc) {
-  if (locals.size === 0) return;
-  for (const root of roots) {
-    if (!root) continue;
-    walkEstree(root, (n2) => {
-      if (n2.type !== "CallExpression" || n2.callee?.type !== "Identifier" || !locals.has(n2.callee.name)) return;
-      const arg = n2.arguments?.[0];
-      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) return;
-      acc.push({
-        kind: "goto",
-        path: arg.value,
-        line: lineOf(source2, n2.start)
-      });
-    });
-  }
-}
-function isPropsCall(node) {
-  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$props";
-}
-function isBindableCall(node) {
-  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$bindable";
-}
-function collectPropNames(program, includeBindable) {
-  const names = /* @__PURE__ */ new Set();
-  let seen = 0;
-  let ambiguous = false;
-  walkEstree(program, (n2) => {
-    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
-    seen++;
-    if (n2.id?.type === "Identifier") {
-      names.add(n2.id.name);
-      return;
-    }
-    if (n2.id?.type !== "ObjectPattern" || !Array.isArray(n2.id.properties)) {
-      ambiguous = true;
-      return;
-    }
-    for (const p2 of n2.id.properties) if (p2?.type === "RestElement") addBoundNames(p2.argument, names);
-    else if (p2?.type === "Property") {
-      if (p2.value?.type === "AssignmentPattern") {
-        if ((includeBindable || !isBindableCall(p2.value.right)) && p2.value.left?.type === "Identifier") names.add(p2.value.left.name);
-      } else if (p2.value?.type === "Identifier") names.add(p2.value.name);
-    }
-  });
-  return ambiguous || seen > 1 ? /* @__PURE__ */ new Set() : names;
-}
-function collectLegacyPropNames(program) {
-  const names = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || stmt2.declaration?.type !== "VariableDeclaration") continue;
-    for (const d2 of stmt2.declaration.declarations ?? []) if (d2?.id?.type === "Identifier") names.add(d2.id.name);
-  }
-  return names;
-}
-var MUTATING_METHODS = /* @__PURE__ */ new Set([
-  "push",
-  "pop",
-  "shift",
-  "unshift",
-  "splice",
-  "sort",
-  "reverse",
-  "copyWithin",
-  "fill",
-  "set",
-  "add",
-  "delete",
-  "clear"
-]);
-function collectPropMutations(root, propNames, source2, acc) {
-  if (propNames.size === 0) return;
-  walkScoped(root, (n2, scope) => {
-    const flag = (r2) => {
-      if (r2 && propNames.has(r2) && !scope.has(r2)) acc.push({
-        name: r2,
-        line: lineOf(source2, n2.start)
-      });
-    };
-    if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") flag(rootObjectName(n2.left));
-    else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") flag(rootObjectName(n2.argument));
-    else if (n2.type === "UnaryExpression" && n2.operator === "delete") flag(rootObjectName(n2.argument));
-    else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
-      const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
-      if (method2 && MUTATING_METHODS.has(method2)) flag(rootObjectName(n2.callee.object));
-    }
-  });
-}
-function countProps(program) {
-  let count = 0;
-  let seen = 0;
-  let uncountable = false;
-  walkEstree(program, (n2) => {
-    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
-    seen++;
-    const props = n2.id?.type === "ObjectPattern" ? n2.id.properties : void 0;
-    if (!Array.isArray(props)) {
-      uncountable = true;
-      return;
-    }
-    count = props.filter((p2) => p2?.type === "Property").length;
-  });
-  return uncountable || seen > 1 ? 0 : count;
-}
-function countLines(source2) {
-  if (source2.length === 0) return 0;
-  return source2.split("\n").length - (source2.endsWith("\n") ? 1 : 0);
-}
-function isTypeOnlyImport(n2) {
-  if (n2.importKind === "type") return true;
-  const specs = n2.specifiers;
-  return Array.isArray(specs) && specs.length > 0 && specs.every((s) => s?.importKind === "type");
-}
-function collectImportSources(program, source2, acc) {
-  walkEstree(program, (n2) => {
-    if (n2.type === "ImportDeclaration" && typeof n2.source?.value === "string") acc.push({
-      source: n2.source.value,
-      line: lineOf(source2, n2.start),
-      ...isTypeOnlyImport(n2) ? { type: true } : {}
-    });
-  });
-}
-function isBareSpecifier(s) {
-  return !/^[./$#]/.test(s);
-}
-function collectNamespaceImports(program, source2, acc) {
-  walkEstree(program, (n2) => {
-    if (n2.type !== "ImportDeclaration" || n2.importKind === "type") return;
-    const spec = n2.source?.value;
-    if (typeof spec !== "string" || !isBareSpecifier(spec)) return;
-    if (Array.isArray(n2.specifiers) && n2.specifiers.some((s) => s?.type === "ImportNamespaceSpecifier")) acc.push({
-      source: spec,
-      line: lineOf(source2, n2.start)
-    });
-  });
-}
 var RULE_ID_RE = "[a-z][a-z0-9]*\\/[a-z][a-z0-9-]*";
 var JS_DIRECTIVE = new RegExp(`^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*$`);
 var HTML_DIRECTIVE = new RegExp(`^\\s*<!--\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*-->\\s*$`);
@@ -66284,54 +63078,6 @@ function collectSuppressions(source2) {
     out.push({
       line: i2 + 2,
       ruleIds
-    });
-  });
-  return out;
-}
-var MD_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
-var SCRIPT_OPEN = /<script(?:\s[^>]*)?>/;
-var SCRIPT_CLOSE = /<\/script\s*>/;
-var STYLE_OPEN = /<style(?:\s[^>]*)?>/;
-var STYLE_CLOSE = /<\/style\s*>/;
-function collectCommentLinks(source2, { wholeFileIsScript = false } = {}) {
-  const out = [];
-  let htmlOpen = false;
-  let block2 = wholeFileIsScript ? "script" : void 0;
-  source2.split("\n").forEach((line, i2) => {
-    let text2 = "";
-    if (block2 !== void 0) {
-      if (block2 === "script" && /^\s*\/\//.test(line)) text2 = line.replace(/^\s*\/\//, "");
-      if (!wholeFileIsScript && (block2 === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(line)) block2 = void 0;
-    } else {
-      let plain = "";
-      let rest2 = line;
-      while (rest2.length > 0) {
-        if (htmlOpen) {
-          const end = rest2.indexOf("-->");
-          if (end === -1) {
-            text2 += rest2;
-            break;
-          }
-          text2 += rest2.slice(0, end);
-          htmlOpen = false;
-          rest2 = rest2.slice(end + 3);
-          continue;
-        }
-        const start = rest2.indexOf("<!--");
-        if (start === -1) {
-          plain += rest2;
-          break;
-        }
-        plain += rest2.slice(0, start);
-        htmlOpen = true;
-        rest2 = rest2.slice(start + 4);
-      }
-      const opened = SCRIPT_OPEN.test(plain) ? "script" : STYLE_OPEN.test(plain) ? "style" : void 0;
-      if (opened !== void 0 && !(opened === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(plain)) block2 = opened;
-    }
-    for (const m of text2.matchAll(MD_LINK)) if (m[1] !== void 0) out.push({
-      url: m[1],
-      line: i2 + 1
     });
   });
   return out;
@@ -66358,61 +63104,10 @@ function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set(), bounda
     walkEvalScope(node[key2], visit, scope, boundaries);
   }
 }
-function collectEvalScopeCalls(root, source2, matcher, skipSubtree, initialShadowed) {
-  const out = [];
-  walkEvalScope(root, (n2, shadowed) => {
-    if (n2.type !== "CallExpression") return void 0;
-    if (skipSubtree?.(n2)) return true;
-    const name = matcher(n2, shadowed);
-    if (name) out.push({
-      name,
-      line: lineOf(source2, n2.start)
-    });
-  }, initialShadowed);
-  return out;
-}
 function unwrapExport(stmt2) {
   if (stmt2.type === "ExportNamedDeclaration") return stmt2.declaration ?? stmt2;
   if (stmt2.type === "ExportDefaultDeclaration") return stmt2.declaration;
   return stmt2;
-}
-function collectOrphanCalls(program, source2, matcher, skipSubtree) {
-  const out = collectEvalScopeCalls(program, source2, matcher, skipSubtree).map((c) => ({
-    ...c,
-    kind: "top-level"
-  }));
-  const body = program.body ?? [];
-  const matchingClasses = /* @__PURE__ */ new Map();
-  for (const stmt2 of body) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type !== "ClassDeclaration" || decl.id?.type !== "Identifier") continue;
-    const ctor = (decl.body?.body ?? []).find((m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body);
-    if (!ctor) continue;
-    const ctorShadow = /* @__PURE__ */ new Set();
-    for (const p2 of ctor.value.params ?? []) addBoundNames(p2, ctorShadow);
-    const calls = collectEvalScopeCalls(ctor.value.body, source2, matcher, skipSubtree, ctorShadow);
-    if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0].name);
-  }
-  if (matchingClasses.size > 0) for (const stmt2 of body) {
-    const decl = unwrapExport(stmt2);
-    if (!(decl?.type === "VariableDeclaration" || decl?.type === "ExpressionStatement" || stmt2.type === "ExportDefaultDeclaration" && decl?.type !== "FunctionDeclaration" && decl?.type !== "ClassDeclaration")) continue;
-    walkEvalScope(decl, (n2) => {
-      if (n2.type === "NewExpression" && n2.callee?.type === "Identifier" && matchingClasses.has(n2.callee.name)) out.push({
-        name: matchingClasses.get(n2.callee.name),
-        line: lineOf(source2, n2.start),
-        kind: "constructor-instantiated",
-        className: n2.callee.name
-      });
-    });
-  }
-  return out.sort((a2, b) => a2.line - b.line);
-}
-function collectOrphanEffects(program, source2) {
-  return collectOrphanCalls(program, source2, (n2) => isEffectCall(n2) ? "$effect" : void 0, isEffectRootCall).map(({ line, kind, className }) => ({
-    line,
-    kind,
-    ...className !== void 0 ? { className } : {}
-  }));
 }
 var LIFECYCLE_NAMES = /* @__PURE__ */ new Set([
   "onMount",
@@ -66454,14 +63149,6 @@ function matchLifecycleCall(n2, imports2) {
     canonical: c.property.name,
     local: c.object.name
   };
-}
-function collectOrphanLifecycleCalls(program, source2) {
-  const imports2 = collectSvelteLifecycleImports(program);
-  if (imports2.locals.size === 0 && imports2.namespaces.size === 0) return [];
-  return collectOrphanCalls(program, source2, (n2, shadowed) => {
-    const m = matchLifecycleCall(n2, imports2);
-    return m && !shadowed.has(m.local) ? m.canonical : void 0;
-  });
 }
 var BROWSER_GLOBALS = /* @__PURE__ */ new Set([
   "window",
@@ -66514,7 +63201,8 @@ function guardTerminates(consequent) {
   if (!consequent) return false;
   if (consequent.type === "ReturnStatement" || consequent.type === "ThrowStatement") return true;
   if (consequent.type === "BlockStatement") {
-    const last = (consequent.body ?? [])[consequent.body.length - 1];
+    const body = consequent.body ?? [];
+    const last = body[body.length - 1];
     return last?.type === "ReturnStatement" || last?.type === "ThrowStatement";
   }
   return false;
@@ -66616,7 +63304,6 @@ function collectBrowserGlobalRefs(program, source2, extra) {
   visit(program, /* @__PURE__ */ new Set());
   return out;
 }
-var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 function parseModuleProgram(source2, filename2) {
   const wrapped = `<script lang="ts">
 ${source2.replace(/<\/script/gi, "<_script")}
@@ -66629,353 +63316,8 @@ ${source2.replace(/<\/script/gi, "<_script")}
     wrapped
   };
 }
-function collectModuleStateDecls(program, source2) {
-  const out = [];
-  const body = program.body ?? [];
-  const statefulClasses = /* @__PURE__ */ new Set();
-  for (const stmt2 of body) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type === "VariableDeclaration") {
-      for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && d2.init && isStateDeclaration(unwrapTs(d2.init))) out.push({
-        name: d2.id.name,
-        line: lineOf(source2, d2.start)
-      });
-    } else if (decl?.type === "ClassDeclaration" && decl.id?.type === "Identifier") {
-      if ((decl.body?.body ?? []).some((m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(unwrapTs(m.value)))) statefulClasses.add(decl.id.name);
-    }
-  }
-  if (statefulClasses.size > 0) for (const stmt2 of body) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type !== "VariableDeclaration") continue;
-    for (const d2 of decl.declarations ?? []) if (d2?.init?.type === "NewExpression" && d2.init.callee?.type === "Identifier" && statefulClasses.has(d2.init.callee.name)) out.push({
-      name: d2.id?.type === "Identifier" ? d2.id.name : d2.init.callee.name,
-      line: lineOf(source2, d2.start)
-    });
-  }
-  return out.sort((a2, b) => a2.line - b.line);
-}
-function parseModuleFacts(source2, filename2) {
-  const { program, wrapped } = parseModuleProgram(source2, filename2);
-  const shift = (line) => Math.max(0, line - 1);
-  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({
-    ...f,
-    line: shift(f.line)
-  })) : [];
-  const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({
-    ...f,
-    line: shift(f.line)
-  })) : [];
-  const browserGlobalRefs = program ? collectBrowserGlobalRefs(program, wrapped).map((r2) => ({
-    ...r2,
-    line: shift(r2.line),
-    context: "module"
-  })) : [];
-  const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d2) => ({
-    ...d2,
-    line: shift(d2.line)
-  })) : [];
-  const basePathLinks = [];
-  if (program) {
-    const locals = collectNamedImportAliases(program, "$app/navigation", GOTO_NAMES);
-    const raw = [];
-    collectGotoLinks(locals, [program], wrapped, raw);
-    for (const l2 of raw) basePathLinks.push({
-      ...l2,
-      line: shift(l2.line)
-    });
-    basePathLinks.sort((a2, b) => a2.line - b.line);
-  }
-  const importSpans = [];
-  const namespaceImports = [];
-  if (program) {
-    const rawImportSpans = [];
-    collectImportSources(program, wrapped, rawImportSpans);
-    for (const s of rawImportSpans) importSpans.push({
-      ...s,
-      line: shift(s.line)
-    });
-    const rawNamespaceImports = [];
-    collectNamespaceImports(program, wrapped, rawNamespaceImports);
-    for (const n2 of rawNamespaceImports) namespaceImports.push({
-      ...n2,
-      line: shift(n2.line)
-    });
-  }
-  return {
-    eachBlocks: [],
-    effects: [],
-    htmlTags: [],
-    javascriptUrls: [],
-    loc: 0,
-    propCount: 0,
-    imports: importSpans.map((s) => s.source),
-    importSpans,
-    namespaceImports,
-    constableStates: [],
-    mutatedProps: [],
-    stalePropDerivations: [],
-    rawableStates: [],
-    nonreactiveBuiltinStates: [],
-    checkableBindValues: [],
-    basePathLinks,
-    suppressions: collectSuppressions(source2),
-    commentLinks: collectCommentLinks(source2, { wholeFileIsScript: true }),
-    orphanEffects,
-    orphanLifecycleCalls,
-    browserGlobalRefs,
-    moduleStateDecls
-  };
-}
-function parseComponentFacts(source2, filename2) {
-  if (MODULE_FILE_RE.test(filename2)) return parseModuleFacts(source2, filename2);
-  const ast = parseSvelte(source2, filename2);
-  const eachBlocks = [];
-  collectEachBlocks(ast.fragment ?? ast, source2, eachBlocks);
-  const htmlTags = [];
-  const javascriptUrls = [];
-  collectSecurityFacts(ast.fragment ?? ast, source2, htmlTags, javascriptUrls);
-  const checkableBindValues = [];
-  collectCheckableBindValues(ast.fragment ?? ast, source2, checkableBindValues);
-  const ariaElements = [];
-  collectAriaElements(ast.fragment ?? ast, source2, ariaElements);
-  const elements = [];
-  collectElements(ast.fragment ?? ast, source2, elements, ast.options?.namespace === "svg");
-  const interactiveNestings = [];
-  collectInteractiveNestings(ast.fragment ?? ast, source2, interactiveNestings, []);
-  const unnamedInteractive = [];
-  const labelTargets = {
-    ids: /* @__PURE__ */ new Set(),
-    nodes: /* @__PURE__ */ new Set()
-  };
-  collectLabelTargets(ast.fragment ?? ast, labelTargets);
-  collectUnnamedInteractive(ast.fragment ?? ast, source2, unnamedInteractive, labelTargets);
-  const unassociatedLabels = [];
-  collectUnassociatedLabels(ast.fragment ?? ast, source2, unassociatedLabels);
-  const bulletTexts = [];
-  collectBulletTexts(ast.fragment ?? ast, source2, bulletTexts, false);
-  const selectsMissingPlaceholder = [];
-  collectSelectsMissingPlaceholder(ast.fragment ?? ast, source2, selectsMissingPlaceholder);
-  const timesMissingDatetime = [];
-  collectTimesMissingDatetime(ast.fragment ?? ast, source2, timesMissingDatetime);
-  const videosAutoplayNoMuted = [];
-  collectVideosAutoplayNoMuted(ast.fragment ?? ast, source2, videosAutoplayNoMuted, ast.options?.namespace === "svg");
-  const duplicateDts = [];
-  collectDuplicateDts(ast.fragment ?? ast, source2, duplicateDts, ast.options?.namespace === "svg");
-  const basePathLinks = [];
-  collectHrefLinks(ast.fragment ?? ast, source2, basePathLinks);
-  const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean);
-  const gotoLocals = /* @__PURE__ */ new Set();
-  for (const p2 of gotoPrograms) for (const n2 of collectNamedImportAliases(p2, "$app/navigation", GOTO_NAMES)) gotoLocals.add(n2);
-  collectGotoLinks(gotoLocals, [...gotoPrograms, ast.fragment], source2, basePathLinks);
-  basePathLinks.sort((a2, b) => a2.line - b.line);
-  const loc = countLines(source2);
-  const suppressions = collectSuppressions(source2);
-  const moduleProgram = ast.module?.content;
-  const importSpans = [];
-  const namespaceImports = [];
-  if (moduleProgram) {
-    collectImportSources(moduleProgram, source2, importSpans);
-    collectNamespaceImports(moduleProgram, source2, namespaceImports);
-  }
-  const orphanEffects = moduleProgram ? collectOrphanEffects(moduleProgram, source2) : [];
-  const orphanLifecycleCalls = moduleProgram ? collectOrphanLifecycleCalls(moduleProgram, source2) : [];
-  const browserGlobalRefs = [];
-  if (moduleProgram) for (const r2 of collectBrowserGlobalRefs(moduleProgram, source2)) browserGlobalRefs.push({
-    ...r2,
-    context: "module"
-  });
-  const effects = [];
-  const constableStates = [];
-  const mutatedProps = [];
-  const stalePropDerivations = [];
-  const rawableStates = [];
-  const nonreactiveBuiltinStates = [];
-  let propCount = 0;
-  const program = ast.instance?.content;
-  if (program) {
-    collectImportSources(program, source2, importSpans);
-    collectNamespaceImports(program, source2, namespaceImports);
-    propCount = countProps(program);
-    const legacyPropNames = collectLegacyPropNames(program);
-    const nonBindableProps = /* @__PURE__ */ new Set([...collectPropNames(program, false), ...legacyPropNames]);
-    const rawMutations = [];
-    collectPropMutations(program, nonBindableProps, source2, rawMutations);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, rawMutations);
-    for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? {
-      ...m,
-      legacy: true
-    } : m);
-    const allPropNames = /* @__PURE__ */ new Set([...collectPropNames(program, true), ...legacyPropNames]);
-    if (allPropNames.size > 0) {
-      const candidates = collectStalePropCandidates(program, allPropNames, source2);
-      if (candidates.length > 0) {
-        const candidateNames = new Set(candidates.map((c) => c.name));
-        const disqualified = /* @__PURE__ */ new Set();
-        collectStateWrites(program, candidateNames, disqualified);
-        if (ast.fragment) {
-          collectStateWrites(ast.fragment, candidateNames, disqualified);
-          collectTemplateEscapes(ast.fragment, candidateNames, disqualified);
-        }
-        const referenced = /* @__PURE__ */ new Set();
-        if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
-        const isLegacy = legacyPropNames.size > 0;
-        for (const c of candidates) if (!disqualified.has(c.name) && referenced.has(c.name)) stalePropDerivations.push(isLegacy ? {
-          ...c,
-          legacy: true
-        } : c);
-      }
-    }
-    const stateNames = /* @__PURE__ */ new Set();
-    const reactiveNames = /* @__PURE__ */ new Set();
-    collectImportedLocalNames(program, reactiveNames);
-    collectNewExprLocalNames(program, reactiveNames);
-    if (moduleProgram) {
-      collectImportedLocalNames(moduleProgram, reactiveNames);
-      collectNewExprLocalNames(moduleProgram, reactiveNames);
-    }
-    const stateDecls = [];
-    walkEstree(program, (n2) => {
-      if (n2.type !== "VariableDeclarator" || !n2.init) return;
-      const init2 = unwrapTs(n2.init);
-      if (isStateDeclaration(init2) && n2.id?.type === "Identifier") {
-        stateNames.add(n2.id.name);
-        stateDecls.push({
-          name: n2.id.name,
-          line: lineOf(source2, n2.start)
-        });
-      }
-      if (isStateDeclaration(init2) || isDerivedDeclaration(init2) || isPropsCall(init2)) addBoundNames(n2.id, reactiveNames);
-    });
-    walkEstree(program, (n2) => {
-      if (n2.type !== "CallExpression" || !isEffectCall(n2)) return;
-      const fn = n2.arguments?.[0];
-      const isFn = fn?.type === "ArrowFunctionExpression" || fn?.type === "FunctionExpression";
-      effects.push({
-        line: lineOf(source2, n2.start),
-        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false,
-        mountOnly: isFn ? !bodyIsEmpty(fn) && !bodyReadsReactive(fn, reactiveNames) : false
-      });
-    });
-    const writtenOrEscaped = /* @__PURE__ */ new Set();
-    collectStateWrites(program, stateNames, writtenOrEscaped);
-    if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
-      collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
-      collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
-    }
-    for (const d2 of stateDecls) if (!writtenOrEscaped.has(d2.name)) constableStates.push(d2);
-    const rawableCandidates = [];
-    for (const stmt2 of program.body ?? []) {
-      if (stmt2?.type !== "VariableDeclaration") continue;
-      for (const d2 of stmt2.declarations ?? []) {
-        if (d2?.id?.type !== "Identifier" || !d2.init) continue;
-        const init2 = unwrapTs(d2.init);
-        if (!isPlainStateCall(init2)) continue;
-        const arg = unwrapTs(init2.arguments?.[0]);
-        if (arg?.type === "ObjectExpression" || arg?.type === "ArrayExpression") rawableCandidates.push({
-          name: d2.id.name,
-          line: lineOf(source2, d2.start)
-        });
-      }
-    }
-    if (rawableCandidates.length > 0) {
-      const candNames = new Set(rawableCandidates.map((c) => c.name));
-      const union = /* @__PURE__ */ new Set();
-      const kinds = /* @__PURE__ */ new Map();
-      collectStateWrites(program, candNames, union, kinds);
-      if (ast.fragment) {
-        collectStateWrites(ast.fragment, candNames, union, kinds);
-        collectTemplateEscapes(ast.fragment, candNames, union, kinds);
-      }
-      const aliasEscapes = /* @__PURE__ */ new Set();
-      collectAliasRefs(program, candNames, aliasEscapes);
-      const eachTaint = /* @__PURE__ */ new Set();
-      if (ast.fragment) {
-        collectFragmentAliasRefs(ast.fragment, candNames, aliasEscapes);
-        collectDirectiveEscapes(ast.fragment, candNames, aliasEscapes);
-        collectEachContextTaint(ast.fragment, candNames, eachTaint);
-      }
-      for (const c of rawableCandidates) {
-        const k2 = kinds.get(c.name);
-        const reassigned = k2?.has("reassign") ?? false;
-        const dirty = k2 !== void 0 && [...k2].some((kind) => kind !== "reassign") || aliasEscapes.has(c.name) || eachTaint.has(c.name);
-        if (reassigned && !dirty) rawableStates.push(c);
-      }
-    }
-    const builtinCandidates = /* @__PURE__ */ new Map();
-    for (const stmt2 of program.body ?? []) {
-      if (stmt2?.type !== "VariableDeclaration") continue;
-      for (const d2 of stmt2.declarations ?? []) {
-        if (d2?.id?.type !== "Identifier" || !d2.init) continue;
-        const init2 = unwrapTs(d2.init);
-        if (!isPlainStateCall(init2)) continue;
-        const arg = unwrapTs(init2.arguments?.[0]);
-        if (arg?.type === "NewExpression" && arg.callee?.type === "Identifier" && BUILTIN_STATE_TYPES.has(arg.callee.name)) builtinCandidates.set(d2.id.name, {
-          type: arg.callee.name,
-          line: lineOf(source2, d2.start)
-        });
-      }
-    }
-    if (builtinCandidates.size > 0) {
-      const types2 = new Map([...builtinCandidates].map(([n2, meta]) => [n2, meta.type]));
-      const mutatedBuiltins = /* @__PURE__ */ new Set();
-      const reassignedBuiltins = /* @__PURE__ */ new Set();
-      collectBuiltinStateSignals(program, types2, mutatedBuiltins, reassignedBuiltins);
-      if (ast.fragment) collectBuiltinStateSignals(ast.fragment, types2, mutatedBuiltins, reassignedBuiltins);
-      for (const [name, meta] of builtinCandidates) if (mutatedBuiltins.has(name) && !reassignedBuiltins.has(name)) nonreactiveBuiltinStates.push({
-        name,
-        type: meta.type,
-        line: meta.line
-      });
-    }
-    let moduleExtra;
-    if (moduleProgram) {
-      const moduleBrowserImports = collectBrowserGuardImports(moduleProgram);
-      moduleExtra = {
-        guards: /* @__PURE__ */ new Set([...moduleBrowserImports, ...collectDerivedGuardBindings(moduleProgram, moduleBrowserImports)]),
-        bound: collectProgramBindings(moduleProgram)
-      };
-    }
-    for (const r2 of collectBrowserGlobalRefs(program, source2, moduleExtra)) browserGlobalRefs.push({
-      ...r2,
-      context: "instance"
-    });
-  }
-  const imports2 = importSpans.map((s) => s.source);
-  return {
-    eachBlocks,
-    effects,
-    htmlTags,
-    javascriptUrls,
-    loc,
-    propCount,
-    imports: imports2,
-    importSpans,
-    namespaceImports,
-    constableStates,
-    mutatedProps,
-    stalePropDerivations,
-    rawableStates,
-    nonreactiveBuiltinStates,
-    checkableBindValues,
-    basePathLinks,
-    orphanEffects,
-    orphanLifecycleCalls,
-    browserGlobalRefs,
-    moduleStateDecls: [],
-    suppressions,
-    commentLinks: collectCommentLinks(source2),
-    ariaElements,
-    elements,
-    interactiveNestings,
-    unnamedInteractive,
-    unassociatedLabels,
-    bulletTexts,
-    selectsMissingPlaceholder,
-    timesMissingDatetime,
-    videosAutoplayNoMuted,
-    duplicateDts
-  };
+function isRootRelativePath(value) {
+  return value.startsWith("/") && !value.startsWith("//");
 }
 var HANDLER_NAMES = /* @__PURE__ */ new Set([
   "load",
@@ -68705,6 +65047,142 @@ var performanceIframeLoading = componentRule({
     message: "<iframe> without a loading attribute loads eagerly even when offscreen"
   }))
 });
+var ARIA_1_3_ROLES = /* @__PURE__ */ new Set([
+  "comment",
+  "image",
+  "sectionheader",
+  "sectionfooter",
+  "suggestion"
+]);
+var ARIA_1_3_ATTRIBUTES = /* @__PURE__ */ new Set(["aria-colindextext", "aria-rowindextext"]);
+var NO_REQUIRED_PROPS = /* @__PURE__ */ new Set(["option", "treeitem"]);
+function isKnownRole(role) {
+  return ARIA_1_3_ROLES.has(role) || import_aria_query3.roles.has(role);
+}
+function isAbstractRole(role) {
+  return import_aria_query3.roles.get(role)?.abstract === true;
+}
+function isConcreteRole(role) {
+  return isKnownRole(role) && !isAbstractRole(role);
+}
+function resolveRole(tokens) {
+  return tokens.find(isConcreteRole);
+}
+function isKnownAriaAttribute(name) {
+  return ARIA_1_3_ATTRIBUTES.has(name) || import_aria_query3.aria.has(name);
+}
+function requiredAriaProps(role) {
+  if (NO_REQUIRED_PROPS.has(role)) return [];
+  const def = import_aria_query3.roles.get(role);
+  return def ? Object.keys(def.requiredProps) : [];
+}
+function ariaValueKind(name) {
+  const def = import_aria_query3.aria.get(name);
+  if (!def) return void 0;
+  return {
+    type: def.type,
+    ...def.values ? { values: def.values.map(String) } : {}
+  };
+}
+function foldOccurrences(nodes) {
+  const byKey = /* @__PURE__ */ new Map();
+  for (const node of nodes) {
+    if (node.repeatable) continue;
+    const list3 = byKey.get(node.key);
+    if (list3) list3.push(node);
+    else byKey.set(node.key, [node]);
+  }
+  const folded = /* @__PURE__ */ new Map();
+  for (const [key2, list3] of byKey) folded.set(key2, foldAt(list3, 0));
+  return folded;
+}
+function foldAt(nodes, depth) {
+  const unconditional = [];
+  const groups = /* @__PURE__ */ new Map();
+  for (const node of nodes) {
+    const step = node.path[depth];
+    if (!step) {
+      unconditional.push(node);
+      continue;
+    }
+    let branches = groups.get(step.group);
+    if (!branches) groups.set(step.group, branches = /* @__PURE__ */ new Map());
+    const list3 = branches.get(step.branch);
+    if (list3) list3.push(node);
+    else branches.set(step.branch, [node]);
+  }
+  const representatives2 = [...unconditional];
+  for (const branches of groups.values()) {
+    let best = [];
+    let bestBranch = Number.POSITIVE_INFINITY;
+    for (const [branch, list3] of branches) {
+      const arm = foldAt(list3, depth + 1);
+      if (arm.length > best.length || arm.length === best.length && branch < bestBranch) {
+        best = arm;
+        bestBranch = branch;
+      }
+    }
+    representatives2.push(...best);
+  }
+  return representatives2;
+}
+function decodeFragmentId(fragment2) {
+  try {
+    return decodeURIComponent(fragment2);
+  } catch {
+    return fragment2;
+  }
+}
+function splitTokens(value) {
+  return value ? value.trim().split(/\s+/).filter(Boolean) : [];
+}
+var LANDMARK_ROLES = /* @__PURE__ */ new Set([
+  "main",
+  "banner",
+  "contentinfo",
+  "complementary"
+]);
+var ANCESTRY_DEPENDENT_TAGS = /* @__PURE__ */ new Set(["header", "footer"]);
+var NAMING_ATTRS$1 = ["aria-label", "aria-labelledby"];
+var ASIDE_DEMOTING_TAGS = /* @__PURE__ */ new Set([
+  "article",
+  "aside",
+  "nav",
+  "section"
+]);
+function resolveLandmark(input) {
+  const { tag: tag2, roleTokens, named, insideSectioning, insideAsideDemoting } = input;
+  if (roleTokens !== void 0) {
+    const role = resolveRole(roleTokens);
+    return role && LANDMARK_ROLES.has(role) ? role : void 0;
+  }
+  if (tag2 === "main") return "main";
+  if (tag2 !== void 0 && ANCESTRY_DEPENDENT_TAGS.has(tag2)) return insideSectioning ? void 0 : tag2 === "header" ? "banner" : "contentinfo";
+  if (tag2 === "aside") return !insideAsideDemoting || named ? "complementary" : void 0;
+}
+var IDREF_ATTRS = [
+  "for",
+  "list",
+  "headers",
+  "form",
+  "popovertarget",
+  "commandfor",
+  "aria-labelledby",
+  "aria-describedby",
+  "aria-controls",
+  "aria-activedescendant",
+  "aria-owns",
+  "aria-details",
+  "aria-errormessage",
+  "aria-flowto"
+];
+function isTopFragment(id2) {
+  return id2.toLowerCase() === "top";
+}
+function stripTextDirective(fragment2) {
+  const i2 = fragment2.indexOf(":~:");
+  return i2 === -1 ? fragment2 : fragment2.slice(0, i2);
+}
 var a11yInvalidRole = componentRule({
   id: "a11y/invalid-role",
   title: "Invalid ARIA role",
@@ -68836,6 +65314,19 @@ var a11yInteractiveNesting = componentRule({
     message: `<${f.descendantTag}> is nested inside interactive <${f.containerTag}${f.containerRole ? ` role="${f.containerRole}"` : ""}>`
   }))
 });
+var a11yAriaHiddenFocus = componentRule({
+  id: "a11y/aria-hidden-focus",
+  title: "Focusable element hidden by aria-hidden",
+  category: "a11y",
+  label: "aria-hidden keeps focusables out",
+  rationale: 'An element inside `aria-hidden="true"` stays keyboard-reachable while assistive technology announces nothing for it \u2014 a screen reader user lands on a control that does not exist for them. The author cannot see this defect: `aria-hidden` changes nothing visually, so only assistive-technology users ever encounter it.',
+  recommendation: 'Remove `aria-hidden`, or take the element out of the tab order too (`tabindex="-1"`, `disabled`). To hide an inactive region such as a modal backdrop, prefer the `inert` attribute \u2014 it removes the subtree from both the accessibility tree and the tab order at once.',
+  applies: (c) => (c.ariaHiddenFocusables ?? []).length > 0,
+  bad: (c) => (c.ariaHiddenFocusables ?? []).map((f) => ({
+    line: f.line,
+    message: f.containerTag ? `<${f.tag}> inside <${f.containerTag} aria-hidden="true"> is still keyboard-focusable` : `<${f.tag} aria-hidden="true"> is still keyboard-focusable`
+  }))
+});
 var NAMING_ATTRS = /* @__PURE__ */ new Set([
   "title",
   "aria-label",
@@ -68928,6 +65419,78 @@ var a11yRequireDatetime = componentRule({
     message: `<time> content "${f.text}" is not machine-readable and has no datetime attribute`
   }))
 });
+var ALWAYS_INTERACTIVE_TAGS = /* @__PURE__ */ new Set([
+  "button",
+  "select",
+  "textarea",
+  "summary",
+  "embed",
+  "iframe"
+]);
+var INTERACTIVE_ROLES = /* @__PURE__ */ new Set([
+  "button",
+  "link",
+  "checkbox",
+  "radio",
+  "switch",
+  "tab",
+  "menuitem",
+  "menuitemcheckbox",
+  "menuitemradio",
+  "option",
+  "slider",
+  "spinbutton",
+  "textbox",
+  "combobox",
+  "searchbox",
+  "scrollbar",
+  "gridcell"
+]);
+var CONTAINER_ROLES = /* @__PURE__ */ new Set([
+  "button",
+  "link",
+  "checkbox",
+  "radio",
+  "switch",
+  "tab",
+  "menuitemcheckbox",
+  "menuitemradio",
+  "option",
+  "slider",
+  "scrollbar"
+]);
+function literalOf(attrs, name) {
+  return attrs.find((a2) => a2.name === name)?.literal;
+}
+function hasRoleIn(attrs, set2) {
+  const role = resolveRole(splitTokens(literalOf(attrs, "role")));
+  return role !== void 0 && set2.has(role);
+}
+function isInteractiveElement(tag2, attrs) {
+  if (ALWAYS_INTERACTIVE_TAGS.has(tag2)) return true;
+  if (tag2 === "a" && literalOf(attrs, "href") !== void 0) return true;
+  if (tag2 === "input") {
+    const typeAttr = attrs.find((a2) => a2.name === "type");
+    if (!typeAttr) return true;
+    if (typeAttr.literal !== void 0) return typeAttr.literal.toLowerCase() !== "hidden";
+    return false;
+  }
+  if ((tag2 === "audio" || tag2 === "video") && attrs.some((a2) => a2.name === "controls")) return true;
+  const n2 = literalTabindexValue(literalOf(attrs, "tabindex"));
+  if (n2 !== void 0 && n2 >= 0) return true;
+  return hasRoleIn(attrs, INTERACTIVE_ROLES);
+}
+function literalTabindexValue(raw) {
+  const trimmed = raw?.trim();
+  if (!trimmed) return void 0;
+  const n2 = Number(trimmed);
+  return Number.isFinite(n2) ? n2 : void 0;
+}
+function isInteractiveContainer(tag2, attrs) {
+  if (tag2 === "button") return true;
+  if (tag2 === "a") return literalOf(attrs, "href") !== void 0;
+  return hasRoleIn(attrs, CONTAINER_ROLES);
+}
 var a11yPositiveTabindex = componentRule({
   id: "a11y/positive-tabindex",
   title: "Positive tabindex",
@@ -69067,14 +65630,19 @@ var a11yPatternTitle = componentRule({
     message: "<input pattern> without a title \u2014 a failed match tells the user nothing about the expected format"
   }))
 });
+var HTML_SPEC = JSON.parse(`{"elements":{"a":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), a, [tabindex], :has(:model(interactive), a, [tabindex]))"}]},"aria":{"implicitRole":"link","permittedRoles":["button","checkbox","menuitem","menuitemcheckbox","menuitemradio","option","radio","switch","tab","treeitem"],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"attributionsrc":{"deprecated":true},"charset":{"deprecated":true},"coords":{"deprecated":true},"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{"deprecated":true},"ping":{},"referrerpolicy":{},"rel":{},"rev":{"deprecated":true},"shape":{"deprecated":true},"target":{},"type":{}}},"abbr":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"acronym":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"address":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(address, :model(heading), :model(sectioning), header, foooter, :has(address, :model(heading), :model(sectioning), header, foooter))"}]},"aria":{"implicitRole":"group","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"applet":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"area":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false,"descendantOf":"map"},"aria":{"implicitRole":"link","permittedRoles":[],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"alt":{"type":"Any","required":true,"condition":"[href]"},"coords":{"type":{"token":"Number","disallowToSurroundBySpaces":true,"separator":"comma"}},"download":{},"href":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{},"referrerpolicy":{},"rel":{},"shape":{"type":{"enum":["rect","circle","poly","default"],"missingValueDefault":"rect","invalidValueDefault":"rect"}},"target":{}}},"article":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"article","permittedRoles":["application","document","feed","main","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"aside":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"complementary","permittedRoles":["feed","none","note","presentation","region","search"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"audio":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{},"crossorigin":{},"disableremoteplayback":{},"loop":{},"muted":{},"preload":{},"src":{}}},"b":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"base":{"categories":["#metadata"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"href":{"type":"BaseURL"},"target":{}}},"basefont":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"bdi":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"bdo":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"dir":{}}},"bgsound":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"big":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blink":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blockquote":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"blockquote","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"body":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"generic","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"alink":{"deprecated":true},"background":{"deprecated":true},"bgcolor":{"deprecated":true},"bottommargin":{"deprecated":true},"leftmargin":{"deprecated":true},"link":{"deprecated":true},"onafterprint":{"type":"FunctionBody"},"onbeforeprint":{"type":"FunctionBody"},"onbeforeunload":{"type":"FunctionBody"},"onhashchange":{"type":"FunctionBody"},"onlanguagechange":{"type":"FunctionBody"},"onmessage":{"type":"FunctionBody"},"onmessageerror":{"type":"FunctionBody"},"onoffline":{"type":"FunctionBody"},"ononline":{"type":"FunctionBody"},"onpagehide":{"type":"FunctionBody"},"onpagereveal":{"type":"FunctionBody"},"onpageshow":{"type":"FunctionBody"},"onpageswap":{"type":"FunctionBody"},"onpopstate":{"type":"FunctionBody"},"onrejectionhandled":{"type":"FunctionBody"},"onstorage":{"type":"FunctionBody"},"onunhandledrejection":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"rightmargin":{"deprecated":true},"text":{"deprecated":true},"topmargin":{"deprecated":true},"vlink":{"deprecated":true}}},"br":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"clear":{"deprecated":true}}},"button":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"implicitRole":"button","permittedRoles":["checkbox","combobox","gridcell","link","menuitem","menuitemcheckbox","menuitemradio","option","radio","separator","slider","switch","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autofocus":{},"command":{"type":[{"enum":["toggle-popover","show-popover","hide-popover","close","request-close","show-modal"],"invalidValueDefault":"unknown","missingValueDefault":"unknown"},"ValidCustomCommand"]},"commandfor":{"type":"DOMID"},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{},"popovertarget":{"type":"DOMID"},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"}},"type":{"type":{"enum":["submit","reset","button"],"invalidValueDefault":"submit","missingValueDefault":"submit"}},"value":{"type":"Any"}}},"canvas":{"categories":["#flow","#phrasing","#embedded","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"moz-opaque":{"deprecated":true,"nonStandard":true},"width":{}}},"caption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"caption","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true}}},"center":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"cite":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"code":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"code","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"col":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"colgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"col"}],"conditional":[{"condition":"[span]","contents":false}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"data":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"value":{"type":"Any","required":true}}},"datalist":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"zeroOrMore":["option",":model(script-supporting)"]}]]}]},"aria":{"implicitRole":"listbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dd":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"del":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateTime"}}},"details":{"categories":["#flow","#interactive","#palpable"],"contentModel":{"contents":[{"require":"summary"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"},"open":{"type":"Boolean"}}},"dfn":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(dfn, :has(dfn))"}]},"aria":{"implicitRole":"term","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dialog":{"categories":["#flow"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"dialog","permittedRoles":["alertdialog"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"closedby":{"type":{"enum":["any","closerequest","none"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"open":{"type":"Boolean"},"tabindex":{"noUse":true}}},"dir":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"compact":{"deprecated":true}}},"div":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}],"conditional":[{"condition":"dl > div","contents":[{"oneOrMore":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}]}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dl":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"oneOrMore":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}],[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"div"},{"zeroOrMore":":model(script-supporting)"}]]}]},"aria":{"permittedRoles":["group","list","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"dt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":["listitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"em":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"emphasis","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"embed":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"src":{"type":"URL","required":"[itemprop]"},"type":{"type":"MIMEType"},"width":{}}},"fieldset":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"optional":"legend"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":["radiogroup","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"form":{},"name":{}}},"figcaption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["group","none","presentation"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"figure":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"require":"figcaption"},{"oneOrMore":":model(flow)"}],[{"oneOrMore":":model(flow)"},{"require":"figcaption"}],[{"oneOrMore":":model(flow)"}]]}]},"aria":{"implicitRole":"figure","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"font":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"color":{"deprecated":true},"face":{"deprecated":true},"size":{"deprecated":true}}},"footer":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}]},"aria":{"implicitRole":"contentinfo","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"form":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(form, :has(form))"}]},"aria":{"permittedRoles":["search","none","presentation"],"conditions":{":aria(has name)":{"implicitRole":"form"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"deprecated":true},"accept-charset":{"type":{"enum":["utf-8"],"caseInsensitive":true}},"action":{"type":"URL"},"autocapitalize":{},"autocomplete":{"type":{"enum":["on","off"],"invalidValueDefault":"on","missingValueDefault":"on"}},"enctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded","missingValueDefault":"application/x-www-form-urlencoded"}},"method":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get","missingValueDefault":"get"}},"name":{"type":"NoEmptyAny"},"novalidate":{"type":"Boolean"},"rel":{"type":"LinkTypeForFormElement"},"target":{"type":"NavigableTargetNameOrKeyword"}}},"frame":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"frameborder":{"deprecated":true},"marginheight":{"deprecated":true},"marginwidth":{"deprecated":true},"name":{"deprecated":true},"noresize":{"deprecated":true},"scrolling":{"deprecated":true},"src":{"deprecated":true}}},"frameset":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"cols":{"deprecated":true},"rows":{"deprecated":true}}},"h1":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h2":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h3":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h4":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h5":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h6":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"head":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":":model(metadata):not(title)"},{"require":"title"},{"zeroOrMore":":model(metadata):not(title)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"profile":{"deprecated":true}}},"header":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}]},"aria":{"implicitRole":"banner","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hgroup":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"},{"require":["h1","h2","h3","h4","h5","h6"]},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hr":{"categories":["#flow"],"contentModel":{"contents":false},"aria":{"implicitRole":"separator","permittedRoles":["presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true,"nonStandard":true},"color":{"deprecated":true,"nonStandard":true},"noshade":{"deprecated":true,"nonStandard":true},"size":{"deprecated":true,"nonStandard":true},"width":{"deprecated":true,"nonStandard":true}}},"html":{"categories":[],"contentModel":{"contents":[{"require":"head"},{"require":"body"}]},"aria":{"implicitRole":"generic","permittedRoles":["document","generic"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"version":{"deprecated":true},"xmlns":{}}},"i":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"iframe":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"allow":{"type":"SerializedPermissionsPolicy"},"allowfullscreen":{"type":"Boolean"},"allowpaymentrequest":{"deprecated":true,"nonStandard":true},"browsingtopics":{"deprecated":true,"nonStandard":true},"credentialless":{"experimental":true},"csp":{"experimental":true},"frameborder":{"deprecated":true},"height":{},"loading":{},"longdesc":{"deprecated":true},"marginheight":{"deprecated":true},"marginwidth":{"deprecated":true},"name":{"type":"NavigableTargetName"},"privateToken":{"type":"Any","experimental":true},"referrerpolicy":{},"sandbox":{"type":{"token":{"enum":["allow-forms","allow-modals","allow-orientation-lock","allow-pointer-lock","allow-popups","allow-popups-to-escape-sandbox","allow-presentation","allow-same-origin","allow-scripts","allow-top-navigation","allow-top-navigation-by-user-activation","allow-downloads","allow-custom-protocols-navigation"]},"caseInsensitive":true,"ordered":true,"unique":true,"separator":"space"}},"scrolling":{"deprecated":true},"src":{"required":"[itemprop]","ineffective":"[srcdoc]"},"srcdoc":{"type":"Any"},"width":{}}},"img":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"img","permittedRoles":["button","checkbox","link","math","menuitem","menuitemcheckbox","menuitemradio","meter","option","progressbar","radio","scrollbar","separator","slider","switch","tab","treeitem"],"conditions":{"[alt=\\"\\"]":{"implicitRole":"presentation"},":not([alt]):aria(has no name)":{"implicitRole":"img"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"alt":{"type":"Any"},"attributionsrc":{"deprecated":true},"border":{"deprecated":true},"crossorigin":{},"decoding":{"type":{"enum":["sync","async","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"elementtiming":{},"fetchpriority":{},"height":{},"hspace":{"deprecated":true},"ismap":{"type":"Boolean","condition":"a[href] img"},"loading":{},"longdesc":{"deprecated":true},"name":{"deprecated":true},"referrerpolicy":{},"sizes":{},"src":{"type":"URL","requiredEither":["srcset"]},"srcset":{"type":"Srcset","requiredEither":["src"]},"usemap":{"type":"HashName","condition":":is(:not(a):not(button)) img"},"vspace":{"deprecated":true},"width":{}}},"input":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"textbox","permittedRoles":["combobox","searchbox","spinbutton"],"conditions":{"[type='button' i]":{"implicitRole":"button"},"[type='checkbox' i]":{"implicitRole":"checkbox"},"[type='checkbox' i][aria-pressed]":{"implicitRole":"checkbox"},"[type='color' i]":{"implicitRole":false},"[type='date' i]":{"implicitRole":false},"[type='email' i]:not([list])":{"implicitRole":"textbox"},"[type='file' i]":{"implicitRole":false},"[type='hidden' i]":{"implicitRole":false},"[type='image' i]":{"implicitRole":"button"},"[type='month' i]":{"implicitRole":false},"[type='number' i]":{"implicitRole":"spinbutton"},"[type='password' i]":{"implicitRole":false},"[type='radio' i]":{"implicitRole":"radio"},"[type='range' i]":{"implicitRole":"slider"},"[type='reset' i]":{"implicitRole":"button"},"[type='search' i]:not([list])":{"implicitRole":"searchbox"},"[type='submit' i]":{"implicitRole":"button"},"[type='tel' i]:not([list])":{"implicitRole":"textbox"},":is(:not([type]), [type='text' i], [type='search' i], [type='tel' i], [type='url' i], [type='email' i])[list]":{"implicitRole":"combobox"},"[type='time' i]":{"implicitRole":false},"[type='url' i]:not([list])":{"implicitRole":"textbox"},"[type='week' i]":{"implicitRole":false}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"type":{"token":"Accept","caseInsensitive":true,"unique":true,"separator":"comma"},"condition":"[type='file' i]"},"alpha":{"type":"Boolean","experimental":true,"condition":"[type='color' i]"},"alt":{"type":"Any","condition":"[type='image' i]"},"autocapitalize":{},"autocomplete":{"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"autofocus":{},"capture":{},"checked":{"type":"Boolean","condition":["[type='checkbox' i]","[type='radio' i]"]},"colorspace":{"type":{"enum":["limited-srgb","display-p3"],"invalidValueDefault":"limited-srgb","missingValueDefault":"limited-srgb"},"experimental":true,"condition":"[type='color' i]"},"dirname":{"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='tel' i]","[type='url' i]","[type='email' i]","[type='password' i]","[type='submit' i]"]},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"height":{"condition":"[type='image' i]"},"id":{},"incremental":{"nonStandard":true},"inputmode":{},"list":{"type":"DOMID","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"max":{"type":["DateTime","Number"],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"maxlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"min":{"type":["DateTime","Number"],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"minlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"multiple":{"type":"Boolean","condition":["[type='email' i]","[type='file' i]"]},"name":{},"orient":{"nonStandard":true},"pattern":{"type":"Pattern","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"placeholder":{"type":"OneLineAny","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='number' i]"]},"popovertarget":{"type":"DOMID","condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"},"condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"readonly":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]"]},"required":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='checkbox' i]","[type='radio' i]","[type='file' i]"]},"results":{"nonStandard":true},"size":{"type":{"type":"integer","gt":0},"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"src":{"condition":"[type='image' i]"},"step":{"type":["Number",{"enum":["any"],"caseInsensitive":true}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"switch":{"type":"Boolean","experimental":true,"condition":["[type='checkbox' i]"]},"tabindex":{},"title":{},"type":{"type":{"enum":["hidden","text","search","tel","url","email","password","date","month","week","time","datetime-local","number","range","color","checkbox","radio","file","submit","image","reset","button"],"invalidValueDefault":"text","missingValueDefault":"text"}},"value":{"type":"Any"},"webkitdirectory":{"nonStandard":true},"width":{"condition":"[type='image' i]"}}},"ins":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"insertion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateTime"}}},"isindex":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"kbd":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"keygen":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"label":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(label, :has(label))"}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":"DOMID"}}},"legend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(phrasing)",":model(heading)"]}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"li":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"listitem","permittedRoles":["menuitem","menuitemcheckbox","menuitemradio","option","none","presentation","radio","separator","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"type":{"deprecated":true},"value":{"type":"Int","condition":"ol > li"}}},"link":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"as":{"type":{"enum":["fetch","audio","audioworklet","document","embed","font","frame","iframe","image","manifest","object","paintworklet","report","script","serviceworker","sharedworker","style","track","video","worker","xslt"]},"condition":["[rel='preload' i]","[rel='modulepreload' i]"]},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true},"condition":"[rel~='stylesheet' i]"},"charset":{"deprecated":true,"obsolete":true},"color":{"type":"<color>","condition":"[rel~='mask-icon' i]"},"crossorigin":{},"disabled":{"type":"Boolean"},"fetchpriority":{},"href":{},"hreflang":{},"imagesizes":{"type":"SourceSizeList","required":"[imagesrcset]","condition":"[imagesrcset][rel~='preload' i][as='image' i]"},"imagesrcset":{"type":"Srcset","required":"[imagesizes]","condition":"[imagesizes][rel~='preload' i][as='image' i]"},"integrity":{"condition":["[rel~='stylesheet' i]","[rel~='preload' i]","[rel~='modulepreload' i]"]},"itemprop":{"requiredEither":["rel"]},"media":{},"referrerpolicy":{},"rel":{"type":"LinkTypeForLinkElement","requiredEither":["itemprop"]},"rev":{"deprecated":true,"obsolete":true},"sizes":{"type":{"token":"IconSize","caseInsensitive":true,"ordered":false,"unique":true,"separator":"space"},"condition":["[rel~='icon' i]","[rel~='apple-touch-icon' i]"]},"target":{"deprecated":true},"title":{},"type":{}}},"listing":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"main":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"main","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"map":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"mark":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"marquee":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"behavior":{"deprecated":true},"bgcolor":{"deprecated":true},"direction":{"deprecated":true},"height":{"deprecated":true},"hspace":{"deprecated":true},"loop":{"deprecated":true},"scrollamount":{"deprecated":true},"scrolldelay":{"deprecated":true},"truespeed":{"deprecated":true},"vspace":{"deprecated":true},"width":{"deprecated":true}}},"math":{"categories":[],"contentModel":{"contents":true},"aria":{"implicitRole":"math","permittedRoles":[]},"globalAttrs":["#ARIAAttrs"],"attributes":{}},"menu":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"menuitem":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"meta":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"charset":{"type":{"enum":["utf-8"],"caseInsensitive":true},"condition":[":not([itemprop])",":not([name])",":not([http-equiv])"]},"content":{"type":"Any","required":["[name]","[http-equiv]","[itemprop]"],"condition":["[name]","[http-equiv]","[itemprop]"]},"http-equiv":{"type":{"enum":["content-type","default-style","refresh","x-ua-compatible","content-security-policy"]},"requiredEither":["itemprop","name","charset"],"condition":[":not([itemprop])",":not([name])",":not([charset])"]},"itemprop":{"requiredEither":["name","http-equiv","charset"],"condition":[":not([name])",":not([http-equiv])",":not([charset])"]},"media":{"condition":"[name='theme-color']"},"name":{"type":"Any","requiredEither":["itemprop","http-equiv","charset"],"condition":[":not([itemprop])",":not([http-equiv])",":not([charset])"]}}},"meter":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(meter, :has(meter))"}]},"aria":{"implicitRole":"meter","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"high":{"type":"Number"},"low":{"type":"Number"},"max":{"type":"Number"},"min":{"type":"Number"},"optimum":{"type":"Number"},"value":{"type":"Number"}}},"multicol":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nav":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"navigation","permittedRoles":["menu","menubar","none","presentation","tablist"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"nextid":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nobr":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noembed":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noframes":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noscript":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"transparent":":not(noscript)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"object":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["application","document","img"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"archive":{"deprecated":true},"border":{"deprecated":true},"classid":{"deprecated":true},"codebase":{"deprecated":true},"codetype":{"deprecated":true},"data":{"type":"URL","requiredEither":["type"]},"declare":{"deprecated":true},"form":{},"height":{},"name":{"type":"NavigableTargetName"},"standby":{"deprecated":true},"type":{"type":"MIMEType","requiredEither":["data"]},"usemap":{"deprecated":true},"width":{}}},"ol":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true,"nonStandard":true},"reversed":{"type":"Boolean"},"start":{"type":"Int"},"type":{"type":{"enum":["1","a","A","i","I"],"caseInsensitive":false,"invalidValueDefault":"decimal","missingValueDefault":"decimal"}}}},"optgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"option"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"Any","required":true}}},"option":{"categories":[],"contentModel":{"contents":[{"optional":"#text"}],"conditional":[{"condition":"[label][value]","contents":false},{"condition":"label","contents":[{"optional":"#text"}]},{"condition":"datalist > [label]","contents":[{"optional":"#text"}]}]},"aria":{"permittedRoles":[],"conditions":{":is(select, select > option, datalist) > option":{"implicitRole":"option"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"Any"},"selected":{"type":"Boolean"},"value":{"type":"Any"}}},"output":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"status","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":{"token":"DOMID","separator":"space","unique":true,"caseInsensitive":true}},"form":{},"name":{}}},"p":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"paragraph","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"param":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"name":{"deprecated":true},"type":{"deprecated":true},"value":{"deprecated":true},"valuetype":{"deprecated":true}}},"picture":{"categories":["#flow","#phrasing","#embedded"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"source"},{"zeroOrMore":":model(script-supporting)"},{"require":"img"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"plaintext":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"pre":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"width":{"deprecated":true,"nonStandard":true},"wrap":{"deprecated":true,"nonStandard":true}}},"progress":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(progress, :has(progress))"}]},"aria":{"implicitRole":"progressbar","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"max":{"type":"Number"},"value":{"type":"Number"}}},"q":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"rb":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"rp":{"categories":[],"contentModel":{"contents":[{"oneOrMore":"#text"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rtc":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"ruby":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":[{"oneOrMore":[":model(phrasing):not(ruby, :has(ruby))","ruby:not(:has(ruby))"]},{"choice":[[{"oneOrMore":"rt"}],[{"require":"rp"},{"oneOrMore":[{"require":"rt"},{"require":"rp"}]}]]}]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"s":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"samp":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"script":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"async":{"type":"Boolean","ineffective":":not([src]):not([type='module' i])","condition":["[src]","[type='module' i]"]},"attributionsrc":{"deprecated":true},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true}},"charset":{"deprecated":true},"crossorigin":{},"defer":{"type":"Boolean","ineffective":["[type='module' i]",":not([src])","[async]"],"condition":"[src]"},"fetchpriority":{},"integrity":{"condition":"[src]"},"language":{"deprecated":true,"nonStandard":true},"nomodule":{"type":"Boolean","condition":":not([type='module' i])"},"nonce":{},"referrerpolicy":{},"src":{"type":"URL"},"type":{"type":["MIMEType",{"enum":["module","importmap"],"caseInsensitive":true}]}}},"search":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"search","permittedRoles":["form","group","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"section":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["alert","alertdialog","application","banner","complementary","contentinfo","dialog","document","feed","group","log","main","marquee","navigation","none","note","presentation","search","status","tabpanel"],"conditions":{":aria(has name)":{"implicitRole":"region"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"select":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"zeroOrMore":["option","optgroup","hr","#script-supporting"]}]},"aria":{"implicitRole":"combobox","permittedRoles":["menu"],"conditions":{"[multiple], [size]:not([size=1])":{"implicitRole":"listbox"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocomplete":{},"autofocus":{},"disabled":{},"form":{},"multiple":{"type":"Boolean"},"name":{},"required":{},"size":{"type":{"type":"integer","gt":0}}}},"slot":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"small":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"source":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{"condition":"picture > source"},"media":{"type":"<media-query-list>"},"sizes":{"condition":"picture > source"},"src":{"type":"URL","required":":is(video, audio) > source","condition":":is(video, audio) > source"},"srcset":{"required":"picture > source","condition":"picture > source"},"type":{"type":"MIMEType"},"width":{"condition":"picture > source"}}},"spacer":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"span":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"strike":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"strong":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"strong","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"style":{"categories":["#metadata"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true}},"media":{"type":"<media-query-list>"},"nonce":{},"title":{},"type":{"deprecated":true}}},"sub":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"subscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"summary":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"require":":model(heading)"}]]}]},"aria":{"implicitRole":"button","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"sup":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"superscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"table":{"categories":["#flow"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"optional":"caption"},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"colgroup"},{"zeroOrMore":":model(script-supporting)"},{"optional":"thead"},{"zeroOrMore":":model(script-supporting)"},{"choice":[[{"zeroOrMore":"tbody"}],[{"oneOrMore":"tr"}]]},{"zeroOrMore":":model(script-supporting)"},{"optional":"tfoot"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"table","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"border":{"deprecated":true},"cellpadding":{"deprecated":true},"cellspacing":{"deprecated":true},"frame":{"deprecated":true},"rules":{"deprecated":true},"summary":{"deprecated":true},"width":{"deprecated":true}}},"tbody":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"td":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > td, table:is(:not([role]), [role=table]) > tr > td":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > td, table:is([role=grid], [role=treegrid]) > tr > td":{"implicitRole":"gridcell"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"deprecated":true},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"deprecated":true},"valign":{"deprecated":true},"width":{"deprecated":true}}},"template":{"categories":["#metadata","#flow","#phrasing","#script-supporting"],"contentModel":{"contents":true},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"shadowrootclonable":{"type":"Boolean"},"shadowrootdelegatesfocus":{"type":"Boolean"},"shadowrootmode":{"type":{"enum":["open","closed"],"missingValueDefault":"none","invalidValueDefault":"none"}},"shadowrootreferencetarget":{"type":"DOMID","nonStandard":true,"experimental":true},"shadowrootserializable":{"type":"Boolean"}}},"textarea":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"optional":"#text"}]},"aria":{"implicitRole":"textbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocapitalize":{},"autocomplete":{},"autocorrect":{},"autofocus":{},"cols":{"type":{"type":"integer","gt":0}},"dirname":{},"disabled":{},"form":{},"maxlength":{},"minlength":{},"name":{},"placeholder":{"type":"Any"},"readonly":{},"required":{},"rows":{"type":{"type":"integer","gt":0}},"spellcheck":{},"wrap":{"type":{"enum":["soft","hard"],"missingValueDefault":"soft","invalidValueDefault":"soft"}}}},"tfoot":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"th":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > th, table:is(:not([role]), [role=table]) > tr > th":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th, table:is([role=grid], [role=treegrid]) > tr > th":{"implicitRole":"gridcell"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > thead > tr > th:not([scope])":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(tfoot, tbody) > tr > th:not([scope]), table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th:not([scope])":{"implicitRole":"rowheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=col], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=col]":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=row], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=row]":{"implicitRole":"rowheader"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"type":"Any"},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"type":{"enum":["row","col","rowgroup","colgroup"],"missingValueDefault":"auto","invalidValueDefault":"auto"}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"thead":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"time":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"time","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"datetime":{"type":"DateTime"}}},"title":{"categories":["#metadata"],"contentModel":{"contents":[{"require":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"tr":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["th","td",":model(script-supporting)"]}]},"aria":{"implicitRole":"row","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"track":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"default":{"type":"Boolean"},"kind":{"type":{"enum":["subtitles","captions","descriptions","chapters","metadata"],"missingValueDefault":"metadata","invalidValueDefault":"metadata"}},"label":{"type":"NoEmptyAny"},"src":{"type":"URL","required":true},"srclang":{"type":"BCP47"}}},"tt":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"u":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"ul":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true},"type":{"deprecated":true}}},"var":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"video":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{"type":{"token":{"enum":["nodownload","nofullscreen","noremoteplayback"]},"ordered":false,"caseInsensitive":true,"unique":true,"separator":"space"}},"crossorigin":{},"disablepictureinpicture":{},"disableremoteplayback":{},"height":{},"loop":{},"muted":{},"playsinline":{"type":"Boolean"},"poster":{"type":"URL"},"preload":{},"src":{},"width":{}}},"wbr":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"xmp":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"svg:a":{"categories":[],"contentModel":{"conditional":[{"condition":"svg|switch > svg|a","contents":[{"transparent":"*"}]}],"contents":[{"transparent":"*, :model(SVGDescriptive):not(svg|a, :has(svg|a))"}]},"aria":{"implicitRole":"group","permittedRoles":"any","conditions":{"[href], [xlink|href]":{"implicitRole":"link"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{"experimental":true},"referrerpolicy":{},"rel":{},"target":{},"type":{},"xlink:href":{"deprecated":true}}},"svg:animate":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:animateMotion":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":[":model(SVGDescriptive)","svg|script"]},{"optional":"svg|mpath"}],[{"optional":"svg|mpath"},{"oneOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"keyPoints":{"type":"<key-points>"},"origin":{"type":"<origin>"},"path":{"type":"<svg-path>"},"rotate":{"type":"<rotate>"}}},"svg:animateTransform":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"type":{"type":{"enum":["translate","scale","rotate","skewX","skewY"]}}}},"svg:circle":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"r":{}}},"svg:clipPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)","svg|text","svg|use","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"clipPathUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"]}}}},"svg:defs":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:desc":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:discard":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"begin":{"type":"<begin-value-list>"},"href":{"type":"URL"}}},"svg:ellipse":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{}}},"svg:feBlend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"mode":{"type":"<blend-mode>"}}},"svg:feColorMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"type":{"type":{"enum":["matrix","saturate","hueRotate","luminanceToAlpha"],"disallowToSurroundBySpaces":false}},"values":{"type":"<color-matrix>"}}},"svg:feComponentTransfer":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feFuncA","svg|feFuncR","svg|feFuncB","svg|feFuncG","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feComposite":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"k1":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k2":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k3":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k4":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"operator":{"type":{"enum":["over","in","out","atop","xor","lighter","arithmetic"],"disallowToSurroundBySpaces":false}}}},"svg:feConvolveMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"bias":{"type":"<number>"},"divisor":{"type":"<number>"},"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"kernelMatrix":{"type":"<list-of-numbers>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"order":{"type":"<number-optional-number>"},"preserveAlpha":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"targetX":{"type":"<integer>"},"targetY":{"type":"<integer>"}}},"svg:feDiffuseLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"diffuseConstant":{"type":"<number>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"surfaceScale":{"type":"<number>"}}},"svg:feDisplacementMap":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"scale":{"type":"<number>"},"xChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}},"yChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}}}},"svg:feDistantLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"azimuth":{"type":"<number>"},"elevation":{"type":"<number>"}}},"svg:feDropShadow":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feFlood":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"}}},"svg:feFuncA":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncB":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncG":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncR":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feGaussianBlur":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feImage":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"crossorigin":{"type":{"enum":["anonymous","use-credentials"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"xlink:href":{"type":"URL","deprecated":true}}},"svg:feMerge":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feMergeNode","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feMergeNode":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs"],"attributes":{}},"svg:feMorphology":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"operator":{"type":{"enum":["erode","dilate"],"disallowToSurroundBySpaces":false}},"radius":{"type":"<number-optional-number>"}}},"svg:feOffset":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"}}},"svg:fePointLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feSpecularLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"kernelUnitLength":{"type":"<number-optional-number>"},"specularConstant":{"type":"<number>"},"specularExponent":{"type":"<number>"},"surfaceScale":{"type":"<number>"}}},"svg:feSpotLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"limitingConeAngle":{"type":"<number>"},"pointsAtX":{"type":"<number>"},"pointsAtY":{"type":"<number>"},"pointsAtZ":{"type":"<number>"},"specularExponent":{"type":"<number>"},"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feTile":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feTurbulence":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"baseFrequency":{"type":"<number-optional-number>"},"numOctaves":{"type":"<integer>"},"seed":{"type":"<number>"},"stitchTiles":{"type":{"enum":["noStitch","stitch"]}},"type":{"type":{"enum":["fractalNoise","turbulence"]}}}},"svg:filter":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGFilterPrimitive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"filterRes":{"type":"<number-optional-number>","deprecated":true},"filterUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"height":{},"primitiveUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"width":{},"x":{},"y":{}}},"svg:foreignObject":{"categories":[],"contentModel":{"contents":true},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"width":{},"x":{},"y":{}}},"svg:g":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:image":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"img","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"sameStates":{"anonymous":[""]}}},"decoding":{},"fetchpriority":{"nonStandard":true,"experimental":true},"height":{},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:line":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"x1":{"type":["<svg-length>","<percentage>","<number>"]},"x2":{"type":["<svg-length>","<percentage>","<number>"]},"y1":{"type":["<svg-length>","<percentage>","<number>"]},"y2":{"type":["<svg-length>","<percentage>","<number>"]}}},"svg:linearGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"x1":{"type":["<svg-length>","<percentage>"]},"x2":{"type":["<svg-length>","<percentage>"]},"xlink:href":{"deprecated":true},"y1":{"type":["<svg-length>","<percentage>"]},"y2":{"type":["<svg-length>","<percentage>"]}}},"svg:marker":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"markerHeight":{"type":["<svg-length>","<percentage>","<number>"]},"markerUnits":{"type":{"enum":["userSpaceOnUse","strokeWidth"],"disallowToSurroundBySpaces":false}},"markerWidth":{"type":["<svg-length>","<percentage>","<number>"]},"orient":{"type":[{"enum":["auto","auto-start-reverse"],"disallowToSurroundBySpaces":false},"<angle>","<number>"]},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"refY":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"viewBox":{"type":"<view-box>"}}},"svg:mask":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)",":model(SVGStructural)",":model(SVGGradient)","svg|a","svg|altGlyphDef","svg|clipPath","svg|color-profile","svg|cursor","svg|filter","svg|font","svg|font-face","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|pattern","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"mask-type":{},"maskContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"maskUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"width":{},"x":{},"y":{}}},"svg:metadata":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:mpath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"href":{"type":"URL"}}},"svg:path":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"d":{},"pathLength":{"type":"<number>"}}},"svg:pattern":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"patternContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"patternTransform":{"type":"<transform-list>"},"patternUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:polygon":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:polyline":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:radialGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"fr":{"type":["<svg-length>","<percentage>"]},"fx":{"type":["<svg-length>","<percentage>"]},"fy":{"type":["<svg-length>","<percentage>"]},"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"r":{"type":["<svg-length>","<percentage>"]},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"xlink:href":{"deprecated":true}}},"svg:rect":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{},"width":{},"x":{},"y":{}}},"svg:script":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGNeverRendered)",":model(SVGStructurallyExternal)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#XLinkAttrs"],"attributes":{"crossorigin":{"type":{"enum":["anonymous","use-credentials",""],"disallowToSurroundBySpaces":false}},"fetchpriority":{"nonStandard":true,"experimental":true},"href":{"type":"URL"},"type":{"type":"MIMEType"},"xlink:href":{"deprecated":true}}},"svg:set":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"to":{"type":"NoEmptyAny"}}},"svg:stop":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["svg:animate","svg|animateColor","svg|script","svg|set","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"offset":{"type":["<number>","<percentage>"]},"stop-color":{"type":"<color>"},"stop-opacity":{"type":"<'opacity'>"}}},"svg:style":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"media":{"type":"<media-query-list>"},"title":{"type":"Any"},"type":{"type":"MIMEType"}}},"svg:svg":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-document","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"baseProfile":{"type":"Any","deprecated":true},"contentScriptType":{"type":"Any","deprecated":true},"contentStyleType":{"type":"Any","deprecated":true},"height":{},"onunload":{"type":"FunctionBody"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"version":{"type":"Any","deprecated":true},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:switch":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGShape)","svg|a","svg|foreignObject","svg|g","svg|image","svg|svg","svg|switch","svg|text","svg|use"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"requiredExtensions":{},"systemLanguage":{}}},"svg:symbol":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<svg-length>","<percentage>","<number>",{"enum":["left","center","right"]}]},"refY":{"type":["<svg-length>","<percentage>","<number>",{"enum":["top","center","bottom"]}]},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:text":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGTextContentChild)","svg|a","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:textPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|clipPath","svg|marker","svg|mask","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"href":{"type":"URL"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"method":{"type":{"enum":["align","stretch"],"disallowToSurroundBySpaces":false}},"path":{"type":"<svg-path>","experimental":true},"side":{"type":{"enum":["left","right"],"disallowToSurroundBySpaces":false},"experimental":true},"spacing":{"type":{"enum":["auto","exact"],"disallowToSurroundBySpaces":false}},"startOffset":{"type":["<svg-length>","<percentage>"]},"textLength":{"type":["<svg-length>","<percentage>"]}}},"svg:title":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:tspan":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:use":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:view":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs"],"attributes":{"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"viewTarget":{"type":"Any","deprecated":true},"zoomAndPan":{"type":{"enum":["disable","magnify"]},"deprecated":true}}}},"contentModels":{"#metadata":["base","link","meta","noscript","script","style","template","title"],"#flow":["a","abbr","address","area","article","aside","audio","b","bdi","bdo","blockquote","br","button","canvas","cite","code","data","datalist","del","details","dfn","dialog","div","dl","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","hr","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","main","map","mark","math","menu","meta[itemprop]","meter","nav","noscript","object","ol","output","p","picture","pre","progress","q","ruby","s","samp","script","search","section","select","slot","small","span","strong","sub","sup","svg|svg","table","template","textarea","time","u","ul","var","video","wbr","#custom","#text"],"#sectioning":["article","aside","nav","section"],"#heading":["h1","h2","h3","h4","h5","h6","hgroup:has(h1,h2,h3,h4,h5,h6)"],"#phrasing":["a","abbr","area","audio","b","bdi","bdo","br","button","canvas","cite","code","data","datalist","del","dfn","em","embed","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","map","mark","math","meta[itemprop]","meter","noscript","object","output","picture","progress","q","ruby","s","samp","script","select","slot","small","span","strong","sub","sup","svg|svg","template","textarea","time","u","var","video","wbr","#custom","#text"],"#embedded":["audio","canvas","embed","iframe","img","math","object","picture","svg|svg","video"],"#interactive":["a[href]","audio[controls]","button","details","embed","iframe","img[usemap]","input:not([type='hidden' i])","label","select","textarea","video[controls]"],"#palpable":["a","abbr","address","article","aside","audio[controls]","b","bdi","bdo","blockquote","button","canvas","cite","code","data","del","details","dfn","div","dl:has(>:is(dt+dd))","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","i","iframe","img","input:not([type='hidden' i])","ins","kbd","label","main","map","mark","math","menu:has(>li)","meter","nav","object","ol:has(>li)","output","p","picture","pre","progress","q","ruby","s","samp","search","section","select","small","span","strong","sub","sup ","svg","table","textarea","time","u","ul:has(>li)","var","video","#custom","#text"],"#script-supporting":["script","template"],"#SVGAnimation":["svg|animate","svg|animateColor","svg|animateMotion","svg|animateTransform","svg|discard","svg|mpath","svg|set"],"#SVGBasicShapes":["svg|circle","svg|ellipse","svg|line","svg|polygon","svg|polyline","svg|rect"],"#SVGContainer":["svg|a","svg|defs","svg|g","svg|marker","svg|mask","svg|missing-glyph","svg|pattern","svg|svg","svg|switch","svg|symbol"],"#SVGDescriptive":["svg|desc","svg|metadata","svg|title"],"#SVGFilterPrimitive":["svg|feBlend","svg|feColorMatrix","svg|feComponentTransfer","svg|feComposite","svg|feConvolveMatrix","svg|feDiffuseLighting","svg|feDisplacementMap","svg|feDropShadow","svg|feFlood","svg|feFuncA","svg|feFuncB","svg|feFuncG","svg|feFuncR","svg|feGaussianBlur","svg|feImage","svg|feMerge","svg|feMergeNode","svg|feMorphology","svg|feOffset","svg|feSpecularLighting","svg|feTile","svg|feTurbulence"],"#SVGFont":["svg|font","svg|font-face","svg|font-face-format","svg|font-face-name","svg|font-face-src","svg|font-face-uri","svg|hkern","svg|vkern"],"#SVGGradient":["svg|linearGradient","svg|radialGradient","svg|stop"],"#SVGGraphics":["svg|circle","svg|ellipse","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|text","svg|use"],"#SVGGraphicsReferencing":["svg|use"],"#SVGLightSource":["svg|feDistantLight","svg|fePointLight","svg|feSpotLight"],"#SVGNeverRendered":["svg|clipPath","svg|defs","svg|linearGradient","svg|marker","svg|mask","svg|metadata","svg|pattern","svg|radialGradient","svg|script","svg|style","svg|symbol","svg|title"],"#SVGPaintServer":["svg|linearGradient","svg|pattern","svg|radialGradient","svg|solidcolor"],"#SVGRenderable":["svg|a","svg|circle","svg|ellipse","svg|foreignObject","svg|g","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|svg","svg|switch","svg|symbol","svg|text","svg|textPath","svg|tspan","svg|unknown","svg|use"],"#SVGShape":["svg|circle","svg|ellipse","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect"],"#SVGStructural":["svg|defs","svg|g","svg|svg","svg|symbol","svg|use"],"#SVGStructurallyExternal":[],"#SVGTextContent":["svg|altGlyph","svg|altGlyphDef","svg|altGlyphItem","svg|glyph","svg|glyphRef","svg|textPath","svg|text","svg|tref","svg|tspan"],"#SVGTextContentChild":["svg|altGlyph","svg|textPath","svg|tref","svg|tspan"]},"globalAttrs":{"#HTMLGlobalAttrs":{"accesskey":{"type":{"token":"OneCodePointChar","ordered":true,"unique":true,"number":"zeroOrMore","separator":"space"}},"autocapitalize":{"type":{"enum":["off","on","none","sentences","words","characters"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"sentences","missingValueDefault":"default","sameStates":{"none":["off"],"sentences":["on"]}}},"autocorrect":{"type":{"enum":["","on","off"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"on","missingValueDefault":"on","sameStates":{"on":[""]}}},"autofocus":{"type":"Boolean"},"contenteditable":{"type":{"enum":["","true","false","plaintext-only"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"true":[""]}}},"dir":{"type":{"enum":["ltr","rtl","auto"]}},"draggable":{"type":{"enum":["true","false"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"enterkeyhint":{"type":{"enum":["enter","done","go","next","previous","search","send"]}},"headingoffset":{"type":{"type":"integer","gte":0,"lte":8}},"headingreset":{"type":"Boolean"},"hidden":{"type":{"enum":["","hidden","until-found"]}},"inert":{"type":"Boolean"},"inputmode":{"type":{"enum":["none","text","tel","url","email","numeric","decimal","search"]}},"is":{"type":"CustomElementName"},"itemid":{"type":"URL"},"itemprop":{"type":{"token":"ItemProp","ordered":false,"unique":true,"separator":"space"}},"itemref":{"type":{"token":"DOMID","separator":"space"},"condition":"[itemscope]"},"itemscope":{"type":"Boolean"},"itemtype":{"type":{"token":"AbsoluteURL","ordered":false,"unique":true,"separator":"space"}},"lang":{"type":"BCP47"},"nonce":{"type":"Any"},"popover":{"type":{"enum":["","auto","manual","hint"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"manual","missingValueDefault":"no popover","sameStates":{"auto":[""]}}},"spellcheck":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"style":{"type":"<css-declaration-list>"},"tabindex":{"type":"TabIndex"},"title":{"type":"Any"},"translate":{"type":{"enum":["","yes","no"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"yes":[""]}}},"writingsuggestions":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"class":{"type":"Any"},"id":{"type":"DOMID"},"slot":{"type":"NoEmptyAny"},"xmlns":{"type":"URL","ineffective":"*"},"xml:lang":{"type":"BCP47","deprecated":true},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"elementtiming":{"type":"NoEmptyAny","experimental":true}},"#GlobalEventAttrs":{"onabort":{"type":"FunctionBody"},"onauxclick":{"type":"FunctionBody"},"onbeforeinput":{"type":"FunctionBody"},"onbeforematch":{"type":"FunctionBody"},"onbeforetoggle":{"type":"FunctionBody"},"onblur":{"type":"FunctionBody"},"oncancel":{"type":"FunctionBody"},"oncanplay":{"type":"FunctionBody"},"oncanplaythrough":{"type":"FunctionBody"},"onchange":{"type":"FunctionBody"},"onclick":{"type":"FunctionBody"},"onclose":{"type":"FunctionBody"},"oncommand":{"type":"FunctionBody"},"oncontextlost":{"type":"FunctionBody"},"oncompositionstart":{"type":"FunctionBody"},"oncompositionupdate":{"type":"FunctionBody"},"oncompositionend":{"type":"FunctionBody"},"oncontextmenu":{"type":"FunctionBody"},"oncontextrestored":{"type":"FunctionBody"},"oncopy":{"type":"FunctionBody"},"oncuechange":{"type":"FunctionBody"},"oncut":{"type":"FunctionBody"},"ondblclick":{"type":"FunctionBody"},"ondrag":{"type":"FunctionBody"},"ondragend":{"type":"FunctionBody"},"ondragenter":{"type":"FunctionBody"},"ondragleave":{"type":"FunctionBody"},"ondragover":{"type":"FunctionBody"},"ondragstart":{"type":"FunctionBody"},"ondrop":{"type":"FunctionBody"},"ondurationchange":{"type":"FunctionBody"},"onemptied":{"type":"FunctionBody"},"onended":{"type":"FunctionBody"},"onerror":{"type":"FunctionBody"},"onfocus":{"type":"FunctionBody"},"onformdata":{"type":"FunctionBody"},"onfocusin":{"type":"FunctionBody"},"onfocusout":{"type":"FunctionBody"},"oninput":{"type":"FunctionBody"},"oninvalid":{"type":"FunctionBody"},"onkeydown":{"type":"FunctionBody"},"onkeypress":{"type":"FunctionBody"},"onkeyup":{"type":"FunctionBody"},"onload":{"type":"FunctionBody"},"onloadeddata":{"type":"FunctionBody"},"onloadedmetadata":{"type":"FunctionBody"},"onloadstart":{"type":"FunctionBody"},"onmousedown":{"type":"FunctionBody"},"onmouseenter":{"type":"FunctionBody"},"onmouseleave":{"type":"FunctionBody"},"onmousemove":{"type":"FunctionBody"},"onmouseout":{"type":"FunctionBody"},"onmouseover":{"type":"FunctionBody"},"onmouseup":{"type":"FunctionBody"},"onpaste":{"type":"FunctionBody"},"onpause":{"type":"FunctionBody"},"onplay":{"type":"FunctionBody"},"onplaying":{"type":"FunctionBody"},"onprogress":{"type":"FunctionBody"},"onratechange":{"type":"FunctionBody"},"onreset":{"type":"FunctionBody"},"onresize":{"type":"FunctionBody"},"onscroll":{"type":"FunctionBody"},"onscrollend":{"type":"FunctionBody"},"onsecuritypolicyviolation":{"type":"FunctionBody"},"onseeked":{"type":"FunctionBody"},"onseeking":{"type":"FunctionBody"},"onselect":{"type":"FunctionBody"},"onslotchange":{"type":"FunctionBody"},"onstalled":{"type":"FunctionBody"},"onsubmit":{"type":"FunctionBody"},"onsuspend":{"type":"FunctionBody"},"ontimeupdate":{"type":"FunctionBody"},"ontoggle":{"type":"FunctionBody"},"onvolumechange":{"type":"FunctionBody"},"onwaiting":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"onwheel":{"type":"FunctionBody"},"onanimationstart":{"type":"FunctionBody"},"onanimationiteration":{"type":"FunctionBody"},"onanimationend":{"type":"FunctionBody"},"onanimationcancel":{"type":"FunctionBody"},"ontransitionrun":{"type":"FunctionBody"},"ontransitionstart":{"type":"FunctionBody"},"ontransitionend":{"type":"FunctionBody"},"ontransitioncancel":{"type":"FunctionBody"},"onwebkitanimationend":{"type":"FunctionBody","deprecated":true},"onwebkitanimationiteration":{"type":"FunctionBody","deprecated":true},"onwebkitanimationstart":{"type":"FunctionBody","deprecated":true},"onwebkittransitionend":{"type":"FunctionBody","deprecated":true}},"#HTMLLinkAndFetchingAttrs":{"href":{"type":"URL"},"target":{"type":"NavigableTargetNameOrKeyword","condition":"[href]"},"download":{"type":"Any","condition":"[href]"},"ping":{"type":{"token":"HTTPSchemaURL","separator":"space"},"condition":"[href]"},"rel":{"type":"LinkTypeForAnchorAndAreaElement","condition":"[href]"},"hreflang":{"type":"BCP47","condition":"[href]"},"type":{"type":"MIMEType","condition":"[href]"},"referrerpolicy":{"type":{"enum":["","no-referrer","no-referrer-when-downgrade","same-origin","origin","strict-origin","origin-when-cross-origin","strict-origin-when-cross-origin","unsafe-url"]},"condition":"[href], [src]"},"loading":{"type":{"enum":["lazy","eager"],"invalidValueDefault":"eager","missingValueDefault":"eager"}},"integrity":{"type":"Any"},"media":{"type":"<media-query-list>"},"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"invalidValueDefault":"anonymous","missingValueDefault":"No CORS","sameStates":{"anonymous":[""]}}},"fetchpriority":{"type":{"enum":["high","low","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}}},"#HTMLEmbededAndMediaContentAttrs":{"src":{"type":"URL"},"preload":{"type":{"enum":["none","metadata","auto"],"invalidValueDefault":"implementation-defined","missingValueDefault":"implementation-defined"}},"autoplay":{"type":"Boolean"},"loop":{"type":"Boolean"},"muted":{"type":"Boolean"},"controls":{"type":"Boolean"},"height":{"type":"Uint"},"srcset":{"type":"Srcset"},"sizes":{"type":"SourceSizeList"},"width":{"type":"Uint"}},"#HTMLFormControlElementAttrs":{"autocomplete":{"type":"AutoComplete"},"dirname":{"type":"NoEmptyAny"},"disabled":{"type":"Boolean"},"form":{"type":"DOMID"},"formaction":{"type":"URL"},"formenctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded"}},"formmethod":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get"}},"formnovalidate":{"type":"Boolean"},"formtarget":{"type":"NavigableTargetNameOrKeyword"},"name":{"type":"NoEmptyAny"},"maxlength":{"type":"Uint"},"minlength":{"type":"Uint"},"readonly":{"type":"Boolean"},"required":{"type":"Boolean"}},"#HTMLTableCellElementAttrs":{"colspan":{"type":{"type":"integer","gt":0,"lte":1000}},"rowspan":{"type":{"type":"integer","gt":0,"lte":65534}},"headers":{"type":{"token":"DOMID","ordered":false,"unique":true,"separator":"space"}}},"#ARIAAttrs":{"role":{"type":{"token":"NoEmptyAny","separator":"space"}}},"#SVGAnimationAdditionAttrs":{"additive":{"type":{"enum":["replace","sum"]}},"accumulate":{"type":{"enum":["none","sum"]}}},"#SVGAnimationAttributeTargetAttrs":{"attributeName":{"type":"XMLName"},"attributeType":{"type":{"enum":["CSS","XML","auto"]},"noUse":true}},"#SVGAnimationEventAttrs":{"onbegin":{"type":"FunctionBody"},"onend":{"type":"FunctionBody"},"onrepeat":{"type":"FunctionBody"}},"#SVGAnimationTargetElementAttrs":{"href":{"type":"URL"},"xlink:href":{"type":"URL","deprecated":true}},"#SVGAnimationTimingAttrs":{"begin":{"type":"<begin-value-list>"},"dur":{"type":["<clock-value>",{"enum":["media","indefinite"]}]},"end":{"type":"<end-value-list>"},"min":{"type":"<clock-value>"},"max":{"type":"<clock-value>"},"restart":{"type":{"enum":["always","whenNotActive","never"]}},"repeatCount":{"type":["<number>",{"enum":["indefinite"]}]},"repeatDur":{"type":["<clock-value>",{"enum":["indefinite"]}]},"fill":{"type":{"enum":["freeze","remove"]}}},"#SVGAnimationValueAttrs":{"calcMode":{"type":{"enum":["discrete","linear","paced","spline"]}},"values":{"type":"<list-of-value>"},"keyTimes":{"type":"<key-times>"},"keySplines":{"type":"<key-splines>"},"from":{"type":"<animatable-value>"},"to":{"type":"<animatable-value>"},"by":{"type":"<animatable-value>"},"accelerate":{"type":"<number-zero-one>"},"decelerate":{"type":"<number-zero-one>"},"autoReverse":{"type":{"enum":["true","false"]}},"speed":{"type":"<number>"}},"#SVGConditionalProcessingAttrs":{"requiredExtensions":{"type":{"token":"URL","unique":true,"separator":"space"}},"systemLanguage":{"type":{"token":"BCP47","unique":true,"separator":"comma"}},"requiredFeatures":{"type":"<list-of-svg-feature-string>","deprecated":true}},"#SVGCoreAttrs":{"id":{"type":"DOMID"},"tabindex":{"type":"TabIndex"},"autofocus":{"type":"Boolean"},"lang":{"type":"BCP47"},"class":{"type":"Any"},"style":{"type":"<css-declaration-list>"},"xmlns":{"type":"URL","ineffective":":not(:root)"},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"xml:lang":{"type":"BCP47","deprecated":true},"xml:base":{"type":"URL","deprecated":true}},"#SVGFilterPrimitiveAttrs":{"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"width":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<percentage>"]},"result":{"type":"<custom-ident>"},"in":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]}},"#SVGPresentationAttrs":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<'height'>"]},"width":{"type":["<svg-length>","<'width'>"]},"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"r":{"type":["<svg-length>","<percentage>"]},"rx":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"ry":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"d":{"type":"<svg-path>"},"transform":{"type":"<'transform'>"},"transform-origin":{"type":"<'transform-origin'>"},"patternTransform":{"type":"<transform-list>"},"gradientTransform":{"type":"<transform-list>"},"alignment-baseline":{"type":"<'alignment-baseline'>"},"baseline-shift":{"type":"<'baseline-shift'>"},"clip-path":{"type":"<'clip-path'>"},"clip-rule":{"type":"<'clip-rule'>"},"color":{"type":"<color>"},"color-interpolation":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"color-interpolation-filters":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"cursor":{"type":"<'cursor'>"},"direction":{"type":"<'direction'>"},"display":{"type":"<'display'>"},"dominant-baseline":{"type":"<'dominant-baseline'>"},"fill":{"type":"<'fill'>"},"fill-opacity":{"type":"<'fill-opacity'>"},"fill-rule":{"type":"<'fill-rule'>"},"filter":{"type":"<'filter'>"},"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"},"font":{"type":"<'font'>"},"font-family":{"type":"<'font-family'>"},"font-size":{"type":"<svg-font-size>"},"font-size-adjust":{"type":"<svg-font-size-adjust>"},"font-stretch":{"type":"<'font-stretch'>"},"font-style":{"type":"<'font-style'>"},"font-variant":{"type":"<'font-variant'>"},"font-weight":{"type":"<'font-weight'>"},"glyph-orientation-horizontal":{"type":"<'glyph-orientation-horizontal'>","deprecated":true},"glyph-orientation-vertical":{"type":"<'glyph-orientation-vertical'>","deprecated":true},"image-rendering":{"type":"<'image-rendering'>"},"isolation":{"type":"<'isolation'>"},"letter-spacing":{"type":"<'letter-spacing'>"},"lighting-color":{"type":"<color>"},"marker":{"type":"<'marker'>"},"marker-end":{"type":"<'marker-end'>"},"marker-mid":{"type":"<'marker-mid'>"},"marker-start":{"type":"<'marker-start'>"},"mask":{"type":"<'mask'>"},"mask-type":{"type":"<'mask-type'>"},"opacity":{"type":"<alpha-value>"},"overflow":{"type":"<'overflow'>"},"paint-order":{"type":"<'paint-order'>"},"pointer-events":{"type":"<'pointer-events'>"},"shape-rendering":{"type":"<'shape-rendering'>"},"stop-color":{"type":"<'color'>"},"stop-opacity":{"type":"<'opacity'>"},"stroke":{"type":"<'stroke'>"},"stroke-dasharray":{"type":"<'stroke-dasharray'>"},"stroke-dashoffset":{"type":"<'stroke-dashoffset'>"},"stroke-linecap":{"type":"<'stroke-linecap'>"},"stroke-linejoin":{"type":"<'stroke-linejoin'>"},"stroke-miterlimit":{"type":"<'stroke-miterlimit'>"},"stroke-opacity":{"type":"<'stroke-opacity'>"},"stroke-width":{"type":"<'stroke-width'>"},"text-anchor":{"type":"<'text-anchor'>"},"text-decoration":{"type":"<'text-decoration'>"},"text-overflow":{"type":"<'text-overflow'>"},"text-rendering":{"type":"<'text-rendering'>"},"unicode-bidi":{"type":"<'unicode-bidi'>"},"vector-effect":{"type":{"enum":["none","non-scaling-stroke","non-scaling-size","non-rotation","fixed-position"]}},"visibility":{"type":"<'visibility'>"},"white-space":{"type":"<'white-space'>"},"word-spacing":{"type":"<'word-spacing'>"},"writing-mode":{"type":"<'writing-mode'>"},"clip":{"type":"<'clip'>","deprecated":true},"color-profile":{"type":"<'color-profile'>","deprecated":true},"color-rendering":{"type":"<'color-rendering'>","deprecated":true},"enable-background":{"type":"<'enable-background'>","deprecated":true},"kerning":{"type":"<'kerning'>","deprecated":true}},"#SVGTransferFunctionAttrs":{"type":{"type":{"enum":["identity","table","discrete","linear","gamma"]}},"tableValues":{"type":"<list-of-numbers>"},"slope":{"type":"<number>"},"intercept":{"type":"<number>"},"amplitude":{"type":"<number>"},"exponent":{"type":"<number>"},"offset":{"type":"<number>"}},"#XLinkAttrs":{"xlink:href":{"type":"URL","deprecated":true},"xlink:title":{"type":"Any","deprecated":true},"xlink:type":{"type":{"enum":["simple"]},"deprecated":true},"xlink:role":{"type":"Any","deprecated":true},"xlink:arcrole":{"type":"URL","deprecated":true},"xlink:show":{"type":{"enum":["new","replace","embed","other","none"]},"deprecated":true},"xlink:actuate":{"type":"Any","deprecated":true}}},"aria":{"roles":{"alert":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"alertdialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"application":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"article":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"banner":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"blockquote":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"button":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-pressed"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"caption":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"cell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"}],"prohibitedProperties":[]},"checkbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"code":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"columnheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"combobox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"command":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"comment":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"complementary":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"composite":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"contentinfo":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"definition":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"deletion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"dialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"directory":{"deprecated":true,"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"emphasis":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"feed":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"figure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"form":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"generic":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"}],"prohibitedProperties":["aria-braillelabel","aria-brailleroledescription","aria-label","aria-labelledby","aria-roledescription"]},"grid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"gridcell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"}],"prohibitedProperties":[]},"group":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"heading":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"image":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"img":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"input":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"insertion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"landmark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"link":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"list":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"log":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"main":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"mark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"marquee":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"math":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menu":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menubar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menuitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemcheckbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemradio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"meter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"navigation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"none":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"note":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"option":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"paragraph":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"presentation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"progressbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"radio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"radiogroup":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"range":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"region":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"roletype":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"row":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"rowgroup":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"rowheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"scrollbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"search":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"searchbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"section":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionfooter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionhead":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"select":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"separator":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"slider":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"spinbutton":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"status":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"strong":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"structure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"subscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"suggestion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"superscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"switch":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tab":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"table":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"tablist":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tabpanel":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"term":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"textbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"time":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"timer":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"toolbar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tooltip":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tree":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"treegrid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"treeitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"widget":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"window":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-object":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-symbol":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]}},"deprecatedProps":["aria-dropeffect","aria-grabbed"]}}`);
 function htmlElement(tag2) {
-  return HTML_SPEC.elements[tag2.toLowerCase()];
+  const key2 = tag2.toLowerCase();
+  return Object.hasOwn(HTML_SPEC.elements, key2) ? HTML_SPEC.elements[key2] : void 0;
 }
 function isObsoleteElement(tag2) {
   return htmlElement(tag2)?.obsolete === true;
 }
 function elementAttr(tag2, name) {
-  return htmlElement(tag2)?.attributes[name.toLowerCase()];
+  const attrs = htmlElement(tag2)?.attributes;
+  if (!attrs) return void 0;
+  const key2 = name.toLowerCase();
+  return Object.hasOwn(attrs, key2) ? attrs[key2] : void 0;
 }
 function isDeprecatedAttr(tag2, name) {
   const a2 = elementAttr(tag2, name);
@@ -69128,9 +65696,9 @@ function roleCandidates(e3) {
     } : void 0;
   }
   if (e3.hasSpread) return void 0;
-  const el = HTML_SPEC.elements[e3.tag];
+  const el = Object.hasOwn(HTML_SPEC.elements, e3.tag) ? HTML_SPEC.elements[e3.tag] : void 0;
   if (!el) return void 0;
-  const aria3 = ELEMENT_FACT_OVERRIDES[e3.tag] ?? el.aria;
+  const aria3 = (Object.hasOwn(ELEMENT_FACT_OVERRIDES, e3.tag) ? ELEMENT_FACT_OVERRIDES[e3.tag] : void 0) ?? el.aria;
   const roles2 = [aria3.implicitRole ?? false];
   for (const c of Object.values(aria3.conditions ?? {})) if ("implicitRole" in c) roles2.push(c.implicitRole ?? false);
   return {
@@ -69477,7 +66045,7 @@ function judgeContent(els, children, ancestors, childIdx) {
   const child = els[childIdx];
   for (let i2 = ancestors.length - 1; i2 >= 0; i2--) {
     const holder = els[ancestors[i2]];
-    const spec = HTML_SPEC.elements[holder.tag];
+    const spec = Object.hasOwn(HTML_SPEC.elements, holder.tag) ? HTML_SPEC.elements[holder.tag] : void 0;
     if (!spec?.contentModel) return void 0;
     const cm = spec.contentModel;
     if (cm.contents === true) return void 0;
@@ -69930,6 +66498,7 @@ var allRules = [
   a11yRequiredAriaProps,
   a11yInvalidAriaValue,
   a11yInteractiveNesting,
+  a11yAriaHiddenFocus,
   a11yAccessibleName,
   a11yLabelHasControl,
   a11yUseList,
@@ -70208,7 +66777,7 @@ function mdEscape(text2) {
   return text2.replace(/\r\n|\r|\n/g, " ").replace(/<[^>]+>/g, (tag2) => inlineCode(tag2)).replace(/\[([^\]]*)\]\(([^)]*)\)/g, "[$1]\\($2\\)");
 }
 function terminalSafe(text2) {
-  return text2.replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)?/g, "").replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, "").replace(/[\x00-\x08\x0b-\x1f\x7f]/g, "");
+  return text2.replace(/(?:\x1b\]|\x9d)[^\x07\x9c\x1b]*(?:\x07|\x9c|\x1b\\)?/g, "").replace(/(?:\x1b\[|\x9b)[0-?]*[ -/]*[@-~]/g, "").replace(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/g, "");
 }
 var MAX_FINDINGS = 50;
 var SEVERITY_EMOJI = {
@@ -70226,15 +66795,15 @@ function locationOf(issue2, route) {
 function messageWithRecommendation(issue2) {
   return issue2.recommendation ? `${issue2.title} ${issue2.recommendation}` : issue2.title;
 }
-function flattenFindings(report2) {
+function flattenFindings(report) {
   const findings = [];
-  for (const r2 of report2.routes) for (const issue2 of r2.issues) findings.push({
+  for (const r2 of report.routes) for (const issue2 of r2.issues) findings.push({
     severity: issue2.severity,
     id: issue2.id,
     location: locationOf(issue2, r2.route),
     message: messageWithRecommendation(issue2)
   });
-  for (const issue2 of report2.siteIssues) findings.push({
+  for (const issue2 of report.siteIssues) findings.push({
     severity: issue2.severity,
     id: issue2.id,
     location: locationOf(issue2, void 0),
@@ -70249,22 +66818,22 @@ function categoryRows(categories) {
   return Object.keys(categories).sort().map((cat) => `| ${cat} | ${categories[cat].score} |`);
 }
 function formatMarkdownReport(results, config, meta) {
-  const report2 = buildJsonReport(results, config, meta);
+  const report = buildJsonReport(results, config, meta);
   const lines = [];
   lines.push(`<!-- svelte-vitals v${meta.version} -->`);
-  lines.push(`## svelte-vitals \u2014 Health ${report2.score}/100`);
+  lines.push(`## svelte-vitals \u2014 Health ${report.score}/100`);
   lines.push("");
-  const catRows = categoryRows(report2.categories);
+  const catRows = categoryRows(report.categories);
   if (catRows.length > 0) {
     lines.push("| Category | Score |");
     lines.push("| --- | --- |");
     lines.push(...catRows);
     lines.push("");
   }
-  const { critical, warning: warning2, info: info2, passed } = report2.summary;
+  const { critical, warning: warning2, info: info2, passed } = report.summary;
   lines.push(`**${critical} critical \xB7 ${warning2} warning \xB7 ${info2} info** (${passed} checks passed)`);
   lines.push("");
-  const findings = flattenFindings(report2);
+  const findings = flattenFindings(report);
   if (findings.length === 0) lines.push("\u2705 No issues found.");
   else {
     lines.push("### Findings");
@@ -70286,13 +66855,1780 @@ function formatMarkdownReport(results, config, meta) {
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.49.0/node_modules/@svelte-vitals/core/dist/internal.js
+// node_modules/.pnpm/@svelte-vitals+core@0.51.0/node_modules/@svelte-vitals/core/dist/internal.js
+var JS_MIME_TYPES = /* @__PURE__ */ new Set([
+  "application/ecmascript",
+  "application/javascript",
+  "application/x-ecmascript",
+  "application/x-javascript",
+  "text/ecmascript",
+  "text/javascript",
+  "text/javascript1.0",
+  "text/javascript1.1",
+  "text/javascript1.2",
+  "text/javascript1.3",
+  "text/javascript1.4",
+  "text/javascript1.5",
+  "text/jscript",
+  "text/livescript",
+  "text/x-ecmascript",
+  "text/x-javascript"
+]);
+var ASCII_WHITESPACE_EDGES = /^[\t\n\f\r ]+|[\t\n\f\r ]+$/g;
+function isClassicScriptType(type) {
+  if (type === void 0 || type === "") return true;
+  return JS_MIME_TYPES.has(type.replace(ASCII_WHITESPACE_EDGES, "").toLowerCase());
+}
+var KNOWN_TAGS2 = new Set(Object.keys(HTML_SPEC.elements).map((k2) => k2.replace(/^svg:/, "").toLowerCase()));
+function isLengthOnlyArrayCall(expr) {
+  const e3 = unwrapTs(expr);
+  if (!e3) return false;
+  if ((e3.type === "CallExpression" || e3.type === "NewExpression") && e3.callee?.type === "Identifier" && e3.callee.name === "Array") return (e3.arguments?.length ?? 0) === 1;
+  if (e3.type === "CallExpression" && e3.callee?.type === "MemberExpression" && !e3.callee.computed && e3.callee.object?.type === "Identifier" && e3.callee.object.name === "Array" && e3.callee.property.type === "Identifier" && e3.callee.property.name === "from" && e3.arguments?.[0]?.type === "ObjectExpression") return (e3.arguments[0].properties ?? []).some((p2) => p2?.type === "Property" && !p2.computed && (p2.key?.name === "length" || p2.key?.value === "length"));
+  return false;
+}
+function isIdentityFreeEach(node) {
+  const expr = unwrapTs(node.expression);
+  if (expr.type === "ArrayExpression" && Array.isArray(expr.elements)) return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
+  return isLengthOnlyArrayCall(expr);
+}
+function isIndexExpression(expr, index) {
+  const e3 = unwrapTs(expr);
+  if (e3.type === "Identifier") return e3.name === index;
+  if (e3.type === "CallExpression") {
+    const callee = e3.callee;
+    if (callee.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e3.arguments.length === 1) return isIndexExpression(e3.arguments[0], index);
+    if (callee.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "toString" && e3.arguments.length === 0) return isIndexExpression(callee.object, index);
+    return false;
+  }
+  if (e3.type === "TemplateLiteral") {
+    const exprs = e3.expressions;
+    if (exprs.length !== 1) return false;
+    if (e3.quasis.some((q) => (q.value.cooked ?? q.value.raw) !== "")) return false;
+    return isIndexExpression(exprs[0], index);
+  }
+  if (e3.type === "BinaryExpression" && e3.operator === "+") {
+    const emptyString = (n2) => n2.type === "Literal" && n2.value === "";
+    if (emptyString(e3.left)) return isIndexExpression(e3.right, index);
+    if (emptyString(e3.right)) return isIndexExpression(e3.left, index);
+  }
+  return false;
+}
+function isIndexKey(each) {
+  if (typeof each.index !== "string" || each.key == null) return false;
+  return isIndexExpression(each.key, each.index);
+}
+function collectEachBlocks(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectEachBlocks(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) acc.push({
+    hasKey: node.key != null,
+    line: lineOf(source2, node.start),
+    ...isIndexKey(node) ? { indexKey: true } : {}
+  });
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectEachBlocks(node[key2], source2, acc);
+}
+function isEffectCall(node) {
+  const c = node?.callee;
+  if (c?.type === "Identifier") return c.name === "$effect";
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect") return c.property?.type === "Identifier" && c.property.name === "pre";
+  return false;
+}
+function isEffectRootCall(node) {
+  const c = node?.callee;
+  return c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect" && c.property?.type === "Identifier" && c.property.name === "root";
+}
+function isStateDeclaration(node) {
+  const c = node?.callee;
+  if (c?.type === "Identifier") return c.name === "$state";
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$state") return c.property?.type === "Identifier" && (c.property.name === "raw" || c.property.name === "frozen");
+  return false;
+}
+function bodyOnlyAssignsState(fn, stateNames) {
+  const isStateAssign = (expr) => expr?.type === "AssignmentExpression" && expr.operator === "=" && expr.left?.type === "Identifier" && stateNames.has(expr.left.name);
+  const body = fn?.body;
+  if (!body) return false;
+  if (body.type !== "BlockStatement") return isStateAssign(body);
+  if (body.body.length === 0) return false;
+  return body.body.every((s) => s?.type === "ExpressionStatement" && isStateAssign(s.expression));
+}
+function isDerivedDeclaration(node) {
+  const c = node?.callee;
+  if (c?.type === "Identifier") return c.name === "$derived";
+  if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$derived") return c.property?.type === "Identifier" && c.property.name === "by";
+  return false;
+}
+function collectStateWrites(root, stateNames, acc, kinds) {
+  const record = (name, kind) => {
+    acc.add(name);
+    if (kinds) {
+      let set2 = kinds.get(name);
+      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
+      set2.add(kind);
+    }
+  };
+  walkScoped(root, (n2, scope) => {
+    const shadowed = (name) => name === void 0 || scope.has(name);
+    if (n2?.type === "AssignmentExpression") {
+      if (n2.left?.type === "Identifier" && stateNames.has(n2.left.name) && !shadowed(n2.left.name)) record(n2.left.name, "reassign");
+      else if (n2.left?.type === "MemberExpression") {
+        const r2 = rootObjectName(n2.left);
+        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+      } else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
+        const bound = /* @__PURE__ */ new Set();
+        addBoundNames(n2.left, bound);
+        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) record(name, "reassign");
+      }
+    } else if (n2?.type === "UpdateExpression") if (n2.argument?.type === "Identifier") {
+      if (stateNames.has(n2.argument.name) && !shadowed(n2.argument.name)) record(n2.argument.name, "reassign");
+    } else {
+      const r2 = rootObjectName(n2.argument);
+      if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+    }
+    else if (n2?.type === "UnaryExpression" && n2.operator === "delete") {
+      const r2 = rootObjectName(n2.argument);
+      if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+    } else if (n2?.type === "CallExpression") {
+      if (n2.callee?.type === "MemberExpression") {
+        const r2 = rootObjectName(n2.callee);
+        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "mutate");
+      }
+      for (const a2 of n2.arguments ?? []) {
+        const arg = a2?.type === "SpreadElement" ? a2.argument : a2;
+        const r2 = rootObjectName(arg);
+        if (r2 && stateNames.has(r2) && !shadowed(r2)) record(r2, "escape");
+      }
+    }
+  });
+}
+function isDeferredBody(n2) {
+  return n2?.type === "FunctionDeclaration" || n2?.type === "FunctionExpression" || n2?.type === "ArrowFunctionExpression";
+}
+function isPlainStateCall(node) {
+  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$state";
+}
+var BUILTIN_STATE_TYPES = /* @__PURE__ */ new Set([
+  "Map",
+  "Set",
+  "Date",
+  "URL",
+  "URLSearchParams"
+]);
+var BUILTIN_MUTATIONS = {
+  Map: /* @__PURE__ */ new Set([
+    "set",
+    "delete",
+    "clear"
+  ]),
+  Set: /* @__PURE__ */ new Set([
+    "add",
+    "delete",
+    "clear"
+  ]),
+  Date: /* @__PURE__ */ new Set([
+    "setTime",
+    "setFullYear",
+    "setMonth",
+    "setDate",
+    "setHours",
+    "setMinutes",
+    "setSeconds",
+    "setMilliseconds",
+    "setYear",
+    "setUTCFullYear",
+    "setUTCMonth",
+    "setUTCDate",
+    "setUTCHours",
+    "setUTCMinutes",
+    "setUTCSeconds",
+    "setUTCMilliseconds"
+  ]),
+  URL: /* @__PURE__ */ new Set(),
+  URLSearchParams: /* @__PURE__ */ new Set([
+    "append",
+    "set",
+    "delete",
+    "sort"
+  ])
+};
+function collectBuiltinStateSignals(node, candidates, mutated, reassigned, shadowed = /* @__PURE__ */ new Set(), inFunction = false) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectBuiltinStateSignals(child, candidates, mutated, reassigned, shadowed, inFunction);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  const boundary = isDeferredBody(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
+  const nextInFunction = inFunction || boundary;
+  const hit = (name) => typeof name === "string" && candidates.has(name) && !scope.has(name) ? name : void 0;
+  if (node.type === "AssignmentExpression") {
+    if (node.left?.type === "Identifier") {
+      const n2 = hit(node.left.name);
+      const isBareSelfAssign = node.right?.type === "Identifier" && node.right.name === n2;
+      if (n2 && !isBareSelfAssign) reassigned.add(n2);
+    } else if (node.left?.type === "ObjectPattern" || node.left?.type === "ArrayPattern") {
+      const bound = /* @__PURE__ */ new Set();
+      addBoundNames(node.left, bound);
+      for (const name of bound) {
+        const n2 = hit(name);
+        if (n2) reassigned.add(n2);
+      }
+    } else if (node.left?.type === "MemberExpression" && inFunction) {
+      const n2 = hit(rootObjectName(node.left));
+      if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
+    }
+  } else if (node.type === "UpdateExpression" && node.argument?.type === "MemberExpression" && inFunction) {
+    const n2 = hit(rootObjectName(node.argument));
+    if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
+  } else if (node.type === "UnaryExpression" && node.operator === "delete" && inFunction) {
+    const n2 = hit(rootObjectName(node.argument));
+    if (n2 && candidates.get(n2) === "URL") mutated.add(n2);
+  } else if (node.type === "CallExpression" && node.callee?.type === "MemberExpression" && !node.callee.computed && inFunction) {
+    const method2 = node.callee.property?.name;
+    if (typeof method2 === "string") {
+      if (node.callee.object?.type === "Identifier") {
+        const n2 = hit(node.callee.object.name);
+        if (n2 && BUILTIN_MUTATIONS[candidates.get(n2)]?.has(method2)) mutated.add(n2);
+      } else if (node.callee.object?.type === "MemberExpression") {
+        const n2 = hit(rootObjectName(node.callee));
+        if (n2 && candidates.get(n2) === "URL" && BUILTIN_MUTATIONS.URLSearchParams.has(method2)) mutated.add(n2);
+      }
+    }
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectBuiltinStateSignals(node[key2], candidates, mutated, reassigned, scope, nextInFunction);
+  }
+}
+function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (node.type === "Identifier") return;
+  if (node.type === "ObjectPattern") {
+    for (const prop2 of node.properties ?? []) if (prop2?.type === "RestElement") collectPatternAliasRefs(prop2.argument, names, acc, scope, ownRhs);
+    else if (prop2?.type === "Property") {
+      if (prop2.computed) collectAliasRefs(prop2.key, names, acc, scope, ownRhs);
+      collectPatternAliasRefs(prop2.value, names, acc, scope, ownRhs);
+    }
+    return;
+  }
+  if (node.type === "ArrayPattern") {
+    for (const el of node.elements ?? []) collectPatternAliasRefs(el, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "AssignmentPattern") {
+    collectPatternAliasRefs(node.left, names, acc, scope, ownRhs);
+    collectAliasRefs(node.right, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "RestElement") collectPatternAliasRefs(node.argument, names, acc, scope, ownRhs);
+}
+function collectAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set(), ownRhs = null) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAliasRefs(child, names, acc, shadowed, ownRhs);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "AssignmentExpression") {
+    const lhsIsCandidate = node.left?.type === "Identifier" && names.has(node.left.name) && !scope.has(node.left.name);
+    if (!lhsIsCandidate) collectAliasRefs(node.left, names, acc, scope, null);
+    collectAliasRefs(node.right, names, acc, scope, lhsIsCandidate ? node.left.name : null);
+    return;
+  }
+  if (node.type === "VariableDeclarator") {
+    collectPatternAliasRefs(node.id, names, acc, scope, ownRhs);
+    if (node.init) collectAliasRefs(node.init, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name) && node.name !== ownRhs) {
+    acc.add(node.name);
+    return;
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    collectAliasRefs(node[key2], names, acc, scope, ownRhs);
+  }
+}
+function collectFragmentAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectFragmentAliasRefs(child, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (isDeferredBody(node)) {
+    const introduced2 = scopeIntroducedNames(node);
+    const scope2 = introduced2.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced2]) : shadowed;
+    collectAliasRefs(node.body, names, acc, scope2, null);
+    return;
+  }
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (Array.isArray(node.attributes)) collectFragmentAliasRefs(node.attributes, names, acc, scope);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
+    collectFragmentAliasRefs(node[key2], names, acc, scope);
+  }
+}
+function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectEachContextTaint(child, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "EachBlock") {
+    const expr = unwrapTs(node.expression);
+    const target = expr?.type === "Identifier" ? expr.name : expr?.type === "MemberExpression" ? rootObjectName(expr) : void 0;
+    if (target !== void 0 && names.has(target) && !shadowed.has(target)) {
+      const ctxNames = /* @__PURE__ */ new Set();
+      addBoundNames(node.context, ctxNames);
+      if (typeof node.index === "string") ctxNames.add(node.index);
+      if (ctxNames.size > 0) {
+        const union = /* @__PURE__ */ new Set();
+        const kinds = /* @__PURE__ */ new Map();
+        collectStateWrites(node.body, ctxNames, union, kinds);
+        collectTemplateEscapes(node.body, ctxNames, union, kinds);
+        if ([...union].some((n2) => {
+          const k2 = kinds.get(n2);
+          return !k2 || [...k2].some((kind) => kind !== "reassign");
+        })) acc.add(target);
+      }
+    }
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectEachContextTaint(node[key2], names, acc, scope);
+  }
+}
+function refsNamesEagerly(node, names, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) return node.some((c) => refsNamesEagerly(c, names, shadowed));
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return false;
+  if (isDeferredBody(node)) return false;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) return true;
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    if (refsNamesEagerly(node[key2], names, scope)) return true;
+  }
+  return false;
+}
+function containsCallLike(node) {
+  let found = false;
+  walkEstree(node, (n2) => {
+    if (n2?.type === "CallExpression" || n2?.type === "NewExpression" || n2?.type === "AwaitExpression") found = true;
+  });
+  return found;
+}
+function collectFragmentRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const c of node) collectFragmentRefs(c, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (isDeferredBody(node)) return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) acc.add(node.name);
+  if (node.type === "EachBlock" || node.type === "AwaitBlock") {
+    collectFragmentRefs(node.expression, names, acc, shadowed);
+    for (const key2 of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key2) || key2 === "expression") continue;
+      collectFragmentRefs(node[key2], names, acc, scope);
+    }
+    return;
+  }
+  if (Array.isArray(node.attributes)) collectFragmentRefs(node.attributes, names, acc, scope);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    collectFragmentRefs(node[key2], names, acc, scope);
+  }
+}
+function collectStalePropCandidates(program, propNames, source2) {
+  const out = [];
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "VariableDeclaration") continue;
+    for (const d2 of stmt2.declarations ?? []) {
+      if (d2?.id?.type !== "Identifier" || !d2.init) continue;
+      if (containsCallLike(d2.init)) continue;
+      if (!refsNamesEagerly(d2.init, propNames)) continue;
+      out.push({
+        name: d2.id.name,
+        line: lineOf(source2, d2.start)
+      });
+    }
+  }
+  return out;
+}
+var COMPONENT_LIKE_TYPES = /* @__PURE__ */ new Set([
+  "Component",
+  "SvelteComponent",
+  "SvelteSelf"
+]);
+function collectTemplateEscapes(node, stateNames, acc, kinds) {
+  const record = (name) => {
+    acc.add(name);
+    if (kinds) {
+      let set2 = kinds.get(name);
+      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
+      set2.add("escape");
+    }
+  };
+  if (Array.isArray(node)) {
+    for (const c of node) collectTemplateEscapes(c, stateNames, acc, kinds);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (Array.isArray(node.attributes)) {
+    for (const attr of node.attributes) if (attr?.type === "BindDirective") {
+      const r2 = rootObjectName(attr.expression);
+      if (r2 && stateNames.has(r2)) record(r2);
+    } else if (COMPONENT_LIKE_TYPES.has(node.type)) walkEstree(attr, (m) => {
+      if (m?.type === "Identifier" && stateNames.has(m.name)) record(m.name);
+    });
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc, kinds);
+}
+var DIRECTIVE_ESCAPE_TYPES = /* @__PURE__ */ new Set([
+  "UseDirective",
+  "TransitionDirective",
+  "AnimateDirective"
+]);
+function collectDirectiveEscapes(node, names, acc) {
+  if (Array.isArray(node)) {
+    for (const c of node) collectDirectiveEscapes(c, names, acc);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (Array.isArray(node.attributes)) {
+    for (const attr of node.attributes) if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) walkEstree(attr.expression, (m) => {
+      if (m?.type === "Identifier" && names.has(m.name)) acc.add(m.name);
+    });
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectDirectiveEscapes(node[key2], names, acc);
+}
+var RUNE_NAMES = /* @__PURE__ */ new Set([
+  "$state",
+  "$derived",
+  "$effect",
+  "$props",
+  "$bindable",
+  "$inspect",
+  "$host"
+]);
+function collectImportedLocalNames(program, acc) {
+  for (const stmt2 of program?.body ?? []) {
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
+    for (const s of stmt2.specifiers ?? []) {
+      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
+      acc.add(s.local.name);
+    }
+  }
+}
+function collectNewExprLocalNames(program, acc) {
+  walkEstree(program, (n2) => {
+    if (n2.type !== "VariableDeclarator" || n2.id?.type !== "Identifier" || !n2.init) return;
+    if (unwrapTs(n2.init).type === "NewExpression") acc.add(n2.id.name);
+  });
+}
+function bodyReadsReactive(fn, reactiveNames) {
+  let reads = false;
+  const visit = (n2) => {
+    if (reads || !n2) return;
+    if (Array.isArray(n2)) {
+      for (const c of n2) visit(c);
+      return;
+    }
+    if (typeof n2 !== "object" || typeof n2.type !== "string") return;
+    if (n2.type === "Identifier") {
+      if (reactiveNames.has(n2.name) || n2.name.startsWith("$") && !RUNE_NAMES.has(n2.name)) reads = true;
+      return;
+    }
+    if (n2.type === "CallExpression" && n2.callee?.type === "Identifier") {
+      reads = true;
+      return;
+    }
+    if (n2.type === "MemberExpression") {
+      visit(n2.object);
+      if (n2.computed) visit(n2.property);
+      return;
+    }
+    if (n2.type === "Property") {
+      if (n2.computed) visit(n2.key);
+      visit(n2.value);
+      return;
+    }
+    for (const key2 of Object.keys(n2)) if (!WALK_IGNORED_KEYS.has(key2)) visit(n2[key2]);
+  };
+  visit(fn.body);
+  return reads;
+}
+function bodyIsEmpty(fn) {
+  const body = fn?.body;
+  if (!body) return true;
+  if (body.type === "BlockStatement") return (body.body ?? []).length === 0;
+  return false;
+}
+var URL_ATTRS = [
+  "href",
+  "src",
+  "action",
+  "formaction"
+];
+var CHECKABLE_INPUT_TYPES = /* @__PURE__ */ new Set(["checkbox", "radio"]);
+function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectSecurityFacts(child, source2, htmlTags, jsUrls);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "HtmlTag") htmlTags.push({ line: lineOf(source2, node.start) });
+  if ((node.type === "RegularElement" || node.type === "SvelteElement") && Array.isArray(node.attributes)) for (const name of URL_ATTRS) {
+    const attr = findAttr(node.attributes, name);
+    if (!attr) continue;
+    const value = attrTextOf(attr);
+    if (value !== void 0 && /^\s*javascript:/i.test(value)) jsUrls.push({ line: lineOf(source2, attr.start ?? node.start) });
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectSecurityFacts(node[key2], source2, htmlTags, jsUrls);
+}
+function collectCheckableBindValues(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectCheckableBindValues(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "input" && Array.isArray(node.attributes)) {
+    const typeAttr = findAttr(node.attributes, "type");
+    const typeValue = typeAttr ? attrTextOf(typeAttr) : void 0;
+    if (typeValue && CHECKABLE_INPUT_TYPES.has(typeValue)) {
+      const bindValue = node.attributes.find((a2) => a2?.type === "BindDirective" && a2.name === "value");
+      if (bindValue) acc.push({
+        kind: typeValue,
+        line: lineOf(source2, bindValue.start ?? node.start)
+      });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectCheckableBindValues(node[key2], source2, acc);
+}
+function classifyAttrValue(value) {
+  if (value === true) return { literal: "" };
+  if (Array.isArray(value) && value.length === 1 && value[0]?.type === "Text") return { literal: String(value[0].data ?? "") };
+  return { expression: true };
+}
+var CHAIN_BREAKS = /* @__PURE__ */ new Set([
+  "Component",
+  "SvelteComponent",
+  "SvelteSelf",
+  "SvelteElement",
+  "SlotElement",
+  "RenderTag",
+  "HtmlTag",
+  "SnippetBlock",
+  "SvelteHead"
+]);
+var SILENT_BREAKS = /* @__PURE__ */ new Set(["SnippetBlock", "SvelteHead"]);
+function collectElements(node, source2, acc, inSvg, parent) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectElements(child, source2, acc, inSvg, parent);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  let next2 = inSvg;
+  let nextParent = parent;
+  if (typeof node.type === "string" && CHAIN_BREAKS.has(node.type)) {
+    if (parent !== void 0 && !SILENT_BREAKS.has(node.type)) acc[parent].unknownContent = true;
+    nextParent = void 0;
+  } else if (node.type === "RegularElement" && typeof node.name === "string" && Array.isArray(node.attributes)) {
+    const tag2 = node.name.toLowerCase();
+    const self = inSvg || tag2 === "svg";
+    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+    acc.push({
+      tag: tag2,
+      line: lineOf(source2, node.start),
+      attrs: node.attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => {
+        const cls = classifyAttrValue(a2.value);
+        const value = "expression" in cls ? void 0 : cls.literal;
+        return {
+          name: String(a2.name).toLowerCase(),
+          line: lineOf(source2, a2.start ?? node.start),
+          ...value !== void 0 ? { value } : {}
+        };
+      }),
+      ...self ? { inSvg: true } : {},
+      ...parent !== void 0 ? { parent } : {},
+      ...hasSpread ? { hasSpread: true } : {}
+    });
+    if (tag2.includes("-") || !KNOWN_TAGS2.has(tag2)) {
+      if (parent !== void 0) acc[parent].unknownContent = true;
+      nextParent = void 0;
+    } else nextParent = acc.length - 1;
+    if (tag2 === "svg") next2 = true;
+    else if (tag2 === "foreignobject") next2 = false;
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectElements(node[key2], source2, acc, next2, nextParent);
+}
+function selectNativeRole(attributes) {
+  if (findAttr(attributes, "multiple") !== void 0) return "listbox";
+  const size = findAttr(attributes, "size");
+  if (size === void 0) return "combobox";
+  if (attrValueOf(size) !== "static") return void 0;
+  return Number(attrTextOf(size)) > 1 ? "listbox" : "combobox";
+}
+function collectAriaElements(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAriaElements(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
+    const roleAttr = findAttr(node.attributes, "role");
+    const ariaAttrs = node.attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase().startsWith("aria-"));
+    if (roleAttr || ariaAttrs.length > 0) {
+      const tag2 = node.name.toLowerCase();
+      const inputType = tag2 === "input" ? attrText(node.attributes, "type") : void 0;
+      const hasList = tag2 === "input" && findAttr(node.attributes, "list") !== void 0;
+      const selectKind = tag2 === "select" ? selectNativeRole(node.attributes) : void 0;
+      const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+      acc.push({
+        tag: tag2,
+        line: lineOf(source2, node.start),
+        ...roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {},
+        ...inputType !== void 0 ? { inputType: inputType.toLowerCase() } : {},
+        ...hasList ? { hasList: true } : {},
+        ...selectKind ? { selectKind } : {},
+        ...hasSpread ? { hasSpread: true } : {},
+        aria: ariaAttrs.map((a2) => ({
+          name: String(a2.name).toLowerCase(),
+          line: lineOf(source2, a2.start ?? node.start),
+          ...classifyAttrValue(a2.value)
+        }))
+      });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectAriaElements(node[key2], source2, acc);
+}
+function elementAttrs(attributes) {
+  return attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => ({
+    name: String(a2.name).toLowerCase(),
+    ...classifyAttrValue(a2.value)
+  }));
+}
+function containerRoleOf(attrs) {
+  const role = attrs.find((a2) => a2.name === "role")?.literal;
+  return role ? resolveRole(splitTokens(role)) : void 0;
+}
+function collectInteractiveNestings(node, source2, acc, stack) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectInteractiveNestings(child, source2, acc, stack);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "SnippetBlock") {
+    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, []);
+    return;
+  }
+  let opened = false;
+  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
+    const attrs = elementAttrs(node.attributes);
+    if (stack.length > 0 && isInteractiveElement(node.name, attrs)) {
+      const container = stack[stack.length - 1];
+      acc.push({
+        containerTag: container.tag,
+        ...container.role ? { containerRole: container.role } : {},
+        descendantTag: node.name,
+        line: lineOf(source2, node.start)
+      });
+    }
+    if (isInteractiveContainer(node.name, attrs)) {
+      const role = node.name === "button" || node.name === "a" ? void 0 : containerRoleOf(attrs);
+      stack.push({
+        tag: node.name,
+        ...role ? { role } : {}
+      });
+      opened = true;
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectInteractiveNestings(node[key2], source2, acc, stack);
+  if (opened) stack.pop();
+}
+var DISABLEABLE_TAGS = /* @__PURE__ */ new Set([
+  "button",
+  "input",
+  "select",
+  "textarea"
+]);
+function collectAriaHiddenFocusables(node, source2, acc, stack, unfocusable = false) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAriaHiddenFocusables(child, source2, acc, stack, unfocusable);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "SnippetBlock") {
+    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectAriaHiddenFocusables(node[key2], source2, acc, []);
+    return;
+  }
+  let opened = false;
+  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
+    const attrs = elementAttrs(node.attributes);
+    if (attrs.some((a2) => a2.name === "inert" || a2.name === "hidden")) unfocusable = true;
+    const hiddenSelf = attrs.find((a2) => a2.name === "aria-hidden")?.literal?.trim().toLowerCase() === "true";
+    const tabindexAttr = attrs.find((a2) => a2.name === "tabindex");
+    const tabindex = literalTabindexValue(tabindexAttr?.literal);
+    const tabindexExempts = tabindexAttr !== void 0 && tabindexAttr.literal === void 0;
+    if (!unfocusable && !tabindexExempts && !(tabindex !== void 0 && tabindex < 0) && !(DISABLEABLE_TAGS.has(node.name) && attrs.some((a2) => a2.name === "disabled")) && isInteractiveElement(node.name, attrs) && (hiddenSelf || stack.length > 0)) acc.push({
+      tag: node.name,
+      ...hiddenSelf ? {} : { containerTag: stack[stack.length - 1] },
+      line: lineOf(source2, node.start)
+    });
+    if (hiddenSelf) {
+      stack.push(node.name);
+      opened = true;
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectAriaHiddenFocusables(node[key2], source2, acc, stack, unfocusable);
+  if (opened) stack.pop();
+}
+function hasNamingValue(attributes, name) {
+  const attr = findAttr(attributes, name);
+  if (!attr) return false;
+  const v = classifyAttrValue(attr.value);
+  return "expression" in v || v.literal !== void 0 && v.literal.trim().length > 0;
+}
+function hasNamingAttr(attributes) {
+  return [
+    "aria-label",
+    "aria-labelledby",
+    "title"
+  ].some((name) => hasNamingValue(attributes, name));
+}
+function isCustomElement(node) {
+  return node.type === "RegularElement" && typeof node.name === "string" && node.name.includes("-");
+}
+function scanAccessibleNameSubtree(node, skip) {
+  if (Array.isArray(node)) {
+    const acc2 = {
+      named: false,
+      unknowable: false
+    };
+    for (const child of node) {
+      const r2 = scanAccessibleNameSubtree(child, skip);
+      acc2.named ||= r2.named;
+      acc2.unknowable ||= r2.unknowable;
+    }
+    return acc2;
+  }
+  if (!node || typeof node !== "object") return {
+    named: false,
+    unknowable: false
+  };
+  if (skip !== void 0 && node === skip) return {
+    named: false,
+    unknowable: false
+  };
+  if (node.type === "SnippetBlock") return {
+    named: false,
+    unknowable: false
+  };
+  if (node.type === "Text") return {
+    named: String(node.data ?? "").trim().length > 0,
+    unknowable: false
+  };
+  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) return {
+    named: false,
+    unknowable: true
+  };
+  if (node.type === "RegularElement" && node.name === "img" && Array.isArray(node.attributes)) {
+    if (hasNamingValue(node.attributes, "alt")) return {
+      named: true,
+      unknowable: false
+    };
+  }
+  const acc = {
+    named: false,
+    unknowable: false
+  };
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
+    const r2 = scanAccessibleNameSubtree(node[key2], skip);
+    acc.named ||= r2.named;
+    acc.unknowable ||= r2.unknowable;
+  }
+  return acc;
+}
+function accessibleNameTarget(node) {
+  if (node.name === "button") return "button";
+  if (node.name === "a") return attrText(node.attributes, "href") !== void 0 ? "a" : void 0;
+  if (node.name === "input") return attrText(node.attributes, "type")?.toLowerCase() === "image" ? "input" : void 0;
+}
+function firstLabelableDescendant(node) {
+  if (Array.isArray(node)) {
+    for (const child of node) {
+      const hit = firstLabelableDescendant(child);
+      if (hit) return hit;
+    }
+    return;
+  }
+  if (!node || typeof node !== "object") return void 0;
+  if (node.type === "SnippetBlock") return void 0;
+  if (node.type === "RegularElement" && isLabelableDescendant(node)) return node;
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
+    const hit = firstLabelableDescendant(node[key2]);
+    if (hit) return hit;
+  }
+}
+function collectLabelTargets(node, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectLabelTargets(child, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "label" && Array.isArray(node.attributes)) {
+    const wrapped = firstLabelableDescendant(node);
+    const scan = scanAccessibleNameSubtree(node, wrapped);
+    if (scan.named || scan.unknowable) {
+      const forId = attrText(node.attributes, "for");
+      if (forId !== void 0 && forId.trim().length > 0) acc.ids.add(forId.trim());
+      if (wrapped) acc.nodes.add(wrapped);
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectLabelTargets(node[key2], acc);
+}
+function collectUnnamedInteractive(node, source2, acc, labels) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectUnnamedInteractive(child, source2, acc, labels);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
+    const target = accessibleNameTarget(node);
+    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+    const id2 = attrText(node.attributes, "id");
+    const namedByLabel = target !== "a" && (labels.nodes.has(node) || id2 !== void 0 && labels.ids.has(id2.trim()));
+    if (target && !hasSpread && !namedByLabel) if (target === "input") {
+      if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, "alt")) acc.push({
+        tag: node.name,
+        line: lineOf(source2, node.start)
+      });
+    } else {
+      const scan = scanAccessibleNameSubtree(node);
+      if (!hasNamingAttr(node.attributes) && !scan.named && !scan.unknowable) acc.push({
+        tag: node.name,
+        line: lineOf(source2, node.start)
+      });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectUnnamedInteractive(node[key2], source2, acc, labels);
+}
+var LABELABLE_TAGS = /* @__PURE__ */ new Set([
+  "input",
+  "select",
+  "textarea",
+  "button",
+  "meter",
+  "output",
+  "progress"
+]);
+function isLabelableDescendant(node) {
+  if (node.type !== "RegularElement" || !LABELABLE_TAGS.has(node.name)) return false;
+  if (node.name !== "input") return true;
+  return attrText(node.attributes ?? [], "type")?.toLowerCase() !== "hidden";
+}
+function scanLabelSubtree(node) {
+  if (Array.isArray(node)) {
+    const acc2 = {
+      hasControl: false,
+      unknowable: false
+    };
+    for (const child of node) {
+      const r2 = scanLabelSubtree(child);
+      acc2.hasControl ||= r2.hasControl;
+      acc2.unknowable ||= r2.unknowable;
+    }
+    return acc2;
+  }
+  if (!node || typeof node !== "object") return {
+    hasControl: false,
+    unknowable: false
+  };
+  if (node.type === "SnippetBlock") return {
+    hasControl: false,
+    unknowable: false
+  };
+  if (node.type === "ExpressionTag" || node.type === "RenderTag" || node.type === "HtmlTag" || node.type === "SlotElement" || node.type === "SvelteFragment" || COMPONENT_LIKE_TYPES.has(node.type) || isCustomElement(node)) return {
+    hasControl: false,
+    unknowable: true
+  };
+  if (isLabelableDescendant(node)) return {
+    hasControl: true,
+    unknowable: false
+  };
+  const acc = {
+    hasControl: false,
+    unknowable: false
+  };
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) {
+    const r2 = scanLabelSubtree(node[key2]);
+    acc.hasControl ||= r2.hasControl;
+    acc.unknowable ||= r2.unknowable;
+  }
+  return acc;
+}
+function collectUnassociatedLabels(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectUnassociatedLabels(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "label" && Array.isArray(node.attributes)) {
+    const hasFor = findAttr(node.attributes, "for") !== void 0;
+    const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
+    if (!hasFor && !hasSpread) {
+      const scan = scanLabelSubtree(node);
+      if (!scan.hasControl && !scan.unknowable) acc.push({ line: lineOf(source2, node.start) });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectUnassociatedLabels(node[key2], source2, acc);
+}
+var BULLET_TEXT_RE = /^[•・·\-*]\s/;
+var VERBATIM_TEXT_TAGS = /* @__PURE__ */ new Set([
+  "pre",
+  "code",
+  "kbd",
+  "samp",
+  "textarea"
+]);
+function collectBulletTexts(node, source2, acc, inert, afterExpression = false, reported = /* @__PURE__ */ new WeakSet()) {
+  if (Array.isArray(node)) {
+    let prevWasExpression = afterExpression;
+    let group = [];
+    const flush = () => {
+      if (group.length >= 2) for (const b of group) {
+        if (reported.has(b.text)) continue;
+        reported.add(b.text);
+        acc.push({
+          line: b.line,
+          char: b.char
+        });
+      }
+      group = [];
+    };
+    const bulletOf = (text2, after) => {
+      if (!text2 || typeof text2 !== "object" || text2.type !== "Text" || after) return void 0;
+      const trimmed = String(text2.data ?? "").trim();
+      return BULLET_TEXT_RE.test(trimmed) ? {
+        line: lineOf(source2, text2.start),
+        char: trimmed[0],
+        text: text2
+      } : void 0;
+    };
+    for (const child of node) {
+      if (!child || typeof child !== "object") continue;
+      if (child.type === "Text") {
+        const b = inert ? void 0 : bulletOf(child, prevWasExpression);
+        if (b) group.push(b);
+        else if (String(child.data ?? "").trim()) flush();
+      } else if (child.type === "Comment" || child.type === "RegularElement" && child.name === "br") {
+      } else {
+        let item;
+        if (!inert && child.type === "RegularElement" && child.name !== "li" && !VERBATIM_TEXT_TAGS.has(child.name)) item = bulletOf((child.fragment?.nodes ?? []).find((n2) => !(n2?.type === "Text" && !String(n2.data ?? "").trim()) && n2?.type !== "Comment"), prevWasExpression);
+        if (item) group.push(item);
+        else flush();
+        collectBulletTexts(child, source2, acc, inert, prevWasExpression, reported);
+      }
+      if (child.type !== "Comment") prevWasExpression = child.type === "ExpressionTag";
+    }
+    flush();
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "Text") return;
+  if (node.type === "SnippetBlock") return;
+  const nowInert = inert || node.type === "RegularElement" && (node.name === "li" || VERBATIM_TEXT_TAGS.has(node.name));
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectBulletTexts(node[key2], source2, acc, nowInert, false, reported);
+}
+function selectNeedsPlaceholder(attributes) {
+  const requiredAttr = findAttr(attributes, "required");
+  if (!requiredAttr || attrValueOf(requiredAttr) === "dynamic") return false;
+  if (findAttr(attributes, "multiple")) return false;
+  const sizeAttr = findAttr(attributes, "size");
+  if (sizeAttr) {
+    if (attrValueOf(sizeAttr) === "dynamic") return false;
+    const size = Number(attrText(attributes, "size"));
+    if (!(Number.isFinite(size) && size <= 1)) return false;
+  }
+  return true;
+}
+function firstSignificantChild(nodes) {
+  for (const child of nodes ?? []) {
+    if (!child) continue;
+    if (child.type === "Comment") continue;
+    if (child.type === "Text" && !String(child.data ?? "").trim()) continue;
+    return child;
+  }
+}
+function isPlaceholderOption(option) {
+  const attributes = option.attributes ?? [];
+  if (findAttr(attributes, "value")) {
+    const literal3 = attrText(attributes, "value");
+    return literal3 === void 0 || literal3 === "";
+  }
+  return textFromNodes(option.fragment?.nodes ?? []) === void 0;
+}
+function collectSelectsMissingPlaceholder(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectSelectsMissingPlaceholder(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "select" && Array.isArray(node.attributes)) {
+    if (!node.attributes.some((a2) => a2?.type === "SpreadAttribute") && selectNeedsPlaceholder(node.attributes)) {
+      const first = firstSignificantChild(node.fragment?.nodes);
+      if (!first) acc.push({ line: lineOf(source2, node.start) });
+      else if (first.type === "RegularElement" && first.name === "option") {
+        if (!(first.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute") && !isPlaceholderOption(first)) acc.push({ line: lineOf(source2, node.start) });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectSelectsMissingPlaceholder(node[key2], source2, acc);
+}
+var MACHINE_READABLE_TIME = [
+  /^\d{4,}(-\d{2}){0,2}$/,
+  /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
+  /^\d{4,}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/,
+  /^\d{2}-\d{2}$/,
+  /^\d{4,}-W\d{2}$/,
+  /^(Z|[+-]\d{2}:?\d{2})$/,
+  /^P(?=\d|T)[\d.,TYWDHMS]*$/i,
+  /^\d+(\.\d+)?\s*[wdhms](\s+\d+(\.\d+)?\s*[wdhms])*$/i
+];
+function collectTimesMissingDatetime(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectTimesMissingDatetime(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "time" && findAttr(node.attributes ?? [], "datetime") === void 0 && !(node.attributes ?? []).some((a2) => a2?.type === "SpreadAttribute")) {
+    const nodes = node.fragment?.nodes ?? [];
+    if (nodes.length > 0 && nodes.every((n2) => n2?.type === "Text")) {
+      const trimmed = nodes.map((n2) => String(n2.data ?? "")).join("").trim();
+      if (trimmed.length > 0 && !MACHINE_READABLE_TIME.some((re) => re.test(trimmed))) acc.push({
+        line: lineOf(source2, node.start),
+        text: trimmed
+      });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectTimesMissingDatetime(node[key2], source2, acc);
+}
+function staticTextOf(nodes) {
+  let out = "";
+  for (const n2 of nodes) {
+    if (!n2 || typeof n2 !== "object") continue;
+    if (n2.type === "Comment") continue;
+    if (n2.type === "Text") {
+      out += String(n2.data ?? "");
+      continue;
+    }
+    if (n2.type === "RegularElement" && typeof n2.name === "string" && !n2.name.includes("-")) {
+      const inner = staticTextOf(n2.fragment?.nodes ?? []);
+      if (inner === void 0) return void 0;
+      out += inner;
+      continue;
+    }
+    return;
+  }
+  return out;
+}
+function collectDuplicateDts(node, source2, acc, inSvg) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectDuplicateDts(child, source2, acc, inSvg);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  let next2 = inSvg;
+  if (node.type === "RegularElement" && typeof node.name === "string") {
+    const tag2 = node.name.toLowerCase();
+    if (tag2 === "svg") next2 = true;
+    else if (tag2 === "foreignobject") next2 = false;
+    if (!inSvg && tag2 === "dl") {
+      const seen = /* @__PURE__ */ new Set();
+      const judge = (dt) => {
+        const raw = staticTextOf(dt.fragment?.nodes ?? []);
+        if (raw === void 0) return;
+        const name = raw.trim().replace(/\s+/g, " ");
+        if (!name) return;
+        if (seen.has(name)) acc.push({
+          line: lineOf(source2, dt.start),
+          text: name
+        });
+        else seen.add(name);
+      };
+      for (const child of node.fragment?.nodes ?? []) {
+        if (child?.type !== "RegularElement" || typeof child.name !== "string") continue;
+        const childTag = child.name.toLowerCase();
+        if (childTag === "dt") judge(child);
+        else if (childTag === "div") {
+          for (const inner of child.fragment?.nodes ?? []) if (inner?.type === "RegularElement" && typeof inner.name === "string" && inner.name.toLowerCase() === "dt") judge(inner);
+        }
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectDuplicateDts(node[key2], source2, acc, next2);
+}
+function collectVideosAutoplayNoMuted(node, source2, acc, inSvg) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectVideosAutoplayNoMuted(child, source2, acc, inSvg);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  let next2 = inSvg;
+  if (node.type === "RegularElement" && typeof node.name === "string") {
+    const tag2 = node.name.toLowerCase();
+    if (tag2 === "svg") next2 = true;
+    else if (tag2 === "foreignobject") next2 = false;
+    if (!inSvg && tag2 === "video" && Array.isArray(node.attributes)) {
+      const literalAutoplay = attrText(node.attributes, "autoplay") !== void 0;
+      const hasMuted = findAttr(node.attributes, "muted") !== void 0 || node.attributes.some((a2) => a2?.type === "BindDirective" && a2.name === "muted" || a2?.type === "SpreadAttribute");
+      if (literalAutoplay && !hasMuted) acc.push({ line: lineOf(source2, node.start) });
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectVideosAutoplayNoMuted(node[key2], source2, acc, next2);
+}
+function collectHrefLinks(node, source2, acc) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectHrefLinks(child, source2, acc);
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  if (node.type === "RegularElement" && node.name === "a" && Array.isArray(node.attributes)) {
+    const attr = findAttr(node.attributes, "href");
+    const value = attr ? attrTextOf(attr) : void 0;
+    if (value !== void 0 && isRootRelativePath(value)) acc.push({
+      kind: "href",
+      path: value,
+      line: lineOf(source2, attr?.start ?? node.start)
+    });
+  }
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectHrefLinks(node[key2], source2, acc);
+}
+var GOTO_NAMES = /* @__PURE__ */ new Set(["goto"]);
+function collectGotoLinks(locals, roots, source2, acc) {
+  if (locals.size === 0) return;
+  for (const root of roots) {
+    if (!root) continue;
+    walkEstree(root, (n2) => {
+      if (n2.type !== "CallExpression" || n2.callee?.type !== "Identifier" || !locals.has(n2.callee.name)) return;
+      const arg = n2.arguments?.[0];
+      if (arg?.type !== "Literal" || typeof arg.value !== "string" || !isRootRelativePath(arg.value)) return;
+      acc.push({
+        kind: "goto",
+        path: arg.value,
+        line: lineOf(source2, n2.start)
+      });
+    });
+  }
+}
+function isPropsCall(node) {
+  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$props";
+}
+function isBindableCall(node) {
+  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$bindable";
+}
+function collectPropNames(program, includeBindable) {
+  const names = /* @__PURE__ */ new Set();
+  let seen = 0;
+  let ambiguous = false;
+  walkEstree(program, (n2) => {
+    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
+    seen++;
+    if (n2.id?.type === "Identifier") {
+      names.add(n2.id.name);
+      return;
+    }
+    if (n2.id?.type !== "ObjectPattern" || !Array.isArray(n2.id.properties)) {
+      ambiguous = true;
+      return;
+    }
+    for (const p2 of n2.id.properties) if (p2?.type === "RestElement") addBoundNames(p2.argument, names);
+    else if (p2?.type === "Property") {
+      if (p2.value?.type === "AssignmentPattern") {
+        if ((includeBindable || !isBindableCall(p2.value.right)) && p2.value.left?.type === "Identifier") names.add(p2.value.left.name);
+      } else if (p2.value?.type === "Identifier") names.add(p2.value.name);
+    }
+  });
+  return ambiguous || seen > 1 ? /* @__PURE__ */ new Set() : names;
+}
+function collectLegacyPropNames(program) {
+  const names = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || stmt2.declaration?.type !== "VariableDeclaration") continue;
+    for (const d2 of stmt2.declaration.declarations ?? []) if (d2?.id?.type === "Identifier") names.add(d2.id.name);
+  }
+  return names;
+}
+var MUTATING_METHODS = /* @__PURE__ */ new Set([
+  "push",
+  "pop",
+  "shift",
+  "unshift",
+  "splice",
+  "sort",
+  "reverse",
+  "copyWithin",
+  "fill",
+  "set",
+  "add",
+  "delete",
+  "clear"
+]);
+function collectPropMutations(root, propNames, source2, acc) {
+  if (propNames.size === 0) return;
+  walkScoped(root, (n2, scope) => {
+    const flag = (r2) => {
+      if (r2 && propNames.has(r2) && !scope.has(r2)) acc.push({
+        name: r2,
+        line: lineOf(source2, n2.start)
+      });
+    };
+    if (n2.type === "AssignmentExpression" && n2.left?.type === "MemberExpression") flag(rootObjectName(n2.left));
+    else if (n2.type === "UpdateExpression" && n2.argument?.type === "MemberExpression") flag(rootObjectName(n2.argument));
+    else if (n2.type === "UnaryExpression" && n2.operator === "delete") flag(rootObjectName(n2.argument));
+    else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
+      const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
+      if (method2 && MUTATING_METHODS.has(method2)) flag(rootObjectName(n2.callee.object));
+    }
+  });
+}
+function countProps(program) {
+  let count = 0;
+  let seen = 0;
+  let uncountable = false;
+  walkEstree(program, (n2) => {
+    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
+    seen++;
+    const props = n2.id?.type === "ObjectPattern" ? n2.id.properties : void 0;
+    if (!Array.isArray(props)) {
+      uncountable = true;
+      return;
+    }
+    count = props.filter((p2) => p2?.type === "Property").length;
+  });
+  return uncountable || seen > 1 ? 0 : count;
+}
+function countLines(source2) {
+  if (source2.length === 0) return 0;
+  return source2.split("\n").length - (source2.endsWith("\n") ? 1 : 0);
+}
+function isTypeOnlyImport(n2) {
+  if (n2.importKind === "type") return true;
+  const specs = n2.specifiers;
+  return Array.isArray(specs) && specs.length > 0 && specs.every((s) => s?.importKind === "type");
+}
+function collectImportSources(program, source2, acc) {
+  walkEstree(program, (n2) => {
+    if (n2.type === "ImportDeclaration" && typeof n2.source?.value === "string") acc.push({
+      source: n2.source.value,
+      line: lineOf(source2, n2.start),
+      ...isTypeOnlyImport(n2) ? { type: true } : {}
+    });
+  });
+}
+function isBareSpecifier(s) {
+  return !/^[./$#]/.test(s);
+}
+function collectNamespaceImports(program, source2, acc) {
+  walkEstree(program, (n2) => {
+    if (n2.type !== "ImportDeclaration" || n2.importKind === "type") return;
+    const spec = n2.source?.value;
+    if (typeof spec !== "string" || !isBareSpecifier(spec)) return;
+    if (Array.isArray(n2.specifiers) && n2.specifiers.some((s) => s?.type === "ImportNamespaceSpecifier")) acc.push({
+      source: spec,
+      line: lineOf(source2, n2.start)
+    });
+  });
+}
+var MD_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
+var SCRIPT_OPEN = /<script(?:\s[^>]*)?>/;
+var SCRIPT_CLOSE = /<\/script\s*>/;
+var STYLE_OPEN = /<style(?:\s[^>]*)?>/;
+var STYLE_CLOSE = /<\/style\s*>/;
+function collectCommentLinks(source2, { wholeFileIsScript = false } = {}) {
+  const out = [];
+  let htmlOpen = false;
+  let block2 = wholeFileIsScript ? "script" : void 0;
+  source2.split("\n").forEach((line, i2) => {
+    let text2 = "";
+    if (block2 !== void 0) {
+      if (block2 === "script" && /^\s*\/\//.test(line)) text2 = line.replace(/^\s*\/\//, "");
+      if (!wholeFileIsScript && (block2 === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(line)) block2 = void 0;
+    } else {
+      let plain = "";
+      let rest2 = line;
+      while (rest2.length > 0) {
+        if (htmlOpen) {
+          const end = rest2.indexOf("-->");
+          if (end === -1) {
+            text2 += rest2;
+            break;
+          }
+          text2 += rest2.slice(0, end);
+          htmlOpen = false;
+          rest2 = rest2.slice(end + 3);
+          continue;
+        }
+        const start = rest2.indexOf("<!--");
+        if (start === -1) {
+          plain += rest2;
+          break;
+        }
+        plain += rest2.slice(0, start);
+        htmlOpen = true;
+        rest2 = rest2.slice(start + 4);
+      }
+      const opened = SCRIPT_OPEN.test(plain) ? "script" : STYLE_OPEN.test(plain) ? "style" : void 0;
+      if (opened !== void 0 && !(opened === "script" ? SCRIPT_CLOSE : STYLE_CLOSE).test(plain)) block2 = opened;
+    }
+    for (const m of text2.matchAll(MD_LINK)) if (m[1] !== void 0) out.push({
+      url: m[1],
+      line: i2 + 1
+    });
+  });
+  return out;
+}
+function collectEvalScopeCalls(root, source2, matcher, skipSubtree, initialShadowed) {
+  const out = [];
+  walkEvalScope(root, (n2, shadowed) => {
+    if (n2.type !== "CallExpression") return void 0;
+    if (skipSubtree?.(n2)) return true;
+    const name = matcher(n2, shadowed);
+    if (name) out.push({
+      name,
+      line: lineOf(source2, n2.start)
+    });
+  }, initialShadowed);
+  return out;
+}
+function collectOrphanCalls(program, source2, matcher, skipSubtree) {
+  const out = collectEvalScopeCalls(program, source2, matcher, skipSubtree).map((c) => ({
+    ...c,
+    kind: "top-level"
+  }));
+  const body = program.body ?? [];
+  const matchingClasses = /* @__PURE__ */ new Map();
+  for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "ClassDeclaration" || decl.id?.type !== "Identifier") continue;
+    const ctor = (decl.body?.body ?? []).find((m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body);
+    if (!ctor) continue;
+    const ctorShadow = /* @__PURE__ */ new Set();
+    for (const p2 of ctor.value.params ?? []) addBoundNames(p2, ctorShadow);
+    const calls = collectEvalScopeCalls(ctor.value.body, source2, matcher, skipSubtree, ctorShadow);
+    if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0].name);
+  }
+  if (matchingClasses.size > 0) for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (!(decl?.type === "VariableDeclaration" || decl?.type === "ExpressionStatement" || stmt2.type === "ExportDefaultDeclaration" && decl?.type !== "FunctionDeclaration" && decl?.type !== "ClassDeclaration")) continue;
+    walkEvalScope(decl, (n2) => {
+      if (n2.type === "NewExpression" && n2.callee?.type === "Identifier" && matchingClasses.has(n2.callee.name)) out.push({
+        name: matchingClasses.get(n2.callee.name),
+        line: lineOf(source2, n2.start),
+        kind: "constructor-instantiated",
+        className: n2.callee.name
+      });
+    });
+  }
+  return out.sort((a2, b) => a2.line - b.line);
+}
+function collectOrphanEffects(program, source2) {
+  return collectOrphanCalls(program, source2, (n2) => isEffectCall(n2) ? "$effect" : void 0, isEffectRootCall).map(({ line, kind, className }) => ({
+    line,
+    kind,
+    ...className !== void 0 ? { className } : {}
+  }));
+}
+function collectOrphanLifecycleCalls(program, source2) {
+  const imports2 = collectSvelteLifecycleImports(program);
+  if (imports2.locals.size === 0 && imports2.namespaces.size === 0) return [];
+  return collectOrphanCalls(program, source2, (n2, shadowed) => {
+    const m = matchLifecycleCall(n2, imports2);
+    return m && !shadowed.has(m.local) ? m.canonical : void 0;
+  });
+}
+var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
+function collectModuleStateDecls(program, source2) {
+  const out = [];
+  const body = program.body ?? [];
+  const statefulClasses = /* @__PURE__ */ new Set();
+  for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "VariableDeclaration") {
+      for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && d2.init && isStateDeclaration(unwrapTs(d2.init))) out.push({
+        name: d2.id.name,
+        line: lineOf(source2, d2.start)
+      });
+    } else if (decl?.type === "ClassDeclaration" && decl.id?.type === "Identifier") {
+      if ((decl.body?.body ?? []).some((m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(unwrapTs(m.value)))) statefulClasses.add(decl.id.name);
+    }
+  }
+  if (statefulClasses.size > 0) for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "VariableDeclaration") continue;
+    for (const d2 of decl.declarations ?? []) if (d2?.init?.type === "NewExpression" && d2.init.callee?.type === "Identifier" && statefulClasses.has(d2.init.callee.name)) out.push({
+      name: d2.id?.type === "Identifier" ? d2.id.name : d2.init.callee.name,
+      line: lineOf(source2, d2.start)
+    });
+  }
+  return out.sort((a2, b) => a2.line - b.line);
+}
+function parseModuleFacts(source2, filename2) {
+  const { program, wrapped } = parseModuleProgram(source2, filename2);
+  const shift = (line) => Math.max(0, line - 1);
+  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({
+    ...f,
+    line: shift(f.line)
+  })) : [];
+  const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({
+    ...f,
+    line: shift(f.line)
+  })) : [];
+  const browserGlobalRefs = program ? collectBrowserGlobalRefs(program, wrapped).map((r2) => ({
+    ...r2,
+    line: shift(r2.line),
+    context: "module"
+  })) : [];
+  const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d2) => ({
+    ...d2,
+    line: shift(d2.line)
+  })) : [];
+  const basePathLinks = [];
+  if (program) {
+    const locals = collectNamedImportAliases(program, "$app/navigation", GOTO_NAMES);
+    const raw = [];
+    collectGotoLinks(locals, [program], wrapped, raw);
+    for (const l2 of raw) basePathLinks.push({
+      ...l2,
+      line: shift(l2.line)
+    });
+    basePathLinks.sort((a2, b) => a2.line - b.line);
+  }
+  const importSpans = [];
+  const namespaceImports = [];
+  if (program) {
+    const rawImportSpans = [];
+    collectImportSources(program, wrapped, rawImportSpans);
+    for (const s of rawImportSpans) importSpans.push({
+      ...s,
+      line: shift(s.line)
+    });
+    const rawNamespaceImports = [];
+    collectNamespaceImports(program, wrapped, rawNamespaceImports);
+    for (const n2 of rawNamespaceImports) namespaceImports.push({
+      ...n2,
+      line: shift(n2.line)
+    });
+  }
+  return {
+    eachBlocks: [],
+    effects: [],
+    htmlTags: [],
+    javascriptUrls: [],
+    loc: 0,
+    propCount: 0,
+    imports: importSpans.map((s) => s.source),
+    importSpans,
+    namespaceImports,
+    constableStates: [],
+    mutatedProps: [],
+    stalePropDerivations: [],
+    rawableStates: [],
+    nonreactiveBuiltinStates: [],
+    checkableBindValues: [],
+    basePathLinks,
+    suppressions: collectSuppressions(source2),
+    commentLinks: collectCommentLinks(source2, { wholeFileIsScript: true }),
+    orphanEffects,
+    orphanLifecycleCalls,
+    browserGlobalRefs,
+    moduleStateDecls
+  };
+}
+function parseComponentFacts(source2, filename2) {
+  if (MODULE_FILE_RE.test(filename2)) return parseModuleFacts(source2, filename2);
+  const ast = parseSvelte(source2, filename2);
+  const eachBlocks = [];
+  collectEachBlocks(ast.fragment ?? ast, source2, eachBlocks);
+  const htmlTags = [];
+  const javascriptUrls = [];
+  collectSecurityFacts(ast.fragment ?? ast, source2, htmlTags, javascriptUrls);
+  const checkableBindValues = [];
+  collectCheckableBindValues(ast.fragment ?? ast, source2, checkableBindValues);
+  const ariaElements = [];
+  collectAriaElements(ast.fragment ?? ast, source2, ariaElements);
+  const elements = [];
+  collectElements(ast.fragment ?? ast, source2, elements, ast.options?.namespace === "svg");
+  const interactiveNestings = [];
+  collectInteractiveNestings(ast.fragment ?? ast, source2, interactiveNestings, []);
+  const ariaHiddenFocusables = [];
+  collectAriaHiddenFocusables(ast.fragment ?? ast, source2, ariaHiddenFocusables, []);
+  const unnamedInteractive = [];
+  const labelTargets = {
+    ids: /* @__PURE__ */ new Set(),
+    nodes: /* @__PURE__ */ new Set()
+  };
+  collectLabelTargets(ast.fragment ?? ast, labelTargets);
+  collectUnnamedInteractive(ast.fragment ?? ast, source2, unnamedInteractive, labelTargets);
+  const unassociatedLabels = [];
+  collectUnassociatedLabels(ast.fragment ?? ast, source2, unassociatedLabels);
+  const bulletTexts = [];
+  collectBulletTexts(ast.fragment ?? ast, source2, bulletTexts, false);
+  const selectsMissingPlaceholder = [];
+  collectSelectsMissingPlaceholder(ast.fragment ?? ast, source2, selectsMissingPlaceholder);
+  const timesMissingDatetime = [];
+  collectTimesMissingDatetime(ast.fragment ?? ast, source2, timesMissingDatetime);
+  const videosAutoplayNoMuted = [];
+  collectVideosAutoplayNoMuted(ast.fragment ?? ast, source2, videosAutoplayNoMuted, ast.options?.namespace === "svg");
+  const duplicateDts = [];
+  collectDuplicateDts(ast.fragment ?? ast, source2, duplicateDts, ast.options?.namespace === "svg");
+  const basePathLinks = [];
+  collectHrefLinks(ast.fragment ?? ast, source2, basePathLinks);
+  const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean);
+  const gotoLocals = /* @__PURE__ */ new Set();
+  for (const p2 of gotoPrograms) for (const n2 of collectNamedImportAliases(p2, "$app/navigation", GOTO_NAMES)) gotoLocals.add(n2);
+  collectGotoLinks(gotoLocals, [...gotoPrograms, ast.fragment], source2, basePathLinks);
+  basePathLinks.sort((a2, b) => a2.line - b.line);
+  const loc = countLines(source2);
+  const suppressions = collectSuppressions(source2);
+  const moduleProgram = ast.module?.content;
+  const importSpans = [];
+  const namespaceImports = [];
+  if (moduleProgram) {
+    collectImportSources(moduleProgram, source2, importSpans);
+    collectNamespaceImports(moduleProgram, source2, namespaceImports);
+  }
+  const orphanEffects = moduleProgram ? collectOrphanEffects(moduleProgram, source2) : [];
+  const orphanLifecycleCalls = moduleProgram ? collectOrphanLifecycleCalls(moduleProgram, source2) : [];
+  const browserGlobalRefs = [];
+  if (moduleProgram) for (const r2 of collectBrowserGlobalRefs(moduleProgram, source2)) browserGlobalRefs.push({
+    ...r2,
+    context: "module"
+  });
+  const effects = [];
+  const constableStates = [];
+  const mutatedProps = [];
+  const stalePropDerivations = [];
+  const rawableStates = [];
+  const nonreactiveBuiltinStates = [];
+  let propCount = 0;
+  const program = ast.instance?.content;
+  if (program) {
+    collectImportSources(program, source2, importSpans);
+    collectNamespaceImports(program, source2, namespaceImports);
+    propCount = countProps(program);
+    const legacyPropNames = collectLegacyPropNames(program);
+    const nonBindableProps = /* @__PURE__ */ new Set([...collectPropNames(program, false), ...legacyPropNames]);
+    const rawMutations = [];
+    collectPropMutations(program, nonBindableProps, source2, rawMutations);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, rawMutations);
+    for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? {
+      ...m,
+      legacy: true
+    } : m);
+    const allPropNames = /* @__PURE__ */ new Set([...collectPropNames(program, true), ...legacyPropNames]);
+    if (allPropNames.size > 0) {
+      const candidates = collectStalePropCandidates(program, allPropNames, source2);
+      if (candidates.length > 0) {
+        const candidateNames = new Set(candidates.map((c) => c.name));
+        const disqualified = /* @__PURE__ */ new Set();
+        collectStateWrites(program, candidateNames, disqualified);
+        if (ast.fragment) {
+          collectStateWrites(ast.fragment, candidateNames, disqualified);
+          collectTemplateEscapes(ast.fragment, candidateNames, disqualified);
+        }
+        const referenced = /* @__PURE__ */ new Set();
+        if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
+        const isLegacy = legacyPropNames.size > 0;
+        for (const c of candidates) if (!disqualified.has(c.name) && referenced.has(c.name)) stalePropDerivations.push(isLegacy ? {
+          ...c,
+          legacy: true
+        } : c);
+      }
+    }
+    const stateNames = /* @__PURE__ */ new Set();
+    const reactiveNames = /* @__PURE__ */ new Set();
+    collectImportedLocalNames(program, reactiveNames);
+    collectNewExprLocalNames(program, reactiveNames);
+    if (moduleProgram) {
+      collectImportedLocalNames(moduleProgram, reactiveNames);
+      collectNewExprLocalNames(moduleProgram, reactiveNames);
+    }
+    const stateDecls = [];
+    walkEstree(program, (n2) => {
+      if (n2.type !== "VariableDeclarator" || !n2.init) return;
+      const init2 = unwrapTs(n2.init);
+      if (isStateDeclaration(init2) && n2.id?.type === "Identifier") {
+        stateNames.add(n2.id.name);
+        stateDecls.push({
+          name: n2.id.name,
+          line: lineOf(source2, n2.start)
+        });
+      }
+      if (isStateDeclaration(init2) || isDerivedDeclaration(init2) || isPropsCall(init2)) addBoundNames(n2.id, reactiveNames);
+    });
+    walkEstree(program, (n2) => {
+      if (n2.type !== "CallExpression" || !isEffectCall(n2)) return;
+      const fn = n2.arguments?.[0];
+      const isFn = fn?.type === "ArrowFunctionExpression" || fn?.type === "FunctionExpression";
+      effects.push({
+        line: lineOf(source2, n2.start),
+        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false,
+        mountOnly: isFn ? !bodyIsEmpty(fn) && !bodyReadsReactive(fn, reactiveNames) : false
+      });
+    });
+    const writtenOrEscaped = /* @__PURE__ */ new Set();
+    collectStateWrites(program, stateNames, writtenOrEscaped);
+    if (ast.fragment) {
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
+      collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
+      collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
+    }
+    for (const d2 of stateDecls) if (!writtenOrEscaped.has(d2.name)) constableStates.push(d2);
+    const rawableCandidates = [];
+    for (const stmt2 of program.body ?? []) {
+      if (stmt2?.type !== "VariableDeclaration") continue;
+      for (const d2 of stmt2.declarations ?? []) {
+        if (d2?.id?.type !== "Identifier" || !d2.init) continue;
+        const init2 = unwrapTs(d2.init);
+        if (!isPlainStateCall(init2)) continue;
+        const arg = unwrapTs(init2.arguments?.[0]);
+        if (arg?.type === "ObjectExpression" || arg?.type === "ArrayExpression") rawableCandidates.push({
+          name: d2.id.name,
+          line: lineOf(source2, d2.start)
+        });
+      }
+    }
+    if (rawableCandidates.length > 0) {
+      const candNames = new Set(rawableCandidates.map((c) => c.name));
+      const union = /* @__PURE__ */ new Set();
+      const kinds = /* @__PURE__ */ new Map();
+      collectStateWrites(program, candNames, union, kinds);
+      if (ast.fragment) {
+        collectStateWrites(ast.fragment, candNames, union, kinds);
+        collectTemplateEscapes(ast.fragment, candNames, union, kinds);
+      }
+      const aliasEscapes = /* @__PURE__ */ new Set();
+      collectAliasRefs(program, candNames, aliasEscapes);
+      const eachTaint = /* @__PURE__ */ new Set();
+      if (ast.fragment) {
+        collectFragmentAliasRefs(ast.fragment, candNames, aliasEscapes);
+        collectDirectiveEscapes(ast.fragment, candNames, aliasEscapes);
+        collectEachContextTaint(ast.fragment, candNames, eachTaint);
+      }
+      for (const c of rawableCandidates) {
+        const k2 = kinds.get(c.name);
+        const reassigned = k2?.has("reassign") ?? false;
+        const dirty = k2 !== void 0 && [...k2].some((kind) => kind !== "reassign") || aliasEscapes.has(c.name) || eachTaint.has(c.name);
+        if (reassigned && !dirty) rawableStates.push(c);
+      }
+    }
+    const builtinCandidates = /* @__PURE__ */ new Map();
+    for (const stmt2 of program.body ?? []) {
+      if (stmt2?.type !== "VariableDeclaration") continue;
+      for (const d2 of stmt2.declarations ?? []) {
+        if (d2?.id?.type !== "Identifier" || !d2.init) continue;
+        const init2 = unwrapTs(d2.init);
+        if (!isPlainStateCall(init2)) continue;
+        const arg = unwrapTs(init2.arguments?.[0]);
+        if (arg?.type === "NewExpression" && arg.callee?.type === "Identifier" && BUILTIN_STATE_TYPES.has(arg.callee.name)) builtinCandidates.set(d2.id.name, {
+          type: arg.callee.name,
+          line: lineOf(source2, d2.start)
+        });
+      }
+    }
+    if (builtinCandidates.size > 0) {
+      const types2 = new Map([...builtinCandidates].map(([n2, meta]) => [n2, meta.type]));
+      const mutatedBuiltins = /* @__PURE__ */ new Set();
+      const reassignedBuiltins = /* @__PURE__ */ new Set();
+      collectBuiltinStateSignals(program, types2, mutatedBuiltins, reassignedBuiltins);
+      if (ast.fragment) collectBuiltinStateSignals(ast.fragment, types2, mutatedBuiltins, reassignedBuiltins);
+      for (const [name, meta] of builtinCandidates) if (mutatedBuiltins.has(name) && !reassignedBuiltins.has(name)) nonreactiveBuiltinStates.push({
+        name,
+        type: meta.type,
+        line: meta.line
+      });
+    }
+    let moduleExtra;
+    if (moduleProgram) {
+      const moduleBrowserImports = collectBrowserGuardImports(moduleProgram);
+      moduleExtra = {
+        guards: /* @__PURE__ */ new Set([...moduleBrowserImports, ...collectDerivedGuardBindings(moduleProgram, moduleBrowserImports)]),
+        bound: collectProgramBindings(moduleProgram)
+      };
+    }
+    for (const r2 of collectBrowserGlobalRefs(program, source2, moduleExtra)) browserGlobalRefs.push({
+      ...r2,
+      context: "instance"
+    });
+  }
+  const imports2 = importSpans.map((s) => s.source);
+  return {
+    eachBlocks,
+    effects,
+    htmlTags,
+    javascriptUrls,
+    loc,
+    propCount,
+    imports: imports2,
+    importSpans,
+    namespaceImports,
+    constableStates,
+    mutatedProps,
+    stalePropDerivations,
+    rawableStates,
+    nonreactiveBuiltinStates,
+    checkableBindValues,
+    basePathLinks,
+    orphanEffects,
+    orphanLifecycleCalls,
+    browserGlobalRefs,
+    moduleStateDecls: [],
+    suppressions,
+    commentLinks: collectCommentLinks(source2),
+    ariaElements,
+    elements,
+    interactiveNestings,
+    ariaHiddenFocusables,
+    unnamedInteractive,
+    unassociatedLabels,
+    bulletTexts,
+    selectsMissingPlaceholder,
+    timesMissingDatetime,
+    videosAutoplayNoMuted,
+    duplicateDts
+  };
+}
+function addFactsDirectives(index, facts) {
+  for (const c of facts.components ?? []) index.set(c.file, c.suppressions ?? []);
+  for (const m of facts.kitModules ?? []) index.set(m.file, m.suppressions ?? []);
+  const vc = facts.viteMinifyDisabled;
+  if (vc?.file) index.set(vc.file, vc.suppressions ?? []);
+}
 function directiveFor(index, r2) {
   const line = r2.line;
   if (r2.location === void 0 || line === void 0 || line <= 0) return void 0;
   return (index.get(r2.location) ?? []).find((d2) => d2.line === line && (!d2.ruleIds || d2.ruleIds.includes(r2.id)));
 }
 function applyInlineDirectives(results, index, rules, config) {
+  if (index.size === 0) return [...results];
   const labels = new Map(rules.map((r2) => [r2.id, r2.passLabel ?? r2.title]));
   const kept = [];
   const silenced = /* @__PURE__ */ new Map();
@@ -70552,8 +68888,8 @@ function findMinifyDisabled(source2) {
   if (!program) return void 0;
   const config = resolveConfigObject(program);
   if (!config) return void 0;
-  const build2 = propOf(config, "build");
-  const buildValue = build2 ? unwrapTs(build2.value) : void 0;
+  const build = propOf(config, "build");
+  const buildValue = build ? unwrapTs(build.value) : void 0;
   if (buildValue?.type !== "ObjectExpression") return void 0;
   const minify = propOf(buildValue, "minify");
   const minifyValue = minify ? unwrapTs(minify.value) : void 0;
@@ -70624,8 +68960,8 @@ function findKitAliasesInSvelteConfig(source2) {
   };
 }
 function normalizeAliasValue(value) {
-  const posix2 = value.replace(/\\/g, "/");
-  return (posix2.endsWith("/*") ? posix2.slice(0, -2) : posix2).replace(/\/+$/, "");
+  const posix = value.replace(/\\/g, "/");
+  return (posix.endsWith("/*") ? posix.slice(0, -2) : posix).replace(/\/+$/, "");
 }
 function compileKitAliases(raw) {
   const out = [{
@@ -70743,7 +69079,7 @@ function withReadLimit(readFile2, limit = 64) {
     waiting.shift()?.();
   };
   return async (path) => {
-    if (active >= limit) await new Promise((resolve5) => waiting.push(resolve5));
+    if (active >= limit) await new Promise((resolve3) => waiting.push(resolve3));
     active++;
     try {
       return await readFile2(path);
@@ -70775,6 +69111,18 @@ async function runRules(rules, ctx) {
     results,
     examined,
     failedRules
+  };
+}
+async function runAnalysis(rules, ctx, directives) {
+  const { results: raw, examined, failedRules } = await runRules(rules, ctx);
+  const results = applyInlineDirectives(applyOverrides(applyRuleSeverities(raw, ctx.config), ctx.config), directives, rules, ctx.config);
+  const failedRuleIds = failedRules.map((f) => f.id);
+  return {
+    results,
+    examined,
+    failedRules,
+    failedRuleIds,
+    scoringConfig: withFailedRulesOff(ctx.config, failedRuleIds)
   };
 }
 var CATEGORY_LABEL = {
@@ -70893,30 +69241,56 @@ var APP_SCRIPT = `
     return pre;
   }
 
+  // Analyzed-repo strings (title, location, recommendation, fix description, docs URL) flow
+  // into a prompt the user pastes into a coding agent \u2014 same threat model as
+  // reporter/sanitize.ts's mdEscape, re-implemented here in ES5 because APP_SCRIPT runs in
+  // the browser and cannot import build-time modules. Keep the two in sync.
+  function mdSafe(text) {
+    return String(text)
+      .replace(/\\r\\n|\\r|\\n/g, ' ')
+      .replace(/<[^>]+>/g, function (tag) {
+        var longest = 0;
+        var runs = tag.match(/\`+/g);
+        if (runs) for (var i = 0; i < runs.length; i++) if (runs[i].length > longest) longest = runs[i].length;
+        var fence = Array(longest + 2).join('\`');
+        var pad = tag.charAt(0) === '\`' || tag.charAt(tag.length - 1) === '\`' ? ' ' : '';
+        return fence + pad + tag + pad + fence;
+      })
+      .replace(/\\[([^\\]]*)\\]\\(([^)]*)\\)/g, '[$1]\\\\($2\\\\)');
+  }
+
+  function fenceFor(snippet) {
+    var longest = 0;
+    var runs = String(snippet).match(/\`+/g);
+    if (runs) for (var i = 0; i < runs.length; i++) if (runs[i].length > longest) longest = runs[i].length;
+    return Array(Math.max(3, longest + 1) + 1).join('\`');
+  }
+
   // Plain-text, copy-pasteable prompt for a single finding \u2014 same ingredients as the
   // agent reporter's per-finding block (rule id, location, recommendation, fix, docs),
   // reshaped for a standalone request rather than a whole-project remediation doc.
   function buildAiPrompt(issue, route) {
     var lines = ['Fix this svelte-vitals finding:', ''];
-    lines.push('- Rule: ' + issue.id + ' \u2014 ' + issue.title + ' (' + issue.severity + ')');
-    if (route) lines.push('- Route: ' + route);
+    lines.push('- Rule: ' + issue.id + ' \u2014 ' + mdSafe(issue.title) + ' (' + issue.severity + ')');
+    if (route) lines.push('- Route: ' + mdSafe(route));
     if (issue.location) {
-      lines.push('- Location: ' + issue.location + (issue.line !== undefined ? ':' + issue.line : ''));
+      lines.push('- Location: ' + mdSafe(issue.location) + (issue.line !== undefined ? ':' + issue.line : ''));
     }
-    if (issue.recommendation) lines.push('- Recommendation: ' + issue.recommendation);
+    if (issue.recommendation) lines.push('- Recommendation: ' + mdSafe(issue.recommendation));
     if (issue.fix) {
-      lines.push('- Fix: ' + issue.fix.description);
+      lines.push('- Fix: ' + mdSafe(issue.fix.description));
       if (issue.fix.snippet) {
-        lines.push('', '\`\`\`' + (issue.fix.lang || 'svelte'), issue.fix.snippet, '\`\`\`');
+        var fence = fenceFor(issue.fix.snippet);
+        lines.push('', fence + (issue.fix.lang || 'svelte'), issue.fix.snippet, fence);
       }
     }
-    if (issue.docsUrl) lines.push('- Docs: ' + issue.docsUrl);
+    if (issue.docsUrl) lines.push('- Docs: ' + mdSafe(issue.docsUrl));
     lines.push(
       '',
       'After fixing, re-run \`svelte-vitals --diff\` (or revisit this route) to confirm ' +
         issue.id +
         ' passes' +
-        (route ? ' for ' + route : '') +
+        (route ? ' for ' + mdSafe(route) : '') +
         '.'
     );
     return lines.join('\\n');
@@ -71326,782 +69700,8 @@ var APP_SCRIPT = `
 })();
 `;
 
-// node_modules/.pnpm/svelte-vitals@0.53.0_cac@6.7.14/node_modules/svelte-vitals/dist/src-hgEeAWHb.js
-import { access as access2, readFile } from "fs/promises";
-
-// node_modules/.pnpm/tinyglobby@0.2.17/node_modules/tinyglobby/dist/index.mjs
-import { readdir as readdir2, readdirSync, realpath, realpathSync, stat as stat2, statSync } from "fs";
-import { isAbsolute, posix, resolve as resolve3 } from "path";
-import { fileURLToPath } from "url";
-
-// node_modules/.pnpm/fdir@6.5.0_picomatch@4.0.7/node_modules/fdir/dist/index.mjs
-import { createRequire } from "module";
-import { basename, dirname, normalize, relative, resolve as resolve2, sep as sep2 } from "path";
-import * as nativeFs from "fs";
-var __require2 = /* @__PURE__ */ createRequire(import.meta.url);
-function cleanPath(path) {
-  let normalized = normalize(path);
-  if (normalized.length > 1 && normalized[normalized.length - 1] === sep2) normalized = normalized.substring(0, normalized.length - 1);
-  return normalized;
-}
-var SLASHES_REGEX = /[\\/]/g;
-function convertSlashes(path, separator) {
-  return path.replace(SLASHES_REGEX, separator);
-}
-var WINDOWS_ROOT_DIR_REGEX = /^[a-z]:[\\/]$/i;
-function isRootDirectory(path) {
-  return path === "/" || WINDOWS_ROOT_DIR_REGEX.test(path);
-}
-function normalizePath(path, options) {
-  const { resolvePaths, normalizePath: normalizePath$1, pathSeparator } = options;
-  const pathNeedsCleaning = process.platform === "win32" && path.includes("/") || path.startsWith(".");
-  if (resolvePaths) path = resolve2(path);
-  if (normalizePath$1 || pathNeedsCleaning) path = cleanPath(path);
-  if (path === ".") return "";
-  const needsSeperator = path[path.length - 1] !== pathSeparator;
-  return convertSlashes(needsSeperator ? path + pathSeparator : path, pathSeparator);
-}
-function joinPathWithBasePath(filename2, directoryPath) {
-  return directoryPath + filename2;
-}
-function joinPathWithRelativePath(root, options) {
-  return function(filename2, directoryPath) {
-    const sameRoot = directoryPath.startsWith(root);
-    if (sameRoot) return directoryPath.slice(root.length) + filename2;
-    else return convertSlashes(relative(root, directoryPath), options.pathSeparator) + options.pathSeparator + filename2;
-  };
-}
-function joinPath(filename2) {
-  return filename2;
-}
-function joinDirectoryPath(filename2, directoryPath, separator) {
-  return directoryPath + filename2 + separator;
-}
-function build$7(root, options) {
-  const { relativePaths, includeBasePath } = options;
-  return relativePaths && root ? joinPathWithRelativePath(root, options) : includeBasePath ? joinPathWithBasePath : joinPath;
-}
-function pushDirectoryWithRelativePath(root) {
-  return function(directoryPath, paths) {
-    paths.push(directoryPath.substring(root.length) || ".");
-  };
-}
-function pushDirectoryFilterWithRelativePath(root) {
-  return function(directoryPath, paths, filters) {
-    const relativePath = directoryPath.substring(root.length) || ".";
-    if (filters.every((filter) => filter(relativePath, true))) paths.push(relativePath);
-  };
-}
-var pushDirectory = (directoryPath, paths) => {
-  paths.push(directoryPath || ".");
-};
-var pushDirectoryFilter = (directoryPath, paths, filters) => {
-  const path = directoryPath || ".";
-  if (filters.every((filter) => filter(path, true))) paths.push(path);
-};
-var empty$2 = () => {
-};
-function build$6(root, options) {
-  const { includeDirs, filters, relativePaths } = options;
-  if (!includeDirs) return empty$2;
-  if (relativePaths) return filters && filters.length ? pushDirectoryFilterWithRelativePath(root) : pushDirectoryWithRelativePath(root);
-  return filters && filters.length ? pushDirectoryFilter : pushDirectory;
-}
-var pushFileFilterAndCount = (filename2, _paths, counts, filters) => {
-  if (filters.every((filter) => filter(filename2, false))) counts.files++;
-};
-var pushFileFilter = (filename2, paths, _counts, filters) => {
-  if (filters.every((filter) => filter(filename2, false))) paths.push(filename2);
-};
-var pushFileCount = (_filename, _paths, counts, _filters) => {
-  counts.files++;
-};
-var pushFile = (filename2, paths) => {
-  paths.push(filename2);
-};
-var empty$12 = () => {
-};
-function build$5(options) {
-  const { excludeFiles, filters, onlyCounts } = options;
-  if (excludeFiles) return empty$12;
-  if (filters && filters.length) return onlyCounts ? pushFileFilterAndCount : pushFileFilter;
-  else if (onlyCounts) return pushFileCount;
-  else return pushFile;
-}
-var getArray = (paths) => {
-  return paths;
-};
-var getArrayGroup = () => {
-  return [""].slice(0, 0);
-};
-function build$4(options) {
-  return options.group ? getArrayGroup : getArray;
-}
-var groupFiles = (groups, directory, files) => {
-  groups.push({
-    directory,
-    files,
-    dir: directory
-  });
-};
-var empty3 = () => {
-};
-function build$3(options) {
-  return options.group ? groupFiles : empty3;
-}
-var resolveSymlinksAsync = function(path, state, callback$1) {
-  const { queue, fs: fs2, options: { suppressErrors } } = state;
-  queue.enqueue();
-  fs2.realpath(path, (error2, resolvedPath) => {
-    if (error2) return queue.dequeue(suppressErrors ? null : error2, state);
-    fs2.stat(resolvedPath, (error$1, stat3) => {
-      if (error$1) return queue.dequeue(suppressErrors ? null : error$1, state);
-      if (stat3.isDirectory() && isRecursive(path, resolvedPath, state)) return queue.dequeue(null, state);
-      callback$1(stat3, resolvedPath);
-      queue.dequeue(null, state);
-    });
-  });
-};
-var resolveSymlinks = function(path, state, callback$1) {
-  const { queue, fs: fs2, options: { suppressErrors } } = state;
-  queue.enqueue();
-  try {
-    const resolvedPath = fs2.realpathSync(path);
-    const stat3 = fs2.statSync(resolvedPath);
-    if (stat3.isDirectory() && isRecursive(path, resolvedPath, state)) return;
-    callback$1(stat3, resolvedPath);
-  } catch (e3) {
-    if (!suppressErrors) throw e3;
-  }
-};
-function build$2(options, isSynchronous) {
-  if (!options.resolveSymlinks || options.excludeSymlinks) return null;
-  return isSynchronous ? resolveSymlinks : resolveSymlinksAsync;
-}
-function isRecursive(path, resolved, state) {
-  if (state.options.useRealPaths) return isRecursiveUsingRealPaths(resolved, state);
-  let parent = dirname(path);
-  let depth = 1;
-  while (parent !== state.root && depth < 2) {
-    const resolvedPath = state.symlinks.get(parent);
-    const isSameRoot = !!resolvedPath && (resolvedPath === resolved || resolvedPath.startsWith(resolved) || resolved.startsWith(resolvedPath));
-    if (isSameRoot) depth++;
-    else parent = dirname(parent);
-  }
-  state.symlinks.set(path, resolved);
-  return depth > 1;
-}
-function isRecursiveUsingRealPaths(resolved, state) {
-  return state.visited.includes(resolved + state.options.pathSeparator);
-}
-var onlyCountsSync = (state) => {
-  return state.counts;
-};
-var groupsSync = (state) => {
-  return state.groups;
-};
-var defaultSync = (state) => {
-  return state.paths;
-};
-var limitFilesSync = (state) => {
-  return state.paths.slice(0, state.options.maxFiles);
-};
-var onlyCountsAsync = (state, error2, callback$1) => {
-  report(error2, callback$1, state.counts, state.options.suppressErrors);
-  return null;
-};
-var defaultAsync = (state, error2, callback$1) => {
-  report(error2, callback$1, state.paths, state.options.suppressErrors);
-  return null;
-};
-var limitFilesAsync = (state, error2, callback$1) => {
-  report(error2, callback$1, state.paths.slice(0, state.options.maxFiles), state.options.suppressErrors);
-  return null;
-};
-var groupsAsync = (state, error2, callback$1) => {
-  report(error2, callback$1, state.groups, state.options.suppressErrors);
-  return null;
-};
-function report(error2, callback$1, output, suppressErrors) {
-  if (error2 && !suppressErrors) callback$1(error2, output);
-  else callback$1(null, output);
-}
-function build$1(options, isSynchronous) {
-  const { onlyCounts, group, maxFiles } = options;
-  if (onlyCounts) return isSynchronous ? onlyCountsSync : onlyCountsAsync;
-  else if (group) return isSynchronous ? groupsSync : groupsAsync;
-  else if (maxFiles) return isSynchronous ? limitFilesSync : limitFilesAsync;
-  else return isSynchronous ? defaultSync : defaultAsync;
-}
-var readdirOpts = { withFileTypes: true };
-var walkAsync = (state, crawlPath, directoryPath, currentDepth, callback$1) => {
-  state.queue.enqueue();
-  if (currentDepth < 0) return state.queue.dequeue(null, state);
-  const { fs: fs2 } = state;
-  state.visited.push(crawlPath);
-  state.counts.directories++;
-  fs2.readdir(crawlPath || ".", readdirOpts, (error2, entries = []) => {
-    callback$1(entries, directoryPath, currentDepth);
-    state.queue.dequeue(state.options.suppressErrors ? null : error2, state);
-  });
-};
-var walkSync = (state, crawlPath, directoryPath, currentDepth, callback$1) => {
-  const { fs: fs2 } = state;
-  if (currentDepth < 0) return;
-  state.visited.push(crawlPath);
-  state.counts.directories++;
-  let entries = [];
-  try {
-    entries = fs2.readdirSync(crawlPath || ".", readdirOpts);
-  } catch (e3) {
-    if (!state.options.suppressErrors) throw e3;
-  }
-  callback$1(entries, directoryPath, currentDepth);
-};
-function build(isSynchronous) {
-  return isSynchronous ? walkSync : walkAsync;
-}
-var Queue = class {
-  count = 0;
-  constructor(onQueueEmpty) {
-    this.onQueueEmpty = onQueueEmpty;
-  }
-  enqueue() {
-    this.count++;
-    return this.count;
-  }
-  dequeue(error2, output) {
-    if (this.onQueueEmpty && (--this.count <= 0 || error2)) {
-      this.onQueueEmpty(error2, output);
-      if (error2) {
-        output.controller.abort();
-        this.onQueueEmpty = void 0;
-      }
-    }
-  }
-};
-var Counter = class {
-  _files = 0;
-  _directories = 0;
-  set files(num) {
-    this._files = num;
-  }
-  get files() {
-    return this._files;
-  }
-  set directories(num) {
-    this._directories = num;
-  }
-  get directories() {
-    return this._directories;
-  }
-  /**
-  * @deprecated use `directories` instead
-  */
-  /* c8 ignore next 3 */
-  get dirs() {
-    return this._directories;
-  }
-};
-var Aborter = class {
-  aborted = false;
-  abort() {
-    this.aborted = true;
-  }
-};
-var Walker = class {
-  root;
-  isSynchronous;
-  state;
-  joinPath;
-  pushDirectory;
-  pushFile;
-  getArray;
-  groupFiles;
-  resolveSymlink;
-  walkDirectory;
-  callbackInvoker;
-  constructor(root, options, callback$1) {
-    this.isSynchronous = !callback$1;
-    this.callbackInvoker = build$1(options, this.isSynchronous);
-    this.root = normalizePath(root, options);
-    this.state = {
-      root: isRootDirectory(this.root) ? this.root : this.root.slice(0, -1),
-      paths: [""].slice(0, 0),
-      groups: [],
-      counts: new Counter(),
-      options,
-      queue: new Queue((error2, state) => this.callbackInvoker(state, error2, callback$1)),
-      symlinks: /* @__PURE__ */ new Map(),
-      visited: [""].slice(0, 0),
-      controller: new Aborter(),
-      fs: options.fs || nativeFs
-    };
-    this.joinPath = build$7(this.root, options);
-    this.pushDirectory = build$6(this.root, options);
-    this.pushFile = build$5(options);
-    this.getArray = build$4(options);
-    this.groupFiles = build$3(options);
-    this.resolveSymlink = build$2(options, this.isSynchronous);
-    this.walkDirectory = build(this.isSynchronous);
-  }
-  start() {
-    this.pushDirectory(this.root, this.state.paths, this.state.options.filters);
-    this.walkDirectory(this.state, this.root, this.root, this.state.options.maxDepth, this.walk);
-    return this.isSynchronous ? this.callbackInvoker(this.state, null) : null;
-  }
-  walk = (entries, directoryPath, depth) => {
-    const { paths, options: { filters, resolveSymlinks: resolveSymlinks$1, excludeSymlinks, exclude, maxFiles, signal, useRealPaths, pathSeparator }, controller } = this.state;
-    if (controller.aborted || signal && signal.aborted || maxFiles && paths.length > maxFiles) return;
-    const files = this.getArray(this.state.paths);
-    for (let i2 = 0; i2 < entries.length; ++i2) {
-      const entry = entries[i2];
-      if (entry.isFile() || entry.isSymbolicLink() && !resolveSymlinks$1 && !excludeSymlinks) {
-        const filename2 = this.joinPath(entry.name, directoryPath);
-        this.pushFile(filename2, files, this.state.counts, filters);
-      } else if (entry.isDirectory()) {
-        let path = joinDirectoryPath(entry.name, directoryPath, this.state.options.pathSeparator);
-        if (exclude && exclude(entry.name, path)) continue;
-        this.pushDirectory(path, paths, filters);
-        this.walkDirectory(this.state, path, path, depth - 1, this.walk);
-      } else if (this.resolveSymlink && entry.isSymbolicLink()) {
-        let path = joinPathWithBasePath(entry.name, directoryPath);
-        this.resolveSymlink(path, this.state, (stat3, resolvedPath) => {
-          if (stat3.isDirectory()) {
-            resolvedPath = normalizePath(resolvedPath, this.state.options);
-            if (exclude && exclude(entry.name, useRealPaths ? resolvedPath : path + pathSeparator)) return;
-            this.walkDirectory(this.state, resolvedPath, useRealPaths ? resolvedPath : path + pathSeparator, depth - 1, this.walk);
-          } else {
-            resolvedPath = useRealPaths ? resolvedPath : path;
-            const filename2 = basename(resolvedPath);
-            const directoryPath$1 = normalizePath(dirname(resolvedPath), this.state.options);
-            resolvedPath = this.joinPath(filename2, directoryPath$1);
-            this.pushFile(resolvedPath, files, this.state.counts, filters);
-          }
-        });
-      }
-    }
-    this.groupFiles(this.state.groups, directoryPath, files);
-  };
-};
-function promise(root, options) {
-  return new Promise((resolve$1, reject) => {
-    callback(root, options, (err, output) => {
-      if (err) return reject(err);
-      resolve$1(output);
-    });
-  });
-}
-function callback(root, options, callback$1) {
-  let walker = new Walker(root, options, callback$1);
-  walker.start();
-}
-function sync(root, options) {
-  const walker = new Walker(root, options);
-  return walker.start();
-}
-var APIBuilder = class {
-  constructor(root, options) {
-    this.root = root;
-    this.options = options;
-  }
-  withPromise() {
-    return promise(this.root, this.options);
-  }
-  withCallback(cb) {
-    callback(this.root, this.options, cb);
-  }
-  sync() {
-    return sync(this.root, this.options);
-  }
-};
-var pm = null;
-try {
-  __require2.resolve("picomatch");
-  pm = __require2("picomatch");
-} catch {
-}
-var Builder = class {
-  globCache = {};
-  options = {
-    maxDepth: Infinity,
-    suppressErrors: true,
-    pathSeparator: sep2,
-    filters: []
-  };
-  globFunction;
-  constructor(options) {
-    this.options = {
-      ...this.options,
-      ...options
-    };
-    this.globFunction = this.options.globFunction;
-  }
-  group() {
-    this.options.group = true;
-    return this;
-  }
-  withPathSeparator(separator) {
-    this.options.pathSeparator = separator;
-    return this;
-  }
-  withBasePath() {
-    this.options.includeBasePath = true;
-    return this;
-  }
-  withRelativePaths() {
-    this.options.relativePaths = true;
-    return this;
-  }
-  withDirs() {
-    this.options.includeDirs = true;
-    return this;
-  }
-  withMaxDepth(depth) {
-    this.options.maxDepth = depth;
-    return this;
-  }
-  withMaxFiles(limit) {
-    this.options.maxFiles = limit;
-    return this;
-  }
-  withFullPaths() {
-    this.options.resolvePaths = true;
-    this.options.includeBasePath = true;
-    return this;
-  }
-  withErrors() {
-    this.options.suppressErrors = false;
-    return this;
-  }
-  withSymlinks({ resolvePaths = true } = {}) {
-    this.options.resolveSymlinks = true;
-    this.options.useRealPaths = resolvePaths;
-    return this.withFullPaths();
-  }
-  withAbortSignal(signal) {
-    this.options.signal = signal;
-    return this;
-  }
-  normalize() {
-    this.options.normalizePath = true;
-    return this;
-  }
-  filter(predicate) {
-    this.options.filters.push(predicate);
-    return this;
-  }
-  onlyDirs() {
-    this.options.excludeFiles = true;
-    this.options.includeDirs = true;
-    return this;
-  }
-  exclude(predicate) {
-    this.options.exclude = predicate;
-    return this;
-  }
-  onlyCounts() {
-    this.options.onlyCounts = true;
-    return this;
-  }
-  crawl(root) {
-    return new APIBuilder(root || ".", this.options);
-  }
-  withGlobFunction(fn) {
-    this.globFunction = fn;
-    return this;
-  }
-  /**
-  * @deprecated Pass options using the constructor instead:
-  * ```ts
-  * new fdir(options).crawl("/path/to/root");
-  * ```
-  * This method will be removed in v7.0
-  */
-  /* c8 ignore next 4 */
-  crawlWithOptions(root, options) {
-    this.options = {
-      ...this.options,
-      ...options
-    };
-    return new APIBuilder(root || ".", this.options);
-  }
-  glob(...patterns) {
-    if (this.globFunction) return this.globWithOptions(patterns);
-    return this.globWithOptions(patterns, ...[{ dot: true }]);
-  }
-  globWithOptions(patterns, ...options) {
-    const globFn = this.globFunction || pm;
-    if (!globFn) throw new Error("Please specify a glob function to use glob matching.");
-    var isMatch = this.globCache[patterns.join("\0")];
-    if (!isMatch) {
-      isMatch = globFn(patterns, ...options);
-      this.globCache[patterns.join("\0")] = isMatch;
-    }
-    this.options.filters.push((path) => isMatch(path));
-    return this;
-  }
-};
-
-// node_modules/.pnpm/tinyglobby@0.2.17/node_modules/tinyglobby/dist/index.mjs
-var import_picomatch = __toESM(require_picomatch2(), 1);
-var isReadonlyArray = Array.isArray;
-var BACKSLASHES = /\\/g;
-var DRIVE_RELATIVE_PATH = /^[A-Za-z]:$/;
-var isWin = process.platform === "win32";
-var ONLY_PARENT_DIRECTORIES = /^(\/?\.\.)+$/;
-function getPartialMatcher(patterns, options = {}) {
-  const patternsCount = patterns.length;
-  const patternsParts = Array(patternsCount);
-  const matchers = Array(patternsCount);
-  let i2, j2;
-  for (i2 = 0; i2 < patternsCount; i2++) {
-    const parts = splitPattern(patterns[i2]);
-    patternsParts[i2] = parts;
-    const partsCount = parts.length;
-    const partMatchers = Array(partsCount);
-    for (j2 = 0; j2 < partsCount; j2++) partMatchers[j2] = (0, import_picomatch.default)(parts[j2], options);
-    matchers[i2] = partMatchers;
-  }
-  return (input) => {
-    const inputParts = input.split("/");
-    if (inputParts[0] === ".." && ONLY_PARENT_DIRECTORIES.test(input)) return true;
-    for (i2 = 0; i2 < patternsCount; i2++) {
-      const patternParts = patternsParts[i2];
-      const matcher = matchers[i2];
-      const inputPatternCount = inputParts.length;
-      const minParts = Math.min(inputPatternCount, patternParts.length);
-      j2 = 0;
-      while (j2 < minParts) {
-        const part = patternParts[j2];
-        if (part.includes("/")) return true;
-        if (!matcher[j2](inputParts[j2])) break;
-        if (!options.noglobstar && part === "**") return true;
-        j2++;
-      }
-      if (j2 === inputPatternCount) return true;
-    }
-    return false;
-  };
-}
-var WIN32_ROOT_DIR = /^[A-Z]:\/$/i;
-var isRoot = isWin ? (p2) => WIN32_ROOT_DIR.test(p2) : (p2) => p2 === "/";
-function buildFormat(cwd, root, absolute) {
-  if (cwd === root || root.startsWith(`${cwd}/`)) {
-    if (absolute) {
-      const start = cwd.length + +!isRoot(cwd);
-      return (p2, isDir) => p2.slice(start, isDir ? -1 : void 0) || ".";
-    }
-    const prefix = root.slice(cwd.length + 1);
-    if (prefix) return (p2, isDir) => {
-      if (p2 === ".") return prefix;
-      const result2 = `${prefix}/${p2}`;
-      return isDir ? result2.slice(0, -1) : result2;
-    };
-    return (p2, isDir) => isDir && p2 !== "." ? p2.slice(0, -1) : p2;
-  }
-  if (absolute) return (p2) => posix.relative(cwd, p2) || ".";
-  return (p2) => posix.relative(cwd, `${root}/${p2}`) || ".";
-}
-function buildRelative(cwd, root) {
-  if (root.startsWith(`${cwd}/`)) {
-    const prefix = root.slice(cwd.length + 1);
-    return (p2) => `${prefix}/${p2}`;
-  }
-  return (p2) => {
-    const result2 = posix.relative(cwd, `${root}/${p2}`);
-    return p2[p2.length - 1] === "/" && result2 !== "" ? `${result2}/` : result2 || ".";
-  };
-}
-function ensureNonDriveRelativePath(path) {
-  return path.replace(DRIVE_RELATIVE_PATH, (match) => `${match}/`);
-}
-var splitPatternOptions = { parts: true };
-function splitPattern(path) {
-  var _result$parts;
-  const result2 = import_picomatch.default.scan(path, splitPatternOptions);
-  return ((_result$parts = result2.parts) === null || _result$parts === void 0 ? void 0 : _result$parts.length) ? result2.parts : [path];
-}
-var POSIX_UNESCAPED_GLOB_SYMBOLS = /(?<!\\)([()[\]{}*?|]|^!|[!+@](?=\()|\\(?![()[\]{}!*+?@|]))/g;
-var WIN32_UNESCAPED_GLOB_SYMBOLS = /(?<!\\)([()[\]{}]|^!|[!+@](?=\())/g;
-var escapePosixPath = (path) => path.replace(POSIX_UNESCAPED_GLOB_SYMBOLS, "\\$&");
-var escapeWin32Path = (path) => path.replace(WIN32_UNESCAPED_GLOB_SYMBOLS, "\\$&");
-var escapePath = isWin ? escapeWin32Path : escapePosixPath;
-function isDynamicPattern(pattern, options) {
-  if ((options === null || options === void 0 ? void 0 : options.caseSensitiveMatch) === false) return true;
-  const scan = import_picomatch.default.scan(pattern);
-  return scan.isGlob || scan.negated;
-}
-function log(...tasks) {
-  console.log(`[tinyglobby ${(/* @__PURE__ */ new Date()).toLocaleTimeString("es")}]`, ...tasks);
-}
-function ensureStringArray(value) {
-  return typeof value === "string" ? [value] : value !== null && value !== void 0 ? value : [];
-}
-var PARENT_DIRECTORY = /^(\/?\.\.)+/;
-var ESCAPING_BACKSLASHES = /\\(?=[()[\]{}!*+?@|])/g;
-function normalizePattern(pattern, opts, props, isIgnore) {
-  var _PARENT_DIRECTORY$exe;
-  const cwd = opts.cwd;
-  let result2 = pattern;
-  if (pattern[pattern.length - 1] === "/") result2 = pattern.slice(0, -1);
-  if (result2[result2.length - 1] !== "*" && opts.expandDirectories) result2 += "/**";
-  const escapedCwd = escapePath(cwd);
-  result2 = isAbsolute(result2.replace(ESCAPING_BACKSLASHES, "")) ? posix.relative(escapedCwd, result2) : posix.normalize(result2);
-  const parentDir = (_PARENT_DIRECTORY$exe = PARENT_DIRECTORY.exec(result2)) === null || _PARENT_DIRECTORY$exe === void 0 ? void 0 : _PARENT_DIRECTORY$exe[0];
-  const parts = splitPattern(result2);
-  if (parentDir) {
-    const n2 = (parentDir.length + 1) / 3;
-    let i2 = 0;
-    const cwdParts = escapedCwd.split("/");
-    while (i2 < n2 && parts[i2 + n2] === cwdParts[cwdParts.length + i2 - n2]) {
-      result2 = result2.slice(0, (n2 - i2 - 1) * 3) + result2.slice((n2 - i2) * 3 + parts[i2 + n2].length + 1) || ".";
-      i2++;
-    }
-    const potentialRoot = posix.join(cwd, parentDir.slice(i2 * 3));
-    if (potentialRoot[0] !== "." && props.root.length > potentialRoot.length) {
-      props.root = ensureNonDriveRelativePath(potentialRoot);
-      props.depthOffset = -n2 + i2;
-    }
-  }
-  if (!isIgnore && props.depthOffset >= 0) {
-    var _props$commonPath;
-    (_props$commonPath = props.commonPath) !== null && _props$commonPath !== void 0 || (props.commonPath = parts);
-    const newCommonPath = [];
-    const length = Math.min(props.commonPath.length, parts.length);
-    for (let i2 = 0; i2 < length; i2++) {
-      const part = parts[i2];
-      if (part === "**" && !parts[i2 + 1]) {
-        newCommonPath.pop();
-        break;
-      }
-      if (i2 === parts.length - 1 || part !== props.commonPath[i2] || isDynamicPattern(part)) break;
-      newCommonPath.push(part);
-    }
-    props.depthOffset = newCommonPath.length;
-    props.commonPath = newCommonPath;
-    props.root = ensureNonDriveRelativePath(newCommonPath.length > 0 ? posix.join(cwd, ...newCommonPath) : cwd);
-  }
-  return result2;
-}
-function processPatterns(options, patterns, props) {
-  const matchPatterns = [];
-  const ignorePatterns = [];
-  for (const pattern of options.ignore) {
-    if (!pattern) continue;
-    if (pattern[0] !== "!" || pattern[1] === "(") ignorePatterns.push(normalizePattern(pattern, options, props, true));
-  }
-  for (const pattern of patterns) {
-    if (!pattern) continue;
-    if (pattern[0] !== "!" || pattern[1] === "(") matchPatterns.push(normalizePattern(pattern, options, props, false));
-    else if (pattern[1] !== "!" || pattern[2] === "(") ignorePatterns.push(normalizePattern(pattern.slice(1), options, props, true));
-  }
-  return {
-    match: matchPatterns,
-    ignore: ignorePatterns
-  };
-}
-function buildCrawler(options, patterns) {
-  const cwd = options.cwd;
-  const props = {
-    root: cwd,
-    depthOffset: 0
-  };
-  const processed = processPatterns(options, patterns, props);
-  if (options.debug) log("internal processing patterns:", processed);
-  const { absolute, caseSensitiveMatch, debug: debug2, dot, followSymbolicLinks, onlyDirectories } = options;
-  const root = props.root.replace(BACKSLASHES, "");
-  const matchOptions = {
-    dot,
-    nobrace: options.braceExpansion === false,
-    nocase: !caseSensitiveMatch,
-    noextglob: options.extglob === false,
-    noglobstar: options.globstar === false,
-    posix: true
-  };
-  const matcher = (0, import_picomatch.default)(processed.match, matchOptions);
-  const ignore = (0, import_picomatch.default)(processed.ignore, matchOptions);
-  const partialMatcher = getPartialMatcher(processed.match, matchOptions);
-  const format = buildFormat(cwd, root, absolute);
-  const excludeFormatter = absolute ? format : buildFormat(cwd, root, true);
-  const excludePredicate = (_, p2) => {
-    const relativePath = excludeFormatter(p2, true);
-    return relativePath !== "." && !partialMatcher(relativePath) || ignore(relativePath);
-  };
-  let maxDepth;
-  if (options.deep !== void 0) maxDepth = Math.round(options.deep - props.depthOffset);
-  const crawler = new Builder({
-    filters: [debug2 ? (p2, isDirectory2) => {
-      const path = format(p2, isDirectory2);
-      const matches = matcher(path) && !ignore(path);
-      if (matches) log(`matched ${path}`);
-      return matches;
-    } : (p2, isDirectory2) => {
-      const path = format(p2, isDirectory2);
-      return matcher(path) && !ignore(path);
-    }],
-    exclude: debug2 ? (_, p2) => {
-      const skipped = excludePredicate(_, p2);
-      log(`${skipped ? "skipped" : "crawling"} ${p2}`);
-      return skipped;
-    } : excludePredicate,
-    fs: options.fs,
-    pathSeparator: "/",
-    relativePaths: !absolute,
-    resolvePaths: absolute,
-    includeBasePath: absolute,
-    resolveSymlinks: followSymbolicLinks,
-    excludeSymlinks: !followSymbolicLinks,
-    excludeFiles: onlyDirectories,
-    includeDirs: onlyDirectories || !options.onlyFiles,
-    maxDepth,
-    signal: options.signal
-  }).crawl(root);
-  if (options.debug) log("internal properties:", {
-    ...props,
-    root
-  });
-  return [crawler, cwd !== root && !absolute && buildRelative(cwd, root)];
-}
-function formatPaths(paths, mapper) {
-  if (mapper) for (let i2 = paths.length - 1; i2 >= 0; i2--) paths[i2] = mapper(paths[i2]);
-  return paths;
-}
-var defaultOptions2 = {
-  caseSensitiveMatch: true,
-  debug: !!process.env.TINYGLOBBY_DEBUG,
-  expandDirectories: true,
-  followSymbolicLinks: true,
-  onlyFiles: true
-};
-function getOptions2(options) {
-  const opts = Object.assign({}, options);
-  for (const key2 in defaultOptions2) if (opts[key2] === void 0) Object.assign(opts, { [key2]: defaultOptions2[key2] });
-  opts.cwd = (opts.cwd instanceof URL ? fileURLToPath(opts.cwd) : resolve3(opts.cwd || process.cwd())).replace(BACKSLASHES, "/");
-  opts.ignore = ensureStringArray(opts.ignore);
-  opts.fs && (opts.fs = {
-    readdir: opts.fs.readdir || readdir2,
-    readdirSync: opts.fs.readdirSync || readdirSync,
-    realpath: opts.fs.realpath || realpath,
-    realpathSync: opts.fs.realpathSync || realpathSync,
-    stat: opts.fs.stat || stat2,
-    statSync: opts.fs.statSync || statSync
-  });
-  if (opts.debug) log("globbing with options:", opts);
-  return opts;
-}
-function getCrawler(globInput, inputOptions = {}) {
-  var _ref;
-  if (globInput && (inputOptions === null || inputOptions === void 0 ? void 0 : inputOptions.patterns)) throw new Error("Cannot pass patterns as both an argument and an option");
-  const isModern = isReadonlyArray(globInput) || typeof globInput === "string";
-  const patterns = ensureStringArray((_ref = isModern ? globInput : globInput.patterns) !== null && _ref !== void 0 ? _ref : "**/*");
-  const options = getOptions2(isModern ? inputOptions : globInput);
-  return patterns.length > 0 ? buildCrawler(options, patterns) : [];
-}
-async function glob(globInput, options) {
-  const [crawler, relative2] = getCrawler(globInput, options);
-  return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
-}
+// node_modules/.pnpm/svelte-vitals@0.54.2_cac@6.7.14/node_modules/svelte-vitals/dist/src-BV_3ylhu.js
+import { access as access2, glob, readFile, stat as stat2 } from "fs/promises";
 
 // node_modules/.pnpm/gunshi@0.37.1/node_modules/gunshi/lib/agent.js
 var e2 = globalThis.process?.env || /* @__PURE__ */ Object.create(null);
@@ -72290,7 +69890,7 @@ function I() {
 }
 I()?.name;
 
-// node_modules/.pnpm/svelte-vitals@0.53.0_cac@6.7.14/node_modules/svelte-vitals/dist/src-hgEeAWHb.js
+// node_modules/.pnpm/svelte-vitals@0.54.2_cac@6.7.14/node_modules/svelte-vitals/dist/src-BV_3ylhu.js
 import { execFileSync } from "child_process";
 import { tmpdir } from "os";
 import { pathToFileURL } from "url";
@@ -72318,6 +69918,23 @@ function idRefSkipWarning(entries, analyzedRoutes) {
   }
   return `${ID_REF_RULE} skipped ${entries.length} of ${analyzedRoutes} analyzed route(s) \u2014 it only checks routes it can fully resolve, so this is not a failure. Causes: ${causes.join(", ")}. Per-route detail: --reporter json \u2192 "skipped". Why, and how to widen: ${docsUrlFor(ID_REF_RULE)}`;
 }
+async function globFiles(pattern, cwd, exclude) {
+  const out = [];
+  for await (const entry of glob(pattern, {
+    cwd,
+    withFileTypes: true,
+    ...exclude ? { exclude } : {}
+  })) {
+    const path = join(entry.parentPath, entry.name);
+    if (!entry.isFile()) {
+      if (!entry.isSymbolicLink()) continue;
+      if (!(await stat2(path).catch(() => null))?.isFile()) continue;
+    }
+    const rel = relative(cwd, path);
+    out.push(sep2 === "/" ? rel : rel.split(sep2).join("/"));
+  }
+  return out;
+}
 function createNodeRuntime() {
   const boundedRead = withReadLimit((path) => readFile(path, "utf8"));
   return {
@@ -72333,10 +69950,7 @@ function createNodeRuntime() {
       }
     },
     glob(pattern, cwd) {
-      return glob(pattern, {
-        cwd,
-        dot: false
-      });
+      return globFiles(pattern, cwd);
     },
     join(...parts) {
       return join(...parts);
@@ -72756,29 +70370,6 @@ function collectSvelteHeads(node, acc) {
   if (node.type === "SvelteHead") acc.push(node);
   for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectSvelteHeads(childOf(node, key2), acc);
 }
-var JS_MIME_TYPES = /* @__PURE__ */ new Set([
-  "application/ecmascript",
-  "application/javascript",
-  "application/x-ecmascript",
-  "application/x-javascript",
-  "text/ecmascript",
-  "text/javascript",
-  "text/javascript1.0",
-  "text/javascript1.1",
-  "text/javascript1.2",
-  "text/javascript1.3",
-  "text/javascript1.4",
-  "text/javascript1.5",
-  "text/jscript",
-  "text/livescript",
-  "text/x-ecmascript",
-  "text/x-javascript"
-]);
-function isClassicScriptType(type) {
-  if (type === void 0) return true;
-  const normalized = type.trim().toLowerCase();
-  return normalized === "" || JS_MIME_TYPES.has(normalized);
-}
 function tagsFromHead(head) {
   const tags = [];
   const children = head.fragment.nodes;
@@ -72912,19 +70503,8 @@ function collectHeadings(node, source2, acc) {
   });
   for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectHeadings(childOf(node, key2), source2, acc);
 }
-var LANDMARK_TAGS = {
-  main: "main",
-  header: "banner",
-  footer: "contentinfo"
-};
-var ASIDE_DEMOTING_TAGS = /* @__PURE__ */ new Set([
-  "article",
-  "aside",
-  "nav",
-  "section"
-]);
 function hasAccessibleName(attrs) {
-  return ["aria-label", "aria-labelledby"].some((name) => {
+  return NAMING_ATTRS$1.some((name) => {
     const attr = findAttr(attrs, name);
     if (!attr) return false;
     if (attrValueOf(attr) === "dynamic") return true;
@@ -73072,11 +70652,16 @@ function collectA11y(fragment2, source2) {
     const line = lineOf(source2, node.start);
     const attrs = node.attributes;
     const roleAttr = findAttr(attrs, "role");
-    const role = roleAttr ? splitTokens(attrTextOf(roleAttr))[0] : void 0;
-    let landmark = roleAttr ? role && LANDMARK_ROLES.has(role) ? role : void 0 : LANDMARK_TAGS[node.name];
-    if (!roleAttr && node.name === "aside") landmark = ctx.asideDemoting === 0 || hasAccessibleName(attrs) ? "complementary" : void 0;
+    const tag2 = (node.type === "SvelteElement" ? node.tag.type === "Literal" && typeof node.tag.value === "string" ? node.tag.value : void 0 : node.name)?.toLowerCase();
+    const landmark = resolveLandmark({
+      tag: tag2,
+      roleTokens: roleAttr ? splitTokens(attrTextOf(roleAttr)) : void 0,
+      named: tag2 === "aside" && hasAccessibleName(attrs),
+      insideSectioning: false,
+      insideAsideDemoting: ctx.asideDemoting > 0
+    });
     if (landmark) {
-      const headerFooter = !roleAttr && (node.name === "header" || node.name === "footer");
+      const headerFooter = !roleAttr && tag2 !== void 0 && ANCESTRY_DEPENDENT_TAGS.has(tag2);
       emit(ctx, {
         kind: "landmark",
         key: landmark,
@@ -73114,12 +70699,11 @@ function collectA11y(fragment2, source2) {
         attr: attr.name
       });
     }
-    const literalTag = node.type === "SvelteElement" ? node.tag.type === "Literal" && typeof node.tag.value === "string" ? node.tag.value : void 0 : node.name;
-    if (literalTag === "template") return;
+    if (tag2 === "template") return;
     walk2(node.fragment, {
       ...ctx,
       elementDepth: ctx.elementDepth + 1,
-      asideDemoting: ctx.asideDemoting + (literalTag && ASIDE_DEMOTING_TAGS.has(literalTag) ? 1 : 0),
+      asideDemoting: ctx.asideDemoting + (tag2 !== void 0 && ASIDE_DEMOTING_TAGS.has(tag2) ? 1 : 0),
       landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
     });
   };
@@ -73280,7 +70864,7 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
   };
 }
 var ROUTES_DIR2 = "src/routes";
-var MAX_DEPTH = 5;
+var MAX_DEPTH$1 = 5;
 function isGroupSegment(segment) {
   return /^\(.+\)$/.test(segment);
 }
@@ -73462,7 +71046,7 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
   let slotLandmark;
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
-    const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, /* @__PURE__ */ new Set([rel]), true);
+    const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH$1, /* @__PURE__ */ new Set([rel]), true);
     for (const node of contributed) {
       if (!node.chain || node.kind !== "landmark" || !countsAsLandmark(node) || node.repeatable) continue;
       const within = node.inLandmark ?? slotLandmark;
@@ -73483,7 +71067,7 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
       ...heading,
       file: rel
     });
-    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, /* @__PURE__ */ new Set([rel]), cache, aliases);
+    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH$1, /* @__PURE__ */ new Set([rel]), cache, aliases);
     for (const tag2 of resolved.tags) {
       const stamped = {
         ...tag2,
@@ -73604,10 +71188,11 @@ async function collectAll(rt, cwd, config, opts = {}) {
     const suppressions = await parsed.then((parsedFile) => parsedFile.suppressions, () => void 0);
     if (suppressions) directives.set(file, suppressions);
   }
-  for (const c of components) directives.set(c.file, c.suppressions ?? []);
-  for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
-  const viteConfig = project.viteMinifyDisabled;
-  if (viteConfig?.file) directives.set(viteConfig.file, viteConfig.suppressions ?? []);
+  addFactsDirectives(directives, {
+    components,
+    kitModules,
+    viteMinifyDisabled: project.viteMinifyDisabled
+  });
   const routes = collected.heads.map((h2) => h2.route);
   const emptySelections = [];
   if (opts.route !== void 0 && routes.length > 0 && !routes.some(matches)) emptySelections.push(`--route '${opts.route}' matched none of the ${routes.length} route(s) found \u2014 routes are URL paths, e.g. --route '/blog/**'; list them with --reporter json \u2192 routes.`);
@@ -74029,7 +71614,7 @@ function failedRuleWarnings(failedRules) {
 async function analyzeProject(opts = {}) {
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
-  const loaded = opts.loadedConfig !== void 0 ? opts.loadedConfig ?? void 0 : opts.configPath !== void 0 ? await loadConfigFromPath(resolve4(opts.configPath)) : await loadConfigFile(cwd);
+  const loaded = opts.loadedConfig !== void 0 ? opts.loadedConfig ?? void 0 : opts.configPath !== void 0 ? await loadConfigFromPath(resolve2(opts.configPath)) : await loadConfigFile(cwd);
   const file = loaded?.config;
   const weights = opts.weights ?? file?.weights;
   const config = defineConfig({
@@ -74065,7 +71650,7 @@ async function analyzeProject(opts = {}) {
     const starved = rules.filter((r2) => opts.allowRules.includes(r2.id) && r2.scope === "component").map((r2) => r2.id);
     if (starved.length > 0) warnings2.push(`--rules ${starved.map((id2) => `'${id2}'`).join(", ")} examined nothing: --route analyzes routes only, and that rule reads component/config files \u2014 run without --route to check it.`);
   }
-  const { results: rawResults, examined, failedRules } = await runRules(rules, {
+  const { results, examined, failedRules, failedRuleIds, scoringConfig } = await runAnalysis(rules, {
     heads,
     images,
     headings,
@@ -74075,12 +71660,10 @@ async function analyzeProject(opts = {}) {
     config,
     kitModules,
     sourceFiles
-  });
-  const results = applyInlineDirectives(applyOverrides(applyRuleSeverities(rawResults, config), config), directives, rules, config);
-  const failedRuleIds = failedRules.map((f) => f.id);
+  }, directives);
   return {
     results,
-    config: withFailedRulesOff(config, failedRuleIds),
+    config: scoringConfig,
     version: readPackageVersion(),
     ruleIds: rules.map((r2) => r2.id),
     examined,
@@ -74246,7 +71829,7 @@ content-type/dist/index.js:
 @octokit/graphql/dist-bundle/index.js:
   (* v8 ignore if -- @preserve *)
 
-@svelte-vitals/core/dist/markdown-CP5TPy-s.js:
+@svelte-vitals/core/dist/markdown-CD7sqanK.js:
   (*!
   * HTML spec data projected from @markuplint/html-spec@4.18.0 — https://github.com/markuplint/markuplint
   *
