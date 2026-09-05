@@ -15,11 +15,11 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       '@svelte-vitals/core':
-        specifier: ^0.51.0
-        version: 0.51.0
+        specifier: ^0.51.2
+        version: 0.51.2
       svelte-vitals:
-        specifier: ^0.54.2
-        version: 0.54.2(cac@6.7.14)
+        specifier: ^0.54.4
+        version: 0.54.4(cac@6.7.14)
     devDependencies:
       '@changesets/cli':
         specifier: ^3.0.1
@@ -919,8 +919,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@svelte-vitals/core@0.51.0':
-    resolution: {integrity: sha512-a12KtqG0VO/TEydxLLnaCekmijadXKME6/MV8ygTP8JmD3iF0SqRvUY5yd3c4ET0ucEgrWJ4K7EcZWpvU/SWKw==}
+  '@svelte-vitals/core@0.51.2':
+    resolution: {integrity: sha512-9L1DJOGLJuEaIKt39EfdTFMkDJ0GhihGapO2US3uHjOZaCJybpGgnmU/+WxbouhXVCnyU0tJKlfXkB5T4MS/jA==}
     engines: {node: '>=24.16.0'}
 
   '@sveltejs/acorn-typescript@1.0.13':
@@ -1494,8 +1494,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.54.2:
-    resolution: {integrity: sha512-s5N+RqOfEeL6bMuh89pB5hBCQna+X8/g6cV+SW2Ia/bV354/meb5E5+boSsCTXoN4YgtcSAzwNtBAMR2PwBGwQ==}
+  svelte-vitals@0.54.4:
+    resolution: {integrity: sha512-bs6GvrI9rtAPVZcIVSpOMGEqPGBzXjZC+fimz3iCyTYWeKKOcRAleDt+fFk6efo2DtnzGDvuiMNBnp8/c/HFqg==}
     engines: {node: '>=24.16.0'}
     hasBin: true
 
@@ -2279,7 +2279,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@svelte-vitals/core@0.51.0':
+  '@svelte-vitals/core@0.51.2':
     dependencies:
       aria-query: 5.3.2
       svelte: 5.57.0
@@ -2789,13 +2789,13 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.54.2(cac@6.7.14):
+  svelte-vitals@0.54.4(cac@6.7.14):
     dependencies:
       '@clack/prompts': 1.7.0
       '@gunshi/plugin-completion': 0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)
       '@gunshi/plugin-i18n': 0.37.1
       '@gunshi/plugin-suggestion': 0.37.1(@gunshi/plugin-i18n@0.37.1)
-      '@svelte-vitals/core': 0.51.0
+      '@svelte-vitals/core': 0.51.2
       gunshi: 0.37.1
       magicast: 0.5.4
       svelte: 5.57.0
