@@ -19,7 +19,7 @@
       "automerge": true
     },
     {
-      "description": "engines.node is a deliberately chosen floor, tracking the engines of the bundled svelte-vitals/@svelte-vitals/core — raised by hand when an analyzer bump raises theirs, since that is a reviewed decision rather than a version to chase. Never auto-bump it. The CI workflow's own node-version (a separate 'uses-with' dep) is unaffected and still updates normally.",
+      "description": "engines.node is a deliberately chosen floor, tracking the engines of the bundled svelte-vitals/@svelte-vitals/core — raised by hand when an analyzer bump raises theirs, since that is a reviewed decision rather than a version to chase. Never auto-bump it. CI runs on the latest Node 24.x via pnpm/setup's `runtime: node@24`, which needs no Renovate tracking.",
       "matchDepTypes": ["engines"],
       "enabled": false
     },
