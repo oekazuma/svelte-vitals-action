@@ -121,7 +121,6 @@ beforeAll(async () => {
 
 beforeEach(() => {
   vi.stubEnv('GITHUB_TOKEN', '');
-  vi.clearAllMocks();
 
   for (const key of Object.keys(h.inputs)) delete h.inputs[key];
   h.context.eventName = 'push';
