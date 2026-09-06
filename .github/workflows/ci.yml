@@ -20,7 +20,7 @@ jobs:
       # runner ships, and Renovate does not track this input.
       - uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
         with:
-          runtime: node@24
+          runtime: node@24.20.0
           cache: true
           require-lockfile: true
       - run: pnpm lint
