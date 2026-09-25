@@ -173,11 +173,11 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       '@svelte-vitals/core':
-        specifier: ^0.54.5
-        version: 0.54.5
+        specifier: ^0.55.1
+        version: 0.55.1
       svelte-vitals:
-        specifier: ^0.54.5
-        version: 0.54.5(cac@6.7.14)
+        specifier: ^0.55.1
+        version: 0.55.1(cac@6.7.14)
     devDependencies:
       '@changesets/cli':
         specifier: ^3.0.3
@@ -238,11 +238,11 @@ packages:
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
-  '@bomb.sh/tab@0.0.19':
-    resolution: {integrity: sha512-dTRfo9Q9B+lbLG3JCu8a/AGQSfD2XXcFcnakQzVjSOX+VvR/s9zpsH8TlqV3iHqazniRn1Ypwd1hcRlXcu/4BA==}
+  '@bomb.sh/tab@0.0.22':
+    resolution: {integrity: sha512-l5IuWpV7szqG4MM6A7I+qPMmP2qPMq2TD4veIXaOH0sD53dV0Tv8WZPARp5O5Kp4+y4fnVCl3VL1HZKNghO1yg==}
     hasBin: true
     peerDependencies:
-      cac: ^6.7.14
+      cac: ^6.7.14 || ^7.0.0
       citty: ^0.1.6 || ^0.2.0
       commander: ^13.1.0 || ^14.0.0 || ^15.0.0
     peerDependenciesMeta:
@@ -318,8 +318,16 @@ packages:
     resolution: {integrity: sha512-/kr3UWNtdJfxZtPgDqUOmG2pvwlmcLGheex5yiZKdwbzZJxhV+HMNR9QNmyY5cGwTNV6LrR7Jtp+KjhUAP1qBQ==}
     engines: {node: '>= 20.12.0'}
 
+  '@clack/core@1.5.1':
+    resolution: {integrity: sha512-iHTrHA8MtVuLl2TfZySmcKv1qO2PoyC9Z7pfSDozEuV5vtY3/wcOPKJXlqJ5Oq2Cx5DDGQGAMVx6HZfRRoVEbQ==}
+    engines: {node: '>= 20.12.0'}
+
   '@clack/prompts@1.7.0':
     resolution: {integrity: sha512-y7/yvZ2TPAnR9+jnc00klvNNLkJiXFFrQA/hlLCcxA9a2A4zQIOimyFQ9XfwYKiGD1fb5GY8vbKIIgO8d5Tb2A==}
+    engines: {node: '>= 20.12.0'}
+
+  '@clack/prompts@1.8.1':
+    resolution: {integrity: sha512-dlT1m5e/0yUL0kRNcQn7yGLVThkgbB0Ga/1AmfDDC/8ik6AIiSf2QLQO2zPYvefsHP0aFgxO93cVLCCfDp7kzQ==}
     engines: {node: '>= 20.12.0'}
 
   '@esbuild/aix-ppc64@0.27.7':
@@ -478,29 +486,29 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@gunshi/plugin-completion@0.37.1':
-    resolution: {integrity: sha512-6FHJiLvFYB1/bOr8waRIpwvyzdL/51vrGJL0klAFOk5CbfWogsOrv3kR+wX9WTgJHYVZJeMafg7tsZCHftZm2w==}
+  '@gunshi/plugin-completion@0.37.3':
+    resolution: {integrity: sha512-gifbK4T29fJpiOH7+HuWiWfMdRx9dgCC48hT9JVrIJrYCFoeCv26H6DusqJjdUPfsexWL8YIOi/tDnG1tvfZGA==}
     engines: {node: '>= 22'}
     peerDependencies:
-      '@gunshi/plugin-i18n': 0.37.1
+      '@gunshi/plugin-i18n': 0.37.3
 
-  '@gunshi/plugin-i18n@0.37.1':
-    resolution: {integrity: sha512-K5L5IDeaD5JIGEPn4Wcl0cXyPggmmtj4sSQwCsqzAYc30VfJu+BQscoEt7wIoJ3UR6gnjY7BJh5dxGcmBcUvaA==}
+  '@gunshi/plugin-i18n@0.37.3':
+    resolution: {integrity: sha512-gR2RT7BfC6YY1D/0oY+4bQbQUHJYm1pyn1sV8TWBj4ZcdIW/1ue6ZdaCQ8HhofxZqRu61bUkfrn+tE8hKETmKA==}
     engines: {node: '>= 22'}
     peerDependencies:
-      '@gunshi/plugin-global': 0.37.1
+      '@gunshi/plugin-global': 0.37.3
     peerDependenciesMeta:
       '@gunshi/plugin-global':
         optional: true
 
-  '@gunshi/plugin-suggestion@0.37.1':
-    resolution: {integrity: sha512-za2LC8af64c4ruGmC+1f2gA1sDpcxt8gKzbxnlOIp0mInCaRvRMlLP4KyHm2NB3LkB98VOVwUSZ6G/lujWv2NA==}
+  '@gunshi/plugin-suggestion@0.37.3':
+    resolution: {integrity: sha512-F6xDLyI2XeitxkE9U2asTMv07GpPwPlYHLp/PmU9zrpxxEEI+YZGZr2YFGUwIKOOKhypty/13CkJXsugeMYJCg==}
     engines: {node: '>= 22'}
     peerDependencies:
-      '@gunshi/plugin-i18n': 0.37.1
+      '@gunshi/plugin-i18n': 0.37.3
 
-  '@gunshi/plugin@0.37.1':
-    resolution: {integrity: sha512-ljjBaL15jCwX6tEtWRdmAQ/y/svGcMZa5mVhMPgXFeQFQ++srK/x5dx8uchQFrE2MTqaFhMMjNK9AQowCyRv9A==}
+  '@gunshi/plugin@0.37.3':
+    resolution: {integrity: sha512-f/P3qigd7P9BW/R4siYzR2WPJ1TPNmKvnN4ZuAQc0GFDn+wtfRGk/Osus9QJVUKR+s0qrrPweP91WI2X3Lq8WA==}
     engines: {node: '>= 22'}
 
   '@jridgewell/gen-mapping@0.3.13':
@@ -1074,8 +1082,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@svelte-vitals/core@0.54.5':
-    resolution: {integrity: sha512-MHWH0awhSUwsh+JbT6gOoOaOKuC8sR7iy1PLfvvi9PP3PLvT4fymg1VOpafJ+t7BZ0rHv4d/2elZNz/avbNCOQ==}
+  '@svelte-vitals/core@0.55.1':
+    resolution: {integrity: sha512-3bJih2fpta+9cH8IKCICtJQymeTdQCq8eMox6gole+IjGxTvZkeL/TwW3a6Ubyerl0LnhyIsyncdX9EKaIuviQ==}
     engines: {node: '>=24.16.0'}
 
   '@sveltejs/acorn-typescript@1.0.13':
@@ -1365,8 +1373,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  gunshi@0.37.1:
-    resolution: {integrity: sha512-C3t35z65PQpAHay/gzEu4J/7SNWXn2NhfC4RfZQPxyOqkPfDTizthxCPoSU48OazoVherCuCpFDKI1qcY425Gw==}
+  gunshi@0.37.3:
+    resolution: {integrity: sha512-uwm23bguqDcleEetknuQnF5okLcgmQPM3iv4aWVHTPDbiSs9shh02F079NCY0mWkrIRjHqNhgmzW6k0FCXhy1g==}
     engines: {node: '>= 22'}
 
   human-id@4.2.1:
@@ -1489,8 +1497,8 @@ packages:
   magic-string@1.2.3:
     resolution: {integrity: sha512-Bpb0W2TbLKOZ7vJnOUnVRGq3WL2p+ISV29M6hYPL1AFCpyKZpdr5ytiXoTSSxRVhg8YW7f65+6gbG8WG6PCa/g==}
 
-  magicast@0.5.4:
-    resolution: {integrity: sha512-llBEhWm1SacoRwgHUoQJYtwp4PBLF4faQi5TCpIGyGs9n4y5+juI0tDgyKIfpqxckRHaHzouUEph3THklWh03w==}
+  magicast@0.5.5:
+    resolution: {integrity: sha512-UicdXN8zQ3JHlxVq+28afMXPr1z7WNY6+7EJnzTdQWkTAlMLF5fNCCKxJHBQwGaNGR11581EiQmQzx73+MvszA==}
 
   mlly@1.8.2:
     resolution: {integrity: sha512-d+ObxMQFmbt10sretNDytwt85VrbkhhUA/JBGm1MPaWJ65Cl4wOgLaB1NYvJSZ0Ef03MMEU/0xpPMXUIQ29UfA==}
@@ -1634,8 +1642,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.54.5:
-    resolution: {integrity: sha512-FbSVkeahCVOjPz0qArV/I+CMiMXe1L/31jxjJDXBrZTcmrlF7038eYG/sjFH68x3+PxkqezuggW3t+oZ2vNPRQ==}
+  svelte-vitals@0.55.1:
+    resolution: {integrity: sha512-aP6TFMpRmWPzjj+JYldT4kWxfAyqWdaRJ5CNeLqhUR76Hb95A07mbXuteqbjgDzimvK66TPf9QvD/RA2oRJAxQ==}
     engines: {node: '>=24.16.0'}
     hasBin: true
 
@@ -1864,7 +1872,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bomb.sh/tab@0.0.19(cac@6.7.14)':
+  '@bomb.sh/tab@0.0.22(cac@6.7.14)':
     optionalDependencies:
       cac: 6.7.14
 
@@ -1977,9 +1985,21 @@ snapshots:
       fast-wrap-ansi: 0.2.2
       sisteransi: 1.0.5
 
+  '@clack/core@1.5.1':
+    dependencies:
+      fast-wrap-ansi: 0.2.2
+      sisteransi: 1.0.5
+
   '@clack/prompts@1.7.0':
     dependencies:
       '@clack/core': 1.4.3
+      fast-string-width: 3.0.2
+      fast-wrap-ansi: 0.2.2
+      sisteransi: 1.0.5
+
+  '@clack/prompts@1.8.1':
+    dependencies:
+      '@clack/core': 1.5.1
       fast-string-width: 3.0.2
       fast-wrap-ansi: 0.2.2
       sisteransi: 1.0.5
@@ -2062,26 +2082,26 @@ snapshots:
   '@esbuild/win32-x64@0.27.7':
     optional: true
 
-  '@gunshi/plugin-completion@0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)':
+  '@gunshi/plugin-completion@0.37.3(@gunshi/plugin-i18n@0.37.3)(cac@6.7.14)':
     dependencies:
-      '@bomb.sh/tab': 0.0.19(cac@6.7.14)
-      '@gunshi/plugin': 0.37.1
-      '@gunshi/plugin-i18n': 0.37.1
+      '@bomb.sh/tab': 0.0.22(cac@6.7.14)
+      '@gunshi/plugin': 0.37.3
+      '@gunshi/plugin-i18n': 0.37.3
     transitivePeerDependencies:
       - cac
       - citty
       - commander
 
-  '@gunshi/plugin-i18n@0.37.1':
+  '@gunshi/plugin-i18n@0.37.3':
     dependencies:
-      '@gunshi/plugin': 0.37.1
+      '@gunshi/plugin': 0.37.3
 
-  '@gunshi/plugin-suggestion@0.37.1(@gunshi/plugin-i18n@0.37.1)':
+  '@gunshi/plugin-suggestion@0.37.3(@gunshi/plugin-i18n@0.37.3)':
     dependencies:
-      '@gunshi/plugin': 0.37.1
-      '@gunshi/plugin-i18n': 0.37.1
+      '@gunshi/plugin': 0.37.3
+      '@gunshi/plugin-i18n': 0.37.3
 
-  '@gunshi/plugin@0.37.1': {}
+  '@gunshi/plugin@0.37.3': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -2418,7 +2438,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.63.0':
     optional: true
 
-  '@svelte-vitals/core@0.54.5':
+  '@svelte-vitals/core@0.55.1':
     dependencies:
       aria-query: 5.3.2
       svelte: 5.57.0
@@ -2626,7 +2646,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  gunshi@0.37.1: {}
+  gunshi@0.37.3: {}
 
   human-id@4.2.1: {}
 
@@ -2714,7 +2734,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  magicast@0.5.4:
+  magicast@0.5.5:
     dependencies:
       '@babel/parser': 7.29.8
       '@babel/types': 7.29.8
@@ -2900,15 +2920,15 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.54.5(cac@6.7.14):
+  svelte-vitals@0.55.1(cac@6.7.14):
     dependencies:
-      '@clack/prompts': 1.7.0
-      '@gunshi/plugin-completion': 0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)
-      '@gunshi/plugin-i18n': 0.37.1
-      '@gunshi/plugin-suggestion': 0.37.1(@gunshi/plugin-i18n@0.37.1)
-      '@svelte-vitals/core': 0.54.5
-      gunshi: 0.37.1
-      magicast: 0.5.4
+      '@clack/prompts': 1.8.1
+      '@gunshi/plugin-completion': 0.37.3(@gunshi/plugin-i18n@0.37.3)(cac@6.7.14)
+      '@gunshi/plugin-i18n': 0.37.3
+      '@gunshi/plugin-suggestion': 0.37.3(@gunshi/plugin-i18n@0.37.3)
+      '@svelte-vitals/core': 0.55.1
+      gunshi: 0.37.3
+      magicast: 0.5.5
       svelte: 5.57.0
     transitivePeerDependencies:
       - '@gunshi/plugin-global'
