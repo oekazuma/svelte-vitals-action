@@ -1,9 +1,17 @@
 allowBuilds:
   esbuild: true
 
-# Disabled (rather than an ever-growing minimumReleaseAgeExclude list): this repo's only
-# production dependencies are svelte-vitals/@svelte-vitals/core, published by the same
-# maintainer this repo belongs to — not third-party supply-chain risk. Renovate's own
-# minimumReleaseAge policy (see oekazuma/svelte-vitals's renovate.json) still gates when a
-# PR bumping these is opened in the first place.
-minimumReleaseAge: 0
+# Matches renovate.json's 3-day minimumReleaseAge. It is also the only cooldown a lockfile
+# refresh gets: Renovate cannot age-check lockFileMaintenance, so pnpm enforces it while
+# re-resolving. svelte-vitals/@svelte-vitals/core are excluded because they come from this
+# repo's own maintainer and are bumped as soon as they publish; exclusion by name covers
+# every version.
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - svelte-vitals
+  - '@svelte-vitals/core'
+# Explicitly setting minimumReleaseAge turns strict mode on by default, which would fail an
+# analyzer bump whose new version needs a transitive dep younger than 3 days (the exclusion
+# above is by name only). A refresh of unchanged ranges always has an older in-range version,
+# so falling back here does not weaken the lockfile-maintenance cooldown.
+minimumReleaseAgeStrict: false
