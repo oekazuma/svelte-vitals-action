@@ -4,7 +4,7 @@
   "minimumReleaseAge": "3 days",
   "labels": ["renovate"],
   "lockFileMaintenance": {
-    "description": "automerge, but never platformAutomerge: a lockfile refresh pulls versions younger than minimumReleaseAge, and GitHub's auto-merge only waits for required checks — it would merge past the pending renovate/stability-days status, while Renovate-side automerge waits for its own stability check. This still does not merge unattended: a refresh moves bundled transitive code (undici under @actions/github, say), so dist/ goes stale and CI stays red until the bundle is rebuilt and committed. Automerge fires after that lands.",
+    "description": "Renovate-side automerge rather than platformAutomerge: GitHub's auto-merge waits only for the required ci check, while Renovate merges only once every status on the branch is green. The release-age wait for a refresh comes from pnpm-workspace.yaml's minimumReleaseAge, not from renovate/stability-days (see the lockFileMaintenance packageRule). This still does not merge unattended: a refresh moves bundled transitive code (undici under @actions/github, say), so dist/ goes stale and CI stays red until the bundle is rebuilt and committed. Automerge fires after that lands.",
     "enabled": true,
     "automerge": true,
     "platformAutomerge": false
@@ -36,6 +36,11 @@
     {
       "groupName": "devDependencies",
       "matchDepTypes": ["devDependencies"]
+    },
+    {
+      "description": "lockFileMaintenance has no release timestamp, so the default timestamp-required behaviour leaves renovate/stability-days pending forever. pnpm-workspace.yaml's minimumReleaseAge enforces the cooldown when the lockfile is regenerated. Not minimumReleaseAge: null — that stops Renovate setting the status at all, so a pending one already on the branch is never replaced.",
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
     },
     {
       "description": "changesets/action refuses to run against a mismatched @changesets/cli major (its v2 rejects cli v2 outright and points at action@v1), so splitting these across two PRs leaves whichever merges first with a release workflow that cannot version or publish. They arrive together and are reviewed as one change. Listed last because a later packageRule's groupName wins, and @changesets/cli would otherwise land in devDependencies.",
