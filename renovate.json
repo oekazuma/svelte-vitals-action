@@ -4,7 +4,7 @@
   "minimumReleaseAge": "3 days",
   "labels": ["renovate"],
   "lockFileMaintenance": {
-    "description": "Renovate-side automerge rather than platformAutomerge: GitHub's auto-merge waits only for the required ci check, while Renovate merges only once every status on the branch is green. The release-age wait for a refresh comes from pnpm-workspace.yaml's minimumReleaseAge, not from renovate/stability-days (see the lockFileMaintenance packageRule). This still does not merge unattended: a refresh moves bundled transitive code (undici under @actions/github, say), so dist/ goes stale and CI stays red until the bundle is rebuilt and committed. Automerge fires after that lands.",
+    "description": "Renovate-side automerge rather than platformAutomerge: GitHub's auto-merge waits only for the required ci check, while Renovate merges only once every status on the branch is green. The release-age wait for a refresh comes from pnpm-workspace.yaml's minimumReleaseAge, not from renovate/stability-days (see the lockFileMaintenance packageRule). This only merges a refresh unattended when dist/ is unchanged. One that moves bundled transitive code (undici under @actions/github, say) leaves dist/ stale and CI red until the bundle is rebuilt and committed by hand, and Renovate then treats the PR as edited and stops processing it, so that one is merged by hand.",
     "enabled": true,
     "automerge": true,
     "platformAutomerge": false
