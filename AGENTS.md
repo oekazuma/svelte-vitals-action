@@ -42,7 +42,11 @@ Run these yourself and confirm they pass before claiming a task is complete. CI 
   refresh moves transitive code that the bundle carries — `undici` under `@actions/github`, for one
   — so `dist/` goes stale and CI stays red until it is rebuilt and committed. Treat these PRs like
   an analyzer bump: rebuild `dist/`, add a `patch` changeset (the bundle consumers run really did
-  change), push, and let automerge take it from there.
+  change), push, and merge it by hand once `ci` is green. Automerge does not fire after that push:
+  Renovate sees a commit it did not author, treats the PR as edited and stops processing the
+  branch, so it neither merges nor sets `renovate/stability-days` on the new head (that status is
+  not a required check). Don't tick the PR's rebase box either — Renovate would recreate the branch
+  without the rebuild. Only a refresh that leaves `dist/` unchanged goes through automerge.
 
 ## Skills
 

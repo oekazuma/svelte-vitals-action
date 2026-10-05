@@ -48,9 +48,11 @@ real (see step 3).
 First confirm `svelte-vitals` / `@svelte-vitals/core` are actually among the bumped
 packages. **If they aren't, stop here** — this skill doesn't cover the PR. Say which
 packages it bumps and hand it back. The rest of these steps would be actively wrong there:
-a lockfile refresh or a devDependency bump isn't user-facing, so writing a changeset for it
-would cut a release that ships nothing, and those PRs are on Renovate's automerge list
-precisely because they're meant to go through without this ceremony.
+a devDependency bump isn't user-facing, so writing a changeset for it would cut a release
+that ships nothing, and those PRs are on Renovate's automerge list precisely because they're
+meant to go through without this ceremony. A lock file maintenance PR has its own procedure
+in [AGENTS.md](../../../AGENTS.md): it needs a rebuild and changeset only when it moves the
+bundle, and never the analyzer-specific changeset this skill writes.
 
 **2. Check out the branch and install.** Let `gh` resolve the branch — `renovate.json`
 groups these bumps under `dependencies` today, so the head branch is
