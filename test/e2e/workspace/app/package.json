@@ -1,0 +1,10 @@
+{
+  "name": "e2e-app",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@sveltejs/kit": "^2.0.0",
+    "svelte": "^5.0.0",
+    "svelte-vitals": "0.44.0"
+  }
+}

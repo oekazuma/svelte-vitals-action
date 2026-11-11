@@ -36,3 +36,7 @@ jobs:
             git status --porcelain -- dist
             exit 1
           fi
+      - name: Install the end-to-end fixture
+        run: npm ci --ignore-scripts
+        working-directory: test/e2e/workspace
+      - run: pnpm test:e2e
