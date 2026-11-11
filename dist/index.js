@@ -41808,11 +41808,11 @@ function getOctokit(token, options, ...additionalPlugins) {
   return new GitHubWithPlugins(getOctokitOptions(token, options));
 }
 
-// node_modules/.pnpm/svelte-vitals@0.55.2_cac@7.0.0/node_modules/svelte-vitals/dist/src-CgSrsDfM.js
+// node_modules/.pnpm/svelte-vitals@0.55.5_cac@7.0.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
 import { existsSync as existsSync2, mkdirSync, mkdtempSync, readFileSync as readFileSync2, renameSync, rmSync, unlinkSync, writeFileSync } from "fs";
 import { dirname, join, relative, resolve as resolve2, sep as sep2 } from "path";
 
-// node_modules/.pnpm/@svelte-vitals+core@0.55.2/node_modules/@svelte-vitals/core/dist/markdown-DgHBAvYl.js
+// node_modules/.pnpm/@svelte-vitals+core@0.55.5/node_modules/@svelte-vitals/core/dist/markdown-JeaI7QMp.js
 var import_aria_query3 = __toESM(require_lib2(), 1);
 
 // node_modules/.pnpm/zimmerframe@1.1.5/node_modules/zimmerframe/src/walk.js
@@ -41945,13 +41945,13 @@ function apply_mutations(node, mutations) {
   );
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/patterns.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/patterns.js
 var regex_starts_with_whitespaces = /^[ \t\r\n]+/;
 var regex_ends_with_whitespaces = /[ \t\r\n]+$/;
 var regex_not_whitespace = /[^ \t\r\n]/;
 var regex_not_newline_characters = /[^\n]/g;
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/constants.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/constants.js
 var EACH_INDEX_REACTIVE = 1 << 1;
 var EACH_IS_CONTROLLED = 1 << 2;
 var EACH_IS_ANIMATED = 1 << 3;
@@ -41986,7 +41986,7 @@ var IGNORABLE_RUNTIME_WARNINGS = (
   ]
 );
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/utils/fuzzymatch.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/utils/fuzzymatch.js
 function fuzzymatch(name, names) {
   if (names.length === 0) return null;
   const set2 = new FuzzySet(names);
@@ -42222,7 +42222,7 @@ function getLocator(source2, options = {}) {
   return locator2;
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/utils.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/utils.js
 var VOID_ELEMENT_NAMES = [
   "area",
   "base",
@@ -42375,7 +42375,7 @@ var RUNES = (
 );
 var REGEX_VALID_TAG_NAME = /^[a-zA-Z][a-zA-Z0-9]*(-[a-zA-Z0-9.\-_\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u{10000}-\u{EFFFF}]*)?$/u;
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/state.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/state.js
 var warnings = [];
 var filename;
 var UNKNOWN_FILENAME = "(unknown)";
@@ -42412,7 +42412,7 @@ function reset(state) {
   warnings = [];
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
 var regex_tabs = /^\t+/;
 function tabs_to_spaces(str) {
   return str.replace(regex_tabs, (match) => match.split("	").join("  "));
@@ -42483,7 +42483,7 @@ ${this.frame}`;
   }
 };
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/warnings.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/warnings.js
 var InternalCompileWarning = class extends CompileDiagnostic {
   name = "CompileWarning";
   /**
@@ -42633,7 +42633,7 @@ function svelte_element_invalid_this(node) {
 https://svelte.dev/e/svelte_element_invalid_this`);
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
 var regex_svelte_ignore = /^\s*svelte-ignore\s/;
 var replacements = {
   "non-top-level-reactive-declaration": "reactive_declaration_invalid_placement",
@@ -42689,7 +42689,7 @@ function extract_svelte_ignore(offset2, text2, runes2) {
   return ignores;
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/legacy.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/legacy.js
 function remove_surrounding_whitespace_nodes(nodes) {
   const first = nodes.at(0);
   const last = nodes.at(-1);
@@ -54704,7 +54704,7 @@ function tsPlugin(options) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/errors.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/errors.js
 var InternalCompileError = class extends Error {
   message = "";
   // ensure this property is enumerable
@@ -54966,7 +54966,7 @@ function void_element_invalid_content(node) {
 https://svelte.dev/e/void_element_invalid_content`);
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
 var JSParser = Parser;
 var TSParser = JSParser.extend(tsPlugin());
 function parse6(source2, comments, typescript, is_script) {
@@ -55165,7 +55165,7 @@ function get_comment_handlers(source2, comments, index = 0) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
 function infinity_if_negative(num) {
   if (num < 0) {
     return Infinity;
@@ -55320,7 +55320,7 @@ function match_quote(parser, start, quote) {
   unterminated_string_constant(start);
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
 function get_loose_identifier(parser, opening_token) {
   const end = find_matching_bracket(parser.template, parser.index, opening_token ?? "{");
   if (end) {
@@ -55431,7 +55431,7 @@ function position(index) {
   return { line, column };
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/utils/builders.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/utils/builders.js
 function array(elements = []) {
   return { type: "ArrayExpression", elements };
 }
@@ -55446,7 +55446,7 @@ var true_instance = literal2(true);
 var false_instance = literal2(false);
 var null_instance = literal2(null);
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/utils/ast.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/utils/ast.js
 function is_text_attribute(attribute) {
   return Array.isArray(attribute.value) && attribute.value.length === 1 && attribute.value[0].type === "Text";
 }
@@ -55460,7 +55460,7 @@ function get_attribute_expression(attribute) {
   ) : attribute.value.expression;
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
 var regex_closing_script_tag = /<\/script\s*>/;
 var regex_starts_with_closing_script_tag = /<\/script\s*>/y;
 var RESERVED_ATTRIBUTES = ["server", "client", "worker", "test", "default"];
@@ -55519,7 +55519,7 @@ function read_script(parser, start, attributes) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
 var REGEX_MATCHER = /[~^$*|]?=/y;
 var REGEX_CLOSING_BRACKET = /[\s\]]/;
 var REGEX_ATTRIBUTE_FLAGS = /[a-zA-Z]+/y;
@@ -56007,7 +56007,7 @@ function read_comment(parser) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
 var entities_default = {
   "CounterClockwiseContourIntegral;": 8755,
   "ClockwiseContourIntegral;": 8754,
@@ -58242,7 +58242,7 @@ var entities_default = {
   lt: 60
 };
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
 var windows_1252 = [
   8364,
   129,
@@ -58351,7 +58351,7 @@ function validate_code(code, is_attribute_value) {
   return NUL;
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/nodes.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/nodes.js
 var element_nodes = [
   "SvelteElement",
   "RegularElement",
@@ -58466,7 +58466,7 @@ var ExpressionMetadata = class {
   }
 };
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/html-tree-validation.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/html-tree-validation.js
 var autoclosing_children = {
   // based on http://developers.whatwg.org/syntax.html#syntax-tag-omission
   li: { direct: ["li"] },
@@ -58576,21 +58576,21 @@ var disallowed_children = {
   "#document": { only: ["html"] }
 };
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/utils/string.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/utils/string.js
 function list2(strings, conjunction = "or") {
   if (strings.length === 1) return strings[0];
   if (strings.length === 2) return `${strings[0]} ${conjunction} ${strings[1]}`;
   return `${strings.slice(0, -1).join(", ")} ${conjunction} ${strings[strings.length - 1]}`;
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/utils/whitespace.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/utils/whitespace.js
 function is_whitespace(cc) {
   if (cc === 32 || cc <= 13 && cc >= 9) return true;
   if (cc < 160) return false;
   return cc === 160 || cc === 5760 || cc >= 8192 && cc <= 8202 || cc === 8232 || cc === 8233 || cc === 8239 || cc === 8287 || cc === 12288 || cc === 65279;
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
 var regex_invalid_unquoted_attribute_value = /(\/>|[\s"'=<>`])/y;
 var regex_closing_textarea_tag = /<\/textarea(\s[^>]*)?>/iy;
 var regex_starts_with_quote_characters = /["']/y;
@@ -59315,7 +59315,7 @@ function read_lowercase_name(parser) {
   return parser.template.slice(start, parser.index);
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
 function read_pattern(parser) {
   const start = parser.index;
   let i3 = parser.index;
@@ -59378,7 +59378,7 @@ function read_type_annotation(parser) {
   };
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
 var regex_whitespace_with_closing_curly_brace = /\s*}/y;
 var regex_supported_declaration = /(?:let|const)\b/y;
 var regex_unsupported_declaration = /(?:var|interface|enum)\b/y;
@@ -59784,6 +59784,7 @@ function next(parser) {
   if (block2.type === "IfBlock") {
     if (!parser.eat("else")) expected_token(start, "{:else} or {:else if}");
     if (parser.eat("if")) block_invalid_elseif(start);
+    if (block2.alternate) block_duplicate_clause(start, "{:else}");
     parser.allow_whitespace();
     parser.fragments.pop();
     block2.alternate = create_fragment();
@@ -59818,6 +59819,7 @@ function next(parser) {
   }
   if (block2.type === "EachBlock") {
     if (!parser.eat("else")) expected_token(start, "{:else}");
+    if (block2.fallback) block_duplicate_clause(start, "{:else}");
     parser.allow_whitespace();
     parser.eat("}", true);
     block2.fallback = create_fragment();
@@ -60034,7 +60036,7 @@ function special(parser) {
   expected_tag(parser.index);
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
 function text(parser) {
   const start = parser.index;
   while (parser.index < parser.template.length && !parser.match("<") && !parser.match("{")) {
@@ -60050,7 +60052,7 @@ function text(parser) {
   });
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
 function fragment(parser) {
   if (parser.match("<")) {
     return element;
@@ -60061,7 +60063,7 @@ function fragment(parser) {
   return text;
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
 function read_options(node) {
   const component_options2 = {
     start: node.start,
@@ -60264,7 +60266,7 @@ function validate_tag(attribute, tag2) {
   }
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/index.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/1-parse/index.js
 var regex_lang_attribute = /<!--[^]*?-->|<script\s+(?:[^>]*|(?:[^=>'"/]+=(?:"[^"]*"|'[^']*'|[^>\s]+)\s+)*)lang=(["'])?([^"' >]+)\1[^>]*>/g;
 var Parser3 = class _Parser {
   /**
@@ -60529,7 +60531,7 @@ function parse7(template2, loose = false) {
   return parser.root;
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/scope.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/scope.js
 var NUMBER = /* @__PURE__ */ Symbol("number");
 var STRING = /* @__PURE__ */ Symbol("string");
 var globals = {
@@ -60582,7 +60584,7 @@ var globals = {
   "String.fromCodePoint": [STRING, String.fromCodePoint]
 };
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
 var import_aria_query = __toESM(require_lib3(), 1);
 var import_axobject_query = __toESM(require_lib4(), 1);
 var aria_attributes = "activedescendant atomic autocomplete braillelabel brailleroledescription busy checked colcount colindex colspan controls current describedby description details disabled dropeffect errormessage expanded flowto grabbed haspopup hidden invalid keyshortcuts label labelledby level live modal multiline multiselectable orientation owns placeholder posinset pressed readonly relevant required roledescription rowcount rowindex rowspan selected setsize sort valuemax valuemin valuenow valuetext".split(
@@ -60637,7 +60639,7 @@ for (const [schema, ax_object] of import_axobject_query.elementAXObjects.entries
   }
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
 var import_aria_query2 = __toESM(require_lib3(), 1);
 var import_axobject_query2 = __toESM(require_lib4(), 1);
 
@@ -60664,19 +60666,19 @@ if (typeof window !== "undefined" && typeof window.btoa === "function") {
   btoa2 = (str) => Buffer.from(str, "utf-8").toString("base64");
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/internal/server/hydration.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/internal/server/hydration.js
 var BLOCK_OPEN = `<!--${HYDRATION_START}-->`;
 var BLOCK_OPEN_ELSE = `<!--${HYDRATION_START_ELSE}-->`;
 var BLOCK_CLOSE = `<!--${HYDRATION_END}-->`;
 var EMPTY_COMMENT = `<!---->`;
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
 var block_open = literal2(BLOCK_OPEN);
 var block_open_else = literal2(BLOCK_OPEN_ELSE);
 var block_close = literal2(BLOCK_CLOSE);
 var empty_comment = literal2(EMPTY_COMMENT);
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
 var svg_attributes = "accent-height accumulate additive alignment-baseline allowReorder alphabetic amplitude arabic-form ascent attributeName attributeType autoReverse azimuth baseFrequency baseline-shift baseProfile bbox begin bias by calcMode cap-height class clip clipPathUnits clip-path clip-rule color color-interpolation color-interpolation-filters color-profile color-rendering contentScriptType contentStyleType cursor cx cy d decelerate descent diffuseConstant direction display divisor dominant-baseline dur dx dy edgeMode elevation enable-background end exponent externalResourcesRequired fill fill-opacity fill-rule filter filterRes filterUnits flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight format from fr fx fy g1 g2 glyph-name glyph-orientation-horizontal glyph-orientation-vertical glyphRef gradientTransform gradientUnits hanging height href horiz-adv-x horiz-origin-x id ideographic image-rendering in in2 intercept k k1 k2 k3 k4 kernelMatrix kernelUnitLength kerning keyPoints keySplines keyTimes lang lengthAdjust letter-spacing lighting-color limitingConeAngle local marker-end marker-mid marker-start markerHeight markerUnits markerWidth mask maskContentUnits maskUnits mathematical max media method min mode name numOctaves offset onabort onactivate onbegin onclick onend onerror onfocusin onfocusout onload onmousedown onmousemove onmouseout onmouseover onmouseup onrepeat onresize onscroll onunload opacity operator order orient orientation origin overflow overline-position overline-thickness panose-1 paint-order pathLength patternContentUnits patternTransform patternUnits pointer-events points pointsAtX pointsAtY pointsAtZ preserveAlpha preserveAspectRatio primitiveUnits r radius refX refY rendering-intent repeatCount repeatDur requiredExtensions requiredFeatures restart result rotate rx ry scale seed shape-rendering slope spacing specularConstant specularExponent speed spreadMethod startOffset stdDeviation stemh stemv stitchTiles stop-color stop-opacity strikethrough-position strikethrough-thickness string stroke stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width style surfaceScale systemLanguage tabindex tableValues target targetX targetY text-anchor text-decoration text-rendering textLength to transform type u1 u2 underline-position underline-thickness unicode unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical values version vert-adv-y vert-origin-x vert-origin-y viewBox viewTarget visibility width widths word-spacing writing-mode x x-height x1 x2 xChannelSelector xlink:actuate xlink:arcrole xlink:href xlink:role xlink:show xlink:title xlink:type xml:base xml:lang xml:space y y1 y2 yChannelSelector z zoomAndPan".split(
   " "
 );
@@ -60685,7 +60687,7 @@ svg_attributes.forEach((name) => {
   svg_attribute_lookup.set(name.toLowerCase(), name);
 });
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/validate-options.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/validate-options.js
 var common_options = {
   filename: string("(unknown)"),
   // default to process.cwd() where it exists to replicate svelte4 behavior (and make Deno work with this as well)
@@ -60943,7 +60945,7 @@ function throw_error2(msg) {
   options_invalid_value(null, msg);
 }
 
-// node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/index.js
+// node_modules/.pnpm/svelte@5.57.3/node_modules/svelte/src/compiler/index.js
 function parse8(source2, { modern, loose } = {}) {
   source2 = remove_bom(source2);
   reset({ warning: () => false, filename: void 0 });
@@ -60978,7 +60980,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.55.2/node_modules/@svelte-vitals/core/dist/markdown-DgHBAvYl.js
+// node_modules/.pnpm/@svelte-vitals+core@0.55.5/node_modules/@svelte-vitals/core/dist/markdown-JeaI7QMp.js
 var CATEGORIES = [
   "seo",
   "performance",
@@ -61091,6 +61093,134 @@ var seoTitlePresence = {
     });
   }
 };
+var ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
+var PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
+var appSsrCache = /* @__PURE__ */ new WeakMap();
+function appSsrDisabled(scope) {
+  if (scope.project?.kitHashRouter) return true;
+  const kitModules = scope.kitModules;
+  if (!kitModules) return false;
+  let hit = appSsrCache.get(kitModules);
+  if (hit === void 0) {
+    hit = kitModules.some((m) => m.ssrDisabled && ROOT_LAYOUT_RE.test(m.file)) && !kitModules.some((m) => PAGE_OPTION_FILE_RE.test(m.file) && (m.ssrEnabled || m.parseFailed));
+    appSsrCache.set(kitModules, hit);
+  }
+  return hit;
+}
+var ROUTES_DIR$1 = "src/routes";
+var ROUTE_FILE_RE = /^(src\/routes(?:\/.+)?)\/\+(page|layout)(?:@([^/]*))?(?:\.server)?\.(?:svelte|ts|js)$/;
+var parentDir = (dir) => dir === ROUTES_DIR$1 ? void 0 : dir.slice(0, dir.lastIndexOf("/"));
+function resetTarget(dir, segment) {
+  for (let d2 = dir; d2 !== void 0; d2 = parentDir(d2)) if (segment === "" ? d2 === ROUTES_DIR$1 : d2.slice(d2.lastIndexOf("/") + 1) === segment) return d2;
+}
+var routeOptionCache = {
+  ssr: /* @__PURE__ */ new WeakMap(),
+  csr: /* @__PURE__ */ new WeakMap()
+};
+var optionOn = (m, option) => m.parseFailed || (option === "ssr" ? m.ssrEnabled : m.csrEnabled);
+var optionOff = (m, option) => (option === "ssr" ? m.ssrDisabled : m.csrDisabled) !== void 0;
+function routeOptionOff(scope, which2) {
+  const kitModules = scope.kitModules ?? [];
+  let hit = routeOptionCache[which2].get(scope);
+  if (hit) return hit;
+  const own = {
+    universal: /* @__PURE__ */ new Map(),
+    server: /* @__PURE__ */ new Map()
+  };
+  for (const m of kitModules) {
+    const match = ROUTE_FILE_RE.exec(m.file);
+    if (!match) continue;
+    const key2 = `${match[2]}:${match[1]}`;
+    if (optionOn(m, which2)) own[m.kind].set(key2, "on");
+    else if (optionOff(m, which2)) own[m.kind].set(key2, "off");
+  }
+  const option = new Map([...own.server, ...own.universal]);
+  hit = /* @__PURE__ */ new Map();
+  for (const [dir, chain] of pageChains(scope)) {
+    const off = [`page:${dir}`, ...chain.map((l2) => `layout:${l2}`)].map((k2) => option.get(k2)).find(Boolean) === "off";
+    hit.set(`page:${dir}`, off);
+    for (const l2 of chain) hit.set(`layout:${l2}`, (hit.get(`layout:${l2}`) ?? true) && off);
+  }
+  if (option.get(`layout:${ROUTES_DIR$1}`) !== "off") hit.delete(`layout:${ROUTES_DIR$1}`);
+  routeOptionCache[which2].set(scope, hit);
+  return hit;
+}
+var chainCache = /* @__PURE__ */ new WeakMap();
+function pageChains(scope) {
+  let hit = chainCache.get(scope);
+  if (hit) return hit;
+  const pages = /* @__PURE__ */ new Map();
+  const layouts = /* @__PURE__ */ new Map();
+  const files = [
+    ...scope.sourceFiles ?? [],
+    ...(scope.components ?? []).map((c) => c.file),
+    ...(scope.kitModules ?? []).map((m) => m.file)
+  ];
+  for (const file of files) {
+    const match = ROUTE_FILE_RE.exec(file);
+    if (!match) continue;
+    const map = match[2] === "page" ? pages : layouts;
+    if (match[3] !== void 0 || !map.has(match[1])) map.set(match[1], match[3]);
+  }
+  hit = /* @__PURE__ */ new Map();
+  for (const [dir, reset3] of pages) {
+    const chain = [];
+    for (let d2 = reset3 === void 0 ? dir : resetTarget(dir, reset3); d2 !== void 0; ) {
+      const layoutReset = layouts.get(d2);
+      if (layouts.has(d2)) chain.push(d2);
+      d2 = layoutReset === void 0 ? parentDir(d2) : resetTarget(parentDir(d2), layoutReset);
+    }
+    hit.set(dir, chain);
+  }
+  chainCache.set(scope, hit);
+  return hit;
+}
+function routeGated(file, scope) {
+  const match = ROUTE_FILE_RE.exec(file);
+  if (!match || match[2] !== "page") return false;
+  const gated = /* @__PURE__ */ new Set();
+  for (const m of scope.kitModules ?? []) {
+    const g = m.loadGated && m.kind === "server" ? ROUTE_FILE_RE.exec(m.file) : null;
+    if (g) gated.add(`${g[2]}:${g[1]}`);
+  }
+  if (gated.size === 0) return false;
+  const chain = pageChains(scope).get(match[1]) ?? [];
+  return gated.has(`page:${match[1]}`) || chain.some((l2) => gated.has(`layout:${l2}`));
+}
+function layoutNeverRenders(file, scope) {
+  const match = ROUTE_FILE_RE.exec(file);
+  if (!match || match[2] !== "page") return false;
+  const dead = /* @__PURE__ */ new Set();
+  for (const m of scope.kitModules ?? []) {
+    const layout = m.loadNeverRenders ? ROUTE_FILE_RE.exec(m.file) : null;
+    if (layout?.[2] === "layout" && layout[1] !== ROUTES_DIR$1) dead.add(layout[1]);
+  }
+  return dead.size > 0 && (pageChains(scope).get(match[1]) ?? []).some((dir) => dead.has(dir));
+}
+function pageRendersOnlyWhenBuilding(file, scope) {
+  const match = ROUTE_FILE_RE.exec(file);
+  if (!match || match[2] !== "page") return false;
+  const at2 = (m) => ROUTE_FILE_RE.exec(m.file);
+  const modules = scope.kitModules ?? [];
+  if (!modules.some((m) => m.loadNeverRendersOutsideBuild && at2(m)?.[2] === "page" && at2(m)?.[1] === match[1])) return false;
+  const layouts = /* @__PURE__ */ new Set([match[1], ...pageChains(scope).get(match[1]) ?? []]);
+  return !modules.some((m) => {
+    const where = m.prerenderExported ? at2(m) : null;
+    return !!where && (where[2] === "page" ? where[1] === match[1] : layouts.has(where[1]));
+  });
+}
+function routeNeverSsr(file, scope) {
+  const match = ROUTE_FILE_RE.exec(file);
+  return !!match && (appSsrDisabled(scope) || routeOptionOff(scope, "ssr").get(`${match[2]}:${match[1]}`) === true);
+}
+function universalNeverCsr(m, scope) {
+  if (m.kind !== "universal") return false;
+  const match = ROUTE_FILE_RE.exec(m.file);
+  return !!match && routeOptionOff(scope, "csr").get(`${match[2]}:${match[1]}`) === true;
+}
+function universalNeverSsr(m, scope) {
+  return m.kind === "universal" && (m.ssrDisabled !== void 0 || appSsrDisabled(scope) || routeNeverSsr(m.file, scope));
+}
 function ogMisspelled(key2) {
   return {
     match: (t2) => t2.kind === "meta" && t2.name === key2 && t2.property === void 0,
@@ -61116,6 +61246,7 @@ function detect(head, match) {
     value: "absent"
   };
 }
+var GATED_NOTE = "Reported as info: this route's load turns away visitors without a session (a redirect or a 401/403), so search engines never index it.";
 function headTagRule(opts) {
   const docsUrl2 = docsUrlFor(opts.id);
   return {
@@ -61131,15 +61262,16 @@ function headTagRule(opts) {
         const detection = detect(head, opts.match);
         const misspelled = detection.presence === "none" && opts.misspelled && head.tags.some(opts.misspelled.match) ? opts.misspelled : void 0;
         const message = misspelled ? misspelled.label : detection.presence === "none" ? `Missing ${opts.label}` : detection.value === "absent" ? `Empty ${opts.label}` : opts.label;
+        const gated = opts.infoWhenGated && routeGated(head.file, ctx);
         return {
           id: opts.id,
           category: "seo",
-          severity: opts.severity,
+          severity: gated ? "info" : opts.severity,
           detection,
           route: head.route,
           location: head.file,
           message,
-          recommendation: misspelled?.recommendation ?? opts.recommendation,
+          recommendation: misspelled?.recommendation ?? (gated ? `${opts.recommendation} ${GATED_NOTE}` : opts.recommendation),
           docsUrl: docsUrl2,
           ...misspelled ? { fix: { ...misspelled.fix } } : opts.fix ? { fix: { ...opts.fix } } : {}
         };
@@ -61151,6 +61283,7 @@ var seoDescriptionPresence = headTagRule({
   id: "seo/description-presence",
   title: "Description presence",
   severity: "warning",
+  infoWhenGated: true,
   match: (t2) => t2.kind === "meta" && t2.name === "description",
   label: '<meta name="description">',
   recommendation: 'Add a <meta name="description"> in <svelte:head>, or set the description on your meta component.',
@@ -61161,11 +61294,38 @@ var seoDescriptionPresence = headTagRule({
     lang: "svelte"
   }
 });
+function hasRel(tag2, token) {
+  return tag2.rel?.split(/\s+/).includes(token) ?? false;
+}
+var JS_MIME_TYPES = /* @__PURE__ */ new Set([
+  "application/ecmascript",
+  "application/javascript",
+  "application/x-ecmascript",
+  "application/x-javascript",
+  "text/ecmascript",
+  "text/javascript",
+  "text/javascript1.0",
+  "text/javascript1.1",
+  "text/javascript1.2",
+  "text/javascript1.3",
+  "text/javascript1.4",
+  "text/javascript1.5",
+  "text/jscript",
+  "text/livescript",
+  "text/x-ecmascript",
+  "text/x-javascript"
+]);
+var ASCII_WHITESPACE_EDGES = /^[\t\n\f\r ]+|[\t\n\f\r ]+$/g;
+function isClassicScriptType(type) {
+  if (type === void 0 || type === "") return true;
+  return JS_MIME_TYPES.has(type.replace(ASCII_WHITESPACE_EDGES, "").toLowerCase());
+}
 var seoCanonicalUrl = headTagRule({
   id: "seo/canonical-url",
   title: "Canonical URL",
   severity: "warning",
-  match: (t2) => t2.kind === "link" && t2.rel === "canonical",
+  infoWhenGated: true,
+  match: (t2) => t2.kind === "link" && hasRel(t2, "canonical"),
   label: '<link rel="canonical">',
   recommendation: 'Add <link rel="canonical"> in <svelte:head>, or set the canonical prop on your meta component.',
   rationale: "A canonical URL tells search engines which URL is authoritative, preventing duplicate-content dilution across query-string variants of the same page.",
@@ -61425,7 +61585,7 @@ var performanceResponsiveImage = imageRule({
     snippet: '<img src="/hero.jpg" srcset="/hero-800.jpg 800w, /hero-1600.jpg 1600w" sizes="100vw" width="1600" height="900" alt="\u2026" />',
     lang: "svelte"
   },
-  ok: (img) => img.hasSrcset || img.svg === true
+  ok: (img) => img.hasSrcset || img.svg === true || img.qr === true
 });
 function linkRule(opts) {
   return routeItemRule({
@@ -61451,7 +61611,7 @@ var performancePreloadMissingAs = linkRule({
     snippet: '<link rel="preload" href="/app.css" as="style" />',
     lang: "html"
   },
-  relevant: (t2) => t2.rel === "preload",
+  relevant: (t2) => hasRel(t2, "preload"),
   ok: (t2) => t2.hasAs === true
 });
 var performanceFontPreloadCrossorigin = linkRule({
@@ -61466,7 +61626,7 @@ var performanceFontPreloadCrossorigin = linkRule({
     snippet: '<link rel="preload" href="/inter.woff2" as="font" type="font/woff2" crossorigin />',
     lang: "html"
   },
-  relevant: (t2) => t2.rel === "preload" && t2.as === "font",
+  relevant: (t2) => hasRel(t2, "preload") && t2.as === "font",
   ok: (t2) => t2.hasCrossorigin === true
 });
 var docsUrl$10 = docsUrlFor("performance/lcp-image");
@@ -61538,7 +61698,8 @@ var performanceRenderBlockingScript = {
   async check(ctx) {
     const out = [];
     for (const head of ctx.heads) {
-      const scripts = head.tags.filter((t2) => t2.kind === "script");
+      const clientHead = routeNeverSsr(head.file, ctx);
+      const scripts = head.tags.filter((t2) => t2.kind === "script" && !(clientHead && t2.file !== "src/app.html"));
       if (scripts.length === 0) continue;
       const blocking = scripts.filter((t2) => t2.blocking);
       if (blocking.length > 0) for (const tag2 of blocking) out.push({
@@ -61840,7 +62001,7 @@ var performancePreconnect = {
         if (tag2.kind !== "link" && tag2.kind !== "script" || typeof tag2.href !== "string") continue;
         const host = hostOf(tag2.href);
         if (!host) continue;
-        if (tag2.kind === "link" && (tag2.rel === "preconnect" || tag2.rel === "dns-prefetch")) {
+        if (tag2.kind === "link" && (hasRel(tag2, "preconnect") || hasRel(tag2, "dns-prefetch"))) {
           covered.add(host);
           continue;
         }
@@ -62250,7 +62411,7 @@ function jsonldRule(opts) {
     }
   };
 }
-var SCHEMA_ORG_TYPES = new Set("3DModel AMRadioChannel APIReference AboutPage AcceptAction Accommodation AccountingService AchieveAction Action ActionAccessSpecification ActionStatusType ActivateAction AddAction AdministrativeArea AdultEntertainment AdultOrientedEnumeration AdvertiserContentArticle AggregateOffer AggregateRating AgreeAction Airline Airport AlignmentObject AllocateAction AmpStory AmusementPark AnalysisNewsArticle AnatomicalStructure AnatomicalSystem AnimalShelter Answer Apartment ApartmentComplex AppendAction ApplyAction ApprovedIndication Aquarium ArchiveComponent ArchiveOrganization ArriveAction ArtGallery Artery Article AskAction AskPublicNewsArticle AssessAction AssignAction Atlas Attorney Audience AudioObject AudioObjectSnapshot Audiobook AuthenticateAction AuthorizeAction AutoBodyShop AutoDealer AutoPartsStore AutoRental AutoRepair AutoWash AutomatedTeller AutomotiveBusiness BackgroundNewsArticle Bakery BankAccount BankOrCreditUnion BarOrPub Barcode Beach BeautySalon BedAndBreakfast BedDetails BedType BefriendAction BikeStore BioChemEntity Blog BlogPosting BloodTest BoardingPolicyType BoatReservation BoatTerminal BoatTrip BodyMeasurementTypeEnumeration BodyOfWater Bone Book BookFormatType BookSeries BookStore BookmarkAction Boolean BorrowAction BowlingAlley BrainStructure Brand BreadcrumbList Brewery Bridge BroadcastChannel BroadcastEvent BroadcastFrequencySpecification BroadcastService BrokerageAccount BuddhistTemple BusOrCoach BusReservation BusStation BusStop BusTrip BusinessAudience BusinessEntityType BusinessEvent BusinessFunction BuyAction CDCPMDRecord CableOrSatelliteService CafeOrCoffeeShop Campground CampingPitch Canal CancelAction Car CarUsageType Casino CategoryCode CategoryCodeSet CatholicChurch Cemetery Certification CertificationStatusEnumeration Chapter CheckAction CheckInAction CheckOutAction CheckoutPage ChemicalSubstance ChildCare ChildrensEvent ChooseAction Church City CityHall CivicStructure Claim ClaimReview Class Clip ClothingStore Code Collection CollectionPage CollegeOrUniversity ComedyClub ComedyEvent ComicCoverArt ComicIssue ComicSeries ComicStory Comment CommentAction CommunicateAction CommunityHealth CompleteDataFeed CompoundPriceSpecification ComputerLanguage ComputerStore ConferenceEvent ConfirmAction Consortium ConstraintNode ConsumeAction ContactPage ContactPoint ContactPointOption Continent ControlAction ConvenienceStore Conversation CookAction Cooperative Corporation CorrectionComment Country Course CourseInstance Courthouse CoverArt CovidTestingFacility CreateAction CreativeWork CreativeWorkSeason CreativeWorkSeries Credential CreditCard Crematorium CriticReview CssSelectorType CurrencyConversionService DDxElement DENonprofitType DanceEvent DanceGroup DataCatalog DataDownload DataFeed DataFeedItem DataType Dataset Date DateTime DatedMoneySpecification DayOfWeek DaySpa DeactivateAction DefenceEstablishment DefinedRegion DefinedTerm DefinedTermSet DeleteAction DeliveryChargeSpecification DeliveryEvent DeliveryMethod DeliveryTimeSettings Demand Dentist DepartAction DepartmentStore DepositAccount Dermatology DiagnosticLab DiagnosticProcedure Diet DietNutrition DietarySupplement DigitalDocument DigitalDocumentPermission DigitalDocumentPermissionType DigitalPlatformEnumeration DisagreeAction DiscoverAction DiscussionForumPosting DislikeAction Distance Distillery DonateAction DoseSchedule DownloadAction DrawAction Drawing DrinkAction DriveWheelConfigurationValue Drug DrugClass DrugCost DrugCostCategory DrugLegalStatus DrugPregnancyCategory DrugPrescriptionStatus DrugStrength DryCleaningOrLaundry Duration EUEnergyEfficiencyEnumeration EatAction EducationEvent EducationalAudience EducationalOccupationalCredential EducationalOccupationalProgram EducationalOrganization Electrician ElectronicsStore ElementarySchool EmailMessage Embassy Emergency EmergencyService EmployeeRole EmployerAggregateRating EmployerReview EmploymentAgency EndorseAction EndorsementRating Energy EnergyConsumptionDetails EnergyEfficiencyEnumeration EnergyStarEnergyEfficiencyEnumeration EngineSpecification EntertainmentBusiness EntryPoint Enumeration Episode Error Event EventAttendanceModeEnumeration EventReservation EventSeries EventStatusType EventVenue ExchangeRateSpecification ExerciseAction ExerciseGym ExercisePlan ExhibitionEvent FAQPage FMRadioChannel FastFoodRestaurant Festival FilmAction FinancialIncentive FinancialProduct FinancialService FindAction FireStation Flight FlightReservation Float FloorPlan Florist FollowAction FoodEstablishment FoodEstablishmentReservation FoodEvent FoodService FulfillmentTypeEnumeration FundingAgency FundingScheme FurnitureStore Game GameAvailabilityEnumeration GamePlayMode GameServer GameServerStatus GardenStore GasStation GatedResidenceCommunity GenderType Gene GeneralContractor GeoCircle GeoCoordinates GeoShape GeospatialGeometry Geriatric GiveAction GolfCourse GovernmentBenefitsType GovernmentBuilding GovernmentOffice GovernmentOrganization GovernmentPermit GovernmentService Grant GroceryStore Guide Gynecologic HVACBusiness Hackathon HairSalon HardwareStore HealthAndBeautyBusiness HealthAspectEnumeration HealthClub HealthInsurancePlan HealthPlanCostSharingSpecification HealthPlanFormulary HealthPlanNetwork HealthTopicContent HighSchool HinduTemple HobbyShop HomeAndConstructionBusiness HomeGoodsStore Hospital Hostel Hotel HotelRoom House HousePainter HowTo HowToDirection HowToItem HowToSection HowToStep HowToSupply HowToTip HowToTool HyperToc HyperTocEntry IPTCDigitalSourceEnumeration ITNonprofitType IceCreamShop IgnoreAction ImageGallery ImageObject ImageObjectSnapshot ImagingTest IncentiveQualifiedExpenseType IncentiveStatus IncentiveType IndividualPhysician IndividualProduct InfectiousAgentClass InfectiousDisease InformAction InsertAction InstallAction InstantaneousEvent InsuranceAgency Intangible Integer InteractAction InteractionCounter InternetCafe InvestmentFund InvestmentOrDeposit InviteAction Invoice ItemAvailability ItemList ItemListOrderType ItemPage JewelryStore JobPosting JoinAction Joint LakeBodyOfWater Landform LandmarksOrHistoricalBuildings Language LearningResource LeaveAction LegalForceStatus LegalService LegalValueLevel Legislation LegislationObject LegislativeBuilding LendAction Library LibrarySystem LifestyleModification Ligament LikeAction LinkRole LiquorStore ListItem ListenAction LiteraryEvent LiveBlogPosting LoanOrCredit LocalBusiness LocationFeatureSpecification Locksmith LodgingBusiness LodgingReservation LoginAction LoseAction LymphaticVessel Manuscript Map MapCategoryType MarryAction Mass MathSolver MaximumDoseSchedule MeasurementMethodEnum MeasurementTypeEnumeration MediaEnumeration MediaGallery MediaManipulationRatingEnumeration MediaObject MediaReview MediaReviewItem MediaSubscription MedicalAudience MedicalAudienceType MedicalBusiness MedicalCause MedicalClinic MedicalCode MedicalCondition MedicalConditionStage MedicalContraindication MedicalDevice MedicalDevicePurpose MedicalEntity MedicalEnumeration MedicalEvidenceLevel MedicalGuideline MedicalGuidelineContraindication MedicalGuidelineRecommendation MedicalImagingTechnique MedicalIndication MedicalIntangible MedicalObservationalStudy MedicalObservationalStudyDesign MedicalOrganization MedicalProcedure MedicalProcedureType MedicalRiskCalculator MedicalRiskEstimator MedicalRiskFactor MedicalRiskScore MedicalScholarlyArticle MedicalSign MedicalSignOrSymptom MedicalSpecialty MedicalStudy MedicalStudyStatus MedicalSymptom MedicalTest MedicalTestPanel MedicalTherapy MedicalTrial MedicalTrialDesign MedicalWebPage MedicineSystem MeetingRoom MemberProgram MemberProgramTier MensClothingStore Menu MenuItem MenuSection MerchantReturnEnumeration MerchantReturnPolicy MerchantReturnPolicySeasonalOverride Message MiddleSchool Midwifery MobileApplication MobilePhoneStore MolecularEntity MonetaryAmount MonetaryAmountDistribution MonetaryGrant MoneyTransfer MortgageLoan Mosque Motel Motorcycle MotorcycleDealer MotorcycleRepair MotorizedBicycle Mountain MoveAction Movie MovieClip MovieRentalStore MovieSeries MovieTheater MovingCompany Muscle Museum MusicAlbum MusicAlbumProductionType MusicAlbumReleaseType MusicComposition MusicEvent MusicGroup MusicPlaylist MusicRecording MusicRelease MusicReleaseFormatType MusicStore MusicVenue MusicVideoObject NGO NLNonprofitType NailSalon Nerve NewsArticle NewsMediaOrganization Newspaper NightClub NonprofitType Notary NoteDigitalDocument Number Nursing NutritionInformation Observation Obstetric Occupation OccupationalExperienceRequirements OccupationalTherapy OceanBodyOfWater Offer OfferCatalog OfferForLease OfferForPurchase OfferItemCondition OfferShippingDetails OfficeEquipmentStore OnDemandEvent Oncologic OnlineBusiness OnlineMarketplace OnlineStore OpeningHoursSpecification OperatingSystem OpinionNewsArticle Optician Optometric Order OrderAction OrderItem OrderStatus Organization OrganizationRole OrganizeAction Otolaryngologic OutletStore OwnershipInfo PaintAction Painting PalliativeProcedure ParcelDelivery ParentAudience Park ParkingFacility PathologyTest Patient PawnShop PayAction PaymentCard PaymentChargeSpecification PaymentMethod PaymentMethodType PaymentService PaymentStatusType Pediatric PeopleAudience PerformAction PerformanceRole PerformingArtsEvent PerformingArtsTheater PerformingGroup Periodical Permit Person PetStore Pharmacy Photograph PhotographAction PhysicalActivity PhysicalActivityCategory PhysicalExam PhysicalTherapy Physician PhysiciansOffice Physiotherapy Place PlaceOfWorship PlanAction PlasticSurgery Play PlayAction PlayGameAction Playground Plumber PodcastEpisode PodcastSeason PodcastSeries Podiatric PoliceStation PoliticalParty Pond PostOffice PostalAddress PostalCodeRangeSpecification Poster PreOrderAction PrependAction Preschool PresentationDigitalDocument PreventionIndication PriceComponentTypeEnumeration PriceSpecification PriceTypeEnumeration PrimaryCare Product ProductCollection ProductGroup ProductModel ProductReturnEnumeration ProductReturnPolicy ProfessionalService ProfilePage ProgramMembership Project PronounceableText Property PropertyValue PropertyValueSpecification Protein Psychiatric PsychologicalTreatment PublicHealth PublicSwimmingPool PublicToilet PublicationEvent PublicationIssue PublicationVolume PurchaseType QAPage QualitativeValue QuantitativeValue QuantitativeValueDistribution Quantity Question Quiz Quotation QuoteAction RVPark RadiationTherapy RadioBroadcastService RadioChannel RadioClip RadioEpisode RadioSeason RadioSeries RadioStation Rating ReactAction ReadAction RealEstateAgent RealEstateListing ReceiveAction Recipe Recommendation RecommendedDoseSchedule RecyclingCenter RefundTypeEnumeration RegisterAction RejectAction RentAction RentalCarReservation RepaymentSpecification ReplaceAction ReplyAction Report ReportageNewsArticle ReportedDoseSchedule ResearchOrganization ResearchProject Researcher Reservation ReservationPackage ReservationStatusType ReserveAction Reservoir ResetPasswordAction Residence Resort RespiratoryTherapy Restaurant RestrictedDiet ResumeAction ReturnAction ReturnFeesEnumeration ReturnLabelSourceEnumeration ReturnMethodEnumeration Review ReviewAction ReviewNewsArticle RiverBodyOfWater Role RoofingContractor Room RsvpAction RsvpResponseType RuntimePlatform SaleEvent SatiricalArticle Schedule ScheduleAction ScholarlyArticle School SchoolDistrict ScreeningEvent Sculpture SeaBodyOfWater SearchAction SearchRescueOrganization SearchResultsPage Season Seat SeekToAction SelfStorage SellAction SendAction SequentialArt Series Service ServiceChannel ServicePeriod ShareAction SheetMusic ShippingConditions ShippingDeliveryTime ShippingRateSettings ShippingService ShoeStore ShoppingCenter ShortStory SingleFamilyResidence SiteNavigationElement SizeGroupEnumeration SizeSpecification SizeSystemEnumeration SkiResort SocialEvent SocialMediaPosting SoftwareApplication SoftwareSourceCode SolveMathAction SomeProducts SpeakableSpecification SpecialAnnouncement Specialty SportingGoodsStore SportsActivityLocation SportsClub SportsEvent SportsOrganization SportsTeam SpreadsheetDigitalDocument StadiumOrArena State Statement StatisticalPopulation StatisticalVariable StatusEnumeration SteeringPositionValue Store StructuredValue StupidType SubscribeAction Substance SubwayStation Suite SuperficialAnatomy SurgicalProcedure SuspendAction Syllabus Synagogue TVClip TVEpisode TVSeason TVSeries Table TakeAction TattooParlor Taxi TaxiReservation TaxiService TaxiStand Taxon TechArticle TelevisionChannel TelevisionStation TennisComplex Text TextDigitalDocument TextObject TheaterEvent TheaterGroup TherapeuticProcedure Thesis Thing Ticket TieAction TierBenefitEnumeration Time TipAction TireShop TouristAttraction TouristDestination TouristInformationCenter TouristTrip ToyStore TrackAction TradeAction TrainReservation TrainStation TrainTrip TransferAction TravelAction TravelAgency TreatmentIndication Trip TypeAndQuantityNode UKNonprofitType URL USNonprofitType UnRegisterAction UnitPriceSpecification UpdateAction UseAction UserBlocks UserCheckins UserComments UserDownloads UserInteraction UserLikes UserPageVisits UserPlays UserPlusOnes UserReview UserTweets VacationRental Vehicle Vein Vessel VeterinaryCare VideoGallery VideoGame VideoGameClip VideoGameSeries VideoObject VideoObjectSnapshot ViewAction VirtualLocation VisualArtsEvent VisualArtwork VitalSign Volcano VoteAction WPAdBlock WPFooter WPHeader WPSideBar WantAction WarrantyPromise WarrantyScope WatchAction Waterfall WearAction WearableMeasurementTypeEnumeration WearableSizeGroupEnumeration WearableSizeSystemEnumeration WebAPI WebApplication WebContent WebPage WebPageElement WebSite WholesaleStore WinAction Winery WorkBasedProgram WorkersUnion WriteAction XPathType Zoo iflastandards_info_ns_lrm_lrmoo_F31_Performance purl_bioontology_org_ontology_SNOMEDCT_105590001 purl_bioontology_org_ontology_SNOMEDCT_116154003 purl_bioontology_org_ontology_SNOMEDCT_277132007 purl_bioontology_org_ontology_SNOMEDCT_387713003 purl_bioontology_org_ontology_SNOMEDCT_410942007 purl_bioontology_org_ontology_SNOMEDCT_50731006 purl_bioontology_org_ontology_SNOMEDCT_51114001 purl_bioontology_org_ontology_SNOMEDCT_63653004 purl_org_dc_dcmitype_Dataset purl_org_dc_dcmitype_Event purl_org_dc_dcmitype_Image purl_org_dc_dcmitype_Text purl_org_ontology_bibo_Issue purl_org_ontology_bibo_Periodical rdfs_org_ns_void_Dataset ref_gs1_org_voc_CertificationDetails ref_gs1_org_voc_ContactPoint ref_gs1_org_voc_Country ref_gs1_org_voc_Organization ref_gs1_org_voc_PostalAddress sarif_info_Result spec_edmcouncil_org_fibo_ontology_BE_Corporations_Corporations_Corporation spec_edmcouncil_org_fibo_ontology_BE_LegalEntities_CorporateBodies_CooperativeSociety spec_edmcouncil_org_fibo_ontology_BE_NotForProfitOrganizations_NotForProfitOrganizations_NonGovernmentalOrganization spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_BankAccount spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_PaymentMechanism spec_edmcouncil_org_fibo_ontology_FND_Agreements_Contracts_MutualContractualAgreement spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Certificate spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Document spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_LegalDocument spec_edmcouncil_org_fibo_ontology_FND_DatesAndTimes_Occurrences_Occurrence spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_ContactPoint spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_Organization spec_edmcouncil_org_fibo_ontology_FND_Places_Addresses_PostalAddress spec_edmcouncil_org_fibo_ontology_FND_Places_Locations_Municipality spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Offer spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Price spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Product spec_edmcouncil_org_fibo_ontology_PAY_PaymentServices_PaymentServices_PaymentService unece_org_vocab_AmountType unece_org_vocab_BrandName unece_org_vocab_Country unece_org_vocab_ElectronicDocument unece_org_vocab_FinancialCard unece_org_vocab_GeographicalCoordinate unece_org_vocab_Invoice unece_org_vocab_LineTradeAgreement unece_org_vocab_Offer unece_org_vocab_Order unece_org_vocab_PaymentMeans unece_org_vocab_RequestForQuotation unece_org_vocab_SpecifiedCertificate unece_org_vocab_SpecifiedTradeProduct unece_org_vocab_TradeAddress unece_org_vocab_TradeProduct unece_org_vocab_TransportMethod www_omg_org_spec_Commons_Classifiers_Classifier www_omg_org_spec_Commons_Collections_Collection www_omg_org_spec_Commons_DatesAndTimes_Date www_omg_org_spec_Commons_DatesAndTimes_DateTime www_omg_org_spec_Commons_DatesAndTimes_Duration www_omg_org_spec_Commons_GeopoliticalEntities_GeopoliticalEntity www_omg_org_spec_Commons_GeopoliticalEntities_Subdivision www_omg_org_spec_Commons_Locations_Address www_omg_org_spec_Commons_Locations_GeographicCoordinate www_omg_org_spec_Commons_Locations_Location www_omg_org_spec_LCC_Countries_CountryRepresentation_Continent www_omg_org_spec_LCC_Countries_CountryRepresentation_Country www_w3_org_2006_vcard_ns_VCard www_w3_org_ns_dcat_Catalog www_w3_org_ns_dcat_Dataset www_w3_org_ns_dcat_Distribution www_w3_org_ns_hydra_core_Error www_w3_org_ns_prov_InstantaneousEvent www_w3_org_ns_prov_atTime xmlns_com_foaf_0_1_Person".split(" "));
+var SCHEMA_ORG_TYPES = new Set("3DModel AMRadioChannel APIReference AboutPage AcceptAction Accommodation AccountingService AchieveAction Action ActionAccessSpecification ActionStatusType ActivateAction AddAction AdministrativeArea AdultEntertainment AdultOrientedEnumeration AdvertiserContentArticle AggregateOffer AggregateRating AgreeAction Airline Airport AlignmentObject AllocateAction AmpStory AmusementPark AnalysisNewsArticle AnatomicalStructure AnatomicalSystem AnimalShelter Answer Apartment ApartmentComplex AppendAction ApplyAction ApprovedIndication Aquarium ArchiveComponent ArchiveOrganization ArriveAction ArtGallery Artery Article AskAction AskPublicNewsArticle AssessAction AssignAction Atlas Attorney Audience AudioObject AudioObjectSnapshot Audiobook Audiology AuthenticateAction AuthorizeAction AutoBodyShop AutoDealer AutoPartsStore AutoRental AutoRepair AutoWash AutomatedTeller AutomotiveBusiness BackgroundNewsArticle Bakery BankAccount BankOrCreditUnion BarOrPub Barcode Beach BeautySalon BedAndBreakfast BedDetails BedType BefriendAction BikeStore BioChemEntity Blog BlogPosting BloodTest BoardingPolicyType BoatReservation BoatTerminal BoatTrip BodyMeasurementTypeEnumeration BodyOfWater Bone Book BookFormatType BookSeries BookStore BookmarkAction Boolean BorrowAction BowlingAlley BrainStructure Brand BreadcrumbList Brewery Bridge BroadcastChannel BroadcastEvent BroadcastFrequencySpecification BroadcastService BrokerageAccount BuddhistTemple BusOrCoach BusReservation BusStation BusStop BusTrip BusinessAudience BusinessEntityType BusinessEvent BusinessFunction BuyAction CDCPMDRecord CableOrSatelliteService CafeOrCoffeeShop Campground CampingPitch Canal CancelAction Car CarUsageType Casino CategoryCode CategoryCodeSet CatholicChurch Cemetery Certification CertificationStatusEnumeration Chapter CheckAction CheckInAction CheckOutAction CheckoutPage ChemicalSubstance ChildCare ChildrensEvent ChooseAction Church City CityHall CivicStructure Claim ClaimReview Class Clip ClothingStore Code Collection CollectionPage CollegeOrUniversity ComedyClub ComedyEvent ComicCoverArt ComicIssue ComicSeries ComicStory Comment CommentAction CommunicateAction CommunityHealth CompleteDataFeed CompoundPriceSpecification ComputerLanguage ComputerStore ConferenceEvent ConfirmAction Consortium ConstraintNode ConsumeAction ContactPage ContactPoint ContactPointOption Continent ControlAction ConvenienceStore Conversation CookAction Cooperative Corporation CorrectionComment Country Course CourseInstance Courthouse CoverArt CovidTestingFacility CreateAction CreativeWork CreativeWorkSeason CreativeWorkSeries Credential CreditCard Crematorium CriticReview CssSelectorType CurrencyConversionService DDxElement DENonprofitType DanceEvent DanceGroup DataCatalog DataDownload DataFeed DataFeedItem DataType Dataset Date DateTime DatedMoneySpecification DayOfWeek DaySpa DeactivateAction DeclarationOfConformity DefenceEstablishment DefinedRegion DefinedTerm DefinedTermSet DeleteAction DeliveryChargeSpecification DeliveryEvent DeliveryMethod DeliveryTimeSettings Demand Dentist DepartAction DepartmentStore DepositAccount Dermatology DiagnosticLab DiagnosticProcedure Diet DietNutrition DietarySupplement DigitalDocument DigitalDocumentPermission DigitalDocumentPermissionType DigitalPlatformEnumeration DigitalProductPassport DisagreeAction DiscoverAction DiscussionForumPosting DislikeAction Distance Distillery DonateAction DoseSchedule DownloadAction DrawAction Drawing DrinkAction DriveWheelConfigurationValue Drug DrugClass DrugCost DrugCostCategory DrugLegalStatus DrugPregnancyCategory DrugPrescriptionStatus DrugStrength DryCleaningOrLaundry Duration EUEnergyEfficiencyEnumeration EatAction EducationEvent EducationalAudience EducationalOccupationalCredential EducationalOccupationalProgram EducationalOrganization Electrician ElectronicsStore ElementarySchool EmailMessage Embassy Emergency EmergencyService EmployeeRole EmployerAggregateRating EmployerReview EmploymentAgency EndorseAction EndorsementRating Energy EnergyConsumptionDetails EnergyEfficiencyEnumeration EnergyStarEnergyEfficiencyEnumeration EngineSpecification EntertainmentBusiness EntryPoint Enumeration EnvironmentalProductDeclaration Episode Error Event EventAttendanceModeEnumeration EventReservation EventSeries EventStatusType EventVenue ExchangeRateSpecification ExerciseAction ExerciseGym ExercisePlan ExhibitionEvent FAQPage FMRadioChannel FastFoodRestaurant Festival FilmAction FinancialIncentive FinancialProduct FinancialService FindAction FireStation Flight FlightReservation Float FloorPlan Florist FollowAction FoodEstablishment FoodEstablishmentReservation FoodEvent FoodService FulfillmentTypeEnumeration FundingAgency FundingScheme FurnitureStore Game GameAvailabilityEnumeration GamePlayMode GameServer GameServerStatus GardenStore GasStation GatedResidenceCommunity GenderType Gene GeneralContractor GeoCircle GeoCoordinates GeoShape GeospatialGeometry Geriatric GiveAction GolfCourse GovernmentBenefitsType GovernmentBuilding GovernmentOffice GovernmentOrganization GovernmentPermit GovernmentService Grant GroceryStore Guide Gynecologic HVACBusiness Hackathon HairSalon HardwareStore HealthAndBeautyBusiness HealthAspectEnumeration HealthClub HealthInsurancePlan HealthPlanCostSharingSpecification HealthPlanFormulary HealthPlanNetwork HealthTopicContent HighSchool HinduTemple HobbyShop HomeAndConstructionBusiness HomeGoodsStore Hospital Hostel Hotel HotelRoom House HousePainter HowTo HowToDirection HowToItem HowToSection HowToStep HowToSupply HowToTip HowToTool HyperToc HyperTocEntry IPTCDigitalSourceEnumeration ITNonprofitType IceCreamShop IgnoreAction ImageGallery ImageObject ImageObjectSnapshot ImagingTest IncentiveQualifiedExpenseType IncentiveStatus IncentiveType IndividualPhysician IndividualProduct InfectiousAgentClass InfectiousDisease InformAction InsertAction InstallAction InstantaneousEvent InsuranceAgency Intangible Integer InteractAction InteractionCounter InternetCafe InvestmentFund InvestmentOrDeposit InviteAction Invoice ItemAvailability ItemList ItemListOrderType ItemPage JewelryStore JobPosting JoinAction Joint LakeBodyOfWater Landform LandmarksOrHistoricalBuildings Language LearningResource LeaveAction LegalForceStatus LegalService LegalValueLevel Legislation LegislationObject LegislativeBuilding LendAction Library LibrarySystem LifestyleModification Ligament LikeAction LinkRole LiquorStore ListItem ListenAction LiteraryEvent LiveBlogPosting LoanOrCredit LocalBusiness LocationFeatureSpecification Locksmith LodgingBusiness LodgingReservation LoginAction LoseAction LymphaticVessel Manuscript Map MapCategoryType MarryAction Mass MathSolver MaximumDoseSchedule MeasurementMethodEnum MeasurementTypeEnumeration MediaEnumeration MediaGallery MediaManipulationRatingEnumeration MediaObject MediaReview MediaReviewItem MediaSubscription MedicalAudience MedicalAudienceType MedicalBusiness MedicalCause MedicalClinic MedicalCode MedicalCondition MedicalConditionStage MedicalContraindication MedicalDevice MedicalDevicePurpose MedicalEntity MedicalEnumeration MedicalEvidenceLevel MedicalGuideline MedicalGuidelineContraindication MedicalGuidelineRecommendation MedicalImagingTechnique MedicalIndication MedicalIntangible MedicalObservationalStudy MedicalObservationalStudyDesign MedicalOrganization MedicalProcedure MedicalProcedureType MedicalRiskCalculator MedicalRiskEstimator MedicalRiskFactor MedicalRiskScore MedicalScholarlyArticle MedicalSign MedicalSignOrSymptom MedicalSpecialty MedicalStudy MedicalStudyStatus MedicalSymptom MedicalTest MedicalTestPanel MedicalTherapy MedicalTrial MedicalTrialDesign MedicalWebPage MedicineSystem MeetingRoom MemberProgram MemberProgramTier MensClothingStore Menu MenuItem MenuSection MerchantReturnEnumeration MerchantReturnPolicy MerchantReturnPolicySeasonalOverride Message MiddleSchool Midwifery MobileApplication MobilePhoneStore MolecularEntity MonetaryAmount MonetaryAmountDistribution MonetaryGrant MoneyTransfer MortgageLoan Mosque Motel Motorcycle MotorcycleDealer MotorcycleRepair MotorizedBicycle Mountain MoveAction Movie MovieClip MovieRentalStore MovieSeries MovieTheater MovingCompany Muscle Museum MusicAlbum MusicAlbumProductionType MusicAlbumReleaseType MusicComposition MusicEvent MusicGroup MusicPlaylist MusicRecording MusicRelease MusicReleaseFormatType MusicStore MusicVenue MusicVideoObject NGO NLNonprofitType NailSalon Nerve NewsArticle NewsMediaOrganization Newspaper NightClub NonprofitType Notary NoteDigitalDocument Number Nursing NutritionInformation Observation Obstetric Occupation OccupationalExperienceRequirements OccupationalTherapy OceanBodyOfWater Offer OfferCatalog OfferForLease OfferForPurchase OfferItemCondition OfferShippingDetails OfficeEquipmentStore OnDemandEvent Oncologic OnlineBusiness OnlineMarketplace OnlineStore OpeningHoursSpecification OperatingSystem Ophthalmology OpinionNewsArticle Optician Optometric Order OrderAction OrderItem OrderStatus Organization OrganizationRole OrganizeAction Otolaryngologic OutletStore OwnershipInfo PaintAction Painting PalliativeProcedure ParcelDelivery ParentAudience Park ParkingFacility PathologyTest Patient PawnShop PayAction PaymentCard PaymentChargeSpecification PaymentMethod PaymentMethodType PaymentService PaymentStatusType Pediatric PeopleAudience PerformAction PerformanceRole PerformingArtsEvent PerformingArtsTheater PerformingGroup Periodical Permit Person PetStore Pharmacy Photograph PhotographAction PhysicalActivity PhysicalActivityCategory PhysicalExam PhysicalTherapy Physician PhysiciansOffice Physiotherapy Place PlaceOfWorship PlanAction PlasticSurgery Play PlayAction PlayGameAction Playground Plumber PodcastEpisode PodcastSeason PodcastSeries Podiatric PoliceStation PoliticalParty Pond PostOffice PostalAddress PostalCodeRangeSpecification Poster PreOrderAction PrependAction Preschool PresentationDigitalDocument PreventionIndication PriceComponentTypeEnumeration PriceSpecification PriceTypeEnumeration PrimaryCare Product ProductCollection ProductGroup ProductModel ProductReturnEnumeration ProductReturnPolicy ProfessionalService ProfilePage ProgramMembership Project PronounceableText Property PropertyValue PropertyValueSpecification Protein Psychiatric PsychologicalTreatment PublicHealth PublicSwimmingPool PublicToilet PublicationEvent PublicationIssue PublicationVolume PurchaseType QAPage QualitativeValue QuantitativeValue QuantitativeValueDistribution Quantity Question Quiz Quotation QuoteAction RVPark RadiationTherapy RadioBroadcastService RadioChannel RadioClip RadioEpisode RadioSeason RadioSeries RadioStation Rating ReactAction ReadAction RealEstateAgent RealEstateListing ReceiveAction Recipe Recommendation RecommendedDoseSchedule RecyclingCenter RefundTypeEnumeration RegisterAction RejectAction RentAction RentalCarReservation RepaymentSpecification ReplaceAction ReplyAction Report ReportageNewsArticle ReportedDoseSchedule ResearchOrganization ResearchProject Researcher Reservation ReservationPackage ReservationStatusType ReserveAction Reservoir ResetPasswordAction Residence Resort RespiratoryTherapy Restaurant RestrictedDiet ResumeAction ReturnAction ReturnFeesEnumeration ReturnLabelSourceEnumeration ReturnMethodEnumeration Review ReviewAction ReviewNewsArticle RiverBodyOfWater Role RoofingContractor Room RsvpAction RsvpResponseType RuntimePlatform SaleEvent SatiricalArticle Schedule ScheduleAction ScholarlyArticle School SchoolDistrict ScreeningEvent Sculpture SeaBodyOfWater SearchAction SearchRescueOrganization SearchResultsPage Season Seat SeekToAction SelfStorage SellAction SendAction SequentialArt Series Service ServiceChannel ServicePeriod ShareAction SheetMusic ShippingConditions ShippingDeliveryTime ShippingRateSettings ShippingService ShoeStore ShoppingCenter ShortStory SingleFamilyResidence SiteNavigationElement SizeGroupEnumeration SizeSpecification SizeSystemEnumeration SkiResort SocialEvent SocialMediaPosting SoftwareApplication SoftwareSourceCode SolveMathAction SomeProducts SpeakableSpecification SpecialAnnouncement Specialty SportingGoodsStore SportsActivityLocation SportsClub SportsEvent SportsOrganization SportsTeam SpreadsheetDigitalDocument StadiumOrArena State Statement StatisticalPopulation StatisticalVariable StatusEnumeration SteeringPositionValue Store StructuredValue StupidType SubscribeAction Substance SubwayStation Suite SuperficialAnatomy SurgicalProcedure SuspendAction Syllabus Synagogue TVClip TVEpisode TVSeason TVSeries Table TakeAction TattooParlor Taxi TaxiReservation TaxiService TaxiStand Taxon TechArticle TelevisionChannel TelevisionStation TennisComplex Text TextDigitalDocument TextObject TheaterEvent TheaterGroup TherapeuticProcedure Thesis Thing Ticket TieAction TierBenefitEnumeration Time TipAction TireShop TouristAttraction TouristDestination TouristInformationCenter TouristTrip ToyStore TrackAction TradeAction TrainReservation TrainStation TrainTrip TransferAction TravelAction TravelAgency TreatmentIndication Trip TypeAndQuantityNode UKNonprofitType URL USNonprofitType UnRegisterAction UnitPriceSpecification UpdateAction UseAction UserBlocks UserCheckins UserComments UserDownloads UserInteraction UserLikes UserPageVisits UserPlays UserPlusOnes UserReview UserTweets VacationRental Vehicle Vein Vessel VeterinaryCare VideoGallery VideoGame VideoGameClip VideoGameSeries VideoObject VideoObjectSnapshot ViewAction VirtualLocation VisualArtsEvent VisualArtwork VitalSign Volcano VoteAction WPAdBlock WPFooter WPHeader WPSideBar WantAction WarrantyPromise WarrantyScope WatchAction Waterfall WearAction WearableMeasurementTypeEnumeration WearableSizeGroupEnumeration WearableSizeSystemEnumeration WebAPI WebApplication WebContent WebPage WebPageElement WebSite WholesaleStore WinAction Winery WorkBasedProgram WorkersUnion WriteAction XPathType Zoo iflastandards_info_ns_lrm_lrmoo_F31_Performance purl_bioontology_org_ontology_SNOMEDCT_105590001 purl_bioontology_org_ontology_SNOMEDCT_116154003 purl_bioontology_org_ontology_SNOMEDCT_277132007 purl_bioontology_org_ontology_SNOMEDCT_387713003 purl_bioontology_org_ontology_SNOMEDCT_410942007 purl_bioontology_org_ontology_SNOMEDCT_50731006 purl_bioontology_org_ontology_SNOMEDCT_51114001 purl_bioontology_org_ontology_SNOMEDCT_63653004 purl_org_dc_dcmitype_Dataset purl_org_dc_dcmitype_Event purl_org_dc_dcmitype_Image purl_org_dc_dcmitype_Text purl_org_ontology_bibo_Issue purl_org_ontology_bibo_Periodical rdfs_org_ns_void_Dataset ref_gs1_org_voc_CertificationDetails ref_gs1_org_voc_ContactPoint ref_gs1_org_voc_Country ref_gs1_org_voc_Organization ref_gs1_org_voc_PostalAddress sarif_info_Result spec_edmcouncil_org_fibo_ontology_BE_Corporations_Corporations_Corporation spec_edmcouncil_org_fibo_ontology_BE_LegalEntities_CorporateBodies_CooperativeSociety spec_edmcouncil_org_fibo_ontology_BE_NotForProfitOrganizations_NotForProfitOrganizations_NonGovernmentalOrganization spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_BankAccount spec_edmcouncil_org_fibo_ontology_FBC_ProductsAndServices_FinancialProductsAndServices_PaymentMechanism spec_edmcouncil_org_fibo_ontology_FND_Agreements_Contracts_MutualContractualAgreement spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Certificate spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_Document spec_edmcouncil_org_fibo_ontology_FND_Arrangements_Documents_LegalDocument spec_edmcouncil_org_fibo_ontology_FND_DatesAndTimes_Occurrences_Occurrence spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_ContactPoint spec_edmcouncil_org_fibo_ontology_FND_Organizations_Organizations_Organization spec_edmcouncil_org_fibo_ontology_FND_Places_Addresses_PostalAddress spec_edmcouncil_org_fibo_ontology_FND_Places_Locations_Municipality spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Offer spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Price spec_edmcouncil_org_fibo_ontology_FND_ProductsAndServices_ProductsAndServices_Product spec_edmcouncil_org_fibo_ontology_PAY_PaymentServices_PaymentServices_PaymentService unece_org_vocab_AmountType unece_org_vocab_BrandName unece_org_vocab_Country unece_org_vocab_ElectronicDocument unece_org_vocab_FinancialCard unece_org_vocab_GeographicalCoordinate unece_org_vocab_Invoice unece_org_vocab_LineTradeAgreement unece_org_vocab_Offer unece_org_vocab_Order unece_org_vocab_PaymentMeans unece_org_vocab_RequestForQuotation unece_org_vocab_SpecifiedCertificate unece_org_vocab_SpecifiedTradeProduct unece_org_vocab_TradeAddress unece_org_vocab_TradeProduct unece_org_vocab_TransportMethod www_omg_org_spec_Commons_Classifiers_Classifier www_omg_org_spec_Commons_Collections_Collection www_omg_org_spec_Commons_DatesAndTimes_Date www_omg_org_spec_Commons_DatesAndTimes_DateTime www_omg_org_spec_Commons_DatesAndTimes_Duration www_omg_org_spec_Commons_GeopoliticalEntities_GeopoliticalEntity www_omg_org_spec_Commons_GeopoliticalEntities_Subdivision www_omg_org_spec_Commons_Locations_Address www_omg_org_spec_Commons_Locations_GeographicCoordinate www_omg_org_spec_Commons_Locations_Location www_omg_org_spec_LCC_Countries_CountryRepresentation_Continent www_omg_org_spec_LCC_Countries_CountryRepresentation_Country www_w3_org_2006_vcard_ns_VCard www_w3_org_ns_dcat_Catalog www_w3_org_ns_dcat_Dataset www_w3_org_ns_dcat_Distribution www_w3_org_ns_hydra_core_Error www_w3_org_ns_prov_InstantaneousEvent www_w3_org_ns_prov_atTime xmlns_com_foaf_0_1_Person".split(" "));
 var SCHEMA_ORG_CONTEXT_RE = /^https?:\/\/schema\.org\/?$/;
 var LOWERCASE_TO_CANONICAL = new Map([...SCHEMA_ORG_TYPES].map((name) => [name.toLowerCase(), name]));
 var SORTED_TYPES = [...SCHEMA_ORG_TYPES].sort();
@@ -62595,7 +62756,7 @@ var seoHreflang = {
   async check(ctx) {
     const out = [];
     for (const head of ctx.heads) {
-      const alternates = head.tags.filter((t2) => t2.kind === "link" && t2.rel === "alternate" && typeof t2.hreflang === "string");
+      const alternates = head.tags.filter((t2) => t2.kind === "link" && hasRel(t2, "alternate") && typeof t2.hreflang === "string");
       if (alternates.length === 0) continue;
       const values = alternates.map((t2) => t2.hreflang);
       const badTag = alternates.find((t2) => !isValidHreflang(t2.hreflang));
@@ -62784,7 +62945,7 @@ var passRecommendation = "Use exactly one <h1> per page for its main topic; demo
 var missingRecommendation = "Add a single, descriptive <h1> naming the page's main topic.";
 var multipleRecommendation = "A single, clear <h1> is the conventional signal for a page \u2014 consider demoting extra top-level headings to <h2>+.";
 function renderableH1s(headings) {
-  const nodes = headings.filter((h2) => h2.level === 1).map((heading) => ({
+  const nodes = headings.filter((h2) => h2.level === 1 && !h2.aria).map((heading) => ({
     key: "h1",
     path: heading.path ?? [],
     repeatable: false,
@@ -62813,7 +62974,7 @@ var seoSingleH1 = {
           severity: "warning",
           recommendation: missingRecommendation
         };
-        const first = route.headings[0];
+        const first = route.headings.find((h2) => !h2.aria);
         if (first) where = {
           location: first.file,
           ...first.line > 0 ? { line: first.line } : {}
@@ -62925,11 +63086,17 @@ var seoDuplicateDescription = uniquenessRule({
   recommendation: "Write a unique meta description per route so each search snippet is page-specific.",
   rationale: "Duplicate meta descriptions give search engines no per-page summary, so they are often ignored or rewritten."
 });
+function documentOrder(a2, b) {
+  if (!a2.order || !b.order) return 0;
+  for (let i3 = 0; i3 < Math.min(a2.order.length, b.order.length); i3++) if (a2.order[i3] !== b.order[i3]) return a2.order[i3] - b.order[i3];
+  return a2.order.length - b.order.length;
+}
 function exclusiveHeadings(a2, b) {
   if (!a2.path || !b.path) return false;
   return a2.path.some((s) => b.path.some((t2) => s.group === t2.group && s.branch !== t2.branch));
 }
 var docsUrl$5 = docsUrlFor("seo/heading-level-skip");
+var rendersWith = (p2, h2) => (p2.path ?? []).every((s) => s.always || (h2.path ?? []).some((t2) => t2.group === s.group && t2.branch === s.branch));
 var recommendation$5 = "Increase heading levels one step at a time (do not jump, e.g. from <h2> straight to <h4>).";
 var seoHeadingLevelSkip = {
   id: "seo/heading-level-skip",
@@ -62942,13 +63109,33 @@ var seoHeadingLevelSkip = {
     const out = [];
     for (const route of ctx.headings ?? []) {
       if (route.headings.length === 0) continue;
+      const placed = (route.componentHeadings ?? []).filter((h2) => h2.order);
+      const own = new Set(route.headings);
+      const headings = [...route.headings, ...placed].sort(documentOrder);
       let skip;
-      for (let i3 = 1; i3 < route.headings.length && !skip; i3++) {
-        const h2 = route.headings[i3];
-        const prev = route.headings.slice(0, i3).reverse().find((p2) => !exclusiveHeadings(p2, h2));
-        if (prev && h2.level > prev.level + 1) skip = {
+      for (let i3 = 1; i3 < headings.length && !skip; i3++) {
+        const h2 = headings[i3];
+        if (!own.has(h2)) continue;
+        const before = headings.slice(0, i3).filter((p2) => !exclusiveHeadings(p2, h2) && (own.has(p2) || rendersWith(p2, h2)));
+        const prev = before.at(-1);
+        if (!prev) continue;
+        const levels = [prev.level];
+        const arms = /* @__PURE__ */ new Set();
+        const looped = prev.path?.some((s) => s.repeat && !h2.path?.some((t2) => t2.group === s.group));
+        for (let j2 = looped ? -1 : before.length - 2; j2 >= 0; j2--) {
+          const q = before[j2];
+          const step = q.path?.find((s) => prev.path?.some((t2) => t2.group === s.group && t2.branch !== s.branch));
+          const arm = step && `${step.group}:${step.branch}`;
+          if (arm && !arms.has(arm)) {
+            arms.add(arm);
+            levels.push(q.level);
+          }
+        }
+        const known = levels.filter((level) => level > 0);
+        const lowest = Math.min(...known);
+        if (known.length === levels.length && h2.level > lowest + 1) skip = {
           level: h2.level,
-          prev: prev.level,
+          prev: lowest,
           line: h2.line,
           file: h2.file
         };
@@ -63052,73 +63239,6 @@ function kitModuleRule(opts) {
     applies: (m, _o, ctx) => opts.applies(m, ctx),
     bad: (m, _o, ctx) => opts.bad(m, ctx)
   });
-}
-var ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
-var PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
-var appSsrCache = /* @__PURE__ */ new WeakMap();
-function appSsrDisabled(kitModules) {
-  if (!kitModules) return false;
-  let hit = appSsrCache.get(kitModules);
-  if (hit === void 0) {
-    hit = kitModules.some((m) => m.ssrDisabled && ROOT_LAYOUT_RE.test(m.file)) && !kitModules.some((m) => PAGE_OPTION_FILE_RE.test(m.file) && (m.ssrEnabled || m.parseFailed));
-    appSsrCache.set(kitModules, hit);
-  }
-  return hit;
-}
-var ROUTES_DIR$1 = "src/routes";
-var ROUTE_FILE_RE = /^(src\/routes(?:\/.+)?)\/\+(page|layout)(?:@([^/]*))?(?:\.server)?\.(?:svelte|ts|js)$/;
-var parentDir = (dir) => dir === ROUTES_DIR$1 ? void 0 : dir.slice(0, dir.lastIndexOf("/"));
-function resetTarget(dir, segment) {
-  for (let d2 = dir; d2 !== void 0; d2 = parentDir(d2)) if (segment === "" ? d2 === ROUTES_DIR$1 : d2.slice(d2.lastIndexOf("/") + 1) === segment) return d2;
-}
-var routeSsrCache = /* @__PURE__ */ new WeakMap();
-function routeSsrOff(scope) {
-  const kitModules = scope.kitModules ?? [];
-  let hit = routeSsrCache.get(scope);
-  if (hit) return hit;
-  const pages = /* @__PURE__ */ new Map();
-  const layouts = /* @__PURE__ */ new Map();
-  const files = [
-    ...scope.sourceFiles ?? [],
-    ...(scope.components ?? []).map((c) => c.file),
-    ...kitModules.map((m) => m.file)
-  ];
-  for (const file of files) {
-    const match = ROUTE_FILE_RE.exec(file);
-    if (!match) continue;
-    const map = match[2] === "page" ? pages : layouts;
-    if (match[3] !== void 0 || !map.has(match[1])) map.set(match[1], match[3]);
-  }
-  const option = /* @__PURE__ */ new Map();
-  for (const m of kitModules) {
-    const match = ROUTE_FILE_RE.exec(m.file);
-    if (!match) continue;
-    const key2 = `${match[2]}:${match[1]}`;
-    if (m.ssrEnabled || m.parseFailed) option.set(key2, "on");
-    else if (m.ssrDisabled && !option.has(key2)) option.set(key2, "off");
-  }
-  hit = /* @__PURE__ */ new Map();
-  for (const [dir, reset3] of pages) {
-    const chain = [];
-    for (let d2 = reset3 === void 0 ? dir : resetTarget(dir, reset3); d2 !== void 0; ) {
-      const layoutReset = layouts.get(d2);
-      if (layouts.has(d2)) chain.push(d2);
-      d2 = layoutReset === void 0 ? parentDir(d2) : resetTarget(parentDir(d2), layoutReset);
-    }
-    const off = [`page:${dir}`, ...chain.map((l2) => `layout:${l2}`)].map((k2) => option.get(k2)).find(Boolean) === "off";
-    hit.set(`page:${dir}`, off);
-    for (const l2 of chain) hit.set(`layout:${l2}`, (hit.get(`layout:${l2}`) ?? true) && off);
-  }
-  if (option.get(`layout:${ROUTES_DIR$1}`) !== "off") hit.delete(`layout:${ROUTES_DIR$1}`);
-  routeSsrCache.set(scope, hit);
-  return hit;
-}
-function routeNeverSsr(file, scope) {
-  const match = ROUTE_FILE_RE.exec(file);
-  return !!match && routeSsrOff(scope).get(`${match[2]}:${match[1]}`) === true;
-}
-function universalNeverSsr(m, scope) {
-  return m.kind === "universal" && (m.ssrDisabled !== void 0 || appSsrDisabled(scope.kitModules) || routeNeverSsr(m.file, scope));
 }
 var seoSsrDisabled = kitModuleRule({
   id: "seo/ssr-disabled",
@@ -63368,12 +63488,16 @@ var correctnessOrphanLifecycle = {
 var ID$8 = "correctness/base-path-navigation";
 var DOCS_URL$1 = docsUrlFor(ID$8);
 var LABEL$1 = "Base-path-aware navigation";
-var RECOMMENDATION$2 = "Wrap root-relative paths in resolve() from '$app/paths' so they resolve against kit.paths.base.";
-var FIX$2 = { description: "Import { resolve } from '$app/paths' and wrap the path: href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login'))." };
+var RECOMMENDATION$2 = "Wrap root-relative paths in resolve() from '$app/paths' so they resolve against paths.base.";
+var FIX$2 = { description: "Import { resolve } from '$app/paths' and wrap the path: href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login')). SvelteKit 3 reads a leading / as a route ID, so write a path there without it: resolve('blog/hello-world')." };
+function kit3Hint(path) {
+  return ` (resolve('${path.slice(1)}') in SvelteKit 3)`;
+}
 function messageFor(link) {
-  if (link.kind === "href") return `<a href="${link.path}"> is root-relative \u2014 under this project's kit.paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
-  if (link.kind === "goto") return `goto('${link.path}') is root-relative \u2014 it navigates outside this project's kit.paths.base and 404s in production. Use goto(resolve('${link.path}')) with resolve from '$app/paths'.`;
-  return `redirect(\u2026, '${link.path}') is root-relative \u2014 the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
+  const hint = kit3Hint(link.path);
+  if (link.kind === "href") return `<a href="${link.path}"> is root-relative \u2014 under this project's paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('${link.path}') from '$app/paths'${hint}.`;
+  if (link.kind === "goto") return `goto('${link.path}') is root-relative \u2014 it navigates outside this project's paths.base and 404s in production. Use goto(resolve('${link.path}')) with resolve from '$app/paths'${hint}.`;
+  return `redirect(\u2026, '${link.path}') is root-relative \u2014 the Location header points outside this project's paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'${hint}.`;
 }
 function startsWithBase(path, base) {
   if (base === void 0 || !path.startsWith(base)) return false;
@@ -63417,7 +63541,7 @@ var correctnessBasePathNavigation = {
   category: "correctness",
   severity: "warning",
   scope: "component",
-  rationale: "A root-relative literal resolves against the domain root, not kit.paths.base, so navigation lands outside an app served from a sub-path. The break only appears once the app is deployed under its base \u2014 locally base is usually empty, so every such link works.",
+  rationale: "A root-relative literal resolves against the domain root, not paths.base, so navigation lands outside an app served from a sub-path. The break only appears once the app is deployed under its base \u2014 locally base is usually empty, so every such link works.",
   fix: { ...FIX$2 },
   async check(ctx) {
     if (!ctx.project.kitPathsBase) return [];
@@ -63439,7 +63563,7 @@ var correctnessBasePathNavigation = {
 var ID$7 = "correctness/server-browser-global";
 var DOCS_URL = docsUrlFor(ID$7);
 var LABEL = "Server-safe module code";
-var RECOMMENDATION$1 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
+var RECOMMENDATION$1 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment ($app/env in SvelteKit 3) or a typeof check.";
 var moduleMessage = (name) => `${name} is accessed at module scope \u2014 it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;
 function emitFile(out, file, issues, suppressions) {
   const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, ID$7, b.line)));
@@ -63504,9 +63628,9 @@ var correctnessInstanceBrowserGlobal = componentRule({
   title: "Browser global during component initialisation",
   category: "correctness",
   label: "Server-safe component init",
-  recommendation: "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).",
+  recommendation: "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment ($app/env in SvelteKit 3) or a typeof check.",
   rationale: "A component instance script runs on the server on every SSR render, where window/document/localStorage do not exist. Warning, not critical: a component rendered only behind a parent {#if browser} (or a client-only dynamic import) is a legitimate pattern that static analysis cannot prove cross-file.",
-  applies: (c, _o, ctx) => (c.browserGlobalRefs ?? []).some((r2) => r2.context === "instance") && !appSsrDisabled(ctx.kitModules) && !routeNeverSsr(c.file, ctx),
+  applies: (c, _o, ctx) => (c.browserGlobalRefs ?? []).some((r2) => r2.context === "instance") && !appSsrDisabled(ctx) && !routeNeverSsr(c.file, ctx),
   bad: (c) => (c.browserGlobalRefs ?? []).filter((r2) => r2.context === "instance").map((r2) => ({
     line: r2.line,
     message: `${r2.name} is accessed during component initialisation \u2014 during SSR this runs on the server, where ${r2.name} is not defined`
@@ -63641,7 +63765,8 @@ var architecturePropCount = componentRule({
   }
 });
 var PREPROCESSED_STYLE_RE = /(<style\b[^>]*\slang\s*=\s*['"]?[^'"\s>]+['"]?[^>]*>)([\s\S]*?)(<\/style>)/gi;
-function parseSvelte(source2, filename2) {
+function parseSvelte(raw, filename2) {
+  const source2 = raw.charCodeAt(0) === 65279 ? ` ${raw.slice(1)}` : raw;
   try {
     return parse8(source2, {
       modern: true,
@@ -63691,12 +63816,25 @@ function attrValue(attributes, name) {
   const attr = findAttr(attributes, name);
   return attr ? attrValueOf(attr) : "absent";
 }
+var lineStarts = /* @__PURE__ */ new Map();
 function lineOf(source2, offset2) {
   if (typeof offset2 !== "number" || offset2 < 0) return 0;
-  let line = 1;
+  let starts = lineStarts.get(source2);
+  if (!starts) {
+    starts = [0];
+    for (let i3 = source2.indexOf("\n"); i3 !== -1; i3 = source2.indexOf("\n", i3 + 1)) starts.push(i3 + 1);
+    if (lineStarts.size >= 8) lineStarts.delete(lineStarts.keys().next().value);
+    lineStarts.set(source2, starts);
+  }
   const end = Math.min(offset2, source2.length);
-  for (let i3 = 0; i3 < end; i3++) if (source2[i3] === "\n") line++;
-  return line;
+  let lo = 0;
+  let hi = starts.length;
+  while (lo < hi) {
+    const mid = lo + hi >> 1;
+    if (starts[mid] <= end) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
 }
 function findAttr(attributes, name) {
   if (!Array.isArray(attributes)) return void 0;
@@ -63716,7 +63854,7 @@ function attrTextOf(attr) {
 }
 function unwrapTs(expr) {
   let cur = expr;
-  while (cur !== void 0 && (cur.type === "TSSatisfiesExpression" || cur.type === "TSAsExpression" || cur.type === "TSNonNullExpression")) cur = cur.expression;
+  while (cur != null && (cur.type === "TSSatisfiesExpression" || cur.type === "TSAsExpression" || cur.type === "TSNonNullExpression")) cur = cur.expression;
   return cur;
 }
 var WALK_IGNORED_KEYS = /* @__PURE__ */ new Set([
@@ -63754,8 +63892,8 @@ function addBoundNames(id2, acc) {
   }
 }
 function rootObjectName(node) {
-  let cur = node;
-  while (cur?.type === "MemberExpression") cur = cur.object;
+  let cur = unwrapTs(node);
+  while (cur?.type === "MemberExpression") cur = unwrapTs(cur.object);
   return cur?.type === "Identifier" ? cur.name : void 0;
 }
 function scopeIntroducedNames(node) {
@@ -63917,14 +64055,22 @@ function collectNamedImportAliases(program, moduleSource, names) {
   return out;
 }
 var BROWSER_GUARD_NAMES = /* @__PURE__ */ new Set(["browser"]);
+function collectKitEnvImports(program, names) {
+  return /* @__PURE__ */ new Set([...collectNamedImportAliases(program, "$app/environment", names), ...collectNamedImportAliases(program, "$app/env", names)]);
+}
 function collectBrowserGuardImports(program) {
-  return /* @__PURE__ */ new Set([...collectNamedImportAliases(program, "$app/environment", BROWSER_GUARD_NAMES), ...collectNamedImportAliases(program, "$app/env", BROWSER_GUARD_NAMES)]);
+  return collectKitEnvImports(program, BROWSER_GUARD_NAMES);
 }
 function collectProgramBindings(program) {
   const bound = /* @__PURE__ */ new Set();
   for (const stmt2 of program.body ?? []) {
     if (stmt2?.type === "ImportDeclaration") {
       for (const s of stmt2.specifiers ?? []) if (s?.local?.type === "Identifier") bound.add(s.local.name);
+      continue;
+    }
+    if (stmt2?.type === "LabeledStatement" && stmt2.label?.name === "$") {
+      const e3 = stmt2.body?.type === "ExpressionStatement" ? stmt2.body.expression : void 0;
+      if (e3?.type === "AssignmentExpression" && e3.operator === "=") addBoundNames(e3.left, bound);
       continue;
     }
     const decl = unwrapExport(stmt2);
@@ -63963,6 +64109,12 @@ function isBrowserGuardTest(test, guardBindings) {
   });
   return guarded;
 }
+function missingGlobalOf(n2) {
+  if (n2?.type !== "BinaryExpression" || n2.operator !== "===" && n2.operator !== "==") return void 0;
+  const sides = [n2.left, n2.right];
+  if (!sides.some((s) => s?.type === "Literal" && s.value === "undefined")) return void 0;
+  return sides.find((s) => s?.type === "UnaryExpression" && s.operator === "typeof" && s.argument?.type === "Identifier" && BROWSER_GLOBALS.has(s.argument.name))?.argument.name;
+}
 function collectDerivedGuardBindings(program, guards) {
   const derived = /* @__PURE__ */ new Set();
   for (const stmt2 of program.body ?? []) {
@@ -63971,6 +64123,84 @@ function collectDerivedGuardBindings(program, guards) {
     for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && d2.init && isBrowserGuardTest(d2.init, guards)) derived.add(d2.id.name);
   }
   return derived;
+}
+var DOM_ONLY_GLOBALS = /* @__PURE__ */ new Set(["window", "document"]);
+function guardImplies(test, guards, shadowed) {
+  if (test?.type === "Identifier") return !shadowed.has(test.name) && guards.get(test.name) || {};
+  if (test?.type === "UnaryExpression" && test.operator === "!") {
+    const inner = guardImplies(test.argument, guards, shadowed);
+    return {
+      truthy: inner.falsy,
+      falsy: inner.truthy
+    };
+  }
+  if (test?.type === "LogicalExpression" && (test.operator === "&&" || test.operator === "||")) {
+    const a2 = guardImplies(test.left, guards, shadowed);
+    const b = guardImplies(test.right, guards, shadowed);
+    const agree = (x, y) => x === y ? x : void 0;
+    return test.operator === "&&" ? {
+      truthy: a2.truthy ?? b.truthy,
+      falsy: agree(a2.falsy, b.falsy)
+    } : {
+      truthy: agree(a2.truthy, b.truthy),
+      falsy: a2.falsy ?? b.falsy
+    };
+  }
+  if (test?.type === "BinaryExpression" && [
+    "===",
+    "!==",
+    "==",
+    "!="
+  ].includes(test.operator)) {
+    const sides = [test.left, test.right];
+    const hasTypeofGlobal = sides.some((s) => s?.type === "UnaryExpression" && s.operator === "typeof" && s.argument?.type === "Identifier" && DOM_ONLY_GLOBALS.has(s.argument.name) && !shadowed.has(s.argument.name));
+    const type = sides.find((s) => s?.type === "Literal" && typeof s.value === "string")?.value;
+    if (!hasTypeofGlobal || type === void 0) return {};
+    const equal2 = test.operator === "===" || test.operator === "==";
+    if (type === "undefined") return equal2 ? {
+      truthy: "server",
+      falsy: "browser"
+    } : {
+      truthy: "browser",
+      falsy: "server"
+    };
+    return equal2 ? { truthy: "browser" } : { falsy: "browser" };
+  }
+  return {};
+}
+function browserOnlyRanges(program, envGuards) {
+  const guards = new Map([...envGuards].map((name) => [name, {
+    truthy: "browser",
+    falsy: "server"
+  }]));
+  const bound = collectProgramBindings(program);
+  for (const name of envGuards) bound.delete(name);
+  for (const stmt2 of program.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "VariableDeclaration" || decl.kind !== "const") continue;
+    for (const d2 of decl.declarations ?? []) {
+      const implied = d2?.id?.type === "Identifier" && d2.init ? guardImplies(d2.init, guards, bound) : {};
+      if (implied.truthy || implied.falsy) guards.set(d2.id.name, implied);
+    }
+  }
+  for (const name of guards.keys()) bound.delete(name);
+  const out = [];
+  const push = (n2) => n2 && out.push([n2.start, n2.end]);
+  walkScoped(program, (n2, shadowed) => {
+    const implies = (test) => guardImplies(test, guards, shadowed);
+    if (n2.type === "IfStatement" || n2.type === "ConditionalExpression") {
+      const implied = implies(n2.test);
+      if (implied.truthy === "browser") push(n2.consequent);
+      if (implied.falsy === "browser") push(n2.alternate);
+    } else if (n2.type === "LogicalExpression" && (n2.operator === "&&" || n2.operator === "||")) {
+      if (implies(n2.left)[n2.operator === "&&" ? "truthy" : "falsy"] === "browser") push(n2.right);
+    } else if (n2.type === "BlockStatement" || n2.type === "Program") {
+      const body = n2.body ?? [];
+      const at2 = body.findIndex((stmt2) => stmt2?.type === "IfStatement" && implies(stmt2.test).falsy === "browser" && guardTerminates(stmt2.consequent));
+      if (at2 >= 0 && at2 < body.length - 1) out.push([body[at2 + 1].start, body[body.length - 1].end]);
+    }
+  }, bound);
+  return out;
 }
 function collectBrowserGlobalRefs(program, source2, extra) {
   const out = [];
@@ -63987,6 +64217,12 @@ function collectBrowserGlobalRefs(program, source2, extra) {
     if (EVAL_SCOPE_BOUNDARIES.has(n2.type)) return;
     if ((n2.type === "IfStatement" || n2.type === "ConditionalExpression") && isBrowserGuardTest(n2.test, guards)) return;
     if (n2.type === "LogicalExpression" && (n2.operator === "&&" ? isBrowserGuardTest(n2.left, guards) : n2.left?.type === "UnaryExpression" && n2.left.operator === "!" && isBrowserGuardTest(n2.left.argument, guards))) return;
+    const missing = n2.type === "LogicalExpression" && n2.operator === "||" ? missingGlobalOf(n2.left) : void 0;
+    if (missing && !bound.has(missing) && !shadowed.has(missing)) {
+      visit(n2.left, shadowed);
+      if (!DOM_ONLY_GLOBALS.has(missing)) visit(n2.right, /* @__PURE__ */ new Set([...shadowed, missing]));
+      return;
+    }
     const introduced = scopeIntroducedNames(n2);
     const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
     switch (n2.type) {
@@ -64071,6 +64307,10 @@ var HANDLER_NAMES = /* @__PURE__ */ new Set([
   "OPTIONS",
   "fallback"
 ]);
+function isUpdaterArgument(arg, localFunctions) {
+  const e3 = arg ? unwrapTs(arg) : void 0;
+  return isFunctionNode(e3) || e3?.type === "Identifier" && localFunctions.has(e3.name);
+}
 function isFunctionNode(n2) {
   return n2?.type === "FunctionDeclaration" || n2?.type === "FunctionExpression" || n2?.type === "ArrowFunctionExpression";
 }
@@ -64134,10 +64374,26 @@ function collectStartupFunctions(program) {
   return startup;
 }
 function findFalseOptOut(program, source2, name) {
+  const dev2 = collectKitEnvImports(program, DEV_NAMES);
   let hit;
   forEachNamedExport(program, (exported, value, anchor) => {
-    if (exported !== name || value?.type !== "Literal" || value.value !== false) return void 0;
-    hit = { line: lineOf(source2, anchor.start) };
+    const literal3 = value?.type === "Literal" && value.value === false;
+    if (exported !== name || !(literal3 || value?.type === "Identifier" && dev2.has(value.name))) return void 0;
+    hit = {
+      line: lineOf(source2, anchor.start),
+      literal: literal3
+    };
+    return true;
+  });
+  return hit;
+}
+var DEV_NAMES = /* @__PURE__ */ new Set(["dev"]);
+var BUILDING_NAMES = /* @__PURE__ */ new Set(["building"]);
+function exportsTrue(program, name) {
+  let hit = false;
+  forEachNamedExport(program, (exported, value) => {
+    if (exported !== name) return void 0;
+    hit = value?.type === "Literal" && value.value === true;
     return true;
   });
   return hit;
@@ -64181,8 +64437,18 @@ var MUTATING_METHODS = /* @__PURE__ */ new Set([
   "add",
   "set"
 ]);
+var ITERATING_METHODS = /* @__PURE__ */ new Set([
+  "forEach",
+  "map",
+  "flatMap",
+  "filter",
+  "some",
+  "every",
+  "reduce"
+]);
 var REDIRECT_NAMES = /* @__PURE__ */ new Set(["redirect"]);
 var EXIT_NAMES = /* @__PURE__ */ new Set(["redirect", "error"]);
+var ERROR_NAMES = /* @__PURE__ */ new Set(["error"]);
 function collectRedirectCalls(node, locals, out = []) {
   if (Array.isArray(node)) {
     for (const child of node) collectRedirectCalls(child, locals, out);
@@ -64196,24 +64462,123 @@ function collectRedirectCalls(node, locals, out = []) {
   }
   return out;
 }
+function pageChunkTokens(program) {
+  const consts = /* @__PURE__ */ new Map();
+  for (const stmt2 of program.body ?? []) {
+    const decl = stmt2?.type === "ExportNamedDeclaration" ? stmt2.declaration : stmt2;
+    if (decl?.type !== "VariableDeclaration" || decl.kind !== "const") continue;
+    for (const d2 of decl.declarations ?? []) {
+      const init2 = unwrapTs(d2.init);
+      if (d2.id?.type === "Identifier" && init2?.type === "Literal" && typeof init2.value === "string") consts.set(d2.id.name, init2.value);
+    }
+  }
+  const out = /* @__PURE__ */ new Set();
+  const visit = (n2, inChunk) => {
+    if (Array.isArray(n2)) return n2.forEach((c) => visit(c, inChunk));
+    if (!n2 || typeof n2 !== "object" || typeof n2.type !== "string") return;
+    const chunk = inChunk || n2.type === "Property" && !n2.computed && n2.key?.type === "Identifier" && n2.key.name === "transformPageChunk";
+    if (chunk && n2.type === "CallExpression" && n2.callee?.type === "MemberExpression" && !n2.callee.computed) {
+      const method2 = n2.callee.property?.name;
+      const arg = unwrapTs(n2.arguments?.[0]);
+      const token = arg?.type === "Literal" && typeof arg.value === "string" ? arg.value : arg?.type === "Identifier" ? consts.get(arg.name) : void 0;
+      if ((method2 === "replace" || method2 === "replaceAll") && token) out.add(token);
+    }
+    for (const key2 of Object.keys(n2)) if (!WALK_IGNORED_KEYS.has(key2)) visit(n2[key2], chunk);
+  };
+  visit(program, false);
+  return [...out];
+}
+function callsOutsideFunctions(node, name) {
+  if (Array.isArray(node)) return node.some((n2) => callsOutsideFunctions(n2, name));
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return false;
+  if (node.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === name) return true;
+  return Object.keys(node).some((key2) => !WALK_IGNORED_KEYS.has(key2) && callsOutsideFunctions(node[key2], name));
+}
+function handleAnsweredPaths(program, exits) {
+  let handle;
+  forEachNamedExport(program, (name, value) => {
+    if (name === "handle" && isFunctionNode(value)) handle = value;
+    return handle !== void 0;
+  });
+  const param = handle?.params?.[0];
+  if (handle?.body?.type !== "BlockStatement" || param?.type !== "ObjectPattern") return [];
+  const local = (key2) => {
+    const p2 = param.properties?.find((q) => q.type === "Property" && q.key?.type === "Identifier" && q.key.name === key2);
+    return p2?.value?.type === "Identifier" ? p2.value.name : void 0;
+  };
+  const event = local("event");
+  const resolve3 = local("resolve");
+  if (!event || !resolve3) return [];
+  const isUrl = (n2) => n2?.type === "MemberExpression" && !n2.computed && n2.property?.name === "url" && n2.object?.type === "Identifier" && n2.object.name === event;
+  const aliases = /* @__PURE__ */ new Set();
+  const isPath = (n2) => {
+    const e3 = unwrapTs(n2);
+    if (e3?.type === "Identifier") return aliases.has(e3.name);
+    return e3?.type === "MemberExpression" && !e3.computed && e3.property?.name === "pathname" && isUrl(e3.object);
+  };
+  const literal3 = (n2) => n2?.type === "Literal" && typeof n2.value === "string" ? n2.value : void 0;
+  const conds = (t2) => {
+    if (t2?.type === "LogicalExpression" && t2.operator === "||") {
+      const l2 = conds(t2.left);
+      const r2 = conds(t2.right);
+      return l2 && r2 ? [...l2, ...r2] : void 0;
+    }
+    if (t2?.type === "BinaryExpression" && (t2.operator === "===" || t2.operator === "==")) {
+      const v2 = isPath(t2.left) ? literal3(t2.right) : isPath(t2.right) ? literal3(t2.left) : void 0;
+      return v2 === void 0 ? void 0 : [{
+        op: "eq",
+        v: v2
+      }];
+    }
+    const callee = t2?.type === "CallExpression" ? t2.callee : void 0;
+    const v = literal3(t2?.arguments?.[0]);
+    return callee?.type === "MemberExpression" && callee.property?.name === "startsWith" && isPath(callee.object) && v !== void 0 ? [{
+      op: "starts",
+      v
+    }] : void 0;
+  };
+  const exitsAlways = (s) => {
+    if (s?.type === "BlockStatement") return s.body.length > 0 && exitsAlways(s.body[s.body.length - 1]);
+    if (s?.type === "ReturnStatement" || s?.type === "ThrowStatement") return true;
+    const call2 = s?.type === "ExpressionStatement" ? unwrapTs(s.expression) : void 0;
+    return call2?.type === "CallExpression" && call2.callee?.type === "Identifier" && exits.has(call2.callee.name);
+  };
+  const out = [];
+  for (const stmt2 of handle.body.body) {
+    if (callsOutsideFunctions(stmt2, resolve3)) break;
+    if (stmt2.type === "VariableDeclaration" && stmt2.kind === "const") for (const d2 of stmt2.declarations ?? []) {
+      if (d2.id?.type === "Identifier" && isPath(d2.init)) aliases.add(d2.id.name);
+      if (d2.id?.type === "ObjectPattern" && isUrl(unwrapTs(d2.init))) {
+        const p2 = d2.id.properties?.find((q) => q.type === "Property" && q.key?.name === "pathname");
+        if (p2?.value?.type === "Identifier") aliases.add(p2.value.name);
+      }
+    }
+    if (stmt2.type !== "IfStatement" || !exitsAlways(stmt2.consequent)) continue;
+    const c = conds(stmt2.test);
+    if (c) out.push(...c);
+  }
+  return out;
+}
 function containsReturn(node) {
   if (Array.isArray(node)) return node.some(containsReturn);
   if (!node || typeof node !== "object" || typeof node.type !== "string" || isFunctionNode(node)) return false;
   if (node.type === "ReturnStatement") return true;
   return Object.keys(node).some((key2) => !WALK_IGNORED_KEYS.has(key2) && containsReturn(node[key2]));
 }
-function loadNeverRenders(program, locals) {
+function loadNeverRenders(program, locals, building = /* @__PURE__ */ new Set()) {
   const load = locals.size > 0 ? findLoadFunction(program) : void 0;
-  if (!load?.body) return false;
+  return !!load?.body && alwaysExits(program, load, locals, building);
+}
+function alwaysExits(program, fn, locals, building = /* @__PURE__ */ new Set()) {
   const topLevel = collectTopLevelBindings(program);
-  const fnRedirects = (fn, seen, observed) => {
+  const fnRedirects = (fn2, seen, observed) => {
     const shadow = /* @__PURE__ */ new Set();
-    for (const p2 of fn.params ?? []) addBoundNames(p2, shadow);
+    for (const p2 of fn2.params ?? []) addBoundNames(p2, shadow);
     const frame = {
-      seen: /* @__PURE__ */ new Set([...seen, fn]),
+      seen: /* @__PURE__ */ new Set([...seen, fn2]),
       observed
     };
-    return fn.body?.type === "BlockStatement" ? always(fn.body.body, shadow, void 0, frame) : isRedirect(fn.body, shadow, frame, observed);
+    return fn2.body?.type === "BlockStatement" ? always(fn2.body.body, shadow, void 0, frame) : isRedirect(fn2.body, shadow, frame, observed);
   };
   const isRedirect = (expr, shadow, frame, returned = false) => {
     let e3 = unwrapTs(expr);
@@ -64221,9 +64586,9 @@ function loadNeverRenders(program, locals) {
     if (awaited) e3 = unwrapTs(e3.argument);
     if (e3?.type !== "CallExpression" || e3.callee?.type !== "Identifier" || shadow.has(e3.callee.name)) return false;
     if (locals.has(e3.callee.name)) return true;
-    const fn = topLevel.get(e3.callee.name);
-    if (!isFunctionNode(fn) || fn.generator || frame.seen.has(fn) || fn.async && !awaited && !returned) return false;
-    return fnRedirects(fn, frame.seen, awaited || returned);
+    const fn2 = topLevel.get(e3.callee.name);
+    if (!isFunctionNode(fn2) || fn2.generator || frame.seen.has(fn2) || fn2.async && !awaited && !returned) return false;
+    return fnRedirects(fn2, frame.seen, awaited || returned);
   };
   const within = (body, outer, param) => {
     const own = /* @__PURE__ */ new Set();
@@ -64246,15 +64611,164 @@ function loadNeverRenders(program, locals) {
     }
     return false;
   };
+  const plainReturn = (node, shadow, frame) => {
+    if (Array.isArray(node)) return node.some((n2) => plainReturn(n2, shadow, frame));
+    if (!node || typeof node !== "object" || typeof node.type !== "string" || isFunctionNode(node)) return false;
+    if (node.type === "ReturnStatement") return !isRedirect(node.argument, shadow, frame, frame.observed);
+    const scope = node.type === "BlockStatement" ? within(node.body, shadow) : shadow;
+    return Object.keys(node).some((key2) => !WALK_IGNORED_KEYS.has(key2) && plainReturn(node[key2], scope, frame));
+  };
   const always = (body, outer, rethrow, frame) => {
     const shadow = within(body, outer);
-    for (const stmt2 of body ?? []) {
+    for (let stmt2 of body ?? []) {
+      const test = stmt2?.type === "IfStatement" ? unwrapTs(stmt2.test) : void 0;
+      if (test?.type === "Identifier" && building.has(test.name) && !shadow.has(test.name)) {
+        if (!stmt2.alternate) continue;
+        stmt2 = stmt2.alternate;
+      }
       if (redirects(stmt2, shadow, rethrow, frame)) return true;
-      if (containsReturn(stmt2)) return false;
+      if (plainReturn(stmt2, shadow, frame)) return false;
     }
     return false;
   };
-  return fnRedirects(load, /* @__PURE__ */ new Set(), true);
+  return fnRedirects(fn, /* @__PURE__ */ new Set(), true);
+}
+function leadingFlagGuard(program, exits, imported) {
+  const load = exits.size > 0 ? findLoadFunction(program) : void 0;
+  if (load?.body?.type !== "BlockStatement") return void 0;
+  const local = /* @__PURE__ */ new Set();
+  for (const param of load.params ?? []) addBoundNames(param, local);
+  for (const stmt2 of load.body.body) if (stmt2?.type === "VariableDeclaration") for (const d2 of stmt2.declarations ?? []) addBoundNames(d2?.id, local);
+  else if ((stmt2?.type === "FunctionDeclaration" || stmt2?.type === "ClassDeclaration") && stmt2.id) local.add(stmt2.id.name);
+  const exitCall = (e3) => {
+    const x = unwrapTs(e3);
+    return x?.type === "CallExpression" && x.callee?.type === "Identifier" && exits.has(x.callee.name) && !local.has(x.callee.name);
+  };
+  const exitsFirst = (stmt2) => {
+    if (stmt2?.type === "BlockStatement") {
+      for (const inner of stmt2.body) {
+        if (exitsFirst(inner)) return true;
+        if (containsReturn(inner)) return false;
+      }
+      return false;
+    }
+    return stmt2?.type === "ExpressionStatement" && exitCall(stmt2.expression) || (stmt2?.type === "ThrowStatement" || stmt2?.type === "ReturnStatement") && exitCall(stmt2.argument);
+  };
+  for (const stmt2 of load.body.body) {
+    const test = stmt2?.type === "IfStatement" && exitsFirst(stmt2.consequent) ? unwrapTs(stmt2.test) : void 0;
+    if (test?.type === "UnaryExpression" && test.operator === "!") {
+      const arg = unwrapTs(test.argument);
+      const root = arg?.type === "MemberExpression" && !arg.computed ? unwrapTs(arg.object) : arg;
+      const member2 = arg !== root && arg.property?.type === "Identifier" ? arg.property.name : void 0;
+      const from = root?.type === "Identifier" && !local.has(root.name) && (arg === root || member2) ? imported(root.name) : void 0;
+      if (from) return {
+        ...from,
+        ...member2 ? { member: member2 } : {}
+      };
+    }
+    if (containsReturn(stmt2)) return void 0;
+  }
+}
+function loadFactory(program, imported) {
+  let call2;
+  forEachNamedExport(program, (name, value) => {
+    if (name !== "load") return void 0;
+    call2 = unwrapTs(value);
+    return true;
+  });
+  return call2?.type === "CallExpression" && call2.callee?.type === "Identifier" ? imported(call2.callee.name) : void 0;
+}
+function parseExitFactoryExports(source2, filename2) {
+  const { program } = parseModuleProgram(source2, filename2);
+  const exits = collectNamedImportAliases(program, "@sveltejs/kit", EXIT_NAMES);
+  const names = /* @__PURE__ */ new Set();
+  if (exits.size === 0) return names;
+  forEachNamedExport(program, (name, value) => {
+    if (!isFunctionNode(value)) return void 0;
+    const first = (value.body?.type === "BlockStatement" ? value.body.body : [{
+      type: "ReturnStatement",
+      argument: value.body
+    }]).find((stmt2) => containsReturn(stmt2));
+    const returned = first?.type === "ReturnStatement" ? first.argument : void 0;
+    if (isFunctionNode(returned) && alwaysExits(program, returned, exits)) names.add(name);
+  });
+  return names;
+}
+function parseFalseExports(source2, filename2) {
+  return collectFalseExports(parseModuleProgram(source2, filename2).program);
+}
+function collectFalseExports(program) {
+  const names = /* @__PURE__ */ new Set();
+  for (const stmt2 of program?.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || stmt2.declaration?.type !== "VariableDeclaration") continue;
+    if (stmt2.declaration.kind !== "const") continue;
+    for (const d2 of stmt2.declaration.declarations ?? []) {
+      const init2 = unwrapTs(d2?.init);
+      if (d2?.id?.type !== "Identifier") continue;
+      if (init2?.type === "Literal" && init2.value === false) names.add(d2.id.name);
+      if (init2?.type === "ObjectExpression") {
+        const members = /* @__PURE__ */ new Map();
+        for (const p2 of init2.properties ?? []) {
+          const v = unwrapTs(p2?.value);
+          if (p2?.type !== "Property" || p2.computed || p2.key?.type !== "Identifier") members.clear();
+          else members.set(p2.key.name, v?.type === "Literal" && v.value === false);
+        }
+        for (const [key2, isFalse] of members) if (isFalse) names.add(`${d2.id.name}.${key2}`);
+      }
+    }
+  }
+  return names;
+}
+function loadGatesOnLocals(program) {
+  const redirects = collectNamedImportAliases(program, "@sveltejs/kit", REDIRECT_NAMES);
+  const errors = collectNamedImportAliases(program, "@sveltejs/kit", ERROR_NAMES);
+  const load = redirects.size + errors.size > 0 ? findLoadFunction(program) : void 0;
+  if (load?.body?.type !== "BlockStatement") return false;
+  const param = load.params?.[0];
+  const event = param?.type === "Identifier" ? param.name : void 0;
+  const derived = /* @__PURE__ */ new Set();
+  if (param?.type === "ObjectPattern") {
+    for (const p2 of param.properties ?? []) if (p2?.type === "Property" && (p2.key?.name ?? p2.key?.value) === "locals") addBoundNames(p2.value, derived);
+  }
+  const fromLocals = (expr) => {
+    let cur = unwrapTs(expr);
+    let prev;
+    for (; ; ) if (cur?.type === "AwaitExpression" || cur?.type === "ChainExpression") cur = unwrapTs(cur.argument ?? cur.expression);
+    else if (cur?.type === "CallExpression" && (cur.arguments ?? []).length === 0) cur = unwrapTs(cur.callee);
+    else if (cur?.type === "MemberExpression" && !cur.computed) [prev, cur] = [cur, unwrapTs(cur.object)];
+    else break;
+    if (cur?.type !== "Identifier") return false;
+    return derived.has(cur.name) || cur.name === event && prev?.computed === false && prev.property?.name === "locals";
+  };
+  const negated = (test) => {
+    const t2 = unwrapTs(test);
+    if (t2?.type === "LogicalExpression") return t2.operator === "||" && negated(t2.left) && negated(t2.right);
+    return t2?.type === "UnaryExpression" && t2.operator === "!" && fromLocals(t2.argument);
+  };
+  const exitCall = (expr) => {
+    const e3 = unwrapTs(expr);
+    if (e3?.type !== "CallExpression" || e3.callee?.type !== "Identifier") return false;
+    if (redirects.has(e3.callee.name)) return true;
+    if (!errors.has(e3.callee.name)) return false;
+    const status = e3.arguments?.[0];
+    return status?.type === "Literal" && (status.value === 401 || status.value === 403);
+  };
+  const exitsNow = (stmt2) => {
+    if (stmt2?.type !== "BlockStatement") return stmt2?.type === "ExpressionStatement" && exitCall(stmt2.expression) || (stmt2?.type === "ThrowStatement" || stmt2?.type === "ReturnStatement") && exitCall(stmt2.argument);
+    for (const inner of stmt2.body) {
+      if (exitsNow(inner)) return true;
+      if (containsReturn(inner)) return false;
+    }
+    return false;
+  };
+  for (const stmt2 of load.body.body) {
+    if (stmt2?.type === "IfStatement" && negated(stmt2.test) && exitsNow(stmt2.consequent)) return true;
+    if (containsReturn(stmt2)) return false;
+    if (stmt2?.type === "VariableDeclaration" && stmt2.kind === "const") {
+      for (const d2 of stmt2.declarations ?? []) if (d2?.init && fromLocals(d2.init)) addBoundNames(d2.id, derived);
+    }
+  }
+  return false;
 }
 function isParentCall(arg) {
   const e3 = unwrapTs(arg);
@@ -64271,11 +64785,15 @@ var BODY_METHODS = /* @__PURE__ */ new Set([
   "formData",
   "bytes"
 ]);
+var PROMISE_COMBINATORS = /* @__PURE__ */ new Set(["all", "allSettled"]);
 function isBodyParseCall(arg) {
   const e3 = unwrapTs(arg);
-  if (e3?.type !== "CallExpression" || e3.arguments?.length) return false;
+  if (e3?.type !== "CallExpression") return false;
   const callee = e3.callee;
-  return callee?.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && BODY_METHODS.has(callee.property.name);
+  if (callee?.type !== "MemberExpression" || callee.computed || callee.property.type !== "Identifier") return false;
+  if (BODY_METHODS.has(callee.property.name)) return !e3.arguments?.length;
+  const list4 = e3.arguments?.length === 1 ? unwrapTs(e3.arguments[0]) : void 0;
+  return callee.object.type === "Identifier" && callee.object.name === "Promise" && PROMISE_COMBINATORS.has(callee.property.name) && list4?.type === "ArrayExpression" && list4.elements.length > 0 && list4.elements.every((el) => el && isBodyParseCall(el));
 }
 var WORK_STARTING = /* @__PURE__ */ new Set([
   "CallExpression",
@@ -64344,6 +64862,19 @@ function collectLoadWaterfalls(program, wrapped) {
   };
   const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
   const tainted = /* @__PURE__ */ new Set();
+  const ownBindings = /* @__PURE__ */ new Set();
+  const collectOwn = (body) => {
+    for (const stmt2 of body ?? []) {
+      if (stmt2?.type === "TryStatement") collectOwn(stmt2.block?.body);
+      if (stmt2?.type !== "VariableDeclaration") continue;
+      for (const d2 of stmt2.declarations ?? []) {
+        let init2 = unwrapTs(d2?.init);
+        if (init2?.type === "AwaitExpression") init2 = unwrapTs(init2.argument);
+        if (init2?.type === "CallExpression" || init2?.type === "NewExpression") addBoundNames(d2?.id, ownBindings);
+      }
+    }
+  };
+  collectOwn(load.body.body);
   const syncTainted = /* @__PURE__ */ new Set();
   let sawAwaitSite = false;
   const taintTarget = (target, rhs) => {
@@ -64366,6 +64897,26 @@ function collectLoadWaterfalls(program, wrapped) {
     const root = rootObjectName(callee);
     if (root) tainted.add(root);
   };
+  const taintLoopFill = (call2) => {
+    const callee = unwrapTs(call2?.callee);
+    if (call2?.type !== "CallExpression" || callee?.type !== "MemberExpression" || callee.computed) return;
+    if (!ITERATING_METHODS.has(callee.property?.name) || !refsTainted(callee.object, tainted)) return;
+    const fill = (node) => {
+      if (Array.isArray(node)) return node.forEach(fill);
+      if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+      if (isFunctionNode(node)) return;
+      const c = node.type === "CallExpression" ? unwrapTs(node.callee) : void 0;
+      if (c?.type === "MemberExpression" && !c.computed && MUTATING_METHODS.has(c.property?.name)) {
+        const root = rootObjectName(c);
+        if (root) tainted.add(root);
+      }
+      if (c?.type === "MemberExpression" && !c.computed && ITERATING_METHODS.has(c.property?.name)) {
+        for (const arg of node.arguments ?? []) if (isFunctionNode(arg)) fill(arg.body);
+      }
+      for (const key2 of Object.keys(node)) if (!WALK_IGNORED_KEYS.has(key2)) fill(node[key2]);
+    };
+    for (const arg of call2.arguments ?? []) if (isFunctionNode(arg)) fill(arg.body);
+  };
   const taintOnly = (node) => {
     if (Array.isArray(node)) {
       for (const child of node) taintOnly(child);
@@ -64374,13 +64925,18 @@ function collectLoadWaterfalls(program, wrapped) {
     if (!node || typeof node !== "object" || typeof node.type !== "string") return;
     if (isFunctionNode(node)) return;
     if (node.type === "AssignmentExpression") taintTarget(node.left, node.right);
-    else if (node.type === "CallExpression") taintMutation(node);
-    else if ((node.type === "ForOfStatement" || node.type === "ForInStatement") && refsTainted(node.right, tainted)) {
+    else if (node.type === "CallExpression") {
+      taintMutation(node);
+      taintLoopFill(node);
+    } else if ((node.type === "ForOfStatement" || node.type === "ForInStatement") && refsTainted(node.right, tainted)) {
       const names = /* @__PURE__ */ new Set();
       addBoundNames(node.left?.type === "VariableDeclaration" ? node.left.declarations?.[0]?.id : node.left, names);
       for (const name of names) tainted.add(name);
     } else if (node.type === "VariableDeclaration") {
-      for (const d2 of node.declarations ?? []) if (d2?.id && d2.init) taintTarget(d2.id, d2.init);
+      for (const d2 of node.declarations ?? []) if (d2?.id && d2.init) {
+        taintTarget(d2.id, d2.init);
+        taintLoopFill(unwrapTs(d2.init));
+      }
     }
     for (const key2 of Object.keys(node)) {
       if (WALK_IGNORED_KEYS.has(key2)) continue;
@@ -64414,11 +64970,21 @@ function collectLoadWaterfalls(program, wrapped) {
           sawAwaitSite = true;
         }
         if (stmt2.type === "VariableDeclaration") {
-          for (const d2 of stmt2.declarations ?? []) if (d2?.id && d2.init) taintTarget(d2.id, d2.init);
+          for (const d2 of stmt2.declarations ?? []) if (d2?.id && d2.init) {
+            taintTarget(d2.id, d2.init);
+            taintLoopFill(unwrapTs(d2.init));
+          }
         } else if (stmt2.type === "ExpressionStatement") {
           const expr = unwrapTs(stmt2.expression);
           if (expr?.type === "AssignmentExpression") taintTarget(expr.left, expr.right);
-          else taintMutation(expr);
+          else {
+            taintMutation(expr);
+            taintLoopFill(expr);
+          }
+          const call2 = expr?.type === "AwaitExpression" ? unwrapTs(expr.argument) : void 0;
+          const callee = call2?.type === "CallExpression" ? unwrapTs(call2.callee) : void 0;
+          const owner = callee?.type === "MemberExpression" && !callee.computed ? unwrapTs(callee.object) : void 0;
+          if (owner?.type === "Identifier" && ownBindings.has(owner.name)) tainted.add(owner.name);
         }
       } else taintOnly(stmt2);
     }
@@ -64469,7 +65035,7 @@ function aliasMatches(entry, spec) {
 }
 function resolveRepoLocalPath(spec, importerFile, aliases = DEFAULT_KIT_ALIASES) {
   let path;
-  if (spec.startsWith("./") || spec.startsWith("../")) path = `${importerFile.split("/").slice(0, -1).join("/")}/${spec}`;
+  if (spec === "." || spec === ".." || spec.startsWith("./") || spec.startsWith("../")) path = `${importerFile.split("/").slice(0, -1).join("/")}/${spec}`;
   else {
     const entry = aliases.find((a2) => aliasMatches(a2, spec));
     if (entry?.replacement == null) return void 0;
@@ -64495,44 +65061,86 @@ function libServerRoot(aliases) {
   if (lib && lib.replacement === null) return void 0;
   return `${lib?.replacement ?? "src/lib"}/server`;
 }
-function serverRootRelativePath(spec, importerFile, aliases) {
-  const serverRoot = libServerRoot(aliases);
-  if (serverRoot === void 0) return void 0;
-  const path = resolveRepoLocalPath(spec, importerFile, aliases);
-  if (path === void 0) return void 0;
-  return path === serverRoot || path.startsWith(`${serverRoot}/`) ? path : void 0;
+function isServerOnlyPath(path) {
+  const dirs = path.split("/");
+  if (dirs.pop().split(".").includes("server")) return true;
+  return dirs.includes("server") && !path.startsWith("src/routes/") && !path.startsWith("static/");
+}
+function localModulePath(spec, importerFile, aliases) {
+  return libServerRoot(aliases) === void 0 ? void 0 : resolveRepoLocalPath(spec, importerFile, aliases);
 }
 function isLocalStateSpecifier(spec, importerFile, aliases) {
   const serverRoot = libServerRoot(aliases);
   if (serverRoot === void 0) return false;
   const path = resolveRepoLocalPath(spec, importerFile, aliases);
   if (path === void 0) return false;
-  return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
+  return path !== serverRoot && !path.startsWith(`${serverRoot}/`) && !isServerOnlyPath(path);
 }
+var WRITABLE_NAMES = /* @__PURE__ */ new Set(["writable"]);
 var IN_MEMORY_CTORS = /* @__PURE__ */ new Set([
   "Map",
   "Set",
   "WeakMap",
   "WeakSet"
 ]);
-function isInMemoryInit(init2) {
+var isContainerCtor = (n2) => n2?.type === "NewExpression" && n2.callee?.type === "Identifier" && IN_MEMORY_CTORS.has(n2.callee.name);
+function isInMemoryInit(init2, fns = /* @__PURE__ */ new Set()) {
   if (!init2) return false;
   if (init2.type === "ArrayExpression") return true;
   if (init2.type === "ObjectExpression") {
     const props = init2.properties ?? [];
+    const isFn = (p2) => p2?.type === "Property" && (p2.method || p2.value?.type === "FunctionExpression" || p2.value?.type === "ArrowFunctionExpression" || p2.value?.type === "Identifier" && fns.has(p2.value.name));
+    if (props.length > 0 && props.every(isFn)) return false;
     if (!props.some((p2) => p2?.type === "SpreadElement")) return true;
-    return props.some((p2) => p2?.type === "Property" && isInMemoryInit(p2.value));
+    return props.some((p2) => p2?.type === "Property" && isInMemoryInit(p2.value, fns));
   }
   return init2.type === "NewExpression" && init2.callee?.type === "Identifier" && IN_MEMORY_CTORS.has(init2.callee.name);
+}
+function parseClientExports(source2, filename2, aliases) {
+  const names = /* @__PURE__ */ new Set();
+  const { program } = parseModuleProgram(source2, filename2);
+  const fromPackage = /* @__PURE__ */ new Set();
+  for (const stmt2 of program?.body ?? []) {
+    const src = stmt2?.type === "ImportDeclaration" ? String(stmt2.source?.value ?? "") : "";
+    if (!(!src || /^[./$~#]|^@\//.test(src) || resolveRepoLocalPath(src, filename2, aliases) !== void 0) && !/^svelte|store/i.test(src)) for (const sp of stmt2.specifiers ?? []) fromPackage.add(sp.local.name);
+  }
+  const plainClasses = /* @__PURE__ */ new Set();
+  for (const stmt2 of program?.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "ClassDeclaration" || !decl.id || decl.superClass) continue;
+    if (!(decl.body?.body ?? []).some((m) => isContainerCtor(m?.value) || m?.kind === "constructor" && m.value?.body?.body?.some((st) => st?.type === "ExpressionStatement" && isContainerCtor(st.expression?.right)))) plainClasses.add(decl.id.name);
+  }
+  for (const stmt2 of program?.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || stmt2.declaration?.type !== "VariableDeclaration") continue;
+    for (const d2 of stmt2.declaration.declarations ?? []) {
+      let init2 = unwrapTs(d2?.init);
+      if (init2?.type === "AwaitExpression") init2 = unwrapTs(init2.argument);
+      if (d2?.id?.type !== "Identifier") continue;
+      const ctor = init2?.type === "NewExpression" && init2.callee?.type === "Identifier" ? init2.callee.name : void 0;
+      if (ctor !== void 0 && (fromPackage.has(ctor) || plainClasses.has(ctor))) names.add(d2.id.name);
+      if (init2?.type === "CallExpression" && fromPackage.has(rootObjectName(init2.callee) ?? "")) names.add(d2.id.name);
+    }
+  }
+  return names;
 }
 function parseInMemoryExports(source2, filename2) {
   const names = /* @__PURE__ */ new Set();
   const { program } = parseModuleProgram(source2, filename2);
+  const fns = /* @__PURE__ */ new Set();
+  for (const stmt2 of program?.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "FunctionDeclaration" && decl.id) fns.add(decl.id.name);
+  }
+  const writables = program ? collectNamedImportAliases(program, "svelte/store", WRITABLE_NAMES) : /* @__PURE__ */ new Set();
+  const isWritable = (init2) => {
+    const call2 = unwrapTs(init2);
+    return call2?.type === "CallExpression" && call2.callee?.type === "Identifier" && writables.has(call2.callee.name);
+  };
   for (const stmt2 of program?.body ?? []) {
     if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
     const decl = stmt2.declaration;
     if (decl.type !== "VariableDeclaration") continue;
-    for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && isInMemoryInit(d2.init)) names.add(d2.id.name);
+    for (const d2 of decl.declarations ?? []) if (d2?.id?.type === "Identifier" && (isInMemoryInit(d2.init, fns) || isWritable(d2.init))) names.add(d2.id.name);
   }
   return names;
 }
@@ -64543,6 +65151,7 @@ function parseKitModuleFacts(source2, filename2, aliases) {
   const importedStateWrites = [];
   const importedStateWritesOutsideHandlers = [];
   const pendingServerStoreWrites = [];
+  const storeWriteTargets = [];
   const runesModuleImports = [];
   const lifecycleCalls = [];
   const browserGlobalRefs = [];
@@ -64561,6 +65170,11 @@ function parseKitModuleFacts(source2, filename2, aliases) {
   const importedSpecifiers = /* @__PURE__ */ new Map();
   const importedNames = /* @__PURE__ */ new Map();
   const namespaceImports = /* @__PURE__ */ new Set();
+  const localFunctions = /* @__PURE__ */ new Set();
+  walkEstree(program, (n2) => {
+    if (n2.type === "FunctionDeclaration" && n2.id?.name) localFunctions.add(n2.id.name);
+    if (n2.type === "VariableDeclarator" && n2.id?.type === "Identifier" && n2.init && isFunctionNode(unwrapTs(n2.init))) localFunctions.add(n2.id.name);
+  });
   for (const stmt2 of program.body ?? []) {
     if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
     const spec = typeof stmt2.source?.value === "string" ? stmt2.source.value : "";
@@ -64592,7 +65206,7 @@ function parseKitModuleFacts(source2, filename2, aliases) {
   const ssrOptOut = findFalseOptOut(program, wrapped, "ssr");
   const csrOptOut = findFalseOptOut(program, wrapped, "csr");
   const waterfalls = collectLoadWaterfalls(program, wrapped);
-  if (!ssrOptOut) {
+  if (!ssrOptOut?.literal) {
     const shiftLine = (l2) => Math.max(0, l2 - 1);
     const browserImports = collectBrowserGuardImports(program);
     const guards = /* @__PURE__ */ new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
@@ -64624,10 +65238,12 @@ function parseKitModuleFacts(source2, filename2, aliases) {
       scanFn(fn, false);
     }
   }
+  const browserOnly = browserOnlyRanges(program, collectBrowserGuardImports(program));
+  const reachedOnlyByBrowser = (at2) => browserOnly.some(([from, to]) => at2 >= from && at2 < to);
   walkKit(program, handlerFns, startupFns, (n2, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       const flagLet = (name) => {
-        if (name && !shadowed.has(name) && moduleLets.has(name)) moduleStateReassignments.push({
+        if (name && !shadowed.has(name) && moduleLets.has(name) && !reachedOnlyByBrowser(n2.start)) moduleStateReassignments.push({
           name,
           line: line(n2.start),
           inHandler
@@ -64668,23 +65284,27 @@ function parseKitModuleFacts(source2, filename2, aliases) {
     } else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
       const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
       const nsFunction = n2.callee.object?.type === "Identifier" && namespaceImports.has(n2.callee.object.name);
-      if ((method2 === "set" || method2 === "update") && !nsFunction) {
+      const updater = method2 !== "update" || isUpdaterArgument(n2.arguments?.[0], localFunctions);
+      if ((method2 === "set" || method2 === "update") && !nsFunction && updater) {
         const r2 = importedRoot(n2.callee.object);
         const spec = r2 ? importedSpecifiers.get(r2) : void 0;
         if (r2 && spec !== void 0) {
-          if (isLocalStateSpecifier(spec, filename2, aliases)) write = {
+          const resolved = localModulePath(spec, filename2, aliases);
+          let member2 = n2.callee.object;
+          while (member2?.type === "MemberExpression" && member2.object?.type !== "Identifier") member2 = member2.object;
+          const target = {
             name: r2,
-            via: "set-call"
+            imported: (namespaceImports.has(r2) && member2?.type === "MemberExpression" && !member2.computed ? member2.property?.name : void 0) ?? importedNames.get(r2) ?? r2,
+            resolved,
+            line: line(n2.start)
           };
-          else {
-            const resolved = serverRootRelativePath(spec, filename2, aliases);
-            if (resolved !== void 0 && inHandler) pendingServerStoreWrites.push({
+          if (isLocalStateSpecifier(spec, filename2, aliases)) {
+            write = {
               name: r2,
-              imported: importedNames.get(r2) ?? r2,
-              resolved,
-              line: line(n2.start)
-            });
-          }
+              via: "set-call"
+            };
+            if (inHandler) storeWriteTargets.push(target);
+          } else if (resolved !== void 0 && inHandler) pendingServerStoreWrites.push(target);
         }
       }
     } else if (n2.type === "AssignmentExpression" && (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern")) {
@@ -64705,6 +65325,7 @@ function parseKitModuleFacts(source2, filename2, aliases) {
       };
       scanPatternTargets(n2.left);
     }
+    if (write && reachedOnlyByBrowser(n2.start)) write = void 0;
     if (write) {
       if (inHandler) importedStateWrites.push({
         ...write,
@@ -64736,19 +65357,51 @@ function parseKitModuleFacts(source2, filename2, aliases) {
       line: line(call2.start)
     });
   }
+  const exitLocals = collectNamedImportAliases(program, "@sveltejs/kit", EXIT_NAMES);
+  const neverRenders = loadNeverRenders(program, exitLocals);
+  const building = collectKitEnvImports(program, BUILDING_NAMES);
+  const hooks = /(^|\/)hooks\.server\.(ts|js)$/.test(filename2);
+  const answered = hooks ? handleAnsweredPaths(program, exitLocals) : [];
+  const chunkTokens = hooks ? pageChunkTokens(program) : [];
+  const flagGuard = leadingFlagGuard(program, exitLocals, (local) => {
+    const spec = namespaceImports.has(local) ? void 0 : importedSpecifiers.get(local);
+    const resolved = spec === void 0 ? void 0 : localModulePath(spec, filename2, aliases);
+    return resolved === void 0 ? void 0 : {
+      resolved,
+      name: importedNames.get(local) ?? local
+    };
+  });
+  const factory = loadFactory(program, (local) => {
+    const spec = namespaceImports.has(local) ? void 0 : importedSpecifiers.get(local);
+    const resolved = spec === void 0 ? void 0 : localModulePath(spec, filename2, aliases);
+    return resolved === void 0 ? void 0 : {
+      resolved,
+      name: importedNames.get(local) ?? local
+    };
+  });
   return {
     moduleStateReassignments: byLine(moduleStateReassignments),
     importedStateWrites: byLine(importedStateWrites),
     importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
     pendingServerStoreWrites: byLine(pendingServerStoreWrites),
+    ...storeWriteTargets.length > 0 ? { storeWriteTargets } : {},
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
     basePathLinks: byLine(basePathLinks),
     ...ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {},
     ...!ssrOptOut && exportsName(program, "ssr") ? { ssrEnabled: true } : {},
+    ...!ssrOptOut && exportsTrue(program, "ssr") ? { ssrTrue: true } : {},
     ...csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {},
-    ...loadNeverRenders(program, collectNamedImportAliases(program, "@sveltejs/kit", EXIT_NAMES)) ? { loadNeverRenders: true } : {},
+    ...!csrOptOut && exportsName(program, "csr") ? { csrEnabled: true } : {},
+    ...neverRenders ? { loadNeverRenders: true } : {},
+    ...!neverRenders && building.size > 0 && loadNeverRenders(program, exitLocals, building) ? { loadNeverRendersOutsideBuild: true } : {},
+    ...exportsName(program, "prerender") ? { prerenderExported: true } : {},
+    ...answered.length > 0 ? { answeredPaths: answered } : {},
+    ...chunkTokens.length > 0 ? { pageChunkTokens: chunkTokens } : {},
+    ...flagGuard ? { pendingFlagGuard: flagGuard } : {},
+    ...factory ? { pendingLoadFactory: factory } : {},
+    ...loadGatesOnLocals(program) ? { loadGated: true } : {},
     ...waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0 ? { loadWaterfalls: waterfalls } : {},
     suppressions
   };
@@ -65871,7 +66524,7 @@ var performanceLoadWaterfall = kitModuleRule({
     snippet: "// +page.server.ts \u2014 same chain, server-side hops\nexport async function load({ fetch }) {\n  const user = await fetch(`/api/user`).then((r) => r.json());\n  const posts = await fetch(`/api/posts/${user.id}`).then((r) => r.json());\n  return { user, posts };\n}",
     lang: "ts"
   },
-  applies: (m) => m.kind === "universal" && m.csrDisabled === void 0 && (m.loadWaterfalls?.dependentLines.length ?? 0) > 0,
+  applies: (m, ctx) => m.kind === "universal" && (m.loadWaterfalls?.dependentLines.length ?? 0) > 0 && !universalNeverCsr(m, ctx),
   bad: (m) => m.loadWaterfalls.dependentLines.map((line) => ({
     line,
     message: MESSAGE$1
@@ -66378,7 +67031,7 @@ var a11yPatternTitle = componentRule({
     message: "<input pattern> without a title \u2014 a failed match tells the user nothing about the expected format"
   }))
 });
-var HTML_SPEC = JSON.parse(`{"elements":{"a":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), a, [tabindex], :has(:model(interactive), a, [tabindex]))"}]},"aria":{"implicitRole":"link","permittedRoles":["button","checkbox","menuitem","menuitemcheckbox","menuitemradio","option","radio","switch","tab","treeitem"],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"attributionsrc":{"deprecated":true,"nonStandard":true},"charset":{"deprecated":true},"coords":{"deprecated":true},"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{"deprecated":true},"ping":{},"referrerpolicy":{},"rel":{},"rev":{"deprecated":true},"shape":{"deprecated":true},"target":{},"type":{}}},"abbr":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"acronym":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"address":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(address, :model(heading), :model(sectioning), header, foooter, :has(address, :model(heading), :model(sectioning), header, foooter))"}],"forbiddenAncestors":["address"]},"aria":{"implicitRole":"group","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"applet":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"area":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false,"descendantOf":"map"},"aria":{"implicitRole":"link","permittedRoles":[],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"alt":{"type":"Any","required":true,"condition":"[href]"},"coords":{"type":{"token":"Number","disallowToSurroundBySpaces":true,"separator":"comma"}},"download":{},"href":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{},"referrerpolicy":{},"rel":{},"shape":{"type":{"enum":["rect","circle","poly","default"],"missingValueDefault":"rect","invalidValueDefault":"rect"}},"target":{}}},"article":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"article","permittedRoles":["application","document","feed","main","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"aside":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"complementary","permittedRoles":["feed","none","note","presentation","region","search"],"conditions":{":is(article, aside, nav, section, blockquote, details, dialog, fieldset, figure, td) *":{"implicitRole":"generic","namingProhibited":true},":is(article, aside, nav, section, blockquote, details, dialog, fieldset, figure, td) *:aria(has name)":{"implicitRole":"complementary"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"audio":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{},"crossorigin":{},"disableremoteplayback":{},"loading":{"experimental":false},"loop":{},"muted":{},"preload":{},"src":{}}},"b":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"base":{"categories":["#metadata"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"href":{"type":"BaseURL","requiredEither":["target"]},"target":{"requiredEither":["href"]}}},"basefont":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"bdi":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"bdo":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"dir":{"type":{"enum":["ltr","rtl"]},"required":true}}},"bgsound":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"big":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blink":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blockquote":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"blockquote","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"body":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"generic","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"alink":{"deprecated":true},"background":{"deprecated":true},"bgcolor":{"deprecated":true},"bottommargin":{"deprecated":true},"leftmargin":{"deprecated":true},"link":{"deprecated":true},"onafterprint":{"type":"FunctionBody"},"onbeforeprint":{"type":"FunctionBody"},"onbeforeunload":{"type":"FunctionBody"},"onhashchange":{"type":"FunctionBody"},"onlanguagechange":{"type":"FunctionBody"},"onmessage":{"type":"FunctionBody"},"onmessageerror":{"type":"FunctionBody"},"onoffline":{"type":"FunctionBody"},"ononline":{"type":"FunctionBody"},"onpagehide":{"type":"FunctionBody"},"onpagereveal":{"type":"FunctionBody"},"onpageshow":{"type":"FunctionBody"},"onpageswap":{"type":"FunctionBody"},"onpopstate":{"type":"FunctionBody"},"onrejectionhandled":{"type":"FunctionBody"},"onstorage":{"type":"FunctionBody"},"onunhandledrejection":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"rightmargin":{"deprecated":true},"text":{"deprecated":true},"topmargin":{"deprecated":true},"vlink":{"deprecated":true}}},"br":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"clear":{"deprecated":true}}},"button":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"implicitRole":"button","permittedRoles":["checkbox","combobox","gridcell","link","menuitem","menuitemcheckbox","menuitemradio","option","radio","separator","slider","switch","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autofocus":{},"command":{"type":[{"enum":["toggle-popover","show-popover","hide-popover","close","request-close","show-modal"],"invalidValueDefault":"unknown","missingValueDefault":"unknown"},"ValidCustomCommand"]},"commandfor":{"type":"DOMID"},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{},"popovertarget":{"type":"DOMID"},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"}},"type":{"type":{"enum":["submit","reset","button"],"invalidValueDefault":"submit","missingValueDefault":"submit"}},"value":{"type":"Any"}}},"canvas":{"categories":["#flow","#phrasing","#embedded","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"moz-opaque":{"deprecated":true,"nonStandard":true},"width":{}}},"caption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"caption","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true}}},"center":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"cite":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"code":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"code","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"col":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"colgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"col"}],"conditional":[{"condition":"[span]","contents":false}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"data":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"value":{"type":"Any","required":true}}},"datalist":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"zeroOrMore":["option",":model(script-supporting)"]}]]}]},"aria":{"implicitRole":"listbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dd":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"del":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateStringWithOptionalTime"}}},"details":{"categories":["#flow","#interactive","#palpable"],"contentModel":{"contents":[{"require":"summary"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"},"open":{"type":"Boolean"}}},"dfn":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(dfn, :has(dfn))"}]},"aria":{"implicitRole":"term","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dialog":{"categories":["#flow"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"dialog","permittedRoles":["alertdialog"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"closedby":{"type":{"enum":["any","closerequest","none"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"open":{"type":"Boolean"},"tabindex":{"noUse":true}}},"dir":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"compact":{"deprecated":true,"nonStandard":true}}},"div":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}],"conditional":[{"condition":"dl > div","contents":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dl":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}],[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"div"},{"zeroOrMore":":model(script-supporting)"}]]}]},"aria":{"permittedRoles":["group","list","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"dt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":["listitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"em":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"emphasis","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"embed":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"src":{"type":"NonEmptyURL","required":"[itemprop]"},"type":{"type":"MIMEType"},"width":{}}},"fieldset":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"optional":"legend"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":["radiogroup","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"form":{},"name":{}}},"figcaption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["group","none","presentation"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"figure":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"require":"figcaption"},{"oneOrMore":":model(flow)"}],[{"oneOrMore":":model(flow)"},{"require":"figcaption"}],[{"oneOrMore":":model(flow)"}]]}]},"aria":{"implicitRole":"figure","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"font":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"color":{"deprecated":true,"nonStandard":true},"face":{"deprecated":true,"nonStandard":true},"size":{"deprecated":true,"nonStandard":true}}},"footer":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}],"forbiddenAncestors":["header","footer"]},"aria":{"implicitRole":"contentinfo","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"form":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(form, :has(form))"}]},"aria":{"permittedRoles":["search","none","presentation"],"conditions":{":aria(has name)":{"implicitRole":"form"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"deprecated":true},"accept-charset":{"type":{"enum":["utf-8"],"caseInsensitive":true}},"action":{"type":"NonEmptyURL"},"autocapitalize":{},"autocomplete":{"type":{"enum":["on","off"],"invalidValueDefault":"on","missingValueDefault":"on"}},"enctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded","missingValueDefault":"application/x-www-form-urlencoded"}},"method":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get","missingValueDefault":"get"}},"name":{"type":"NoEmptyAny"},"novalidate":{"type":"Boolean"},"rel":{"type":"LinkTypeForFormElement"},"target":{"type":"NavigableTargetNameOrKeyword"}}},"frame":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"frameborder":{"deprecated":true,"nonStandard":true},"marginheight":{"deprecated":true,"nonStandard":true},"marginwidth":{"deprecated":true,"nonStandard":true},"name":{"deprecated":true,"nonStandard":true},"noresize":{"deprecated":true,"nonStandard":true},"scrolling":{"deprecated":true,"nonStandard":true},"src":{"deprecated":true,"nonStandard":true}}},"frameset":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"cols":{"deprecated":true,"nonStandard":true},"rows":{"deprecated":true,"nonStandard":true}}},"h1":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h2":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h3":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h4":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h5":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h6":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"head":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":":model(metadata):not(title)"},{"require":"title"},{"zeroOrMore":":model(metadata):not(title)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"profile":{"deprecated":true}}},"header":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}],"forbiddenAncestors":["header","footer"]},"aria":{"implicitRole":"banner","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hgroup":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"},{"require":["h1","h2","h3","h4","h5","h6"]},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hr":{"categories":["#flow"],"contentModel":{"contents":false},"aria":{"implicitRole":"separator","permittedRoles":["presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true,"nonStandard":true},"color":{"deprecated":true,"nonStandard":true},"noshade":{"deprecated":true,"nonStandard":true},"size":{"deprecated":true,"nonStandard":true},"width":{"deprecated":true,"nonStandard":true}}},"html":{"categories":[],"contentModel":{"contents":[{"require":"head"},{"require":"body"}]},"aria":{"implicitRole":"generic","permittedRoles":["document","generic"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"version":{"deprecated":true},"xmlns":{"nonStandard":true}}},"i":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"iframe":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"allow":{"type":"SerializedPermissionsPolicy"},"allowfullscreen":{"type":"Boolean"},"allowpaymentrequest":{"deprecated":true,"nonStandard":true},"browsingtopics":{"deprecated":true,"nonStandard":true},"credentialless":{"experimental":true},"csp":{"experimental":true},"frameborder":{"deprecated":true},"height":{},"loading":{},"longdesc":{"deprecated":true},"marginheight":{"deprecated":true},"marginwidth":{"deprecated":true},"name":{"type":"NavigableTargetName"},"privateToken":{"type":"Any","experimental":true},"referrerpolicy":{},"sandbox":{"type":{"token":{"enum":["allow-forms","allow-modals","allow-orientation-lock","allow-pointer-lock","allow-popups","allow-popups-to-escape-sandbox","allow-presentation","allow-same-origin","allow-scripts","allow-top-navigation","allow-top-navigation-by-user-activation","allow-downloads","allow-custom-protocols-navigation"]},"caseInsensitive":true,"ordered":true,"unique":true,"separator":"space"}},"scrolling":{"deprecated":true},"src":{"required":"[itemprop]","ineffective":"[srcdoc]"},"srcdoc":{"type":"Any"},"width":{}}},"img":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"img","permittedRoles":["button","checkbox","link","math","menuitem","menuitemcheckbox","menuitemradio","meter","option","progressbar","radio","scrollbar","separator","slider","switch","tab","treeitem"],"conditions":{"[alt=\\"\\"]":{"implicitRole":"presentation"},":not([alt]):aria(has no name)":{"implicitRole":"img"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"alt":{"type":"Any"},"attributionsrc":{"deprecated":true,"nonStandard":true},"border":{"deprecated":true},"crossorigin":{},"decoding":{"type":{"enum":["sync","async","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"elementtiming":{},"fetchpriority":{},"height":{},"hspace":{"deprecated":true},"ismap":{"type":"Boolean","condition":"a[href] img"},"loading":{},"longdesc":{"deprecated":true},"name":{"deprecated":true},"referrerpolicy":{},"sizes":{"type":"SourceSizeList","condition":"[srcset]"},"src":{"type":"NonEmptyURL","requiredEither":["srcset"]},"srcset":{"type":"Srcset","requiredEither":["src"]},"usemap":{"type":"HashName","condition":":is(:not(a):not(button)) img"},"vspace":{"deprecated":true},"width":{}}},"input":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"textbox","permittedRoles":["combobox","searchbox","spinbutton"],"conditions":{"[type='button' i]":{"implicitRole":"button"},"[type='checkbox' i]":{"implicitRole":"checkbox"},"[type='checkbox' i][aria-pressed]":{"implicitRole":"checkbox"},"[type='color' i]":{"implicitRole":false},"[type='date' i]":{"implicitRole":false},"[type='email' i]:not([list])":{"implicitRole":"textbox"},"[type='file' i]":{"implicitRole":false},"[type='hidden' i]":{"implicitRole":false},"[type='image' i]":{"implicitRole":"button"},"[type='month' i]":{"implicitRole":false},"[type='number' i]":{"implicitRole":"spinbutton"},"[type='password' i]":{"implicitRole":false},"[type='radio' i]":{"implicitRole":"radio"},"[type='range' i]":{"implicitRole":"slider"},"[type='reset' i]":{"implicitRole":"button"},"[type='search' i]:not([list])":{"implicitRole":"searchbox"},"[type='submit' i]":{"implicitRole":"button"},"[type='tel' i]:not([list])":{"implicitRole":"textbox"},":is(:not([type]), [type='text' i], [type='search' i], [type='tel' i], [type='url' i], [type='email' i])[list]":{"implicitRole":"combobox"},"[type='time' i]":{"implicitRole":false},"[type='url' i]:not([list])":{"implicitRole":"textbox"},"[type='week' i]":{"implicitRole":false}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"type":{"token":"Accept","caseInsensitive":true,"unique":true,"separator":"comma"},"condition":"[type='file' i]"},"alpha":{"type":"Boolean","experimental":true,"condition":"[type='color' i]"},"alt":{"type":"Any","required":true,"condition":"[type='image' i]"},"autocapitalize":{},"autocomplete":{"type":[{"condition":"[type='hidden' i]","type":"AutoCompleteAnchorMantle"},{"condition":":not([type='hidden' i])","type":"AutoComplete"}],"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"autofocus":{},"capture":{},"checked":{"type":"Boolean","condition":["[type='checkbox' i]","[type='radio' i]"]},"colorspace":{"type":{"enum":["limited-srgb","display-p3"],"invalidValueDefault":"limited-srgb","missingValueDefault":"limited-srgb"},"experimental":true,"condition":"[type='color' i]"},"dirname":{"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='tel' i]","[type='url' i]","[type='email' i]","[type='password' i]","[type='submit' i]"]},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"height":{"condition":"[type='image' i]"},"id":{},"incremental":{"nonStandard":true},"inputmode":{},"list":{"type":"DOMID","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"max":{"type":[{"condition":"[type='date' i]","type":"DateString"},{"condition":"[type='month' i]","type":"MonthString"},{"condition":"[type='week' i]","type":"WeekString"},{"condition":"[type='time' i]","type":"TimeString"},{"condition":"[type='datetime-local' i]","type":"LocalDateTimeString"},{"condition":["[type='number' i]","[type='range' i]"],"type":{"type":"float"}}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"maxlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"min":{"type":[{"condition":"[type='date' i]","type":"DateString"},{"condition":"[type='month' i]","type":"MonthString"},{"condition":"[type='week' i]","type":"WeekString"},{"condition":"[type='time' i]","type":"TimeString"},{"condition":"[type='datetime-local' i]","type":"LocalDateTimeString"},{"condition":["[type='number' i]","[type='range' i]"],"type":{"type":"float"}}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"minlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"multiple":{"type":"Boolean","condition":["[type='email' i]","[type='file' i]"]},"name":{"type":{"pattern":"/^(?!isindex$).+/"}},"orient":{"nonStandard":true},"pattern":{"type":"Pattern","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"placeholder":{"type":"OneLineAny","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='number' i]"]},"popovertarget":{"type":"DOMID","condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"},"condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"readonly":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]"]},"required":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='checkbox' i]","[type='radio' i]","[type='file' i]"]},"results":{"nonStandard":true},"size":{"type":{"type":"integer","gt":0},"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"src":{"condition":"[type='image' i]"},"step":{"type":["Number",{"enum":["any"],"caseInsensitive":true}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"switch":{"type":"Boolean","nonStandard":true,"experimental":true,"condition":["[type='checkbox' i]"]},"tabindex":{},"title":{},"type":{"type":{"enum":["hidden","text","search","tel","url","email","password","date","month","week","time","datetime-local","number","range","color","checkbox","radio","file","submit","image","reset","button"],"invalidValueDefault":"text","missingValueDefault":"text"}},"value":{"type":[{"condition":"[type='color' i]","type":"SimpleColor"},{"condition":"[type='url' i]","type":"AbsoluteURLOrEmpty"},{"condition":"[type='email' i]","type":"Email"},{"condition":["[type='number' i]","[type='range' i]"],"type":{"type":"float"}},{"condition":"[type='date' i]","type":"DateString"},{"condition":"[type='month' i]","type":"MonthString"},{"condition":"[type='week' i]","type":"WeekString"},{"condition":"[type='time' i]","type":"TimeString"},{"condition":"[type='datetime-local' i]","type":"LocalDateTimeString"}]},"webkitdirectory":{"nonStandard":true},"width":{"condition":"[type='image' i]"}}},"ins":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"insertion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateStringWithOptionalTime"}}},"isindex":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"kbd":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"keygen":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"label":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(label, :has(label))"}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":"DOMID"}}},"legend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(phrasing)",":model(heading)"]}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"li":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"listitem","permittedRoles":["menuitem","menuitemcheckbox","menuitemradio","option","none","presentation","radio","separator","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"type":{"deprecated":true},"value":{"type":"Int","condition":"ol > li"}}},"link":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"as":{"type":[{"condition":"[rel~='preload' i]","type":{"enum":["fetch","font","image","script","style","track"]}},{"condition":"[rel~='modulepreload' i]","type":{"enum":["audioworklet","json","paintworklet","script","serviceworker","sharedworker","style","worker"]}}],"required":"[rel~='preload' i]","condition":["[rel~='preload' i]","[rel~='modulepreload' i]"]},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true},"condition":"[rel~='stylesheet' i]"},"charset":{"deprecated":true,"obsolete":true},"color":{"type":"<color>","condition":"[rel~='mask-icon' i]"},"crossorigin":{},"disabled":{"type":"Boolean","condition":"[rel~='stylesheet' i]"},"fetchpriority":{},"href":{"type":"NonEmptyURL","requiredEither":["imagesrcset"]},"hreflang":{},"imagesizes":{"type":"SourceSizeList","required":"[imagesrcset]","condition":"[imagesrcset][rel~='preload' i][as='image' i]"},"imagesrcset":{"type":"Srcset","required":"[imagesizes]","condition":"[imagesizes][rel~='preload' i][as='image' i]"},"integrity":{"condition":["[rel~='stylesheet' i]","[rel~='preload' i]","[rel~='modulepreload' i]"]},"itemprop":{"requiredEither":["rel"]},"media":{},"referrerpolicy":{},"rel":{"type":"LinkTypeForLinkElement","requiredEither":["itemprop"]},"rev":{"deprecated":true,"obsolete":true},"sizes":{"type":{"token":"IconSize","caseInsensitive":true,"ordered":false,"unique":true,"separator":"space"},"condition":["[rel~='icon' i]","[rel~='apple-touch-icon' i]"]},"target":{"deprecated":true},"title":{"type":[{"condition":"[rel~='alternate' i][rel~='stylesheet' i]","type":"NoEmptyAny"}],"required":"[rel~='alternate' i][rel~='stylesheet' i]"},"type":{}}},"listing":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"main":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}],"forbiddenAncestors":["article","aside","footer","header","nav"]},"aria":{"implicitRole":"main","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"map":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"mark":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"marquee":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"behavior":{"deprecated":true},"bgcolor":{"deprecated":true},"direction":{"deprecated":true},"height":{"deprecated":true,"nonStandard":true},"hspace":{"deprecated":true,"nonStandard":true},"loop":{"deprecated":true},"scrollamount":{"deprecated":true,"nonStandard":true},"scrolldelay":{"deprecated":true,"nonStandard":true},"truespeed":{"deprecated":true},"vspace":{"deprecated":true,"nonStandard":true},"width":{"deprecated":true,"nonStandard":true}}},"menu":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"menuitem":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"meta":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"charset":{"type":{"enum":["utf-8"],"caseInsensitive":true},"condition":[":not([itemprop])",":not([name])",":not([http-equiv])"]},"content":{"type":[{"condition":"[http-equiv='refresh' i]","type":"HTTPEquivRefresh"},{"condition":"[http-equiv='content-type' i]","type":"HTTPEquivContentType"},{"condition":"[http-equiv='x-ua-compatible' i]","type":{"enum":["IE=edge"],"caseInsensitive":true}},{"condition":"[http-equiv='content-security-policy' i]","type":"ContentSecurityPolicy"}],"required":["[name]","[http-equiv]","[itemprop]"],"condition":["[name]","[http-equiv]","[itemprop]"]},"http-equiv":{"type":{"enum":["content-type","default-style","refresh","x-ua-compatible","content-security-policy"]},"requiredEither":["itemprop","name","charset"],"condition":[":not([itemprop])",":not([name])",":not([charset])"]},"itemprop":{"requiredEither":["name","http-equiv","charset"],"condition":[":not([name])",":not([http-equiv])",":not([charset])"]},"media":{"condition":"[name='theme-color']"},"name":{"type":"Any","requiredEither":["itemprop","http-equiv","charset"],"condition":[":not([itemprop])",":not([http-equiv])",":not([charset])"]}}},"meter":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(meter, :has(meter))"}]},"aria":{"implicitRole":"meter","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"high":{"type":"Number"},"low":{"type":"Number"},"max":{"type":"Number"},"min":{"type":"Number"},"optimum":{"type":"Number"},"value":{"type":"Number"}}},"multicol":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nav":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"navigation","permittedRoles":["menu","menubar","none","presentation","tablist"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"nextid":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nobr":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noembed":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noframes":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noscript":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"transparent":":not(noscript)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"object":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["application","document","img"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"archive":{"deprecated":true},"border":{"deprecated":true},"classid":{"deprecated":true},"codebase":{"deprecated":true},"codetype":{"deprecated":true},"data":{"type":"NonEmptyURL","requiredEither":["type"]},"declare":{"deprecated":true},"form":{},"height":{},"name":{"type":"NavigableTargetName"},"standby":{"deprecated":true},"type":{"type":"MIMEType","requiredEither":["data"]},"usemap":{"deprecated":true},"width":{}}},"ol":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true,"nonStandard":true},"reversed":{"type":"Boolean"},"start":{"type":"Int"},"type":{"type":{"enum":["1","a","A","i","I"],"caseInsensitive":false,"invalidValueDefault":"decimal","missingValueDefault":"decimal"}}}},"optgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"option"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"NoEmptyAny","required":true}}},"option":{"categories":[],"contentModel":{"contents":[{"require":"#nonEmptyText"}],"conditional":[{"condition":"[label][value]","contents":false},{"condition":"label","contents":[{"optional":"#text"}]},{"condition":"datalist > :scope","contents":[{"optional":"#text"}]},{"condition":"datalist > [label]","contents":[{"optional":"#text"}]}]},"aria":{"permittedRoles":[],"conditions":{":is(select, select > optgroup, datalist) > option":{"implicitRole":"option"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"Any"},"selected":{"type":"Boolean"},"value":{"type":"Any"}}},"output":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"status","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":{"token":"DOMID","separator":"space","unique":true,"caseInsensitive":true}},"form":{},"name":{}}},"p":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"paragraph","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"param":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"name":{"deprecated":true,"nonStandard":true},"type":{"deprecated":true,"nonStandard":true},"value":{"deprecated":true,"nonStandard":true},"valuetype":{"deprecated":true,"nonStandard":true}}},"picture":{"categories":["#flow","#phrasing","#embedded"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"source"},{"zeroOrMore":":model(script-supporting)"},{"require":"img"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"plaintext":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"pre":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"width":{"deprecated":true,"nonStandard":true},"wrap":{"deprecated":true,"nonStandard":true}}},"progress":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(progress, :has(progress))"}]},"aria":{"implicitRole":"progressbar","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"max":{"type":{"type":"float","gt":0}},"value":{"type":{"type":"float","gte":0}}}},"q":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"rb":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"rp":{"categories":[],"contentModel":{"contents":[{"oneOrMore":"#text"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rtc":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"ruby":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":[{"oneOrMore":[":model(phrasing):not(ruby, :has(ruby))","ruby:not(:has(ruby))"]},{"choice":[[{"oneOrMore":"rt"}],[{"require":"rp"},{"oneOrMore":[{"require":"rt"},{"require":"rp"}]}]]}]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"s":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"samp":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"script":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"async":{"type":"Boolean","ineffective":":not([src]):not([type='module' i])","condition":[":is(:not([type]), [type=''], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]","[type='module' i]"]},"attributionsrc":{"deprecated":true,"nonStandard":true},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true},"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]"},"charset":{"deprecated":true,"condition":"[src]"},"crossorigin":{"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])"},"defer":{"type":"Boolean","ineffective":[":not([src])","[async]"],"condition":":is(:not([type]), [type=''], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]"},"fetchpriority":{"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]"},"integrity":{"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]"},"language":{"deprecated":true,"nonStandard":true},"nomodule":{"type":"Boolean","condition":":is(:not([type]), [type=''], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])"},"nonce":{},"referrerpolicy":{"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])"},"src":{"type":"NonEmptyURL","condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])"},"type":{"type":["MIMEType",{"enum":["module","importmap","speculationrules"],"caseInsensitive":true}]}}},"search":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"search","permittedRoles":["form","group","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"section":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["alert","alertdialog","application","banner","complementary","contentinfo","dialog","document","feed","group","log","main","marquee","navigation","none","note","presentation","search","status","tabpanel"],"conditions":{":aria(has name)":{"implicitRole":"region"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"select":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"zeroOrMore":["option","optgroup","hr","#script-supporting"]}]},"aria":{"implicitRole":"combobox","permittedRoles":["menu"],"conditions":{"[multiple], [size]:not([size=1])":{"implicitRole":"listbox"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocomplete":{"type":"AutoCompleteNoWebauthn"},"autofocus":{},"disabled":{},"form":{},"multiple":{"type":"Boolean"},"name":{},"required":{},"size":{"type":{"type":"integer","gt":0}}}},"slot":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"small":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"source":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{"condition":"picture > source"},"media":{"type":"MediaQueryList"},"sizes":{"condition":"picture > source[srcset]"},"src":{"type":"NonEmptyURL","required":":is(video, audio) > source","condition":":is(video, audio) > source"},"srcset":{"required":"picture > source","condition":"picture > source"},"type":{"type":"MIMEType"},"width":{"condition":"picture > source"}}},"spacer":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"span":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"strike":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"strong":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"strong","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"style":{"categories":["#metadata"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true}},"media":{"type":"MediaQueryList"},"nonce":{},"title":{},"type":{"deprecated":true}}},"sub":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"subscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"summary":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"require":":model(heading)"}]]}]},"aria":{"implicitRole":"button","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"sup":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"superscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"table":{"categories":["#flow"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"optional":"caption"},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"colgroup"},{"zeroOrMore":":model(script-supporting)"},{"optional":"thead"},{"zeroOrMore":":model(script-supporting)"},{"choice":[[{"zeroOrMore":"tbody"}],[{"oneOrMore":"tr"}]]},{"zeroOrMore":":model(script-supporting)"},{"optional":"tfoot"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"table","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"border":{"deprecated":true},"cellpadding":{"deprecated":true},"cellspacing":{"deprecated":true},"frame":{"deprecated":true},"rules":{"deprecated":true},"summary":{"deprecated":true},"width":{"deprecated":true}}},"tbody":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true,"nonStandard":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"td":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > td, table:is(:not([role]), [role=table]) > tr > td":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > td, table:is([role=grid], [role=treegrid]) > tr > td":{"implicitRole":"gridcell"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"deprecated":true},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"deprecated":true},"valign":{"deprecated":true},"width":{"deprecated":true}}},"template":{"categories":["#metadata","#flow","#phrasing","#script-supporting"],"contentModel":{"contents":true},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"experimental":true},"shadowrootclonable":{"type":"Boolean"},"shadowrootcustomelementregistry":{"type":"Boolean"},"shadowrootdelegatesfocus":{"type":"Boolean"},"shadowrootmode":{"type":{"enum":["open","closed"],"missingValueDefault":"none","invalidValueDefault":"none"}},"shadowrootreferencetarget":{"type":"DOMID","nonStandard":true,"experimental":true},"shadowrootserializable":{"type":"Boolean"},"shadowrootslotassignment":{"type":{"enum":["named","manual"],"missingValueDefault":"named","invalidValueDefault":"named"},"experimental":true}}},"textarea":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"optional":"#text"}]},"aria":{"implicitRole":"textbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocapitalize":{},"autocomplete":{},"autocorrect":{},"autofocus":{},"cols":{"type":{"type":"integer","gt":0}},"dirname":{},"disabled":{},"form":{},"maxlength":{},"minlength":{},"name":{},"placeholder":{"type":"Any"},"readonly":{},"required":{},"rows":{"type":{"type":"integer","gt":0}},"spellcheck":{},"wrap":{"type":{"enum":["soft","hard"],"missingValueDefault":"soft","invalidValueDefault":"soft"}}}},"tfoot":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true,"nonStandard":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"th":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > th, table:is(:not([role]), [role=table]) > tr > th":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th, table:is([role=grid], [role=treegrid]) > tr > th":{"implicitRole":"gridcell"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > thead > tr > th:not([scope])":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(tfoot, tbody) > tr > th:not([scope]), table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th:not([scope])":{"implicitRole":"rowheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=col], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=col]":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=row], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=row]":{"implicitRole":"rowheader"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"type":"Any"},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"type":{"enum":["row","col","rowgroup","colgroup"],"missingValueDefault":"auto","invalidValueDefault":"auto"}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"thead":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true,"nonStandard":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"time":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"time","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"datetime":{"type":"DateTime"}}},"title":{"categories":["#metadata"],"contentModel":{"contents":[{"require":"#nonEmptyText"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"tr":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["th","td",":model(script-supporting)"]}]},"aria":{"implicitRole":"row","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"track":{"categories":[],"contentModel":{"contents":false,"uniqueAttrs":["default"]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"default":{"type":"Boolean"},"kind":{"type":{"enum":["subtitles","captions","descriptions","chapters","metadata"],"missingValueDefault":"metadata","invalidValueDefault":"metadata"}},"label":{"type":"NoEmptyAny"},"src":{"type":"NonEmptyURL","required":true},"srclang":{"type":"BCP47"}}},"tt":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"u":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"ul":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true},"type":{"deprecated":true}}},"var":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"video":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{"type":{"token":{"enum":["nodownload","nofullscreen","noremoteplayback"]},"ordered":false,"caseInsensitive":true,"unique":true,"separator":"space"}},"crossorigin":{},"disablepictureinpicture":{},"disableremoteplayback":{},"height":{},"loading":{"experimental":false},"loop":{},"muted":{},"playsinline":{"type":"Boolean"},"poster":{"type":"NonEmptyURL"},"preload":{},"src":{},"width":{}}},"wbr":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"xmp":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"mml:annotation":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"encoding":{"type":"MIMEType"},"src":{"type":"URL","deprecated":true}}},"mml:annotation-xml":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"encoding":{"type":"MIMEType"},"src":{"type":"URL","deprecated":true}}},"mml:maction":{"categories":[],"deprecated":true,"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"actiontype":{"type":"Any","deprecated":true,"nonStandard":true},"selection":{"type":"Any","deprecated":true,"nonStandard":true}}},"math":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","#text"]}]},"aria":{"implicitRole":"math","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"alttext":{"type":"Any"},"display":{"type":{"enum":["block","inline"],"disallowToSurroundBySpaces":false}},"xmlns":{"type":"URL"}}},"mml:menclose":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"notation":{"type":"Any","nonStandard":true}}},"mml:merror":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mfenced":{"categories":[],"deprecated":true,"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"close":{"type":"Any"},"open":{"type":"Any"},"separators":{"type":"Any"}}},"mml:mfrac":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"denomalign":{"deprecated":true,"nonStandard":true},"linethickness":{"type":"<length-percentage>"},"numalign":{"deprecated":true,"nonStandard":true}}},"mml:mi":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"mathvariant":{"type":{"enum":["normal"],"disallowToSurroundBySpaces":false}}}},"mml:mmultiscripts":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|mprescripts","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"subscriptshift":{"deprecated":true,"nonStandard":true},"superscriptshift":{"deprecated":true,"nonStandard":true}}},"mml:mn":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mo":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"accent":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false},"nonStandard":true},"fence":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"form":{"type":{"enum":["prefix","infix","postfix"],"disallowToSurroundBySpaces":false}},"largeop":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"lspace":{"type":"<length-percentage>"},"maxsize":{"type":"<length-percentage>"},"minsize":{"type":"<length-percentage>"},"movablelimits":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"rspace":{"type":"<length-percentage>"},"separator":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"stretchy":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"symmetric":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}}}},"mml:mover":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"accent":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}}}},"mml:mpadded":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"depth":{"type":"<length-percentage>"},"height":{"type":"<length-percentage>"},"lspace":{"type":"<length-percentage>"},"voffset":{"type":"<length-percentage>"},"width":{"type":"<length-percentage>"}}},"mml:mphantom":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mprescripts":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mroot":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mrow":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","mml|mtr","mml|mtd","mml|mprescripts","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:ms":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mspace":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"depth":{"type":"<length-percentage>"},"height":{"type":"<length-percentage>"},"width":{"type":"<length-percentage>"}}},"mml:msqrt":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mstyle":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"background":{"deprecated":true,"nonStandard":true},"color":{"deprecated":true,"nonStandard":true},"fontsize":{"deprecated":true,"nonStandard":true},"fontstyle":{"deprecated":true,"nonStandard":true},"fontweight":{"deprecated":true,"nonStandard":true}}},"mml:msub":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"subscriptshift":{"deprecated":true,"nonStandard":true}}},"mml:msubsup":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":3,"max":3}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"subscriptshift":{"deprecated":true,"nonStandard":true},"superscriptshift":{"deprecated":true,"nonStandard":true}}},"mml:msup":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"superscriptshift":{"deprecated":true,"nonStandard":true}}},"mml:mtable":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["mml|mtr"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"align":{"nonStandard":true},"columnalign":{"nonStandard":true},"columnlines":{"nonStandard":true},"columnspacing":{"nonStandard":true},"frame":{"nonStandard":true},"framespacing":{"nonStandard":true},"rowalign":{"nonStandard":true},"rowlines":{"nonStandard":true},"rowspacing":{"nonStandard":true},"width":{"nonStandard":true}}},"mml:mtd":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"columnalign":{"nonStandard":true},"columnspan":{"type":{"type":"integer","gt":0}},"rowalign":{"nonStandard":true},"rowspan":{"type":{"type":"integer","gt":0}}}},"mml:mtext":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mtr":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["mml|mtd"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"columnalign":{"nonStandard":true},"rowalign":{"nonStandard":true}}},"mml:munder":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"accentunder":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}}}},"mml:munderover":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":3,"max":3}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"accent":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"accentunder":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}}}},"mml:semantics":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"svg:a":{"categories":[],"contentModel":{"conditional":[{"condition":"svg|switch > svg|a","contents":[{"transparent":":not(svg|a, :has(svg|a))"}]}],"contents":[{"transparent":":not(svg|a, :has(svg|a))"}]},"aria":{"implicitRole":"group","permittedRoles":"any","conditions":{"[href], [xlink|href]":{"implicitRole":"link"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{"experimental":true},"referrerpolicy":{},"rel":{},"target":{},"type":{},"xlink:href":{"deprecated":true}}},"svg:animate":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:animateMotion":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":[":model(SVGDescriptive)","svg|script"]},{"optional":"svg|mpath"}],[{"optional":"svg|mpath"},{"oneOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"keyPoints":{"type":"<key-points>"},"origin":{"type":"<origin>"},"path":{"type":"<svg-path>"},"rotate":{"type":"<rotate>"}}},"svg:animateTransform":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"type":{"type":{"enum":["translate","scale","rotate","skewX","skewY"]}}}},"svg:circle":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"r":{}}},"svg:clipPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)","svg|text","svg|use","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"clipPathUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"]}}}},"svg:defs":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:desc":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:discard":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"begin":{"type":"<begin-value-list>"},"href":{"type":"URL"}}},"svg:ellipse":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{}}},"svg:feBlend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"mode":{"type":"<blend-mode>"}}},"svg:feColorMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"type":{"type":{"enum":["matrix","saturate","hueRotate","luminanceToAlpha"],"disallowToSurroundBySpaces":false}},"values":{"type":"<color-matrix>"}}},"svg:feComponentTransfer":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feFuncA","svg|feFuncR","svg|feFuncB","svg|feFuncG","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feComposite":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"k1":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k2":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k3":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k4":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"operator":{"type":{"enum":["over","in","out","atop","xor","lighter","arithmetic"],"disallowToSurroundBySpaces":false}}}},"svg:feConvolveMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"bias":{"type":"<number>"},"divisor":{"type":"<number>"},"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"kernelMatrix":{"type":"<list-of-numbers>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"order":{"type":"<number-optional-number>"},"preserveAlpha":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"targetX":{"type":"<integer>"},"targetY":{"type":"<integer>"}}},"svg:feDiffuseLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"diffuseConstant":{"type":"<number>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"surfaceScale":{"type":"<number>"}}},"svg:feDisplacementMap":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"scale":{"type":"<number>"},"xChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}},"yChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}}}},"svg:feDistantLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"azimuth":{"type":"<number>"},"elevation":{"type":"<number>"}}},"svg:feDropShadow":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feFlood":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"}}},"svg:feFuncA":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncB":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncG":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncR":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feGaussianBlur":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feImage":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"crossorigin":{"type":{"enum":["anonymous","use-credentials"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"xlink:href":{"type":"URL","deprecated":true}}},"svg:feMerge":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feMergeNode","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feMergeNode":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs"],"attributes":{}},"svg:feMorphology":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"operator":{"type":{"enum":["erode","dilate"],"disallowToSurroundBySpaces":false}},"radius":{"type":"<number-optional-number>"}}},"svg:feOffset":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"}}},"svg:fePointLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feSpecularLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"kernelUnitLength":{"type":"<number-optional-number>"},"specularConstant":{"type":"<number>"},"specularExponent":{"type":"<number>"},"surfaceScale":{"type":"<number>"}}},"svg:feSpotLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"limitingConeAngle":{"type":"<number>"},"pointsAtX":{"type":"<number>"},"pointsAtY":{"type":"<number>"},"pointsAtZ":{"type":"<number>"},"specularExponent":{"type":"<number>"},"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feTile":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feTurbulence":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"baseFrequency":{"type":"<number-optional-number>"},"numOctaves":{"type":"<integer>"},"seed":{"type":"<number>"},"stitchTiles":{"type":{"enum":["noStitch","stitch"]}},"type":{"type":{"enum":["fractalNoise","turbulence"]}}}},"svg:filter":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGFilterPrimitive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"filterRes":{"type":"<number-optional-number>","deprecated":true},"filterUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"height":{},"primitiveUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"width":{},"x":{},"y":{}}},"svg:foreignObject":{"categories":[],"contentModel":{"contents":true},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"width":{},"x":{},"y":{}}},"svg:g":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:image":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"img","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"sameStates":{"anonymous":[""]}}},"decoding":{},"fetchpriority":{"nonStandard":true,"experimental":true},"height":{},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:line":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"x1":{"type":["<svg-length>","<percentage>","<number>"]},"x2":{"type":["<svg-length>","<percentage>","<number>"]},"y1":{"type":["<svg-length>","<percentage>","<number>"]},"y2":{"type":["<svg-length>","<percentage>","<number>"]}}},"svg:linearGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"x1":{"type":["<svg-length>","<percentage>"]},"x2":{"type":["<svg-length>","<percentage>"]},"xlink:href":{"deprecated":true},"y1":{"type":["<svg-length>","<percentage>"]},"y2":{"type":["<svg-length>","<percentage>"]}}},"svg:marker":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"markerHeight":{"type":["<svg-length>","<percentage>","<number>"]},"markerUnits":{"type":{"enum":["userSpaceOnUse","strokeWidth"],"disallowToSurroundBySpaces":false}},"markerWidth":{"type":["<svg-length>","<percentage>","<number>"]},"orient":{"type":[{"enum":["auto","auto-start-reverse"],"disallowToSurroundBySpaces":false},"<angle>","<number>"]},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"refY":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"viewBox":{"type":"<view-box>"}}},"svg:mask":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)",":model(SVGStructural)",":model(SVGGradient)","svg|a","svg|altGlyphDef","svg|clipPath","svg|color-profile","svg|cursor","svg|filter","svg|font","svg|font-face","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|pattern","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"mask-type":{},"maskContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"maskUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"width":{},"x":{},"y":{}}},"svg:metadata":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:mpath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"href":{"type":"URL"}}},"svg:path":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"d":{},"pathLength":{"type":"<number>"}}},"svg:pattern":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"patternContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"patternTransform":{"type":"<transform-list>"},"patternUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:polygon":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:polyline":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:radialGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"fr":{"type":["<svg-length>","<percentage>"]},"fx":{"type":["<svg-length>","<percentage>"]},"fy":{"type":["<svg-length>","<percentage>"]},"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"r":{"type":["<svg-length>","<percentage>"]},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"xlink:href":{"deprecated":true}}},"svg:rect":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{},"width":{},"x":{},"y":{}}},"svg:script":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGNeverRendered)",":model(SVGStructurallyExternal)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#XLinkAttrs"],"attributes":{"async":{"type":"Boolean","experimental":true},"crossorigin":{"type":{"enum":["anonymous","use-credentials",""],"disallowToSurroundBySpaces":false}},"defer":{"type":"Boolean","experimental":true},"fetchpriority":{"nonStandard":true,"experimental":true},"href":{"type":"URL"},"type":{"type":"MIMEType"},"xlink:href":{"deprecated":true}}},"svg:set":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"to":{"type":"NoEmptyAny"}}},"svg:stop":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["svg:animate","svg|animateColor","svg|script","svg|set","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"offset":{"type":["<number>","<percentage>"]},"stop-color":{"type":"<color>"},"stop-opacity":{"type":"<'opacity'>"}}},"svg:style":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"media":{"type":"MediaQueryList"},"title":{"type":"Any"},"type":{"type":"MIMEType"}}},"svg:svg":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-document","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"baseProfile":{"type":"Any","deprecated":true},"contentScriptType":{"type":"Any","deprecated":true},"contentStyleType":{"type":"Any","deprecated":true},"height":{},"onunload":{"type":"FunctionBody"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"version":{"type":"Any","deprecated":true},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:switch":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGShape)","svg|a","svg|foreignObject","svg|g","svg|image","svg|svg","svg|switch","svg|text","svg|use"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"requiredExtensions":{},"systemLanguage":{}}},"svg:symbol":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<svg-length>","<percentage>","<number>",{"enum":["left","center","right"]}]},"refY":{"type":["<svg-length>","<percentage>","<number>",{"enum":["top","center","bottom"]}]},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:text":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGTextContentChild)","svg|a","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:textPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|clipPath","svg|marker","svg|mask","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"href":{"type":"URL"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"method":{"type":{"enum":["align","stretch"],"disallowToSurroundBySpaces":false}},"path":{"type":"<svg-path>","experimental":true},"side":{"type":{"enum":["left","right"],"disallowToSurroundBySpaces":false},"experimental":true},"spacing":{"type":{"enum":["auto","exact"],"disallowToSurroundBySpaces":false}},"startOffset":{"type":["<svg-length>","<percentage>"]},"textLength":{"type":["<svg-length>","<percentage>"]}}},"svg:title":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:tspan":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:use":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:view":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs"],"attributes":{"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"viewTarget":{"type":"Any","deprecated":true},"zoomAndPan":{"type":{"enum":["disable","magnify"]},"deprecated":true}}}},"contentModels":{"#metadata":["base","link","meta","noscript","script","style","template","title"],"#flow":["a","abbr","address","area","article","aside","audio","b","bdi","bdo","blockquote","br","button","canvas","cite","code","data","datalist","del","details","dfn","dialog","div","dl","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","hr","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","main","map","mark","math","menu","meta[itemprop]","meter","nav","noscript","object","ol","output","p","picture","pre","progress","q","ruby","s","samp","script","search","section","select","slot","small","span","strong","sub","sup","svg|svg","table","template","textarea","time","u","ul","var","video","wbr","#custom","#text"],"#sectioning":["article","aside","nav","section"],"#heading":["h1","h2","h3","h4","h5","h6","hgroup:has(h1,h2,h3,h4,h5,h6)"],"#phrasing":["a","abbr","area","audio","b","bdi","bdo","br","button","canvas","cite","code","data","datalist","del","dfn","em","embed","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","map","mark","math","meta[itemprop]","meter","noscript","object","output","picture","progress","q","ruby","s","samp","script","select","slot","small","span","strong","sub","sup","svg|svg","template","textarea","time","u","var","video","wbr","#custom","#text"],"#embedded":["audio","canvas","embed","iframe","img","math","object","picture","svg|svg","video"],"#interactive":["a[href]","audio[controls]","button","details","embed","iframe","img[usemap]","input:not([type='hidden' i])","label","select","textarea","video[controls]"],"#palpable":["a","abbr","address","article","aside","audio[controls]","b","bdi","bdo","blockquote","button","canvas","cite","code","data","del","details","dfn","div","dl:has(>:is(dt+dd))","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","i","iframe","img","input:not([type='hidden' i])","ins","kbd","label","main","map","mark","math","menu:has(>li)","meter","nav","object","ol:has(>li)","output","p","picture","pre","progress","q","ruby","s","samp","search","section","select","small","span","strong","sub","sup ","svg","table","textarea","time","u","ul:has(>li)","var","video","#custom","#text"],"#script-supporting":["script","template"],"#SVGAnimation":["svg|animate","svg|animateColor","svg|animateMotion","svg|animateTransform","svg|discard","svg|mpath","svg|set"],"#SVGBasicShapes":["svg|circle","svg|ellipse","svg|line","svg|polygon","svg|polyline","svg|rect"],"#SVGContainer":["svg|a","svg|defs","svg|g","svg|marker","svg|mask","svg|missing-glyph","svg|pattern","svg|svg","svg|switch","svg|symbol"],"#SVGDescriptive":["svg|desc","svg|metadata","svg|title"],"#SVGFilterPrimitive":["svg|feBlend","svg|feColorMatrix","svg|feComponentTransfer","svg|feComposite","svg|feConvolveMatrix","svg|feDiffuseLighting","svg|feDisplacementMap","svg|feDropShadow","svg|feFlood","svg|feFuncA","svg|feFuncB","svg|feFuncG","svg|feFuncR","svg|feGaussianBlur","svg|feImage","svg|feMerge","svg|feMergeNode","svg|feMorphology","svg|feOffset","svg|feSpecularLighting","svg|feTile","svg|feTurbulence"],"#SVGFont":["svg|font","svg|font-face","svg|font-face-format","svg|font-face-name","svg|font-face-src","svg|font-face-uri","svg|hkern","svg|vkern"],"#SVGGradient":["svg|linearGradient","svg|radialGradient","svg|stop"],"#SVGGraphics":["svg|circle","svg|ellipse","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|text","svg|use"],"#SVGGraphicsReferencing":["svg|use"],"#SVGLightSource":["svg|feDistantLight","svg|fePointLight","svg|feSpotLight"],"#SVGNeverRendered":["svg|clipPath","svg|defs","svg|linearGradient","svg|marker","svg|mask","svg|metadata","svg|pattern","svg|radialGradient","svg|script","svg|style","svg|symbol","svg|title"],"#SVGPaintServer":["svg|linearGradient","svg|pattern","svg|radialGradient","svg|solidcolor"],"#SVGRenderable":["svg|a","svg|circle","svg|ellipse","svg|foreignObject","svg|g","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|svg","svg|switch","svg|symbol","svg|text","svg|textPath","svg|tspan","svg|unknown","svg|use"],"#SVGShape":["svg|circle","svg|ellipse","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect"],"#SVGStructural":["svg|defs","svg|g","svg|svg","svg|symbol","svg|use"],"#SVGStructurallyExternal":[],"#SVGTextContent":["svg|altGlyph","svg|altGlyphDef","svg|altGlyphItem","svg|glyph","svg|glyphRef","svg|textPath","svg|text","svg|tref","svg|tspan"],"#SVGTextContentChild":["svg|altGlyph","svg|textPath","svg|tref","svg|tspan"],"#MathMLPresentation":["mml|merror","mml|mfrac","mml|mi","mml|mmultiscripts","mml|mn","mml|mo","mml|mover","mml|mpadded","mml|mphantom","mml|mroot","mml|mrow","mml|ms","mml|mspace","mml|msqrt","mml|mstyle","mml|msub","mml|msup","mml|msubsup","mml|mtable","mml|mtext","mml|munder","mml|munderover","mml|maction","mml|menclose","mml|mfenced"],"#MathMLScript":["mml|msub","mml|msup","mml|msubsup","mml|mmultiscripts"],"#MathMLTabular":["mml|mtable","mml|mtr","mml|mtd"]},"globalAttrs":{"#HTMLGlobalAttrs":{"accesskey":{"type":{"token":"OneCodePointChar","ordered":true,"unique":true,"number":"zeroOrMore","separator":"space"}},"autocapitalize":{"type":{"enum":["off","on","none","sentences","words","characters"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"sentences","missingValueDefault":"default","sameStates":{"none":["off"],"sentences":["on"]}}},"autocorrect":{"type":{"enum":["","on","off"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"on","missingValueDefault":"on","sameStates":{"on":[""]}}},"autofocus":{"type":"Boolean"},"contenteditable":{"type":{"enum":["","true","false","plaintext-only"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"true":[""]}}},"dir":{"type":{"enum":["ltr","rtl","auto"]}},"draggable":{"type":{"enum":["true","false"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"enterkeyhint":{"type":{"enum":["enter","done","go","next","previous","search","send"]}},"focusgroup":{"type":{"token":{"enum":["toolbar","tablist","radiogroup","listbox","menu","menubar","none","inline","block","wrap","nowrap","nomemory"]},"separator":"space","unique":true,"caseInsensitive":true},"experimental":true},"focusgroupstart":{"type":"Boolean","experimental":true},"headingoffset":{"type":{"type":"integer","gte":0,"lte":8}},"headingreset":{"type":"Boolean"},"hidden":{"type":{"enum":["","hidden","until-found"]}},"inert":{"type":"Boolean"},"inputmode":{"type":{"enum":["none","text","tel","url","email","numeric","decimal","search"]}},"is":{"type":"CustomElementName"},"itemid":{"type":"URL","condition":"[itemscope][itemtype]"},"itemprop":{"type":{"token":"ItemProp","ordered":false,"unique":true,"separator":"space"}},"itemref":{"type":{"token":"DOMID","unique":true,"separator":"space"},"condition":"[itemscope]"},"itemscope":{"type":"Boolean"},"itemtype":{"type":{"token":"AbsoluteURL","ordered":false,"unique":true,"allowEmpty":false,"separator":"space"},"condition":"[itemscope]"},"lang":{"type":"BCP47"},"nonce":{"type":"Any"},"popover":{"type":{"enum":["","auto","manual","hint"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"manual","missingValueDefault":"no popover","sameStates":{"auto":[""]}}},"spellcheck":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"style":{"type":"<css-declaration-list>"},"tabindex":{"type":"TabIndex"},"title":{"type":"Any"},"translate":{"type":{"enum":["","yes","no"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"yes":[""]}}},"writingsuggestions":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"class":{"type":"Any"},"id":{"type":"DOMID"},"slot":{"type":"NoEmptyAny"},"xmlns":{"type":"URL","ineffective":"*"},"xml:lang":{"type":"BCP47","deprecated":true},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"elementtiming":{"type":"NoEmptyAny","experimental":true}},"#GlobalEventAttrs":{"onabort":{"type":"FunctionBody"},"onauxclick":{"type":"FunctionBody"},"onbeforeinput":{"type":"FunctionBody"},"onbeforematch":{"type":"FunctionBody"},"onbeforetoggle":{"type":"FunctionBody"},"onblur":{"type":"FunctionBody"},"oncancel":{"type":"FunctionBody"},"oncanplay":{"type":"FunctionBody"},"oncanplaythrough":{"type":"FunctionBody"},"onchange":{"type":"FunctionBody"},"onclick":{"type":"FunctionBody"},"onclose":{"type":"FunctionBody"},"oncommand":{"type":"FunctionBody"},"oncontextlost":{"type":"FunctionBody"},"oncompositionstart":{"type":"FunctionBody"},"oncompositionupdate":{"type":"FunctionBody"},"oncompositionend":{"type":"FunctionBody"},"oncontextmenu":{"type":"FunctionBody"},"oncontextrestored":{"type":"FunctionBody"},"oncopy":{"type":"FunctionBody"},"oncuechange":{"type":"FunctionBody"},"oncut":{"type":"FunctionBody"},"ondblclick":{"type":"FunctionBody"},"ondrag":{"type":"FunctionBody"},"ondragend":{"type":"FunctionBody"},"ondragenter":{"type":"FunctionBody"},"ondragleave":{"type":"FunctionBody"},"ondragover":{"type":"FunctionBody"},"ondragstart":{"type":"FunctionBody"},"ondrop":{"type":"FunctionBody"},"ondurationchange":{"type":"FunctionBody"},"onemptied":{"type":"FunctionBody"},"onended":{"type":"FunctionBody"},"onerror":{"type":"FunctionBody"},"onfocus":{"type":"FunctionBody"},"onformdata":{"type":"FunctionBody"},"onfocusin":{"type":"FunctionBody"},"onfocusout":{"type":"FunctionBody"},"oninput":{"type":"FunctionBody"},"oninvalid":{"type":"FunctionBody"},"onkeydown":{"type":"FunctionBody"},"onkeypress":{"type":"FunctionBody"},"onkeyup":{"type":"FunctionBody"},"onload":{"type":"FunctionBody"},"onloadeddata":{"type":"FunctionBody"},"onloadedmetadata":{"type":"FunctionBody"},"onloadstart":{"type":"FunctionBody"},"onmousedown":{"type":"FunctionBody"},"onmouseenter":{"type":"FunctionBody"},"onmouseleave":{"type":"FunctionBody"},"onmousemove":{"type":"FunctionBody"},"onmouseout":{"type":"FunctionBody"},"onmouseover":{"type":"FunctionBody"},"onmouseup":{"type":"FunctionBody"},"onpaste":{"type":"FunctionBody"},"onpause":{"type":"FunctionBody"},"onplay":{"type":"FunctionBody"},"onplaying":{"type":"FunctionBody"},"onprogress":{"type":"FunctionBody"},"onratechange":{"type":"FunctionBody"},"onreset":{"type":"FunctionBody"},"onresize":{"type":"FunctionBody"},"onscroll":{"type":"FunctionBody"},"onscrollend":{"type":"FunctionBody"},"onsecuritypolicyviolation":{"type":"FunctionBody"},"onseeked":{"type":"FunctionBody"},"onseeking":{"type":"FunctionBody"},"onselect":{"type":"FunctionBody"},"onslotchange":{"type":"FunctionBody"},"onstalled":{"type":"FunctionBody"},"onsubmit":{"type":"FunctionBody"},"onsuspend":{"type":"FunctionBody"},"ontimeupdate":{"type":"FunctionBody"},"ontoggle":{"type":"FunctionBody"},"onvolumechange":{"type":"FunctionBody"},"onwaiting":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"onwheel":{"type":"FunctionBody"},"onanimationstart":{"type":"FunctionBody"},"onanimationiteration":{"type":"FunctionBody"},"onanimationend":{"type":"FunctionBody"},"onanimationcancel":{"type":"FunctionBody"},"ontransitionrun":{"type":"FunctionBody"},"ontransitionstart":{"type":"FunctionBody"},"ontransitionend":{"type":"FunctionBody"},"ontransitioncancel":{"type":"FunctionBody"},"onwebkitanimationend":{"type":"FunctionBody","deprecated":true},"onwebkitanimationiteration":{"type":"FunctionBody","deprecated":true},"onwebkitanimationstart":{"type":"FunctionBody","deprecated":true},"onwebkittransitionend":{"type":"FunctionBody","deprecated":true},"ontouchstart":{"type":"FunctionBody"},"ontouchend":{"type":"FunctionBody"},"ontouchmove":{"type":"FunctionBody"},"ontouchcancel":{"type":"FunctionBody"}},"#HTMLLinkAndFetchingAttrs":{"href":{"type":"URL"},"target":{"type":"NavigableTargetNameOrKeyword","condition":"[href]"},"download":{"type":"Any","condition":"[href]"},"ping":{"type":{"token":"HTTPSchemaURL","separator":"space"},"condition":"[href]"},"rel":{"type":"LinkTypeForAnchorAndAreaElement","condition":"[href]"},"hreflang":{"type":"BCP47","condition":"[href]"},"type":{"type":"MIMEType","condition":"[href]"},"referrerpolicy":{"type":{"enum":["","no-referrer","no-referrer-when-downgrade","same-origin","origin","strict-origin","origin-when-cross-origin","strict-origin-when-cross-origin","unsafe-url"]},"condition":"[href], [src]"},"loading":{"type":{"enum":["lazy","eager"],"invalidValueDefault":"eager","missingValueDefault":"eager"}},"integrity":{"type":"SRIHash"},"media":{"type":"MediaQueryList"},"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"invalidValueDefault":"anonymous","missingValueDefault":"No CORS","sameStates":{"anonymous":[""]}}},"fetchpriority":{"type":{"enum":["high","low","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}}},"#HTMLEmbededAndMediaContentAttrs":{"src":{"type":"NonEmptyURL"},"preload":{"type":{"enum":["none","metadata","auto"],"invalidValueDefault":"implementation-defined","missingValueDefault":"implementation-defined"}},"autoplay":{"type":"Boolean"},"loop":{"type":"Boolean"},"muted":{"type":"Boolean"},"controls":{"type":"Boolean"},"height":{"type":"Uint"},"srcset":{"type":"Srcset"},"sizes":{"type":"SourceSizeList"},"width":{"type":"Uint"}},"#HTMLFormControlElementAttrs":{"autocomplete":{"type":"AutoComplete"},"dirname":{"type":"NoEmptyAny"},"disabled":{"type":"Boolean"},"form":{"type":"DOMID"},"formaction":{"type":"NonEmptyURL"},"formenctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded"}},"formmethod":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get"}},"formnovalidate":{"type":"Boolean"},"formtarget":{"type":"NavigableTargetNameOrKeyword"},"name":{"type":"NoEmptyAny"},"maxlength":{"type":"Uint"},"minlength":{"type":"Uint"},"readonly":{"type":"Boolean"},"required":{"type":"Boolean"}},"#HTMLTableCellElementAttrs":{"colspan":{"type":{"type":"integer","gt":0,"lte":1000}},"rowspan":{"type":{"type":"integer","gt":0,"lte":65534}},"headers":{"type":{"token":"DOMID","ordered":false,"unique":true,"separator":"space"}}},"#ARIAAttrs":{"role":{"type":{"token":"NoEmptyAny","separator":"space"}}},"#SVGAnimationAdditionAttrs":{"additive":{"type":{"enum":["replace","sum"]}},"accumulate":{"type":{"enum":["none","sum"]}}},"#SVGAnimationAttributeTargetAttrs":{"attributeName":{"type":"XMLName"},"attributeType":{"type":{"enum":["CSS","XML","auto"]},"noUse":true}},"#SVGAnimationEventAttrs":{"onbegin":{"type":"FunctionBody"},"onend":{"type":"FunctionBody"},"onrepeat":{"type":"FunctionBody"}},"#SVGAnimationTargetElementAttrs":{"href":{"type":"URL"},"xlink:href":{"type":"URL","deprecated":true}},"#SVGAnimationTimingAttrs":{"begin":{"type":"<begin-value-list>"},"dur":{"type":["<clock-value>",{"enum":["media","indefinite"]}]},"end":{"type":"<end-value-list>"},"min":{"type":"<clock-value>"},"max":{"type":"<clock-value>"},"restart":{"type":{"enum":["always","whenNotActive","never"]}},"repeatCount":{"type":["<number>",{"enum":["indefinite"]}]},"repeatDur":{"type":["<clock-value>",{"enum":["indefinite"]}]},"fill":{"type":{"enum":["freeze","remove"]}}},"#SVGAnimationValueAttrs":{"calcMode":{"type":{"enum":["discrete","linear","paced","spline"]}},"values":{"type":"<list-of-value>"},"keyTimes":{"type":"<key-times>"},"keySplines":{"type":"<key-splines>"},"from":{"type":"<animatable-value>"},"to":{"type":"<animatable-value>"},"by":{"type":"<animatable-value>"},"accelerate":{"type":"<number-zero-one>"},"decelerate":{"type":"<number-zero-one>"},"autoReverse":{"type":{"enum":["true","false"]}},"speed":{"type":"<number>"}},"#SVGConditionalProcessingAttrs":{"requiredExtensions":{"type":{"token":"URL","unique":true,"separator":"space"}},"systemLanguage":{"type":{"token":"BCP47","unique":true,"separator":"comma"}},"requiredFeatures":{"type":"<list-of-svg-feature-string>","deprecated":true}},"#SVGCoreAttrs":{"id":{"type":"DOMID"},"tabindex":{"type":"TabIndex"},"autofocus":{"type":"Boolean"},"lang":{"type":"BCP47"},"class":{"type":"Any"},"style":{"type":"<css-declaration-list>"},"xmlns":{"type":"URL","ineffective":":not(:root)"},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"xml:lang":{"type":"BCP47","deprecated":true},"xml:base":{"type":"URL","deprecated":true}},"#SVGFilterPrimitiveAttrs":{"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"width":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<percentage>"]},"result":{"type":"<custom-ident>"},"in":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]}},"#SVGPresentationAttrs":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<'height'>"]},"width":{"type":["<svg-length>","<'width'>"]},"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"r":{"type":["<svg-length>","<percentage>"]},"rx":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"ry":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"d":{"type":"<svg-path>"},"transform":{"type":"<'transform'>"},"transform-origin":{"type":"<'transform-origin'>"},"patternTransform":{"type":"<transform-list>"},"gradientTransform":{"type":"<transform-list>"},"alignment-baseline":{"type":"<'alignment-baseline'>"},"baseline-shift":{"type":"<'baseline-shift'>"},"clip-path":{"type":"<'clip-path'>"},"clip-rule":{"type":"<'clip-rule'>"},"color":{"type":"<color>"},"color-interpolation":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"color-interpolation-filters":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"cursor":{"type":"<'cursor'>"},"direction":{"type":"<'direction'>"},"display":{"type":"<'display'>"},"dominant-baseline":{"type":"<'dominant-baseline'>"},"fill":{"type":"<'fill'>"},"fill-opacity":{"type":"<'fill-opacity'>"},"fill-rule":{"type":"<'fill-rule'>"},"filter":{"type":"<'filter'>"},"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"},"font":{"type":"<'font'>"},"font-family":{"type":"<'font-family'>"},"font-size":{"type":"<svg-font-size>"},"font-size-adjust":{"type":"<svg-font-size-adjust>"},"font-stretch":{"type":"<'font-stretch'>"},"font-style":{"type":"<'font-style'>"},"font-variant":{"type":"<'font-variant'>"},"font-weight":{"type":"<'font-weight'>"},"glyph-orientation-horizontal":{"type":"<'glyph-orientation-horizontal'>","deprecated":true},"glyph-orientation-vertical":{"type":"<'glyph-orientation-vertical'>","deprecated":true},"image-rendering":{"type":"<'image-rendering'>"},"isolation":{"type":"<'isolation'>"},"letter-spacing":{"type":"<'letter-spacing'>"},"lighting-color":{"type":"<color>"},"marker":{"type":"<'marker'>"},"marker-end":{"type":"<'marker-end'>"},"marker-mid":{"type":"<'marker-mid'>"},"marker-start":{"type":"<'marker-start'>"},"mask":{"type":"<'mask'>"},"mask-type":{"type":"<'mask-type'>"},"opacity":{"type":"<alpha-value>"},"overflow":{"type":"<'overflow'>"},"paint-order":{"type":"<'paint-order'>"},"pointer-events":{"type":"<'pointer-events'>"},"shape-rendering":{"type":"<'shape-rendering'>"},"stop-color":{"type":"<'color'>"},"stop-opacity":{"type":"<'opacity'>"},"stroke":{"type":"<'stroke'>"},"stroke-dasharray":{"type":"<'stroke-dasharray'>"},"stroke-dashoffset":{"type":"<'stroke-dashoffset'>"},"stroke-linecap":{"type":"<'stroke-linecap'>"},"stroke-linejoin":{"type":"<'stroke-linejoin'>"},"stroke-miterlimit":{"type":"<'stroke-miterlimit'>"},"stroke-opacity":{"type":"<'stroke-opacity'>"},"stroke-width":{"type":"<'stroke-width'>"},"text-anchor":{"type":"<'text-anchor'>"},"text-decoration":{"type":"<'text-decoration'>"},"text-overflow":{"type":"<'text-overflow'>"},"text-rendering":{"type":"<'text-rendering'>"},"unicode-bidi":{"type":"<'unicode-bidi'>"},"vector-effect":{"type":{"enum":["none","non-scaling-stroke","non-scaling-size","non-rotation","fixed-position"]}},"visibility":{"type":"<'visibility'>"},"white-space":{"type":"<'white-space'>"},"word-spacing":{"type":"<'word-spacing'>"},"writing-mode":{"type":"<'writing-mode'>"},"clip":{"type":"<'clip'>","deprecated":true},"color-profile":{"type":"<'color-profile'>","deprecated":true},"color-rendering":{"type":"<'color-rendering'>","deprecated":true},"enable-background":{"type":"<'enable-background'>","deprecated":true},"kerning":{"type":"<'kerning'>","deprecated":true}},"#SVGTransferFunctionAttrs":{"type":{"type":{"enum":["identity","table","discrete","linear","gamma"]}},"tableValues":{"type":"<list-of-numbers>"},"slope":{"type":"<number>"},"intercept":{"type":"<number>"},"amplitude":{"type":"<number>"},"exponent":{"type":"<number>"},"offset":{"type":"<number>"}},"#MathMLGlobalAttrs":{"autofocus":{"type":"Boolean"},"class":{"type":"Any"},"data-*":{"type":"Any"},"dir":{"type":{"enum":["ltr","rtl"]}},"displaystyle":{"type":{"enum":["true","false"]}},"id":{"type":"DOMID"},"mathbackground":{"type":"<color>","deprecated":true},"mathcolor":{"type":"<color>","deprecated":true},"mathsize":{"type":"<length-percentage>","deprecated":true},"nonce":{"type":"Any"},"scriptlevel":{"type":"Any"},"style":{"type":"<css-declaration-list>"},"tabindex":{"type":"TabIndex"}},"#XLinkAttrs":{"xlink:href":{"type":"URL","deprecated":true},"xlink:title":{"type":"Any","deprecated":true},"xlink:type":{"type":{"enum":["simple"]},"deprecated":true},"xlink:role":{"type":"Any","deprecated":true},"xlink:arcrole":{"type":"URL","deprecated":true},"xlink:show":{"type":{"enum":["new","replace","embed","other","none"]},"deprecated":true},"xlink:actuate":{"type":"Any","deprecated":true}}},"aria":{"roles":{"alert":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"alertdialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"application":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"article":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"banner":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"blockquote":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"button":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-pressed"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"caption":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"cell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"}],"prohibitedProperties":[]},"checkbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"code":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"columnheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"combobox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"command":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"comment":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"complementary":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"composite":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"contentinfo":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"definition":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"deletion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"dialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"directory":{"deprecated":true,"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"emphasis":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"feed":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"figure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"form":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"generic":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"}],"prohibitedProperties":["aria-braillelabel","aria-brailleroledescription","aria-label","aria-labelledby","aria-roledescription"]},"grid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"gridcell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"}],"prohibitedProperties":[]},"group":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"heading":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"image":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"img":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"input":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"insertion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"landmark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"link":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"list":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"log":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"main":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"mark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"marquee":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"math":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menu":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menubar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menuitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemcheckbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemradio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"meter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"navigation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"none":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"note":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"option":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"paragraph":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"presentation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"progressbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"radio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"radiogroup":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"range":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"region":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"roletype":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"row":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"rowgroup":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"rowheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"scrollbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"search":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"searchbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"section":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionfooter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionhead":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"select":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"separator":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"slider":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"spinbutton":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"status":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"strong":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"structure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"subscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"suggestion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"superscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"switch":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tab":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"table":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"tablist":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tabpanel":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"term":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"textbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"time":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"timer":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"toolbar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tooltip":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"tree":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"treegrid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"treeitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"widget":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"window":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-object":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-symbol":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]}},"deprecatedProps":["aria-dropeffect","aria-grabbed"]}}`);
+var HTML_SPEC = JSON.parse(`{"elements":{"a":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), a, [tabindex], :has(:model(interactive), a, [tabindex]))"}]},"aria":{"implicitRole":"link","permittedRoles":["button","checkbox","menuitem","menuitemcheckbox","menuitemradio","option","radio","switch","tab","treeitem"],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"attributionsrc":{"deprecated":true,"nonStandard":true},"charset":{"deprecated":true},"coords":{"deprecated":true},"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{"deprecated":true},"ping":{},"referrerpolicy":{},"rel":{},"rev":{"deprecated":true},"shape":{"deprecated":true},"target":{},"type":{}}},"abbr":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"acronym":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"address":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(address, :model(heading), :model(sectioning), header, foooter, :has(address, :model(heading), :model(sectioning), header, foooter))"}],"forbiddenAncestors":["address"]},"aria":{"implicitRole":"group","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"applet":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"area":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false,"descendantOf":"map"},"aria":{"implicitRole":"link","permittedRoles":[],"conditions":{":not([href])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"alt":{"type":"Any","required":true,"condition":"[href]"},"coords":{"type":{"token":"Number","disallowToSurroundBySpaces":true,"separator":"comma"}},"download":{},"href":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{},"referrerpolicy":{},"rel":{},"shape":{"type":{"enum":["rect","circle","poly","default"],"missingValueDefault":"rect","invalidValueDefault":"rect"}},"target":{}}},"article":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"article","permittedRoles":["application","document","feed","main","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"aside":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"complementary","permittedRoles":["feed","none","note","presentation","region","search"],"conditions":{":is(article, aside, nav, section, blockquote, details, dialog, fieldset, figure, td) *":{"implicitRole":"generic","namingProhibited":true},":is(article, aside, nav, section, blockquote, details, dialog, fieldset, figure, td) *:aria(has name)":{"implicitRole":"complementary"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"audio":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{},"crossorigin":{},"disableremoteplayback":{},"loading":{"experimental":false},"loop":{},"muted":{},"preload":{},"src":{}}},"b":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"base":{"categories":["#metadata"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"href":{"type":"BaseURL","requiredEither":["target"]},"target":{"requiredEither":["href"]}}},"basefont":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"bdi":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"bdo":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"dir":{"type":{"enum":["ltr","rtl"]},"required":true}}},"bgsound":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"big":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blink":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"blockquote":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"blockquote","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"body":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"generic","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"alink":{"deprecated":true},"background":{"deprecated":true},"bgcolor":{"deprecated":true},"bottommargin":{"deprecated":true},"leftmargin":{"deprecated":true},"link":{"deprecated":true},"onafterprint":{"type":"FunctionBody"},"onbeforeprint":{"type":"FunctionBody"},"onbeforeunload":{"type":"FunctionBody"},"onhashchange":{"type":"FunctionBody"},"onlanguagechange":{"type":"FunctionBody"},"onmessage":{"type":"FunctionBody"},"onmessageerror":{"type":"FunctionBody"},"onoffline":{"type":"FunctionBody"},"ononline":{"type":"FunctionBody"},"onpagehide":{"type":"FunctionBody"},"onpagereveal":{"type":"FunctionBody"},"onpageshow":{"type":"FunctionBody"},"onpageswap":{"type":"FunctionBody"},"onpopstate":{"type":"FunctionBody"},"onrejectionhandled":{"type":"FunctionBody"},"onstorage":{"type":"FunctionBody"},"onunhandledrejection":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"rightmargin":{"deprecated":true},"text":{"deprecated":true},"topmargin":{"deprecated":true},"vlink":{"deprecated":true}}},"br":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"clear":{"deprecated":true}}},"button":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"implicitRole":"button","permittedRoles":["checkbox","combobox","gridcell","link","menuitem","menuitemcheckbox","menuitemradio","option","radio","separator","slider","switch","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autofocus":{},"command":{"type":[{"enum":["toggle-popover","show-popover","hide-popover","close","request-close","show-modal"],"invalidValueDefault":"unknown","missingValueDefault":"unknown"},"ValidCustomCommand"]},"commandfor":{"type":"DOMID"},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"name":{},"popovertarget":{"type":"DOMID"},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"}},"type":{"type":{"enum":["submit","reset","button"],"invalidValueDefault":"submit","missingValueDefault":"submit"}},"value":{"type":"Any"}}},"canvas":{"categories":["#flow","#phrasing","#embedded","#palpable"],"contentModel":{"contents":[{"transparent":":not(:model(interactive), :has(:model(interactive)))"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"moz-opaque":{"deprecated":true,"nonStandard":true},"width":{}}},"caption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"caption","permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true}}},"center":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"cite":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"code":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"code","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"col":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"colgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"col"}],"conditional":[{"condition":"[span]","contents":false}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"span":{"type":{"type":"integer","gt":0,"lte":1000,"clampable":true}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"data":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"value":{"type":"Any","required":true}}},"datalist":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"zeroOrMore":["option",":model(script-supporting)"]}]]}]},"aria":{"implicitRole":"listbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dd":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"del":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateStringWithOptionalTime"}}},"details":{"categories":["#flow","#interactive","#palpable"],"contentModel":{"contents":[{"require":"summary"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"},"open":{"type":"Boolean"}}},"dfn":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(dfn, :has(dfn))"}]},"aria":{"implicitRole":"term","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dialog":{"categories":["#flow"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"dialog","permittedRoles":["alertdialog"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"closedby":{"type":{"enum":["any","closerequest","none"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"open":{"type":"Boolean"},"tabindex":{"noUse":true}}},"dir":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"compact":{"deprecated":true,"nonStandard":true}}},"div":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}],"conditional":[{"condition":"dl > div","contents":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"dl":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dt"},{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"dd"},{"zeroOrMore":":model(script-supporting)"}]}],[{"zeroOrMore":":model(script-supporting)"},{"oneOrMore":"div"},{"zeroOrMore":":model(script-supporting)"}]]}]},"aria":{"permittedRoles":["group","list","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"dt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":["listitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"em":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"emphasis","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"embed":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{},"src":{"type":"NonEmptyURL","required":"[itemprop]"},"type":{"type":"MIMEType"},"width":{}}},"fieldset":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"optional":"legend"},{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"group","permittedRoles":["radiogroup","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"form":{},"name":{}}},"figcaption":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["group","none","presentation"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"figure":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"choice":[[{"require":"figcaption"},{"oneOrMore":":model(flow)"}],[{"oneOrMore":":model(flow)"},{"require":"figcaption"}],[{"oneOrMore":":model(flow)"}]]}]},"aria":{"implicitRole":"figure","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"font":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"color":{"deprecated":true,"nonStandard":true},"face":{"deprecated":true,"nonStandard":true},"size":{"deprecated":true,"nonStandard":true}}},"footer":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}],"forbiddenAncestors":["header","footer"]},"aria":{"implicitRole":"contentinfo","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"form":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(form, :has(form))"}]},"aria":{"permittedRoles":["search","none","presentation"],"conditions":{":aria(has name)":{"implicitRole":"form"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"deprecated":true},"accept-charset":{"type":{"enum":["utf-8"],"caseInsensitive":true}},"action":{"type":"NonEmptyURL"},"autocapitalize":{},"autocomplete":{"type":{"enum":["on","off"],"invalidValueDefault":"on","missingValueDefault":"on"}},"enctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded","missingValueDefault":"application/x-www-form-urlencoded"}},"method":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get","missingValueDefault":"get"}},"name":{"type":"NoEmptyAny"},"novalidate":{"type":"Boolean"},"rel":{"type":"LinkTypeForFormElement"},"target":{"type":"NavigableTargetNameOrKeyword"}}},"frame":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"frameborder":{"deprecated":true,"nonStandard":true},"marginheight":{"deprecated":true,"nonStandard":true},"marginwidth":{"deprecated":true,"nonStandard":true},"name":{"deprecated":true,"nonStandard":true},"noresize":{"deprecated":true,"nonStandard":true},"scrolling":{"deprecated":true,"nonStandard":true},"src":{"deprecated":true,"nonStandard":true}}},"frameset":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"cols":{"deprecated":true,"nonStandard":true},"rows":{"deprecated":true,"nonStandard":true}}},"h1":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h2":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h3":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h4":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h5":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"h6":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"heading","permittedRoles":["tab","presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"head":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":":model(metadata):not(title)"},{"require":"title"},{"zeroOrMore":":model(metadata):not(title)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"profile":{"deprecated":true}}},"header":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :has(header, footer))"}],"forbiddenAncestors":["header","footer"]},"aria":{"implicitRole":"banner","permittedRoles":["group","presentation","none"],"conditions":{":has(article, aside, main, nav, section, [role=article], [role=complementary], [role=main], [role=navigation], [role=region])":{"implicitRole":"generic","namingProhibited":true}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hgroup":{"categories":["#flow","#heading","#palpable"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"},{"require":["h1","h2","h3","h4","h5","h6"]},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"p"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"hr":{"categories":["#flow"],"contentModel":{"contents":false},"aria":{"implicitRole":"separator","permittedRoles":["presentation","none"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true,"nonStandard":true},"color":{"deprecated":true,"nonStandard":true},"noshade":{"deprecated":true,"nonStandard":true},"size":{"deprecated":true,"nonStandard":true},"width":{"deprecated":true,"nonStandard":true}}},"html":{"categories":[],"contentModel":{"contents":[{"require":"head"},{"require":"body"}]},"aria":{"implicitRole":"generic","permittedRoles":["document","generic"],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"version":{"deprecated":true},"xmlns":{"nonStandard":true}}},"i":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"iframe":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"permittedRoles":["application","document","img","none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"allow":{"type":"SerializedPermissionsPolicy"},"allowfullscreen":{"type":"Boolean"},"allowpaymentrequest":{"deprecated":true,"nonStandard":true},"browsingtopics":{"deprecated":true,"nonStandard":true},"credentialless":{"experimental":true},"csp":{"experimental":true},"frameborder":{"deprecated":true},"height":{},"loading":{},"longdesc":{"deprecated":true},"marginheight":{"deprecated":true},"marginwidth":{"deprecated":true},"name":{"type":"NavigableTargetName"},"privateToken":{"type":"Any","experimental":true},"referrerpolicy":{},"sandbox":{"type":{"token":{"enum":["allow-forms","allow-modals","allow-orientation-lock","allow-pointer-lock","allow-popups","allow-popups-to-escape-sandbox","allow-presentation","allow-same-origin","allow-scripts","allow-top-navigation","allow-top-navigation-by-user-activation","allow-downloads","allow-custom-protocols-navigation"]},"caseInsensitive":true,"ordered":true,"unique":true,"separator":"space"}},"scrolling":{"deprecated":true},"src":{"required":"[itemprop]","ineffective":"[srcdoc]"},"srcdoc":{"type":"Any"},"width":{}}},"img":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"img","permittedRoles":["button","checkbox","link","math","menuitem","menuitemcheckbox","menuitemradio","meter","option","progressbar","radio","scrollbar","separator","slider","switch","tab","treeitem"],"conditions":{"[alt=\\"\\"]":{"implicitRole":"presentation"},":not([alt]):aria(has no name)":{"implicitRole":"img"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"align":{"deprecated":true},"alt":{"type":"Any"},"attributionsrc":{"deprecated":true,"nonStandard":true},"border":{"deprecated":true},"crossorigin":{},"decoding":{"type":{"enum":["sync","async","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"elementtiming":{},"fetchpriority":{},"height":{},"hspace":{"deprecated":true},"ismap":{"type":"Boolean","condition":"a[href] img"},"loading":{},"longdesc":{"deprecated":true},"name":{"deprecated":true},"referrerpolicy":{},"sizes":{"type":"SourceSizeList","condition":"[srcset]"},"src":{"type":"NonEmptyURL","requiredEither":["srcset"]},"srcset":{"type":"Srcset","requiredEither":["src"]},"usemap":{"type":"HashName","condition":":is(:not(a):not(button)) img"},"vspace":{"deprecated":true},"width":{}}},"input":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":false},"aria":{"implicitRole":"textbox","permittedRoles":["combobox","searchbox","spinbutton"],"conditions":{"[type='button' i]":{"implicitRole":"button"},"[type='checkbox' i]":{"implicitRole":"checkbox"},"[type='checkbox' i][aria-pressed]":{"implicitRole":"checkbox"},"[type='color' i]":{"implicitRole":false},"[type='date' i]":{"implicitRole":false},"[type='email' i]:not([list])":{"implicitRole":"textbox"},"[type='file' i]":{"implicitRole":false},"[type='hidden' i]":{"implicitRole":false},"[type='image' i]":{"implicitRole":"button"},"[type='month' i]":{"implicitRole":false},"[type='number' i]":{"implicitRole":"spinbutton"},"[type='password' i]":{"implicitRole":false},"[type='radio' i]":{"implicitRole":"radio"},"[type='range' i]":{"implicitRole":"slider"},"[type='reset' i]":{"implicitRole":"button"},"[type='search' i]:not([list])":{"implicitRole":"searchbox"},"[type='submit' i]":{"implicitRole":"button"},"[type='tel' i]:not([list])":{"implicitRole":"textbox"},":is(:not([type]), [type='text' i], [type='search' i], [type='tel' i], [type='url' i], [type='email' i])[list]":{"implicitRole":"combobox"},"[type='time' i]":{"implicitRole":false},"[type='url' i]:not([list])":{"implicitRole":"textbox"},"[type='week' i]":{"implicitRole":false}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"accept":{"type":{"token":"Accept","caseInsensitive":true,"unique":true,"separator":"comma"},"condition":"[type='file' i]"},"alpha":{"type":"Boolean","experimental":true,"condition":"[type='color' i]"},"alt":{"type":"Any","required":true,"condition":"[type='image' i]"},"autocapitalize":{},"autocomplete":{"type":[{"condition":"[type='hidden' i]","type":"AutoCompleteAnchorMantle"},{"condition":":not([type='hidden' i])","type":"AutoComplete"}],"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"autofocus":{},"capture":{},"checked":{"type":"Boolean","condition":["[type='checkbox' i]","[type='radio' i]"]},"colorspace":{"type":{"enum":["limited-srgb","display-p3"],"invalidValueDefault":"limited-srgb","missingValueDefault":"limited-srgb"},"experimental":true,"condition":"[type='color' i]"},"dirname":{"condition":[":not([type])","[type='hidden' i]","[type='text' i]","[type='search' i]","[type='tel' i]","[type='url' i]","[type='email' i]","[type='password' i]","[type='submit' i]"]},"disabled":{},"form":{},"formaction":{},"formenctype":{},"formmethod":{},"formnovalidate":{},"formtarget":{},"height":{"condition":"[type='image' i]"},"id":{},"incremental":{"nonStandard":true},"inputmode":{},"list":{"type":"DOMID","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]","[type='color' i]"]},"max":{"type":[{"condition":"[type='date' i]","type":"DateString"},{"condition":"[type='month' i]","type":"MonthString"},{"condition":"[type='week' i]","type":"WeekString"},{"condition":"[type='time' i]","type":"TimeString"},{"condition":"[type='datetime-local' i]","type":"LocalDateTimeString"},{"condition":["[type='number' i]","[type='range' i]"],"type":{"type":"float"}}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"maxlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"min":{"type":[{"condition":"[type='date' i]","type":"DateString"},{"condition":"[type='month' i]","type":"MonthString"},{"condition":"[type='week' i]","type":"WeekString"},{"condition":"[type='time' i]","type":"TimeString"},{"condition":"[type='datetime-local' i]","type":"LocalDateTimeString"},{"condition":["[type='number' i]","[type='range' i]"],"type":{"type":"float"}}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"minlength":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"multiple":{"type":"Boolean","condition":["[type='email' i]","[type='file' i]"]},"name":{"type":{"pattern":"/^(?!isindex$).+/"}},"orient":{"nonStandard":true},"pattern":{"type":"Pattern","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"placeholder":{"type":"OneLineAny","condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='number' i]"]},"popovertarget":{"type":"DOMID","condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"popovertargetaction":{"type":{"enum":["toggle","show","hide"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"toggle","missingValueDefault":"toggle"},"condition":["[type='button' i]","[type='image' i]","[type='reset' i]","[type='submit' i]"]},"readonly":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]"]},"required":{"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]","[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='checkbox' i]","[type='radio' i]","[type='file' i]"]},"results":{"nonStandard":true},"size":{"type":{"type":"integer","gt":0},"condition":[":not([type])","[type='text' i]","[type='search' i]","[type='url' i]","[type='tel' i]","[type='email' i]","[type='password' i]"]},"src":{"condition":"[type='image' i]"},"step":{"type":["Number",{"enum":["any"],"caseInsensitive":true}],"condition":["[type='date' i]","[type='month' i]","[type='week' i]","[type='time' i]","[type='datetime-local' i]","[type='number' i]","[type='range' i]"]},"switch":{"type":"Boolean","nonStandard":true,"experimental":true,"condition":["[type='checkbox' i]"]},"tabindex":{},"title":{},"type":{"type":{"enum":["hidden","text","search","tel","url","email","password","date","month","week","time","datetime-local","number","range","color","checkbox","radio","file","submit","image","reset","button"],"invalidValueDefault":"text","missingValueDefault":"text"}},"value":{"type":[{"condition":"[type='color' i]","type":"SimpleColor"},{"condition":"[type='url' i]","type":"AbsoluteURLOrEmpty"},{"condition":"[type='email' i]","type":"Email"},{"condition":["[type='number' i]","[type='range' i]"],"type":{"type":"float"}},{"condition":"[type='date' i]","type":"DateString"},{"condition":"[type='month' i]","type":"MonthString"},{"condition":"[type='week' i]","type":"WeekString"},{"condition":"[type='time' i]","type":"TimeString"},{"condition":"[type='datetime-local' i]","type":"LocalDateTimeString"}],"condition":":not([type='file' i]):not([type='image' i]):not([type='hidden' i][name='_charset_' i])"},"webkitdirectory":{},"width":{"condition":"[type='image' i]"}}},"ins":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"implicitRole":"insertion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"},"datetime":{"type":"DateStringWithOptionalTime"}}},"isindex":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"kbd":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"keygen":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"label":{"categories":["#flow","#phrasing","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(label, :has(label))"}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":"DOMID"}}},"legend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(phrasing)",":model(heading)"]}]},"aria":{"permittedRoles":[],"namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"li":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"listitem","permittedRoles":["menuitem","menuitemcheckbox","menuitemradio","option","none","presentation","radio","separator","tab","treeitem"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"type":{"deprecated":true},"value":{"type":"Int","condition":"ol > li"}}},"link":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"as":{"type":[{"condition":"[rel~='preload' i]","type":{"enum":["fetch","font","image","script","style","track"]}},{"condition":"[rel~='modulepreload' i]","type":{"enum":["audioworklet","json","paintworklet","script","serviceworker","sharedworker","style","worker"]}}],"required":"[rel~='preload' i]","condition":["[rel~='preload' i]","[rel~='modulepreload' i]"]},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true},"condition":"[rel~='stylesheet' i]"},"charset":{"deprecated":true,"obsolete":true},"color":{"type":"<color>","condition":"[rel~='mask-icon' i]"},"crossorigin":{},"disabled":{"type":"Boolean","condition":"[rel~='stylesheet' i]"},"fetchpriority":{},"href":{"type":"NonEmptyURL","requiredEither":["imagesrcset"]},"hreflang":{},"imagesizes":{"type":"SourceSizeList","required":"[imagesrcset]","condition":"[imagesrcset][rel~='preload' i][as='image' i]"},"imagesrcset":{"type":"Srcset","required":"[imagesizes]","condition":"[imagesizes][rel~='preload' i][as='image' i]"},"integrity":{"condition":["[rel~='stylesheet' i]","[rel~='preload' i]","[rel~='modulepreload' i]"]},"itemprop":{"requiredEither":["rel"]},"media":{},"referrerpolicy":{},"rel":{"type":"LinkTypeForLinkElement","requiredEither":["itemprop"]},"rev":{"deprecated":true,"obsolete":true},"sizes":{"type":{"token":"IconSize","caseInsensitive":true,"ordered":false,"unique":true,"separator":"space"},"condition":["[rel~='icon' i]","[rel~='apple-touch-icon' i]"]},"target":{"deprecated":true},"title":{"type":[{"condition":"[rel~='alternate' i][rel~='stylesheet' i]","type":"NoEmptyAny"}],"required":"[rel~='alternate' i][rel~='stylesheet' i]"},"type":{}}},"listing":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"main":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}],"forbiddenAncestors":["article","aside","footer","header","nav"]},"aria":{"implicitRole":"main","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"map":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"mark":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"marquee":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"behavior":{"deprecated":true},"bgcolor":{"deprecated":true},"direction":{"deprecated":true},"height":{"deprecated":true,"nonStandard":true},"hspace":{"deprecated":true,"nonStandard":true},"loop":{"deprecated":true},"scrollamount":{"deprecated":true,"nonStandard":true},"scrolldelay":{"deprecated":true,"nonStandard":true},"truespeed":{"deprecated":true},"vspace":{"deprecated":true,"nonStandard":true},"width":{"deprecated":true,"nonStandard":true}}},"menu":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true}}},"menuitem":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"meta":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"charset":{"type":{"enum":["utf-8"],"caseInsensitive":true},"condition":[":not([itemprop])",":not([name])",":not([http-equiv])"]},"content":{"type":[{"condition":"[http-equiv='refresh' i]","type":"HTTPEquivRefresh"},{"condition":"[http-equiv='content-type' i]","type":"HTTPEquivContentType"},{"condition":"[http-equiv='x-ua-compatible' i]","type":{"enum":["IE=edge"],"caseInsensitive":true}},{"condition":"[http-equiv='content-security-policy' i]","type":"ContentSecurityPolicy"}],"required":["[name]","[http-equiv]","[itemprop]"],"condition":["[name]","[http-equiv]","[itemprop]"]},"http-equiv":{"type":{"enum":["content-type","default-style","refresh","x-ua-compatible","content-security-policy"]},"requiredEither":["itemprop","name","charset"],"condition":[":not([itemprop])",":not([name])",":not([charset])"]},"itemprop":{"requiredEither":["name","http-equiv","charset"],"condition":[":not([name])",":not([http-equiv])",":not([charset])"]},"media":{"condition":"[name='theme-color']"},"name":{"type":"Any","requiredEither":["itemprop","http-equiv","charset"],"condition":[":not([itemprop])",":not([http-equiv])",":not([charset])"]}}},"meter":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(meter, :has(meter))"}]},"aria":{"implicitRole":"meter","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"high":{"type":"Number"},"low":{"type":"Number"},"max":{"type":"Number"},"min":{"type":"Number"},"optimum":{"type":"Number"},"value":{"type":"Number"}}},"multicol":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nav":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"navigation","permittedRoles":["menu","menubar","none","presentation","tablist"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"nextid":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"nobr":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noembed":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noframes":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"noscript":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"transparent":":not(noscript)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"object":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["application","document","img"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"archive":{"deprecated":true},"border":{"deprecated":true},"classid":{"deprecated":true},"codebase":{"deprecated":true},"codetype":{"deprecated":true},"data":{"type":"NonEmptyURL","requiredEither":["type"]},"declare":{"deprecated":true},"form":{},"height":{},"name":{"type":"NavigableTargetName"},"standby":{"deprecated":true},"type":{"type":"MIMEType","requiredEither":["data"]},"usemap":{"deprecated":true},"width":{}}},"ol":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true,"nonStandard":true},"reversed":{"type":"Boolean"},"start":{"type":"Int"},"type":{"type":{"enum":["1","a","A","i","I"],"caseInsensitive":false,"invalidValueDefault":"decimal","missingValueDefault":"decimal"}}}},"optgroup":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"option"}]},"aria":{"implicitRole":"group","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"NoEmptyAny","required":true}}},"option":{"categories":[],"contentModel":{"contents":[{"require":"#nonEmptyText"}],"conditional":[{"condition":"[label][value]","contents":false},{"condition":"label","contents":[{"optional":"#text"}]},{"condition":"datalist > :scope","contents":[{"optional":"#text"}]},{"condition":"datalist > [label]","contents":[{"optional":"#text"}]}]},"aria":{"permittedRoles":[],"conditions":{":is(select, select > optgroup, datalist) > option":{"implicitRole":"option"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"disabled":{},"label":{"type":"Any"},"selected":{"type":"Boolean"},"value":{"type":"Any"}}},"output":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"status","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"type":{"token":"DOMID","separator":"space","unique":true,"caseInsensitive":true}},"form":{},"name":{}}},"p":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"paragraph","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"param":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{"name":{"deprecated":true,"nonStandard":true},"type":{"deprecated":true,"nonStandard":true},"value":{"deprecated":true,"nonStandard":true},"valuetype":{"deprecated":true,"nonStandard":true}}},"picture":{"categories":["#flow","#phrasing","#embedded"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"source"},{"zeroOrMore":":model(script-supporting)"},{"require":"img"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"plaintext":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"pre":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"width":{"deprecated":true,"nonStandard":true},"wrap":{"deprecated":true,"nonStandard":true}}},"progress":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing):not(progress, :has(progress))"}]},"aria":{"implicitRole":"progressbar","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"max":{"type":{"type":"float","gt":0}},"value":{"type":{"type":"float","gte":0}}}},"q":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"cite":{"type":"URL"}}},"rb":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"rp":{"categories":[],"contentModel":{"contents":[{"oneOrMore":"#text"}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rt":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"rtc":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"ruby":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":[{"oneOrMore":[":model(phrasing):not(ruby, :has(ruby))","ruby:not(:has(ruby))"]},{"choice":[[{"oneOrMore":"rt"}],[{"require":"rp"},{"oneOrMore":[{"require":"rt"},{"require":"rp"}]}]]}]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"s":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"deletion","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"samp":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"script":{"categories":["#metadata","#flow","#phrasing"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"async":{"type":"Boolean","ineffective":":not([src]):not([type='module' i])","condition":[":is(:not([type]), [type=''], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]","[type='module' i]"]},"attributionsrc":{"deprecated":true,"nonStandard":true},"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true},"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]"},"charset":{"deprecated":true,"condition":"[src]"},"crossorigin":{"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])"},"defer":{"type":"Boolean","ineffective":[":not([src])","[async]"],"condition":":is(:not([type]), [type=''], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]"},"fetchpriority":{"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]"},"integrity":{"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])[src]"},"language":{"deprecated":true,"nonStandard":true},"nomodule":{"type":"Boolean","condition":":is(:not([type]), [type=''], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])"},"nonce":{},"referrerpolicy":{"condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])"},"src":{"type":"NonEmptyURL","condition":":is(:not([type]), [type=''], [type='module' i], [type='application/ecmascript' i], [type='application/javascript' i], [type='application/x-ecmascript' i], [type='application/x-javascript' i], [type='text/ecmascript' i], [type='text/javascript' i], [type='text/javascript1.0' i], [type='text/javascript1.1' i], [type='text/javascript1.2' i], [type='text/javascript1.3' i], [type='text/javascript1.4' i], [type='text/javascript1.5' i], [type='text/jscript' i], [type='text/livescript' i], [type='text/x-ecmascript' i], [type='text/x-javascript' i])"},"type":{"type":["MIMEType",{"enum":["module","importmap","speculationrules"],"caseInsensitive":true}]}}},"search":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"implicitRole":"search","permittedRoles":["form","group","none","presentation","region"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"section":{"categories":["#flow","#sectioning","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":["alert","alertdialog","application","banner","complementary","contentinfo","dialog","document","feed","group","log","main","marquee","navigation","none","note","presentation","search","status","tabpanel"],"conditions":{":aria(has name)":{"implicitRole":"region"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"select":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"zeroOrMore":["option","optgroup","hr","#script-supporting"]}]},"aria":{"implicitRole":"combobox","permittedRoles":["menu"],"conditions":{"[multiple], [size]:not([size=1])":{"implicitRole":"listbox"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocomplete":{"type":"AutoCompleteNoWebauthn"},"autofocus":{},"disabled":{},"form":{},"multiple":{"type":"Boolean"},"name":{},"required":{},"size":{"type":{"type":"integer","gt":0}}}},"slot":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"transparent":"*"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"name":{"type":"NoEmptyAny"}}},"small":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"source":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs"],"attributes":{"height":{"condition":"picture > source"},"media":{"type":"MediaQueryList"},"sizes":{"condition":"picture > source[srcset]"},"src":{"type":"NonEmptyURL","required":":is(video, audio) > source","condition":":is(video, audio) > source"},"srcset":{"required":"picture > source","condition":"picture > source"},"type":{"type":"MIMEType"},"width":{"condition":"picture > source"}}},"spacer":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"span":{"categories":["#flow","#phrasing"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"strike":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"strong":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"strong","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"style":{"categories":["#metadata"],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"blocking":{"type":{"token":{"enum":["render"]},"separator":"space","unique":true}},"media":{"type":"MediaQueryList"},"nonce":{},"title":{},"type":{"deprecated":true}}},"sub":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"subscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"summary":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":":model(phrasing)"}],[{"require":":model(heading)"}]]}]},"aria":{"implicitRole":"button","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"sup":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"superscript","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"table":{"categories":["#flow"],"contentModel":{"contents":[{"zeroOrMore":":model(script-supporting)"},{"optional":"caption"},{"zeroOrMore":":model(script-supporting)"},{"zeroOrMore":"colgroup"},{"zeroOrMore":":model(script-supporting)"},{"optional":"thead"},{"zeroOrMore":":model(script-supporting)"},{"choice":[[{"zeroOrMore":"tbody"}],[{"oneOrMore":"tr"}]]},{"zeroOrMore":":model(script-supporting)"},{"optional":"tfoot"},{"zeroOrMore":":model(script-supporting)"}]},"aria":{"implicitRole":"table","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"border":{"deprecated":true},"cellpadding":{"deprecated":true},"cellspacing":{"deprecated":true},"frame":{"deprecated":true},"rules":{"deprecated":true},"summary":{"deprecated":true},"width":{"deprecated":true}}},"tbody":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true,"nonStandard":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"td":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow)"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > td, table:is(:not([role]), [role=table]) > tr > td":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > td, table:is([role=grid], [role=treegrid]) > tr > td":{"implicitRole":"gridcell"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"deprecated":true},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"deprecated":true},"valign":{"deprecated":true},"width":{"deprecated":true}}},"template":{"categories":["#metadata","#flow","#phrasing","#script-supporting"],"contentModel":{"contents":true},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"for":{"experimental":true},"shadowrootclonable":{"type":"Boolean"},"shadowrootcustomelementregistry":{"type":"Boolean"},"shadowrootdelegatesfocus":{"type":"Boolean"},"shadowrootmode":{"type":{"enum":["open","closed"],"missingValueDefault":"none","invalidValueDefault":"none"}},"shadowrootreferencetarget":{"type":"DOMID","nonStandard":true,"experimental":true},"shadowrootserializable":{"type":"Boolean"},"shadowrootslotassignment":{"type":{"enum":["named","manual"],"missingValueDefault":"named","invalidValueDefault":"named"},"experimental":true}}},"textarea":{"categories":["#flow","#phrasing","#interactive"],"contentModel":{"contents":[{"optional":"#text"}]},"aria":{"implicitRole":"textbox","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLFormControlElementAttrs","#HTMLGlobalAttrs"],"attributes":{"autocapitalize":{},"autocomplete":{},"autocorrect":{},"autofocus":{},"cols":{"type":{"type":"integer","gt":0}},"dirname":{},"disabled":{},"form":{},"maxlength":{},"minlength":{},"name":{},"placeholder":{"type":"Any"},"readonly":{},"required":{},"rows":{"type":{"type":"integer","gt":0}},"spellcheck":{},"wrap":{"type":{"enum":["soft","hard"],"missingValueDefault":"soft","invalidValueDefault":"soft"}}}},"tfoot":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true,"nonStandard":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"th":{"categories":[],"contentModel":{"contents":[{"oneOrMore":":model(flow):not(header, footer, :model(sectioning), :model(heading), :has(header, footer, :model(sectioning), :model(heading)))"}]},"aria":{"permittedRoles":"any","conditions":{"table:is(:not([role]), [role=table]) > :is(thead, tfoot, tbody) > tr > th, table:is(:not([role]), [role=table]) > tr > th":{"implicitRole":"cell"},"table:is([role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th, table:is([role=grid], [role=treegrid]) > tr > th":{"implicitRole":"gridcell"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > thead > tr > th:not([scope])":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(tfoot, tbody) > tr > th:not([scope]), table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th:not([scope])":{"implicitRole":"rowheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=col], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=col]":{"implicitRole":"columnheader"},"table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > :is(thead, tfoot, tbody) > tr > th[scope=row], table:is(:not([role]), [role=table], [role=grid], [role=treegrid]) > tr > th[scope=row]":{"implicitRole":"rowheader"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLTableCellElementAttrs"],"attributes":{"abbr":{"type":"Any"},"align":{"deprecated":true},"axis":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"colspan":{},"headers":{},"height":{"deprecated":true},"rowspan":{},"scope":{"type":{"enum":["row","col","rowgroup","colgroup"],"missingValueDefault":"auto","invalidValueDefault":"auto"}},"valign":{"deprecated":true},"width":{"deprecated":true}}},"thead":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"tr"}]},"aria":{"implicitRole":"rowgroup","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true,"nonStandard":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"time":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"time","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"datetime":{"type":"DateTime"}}},"title":{"categories":["#metadata"],"contentModel":{"contents":[{"require":"#nonEmptyText"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"tr":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["th","td",":model(script-supporting)"]}]},"aria":{"implicitRole":"row","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"align":{"deprecated":true},"bgcolor":{"deprecated":true},"char":{"deprecated":true},"charoff":{"deprecated":true},"valign":{"deprecated":true}}},"track":{"categories":[],"contentModel":{"contents":false,"uniqueAttrs":["default"]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"default":{"type":"Boolean"},"kind":{"type":{"enum":["subtitles","captions","descriptions","chapters","metadata"],"missingValueDefault":"metadata","invalidValueDefault":"metadata"}},"label":{"type":"NoEmptyAny"},"src":{"type":"NonEmptyURL","required":true},"srclang":{"type":"BCP47"}}},"tt":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"u":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"implicitRole":"generic","permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"ul":{"categories":["#flow","#palpable"],"contentModel":{"contents":[{"zeroOrMore":["li",":model(script-supporting)"]}]},"aria":{"implicitRole":"list","permittedRoles":["group","listbox","menu","menubar","none","presentation","radiogroup","tablist","toolbar","tree","directory"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{"compact":{"deprecated":true},"type":{"deprecated":true}}},"var":{"categories":["#flow","#phrasing","#palpable"],"contentModel":{"contents":[{"oneOrMore":":model(phrasing)"}]},"aria":{"permittedRoles":"any","namingProhibited":true},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"video":{"categories":["#flow","#phrasing","#embedded","#interactive","#palpable"],"contentModel":{"contents":[{"zeroOrMore":"source"},{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}],"conditional":[{"condition":"[src]","contents":[{"zeroOrMore":"track"},{"transparent":":not(audio, video, :has(audio, video))"}]}]},"aria":{"permittedRoles":["application"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLEmbededAndMediaContentAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs"],"attributes":{"autoplay":{},"controls":{},"controlslist":{"type":{"token":{"enum":["nodownload","nofullscreen","noremoteplayback"]},"ordered":false,"caseInsensitive":true,"unique":true,"separator":"space"}},"crossorigin":{},"disablepictureinpicture":{},"disableremoteplayback":{},"height":{},"loading":{"experimental":false},"loop":{},"muted":{},"playsinline":{"type":"Boolean"},"poster":{"type":"NonEmptyURL"},"preload":{},"src":{},"width":{}}},"wbr":{"categories":["#flow","#phrasing"],"contentModel":{"contents":false},"aria":{"permittedRoles":["none","presentation"]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs"],"attributes":{}},"xmp":{"categories":[],"obsolete":true,"contentModel":{"contents":true},"aria":{"permittedRoles":"any"},"globalAttrs":[],"attributes":{}},"mml:annotation":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"encoding":{"type":"MIMEType"},"src":{"type":"URL","deprecated":true}}},"mml:annotation-xml":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"encoding":{"type":"MIMEType"},"src":{"type":"URL","deprecated":true}}},"mml:maction":{"categories":[],"deprecated":true,"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"actiontype":{"type":"Any","deprecated":true,"nonStandard":true},"selection":{"type":"Any","deprecated":true,"nonStandard":true}}},"math":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","#text"]}]},"aria":{"implicitRole":"math","permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"alttext":{"type":"Any"},"display":{"type":{"enum":["block","inline"],"disallowToSurroundBySpaces":false}},"xmlns":{"type":"URL"}}},"mml:menclose":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"notation":{"type":"Any","nonStandard":true}}},"mml:merror":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mfenced":{"categories":[],"deprecated":true,"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"close":{"type":"Any"},"open":{"type":"Any"},"separators":{"type":"Any"}}},"mml:mfrac":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"denomalign":{"deprecated":true,"nonStandard":true},"linethickness":{"type":"<length-percentage>"},"numalign":{"deprecated":true,"nonStandard":true}}},"mml:mi":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"mathvariant":{"type":{"enum":["normal"],"disallowToSurroundBySpaces":false}}}},"mml:mmultiscripts":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|mprescripts","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"subscriptshift":{"deprecated":true,"nonStandard":true},"superscriptshift":{"deprecated":true,"nonStandard":true}}},"mml:mn":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mo":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"accent":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false},"nonStandard":true},"fence":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"form":{"type":{"enum":["prefix","infix","postfix"],"disallowToSurroundBySpaces":false}},"largeop":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"lspace":{"type":"<length-percentage>"},"maxsize":{"type":"<length-percentage>"},"minsize":{"type":"<length-percentage>"},"movablelimits":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"rspace":{"type":"<length-percentage>"},"separator":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"stretchy":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"symmetric":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}}}},"mml:mover":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"accent":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}}}},"mml:mpadded":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"depth":{"type":"<length-percentage>"},"height":{"type":"<length-percentage>"},"lspace":{"type":"<length-percentage>"},"voffset":{"type":"<length-percentage>"},"width":{"type":"<length-percentage>"}}},"mml:mphantom":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mprescripts":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mroot":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mrow":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","mml|mtr","mml|mtd","mml|mprescripts","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:ms":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mspace":{"categories":[],"contentModel":{"contents":false},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"depth":{"type":"<length-percentage>"},"height":{"type":"<length-percentage>"},"width":{"type":"<length-percentage>"}}},"mml:msqrt":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mstyle":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"background":{"deprecated":true,"nonStandard":true},"color":{"deprecated":true,"nonStandard":true},"fontsize":{"deprecated":true,"nonStandard":true},"fontstyle":{"deprecated":true,"nonStandard":true},"fontweight":{"deprecated":true,"nonStandard":true}}},"mml:msub":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"subscriptshift":{"deprecated":true,"nonStandard":true}}},"mml:msubsup":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":3,"max":3}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"subscriptshift":{"deprecated":true,"nonStandard":true},"superscriptshift":{"deprecated":true,"nonStandard":true}}},"mml:msup":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"superscriptshift":{"deprecated":true,"nonStandard":true}}},"mml:mtable":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["mml|mtr"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"align":{"nonStandard":true},"columnalign":{"nonStandard":true},"columnlines":{"nonStandard":true},"columnspacing":{"nonStandard":true},"frame":{"nonStandard":true},"framespacing":{"nonStandard":true},"rowalign":{"nonStandard":true},"rowlines":{"nonStandard":true},"rowspacing":{"nonStandard":true},"width":{"nonStandard":true}}},"mml:mtd":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"columnalign":{"nonStandard":true},"columnspan":{"type":{"type":"integer","gt":0}},"rowalign":{"nonStandard":true},"rowspan":{"type":{"type":"integer","gt":0}}}},"mml:mtext":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"mml:mtr":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["mml|mtd"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"columnalign":{"nonStandard":true},"rowalign":{"nonStandard":true}}},"mml:munder":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":2,"max":2}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"accentunder":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}}}},"mml:munderover":{"categories":[],"contentModel":{"contents":[{"require":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"],"min":3,"max":3}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{"accent":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"accentunder":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}}}},"mml:semantics":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(MathMLPresentation)","mml|semantics","mml|annotation","mml|annotation-xml","#text"]}]},"aria":{"permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#MathMLGlobalAttrs"],"attributes":{}},"svg:a":{"categories":[],"contentModel":{"conditional":[{"condition":"svg|switch > svg|a","contents":[{"transparent":":not(svg|a, :has(svg|a))"}]}],"contents":[{"transparent":":not(svg|a, :has(svg|a))"}]},"aria":{"implicitRole":"group","permittedRoles":"any","conditions":{"[href], [xlink|href]":{"implicitRole":"link"}}},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#HTMLLinkAndFetchingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"download":{},"href":{},"hreflang":{},"interestfor":{"type":"DOMID","nonStandard":true,"experimental":true},"ping":{"experimental":true},"referrerpolicy":{},"rel":{},"target":{},"type":{},"xlink:href":{"deprecated":true}}},"svg:animate":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:animateMotion":{"categories":[],"contentModel":{"contents":[{"choice":[[{"oneOrMore":[":model(SVGDescriptive)","svg|script"]},{"optional":"svg|mpath"}],[{"optional":"svg|mpath"},{"oneOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"keyPoints":{"type":"<key-points>"},"origin":{"type":"<origin>"},"path":{"type":"<svg-path>"},"rotate":{"type":"<rotate>"}}},"svg:animateTransform":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAdditionAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGAnimationValueAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"type":{"type":{"enum":["translate","scale","rotate","skewX","skewY"]}}}},"svg:circle":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"r":{}}},"svg:clipPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)","svg|text","svg|use","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"clipPathUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"]}}}},"svg:defs":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:desc":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:discard":{"categories":[],"contentModel":{"contents":[{"require":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"begin":{"type":"<begin-value-list>"},"href":{"type":"URL"}}},"svg:ellipse":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"cx":{},"cy":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{}}},"svg:feBlend":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"mode":{"type":"<blend-mode>"}}},"svg:feColorMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"type":{"type":{"enum":["matrix","saturate","hueRotate","luminanceToAlpha"],"disallowToSurroundBySpaces":false}},"values":{"type":"<color-matrix>"}}},"svg:feComponentTransfer":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feFuncA","svg|feFuncR","svg|feFuncB","svg|feFuncG","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feComposite":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"k1":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k2":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k3":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"k4":{"type":"<number>","ineffective":":not([operator='arithmetic' i])"},"operator":{"type":{"enum":["over","in","out","atop","xor","lighter","arithmetic"],"disallowToSurroundBySpaces":false}}}},"svg:feConvolveMatrix":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"bias":{"type":"<number>"},"divisor":{"type":"<number>"},"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"kernelMatrix":{"type":"<list-of-numbers>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"order":{"type":"<number-optional-number>"},"preserveAlpha":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"targetX":{"type":"<integer>"},"targetY":{"type":"<integer>"}}},"svg:feDiffuseLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"diffuseConstant":{"type":"<number>"},"kernelUnitLength":{"type":"<number-optional-number>","deprecated":true},"surfaceScale":{"type":"<number>"}}},"svg:feDisplacementMap":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"in2":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]},"scale":{"type":"<number>"},"xChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}},"yChannelSelector":{"type":{"enum":["R","G","B","A"],"disallowToSurroundBySpaces":false}}}},"svg:feDistantLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"azimuth":{"type":"<number>"},"elevation":{"type":"<number>"}}},"svg:feDropShadow":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feFlood":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"}}},"svg:feFuncA":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncB":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncG":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feFuncR":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGTransferFunctionAttrs"],"attributes":{}},"svg:feGaussianBlur":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"edgeMode":{"type":{"enum":["duplicate","wrap","none"],"disallowToSurroundBySpaces":false}},"stdDeviation":{"type":"<number-optional-number>"}}},"svg:feImage":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"crossorigin":{"type":{"enum":["anonymous","use-credentials"],"disallowToSurroundBySpaces":false}},"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"xlink:href":{"type":"URL","deprecated":true}}},"svg:feMerge":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|feMergeNode","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feMergeNode":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs"],"attributes":{}},"svg:feMorphology":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"operator":{"type":{"enum":["erode","dilate"],"disallowToSurroundBySpaces":false}},"radius":{"type":"<number-optional-number>"}}},"svg:feOffset":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<number>"},"dy":{"type":"<number>"}}},"svg:fePointLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feSpecularLighting":{"categories":[],"contentModel":{"contents":[{"choice":[[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]},{"require":":model(SVGLightSource)"}],[{"require":":model(SVGLightSource)"},{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"kernelUnitLength":{"type":"<number-optional-number>"},"specularConstant":{"type":"<number>"},"specularExponent":{"type":"<number>"},"surfaceScale":{"type":"<number>"}}},"svg:feSpotLight":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs"],"attributes":{"limitingConeAngle":{"type":"<number>"},"pointsAtX":{"type":"<number>"},"pointsAtY":{"type":"<number>"},"pointsAtZ":{"type":"<number>"},"specularExponent":{"type":"<number>"},"x":{"type":"<number>"},"y":{"type":"<number>"},"z":{"type":"<number>"}}},"svg:feTile":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:feTurbulence":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"baseFrequency":{"type":"<number-optional-number>"},"numOctaves":{"type":"<integer>"},"seed":{"type":"<number>"},"stitchTiles":{"type":{"enum":["noStitch","stitch"]}},"type":{"type":{"enum":["fractalNoise","turbulence"]}}}},"svg:filter":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGFilterPrimitive)","svg|animate","svg|script","svg|set"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"externalResourcesRequired":{"type":{"enum":["true","false"],"disallowToSurroundBySpaces":false}},"filterRes":{"type":"<number-optional-number>","deprecated":true},"filterUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"height":{},"primitiveUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"width":{},"x":{},"y":{}}},"svg:foreignObject":{"categories":[],"contentModel":{"contents":true},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"width":{},"x":{},"y":{}}},"svg:g":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{}},"svg:image":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"img","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"sameStates":{"anonymous":[""]}}},"decoding":{},"fetchpriority":{"nonStandard":true,"experimental":true},"height":{},"href":{"type":"URL"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:line":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"x1":{"type":["<svg-length>","<percentage>","<number>"]},"x2":{"type":["<svg-length>","<percentage>","<number>"]},"y1":{"type":["<svg-length>","<percentage>","<number>"]},"y2":{"type":["<svg-length>","<percentage>","<number>"]}}},"svg:linearGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"x1":{"type":["<svg-length>","<percentage>"]},"x2":{"type":["<svg-length>","<percentage>"]},"xlink:href":{"deprecated":true},"y1":{"type":["<svg-length>","<percentage>"]},"y2":{"type":["<svg-length>","<percentage>"]}}},"svg:marker":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"markerHeight":{"type":["<svg-length>","<percentage>","<number>"]},"markerUnits":{"type":{"enum":["userSpaceOnUse","strokeWidth"],"disallowToSurroundBySpaces":false}},"markerWidth":{"type":["<svg-length>","<percentage>","<number>"]},"orient":{"type":[{"enum":["auto","auto-start-reverse"],"disallowToSurroundBySpaces":false},"<angle>","<number>"]},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"refY":{"type":["<percentage>","<number>",{"enum":["left","center","right"],"disallowToSurroundBySpaces":false}]},"viewBox":{"type":"<view-box>"}}},"svg:mask":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGShape)",":model(SVGStructural)",":model(SVGGradient)","svg|a","svg|altGlyphDef","svg|clipPath","svg|color-profile","svg|cursor","svg|filter","svg|font","svg|font-face","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|pattern","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGFilterPrimitiveAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"mask-type":{},"maskContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"]}},"maskUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"width":{},"x":{},"y":{}}},"svg:metadata":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:mpath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"href":{"type":"URL"}}},"svg:path":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"d":{},"pathLength":{"type":"<number>"}}},"svg:pattern":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"patternContentUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"patternTransform":{"type":"<transform-list>"},"patternUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:polygon":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:polyline":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"pathLength":{"type":"<number>"},"points":{"type":"<points>"}}},"svg:radialGradient":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|animate","svg|animateTransform","svg|script","svg|set","svg|stop","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"fr":{"type":["<svg-length>","<percentage>"]},"fx":{"type":["<svg-length>","<percentage>"]},"fy":{"type":["<svg-length>","<percentage>"]},"gradientTransform":{"type":"<transform-list>"},"gradientUnits":{"type":{"enum":["userSpaceOnUse","objectBoundingBox"],"disallowToSurroundBySpaces":false}},"href":{"type":"URL"},"r":{"type":["<svg-length>","<percentage>"]},"spreadMethod":{"type":{"enum":["pad","reflect","repeat"],"disallowToSurroundBySpaces":false}},"xlink:href":{"deprecated":true}}},"svg:rect":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-symbol","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"pathLength":{"type":"<number>"},"rx":{},"ry":{},"width":{},"x":{},"y":{}}},"svg:script":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGNeverRendered)",":model(SVGStructurallyExternal)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#XLinkAttrs"],"attributes":{"async":{"type":"Boolean","experimental":true},"crossorigin":{"type":{"enum":["anonymous","use-credentials",""],"disallowToSurroundBySpaces":false}},"defer":{"type":"Boolean","experimental":true},"fetchpriority":{"nonStandard":true,"experimental":true},"href":{"type":"URL"},"type":{"type":"MIMEType"},"xlink:href":{"deprecated":true}}},"svg:set":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)","svg|script"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGAnimationAttributeTargetAttrs","#SVGAnimationEventAttrs","#SVGAnimationTargetElementAttrs","#SVGAnimationTimingAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs"],"attributes":{"to":{"type":"NoEmptyAny"}}},"svg:stop":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["svg:animate","svg|animateColor","svg|script","svg|set","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"offset":{"type":["<number>","<percentage>"]},"stop-color":{"type":"<color>"},"stop-opacity":{"type":"<'opacity'>"}}},"svg:style":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":"#text"}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{"media":{"type":"MediaQueryList"},"title":{"type":"Any"},"type":{"type":"MIMEType"}}},"svg:svg":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-document","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"baseProfile":{"type":"Any","deprecated":true},"contentScriptType":{"type":"Any","deprecated":true},"contentStyleType":{"type":"Any","deprecated":true},"height":{},"onunload":{"type":"FunctionBody"},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"version":{"type":"Any","deprecated":true},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:switch":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGShape)","svg|a","svg|foreignObject","svg|g","svg|image","svg|svg","svg|switch","svg|text","svg|use"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"requiredExtensions":{},"systemLanguage":{}}},"svg:symbol":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGShape)",":model(SVGStructural)","svg|a","svg|clipPath","svg|filter","svg|foreignObject","svg|image","svg|marker","svg|mask","svg|script","svg|style","svg|switch","svg|text","svg|view"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"height":{},"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"refX":{"type":["<svg-length>","<percentage>","<number>",{"enum":["left","center","right"]}]},"refY":{"type":["<svg-length>","<percentage>","<number>",{"enum":["top","center","bottom"]}]},"viewBox":{"type":"<view-box>"},"width":{},"x":{},"y":{}}},"svg:text":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGAnimation)",":model(SVGDescriptive)",":model(SVGPaintServer)",":model(SVGTextContentChild)","svg|a","svg|clipPath","svg|marker","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:textPath":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|clipPath","svg|marker","svg|mask","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"href":{"type":"URL"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"method":{"type":{"enum":["align","stretch"],"disallowToSurroundBySpaces":false}},"path":{"type":"<svg-path>","experimental":true},"side":{"type":{"enum":["left","right"],"disallowToSurroundBySpaces":false},"experimental":true},"spacing":{"type":{"enum":["auto","exact"],"disallowToSurroundBySpaces":false}},"startOffset":{"type":["<svg-length>","<percentage>"]},"textLength":{"type":["<svg-length>","<percentage>"]}}},"svg:title":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGDescriptive)",":model(SVGNeverRendered)","#text"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#GlobalEventAttrs","#SVGCoreAttrs"],"attributes":{}},"svg:tspan":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":["#text",":model(SVGDescriptive)",":model(SVGPaintServer)","svg|a","svg|animate","svg|script","svg|set","svg|style","svg|tspan"]}]},"aria":{"implicitRole":"group","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs"],"attributes":{"dx":{"type":"<text-coordinate>"},"dy":{"type":"<text-coordinate>"},"lengthAdjust":{"type":{"enum":["spacing","spacingAndGlyphs"],"disallowToSurroundBySpaces":false}},"rotate":{"type":"<list-of-numbers>"},"textLength":{"type":["<svg-length>","<percentage>"]},"x":{"type":"<text-coordinate>"},"y":{"type":"<text-coordinate>"}}},"svg:use":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|clipPath","svg|mask","svg|script","svg|style"]}]},"aria":{"implicitRole":"graphics-object","permittedRoles":"any"},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGConditionalProcessingAttrs","#SVGCoreAttrs","#SVGPresentationAttrs","#XLinkAttrs"],"attributes":{"height":{},"href":{"type":"URL"},"width":{},"x":{},"xlink:href":{"deprecated":true},"y":{}}},"svg:view":{"categories":[],"contentModel":{"contents":[{"zeroOrMore":[":model(SVGAnimation)",":model(SVGDescriptive)","svg|script","svg|style"]}]},"aria":{"permittedRoles":[]},"globalAttrs":["#ARIAAttrs","#GlobalEventAttrs","#HTMLGlobalAttrs","#SVGCoreAttrs"],"attributes":{"preserveAspectRatio":{"type":"<preserve-aspect-ratio>"},"viewBox":{"type":"<view-box>"},"viewTarget":{"type":"Any","deprecated":true},"zoomAndPan":{"type":{"enum":["disable","magnify"]},"deprecated":true}}}},"contentModels":{"#metadata":["base","link","meta","noscript","script","style","template","title"],"#flow":["a","abbr","address","area","article","aside","audio","b","bdi","bdo","blockquote","br","button","canvas","cite","code","data","datalist","del","details","dfn","dialog","div","dl","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","hr","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","main","map","mark","math","menu","meta[itemprop]","meter","nav","noscript","object","ol","output","p","picture","pre","progress","q","ruby","s","samp","script","search","section","select","slot","small","span","strong","sub","sup","svg|svg","table","template","textarea","time","u","ul","var","video","wbr","#custom","#text"],"#sectioning":["article","aside","nav","section"],"#heading":["h1","h2","h3","h4","h5","h6","hgroup:has(h1,h2,h3,h4,h5,h6)"],"#phrasing":["a","abbr","area","audio","b","bdi","bdo","br","button","canvas","cite","code","data","datalist","del","dfn","em","embed","i","iframe","img","input","ins","kbd","label","link[itemprop]","link[rel=dns-prefetch]","link[rel=modulepreload]","link[rel=pingback]","link[rel=preconnect]","link[rel=prefetch]","link[rel=preload]","link[rel=prerender]","link[rel=stylesheet]","map","mark","math","meta[itemprop]","meter","noscript","object","output","picture","progress","q","ruby","s","samp","script","select","slot","small","span","strong","sub","sup","svg|svg","template","textarea","time","u","var","video","wbr","#custom","#text"],"#embedded":["audio","canvas","embed","iframe","img","math","object","picture","svg|svg","video"],"#interactive":["a[href]","audio[controls]","button","details","embed","iframe","img[usemap]","input:not([type='hidden' i])","label","select","textarea","video[controls]"],"#palpable":["a","abbr","address","article","aside","audio[controls]","b","bdi","bdo","blockquote","button","canvas","cite","code","data","del","details","dfn","div","dl:has(>:is(dt+dd))","em","embed","fieldset","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","i","iframe","img","input:not([type='hidden' i])","ins","kbd","label","main","map","mark","math","menu:has(>li)","meter","nav","object","ol:has(>li)","output","p","picture","pre","progress","q","ruby","s","samp","search","section","select","small","span","strong","sub","sup ","svg","table","textarea","time","u","ul:has(>li)","var","video","#custom","#text"],"#script-supporting":["script","template"],"#SVGAnimation":["svg|animate","svg|animateColor","svg|animateMotion","svg|animateTransform","svg|discard","svg|mpath","svg|set"],"#SVGBasicShapes":["svg|circle","svg|ellipse","svg|line","svg|polygon","svg|polyline","svg|rect"],"#SVGContainer":["svg|a","svg|defs","svg|g","svg|marker","svg|mask","svg|missing-glyph","svg|pattern","svg|svg","svg|switch","svg|symbol"],"#SVGDescriptive":["svg|desc","svg|metadata","svg|title"],"#SVGFilterPrimitive":["svg|feBlend","svg|feColorMatrix","svg|feComponentTransfer","svg|feComposite","svg|feConvolveMatrix","svg|feDiffuseLighting","svg|feDisplacementMap","svg|feDropShadow","svg|feFlood","svg|feFuncA","svg|feFuncB","svg|feFuncG","svg|feFuncR","svg|feGaussianBlur","svg|feImage","svg|feMerge","svg|feMergeNode","svg|feMorphology","svg|feOffset","svg|feSpecularLighting","svg|feTile","svg|feTurbulence"],"#SVGFont":["svg|font","svg|font-face","svg|font-face-format","svg|font-face-name","svg|font-face-src","svg|font-face-uri","svg|hkern","svg|vkern"],"#SVGGradient":["svg|linearGradient","svg|radialGradient","svg|stop"],"#SVGGraphics":["svg|circle","svg|ellipse","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|text","svg|use"],"#SVGGraphicsReferencing":["svg|use"],"#SVGLightSource":["svg|feDistantLight","svg|fePointLight","svg|feSpotLight"],"#SVGNeverRendered":["svg|clipPath","svg|defs","svg|linearGradient","svg|marker","svg|mask","svg|metadata","svg|pattern","svg|radialGradient","svg|script","svg|style","svg|symbol","svg|title"],"#SVGPaintServer":["svg|linearGradient","svg|pattern","svg|radialGradient","svg|solidcolor"],"#SVGRenderable":["svg|a","svg|circle","svg|ellipse","svg|foreignObject","svg|g","svg|image","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect","svg|svg","svg|switch","svg|symbol","svg|text","svg|textPath","svg|tspan","svg|unknown","svg|use"],"#SVGShape":["svg|circle","svg|ellipse","svg|line","svg|path","svg|polygon","svg|polyline","svg|rect"],"#SVGStructural":["svg|defs","svg|g","svg|svg","svg|symbol","svg|use"],"#SVGStructurallyExternal":[],"#SVGTextContent":["svg|altGlyph","svg|altGlyphDef","svg|altGlyphItem","svg|glyph","svg|glyphRef","svg|textPath","svg|text","svg|tref","svg|tspan"],"#SVGTextContentChild":["svg|altGlyph","svg|textPath","svg|tref","svg|tspan"],"#MathMLPresentation":["mml|merror","mml|mfrac","mml|mi","mml|mmultiscripts","mml|mn","mml|mo","mml|mover","mml|mpadded","mml|mphantom","mml|mroot","mml|mrow","mml|ms","mml|mspace","mml|msqrt","mml|mstyle","mml|msub","mml|msup","mml|msubsup","mml|mtable","mml|mtext","mml|munder","mml|munderover","mml|maction","mml|menclose","mml|mfenced"],"#MathMLScript":["mml|msub","mml|msup","mml|msubsup","mml|mmultiscripts"],"#MathMLTabular":["mml|mtable","mml|mtr","mml|mtd"]},"globalAttrs":{"#HTMLGlobalAttrs":{"accesskey":{"type":{"token":"OneCodePointChar","ordered":true,"unique":true,"number":"zeroOrMore","separator":"space"}},"autocapitalize":{"type":{"enum":["off","on","none","sentences","words","characters"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"sentences","missingValueDefault":"default","sameStates":{"none":["off"],"sentences":["on"]}}},"autocorrect":{"type":{"enum":["","on","off"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"on","missingValueDefault":"on","sameStates":{"on":[""]}}},"autofocus":{"type":"Boolean"},"contenteditable":{"type":{"enum":["","true","false","plaintext-only"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"true":[""]}}},"dir":{"type":{"enum":["ltr","rtl","auto"]}},"draggable":{"type":{"enum":["true","false"],"invalidValueDefault":"auto","missingValueDefault":"auto"}},"enterkeyhint":{"type":{"enum":["enter","done","go","next","previous","search","send"]}},"focusgroup":{"type":{"token":{"enum":["toolbar","tablist","radiogroup","listbox","menu","menubar","none","inline","block","wrap","nowrap","nomemory"]},"separator":"space","unique":true,"caseInsensitive":true},"experimental":true},"focusgroupstart":{"type":"Boolean","experimental":true},"headingoffset":{"type":{"type":"integer","gte":0,"lte":8}},"headingreset":{"type":"Boolean"},"hidden":{"type":{"enum":["","hidden","until-found"]}},"inert":{"type":"Boolean"},"inputmode":{"type":{"enum":["none","text","tel","url","email","numeric","decimal","search"]}},"is":{"type":"CustomElementName"},"itemid":{"type":"URL","condition":"[itemscope][itemtype]"},"itemprop":{"type":{"token":"ItemProp","ordered":false,"unique":true,"separator":"space"}},"itemref":{"type":{"token":"DOMID","unique":true,"separator":"space"},"condition":"[itemscope]"},"itemscope":{"type":"Boolean"},"itemtype":{"type":{"token":"AbsoluteURL","ordered":false,"unique":true,"allowEmpty":false,"separator":"space"},"condition":"[itemscope]"},"lang":{"type":"BCP47"},"nonce":{"type":"Any"},"popover":{"type":{"enum":["","auto","manual","hint"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"manual","missingValueDefault":"no popover","sameStates":{"auto":[""]}}},"spellcheck":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"style":{"type":"<css-declaration-list>"},"tabindex":{"type":"TabIndex"},"title":{"type":"Any"},"translate":{"type":{"enum":["","yes","no"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"inherit","missingValueDefault":"inherit","sameStates":{"yes":[""]}}},"writingsuggestions":{"type":{"enum":["","true","false"],"disallowToSurroundBySpaces":true,"invalidValueDefault":"default","missingValueDefault":"default","sameStates":{"true":[""]}}},"class":{"type":"Any"},"id":{"type":"DOMID"},"slot":{"type":"NoEmptyAny"},"xmlns":{"type":"URL","ineffective":"*"},"xml:lang":{"type":"BCP47","deprecated":true},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"elementtiming":{"type":"NoEmptyAny","experimental":true}},"#GlobalEventAttrs":{"onabort":{"type":"FunctionBody"},"onauxclick":{"type":"FunctionBody"},"onbeforeinput":{"type":"FunctionBody"},"onbeforematch":{"type":"FunctionBody"},"onbeforetoggle":{"type":"FunctionBody"},"onblur":{"type":"FunctionBody"},"oncancel":{"type":"FunctionBody"},"oncanplay":{"type":"FunctionBody"},"oncanplaythrough":{"type":"FunctionBody"},"onchange":{"type":"FunctionBody"},"onclick":{"type":"FunctionBody"},"onclose":{"type":"FunctionBody"},"oncommand":{"type":"FunctionBody"},"oncontextlost":{"type":"FunctionBody"},"oncompositionstart":{"type":"FunctionBody"},"oncompositionupdate":{"type":"FunctionBody"},"oncompositionend":{"type":"FunctionBody"},"oncontextmenu":{"type":"FunctionBody"},"oncontextrestored":{"type":"FunctionBody"},"oncopy":{"type":"FunctionBody"},"oncuechange":{"type":"FunctionBody"},"oncut":{"type":"FunctionBody"},"ondblclick":{"type":"FunctionBody"},"ondrag":{"type":"FunctionBody"},"ondragend":{"type":"FunctionBody"},"ondragenter":{"type":"FunctionBody"},"ondragleave":{"type":"FunctionBody"},"ondragover":{"type":"FunctionBody"},"ondragstart":{"type":"FunctionBody"},"ondrop":{"type":"FunctionBody"},"ondurationchange":{"type":"FunctionBody"},"onemptied":{"type":"FunctionBody"},"onended":{"type":"FunctionBody"},"onerror":{"type":"FunctionBody"},"onfocus":{"type":"FunctionBody"},"onformdata":{"type":"FunctionBody"},"onfocusin":{"type":"FunctionBody"},"onfocusout":{"type":"FunctionBody"},"oninput":{"type":"FunctionBody"},"oninvalid":{"type":"FunctionBody"},"onkeydown":{"type":"FunctionBody"},"onkeypress":{"type":"FunctionBody"},"onkeyup":{"type":"FunctionBody"},"onload":{"type":"FunctionBody"},"onloadeddata":{"type":"FunctionBody"},"onloadedmetadata":{"type":"FunctionBody"},"onloadstart":{"type":"FunctionBody"},"onmousedown":{"type":"FunctionBody"},"onmouseenter":{"type":"FunctionBody"},"onmouseleave":{"type":"FunctionBody"},"onmousemove":{"type":"FunctionBody"},"onmouseout":{"type":"FunctionBody"},"onmouseover":{"type":"FunctionBody"},"onmouseup":{"type":"FunctionBody"},"onpaste":{"type":"FunctionBody"},"onpause":{"type":"FunctionBody"},"onplay":{"type":"FunctionBody"},"onplaying":{"type":"FunctionBody"},"onprogress":{"type":"FunctionBody"},"onratechange":{"type":"FunctionBody"},"onreset":{"type":"FunctionBody"},"onresize":{"type":"FunctionBody"},"onscroll":{"type":"FunctionBody"},"onscrollend":{"type":"FunctionBody"},"onsecuritypolicyviolation":{"type":"FunctionBody"},"onseeked":{"type":"FunctionBody"},"onseeking":{"type":"FunctionBody"},"onselect":{"type":"FunctionBody"},"onslotchange":{"type":"FunctionBody"},"onstalled":{"type":"FunctionBody"},"onsubmit":{"type":"FunctionBody"},"onsuspend":{"type":"FunctionBody"},"ontimeupdate":{"type":"FunctionBody"},"ontoggle":{"type":"FunctionBody"},"onvolumechange":{"type":"FunctionBody"},"onwaiting":{"type":"FunctionBody"},"onunload":{"type":"FunctionBody"},"onwheel":{"type":"FunctionBody"},"onanimationstart":{"type":"FunctionBody"},"onanimationiteration":{"type":"FunctionBody"},"onanimationend":{"type":"FunctionBody"},"onanimationcancel":{"type":"FunctionBody"},"ontransitionrun":{"type":"FunctionBody"},"ontransitionstart":{"type":"FunctionBody"},"ontransitionend":{"type":"FunctionBody"},"ontransitioncancel":{"type":"FunctionBody"},"onwebkitanimationend":{"type":"FunctionBody","deprecated":true},"onwebkitanimationiteration":{"type":"FunctionBody","deprecated":true},"onwebkitanimationstart":{"type":"FunctionBody","deprecated":true},"onwebkittransitionend":{"type":"FunctionBody","deprecated":true},"ontouchstart":{"type":"FunctionBody"},"ontouchend":{"type":"FunctionBody"},"ontouchmove":{"type":"FunctionBody"},"ontouchcancel":{"type":"FunctionBody"}},"#HTMLLinkAndFetchingAttrs":{"href":{"type":"URL"},"target":{"type":"NavigableTargetNameOrKeyword","condition":"[href]"},"download":{"type":"Any","condition":"[href]"},"ping":{"type":{"token":"HTTPSchemaURL","separator":"space"},"condition":"[href]"},"rel":{"type":"LinkTypeForAnchorAndAreaElement","condition":"[href]"},"hreflang":{"type":"BCP47","condition":"[href]"},"type":{"type":"MIMEType","condition":"[href]"},"referrerpolicy":{"type":{"enum":["","no-referrer","no-referrer-when-downgrade","same-origin","origin","strict-origin","origin-when-cross-origin","strict-origin-when-cross-origin","unsafe-url"]},"condition":"[href], [src]"},"loading":{"type":{"enum":["lazy","eager"],"invalidValueDefault":"eager","missingValueDefault":"eager"}},"integrity":{"type":"SRIHash"},"media":{"type":"MediaQueryList"},"crossorigin":{"type":{"enum":["","anonymous","use-credentials"],"invalidValueDefault":"anonymous","missingValueDefault":"No CORS","sameStates":{"anonymous":[""]}}},"fetchpriority":{"type":{"enum":["high","low","auto"],"invalidValueDefault":"auto","missingValueDefault":"auto"}}},"#HTMLEmbededAndMediaContentAttrs":{"src":{"type":"NonEmptyURL"},"preload":{"type":{"enum":["none","metadata","auto"],"invalidValueDefault":"implementation-defined","missingValueDefault":"implementation-defined"}},"autoplay":{"type":"Boolean"},"loop":{"type":"Boolean"},"muted":{"type":"Boolean"},"controls":{"type":"Boolean"},"height":{"type":"Uint"},"srcset":{"type":"Srcset"},"sizes":{"type":"SourceSizeList"},"width":{"type":"Uint"}},"#HTMLFormControlElementAttrs":{"autocomplete":{"type":"AutoComplete"},"dirname":{"type":"NoEmptyAny"},"disabled":{"type":"Boolean"},"form":{"type":"DOMID"},"formaction":{"type":"NonEmptyURL"},"formenctype":{"type":{"enum":["application/x-www-form-urlencoded","multipart/form-data","text/plain"],"invalidValueDefault":"application/x-www-form-urlencoded"}},"formmethod":{"type":{"enum":["post","get","dialog"],"invalidValueDefault":"get"}},"formnovalidate":{"type":"Boolean"},"formtarget":{"type":"NavigableTargetNameOrKeyword"},"name":{"type":"NoEmptyAny"},"maxlength":{"type":"Uint"},"minlength":{"type":"Uint"},"readonly":{"type":"Boolean"},"required":{"type":"Boolean"}},"#HTMLTableCellElementAttrs":{"colspan":{"type":{"type":"integer","gt":0,"lte":1000}},"rowspan":{"type":{"type":"integer","gt":0,"lte":65534}},"headers":{"type":{"token":"DOMID","ordered":false,"unique":true,"separator":"space"}}},"#ARIAAttrs":{"role":{"type":{"token":"NoEmptyAny","separator":"space"}}},"#SVGAnimationAdditionAttrs":{"additive":{"type":{"enum":["replace","sum"]}},"accumulate":{"type":{"enum":["none","sum"]}}},"#SVGAnimationAttributeTargetAttrs":{"attributeName":{"type":"XMLName"},"attributeType":{"type":{"enum":["CSS","XML","auto"]},"noUse":true}},"#SVGAnimationEventAttrs":{"onbegin":{"type":"FunctionBody"},"onend":{"type":"FunctionBody"},"onrepeat":{"type":"FunctionBody"}},"#SVGAnimationTargetElementAttrs":{"href":{"type":"URL"},"xlink:href":{"type":"URL","deprecated":true}},"#SVGAnimationTimingAttrs":{"begin":{"type":"<begin-value-list>"},"dur":{"type":["<clock-value>",{"enum":["media","indefinite"]}]},"end":{"type":"<end-value-list>"},"min":{"type":"<clock-value>"},"max":{"type":"<clock-value>"},"restart":{"type":{"enum":["always","whenNotActive","never"]}},"repeatCount":{"type":["<number>",{"enum":["indefinite"]}]},"repeatDur":{"type":["<clock-value>",{"enum":["indefinite"]}]},"fill":{"type":{"enum":["freeze","remove"]}}},"#SVGAnimationValueAttrs":{"calcMode":{"type":{"enum":["discrete","linear","paced","spline"]}},"values":{"type":"<list-of-value>"},"keyTimes":{"type":"<key-times>"},"keySplines":{"type":"<key-splines>"},"from":{"type":"<animatable-value>"},"to":{"type":"<animatable-value>"},"by":{"type":"<animatable-value>"},"accelerate":{"type":"<number-zero-one>"},"decelerate":{"type":"<number-zero-one>"},"autoReverse":{"type":{"enum":["true","false"]}},"speed":{"type":"<number>"}},"#SVGConditionalProcessingAttrs":{"requiredExtensions":{"type":{"token":"URL","unique":true,"separator":"space"}},"systemLanguage":{"type":{"token":"BCP47","unique":true,"separator":"comma"}},"requiredFeatures":{"type":"<list-of-svg-feature-string>","deprecated":true}},"#SVGCoreAttrs":{"id":{"type":"DOMID"},"tabindex":{"type":"TabIndex"},"autofocus":{"type":"Boolean"},"lang":{"type":"BCP47"},"class":{"type":"Any"},"style":{"type":"<css-declaration-list>"},"xmlns":{"type":"URL","ineffective":":not(:root)"},"xml:space":{"type":{"enum":["default","preserve"]},"deprecated":true},"xml:lang":{"type":"BCP47","deprecated":true},"xml:base":{"type":"URL","deprecated":true}},"#SVGFilterPrimitiveAttrs":{"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"width":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<percentage>"]},"result":{"type":"<custom-ident>"},"in":{"type":[{"enum":["SourceGraphic","SourceAlpha","BackgroundImage","BackgroundAlpha","FillPaint","StrokePaint"],"disallowToSurroundBySpaces":false},"<custom-ident>"]}},"#SVGPresentationAttrs":{"cx":{"type":["<svg-length>","<percentage>"]},"cy":{"type":["<svg-length>","<percentage>"]},"height":{"type":["<svg-length>","<'height'>"]},"width":{"type":["<svg-length>","<'width'>"]},"x":{"type":["<svg-length>","<percentage>"]},"y":{"type":["<svg-length>","<percentage>"]},"r":{"type":["<svg-length>","<percentage>"]},"rx":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"ry":{"type":["<svg-length>","<percentage>",{"enum":["auto"]}]},"d":{"type":"<svg-path>"},"transform":{"type":"<'transform'>"},"transform-origin":{"type":"<'transform-origin'>"},"patternTransform":{"type":"<transform-list>"},"gradientTransform":{"type":"<transform-list>"},"alignment-baseline":{"type":"<'alignment-baseline'>"},"baseline-shift":{"type":"<'baseline-shift'>"},"clip-path":{"type":"<'clip-path'>"},"clip-rule":{"type":"<'clip-rule'>"},"color":{"type":"<color>"},"color-interpolation":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"color-interpolation-filters":{"type":{"enum":["auto","sRGB","linearRGB"],"disallowToSurroundBySpaces":false}},"cursor":{"type":"<'cursor'>"},"direction":{"type":"<'direction'>"},"display":{"type":"<'display'>"},"dominant-baseline":{"type":"<'dominant-baseline'>"},"fill":{"type":"<'fill'>"},"fill-opacity":{"type":"<'fill-opacity'>"},"fill-rule":{"type":"<'fill-rule'>"},"filter":{"type":"<'filter'>"},"flood-color":{"type":"<color>"},"flood-opacity":{"type":"<alpha-value>"},"font":{"type":"<'font'>"},"font-family":{"type":"<'font-family'>"},"font-size":{"type":"<svg-font-size>"},"font-size-adjust":{"type":"<svg-font-size-adjust>"},"font-stretch":{"type":"<'font-stretch'>"},"font-style":{"type":"<'font-style'>"},"font-variant":{"type":"<'font-variant'>"},"font-weight":{"type":"<'font-weight'>"},"glyph-orientation-horizontal":{"type":"<'glyph-orientation-horizontal'>","deprecated":true},"glyph-orientation-vertical":{"type":"<'glyph-orientation-vertical'>","deprecated":true},"image-rendering":{"type":"<'image-rendering'>"},"isolation":{"type":"<'isolation'>"},"letter-spacing":{"type":"<'letter-spacing'>"},"lighting-color":{"type":"<color>"},"marker":{"type":"<'marker'>"},"marker-end":{"type":"<'marker-end'>"},"marker-mid":{"type":"<'marker-mid'>"},"marker-start":{"type":"<'marker-start'>"},"mask":{"type":"<'mask'>"},"mask-type":{"type":"<'mask-type'>"},"opacity":{"type":"<alpha-value>"},"overflow":{"type":"<'overflow'>"},"paint-order":{"type":"<'paint-order'>"},"pointer-events":{"type":"<'pointer-events'>"},"shape-rendering":{"type":"<'shape-rendering'>"},"stop-color":{"type":"<'color'>"},"stop-opacity":{"type":"<'opacity'>"},"stroke":{"type":"<'stroke'>"},"stroke-dasharray":{"type":"<'stroke-dasharray'>"},"stroke-dashoffset":{"type":"<'stroke-dashoffset'>"},"stroke-linecap":{"type":"<'stroke-linecap'>"},"stroke-linejoin":{"type":"<'stroke-linejoin'>"},"stroke-miterlimit":{"type":"<'stroke-miterlimit'>"},"stroke-opacity":{"type":"<'stroke-opacity'>"},"stroke-width":{"type":"<'stroke-width'>"},"text-anchor":{"type":"<'text-anchor'>"},"text-decoration":{"type":"<'text-decoration'>"},"text-overflow":{"type":"<'text-overflow'>"},"text-rendering":{"type":"<'text-rendering'>"},"unicode-bidi":{"type":"<'unicode-bidi'>"},"vector-effect":{"type":{"enum":["none","non-scaling-stroke","non-scaling-size","non-rotation","fixed-position"]}},"visibility":{"type":"<'visibility'>"},"white-space":{"type":"<'white-space'>"},"word-spacing":{"type":"<'word-spacing'>"},"writing-mode":{"type":"<'writing-mode'>"},"clip":{"type":"<'clip'>","deprecated":true},"color-profile":{"type":"<'color-profile'>","deprecated":true},"color-rendering":{"type":"<'color-rendering'>","deprecated":true},"enable-background":{"type":"<'enable-background'>","deprecated":true},"kerning":{"type":"<'kerning'>","deprecated":true}},"#SVGTransferFunctionAttrs":{"type":{"type":{"enum":["identity","table","discrete","linear","gamma"]}},"tableValues":{"type":"<list-of-numbers>"},"slope":{"type":"<number>"},"intercept":{"type":"<number>"},"amplitude":{"type":"<number>"},"exponent":{"type":"<number>"},"offset":{"type":"<number>"}},"#MathMLGlobalAttrs":{"autofocus":{"type":"Boolean"},"class":{"type":"Any"},"data-*":{"type":"Any"},"dir":{"type":{"enum":["ltr","rtl"]}},"displaystyle":{"type":{"enum":["true","false"]}},"id":{"type":"DOMID"},"mathbackground":{"type":"<color>","deprecated":true},"mathcolor":{"type":"<color>","deprecated":true},"mathsize":{"type":"<length-percentage>","deprecated":true},"nonce":{"type":"Any"},"scriptlevel":{"type":"Any"},"style":{"type":"<css-declaration-list>"},"tabindex":{"type":"TabIndex"}},"#XLinkAttrs":{"xlink:href":{"type":"URL","deprecated":true},"xlink:title":{"type":"Any","deprecated":true},"xlink:type":{"type":{"enum":["simple"]},"deprecated":true},"xlink:role":{"type":"Any","deprecated":true},"xlink:arcrole":{"type":"URL","deprecated":true},"xlink:show":{"type":{"enum":["new","replace","embed","other","none"]},"deprecated":true},"xlink:actuate":{"type":"Any","deprecated":true}}},"aria":{"roles":{"alert":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"alertdialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"application":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"article":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"banner":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"blockquote":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"button":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-pressed"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"caption":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"cell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"}],"prohibitedProperties":[]},"checkbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"code":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"columnheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"combobox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"command":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"comment":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"complementary":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"composite":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"contentinfo":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"definition":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"deletion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"dialog":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"directory":{"deprecated":true,"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"emphasis":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"feed":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"figure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"form":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"generic":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"}],"prohibitedProperties":["aria-braillelabel","aria-brailleroledescription","aria-label","aria-labelledby","aria-roledescription"]},"grid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"gridcell":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"}],"prohibitedProperties":[]},"group":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"heading":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"image":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"img":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"input":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"insertion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"landmark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"link":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"list":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"listitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"log":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"main":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"mark":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"marquee":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"math":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menu":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menubar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"menuitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemcheckbox":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"menuitemradio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"meter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"navigation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"none":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"note":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"option":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"paragraph":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"presentation":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"progressbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"radio":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"radiogroup":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"range":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"region":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"roletype":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"row":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"rowgroup":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"rowheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colindex"},{"name":"aria-colindextext"},{"name":"aria-colspan"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowindex"},{"name":"aria-rowindextext"},{"name":"aria-rowspan"},{"name":"aria-selected"},{"name":"aria-sort"}],"prohibitedProperties":[]},"scrollbar":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"search":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"searchbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"section":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionfooter":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionhead":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"sectionheader":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"select":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"separator":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"slider":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"spinbutton":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-valuemax"},{"name":"aria-valuemin"},{"name":"aria-valuenow"},{"name":"aria-valuetext"}],"prohibitedProperties":[]},"status":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"strong":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"structure":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"subscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"suggestion":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"superscript":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"switch":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tab":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"table":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"tablist":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tabpanel":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"term":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"textbox":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-autocomplete"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiline"},{"name":"aria-owns"},{"name":"aria-placeholder"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"time":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"timer":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"toolbar":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"tooltip":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":["aria-braillelabel","aria-label","aria-labelledby"]},"tree":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"treegrid":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-colcount"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid"},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-multiselectable"},{"name":"aria-orientation"},{"name":"aria-owns"},{"name":"aria-readonly"},{"name":"aria-relevant"},{"name":"aria-required"},{"name":"aria-roledescription"},{"name":"aria-rowcount"}],"prohibitedProperties":[]},"treeitem":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-checked"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-expanded"},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup"},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-level"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-posinset"},{"name":"aria-relevant"},{"name":"aria-roledescription"},{"name":"aria-selected"},{"name":"aria-setsize"}],"prohibitedProperties":[]},"widget":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"window":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-modal"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-document":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-object":{"ownedProperties":[{"name":"aria-activedescendant"},{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled"},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]},"graphics-symbol":{"ownedProperties":[{"name":"aria-atomic"},{"name":"aria-braillelabel"},{"name":"aria-brailleroledescription"},{"name":"aria-busy"},{"name":"aria-controls"},{"name":"aria-current"},{"name":"aria-describedby"},{"name":"aria-description"},{"name":"aria-details"},{"name":"aria-disabled","deprecated":true},{"name":"aria-dropeffect"},{"name":"aria-errormessage","deprecated":true},{"name":"aria-flowto"},{"name":"aria-grabbed"},{"name":"aria-haspopup","deprecated":true},{"name":"aria-hidden"},{"name":"aria-invalid","deprecated":true},{"name":"aria-keyshortcuts"},{"name":"aria-label"},{"name":"aria-labelledby"},{"name":"aria-live"},{"name":"aria-owns"},{"name":"aria-relevant"},{"name":"aria-roledescription"}],"prohibitedProperties":[]}},"deprecatedProps":["aria-dropeffect","aria-grabbed"]}}`);
 function htmlElement(tag2) {
   const key2 = tag2.toLowerCase();
   return Object.hasOwn(HTML_SPEC.elements, key2) ? HTML_SPEC.elements[key2] : void 0;
@@ -67622,30 +68275,7 @@ function formatMarkdownReport(results, config, meta) {
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.55.2/node_modules/@svelte-vitals/core/dist/internal.js
-var JS_MIME_TYPES = /* @__PURE__ */ new Set([
-  "application/ecmascript",
-  "application/javascript",
-  "application/x-ecmascript",
-  "application/x-javascript",
-  "text/ecmascript",
-  "text/javascript",
-  "text/javascript1.0",
-  "text/javascript1.1",
-  "text/javascript1.2",
-  "text/javascript1.3",
-  "text/javascript1.4",
-  "text/javascript1.5",
-  "text/jscript",
-  "text/livescript",
-  "text/x-ecmascript",
-  "text/x-javascript"
-]);
-var ASCII_WHITESPACE_EDGES = /^[\t\n\f\r ]+|[\t\n\f\r ]+$/g;
-function isClassicScriptType(type) {
-  if (type === void 0 || type === "") return true;
-  return JS_MIME_TYPES.has(type.replace(ASCII_WHITESPACE_EDGES, "").toLowerCase());
-}
+// node_modules/.pnpm/@svelte-vitals+core@0.55.5/node_modules/@svelte-vitals/core/dist/internal.js
 function isSvgSrc(src) {
   return /^data:image\/svg\+xml[;,]/i.test(src) || /\.svg$/i.test(src.split(/[?#]/, 1)[0]);
 }
@@ -67728,51 +68358,91 @@ function collectConstantLists(programs, fragment2, opts = {}) {
     const stmt2 = opts.exported ? unwrapExport(top) : top;
     if (stmt2?.type !== "VariableDeclaration" || stmt2.kind !== "const") continue;
     for (const d2 of stmt2.declarations ?? []) {
-      const init2 = unwrapTs(d2?.init);
+      const init2 = opts.sets ? setLiteralList(unwrapTs(d2?.init)) : unwrapTs(d2?.init);
       if (d2?.id?.type === "Identifier" && init2?.type === "ArrayExpression") {
         if (!(init2.elements ?? []).some((el) => el?.type === "SpreadElement")) candidates.set(d2.id.name, d2.id);
       }
     }
   }
   if (candidates.size === 0) return /* @__PURE__ */ new Set();
+  const aliases = /* @__PURE__ */ new Map();
+  if (opts.exported) for (const program of programs) walkEstree(program, (n2) => {
+    if (n2.type !== "VariableDeclaration" || n2.kind !== "const") return;
+    for (const d2 of n2.declarations ?? []) {
+      const init2 = unwrapTs(d2?.init);
+      const list4 = (init2?.type === "ConditionalExpression" ? [init2.consequent, init2.alternate] : init2?.type === "LogicalExpression" && init2.operator !== "&&" ? [init2.left, init2.right] : [init2]).map((b) => unwrapTs(b)).find((b) => b?.type === "Identifier" && candidates.has(b.name));
+      if (d2?.id?.type !== "Identifier" || !list4 || candidates.has(d2.id.name)) continue;
+      safe.add(list4);
+      aliases.set(d2.id.name, list4.name);
+      candidates.set(d2.id.name, d2.id);
+    }
+  });
   for (const node of candidates.values()) safe.add(node);
   const namespaces = new Set([...opts.imports ?? []].filter(([, b]) => b.imported === "*").map(([local]) => local));
   const unsafe = /* @__PURE__ */ new Set();
   const roots = [...programs, fragment2];
   const listOf = (n2) => n2?.type === "Identifier" && candidates.has(n2.name) ? n2.name : void 0;
+  const outerList = listOf;
   const nsMember = (n2) => n2?.type === "MemberExpression" && !n2.computed && namespaces.has(listOf(n2.object)) ? `${n2.object.name}.${n2.property.name}` : void 0;
+  const outerMember = nsMember;
   const members = /* @__PURE__ */ new Set();
-  for (const root of roots) walkEstree(root, (n2) => {
-    if (n2.type === "EachBlock" && (listOf(n2.expression) || nsMember(n2.expression))) safe.add(n2.expression);
-    if (n2.type === "ForOfStatement" && (listOf(n2.right) || nsMember(n2.right))) safe.add(n2.right);
+  const declared2 = /* @__PURE__ */ new Set();
+  for (const program of programs) {
+    const imported = /* @__PURE__ */ new Set();
+    for (const top of program.body ?? []) if (top?.type === "ImportDeclaration") for (const s of top.specifiers ?? []) imported.add(s?.local?.name);
+    for (const name of collectProgramBindings(program)) if (!imported.has(name)) declared2.add(name);
+  }
+  for (const root of roots) walkScoped(root, (n2, shadowed) => {
+    const listOf2 = (x) => {
+      const name = outerList(x);
+      return name && !shadowed.has(name) ? name : void 0;
+    };
+    const nsMember2 = (x) => x?.type === "MemberExpression" && listOf2(x.object) ? outerMember(x) : void 0;
+    if (n2.type === "EachBlock" && (listOf2(n2.expression) || nsMember2(n2.expression))) safe.add(n2.expression);
+    if (n2.type === "ForOfStatement" && (listOf2(n2.right) || nsMember2(n2.right))) safe.add(n2.right);
     if (n2.type === "ArrayExpression") {
-      for (const el of n2.elements ?? []) if (el?.type === "SpreadElement" && (listOf(el.argument) || nsMember(el.argument))) safe.add(el.argument);
+      for (const el of n2.elements ?? []) if (el?.type === "SpreadElement" && (listOf2(el.argument) || nsMember2(el.argument))) safe.add(el.argument);
     }
-    if (nsMember(n2)) members.add(nsMember(n2));
+    if (nsMember2(n2)) members.add(nsMember2(n2));
     if (n2.type === "MemberExpression") {
-      if (listOf(n2.object) && !(n2.computed && namespaces.has(n2.object.name))) safe.add(n2.object);
-      if (nsMember(n2.object)) safe.add(n2.object);
+      const object4 = n2.object ? unwrapTs(n2.object) : n2.object;
+      if (listOf2(object4) && !(n2.computed && namespaces.has(object4.name))) safe.add(object4);
+      if (nsMember2(object4)) safe.add(object4);
       if (!n2.computed) safe.add(n2.property);
     }
     const target = n2.type === "AssignmentExpression" ? n2.left : n2.type === "UpdateExpression" ? n2.argument : void 0;
-    if (target?.type === "MemberExpression" && listOf(rootObjectNode(target))) unsafe.add(listOf(rootObjectNode(target)));
-    const called = n2.type === "CallExpression" && n2.callee?.type === "MemberExpression" ? n2.callee.object : void 0;
-    const calledList = listOf(called) ?? nsMember(called);
+    let root2 = target;
+    while (root2 && (root2.type === "MemberExpression" || root2.type.startsWith("TS"))) root2 = root2.type === "MemberExpression" ? root2.object : root2.expression;
+    if (target?.type === "MemberExpression" && listOf2(root2)) unsafe.add(listOf2(root2));
+    const called = n2.type === "CallExpression" && n2.callee?.type === "MemberExpression" ? unwrapTs(n2.callee.object) : void 0;
+    const calledList = listOf2(called) ?? nsMember2(called);
     if (calledList) {
       const { computed, property } = n2.callee;
       const method2 = !computed ? property?.name : property?.type === "Literal" && typeof property.value === "string" ? property.value : void 0;
       if (computed && method2 === void 0 || method2 !== void 0 && MUTATING_METHODS2.has(method2)) unsafe.add(calledList);
     }
-    if (n2.type === "BindDirective" && listOf(rootObjectNode(n2.expression))) unsafe.add(listOf(rootObjectNode(n2.expression)));
+    const callee = n2.type === "CallExpression" || n2.type === "NewExpression" ? rootObjectName(n2.callee) : void 0;
+    if (opts.exported && callee !== void 0 && !declared2.has(callee) && !shadowed.has(callee)) {
+      for (const arg of n2.arguments ?? []) if (listOf2(unwrapTs(arg))) safe.add(unwrapTs(arg));
+    }
+    if (n2.type === "BindDirective" && listOf2(rootObjectNode(n2.expression))) unsafe.add(listOf2(rootObjectNode(n2.expression)));
     if (n2.type === "Property" && !n2.computed && !n2.shorthand) safe.add(n2.key);
   });
-  for (const root of roots) walkEvalScope(root, (n2) => {
+  for (const root of roots) walkEvalScope(root, (n2, shadowed) => {
     if (n2.type.startsWith("TS") && !TS_VALUE_NODES.has(n2.type)) return true;
     const name = listOf(n2) ?? nsMember(n2);
-    if (name && !safe.has(n2)) unsafe.add(name);
+    if (name && !safe.has(n2) && !shadowed.has(name.split(".")[0])) unsafe.add(name);
     return false;
   }, /* @__PURE__ */ new Set(), /* @__PURE__ */ new Set());
-  return new Set([...candidates.keys(), ...members].filter((key2) => !unsafe.has(key2) && !unsafe.has(key2.split(".")[0])));
+  for (const [alias, list4] of aliases) if (unsafe.has(alias)) unsafe.add(list4);
+  return new Set([...candidates.keys(), ...members].filter((key2) => !aliases.has(key2) && !unsafe.has(key2) && !unsafe.has(key2.split(".")[0])));
+}
+function collectComponentConstantLists(ast, opts = {}) {
+  return collectConstantLists([ast.module?.content, ast.instance?.content].filter(Boolean), ast.fragment ?? ast, opts);
+}
+function setLiteralList(n2) {
+  const arg = n2?.type === "NewExpression" && n2.callee?.type === "Identifier" && n2.callee.name === "Set" ? n2.arguments : void 0;
+  return arg?.length === 1 && unwrapTs(arg[0])?.type === "ArrayExpression" ? unwrapTs(arg[0]) : n2;
 }
 function collectConstantListExports(program) {
   const lists = collectConstantLists([program], void 0, { exported: true });
@@ -67837,6 +68507,13 @@ function isEffectRootCall(node) {
   const c = node?.callee;
   return c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect" && c.property?.type === "Identifier" && c.property.name === "root";
 }
+function isPrimitiveLiteral(node) {
+  if (node === void 0) return true;
+  if (node.type === "Literal") return !("regex" in node);
+  if (node.type === "TemplateLiteral") return node.expressions.length === 0;
+  if (node.type === "UnaryExpression") return node.argument?.type === "Literal";
+  return node.type === "Identifier" && node.name === "undefined";
+}
 function isStateDeclaration(node) {
   const c = node?.callee;
   if (c?.type === "Identifier") return c.name === "$state";
@@ -67844,7 +68521,18 @@ function isStateDeclaration(node) {
   return false;
 }
 function bodyOnlyAssignsState(fn, stateNames) {
-  const isStateAssign = (expr) => expr?.type === "AssignmentExpression" && expr.operator === "=" && expr.left?.type === "Identifier" && stateNames.has(expr.left.name);
+  const readsItself = (expr) => {
+    let reads = false;
+    const names = /* @__PURE__ */ new Set();
+    walkEstree(expr.right, (n2) => {
+      if (n2?.type === "MemberExpression" && !n2.computed) names.add(n2.property);
+      if (n2?.type === "Property" && !n2.computed && !n2.shorthand) names.add(n2.key);
+      if (n2?.type === "TSTypeQuery") names.add(n2.exprName);
+      reads ||= n2?.type === "Identifier" && n2.name === expr.left.name && !names.has(n2);
+    });
+    return reads;
+  };
+  const isStateAssign = (expr) => expr?.type === "AssignmentExpression" && expr.operator === "=" && expr.left?.type === "Identifier" && stateNames.has(expr.left.name) && !readsItself(expr);
   const body = fn?.body;
   if (!body) return false;
   if (body.type !== "BlockStatement") return isStateAssign(body);
@@ -67857,6 +68545,35 @@ function isDerivedDeclaration(node) {
   if (c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$derived") return c.property?.type === "Identifier" && c.property.name === "by";
   return false;
 }
+var OBJECT_TYPES = /* @__PURE__ */ new Set([
+  "TSArrayType",
+  "TSTupleType",
+  "TSTypeLiteral"
+]);
+var OBJECT_TYPE_NAMES = /* @__PURE__ */ new Set([
+  "Array",
+  "ReadonlyArray",
+  "Record",
+  "Map",
+  "Set",
+  "WeakMap",
+  "WeakSet",
+  "Date"
+]);
+var OBJECT_VALUES = /* @__PURE__ */ new Set([
+  "ObjectExpression",
+  "ArrayExpression",
+  "NewExpression"
+]);
+function isObjectState(call2) {
+  const arg = unwrapTs(call2.arguments?.[0]);
+  if (isPrimitiveLiteral(arg)) return false;
+  if (OBJECT_VALUES.has(arg?.type)) return true;
+  if (arg?.type === "LogicalExpression" && arg.operator !== "&&" && !isPrimitiveLiteral(unwrapTs(arg.left)) && OBJECT_VALUES.has(unwrapTs(arg.right)?.type)) return true;
+  const type = (call2.typeArguments ?? call2.typeParameters)?.params?.[0];
+  if (type?.type === "TSTypeReference") return OBJECT_TYPE_NAMES.has(type.typeName?.name);
+  return OBJECT_TYPES.has(type?.type);
+}
 function collectStateWrites(root, stateNames, acc, kinds, localStates = false) {
   const record = (name, kind) => {
     acc.add(name);
@@ -67866,14 +68583,38 @@ function collectStateWrites(root, stateNames, acc, kinds, localStates = false) {
       set2.add(kind);
     }
   };
+  const primitiveStates = /* @__PURE__ */ new Set();
+  const objectStates = /* @__PURE__ */ new Set();
+  const heldObjects = /* @__PURE__ */ new Set();
+  walkEstree(root, (n2) => {
+    const init2 = n2?.type === "VariableDeclarator" ? unwrapTs(n2.init) : void 0;
+    if (n2?.id?.type !== "Identifier" || !isStateDeclaration(init2)) return;
+    (isPrimitiveLiteral(init2.arguments?.[0]) ? primitiveStates : objectStates).add(n2.id.name);
+    if (localStates && isObjectState(init2)) heldObjects.add(n2.id.name);
+  });
+  for (const name of objectStates) primitiveStates.delete(name);
+  const aliasOf = /* @__PURE__ */ new Map();
+  const reassigned = /* @__PURE__ */ new Set();
+  if (localStates) walkEstree(root, (n2) => {
+    const target = n2?.type === "AssignmentExpression" ? n2.left : n2?.type === "UpdateExpression" ? n2.argument : void 0;
+    if (target?.type === "Identifier") reassigned.add(target.name);
+  });
+  if (localStates) for (let pass = 0; pass < 2; pass++) walkEstree(root, (n2) => {
+    const [id2, from] = n2?.type === "VariableDeclarator" && unwrapTs(n2.init)?.type === "MemberExpression" ? [n2.id, n2.init] : n2?.type === "ForOfStatement" && n2.left?.type === "VariableDeclaration" ? [n2.left.declarations?.[0]?.id, n2.right] : [void 0, void 0];
+    const r2 = rootObjectName(unwrapTs(from));
+    const owner = r2 && (stateNames.has(r2) ? r2 : aliasOf.get(r2));
+    if (id2?.type === "Identifier" && owner && !stateNames.has(id2.name) && !reassigned.has(id2.name)) aliasOf.set(id2.name, owner);
+  });
   const visit = (stateNames2) => (n2, scope) => {
     const shadowed = (name) => name === void 0 || scope.has(name);
+    const mutated = (r2) => {
+      if (r2 && stateNames2.has(r2) && !shadowed(r2)) record(r2, "mutate");
+      else if (r2 && stateNames2.has(aliasOf.get(r2))) record(aliasOf.get(r2), "mutate");
+    };
     if (n2?.type === "AssignmentExpression") {
       if (n2.left?.type === "Identifier" && stateNames2.has(n2.left.name) && !shadowed(n2.left.name)) record(n2.left.name, "reassign");
-      else if (n2.left?.type === "MemberExpression") {
-        const r2 = rootObjectName(n2.left);
-        if (r2 && stateNames2.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      } else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
+      else if (n2.left?.type === "MemberExpression") mutated(rootObjectName(n2.left));
+      else if (n2.left?.type === "ObjectPattern" || n2.left?.type === "ArrayPattern") {
         const bound = /* @__PURE__ */ new Set();
         addBoundNames(n2.left, bound);
         for (const name of bound) if (stateNames2.has(name) && !shadowed(name)) record(name, "reassign");
@@ -67881,24 +68622,30 @@ function collectStateWrites(root, stateNames, acc, kinds, localStates = false) {
     } else if (n2?.type === "UpdateExpression") {
       if (n2.argument?.type === "Identifier") {
         if (stateNames2.has(n2.argument.name) && !shadowed(n2.argument.name)) record(n2.argument.name, "reassign");
-      } else {
-        const r2 = rootObjectName(n2.argument);
-        if (r2 && stateNames2.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      }
-    } else if (n2?.type === "UnaryExpression" && n2.operator === "delete") {
-      const r2 = rootObjectName(n2.argument);
-      if (r2 && stateNames2.has(r2) && !shadowed(r2)) record(r2, "mutate");
-    } else if (n2?.type === "CallExpression") {
-      if (n2.callee?.type === "MemberExpression") {
-        const r2 = rootObjectName(n2.callee);
-        if (r2 && stateNames2.has(r2) && !shadowed(r2)) record(r2, "mutate");
-      }
+      } else mutated(rootObjectName(n2.argument));
+    } else if (n2?.type === "UnaryExpression" && n2.operator === "delete") mutated(rootObjectName(n2.argument));
+    else if (n2?.type === "CallExpression") {
+      if (n2.callee?.type === "MemberExpression") mutated(rootObjectName(n2.callee));
       for (const a2 of n2.arguments ?? []) {
         const arg = a2?.type === "SpreadElement" ? a2.argument : a2;
         const r2 = rootObjectName(arg);
         if (r2 && stateNames2.has(r2) && !shadowed(r2)) record(r2, "escape");
       }
-    }
+    } else if (n2?.type === "ReturnStatement") {
+      const out = unwrapTs(n2.argument);
+      const r2 = out?.type === "Identifier" ? out.name : void 0;
+      if (r2 && stateNames2.has(r2) && !shadowed(r2) && !primitiveStates.has(r2)) record(r2, "escape");
+    } else if (heldObjects.size > 0 && (n2?.type === "ObjectExpression" || n2?.type === "ArrayExpression")) {
+      const values = n2.type === "ObjectExpression" ? (n2.properties ?? []).map((p2) => p2?.value) : n2.elements;
+      for (const v of values ?? []) {
+        const placed = unwrapTs(v);
+        const r2 = placed?.type === "Identifier" ? placed.name : void 0;
+        if (r2 && heldObjects.has(r2) && stateNames2.has(r2) && !shadowed(r2)) record(r2, "escape");
+      }
+    } else if ((n2?.type === "Property" || n2?.type === "MethodDefinition") && n2.kind === "get") walkEstree(n2.value?.body, (m) => {
+      const r2 = m?.type === "ReturnStatement" ? rootObjectName(m.argument) : void 0;
+      if (r2 && stateNames2.has(r2) && !shadowed(r2) && !primitiveStates.has(r2)) record(r2, "escape");
+    });
   };
   walkScoped(root, visit(stateNames));
   if (!localStates) return;
@@ -68411,12 +69158,23 @@ function selectNativeRole(attributes) {
   if (attrValueOf(size) !== "static") return void 0;
   return Number(attrTextOf(size)) > 1 ? "listbox" : "combobox";
 }
-function collectAriaElements(node, source2, acc) {
+var DND_ZONE_ACTIONS = /* @__PURE__ */ new Set(["dndzone", "dragHandleZone"]);
+function isDndZone(a2) {
+  if (a2?.type !== "UseDirective" || !DND_ZONE_ACTIONS.has(a2.name)) return false;
+  const opts = unwrapTs(a2.expression);
+  if (opts?.type !== "ObjectExpression") return true;
+  const keyOf = (p2) => p2.computed ? p2.key?.type === "Literal" ? String(p2.key.value) : void 0 : String(p2.key?.name ?? p2.key?.value);
+  const last = opts.properties.filter((p2) => p2.type === "SpreadElement" || p2.type === "Property" && (keyOf(p2) === void 0 || keyOf(p2) === "autoAriaDisabled")).at(-1);
+  return !(last?.type === "Property" && keyOf(last) === "autoAriaDisabled" && last.value?.type === "Literal" && last.value.value === true);
+}
+function collectAriaElements(node, source2, acc, parentIsDndZone = false) {
   if (Array.isArray(node)) {
-    for (const child of node) collectAriaElements(child, source2, acc);
+    for (const child of node) collectAriaElements(child, source2, acc, parentIsDndZone);
     return;
   }
   if (!node || typeof node !== "object") return;
+  let inDndZone = parentIsDndZone;
+  if (typeof node.type === "string" && (node.type.endsWith("Element") || node.type === "Component" || node.type.startsWith("Svelte")) && node.type !== "SvelteBoundary") inDndZone = Array.isArray(node.attributes) && node.attributes.some(isDndZone);
   if (node.type === "RegularElement" && Array.isArray(node.attributes)) {
     const roleAttr = findAttr(node.attributes, "role");
     const ariaAttrs = node.attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string" && a2.name.toLowerCase().startsWith("aria-"));
@@ -68426,7 +69184,7 @@ function collectAriaElements(node, source2, acc) {
       const hasList = tag2 === "input" && findAttr(node.attributes, "list") !== void 0;
       const selectKind = tag2 === "select" ? selectNativeRole(node.attributes) : void 0;
       const hasSpread = node.attributes.some((a2) => a2?.type === "SpreadAttribute");
-      const hasAction = node.attributes.some((a2) => a2?.type === "UseDirective");
+      const hasAction = parentIsDndZone || node.attributes.some((a2) => a2?.type === "UseDirective");
       acc.push({
         tag: tag2,
         line: lineOf(source2, node.start),
@@ -68444,7 +69202,7 @@ function collectAriaElements(node, source2, acc) {
       });
     }
   }
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectAriaElements(node[key2], source2, acc);
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectAriaElements(node[key2], source2, acc, inDndZone);
 }
 function elementAttrs(attributes) {
   return attributes.filter((a2) => a2?.type === "Attribute" && typeof a2.name === "string").map((a2) => ({
@@ -68973,6 +69731,7 @@ function isPropsCall(node) {
   return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$props";
 }
 function isBindableCall(node) {
+  node = unwrapTs(node);
   return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$bindable";
 }
 function collectPropNames(program, includeBindable) {
@@ -69023,16 +69782,98 @@ var MUTATING_METHODS2 = /* @__PURE__ */ new Set([
   "delete",
   "clear"
 ]);
-function collectPropMutations(root, propNames, source2, acc, legacy) {
+var COLLECTION_TYPES = /* @__PURE__ */ new Set([
+  "Array",
+  "ReadonlyArray",
+  "Set",
+  "ReadonlySet",
+  "Map",
+  "ReadonlyMap",
+  "WeakMap",
+  "WeakSet",
+  "SvelteSet",
+  "SvelteMap",
+  "URLSearchParams",
+  "SvelteURLSearchParams",
+  "FormData",
+  "Headers",
+  "Int8Array",
+  "Uint8Array",
+  "Uint8ClampedArray",
+  "Int16Array",
+  "Uint16Array",
+  "Int32Array",
+  "Uint32Array",
+  "Float16Array",
+  "Float32Array",
+  "Float64Array",
+  "BigInt64Array",
+  "BigUint64Array"
+]);
+var NON_COLLECTION_NODES = /* @__PURE__ */ new Set([
+  "TSStringKeyword",
+  "TSNumberKeyword",
+  "TSBooleanKeyword",
+  "TSBigIntKeyword",
+  "TSNullKeyword",
+  "TSUndefinedKeyword",
+  "TSFunctionType",
+  "TSTypeLiteral",
+  "TSLiteralType"
+]);
+function nonCollectionProps(program) {
+  const decls = /* @__PURE__ */ new Map();
+  walkEstree(program, (n2) => {
+    if ((n2.type === "TSInterfaceDeclaration" || n2.type === "TSTypeAliasDeclaration") && n2.id?.name) decls.set(n2.id.name, n2);
+  });
+  const unwrap = (t2) => t2?.type === "TSTypeAnnotation" ? t2.typeAnnotation : t2;
+  const nonCollection = (t2, depth) => {
+    t2 = unwrap(t2);
+    if (!t2 || depth > 4) return false;
+    if (NON_COLLECTION_NODES.has(t2.type)) return true;
+    if (t2.type === "TSUnionType") return t2.types.every((u2) => nonCollection(u2, depth + 1));
+    if (t2.type !== "TSTypeReference" || t2.typeName?.type !== "Identifier") return false;
+    const name = t2.typeName.name;
+    if (COLLECTION_TYPES.has(name)) return false;
+    const decl = decls.get(name);
+    if (decl?.type === "TSTypeAliasDeclaration") return nonCollection(decl.typeAnnotation, depth + 1);
+    if (decl?.type === "TSInterfaceDeclaration") return !(decl.extends ?? []).some((h2) => COLLECTION_TYPES.has(h2.expression?.name));
+    return !(t2.typeArguments ?? t2.typeParameters)?.params?.length;
+  };
+  const membersOf = (t2, depth) => {
+    t2 = unwrap(t2);
+    if (t2?.type === "TSTypeLiteral") return t2.members;
+    if (t2?.type !== "TSTypeReference" || depth > 4) return void 0;
+    const decl = decls.get(t2.typeName?.name);
+    if (decl?.type === "TSInterfaceDeclaration") return decl.body?.body;
+    return decl?.type === "TSTypeAliasDeclaration" ? membersOf(decl.typeAnnotation, depth + 1) : void 0;
+  };
+  const names = /* @__PURE__ */ new Set();
+  walkEstree(program, (n2) => {
+    if (n2.type !== "VariableDeclarator" || !n2.init || !isPropsCall(unwrapTs(n2.init))) return;
+    if (n2.id?.type !== "ObjectPattern") return;
+    const types2 = /* @__PURE__ */ new Map();
+    for (const m of membersOf(n2.id.typeAnnotation, 0) ?? []) if (m.type === "TSPropertySignature" && m.key?.type === "Identifier") types2.set(m.key.name, m.typeAnnotation);
+    for (const p2 of n2.id.properties ?? []) {
+      if (p2?.type !== "Property" || p2.key?.type !== "Identifier" || !types2.has(p2.key.name)) continue;
+      const local = p2.value?.type === "AssignmentPattern" ? p2.value.left : p2.value;
+      if (local?.type === "Identifier" && nonCollection(types2.get(p2.key.name), 0)) names.add(local.name);
+    }
+  });
+  return names;
+}
+function collectPropMutations(root, propNames, source2, acc, legacy, ownApi = /* @__PURE__ */ new Set()) {
   if (propNames.size === 0) return;
   const exemptCalls = /* @__PURE__ */ new Set();
+  const returnedToProp = /* @__PURE__ */ new Set();
   if (legacy.size > 0) walkEstree(root, (fn) => {
-    if (!isDeferredBody(fn)) return;
+    const body = isDeferredBody(fn) ? fn.body : fn.type === "LabeledStatement" && fn.label?.name === "$" ? fn.body : void 0;
+    if (!body) return;
     const assigned = /* @__PURE__ */ new Set();
-    walkScoped(fn.body, (m, scope) => {
+    walkScoped(body, (m, scope) => {
       if (m.type === "AssignmentExpression" && m.left?.type === "Identifier" && !scope.has(m.left.name)) assigned.add(m.left.name);
     });
-    walkEstree(fn.body, (m) => {
+    walkEstree(body, (m) => {
       const r2 = m.type === "CallExpression" ? rootObjectName(m.callee?.object) : m.type === "UnaryExpression" && m.operator === "delete" ? rootObjectName(m.argument) : void 0;
       if (r2 && legacy.has(r2) && assigned.has(r2)) exemptCalls.add(m);
     });
@@ -69040,6 +69881,20 @@ function collectPropMutations(root, propNames, source2, acc, legacy) {
   walkEstree(root, (m) => {
     const call2 = m.type === "AssignmentExpression" && m.left?.type === "Identifier" ? m.right : void 0;
     if (call2?.type === "CallExpression" && rootObjectName(call2.callee?.object) === m.left.name && call2.arguments?.length === 1 && call2.arguments[0]?.type === "ObjectExpression") exemptCalls.add(call2);
+    const awaited = m.type === "AwaitExpression" ? unwrapTs(m.argument) : void 0;
+    if (awaited?.type === "CallExpression") exemptCalls.add(awaited);
+    const chained = m.type === "CallExpression" && m.callee?.type === "MemberExpression" && !m.callee.computed && [
+      "then",
+      "catch",
+      "finally"
+    ].includes(m.callee.property?.name) ? unwrapTs(m.callee.object) : void 0;
+    if (chained?.type === "CallExpression") exemptCalls.add(chained);
+    if (m.type === "AssignmentExpression" && m.left?.type === "Identifier") {
+      let back = unwrapTs(m.right);
+      if (back?.type === "LogicalExpression") back = unwrapTs(back.left);
+      if (back?.type === "ChainExpression") back = back.expression;
+      if (back?.type === "CallExpression" && back.callee.type === "MemberExpression" && rootObjectName(back.callee.object) === m.left.name) returnedToProp.add(back);
+    }
   });
   walkScoped(root, (n2, scope) => {
     const flag = (r2) => {
@@ -69058,6 +69913,8 @@ function collectPropMutations(root, propNames, source2, acc, legacy) {
     } else if (n2.type === "UnaryExpression" && n2.operator === "delete") flag(rootObjectName(n2.argument));
     else if (n2.type === "CallExpression" && n2.callee?.type === "MemberExpression") {
       const method2 = n2.callee.property?.type === "Identifier" ? n2.callee.property.name : void 0;
+      const receiver = unwrapTs(n2.callee.object);
+      if (receiver?.type === "Identifier" && ownApi.has(receiver.name) && !returnedToProp.has(n2)) return;
       if (method2 && MUTATING_METHODS2.has(method2)) flag(rootObjectName(n2.callee.object));
     }
   });
@@ -69101,7 +69958,7 @@ function collectImportSources(program, source2, acc) {
   });
 }
 function isBareSpecifier(s) {
-  return !/^[./$#]/.test(s);
+  return !/^([./$#]|@\/|~\/)/.test(s);
 }
 function namespaceUsedDynamically(name, roots) {
   const staticOrDeclaring = /* @__PURE__ */ new Set();
@@ -69112,6 +69969,8 @@ function namespaceUsedDynamically(name, roots) {
       if (!n2.computed) staticOrDeclaring.add(n2.property);
     } else if ((n2.type === "Property" && !n2.shorthand || n2.type === "TSPropertySignature" || n2.type === "TSMethodSignature") && !n2.computed) staticOrDeclaring.add(n2.key);
     else if (n2.type === "ImportNamespaceSpecifier") staticOrDeclaring.add(n2.local);
+    else if (n2.type === "ImportSpecifier" && n2.imported !== n2.local) staticOrDeclaring.add(n2.imported);
+    else if (n2.type === "ExportSpecifier" && n2.exported !== n2.local) staticOrDeclaring.add(n2.exported);
     else if (n2.type === "TSQualifiedName" || n2.type === "TSTypeQuery") {
       const id2 = n2.type === "TSQualifiedName" ? n2.left : n2.exprName;
       if (id2?.type === "Identifier") staticOrDeclaring.add(id2);
@@ -69428,8 +70287,9 @@ function parseComponentFacts(source2, filename2) {
     const legacyPropNames = collectLegacyPropNames(program);
     const nonBindableProps = /* @__PURE__ */ new Set([...collectPropNames(program, false), ...legacyPropNames]);
     const rawMutations = [];
-    collectPropMutations(program, nonBindableProps, source2, rawMutations, legacyPropNames);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, rawMutations, legacyPropNames);
+    const ownApi = nonCollectionProps(program);
+    collectPropMutations(program, nonBindableProps, source2, rawMutations, legacyPropNames, ownApi);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, rawMutations, legacyPropNames, ownApi);
     const isLegacy = legacyPropNames.size > 0;
     for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? {
       ...m,
@@ -69759,7 +70619,7 @@ async function collectKitModuleFacts(rt, cwd, aliases) {
     "src/hooks.server.{ts,js}"
   ].map((p2) => rt.glob(p2, cwd)));
   const files = [...new Set(lists.flat())];
-  return arbitrateServerStoreWrites(rt, cwd, await Promise.all(files.sort().map(async (rel) => {
+  return decideLoadFactories(rt, cwd, await decideFlagGuards(rt, cwd, await dropClientWrites(rt, cwd, await arbitrateServerStoreWrites(rt, cwd, await Promise.all(files.sort().map(async (rel) => {
     const kind = kindOf(rel);
     let source2;
     try {
@@ -69783,7 +70643,7 @@ async function collectKitModuleFacts(rt, cwd, aliases) {
         parseFailed: true
       };
     }
-  })));
+  }))), aliases)));
 }
 function moduleCandidates(repoPath) {
   if (repoPath.endsWith(".js")) return [repoPath, `${repoPath.slice(0, -3)}.ts`];
@@ -69795,19 +70655,64 @@ function moduleCandidates(repoPath) {
     `${repoPath}/index.js`
   ];
 }
-async function inMemoryExportsOf(rt, cwd, repoPath) {
+async function exportsOf(rt, cwd, repoPath, parse9) {
   for (const rel of moduleCandidates(repoPath)) try {
     if (!await rt.exists(rt.join(cwd, rel))) continue;
-    return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);
+    return parse9(await rt.readFile(rt.join(cwd, rel)), rel);
   } catch {
     return /* @__PURE__ */ new Set();
   }
   return /* @__PURE__ */ new Set();
 }
+async function dropClientWrites(rt, cwd, facts, aliases) {
+  const targets = [...new Set(facts.flatMap((f) => (f.storeWriteTargets ?? []).map((w2) => w2.resolved)))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(await Promise.all(targets.map(async (t2) => [t2, await exportsOf(rt, cwd, t2, (src, file) => parseClientExports(src, file, aliases))])));
+  return facts.map((f) => {
+    const clients = (f.storeWriteTargets ?? []).filter((w2) => byPath.get(w2.resolved)?.has(w2.imported));
+    if (clients.length === 0) return f;
+    const left = /* @__PURE__ */ new Map();
+    for (const c of clients) left.set(`${c.name}:${c.line}`, (left.get(`${c.name}:${c.line}`) ?? 0) + 1);
+    const drop = (w2) => {
+      const n2 = w2.via === "set-call" ? left.get(`${w2.name}:${w2.line}`) ?? 0 : 0;
+      if (n2 > 0) left.set(`${w2.name}:${w2.line}`, n2 - 1);
+      return n2 > 0;
+    };
+    return {
+      ...f,
+      importedStateWrites: f.importedStateWrites.filter((w2) => !drop(w2))
+    };
+  });
+}
+async function decideLoadFactories(rt, cwd, facts) {
+  const targets = [...new Set(facts.flatMap((f) => f.pendingLoadFactory ? [f.pendingLoadFactory.resolved] : []))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(await Promise.all(targets.map(async (t2) => [t2, await exportsOf(rt, cwd, t2, parseExitFactoryExports)])));
+  return facts.map((f) => {
+    const g = f.pendingLoadFactory;
+    return g && byPath.get(g.resolved)?.has(g.name) ? {
+      ...f,
+      loadNeverRenders: true
+    } : f;
+  });
+}
+async function decideFlagGuards(rt, cwd, facts) {
+  const targets = [...new Set(facts.flatMap((f) => f.pendingFlagGuard ? [f.pendingFlagGuard.resolved] : []))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(await Promise.all(targets.map(async (t2) => [t2, await exportsOf(rt, cwd, t2, parseFalseExports)])));
+  return facts.map((f) => {
+    const g = f.pendingFlagGuard;
+    const key2 = g && (g.member ? `${g.name}.${g.member}` : g.name);
+    return g && byPath.get(g.resolved)?.has(key2) ? {
+      ...f,
+      loadNeverRenders: true
+    } : f;
+  });
+}
 async function arbitrateServerStoreWrites(rt, cwd, facts) {
   const targets = [...new Set(facts.flatMap((f) => f.pendingServerStoreWrites.map((w2) => w2.resolved)))];
   if (targets.length === 0) return facts;
-  const byPath = new Map(await Promise.all(targets.map(async (t2) => [t2, await inMemoryExportsOf(rt, cwd, t2)])));
+  const byPath = new Map(await Promise.all(targets.map(async (t2) => [t2, await exportsOf(rt, cwd, t2, parseInMemoryExports)])));
   return facts.map((f) => {
     const promoted = f.pendingServerStoreWrites.filter((w2) => byPath.get(w2.resolved)?.has(w2.imported)).map((w2) => ({
       name: w2.name,
@@ -69890,22 +70795,43 @@ function findMinifyDisabled(source2) {
   if (!minify || minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
   return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
 }
-function alwaysEmptyString(expr) {
-  const e3 = unwrapTs(expr);
-  if (e3.type === "Literal") return e3.value === "";
-  if (e3.type === "ConditionalExpression") return alwaysEmptyString(e3.consequent) && alwaysEmptyString(e3.alternate);
-  if (e3.type === "LogicalExpression") return alwaysEmptyString(e3.left) && alwaysEmptyString(e3.right);
+function isServedBase(value) {
+  return typeof value === "string" && value.startsWith("/") && !value.endsWith("/");
+}
+function constBindings(program, bindings) {
+  const names = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body) {
+    const decl = stmt2.type === "ExportNamedDeclaration" ? stmt2.declaration : stmt2;
+    if (decl?.type !== "VariableDeclaration" || decl.kind !== "const") continue;
+    for (const d2 of decl.declarations) if (d2.id.type === "Identifier") names.add(d2.id.name);
+  }
+  return new Map([...bindings].filter(([name]) => names.has(name)));
+}
+function neverABase(expr, consts) {
+  const e3 = resolveBinding(expr, consts);
+  if (e3.type === "Literal") return !isServedBase(e3.value);
+  if (e3.type === "ConditionalExpression") return neverABase(e3.consequent, consts) && neverABase(e3.alternate, consts);
+  if (e3.type === "LogicalExpression") return neverABase(e3.left, consts) && neverABase(e3.right, consts);
   return false;
 }
-function basePathOf(kitConfig, bindings) {
+function resolveBinding(expr, consts) {
+  let e3 = unwrapTs(expr);
+  for (let i3 = 0; i3 < 4 && e3.type === "Identifier"; i3++) {
+    const next2 = consts.get(e3.name);
+    if (!next2) break;
+    e3 = unwrapTs(next2);
+  }
+  return e3;
+}
+function basePathOf(kitConfig, bindings, consts) {
   const paths = propOf(kitConfig, "paths");
   const pathsObj = paths ? unwrapToObjectExpression(paths.value, bindings) : void 0;
   if (!pathsObj) return void 0;
   const base = propOf(pathsObj, "base");
   if (!base) return void 0;
-  const value = unwrapTs(base.value);
-  if (value.type === "Literal") return typeof value.value === "string" && value.value !== "" ? { value: value.value } : void 0;
-  return alwaysEmptyString(value) ? void 0 : {};
+  const value = resolveBinding(base.value, consts);
+  if (value.type === "Literal") return isServedBase(value.value) ? { value: value.value } : void 0;
+  return neverABase(value, consts) ? void 0 : {};
 }
 function keyNameOf(p2) {
   if (p2.computed) return void 0;
@@ -69976,6 +70902,13 @@ function filesLibOf(kitConfig, bindings) {
   if (!lib) return void 0;
   return stringValueOf(lib) ?? null;
 }
+function rawKitAliasesOf(kitConfig, bindings) {
+  const filesLib = filesLibOf(kitConfig, bindings);
+  return {
+    entries: aliasEntriesOf(kitConfig, bindings),
+    ...filesLib !== void 0 ? { filesLib } : {}
+  };
+}
 function findKitAliasesInSvelteConfig(source2) {
   const program = programOf(source2, "svelte.config.js");
   const config = program ? resolveConfigObject(program) : void 0;
@@ -69983,12 +70916,7 @@ function findKitAliasesInSvelteConfig(source2) {
   const bindings = collectTopLevelBindings(program);
   const kit = propOf(config, "kit");
   const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
-  if (!kitObj) return { entries: [] };
-  const filesLib = filesLibOf(kitObj, bindings);
-  return {
-    entries: aliasEntriesOf(kitObj, bindings),
-    ...filesLib !== void 0 ? { filesLib } : {}
-  };
+  return kitObj ? rawKitAliasesOf(kitObj, bindings) : { entries: [] };
 }
 function normalizeAliasValue(value) {
   const posix = value.replace(/\\/g, "/").replace(/^(\.\/)+/, "");
@@ -70013,7 +70941,13 @@ function compileKitAliases(raw) {
   return out;
 }
 function resolveKitAliases(viteConfig, svelteConfig) {
-  if (viteConfig && findKitPathsBaseInViteConfig(viteConfig.source).kind !== "no-plugin-config") return void 0;
+  const plugin = viteConfig ? sveltekitPluginConfig(viteConfig.source) : void 0;
+  if (plugin?.kind === "unresolvable") return void 0;
+  if (plugin?.kind === "resolved") {
+    const raw = rawKitAliasesOf(plugin.config, plugin.bindings);
+    const compiled = compileKitAliases(raw);
+    return raw.filesLib === void 0 && raw.entries?.some((e3) => e3.key === "$lib") ? compiled.slice(1) : compiled;
+  }
   if (!svelteConfig) return void 0;
   return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
 }
@@ -70070,14 +71004,38 @@ function findKitPathsBaseInSvelteConfig(source2) {
   const bindings = collectTopLevelBindings(program);
   const kit = propOf(config, "kit");
   const kitObj = kit ? unwrapToObjectExpression(kit.value, bindings) : void 0;
-  return kitObj ? basePathOf(kitObj, bindings) : void 0;
+  return kitObj ? basePathOf(kitObj, bindings, constBindings(program, bindings)) : void 0;
+}
+function knownObject(expr, bindings) {
+  let current2 = expr;
+  for (let i3 = 0; i3 < 4 && current2; i3++) {
+    const e3 = unwrapTs(current2);
+    if (e3.type === "ObjectExpression") return e3.properties.some((p2) => p2.type === "SpreadElement") ? void 0 : e3;
+    if (e3.type === "Identifier") current2 = bindings.get(e3.name);
+    else if (e3.type === "CallExpression" && e3.arguments.length === 1) current2 = e3.arguments[0];
+    else return void 0;
+  }
+}
+function knownObjectAt(obj, key2, bindings) {
+  const p2 = obj && propOf(obj, key2);
+  return p2 ? knownObject(p2.value, bindings) : void 0;
+}
+function isHashRouter(kitConfig, bindings) {
+  const router = knownObjectAt(kitConfig, "router", bindings);
+  return stringLiteralOf(router && propOf(router, "type")?.value) === "hash";
+}
+function findKitHashRouterInSvelteConfig(source2) {
+  const program = programOf(source2, "svelte.config.js");
+  if (!program) return false;
+  const bindings = collectTopLevelBindings(program);
+  return isHashRouter(knownObjectAt(knownObject(findExportedExpression(program), bindings), "kit", bindings), bindings);
 }
 function sveltekitLocalNames(program) {
   const out = collectNamedImportAliases(program, "@sveltejs/kit/vite", /* @__PURE__ */ new Set(["sveltekit"]));
   if (out.size === 0) out.add("sveltekit");
   return out;
 }
-function findKitPathsBaseInViteConfig(source2) {
+function sveltekitPluginConfig(source2) {
   const none = { kind: "no-plugin-config" };
   const program = programOf(source2, "vite.config.ts");
   if (!program) return none;
@@ -70096,14 +71054,24 @@ function findKitPathsBaseInViteConfig(source2) {
     const arg = call2.arguments[0];
     if (arg === void 0) return none;
     const kitConfig = unwrapToObjectExpression(arg, bindings);
-    if (!kitConfig) return { kind: "unresolvable" };
-    const base = basePathOf(kitConfig, bindings);
-    return base ? {
+    return kitConfig ? {
       kind: "resolved",
-      base
-    } : { kind: "resolved" };
+      config: kitConfig,
+      arg,
+      program,
+      bindings
+    } : { kind: "unresolvable" };
   }
   return none;
+}
+function findKitPathsBaseInViteConfig(source2) {
+  const plugin = sveltekitPluginConfig(source2);
+  if (plugin.kind !== "resolved") return plugin;
+  const base = basePathOf(plugin.config, plugin.bindings, constBindings(plugin.program, plugin.bindings));
+  return base ? {
+    kind: "resolved",
+    base
+  } : { kind: "resolved" };
 }
 function resolveKitPathsBase(viteConfig, svelteConfig) {
   if (viteConfig) {
@@ -70120,6 +71088,12 @@ function resolveKitPathsBase(viteConfig, svelteConfig) {
     ...base,
     file: svelteConfig.file
   } : void 0;
+}
+function resolveKitHashRouter(viteConfig, svelteConfig) {
+  const plugin = viteConfig ? sveltekitPluginConfig(viteConfig.source) : void 0;
+  if (plugin?.kind === "unresolvable") return false;
+  if (plugin?.kind === "resolved") return isHashRouter(knownObject(plugin.arg, plugin.bindings), plugin.bindings);
+  return svelteConfig !== void 0 && findKitHashRouterInSvelteConfig(svelteConfig.source);
 }
 var DEPENDENCY_FIELDS = [
   "dependencies",
@@ -70306,10 +71280,13 @@ var SITEMAP_SOURCE_PATHS = [
   "src/routes/sitemap.xml/+server.ts",
   "src/routes/sitemap.xml/+server.js"
 ];
-var ROOT_FILE_ENDPOINT_GLOB = "src/routes/**/{robots.txt,sitemap.xml}/+server.{ts,js}";
+var ROOT_FILE_ENDPOINT_GLOB = "src/routes/**/{robots.txt,sitemap*.xml}/+server.{ts,js}";
 function servesRootFile(rel, file) {
   const segments = rel.split("/");
-  return segments[0] === "src" && segments[1] === "routes" && segments.at(-2) === file && /^\+server\.(ts|js)$/.test(segments.at(-1) ?? "") && segments.slice(2, -2).every((s) => /^\(.+\)$/.test(s));
+  const dot = file.lastIndexOf(".");
+  const optional = new RegExp(`^${file.slice(0, dot)}\\[\\[[^\\]]+\\]\\]\\${file.slice(dot)}$`);
+  const dir = segments.at(-2) ?? "";
+  return segments[0] === "src" && segments[1] === "routes" && (dir === file || optional.test(dir)) && /^\+server\.(ts|js)$/.test(segments.at(-1) ?? "") && segments.slice(2, -2).every((s) => /^\(.+\)$/.test(s));
 }
 var VITE_CONFIG_FILES = [
   "vite.config.js",
@@ -70355,7 +71332,7 @@ async function runRules(rules, ctx) {
   }));
   const results = [];
   const failedRules = [];
-  for (const outcome of perRule) if (Array.isArray(outcome)) results.push(...outcome);
+  for (const outcome of perRule) if (Array.isArray(outcome)) for (const r2 of outcome) results.push(r2);
   else failedRules.push(outcome);
   return {
     results,
@@ -70950,7 +71927,7 @@ var APP_SCRIPT = `
 })();
 `;
 
-// node_modules/.pnpm/svelte-vitals@0.55.2_cac@7.0.0/node_modules/svelte-vitals/dist/src-CgSrsDfM.js
+// node_modules/.pnpm/svelte-vitals@0.55.5_cac@7.0.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
 import { access as access2, glob, readFile, stat as stat2 } from "fs/promises";
 
 // node_modules/.pnpm/gunshi@0.37.3/node_modules/gunshi/lib/agent.js
@@ -71140,7 +72117,7 @@ function I() {
 }
 I()?.name;
 
-// node_modules/.pnpm/svelte-vitals@0.55.2_cac@7.0.0/node_modules/svelte-vitals/dist/src-CgSrsDfM.js
+// node_modules/.pnpm/svelte-vitals@0.55.5_cac@7.0.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
 import { execFileSync } from "child_process";
 import { tmpdir } from "os";
 import { styleText } from "util";
@@ -71257,6 +72234,9 @@ function candidatesOf(expr) {
   if (expr.type === "LogicalExpression") return [...expr.operator === "&&" ? [""] : candidatesOf(expr.left), ...candidatesOf(expr.right)];
   return [""];
 }
+function isDerivedCall(init2) {
+  return init2?.type === "CallExpression" && init2.callee.type === "Identifier" && init2.callee.name === "$derived";
+}
 function addBinding(decl, out) {
   if (decl.id.type !== "Identifier" || !decl.init) return;
   const init2 = decl.init;
@@ -71350,9 +72330,30 @@ function addDynamicBindings(ast, out) {
 }
 function collectComponentBindings(ast) {
   const out = /* @__PURE__ */ new Map();
-  for (const program of [ast.instance?.content, ast.module?.content]) for (const node of program?.body ?? []) {
-    if (node.type !== "VariableDeclaration" || node.kind !== "const") continue;
-    for (const decl of node.declarations) addBinding(decl, out);
+  for (const program of [ast.instance?.content, ast.module?.content]) {
+    if (!program) continue;
+    const assignments = /* @__PURE__ */ new Map();
+    walkEstree(program, (n2) => {
+      if (n2.type === "AssignmentExpression" && n2.left.type === "Identifier") assignments.set(n2.left.name, (assignments.get(n2.left.name) ?? 0) + 1);
+    });
+    const declared2 = /* @__PURE__ */ new Set();
+    for (const node of program.body) {
+      if (node.type !== "VariableDeclaration") continue;
+      for (const decl of node.declarations) {
+        if (decl.id.type === "Identifier") declared2.add(decl.id.name);
+        if (node.kind === "const" || isDerivedCall(decl.init) && decl.id.type === "Identifier" && !assignments.has(decl.id.name)) addBinding(decl, out);
+      }
+    }
+    for (const node of program.body) {
+      const assign = node.type === "LabeledStatement" && node.label.name === "$" && node.body.type === "ExpressionStatement" ? node.body.expression : void 0;
+      if (assign?.type !== "AssignmentExpression" || assign.operator !== "=" || assign.left.type !== "Identifier") continue;
+      const name = assign.left.name;
+      if (!declared2.has(name) && assignments.get(name) === 1) addBinding({
+        type: "VariableDeclarator",
+        id: assign.left,
+        init: assign.right
+      }, out);
+    }
   }
   addConstTags(ast.fragment, out);
   for (const [name, candidates] of out) if (candidates.every((c) => c === "")) out.delete(name);
@@ -71384,6 +72385,7 @@ function conditionalTags(branches, source2, bind2, jsonLdNames) {
   }
   return [...unique.values()];
 }
+var JSONLD_WORDS = /json-?ld|ld\+json|structured-?data/i;
 function jsonLdBindings(ast) {
   const scan = (init2) => {
     const refs = /* @__PURE__ */ new Set();
@@ -71404,8 +72406,41 @@ function jsonLdBindings(ast) {
     visit(init2);
     return {
       refs,
-      opens: strings.some((t2) => /\btype\s*=\s*["']?application\/ld\+json/i.test(t2))
+      opens: producedByJsonLdCall(init2) || strings.some((t2) => /\btype\s*=\s*["']?application\/ld\+json/i.test(t2))
     };
+  };
+  const producedByJsonLdCall = (expr) => {
+    const e3 = expr;
+    switch (e3?.type) {
+      case "CallExpression": {
+        const callee = e3.callee;
+        const name = callee?.type === "Identifier" ? callee.name : callee?.property?.name;
+        if (name === "$derived") return producedByJsonLdCall(e3.arguments[0]);
+        const graph = e3.arguments[0];
+        if (name !== "stringify" && graph?.type === "ObjectExpression") {
+          if (graph.properties.map((p2) => p2.key?.value).includes("@context")) return true;
+        }
+        return !!name && JSONLD_WORDS.test(name);
+      }
+      case "AwaitExpression":
+        return producedByJsonLdCall(e3.argument);
+      case "TSAsExpression":
+      case "TSSatisfiesExpression":
+      case "TSNonNullExpression":
+        return producedByJsonLdCall(e3.expression);
+      case "ConditionalExpression":
+        return producedByJsonLdCall(e3.consequent) || producedByJsonLdCall(e3.alternate);
+      case "LogicalExpression":
+        return producedByJsonLdCall(e3.left) || producedByJsonLdCall(e3.right);
+      case "BinaryExpression":
+        return e3.operator === "+" && (producedByJsonLdCall(e3.left) || producedByJsonLdCall(e3.right));
+      case "TemplateLiteral":
+        return e3.expressions.some(producedByJsonLdCall);
+      case "ArrayExpression":
+        return e3.elements.some(producedByJsonLdCall);
+      default:
+        return false;
+    }
   };
   const inits = /* @__PURE__ */ new Map();
   for (const script of [ast.module, ast.instance]) for (const stmt2 of script?.content.body ?? []) {
@@ -71423,6 +72458,22 @@ function jsonLdBindings(ast) {
   }
   return names;
 }
+function concatenates(expr, names) {
+  const e3 = expr;
+  if (e3?.type === "Identifier") return names.has(e3.name ?? "");
+  if (e3?.type === "BinaryExpression" && e3.operator === "+") return concatenates(e3.left, names) || concatenates(e3.right, names);
+  return e3?.type === "TemplateLiteral" && (e3.expressions ?? []).some((part) => concatenates(part, names));
+}
+function eachItemJsonLd(node, source2, names) {
+  if (node.type !== "EachBlock" || node.context?.type !== "Identifier") return names;
+  const list4 = node.expression;
+  const { start, end } = list4;
+  const named = JSONLD_WORDS.test(source2.slice(start, end)) || list4.type === "Identifier" && names.has(list4.name);
+  const inner = new Set(names);
+  if (named) inner.add(node.context.name);
+  else inner.delete(node.context.name);
+  return inner;
+}
 function tagsFromNodes(children, source2, bind2 = (a2) => a2, jsonLdNames = /* @__PURE__ */ new Set()) {
   const tags = [];
   for (const node of children) {
@@ -71436,7 +72487,7 @@ function tagsFromNodes(children, source2, bind2 = (a2) => a2, jsonLdNames = /* @
       node.catch
     ] : void 0;
     if (branches) {
-      tags.push(...conditionalTags(branches, source2, bind2, jsonLdNames));
+      tags.push(...conditionalTags(branches, source2, bind2, eachItemJsonLd(node, source2, jsonLdNames)));
       continue;
     }
     if (node.type === "TitleElement" || node.type === "RegularElement" && node.name === "title") {
@@ -71450,7 +72501,7 @@ function tagsFromNodes(children, source2, bind2 = (a2) => a2, jsonLdNames = /* @
       continue;
     }
     if (node.type === "HtmlTag") {
-      if (node.expression.type === "Identifier" && jsonLdNames.has(node.expression.name) || /json-?ld|ld\+json/i.test(source2.slice(node.start, node.end))) tags.push({
+      if (concatenates(node.expression, jsonLdNames) || JSONLD_WORDS.test(source2.slice(node.start, node.end))) tags.push({
         kind: "jsonld",
         value: "dynamic"
       });
@@ -71543,6 +72594,44 @@ function tagsFromNodes(children, source2, bind2 = (a2) => a2, jsonLdNames = /* @
   }
   return tags;
 }
+function documentTitle(ast) {
+  return setsDocumentTitle([ast.module, ast.instance].flatMap((script) => script ? [script.content] : [])) ? [{
+    kind: "title",
+    value: "dynamic",
+    clientOnly: true
+  }] : [];
+}
+function setsDocumentTitle(nodes) {
+  let refs = 0;
+  let sets = 0;
+  for (const node of nodes) walkEstree(node, (n2) => {
+    if (n2.type === "AssignmentExpression" && n2.operator === "=" && isDocumentTitle(unwrapTs(n2.left))) sets++;
+    else if (isDocumentTitle(n2)) refs++;
+  });
+  return sets > 0 && refs === sets;
+}
+function isDocumentTitle(n2) {
+  return n2?.type === "MemberExpression" && !n2.computed && n2.object.type === "Identifier" && n2.object.name === "document" && n2.property.type === "Identifier" && n2.property.name === "title";
+}
+function scriptAlwaysThrows(ast, imports2) {
+  return (ast.instance?.content.body ?? []).some((stmt2) => {
+    if (stmt2.type === "ThrowStatement") return true;
+    const call2 = stmt2.type === "ExpressionStatement" ? stmt2.expression : void 0;
+    if (call2?.type !== "CallExpression" || call2.callee.type !== "Identifier") return false;
+    const imp = imports2.get(call2.callee.name);
+    return imp?.source === "@sveltejs/kit" && (imp.imported === "redirect" || imp.imported === "error");
+  });
+}
+function importedCalls(ast, imports2) {
+  const names = /* @__PURE__ */ new Set();
+  for (const script of [ast.module, ast.instance]) {
+    if (!script) continue;
+    walkEstree(script.content, (n2) => {
+      if (n2.type === "CallExpression" && n2.callee.type === "Identifier" && imports2.has(n2.callee.name)) names.add(n2.callee.name);
+    });
+  }
+  return [...names];
+}
 function bodyJsonLd(fragment2, source2, jsonLdNames) {
   const tags = [];
   const rendered = /* @__PURE__ */ new Set();
@@ -71556,19 +72645,19 @@ function bodyJsonLd(fragment2, source2, jsonLdNames) {
     for (const key2 of CHILD_NODE_KEYS) if (key2 in node) findRenders(childOf(node, key2));
   };
   findRenders(fragment2);
-  const visit = (node, nested) => {
+  const visit = (node, nested, names) => {
     if (Array.isArray(node)) {
-      for (const child of node) visit(child, nested);
+      for (const child of node) visit(child, nested, names);
       return;
     }
     if (!node || typeof node !== "object" || node.type === "SvelteHead") return;
     if (node.type === "SnippetBlock" && !rendered.has(node.expression.name)) return;
     if (node.type === "Component" || node.type === "SvelteComponent") {
-      for (const child of node.fragment.nodes) visit(child.type === "SnippetBlock" ? child.body : child, true);
+      for (const child of node.fragment.nodes) visit(child.type === "SnippetBlock" ? child.body : child, true, names);
       return;
     }
     if (node.type === "HtmlTag" || node.type === "SvelteElement" || node.type === "RegularElement" && node.name === "script") {
-      for (const tag2 of tagsFromNodes([node], source2, void 0, jsonLdNames)) {
+      for (const tag2 of tagsFromNodes([node], source2, void 0, names)) {
         if (tag2.kind !== "jsonld") continue;
         tags.push(nested ? {
           kind: "jsonld",
@@ -71577,13 +72666,24 @@ function bodyJsonLd(fragment2, source2, jsonLdNames) {
       }
       if (node.type !== "SvelteElement") return;
     }
-    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) visit(childOf(node, key2), nested || node.type !== "Fragment");
+    const inner = node.type === "EachBlock" ? eachItemJsonLd(node, source2, names) : names;
+    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) visit(childOf(node, key2), nested || node.type !== "Fragment", inner);
   };
-  visit(fragment2.nodes, false);
+  visit(fragment2.nodes, false, jsonLdNames);
   return tags;
 }
 function tagsFromHead(head, source2, jsonLdNames) {
   return tagsFromNodes(head.fragment.nodes, source2, void 0, jsonLdNames);
+}
+function memberPath(node) {
+  if (node.type === "Component") return node.name.includes(".") ? node.name.split(".") : [];
+  const path = [];
+  let e3 = node.expression.type === "ChainExpression" ? node.expression.expression : node.expression;
+  for (; e3.type === "MemberExpression"; e3 = e3.object) {
+    const key2 = e3.property;
+    path.unshift(!e3.computed && key2.type === "Identifier" ? key2.name : key2.type === "Literal" && typeof key2.value === "string" ? key2.value : "");
+  }
+  return path.length > 0 && e3.type === "Identifier" ? [e3.name, ...path] : [];
 }
 function componentName(node) {
   if (node.type !== "SvelteComponent") return node.name;
@@ -71592,9 +72692,9 @@ function componentName(node) {
   if (e3.type === "MemberExpression" && !e3.computed && e3.object.type === "Identifier" && e3.property.type === "Identifier") return `${e3.object.name}.${e3.property.name}`;
   return node.name;
 }
-function collectComponents(node, acc, heading, at2 = {}) {
+function collectComponents(node, acc, heading, mounts, at2 = {}) {
   if (Array.isArray(node)) {
-    for (const child of node) collectComponents(child, acc, heading, at2);
+    for (const child of node) collectComponents(child, acc, heading, mounts, at2);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -71607,6 +72707,7 @@ function collectComponents(node, acc, heading, at2 = {}) {
       hasSpread: attributes.some((a2) => a2.type === "SpreadAttribute"),
       path: heading.componentPaths.get(node) ?? [],
       ...holes ? { holes } : {},
+      offset: heading.componentOffsets.get(node) ?? node.start,
       ...at2
     });
   }
@@ -71617,13 +72718,85 @@ function collectComponents(node, acc, heading, at2 = {}) {
     ...at2,
     inHead: true
   } : at2;
-  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectComponents(childOf(node, key2), acc, heading, inner);
+  const mount = node.type === "IfBlock" ? flagGate(node.test, mounts) : void 0;
+  const browserArm = mount && (mount.negate ? "alternate" : "consequent");
+  for (const key2 of CHILD_NODE_KEYS) if (key2 in node) collectComponents(childOf(node, key2), acc, heading, mounts, key2 === browserArm ? {
+    ...inner,
+    clientOnly: true
+  } : inner);
 }
 function literalArgs(attributes) {
   const args = /* @__PURE__ */ new Map();
   if (attributes.some((a2) => a2.type === "SpreadAttribute")) return args;
   for (const a2 of attributes) if (a2.type === "Attribute" && Array.isArray(a2.value) && a2.value.every((n2) => n2.type === "Text")) args.set(a2.name, a2.value);
   return args;
+}
+function flagGate(test, flags) {
+  if (test.type === "LogicalExpression" && test.operator !== "??") {
+    const negate2 = test.operator === "||";
+    for (const side of [test.left, test.right]) {
+      const gate = flagGate(side, flags);
+      if (gate?.negate === negate2) return gate;
+    }
+    return;
+  }
+  const negate = test.type === "UnaryExpression" && test.operator === "!";
+  const id2 = test.type === "UnaryExpression" && negate ? test.argument : test;
+  return id2.type === "Identifier" && flags.has(id2.name) ? {
+    name: id2.name,
+    negate
+  } : void 0;
+}
+function mountFlags(ast, bound, imports2) {
+  const flags = /* @__PURE__ */ new Set();
+  for (const stmt2 of ast.instance?.content.body ?? []) {
+    if (stmt2.type !== "VariableDeclaration" || stmt2.kind !== "let") continue;
+    for (const d2 of stmt2.declarations) {
+      const init2 = d2.init?.type === "CallExpression" && calleeText(d2.init.callee) === "$state" ? d2.init.arguments[0] : d2.init;
+      if (d2.id.type === "Identifier" && !bound.has(d2.id.name) && init2?.type === "Literal" && init2.value === false) flags.add(d2.id.name);
+    }
+  }
+  if (flags.size === 0) return flags;
+  const set2 = /* @__PURE__ */ new Set();
+  const visit = (node, inMount) => {
+    if (Array.isArray(node)) return node.forEach((n3) => visit(n3, inMount));
+    if (!node || typeof node !== "object") return;
+    const n2 = node;
+    const target = n2.type === "AssignmentExpression" ? n2.left : n2.type === "UpdateExpression" ? n2.argument : n2.type === "BindDirective" ? n2.expression : (n2.type === "ForOfStatement" || n2.type === "ForInStatement") && n2.left?.type !== "VariableDeclaration" ? n2.left : void 0;
+    const names = /* @__PURE__ */ new Set();
+    patternNames(target, names);
+    const setsTrue = inMount && target?.type === "Identifier" && n2.operator === "=" && n2.right?.type === "Literal" && n2.right.value === true;
+    for (const name of names) {
+      if (!flags.has(name)) continue;
+      if (setsTrue) set2.add(name);
+      else flags.delete(name);
+    }
+    const callee = n2.type === "CallExpression" ? calleeText(n2.callee) : "";
+    const svelteImport = imports2.get(callee);
+    const mountCall = callee === "$effect" || callee === "$effect.pre" || svelteImport?.source === "svelte" && svelteImport.imported === "onMount";
+    for (const [key2, value] of Object.entries(n2)) {
+      if (key2 === "parent" || !value || typeof value !== "object") continue;
+      if (mountCall && key2 === "arguments") for (const arg of value) visit(arg, inMount || arg.type === "ArrowFunctionExpression" || arg.type === "FunctionExpression");
+      else visit(value, inMount);
+    }
+  };
+  visit(ast.instance?.content, false);
+  visit(ast.fragment, false);
+  return new Set([...flags].filter((name) => set2.has(name)));
+}
+function flagArms(gates, falses) {
+  const out = /* @__PURE__ */ new Map();
+  for (const [group, gate] of gates ?? []) if (falses.has(gate.name)) out.set(group, gate.negate);
+  return out;
+}
+var TRANSLATE_CALL = /^(?:[$\w]+\.)?(?:\$?t|\$?_|translate)$/;
+var MESSAGE_CALL = /^m\.[$\w.]+$/;
+function calleeText(n2) {
+  if (n2.type === "Identifier") return n2.name ?? "";
+  if (n2.type !== "MemberExpression" || n2.computed) return "";
+  const object4 = calleeText(n2.object);
+  const property = calleeText(n2.property);
+  return object4 && property ? `${object4}.${property}` : "";
 }
 function literalValue(node) {
   const v = node.value;
@@ -71643,13 +72816,35 @@ function patternNames(node, out) {
   else if (n2.type === "AssignmentPattern") patternNames(n2.left, out);
   else if (n2.type === "RestElement") patternNames(n2.argument, out);
 }
+function templateBindings(fragment2) {
+  const out = /* @__PURE__ */ new Set();
+  const visit = (node) => {
+    if (Array.isArray(node)) return node.forEach(visit);
+    if (!node || typeof node !== "object") return;
+    const n2 = node;
+    if (n2.type === "SnippetBlock") n2.parameters.forEach((p2) => patternNames(p2, out));
+    else if (n2.type === "EachBlock") {
+      patternNames(n2.context, out);
+      if (typeof n2.index === "string") out.add(n2.index);
+    } else if (n2.type === "AwaitBlock") {
+      patternNames(n2.value, out);
+      patternNames(n2.error, out);
+    } else if (n2.type === "VariableDeclarator") patternNames(n2.id, out);
+    for (const [key2, value] of Object.entries(n2)) if (key2 !== "parent" && value && typeof value === "object") visit(value);
+  };
+  visit(fragment2);
+  return out;
+}
+function suppliedSnippets(fragment2) {
+  return fragment2.nodes.flatMap((n2) => n2.type === "SnippetBlock" ? [n2.expression.name] : n2.type === "Comment" || n2.type === "Text" && !n2.data.trim() ? [] : ["children"]);
+}
 function reassignedLocals(ast) {
   const out = /* @__PURE__ */ new Set();
   const visit = (node) => {
     if (Array.isArray(node)) return node.forEach(visit);
     if (!node || typeof node !== "object") return;
     const n2 = node;
-    const target = n2.type === "AssignmentExpression" ? n2.left : n2.type === "UpdateExpression" ? n2.argument : n2.type === "BindDirective" ? n2.expression : void 0;
+    const target = n2.type === "AssignmentExpression" ? n2.left : n2.type === "UpdateExpression" ? n2.argument : n2.type === "BindDirective" ? n2.expression : (n2.type === "ForOfStatement" || n2.type === "ForInStatement") && n2.left?.type !== "VariableDeclaration" ? n2.left : void 0;
     if (target) patternNames(target, out);
     for (const [key2, value] of Object.entries(node)) if (key2 !== "parent" && value && typeof value === "object") visit(value);
   };
@@ -71657,12 +72852,41 @@ function reassignedLocals(ast) {
   visit(ast.fragment);
   return out;
 }
-function propGate(test, props, reassigned) {
-  const propOf2 = (n2) => n2.type === "Identifier" && n2.name && !reassigned.has(n2.name) ? props.get(n2.name) : void 0;
-  if (test.type === "Identifier") {
+function propGate(test, props, reassigned, depth = 0, partial = false) {
+  if (depth > 4) return void 0;
+  if (test.type === "UnaryExpression" && test.operator === "!" && test.argument.type === "UnaryExpression") {
+    if (test.argument.operator === "!") return propGate(test.argument.argument, props, reassigned, depth, partial);
+  }
+  const propOf2 = (n2) => {
+    if (n2.type === "Identifier") return reassigned.has(n2.name) ? void 0 : props.get(n2.name);
+    const whole = props.get(WHOLE_PROPS);
+    return n2.type === "MemberExpression" && !n2.computed && n2.object.type === "Identifier" && n2.object.name === whole && !reassigned.has(whole) && n2.property.type === "Identifier" ? n2.property.name : void 0;
+  };
+  const derived = test.type === "Identifier" ? derivedTests.get(props)?.get(test.name) : void 0;
+  if (derived) return propGate(derived, props, reassigned, depth + 1, partial);
+  const negated = test.type === "UnaryExpression" && test.operator === "!" && test.argument.type === "Identifier" ? derivedTests.get(props)?.get(test.argument.name) : void 0;
+  if (negated) {
+    const gate = propGate(negated, props, reassigned, depth + 1);
+    return gate && "prop" in gate ? {
+      ...gate,
+      negate: !gate.negate
+    } : void 0;
+  }
+  if (test.type === "LogicalExpression" && test.operator !== "??") {
+    const left = propGate(test.left, props, reassigned, depth, partial);
+    const right = (left || partial) && propGate(test.right, props, reassigned, depth, partial);
+    if (!(left && right) && !(partial && (left || right))) return void 0;
+    const opaque = { kind: "opaque" };
+    return {
+      kind: test.operator === "&&" ? "and" : "or",
+      parts: [left || opaque, right || opaque]
+    };
+  }
+  if (test.type === "Identifier" || test.type === "MemberExpression") {
     const prop2 = propOf2(test);
     return prop2 === void 0 ? void 0 : {
       prop: prop2,
+      kind: "truthy",
       negate: false
     };
   }
@@ -71670,42 +72894,156 @@ function propGate(test, props, reassigned) {
     const prop2 = propOf2(test.argument);
     return prop2 === void 0 ? void 0 : {
       prop: prop2,
+      kind: "truthy",
       negate: true
     };
   }
-  if (test.type === "BinaryExpression" && (test.operator === "===" || test.operator === "!==")) {
-    const [id2, lit] = test.left.type === "Literal" ? [test.right, test.left] : [test.left, test.right];
-    const prop2 = propOf2(id2);
-    const value = literalValue(lit);
-    if (prop2 === void 0 || value === "unknown") return void 0;
-    return {
+  if (test.type !== "BinaryExpression" || test.left.type === "PrivateIdentifier") return void 0;
+  const [side, lit] = test.left.type === "Literal" ? [test.right, test.left] : [test.left, test.right];
+  const value = literalValue(lit);
+  if (value === "unknown") return void 0;
+  const strict = test.operator === "===" || test.operator === "!==";
+  if (strict && side.type === "UnaryExpression" && side.operator === "typeof" && typeof value.value === "string") {
+    const prop2 = propOf2(side.argument);
+    return prop2 === void 0 ? void 0 : {
       prop: prop2,
-      equals: value.value,
+      kind: "typeof",
+      operand: value.value,
+      negate: test.operator === "!=="
+    };
+  }
+  if (side === test.left && side.type === "MemberExpression" && !side.computed && side.property.type === "Identifier" && side.property.name === "length" && typeof value.value === "number" && [
+    ">",
+    ">=",
+    "<",
+    "<=",
+    "===",
+    "!=="
+  ].includes(test.operator)) {
+    const prop2 = propOf2(side.object);
+    return prop2 === void 0 ? void 0 : {
+      prop: prop2,
+      kind: "length",
+      op: test.operator,
+      operand: value.value,
+      negate: false
+    };
+  }
+  if (strict) {
+    const prop2 = propOf2(side);
+    return prop2 === void 0 ? void 0 : {
+      prop: prop2,
+      kind: "equals",
+      operand: value.value,
       negate: test.operator === "!=="
     };
   }
 }
-function decidedArms(parsed, attributes) {
+function decidedArms(parsed, attributes, gates = parsed.headingGates, supplied = []) {
   const out = /* @__PURE__ */ new Map();
-  if (parsed.headingGates.size === 0 || attributes.some((a2) => a2.type === "SpreadAttribute")) return out;
-  for (const [group, gate] of parsed.headingGates) {
+  if (gates.size === 0 || attributes.some((a2) => a2.type === "SpreadAttribute")) return out;
+  const decide = (gate) => {
+    if (gate.kind === "opaque") return void 0;
+    if ("parts" in gate) {
+      const [a2, b] = gate.parts.map(decide);
+      const short = gate.kind === "or";
+      if (a2 === short || b === short) return short;
+      return a2 === void 0 || b === void 0 ? void 0 : !short;
+    }
+    if (supplied.includes(gate.prop)) return gate.kind === "truthy" ? !gate.negate : void 0;
     const passed = attributes.filter((a2) => (a2.type === "Attribute" || a2.type === "BindDirective") && a2.name === gate.prop);
-    if (passed.length > 1 || passed[0]?.type === "BindDirective") continue;
+    if (passed.length > 1 || passed[0]?.type === "BindDirective") return void 0;
     const attr = passed[0];
-    let value;
-    if (!attr) value = parsed.propDefaults.get(gate.prop);
-    else if (attr.value === true) value = { value: true };
-    else if (Array.isArray(attr.value) && attr.value.every((n2) => n2.type === "Text")) value = { value: attr.value.map((n2) => n2.data).join("") };
+    const heldOf = (expr) => {
+      const first = expr.type === "CallExpression" ? expr.arguments[0] : void 0;
+      if (expr.type === "ArrayExpression") return arrayLength(expr) ?? { type: "object" };
+      if (expr.type === "ObjectExpression") return { type: "object" };
+      if (expr.type === "TemplateLiteral") return { type: "string" };
+      if (expr.type === "CallExpression" && TRANSLATE_CALL.test(calleeText(expr.callee)) && first?.type === "Literal" && typeof first.value === "string" && first.value.trim()) return { type: "text" };
+      if (expr.type === "CallExpression" && MESSAGE_CALL.test(calleeText(expr.callee))) return { type: "text" };
+      return literalValue(expr);
+    };
+    let held;
+    if (!attr) {
+      const d2 = parsed.propDefaults.get(gate.prop);
+      held = d2 === void 0 ? { value: void 0 } : d2;
+    } else if (attr.value === true) held = { value: true };
+    else if (Array.isArray(attr.value) && attr.value.every((n2) => n2.type === "Text")) held = { value: attr.value.map((n2) => n2.data).join("") };
     else {
       const tag2 = Array.isArray(attr.value) ? attr.value.length === 1 ? attr.value[0] : void 0 : attr.value;
-      value = tag2?.type === "ExpressionTag" ? literalValue(tag2.expression) : "unknown";
+      const expr = tag2?.type === "ExpressionTag" ? tag2.expression : void 0;
+      if (expr?.type === "ConditionalExpression") {
+        const [a2, b] = [expr.consequent, expr.alternate].map((e3) => judge(gate, heldOf(e3)));
+        return a2 === b ? a2 : void 0;
+      }
+      held = expr ? heldOf(expr) : "unknown";
     }
-    if (value === "unknown") continue;
-    const v = value?.value;
-    out.set(group, (gate.equals === void 0 ? Boolean(v) : v === gate.equals) !== gate.negate);
+    return judge(gate, held);
+  };
+  function judge(gate, held) {
+    if (held === "unknown") return void 0;
+    if ("type" in held && held.type === "text") return gate.kind === "truthy" ? !gate.negate : void 0;
+    if ("length" in held) {
+      const n2 = held.length;
+      const m = gate.operand;
+      return (gate.kind === "truthy" ? true : gate.kind === "typeof" ? gate.operand === "object" : gate.kind === "equals" ? false : {
+        ">": n2 > m,
+        ">=": n2 >= m,
+        "<": n2 < m,
+        "<=": n2 <= m,
+        "===": n2 === m,
+        "!==": n2 !== m
+      }[gate.op]) !== gate.negate;
+    }
+    const type = "type" in held ? held.type : held.value === null ? "object" : typeof held.value;
+    let holds;
+    if (gate.kind === "typeof") holds = type === gate.operand;
+    else if (!("value" in held)) {
+      if (gate.kind === "length" || type !== "object") return void 0;
+      holds = gate.kind === "truthy";
+    } else if (gate.kind === "truthy") {
+      if (typeof held.value === "string" && held.value && !held.value.trim()) return void 0;
+      holds = Boolean(held.value);
+    } else if (gate.kind === "equals") holds = held.value === gate.operand;
+    else {
+      if (typeof held.value !== "string") return void 0;
+      const n2 = held.value.length;
+      const m = gate.operand;
+      holds = {
+        ">": n2 > m,
+        ">=": n2 >= m,
+        "<": n2 < m,
+        "<=": n2 <= m,
+        "===": n2 === m,
+        "!==": n2 !== m
+      }[gate.op];
+    }
+    return holds !== gate.negate;
+  }
+  for (const [group, gate] of gates) {
+    const holds = decide(gate);
+    if (holds !== void 0) out.set(group, holds);
   }
   return out;
 }
+function ruledOutArms(parsed, attributes, chains, supplied = []) {
+  const all = [...chains.values()].flat().filter((g) => g !== void 0);
+  const decided = decidedArms(parsed, attributes, new Map(all.map((g) => [g, g])), supplied);
+  const out = /* @__PURE__ */ new Map();
+  for (const [group, tests] of chains) {
+    const ruled = /* @__PURE__ */ new Set();
+    let taken = false;
+    for (let arm = 0; arm <= tests.length; arm++) {
+      const holds = tests[arm] && decided.get(tests[arm]);
+      if (taken || holds === false) ruled.add(arm);
+      else if (holds) taken = true;
+    }
+    if (ruled.size > 0) out.set(group, ruled);
+  }
+  return out;
+}
+var derivedTests = /* @__PURE__ */ new WeakMap();
+var WHOLE_PROPS = "...";
 function collectProps(ast) {
   const props = /* @__PURE__ */ new Map();
   for (const stmt2 of ast.instance?.content.body ?? []) {
@@ -71715,7 +73053,9 @@ function collectProps(ast) {
     for (const d2 of decl.declarations) {
       if (exported && decl.kind !== "const" && d2.id.type === "Identifier") props.set(d2.id.name, d2.id.name);
       const init2 = d2.init;
-      if (!(init2?.type === "CallExpression" && init2.callee.type === "Identifier" && init2.callee.name === "$props") || d2.id.type !== "ObjectPattern") continue;
+      const isProps = init2?.type === "CallExpression" && init2.callee.type === "Identifier" && init2.callee.name === "$props";
+      if (isProps && d2.id.type === "Identifier") props.set(WHOLE_PROPS, d2.id.name);
+      if (!isProps || d2.id.type !== "ObjectPattern") continue;
       for (const p2 of d2.id.properties) {
         if (p2.type !== "Property" || p2.computed) continue;
         const key2 = p2.key.type === "Identifier" ? p2.key.name : p2.key.type === "Literal" ? String(p2.key.value) : void 0;
@@ -71724,7 +73064,81 @@ function collectProps(ast) {
       }
     }
   }
+  const tests = /* @__PURE__ */ new Map();
+  const unwrap = (n2) => {
+    if (!n2) return void 0;
+    if (n2.type === "LogicalExpression" && n2.operator !== "&&" && n2.right.type === "Literal" && n2.right.value === "") return unwrap(n2.left);
+    if (n2.type === "ChainExpression") return unwrap(n2.expression);
+    if (n2.type === "CallExpression" && n2.arguments.length === 0 && n2.callee.type === "MemberExpression") return !n2.callee.computed && n2.callee.property.type === "Identifier" && n2.callee.property.name === "trim" ? unwrap(n2.callee.object) : void 0;
+    return n2;
+  };
+  for (const stmt2 of ast.instance?.content.body ?? []) {
+    if (stmt2.type !== "VariableDeclaration" || stmt2.kind !== "const") continue;
+    for (const d2 of stmt2.declarations) {
+      const init2 = d2.init;
+      if (d2.id.type !== "Identifier" || init2?.type !== "CallExpression" || init2.arguments.length !== 1) continue;
+      if (init2.callee.type !== "Identifier" || init2.callee.name !== "$derived") continue;
+      const inner = unwrap(init2.arguments[0]);
+      const prop2 = inner?.type === "Identifier" ? props.get(inner.name) : void 0;
+      if (prop2 !== void 0) props.set(d2.id.name, prop2);
+      else if (inner) tests.set(d2.id.name, inner);
+    }
+  }
+  derivedTests.set(props, tests);
   return props;
+}
+function heldProps(ast, reassigned) {
+  const held = /* @__PURE__ */ new Map();
+  for (const stmt2 of ast.instance?.content.body ?? []) {
+    if (stmt2.type !== "VariableDeclaration") continue;
+    for (const d2 of stmt2.declarations) {
+      const init2 = d2.init;
+      if (!(init2?.type === "CallExpression" && init2.callee.type === "Identifier" && init2.callee.name === "$props") || d2.id.type !== "ObjectPattern") continue;
+      for (const p2 of d2.id.properties) {
+        if (p2.type !== "Property" || p2.computed || p2.key.type !== "Identifier") continue;
+        const local = p2.value.type === "AssignmentPattern" ? p2.value.left : p2.value;
+        if (local.type === "Identifier" && !reassigned.has(local.name)) held.set(local.name, p2.key.name);
+      }
+    }
+  }
+  return held;
+}
+function chainNames(ast, imports2, reassigned, filename2) {
+  const roots = /* @__PURE__ */ new Map();
+  if (/\+(page|layout)(@[^/]*)?\.svelte$/.test(filename2)) {
+    for (const [local, prop2] of heldProps(ast, reassigned)) if (prop2 === "data") roots.set(local, "page.data");
+  }
+  for (const [local, info2] of imports2) {
+    if (info2.imported !== "page") continue;
+    if (info2.source === "$app/state") roots.set(`${local}.data`, "page.data");
+    if (info2.source === "$app/stores") roots.set(`$${local}.data`, "page.data");
+  }
+  const shared = (reference) => {
+    for (const [root, as] of roots) if (reference === root || reference.startsWith(`${root}.`)) return as + reference.slice(root.length);
+  };
+  for (const stmt2 of ast.instance?.content.body ?? []) {
+    if (stmt2.type !== "VariableDeclaration") continue;
+    for (const d2 of stmt2.declarations) {
+      const init2 = d2.init;
+      if (d2.id.type !== "Identifier" || reassigned.has(d2.id.name)) continue;
+      if (init2?.type !== "CallExpression" || init2.callee.type !== "Identifier" || init2.callee.name !== "$derived") continue;
+      const inner = init2.arguments[0] ? unwrapTs(init2.arguments[0]) : void 0;
+      const text2 = inner && memberText(inner);
+      const as = text2 === void 0 ? void 0 : shared(text2);
+      if (as?.startsWith("page.data")) roots.set(d2.id.name, as);
+    }
+  }
+  return (reference) => shared(reference) ?? `${filename2}#${reference}`;
+}
+function memberText(n2) {
+  if (n2.type === "Identifier") return n2.name;
+  if (n2.type === "MemberExpression" && !n2.computed && n2.property.type === "Identifier") {
+    const object4 = memberText(n2.object);
+    return object4 === void 0 ? void 0 : `${object4}.${n2.property.name}`;
+  }
+}
+function arrayLength(node) {
+  return node.type === "ArrayExpression" && node.elements.every((e3) => e3 !== null && e3.type !== "SpreadElement") ? { length: node.elements.length } : void 0;
 }
 function collectPropDefaults(ast) {
   const defaults2 = /* @__PURE__ */ new Map();
@@ -71740,7 +73154,7 @@ function collectPropDefaults(ast) {
       for (const p2 of d2.id.properties) {
         if (p2.type !== "Property" || p2.computed || p2.value.type !== "AssignmentPattern") continue;
         const key2 = p2.key.type === "Identifier" ? p2.key.name : p2.key.type === "Literal" ? String(p2.key.value) : void 0;
-        if (key2 !== void 0) defaults2.set(key2, literalValue(p2.value.right));
+        if (key2 !== void 0) defaults2.set(key2, arrayLength(p2.value.right) ?? literalValue(p2.value.right));
       }
     }
   }
@@ -71774,7 +73188,8 @@ function argsOf(parsed, use, args) {
   return literalArgs(bindProps(parsed.template.props, args)(use.attributes));
 }
 function isSvgImage(attrs, imports2) {
-  const value = findAttr(attrs, "src")?.value;
+  const raw = findAttr(attrs, "src")?.value;
+  const value = Array.isArray(raw) && raw.length === 1 && raw[0].type === "ExpressionTag" ? raw[0] : raw;
   if (Array.isArray(value)) {
     const last = value.at(-1);
     return last?.type === "Text" && isSvgSrc(last.data);
@@ -71784,7 +73199,16 @@ function isSvgImage(attrs, imports2) {
     const from = imports2.get(value.expression.name)?.source;
     return from !== void 0 && isSvgSrc(from);
   }
-  return false;
+  const arg = value && value !== true && value.expression.type === "CallExpression" ? value.expression.arguments[0] : void 0;
+  return arg?.type === "Literal" && typeof arg.value === "string" && isSvgSrc(arg.value);
+}
+function isQrImage(attrs) {
+  const raw = findAttr(attrs, "src")?.value;
+  const tag2 = Array.isArray(raw) ? raw.length === 1 && raw[0].type === "ExpressionTag" ? raw[0] : void 0 : raw;
+  let expr = tag2 && tag2 !== true ? tag2.expression : void 0;
+  while (expr?.type === "ChainExpression") expr = expr.expression;
+  const name = expr?.type === "Identifier" ? expr.name : expr?.type === "MemberExpression" && !expr.computed && expr.property.type === "Identifier" ? expr.property.name : void 0;
+  return name !== void 0 && /qr/i.test(name);
 }
 function indexSnippets(node, acc) {
   if (Array.isArray(node)) {
@@ -71801,6 +73225,8 @@ function indexSnippets(node, acc) {
 }
 function collectImages(fragment2, source2, imports2) {
   const acc = [];
+  const childrenAt = [];
+  const childrenIn = /* @__PURE__ */ new Map();
   const index = {
     snippets: /* @__PURE__ */ new Map(),
     rendered: /* @__PURE__ */ new Set()
@@ -71818,12 +73244,15 @@ function collectImages(fragment2, source2, imports2) {
       if (index.snippets.get(name) === node && index.rendered.has(name)) return;
       emitted.add(node);
     }
+    if (node.type === "SlotElement" && !node.attributes.some((a2) => a2.type === "Attribute" && a2.name === "name") || node.type === "RenderTag" && renderCallee(node) === "children") childrenAt.push(acc.length);
     if (node.type === "RenderTag") {
       const snippet = index.snippets.get(renderCallee(node) ?? "");
       if (snippet && !emitted.has(snippet)) {
         emitted.add(snippet);
+        const before = childrenAt.length;
         walk2(snippet.body, picture);
-      }
+        childrenIn.set(snippet, childrenAt.length - before);
+      } else if (snippet) for (let i3 = childrenIn.get(snippet) ?? 0; i3 > 0; i3--) childrenAt.push(acc.length);
       return;
     }
     if (node.type === "RegularElement" && node.name === "picture") picture = { srcset: false };
@@ -71839,6 +73268,7 @@ function collectImages(fragment2, source2, imports2) {
         lazy: attrText(attrs, "loading") === "lazy",
         hasSrcset: hasSpread || Boolean(findAttr(attrs, "srcset")) || picture?.srcset === true,
         ...isSvgImage(attrs, imports2) ? { svg: true } : {},
+        ...isQrImage(attrs) ? { qr: true } : {},
         line: lineOf(source2, node.start)
       });
     }
@@ -71846,7 +73276,10 @@ function collectImages(fragment2, source2, imports2) {
   };
   walk2(fragment2);
   for (const snippet of index.snippets.values()) if (!emitted.has(snippet)) walk2(snippet.body);
-  return acc;
+  return {
+    images: acc,
+    ...childrenAt.length === 1 ? { imagesBeforeChildren: childrenAt[0] } : {}
+  };
 }
 function svelteElementTags(tag2) {
   if (tag2.type === "Literal") return typeof tag2.value === "string" ? [tag2.value] : void 0;
@@ -71866,11 +73299,183 @@ function commonPrefix(a2, b) {
   return a2.slice(0, i3);
 }
 var BOUNDARY_SNIPPET_ARMS = /* @__PURE__ */ new Map([["failed", 1], ["pending", 2]]);
-function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */ new Set()) {
+function childrenUrlConds(ast, source2) {
+  const out = /* @__PURE__ */ new Map();
+  const blocks = /* @__PURE__ */ new Map();
+  if (!source2.includes("pathname") && !source2.includes("route.id")) return {
+    sites: out,
+    blocks
+  };
+  const derived = /* @__PURE__ */ new Map();
+  const constant = collectComponentConstantLists(ast, { sets: true });
+  const lists = /* @__PURE__ */ new Map();
+  for (const stmt2 of ast.instance?.content.body ?? []) {
+    if (stmt2.type !== "VariableDeclaration") continue;
+    for (const d2 of stmt2.declarations) {
+      const init2 = d2.init;
+      if (d2.id.type === "Identifier" && init2?.type === "CallExpression" && init2.callee.type === "Identifier") {
+        if (init2.callee.name === "$derived" && init2.arguments.length === 1) derived.set(d2.id.name, init2.arguments[0]);
+      }
+      if (d2.id.type === "Identifier" && init2 && constant.has(d2.id.name)) lists.set(d2.id.name, init2);
+    }
+  }
+  const strip = (n2) => {
+    let cur = n2;
+    while (cur && (cur.type.startsWith("TS") || cur.type === "ChainExpression") && cur.expression) cur = cur.expression;
+    return cur;
+  };
+  const text2 = (n2) => {
+    const { start, end } = n2;
+    return source2.slice(start, end).replace(/\s+/g, "");
+  };
+  const literal3 = (n2) => n2.type === "Literal" && typeof n2.value === "string" ? n2.value : void 0;
+  const stringsOf = (raw, set2 = false) => {
+    const n2 = strip(raw);
+    const named = n2.type === "Identifier" ? lists.get(n2.name) : n2;
+    let list4 = named && strip(named);
+    if (set2) {
+      const arg = list4?.type === "NewExpression" && list4.callee.type === "Identifier" && list4.callee.name === "Set" ? list4.arguments : [];
+      list4 = arg.length === 1 ? strip(arg[0]) : void 0;
+    }
+    if (list4?.type !== "ArrayExpression") return void 0;
+    const values = list4.elements.map((e3) => e3?.type === "Literal" ? literal3(e3) : void 0);
+    return values.every((v) => v !== void 0) ? values : void 0;
+  };
+  const isRouteId = (raw, depth = 0) => {
+    const n2 = strip(raw);
+    if (n2.type === "MemberExpression") return /^\$?page\.route\.id$/.test(text2(n2));
+    if (n2.type === "Identifier") return depth < 4 && derived.has(n2.name) && isRouteId(derived.get(n2.name), depth + 1);
+    if (n2.type === "LogicalExpression" && n2.operator !== "&&") return isRouteId(n2.left, depth) && literal3(n2.right) !== void 0;
+    return false;
+  };
+  const template2 = (raw, depth = 0) => {
+    const n2 = strip(raw);
+    if (n2.type === "Identifier" && depth < 4 && derived.has(n2.name)) return template2(derived.get(n2.name), depth + 1);
+    if (n2.type !== "TemplateLiteral" || n2.expressions.length === 0) return void 0;
+    const joined = n2.quasis.map((q) => q.value.cooked ?? "").join("\0");
+    if (!joined.startsWith("/")) return void 0;
+    const segments = joined.slice(1).split("/");
+    if (segments.some((seg) => seg.includes("\0") && seg !== "\0")) return void 0;
+    return segments.map((seg) => seg === "\0" ? null : seg);
+  };
+  const isPath = (raw, depth = 0) => {
+    const n2 = strip(raw);
+    if (n2.type === "MemberExpression") return /^\$?page\.url\.pathname$/.test(text2(n2));
+    if (n2.type === "Identifier") return depth < 4 && derived.has(n2.name) && isPath(derived.get(n2.name), depth + 1);
+    if (n2.type === "LogicalExpression" && n2.operator !== "&&") return isPath(n2.left, depth) && literal3(n2.right) === "/";
+    if (n2.type === "CallExpression" && n2.callee.type === "Identifier" && /locali[sz]e/i.test(n2.callee.name)) return n2.arguments.length === 1 && isPath(n2.arguments[0], depth);
+    return false;
+  };
+  const cond = (raw, depth = 0) => {
+    const n2 = strip(raw);
+    if (n2.type === "Identifier" && depth < 4 && derived.has(n2.name)) return cond(derived.get(n2.name), depth + 1);
+    if (n2.type === "Literal" && typeof n2.value === "boolean") return { k: n2.value };
+    if (n2.type === "UnaryExpression" && n2.operator === "!") return { not: cond(n2.argument, depth) };
+    if (n2.type === "LogicalExpression" && n2.operator === "??" && n2.right.type === "Literal") {
+      if (typeof n2.right.value === "boolean") return cond(n2.left, depth);
+    }
+    if (n2.type === "LogicalExpression" && n2.operator !== "??") return n2.operator === "&&" ? { and: [cond(n2.left, depth), cond(n2.right, depth)] } : { or: [cond(n2.left, depth), cond(n2.right, depth)] };
+    if (n2.type === "CallExpression" && n2.callee.type === "MemberExpression" && !n2.callee.computed) {
+      const name = n2.callee.property.type === "Identifier" ? n2.callee.property.name : "";
+      const op = {
+        startsWith: "starts",
+        endsWith: "ends",
+        includes: "includes"
+      }[name];
+      const v = n2.arguments.length === 1 ? literal3(n2.arguments[0]) : void 0;
+      if (op && v !== void 0 && isPath(n2.callee.object, depth)) return {
+        op,
+        v
+      };
+      if (op && v !== void 0 && isRouteId(n2.callee.object, depth)) return {
+        idOp: op,
+        v
+      };
+      const ids = stringsOf(n2.callee.object, name === "has");
+      if ((name === "includes" || name === "has") && ids && n2.arguments.length === 1 && isRouteId(n2.arguments[0], depth)) return { id: ids };
+      const fn = n2.arguments[0];
+      if (name === "some" && ids && n2.arguments.length === 1 && fn.type === "ArrowFunctionExpression") {
+        const param = fn.params.length === 1 && fn.params[0].type === "Identifier" ? fn.params[0].name : void 0;
+        const body = fn.body.type === "BlockStatement" ? void 0 : strip(fn.body);
+        if (param && body?.type === "CallExpression" && body.callee.type === "MemberExpression" && !body.callee.computed) {
+          const each = {
+            startsWith: "starts",
+            endsWith: "ends",
+            includes: "includes"
+          }[body.callee.property.type === "Identifier" ? body.callee.property.name : ""];
+          const arg = body.arguments.length === 1 ? body.arguments[0] : void 0;
+          if (each && arg?.type === "Identifier" && arg.name === param && isPath(body.callee.object, depth)) return { or: ids.map((v2) => ({
+            op: each,
+            v: v2
+          })) };
+        }
+      }
+      const re = n2.callee.object;
+      if (name === "test" && re.type === "Literal" && re.regex && n2.arguments.length === 1) {
+        if (isPath(n2.arguments[0], depth)) return {
+          re: re.regex.pattern,
+          flags: re.regex.flags
+        };
+      }
+    }
+    if (n2.type === "BinaryExpression" && [
+      "===",
+      "!==",
+      "==",
+      "!="
+    ].includes(n2.operator)) {
+      const [side, lit] = literal3(n2.right) !== void 0 ? [n2.left, n2.right] : [n2.right, n2.left];
+      const v = literal3(lit);
+      const negate = (c) => n2.operator.startsWith("!") ? { not: c } : c;
+      if (v !== void 0 && isPath(side, depth)) return negate({
+        op: "eq",
+        v
+      });
+      if (v !== void 0 && isRouteId(side, depth)) return negate({ id: [v] });
+      const [path, other] = isPath(n2.left, depth) ? [n2.left, n2.right] : [n2.right, n2.left];
+      const tpl = isPath(path, depth) ? template2(other, depth) : void 0;
+      if (tpl) return negate({ tpl });
+    }
+    return { u: true };
+  };
+  const walk2 = (node, stack) => {
+    if (Array.isArray(node)) return node.forEach((child) => walk2(child, stack));
+    if (!node) return;
+    if (node.type === "IfBlock") {
+      const tests = ifTests(node).map((t2) => cond(t2));
+      if (tests[0] && JSON.stringify(tests[0]) !== '{"u":true}') blocks.set(node.start, tests[0]);
+      ifArms(node).forEach((arm, i3) => walk2(arm, [
+        ...stack,
+        ...tests.slice(0, i3).map((t2) => ({ not: t2 })),
+        ...tests[i3] ? [tests[i3]] : []
+      ]));
+      return;
+    }
+    if ((node.type === "RenderTag" && renderCallee(node) === "children" || node.type === "SlotElement" && !node.attributes.some((a2) => a2.type === "Attribute" && a2.name === "name")) && stack.length > 0) out.set(node.start, { and: stack });
+    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) walk2(childOf(node, key2), stack);
+  };
+  walk2(ast.fragment, []);
+  return {
+    sites: out,
+    blocks
+  };
+}
+function dialogTitles(imports2, bound) {
+  const titles = /* @__PURE__ */ new Set();
+  for (const [local, { source: source2, imported }] of imports2) if (source2 === "bits-ui" && (imported === "Dialog" || imported === "AlertDialog") && !bound.has(local)) titles.add(`${local}.Title`);
+  return titles;
+}
+var isAriaHeading = (node) => attrText(node.attributes.filter((a2) => a2.type === "Attribute"), "role")?.trim().toLowerCase() === "heading";
+function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */ new Set(), urls = /* @__PURE__ */ new Map(), flags = /* @__PURE__ */ new Set(), urlBlocks = /* @__PURE__ */ new Map(), titles = /* @__PURE__ */ new Set()) {
   const headings = [];
+  const bound = templateBindings(fragment2);
   const gates = /* @__PURE__ */ new Map();
+  const flagGates = /* @__PURE__ */ new Map();
+  const urlGates = /* @__PURE__ */ new Map();
   const componentPaths = /* @__PURE__ */ new Map();
+  const componentOffsets = /* @__PURE__ */ new Map();
   const renderPaths = /* @__PURE__ */ new Map();
+  const renderOffsets = /* @__PURE__ */ new Map();
   const holes = /* @__PURE__ */ new Map();
   const index = {
     snippets: /* @__PURE__ */ new Map(),
@@ -71882,11 +73487,31 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
   let dynamic = false;
   let groups = 0;
   let holeIds = 0;
-  const push = (level, node, path) => {
-    headings.push({
+  const fullArms = /* @__PURE__ */ new Map();
+  const fullWhen = /* @__PURE__ */ new Map();
+  const push = (level, node, path, at2, when, aria3, overlay) => {
+    const order = at2 === void 0 ? [node.start] : [...at2, node.start];
+    const heading = {
       level,
       line: lineOf(source2, node.start),
-      ...path.length > 0 ? { path } : {}
+      ...path.length > 0 ? { path } : {},
+      order,
+      ...aria3 ? { aria: aria3 } : {},
+      ...overlay ? { overlay } : {}
+    };
+    headings.push(heading);
+    if (when) headingWhen.set(heading, when);
+  };
+  const first = (map, key2, offset2) => {
+    if (!map.has(key2)) map.set(key2, offset2);
+  };
+  const childrenSites = [];
+  const site = (path, offset2, start) => {
+    const url = urls.get(start);
+    if (!childrenSites.some(({ path: p2 }) => p2.length === path.length && p2.every((s, i3) => sameStep(s, path[i3])))) childrenSites.push({
+      path,
+      offset: offset2,
+      ...url ? { url } : {}
     });
   };
   const meet = (map, key2, path) => {
@@ -71903,36 +73528,97 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
       branch: -1
     };
   };
-  const walk2 = (node, path, open3) => {
+  const shared = /* @__PURE__ */ new Map();
+  const headingWhen = /* @__PURE__ */ new Map();
+  const armCount = /* @__PURE__ */ new Map();
+  const opaque = { next: 0 };
+  const componentWhen = /* @__PURE__ */ new Map();
+  const renderWhen = /* @__PURE__ */ new Map();
+  const note = (map, key2, when) => {
+    map.set(key2, map.has(key2) ? null : when);
+  };
+  const walk2 = (node, path, open3, at2, when = []) => {
     if (Array.isArray(node)) {
-      for (const child of node) walk2(child, path, open3);
+      for (const child of node) walk2(child, path, open3, at2, when);
       return;
     }
     if (!node || typeof node !== "object") return;
+    if (node.type === "Fragment") {
+      const eligible = (b) => !shared.has(b) && !propGate(b.test, props, reassigned) && !flagGate(b.test, flags) && !urlBlocks.has(b.start);
+      for (const set2 of exclusiveIfs(node, source2, eligible)) {
+        const group = groups++;
+        armCount.set(group, set2.length);
+        set2.forEach((block2, branch) => shared.set(block2, {
+          group,
+          branch
+        }));
+      }
+    }
     if (node.type === "SvelteHead") return;
+    if (node.type === "RegularElement" && node.name === "svg" && !source2.slice(node.start, node.end).includes("foreignObject")) return;
     if (node.type === "SnippetBlock" && local(node.expression.name) === node) return;
+    const sibling2 = node.type === "IfBlock" ? shared.get(node) : void 0;
+    if (sibling2 && node.type === "IfBlock") {
+      walk2(node.consequent, [...path, sibling2], open3, at2, when && [...when, condOf(node.test, source2, opaque)]);
+      return;
+    }
     if (node.type === "IfBlock" || node.type === "AwaitBlock") {
       const group = groups++;
       const gate = node.type === "IfBlock" ? propGate(node.test, props, reassigned) : void 0;
       if (gate) gates.set(group, gate);
-      (node.type === "IfBlock" ? ifArms(node) : [
+      const flag = node.type === "IfBlock" ? flagGate(node.test, flags) : void 0;
+      if (flag) flagGates.set(group, flag);
+      const url = node.type === "IfBlock" ? urlBlocks.get(node.start) : void 0;
+      if (url) urlGates.set(group, url);
+      const arms = node.type === "IfBlock" ? ifArms(node) : [
         node.pending,
         node.then,
         node.catch
-      ]).forEach((arm, branch) => walk2(arm, [...path, {
+      ];
+      if (node.type === "IfBlock" && endsInElse(node)) fullArms.set(group, arms.length);
+      armCount.set(group, arms.filter(Boolean).length);
+      const tests = node.type === "IfBlock" ? ifTests(node).map((t2) => condOf(t2, source2, opaque)) : [];
+      if (node.type === "IfBlock" && endsInElse(node) && when) fullWhen.set(group, {
+        path,
+        arms: arms.map((_, branch) => [
+          ...when,
+          ...tests.slice(0, branch).map((t2) => ({ not: t2 })),
+          ...tests[branch] ? [tests[branch]] : []
+        ])
+      });
+      arms.forEach((arm, branch) => {
+        const armWhen = node.type === "AwaitBlock" ? branch === 0 ? when : null : when && [
+          ...when,
+          ...tests.slice(0, branch).map((t2) => ({ not: t2 })),
+          ...tests[branch] ? [tests[branch]] : []
+        ];
+        walk2(arm, [...path, {
+          group,
+          branch
+        }], open3, at2, armWhen);
+      });
+      return;
+    }
+    if (node.type === "EachBlock") {
+      const group = groups++;
+      armCount.set(group, 1);
+      walk2(node.body, [...path, {
         group,
-        branch
-      }], open3));
+        branch: 0,
+        repeat: true
+      }], open3, at2, null);
+      walk2(node.fallback, path, open3, at2, when);
       return;
     }
     if (node.type === "SvelteBoundary") {
       const group = groups++;
+      armCount.set(group, 2);
       for (const child of node.fragment.nodes) {
         const branch = child.type === "SnippetBlock" ? BOUNDARY_SNIPPET_ARMS.get(child.expression.name) ?? 0 : 0;
         walk2(child, [...path, {
           group,
           branch
-        }], open3);
+        }], open3, at2, when);
       }
       return;
     }
@@ -71941,40 +73627,274 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
       const snippet = local(name);
       if (snippet && !open3.includes(snippet)) {
         reached.add(snippet);
-        walk2(snippet.body, path, [...open3, snippet]);
-      } else if (!snippet && name !== void 0) meet(renderPaths, props.get(name) ?? name, path);
-      return;
-    }
-    if (node.type === "SlotElement" && !node.attributes.some((a2) => a2.type === "Attribute" && a2.name === "name")) meet(renderPaths, "children", path);
-    if (node.type === "Component" || node.type === "SvelteComponent") {
-      meet(componentPaths, node, path);
-      for (const child of node.fragment.nodes) {
-        const name = child.type === "SnippetBlock" ? child.expression.name : "children";
-        walk2(child, [...path, holeOf(node, name)], open3);
+        walk2(snippet.body, path, [...open3, snippet], [...at2 ?? [], node.start], snippet.parameters.length > 0 ? null : when);
+      } else if (!snippet && name !== void 0) {
+        if ((props.get(name) ?? name) === "children") site(path, at2?.[0] ?? node.start, node.start);
+        meet(renderPaths, props.get(name) ?? name, path);
+        note(renderWhen, props.get(name) ?? name, when);
+        first(renderOffsets, props.get(name) ?? name, at2?.[0] ?? node.start);
       }
       return;
     }
-    if (node.type === "RegularElement" && HEADING_TAG.test(node.name)) push(Number(node.name[1]), node, path);
-    else if (node.type === "SvelteElement") {
+    if (node.type === "SlotElement" && !node.attributes.some((a2) => a2.type === "Attribute" && a2.name === "name")) {
+      site(path, at2?.[0] ?? node.start, node.start);
+      meet(renderPaths, "children", path);
+      note(renderWhen, "children", when);
+      first(renderOffsets, "children", at2?.[0] ?? node.start);
+    }
+    if (node.type === "Component" || node.type === "SvelteComponent") {
+      if (node.type === "Component" && titles.has(node.name)) {
+        const attrs = node.attributes.filter((a2) => a2.type === "Attribute");
+        const set2 = attrs.find((a2) => a2.name === "level")?.value;
+        const expr = set2 && !Array.isArray(set2) && set2 !== true ? set2.expression : void 0;
+        const level = Number(expr?.type === "Literal" ? expr.value : set2 ? attrText(attrs, "level") : 2);
+        push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at2, when, true, true);
+      }
+      const [root, next2] = memberPath(node);
+      if (root && !bound.has(root) && (props.get(root) === "data" || root === props.get(WHOLE_PROPS) && next2 === "data")) dynamic = true;
+      meet(componentPaths, node, path);
+      note(componentWhen, node, when);
+      first(componentOffsets, node, at2?.[0] ?? node.start);
+      for (const child of node.fragment.nodes) {
+        const name = child.type === "SnippetBlock" ? child.expression.name : "children";
+        const scoped = child.type === "SnippetBlock" && child.parameters.length > 0 ? null : when;
+        walk2(child, [...path, holeOf(node, name)], open3, at2, scoped);
+      }
+      return;
+    }
+    if (node.type === "RegularElement" && HEADING_TAG.test(node.name)) push(Number(node.name[1]), node, path, at2, when);
+    else if (node.type === "RegularElement" && isAriaHeading(node)) {
+      const attrs = node.attributes.filter((a2) => a2.type === "Attribute");
+      const set2 = attrs.some((a2) => a2.name === "aria-level");
+      const level = Number(set2 ? attrText(attrs, "aria-level") : 2);
+      push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at2, when, true);
+    } else if (node.type === "SvelteElement") {
       const tags = svelteElementTags(node.tag);
       const level = tags ? headingLevelOf(tags) : void 0;
-      if (level !== void 0) push(level, node, path);
-      else if (!tags || tags.some((t2) => HEADING_TAG.test(t2.toLowerCase()))) dynamic = true;
+      if (level !== void 0) push(level, node, path, at2, when);
+      else if (!tags || tags.some((t2) => HEADING_TAG.test(t2.toLowerCase()))) {
+        dynamic = true;
+        push(0, node, path, at2, when);
+      }
     }
-    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) walk2(childOf(node, key2), path, open3);
+    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) walk2(childOf(node, key2), path, open3, at2, when);
   };
   walk2(fragment2, [], []);
-  for (const snippet of index.snippets.values()) if (local(snippet.expression.name) === snippet && !reached.has(snippet)) walk2(snippet.body, [], [snippet]);
+  for (const snippet of index.snippets.values()) if (local(snippet.expression.name) === snippet && !reached.has(snippet)) walk2(snippet.body, [], [snippet], void 0, null);
+  const placed = (when, get2, put) => ({
+    when,
+    get path() {
+      return get2();
+    },
+    insert: (index2, step) => put([
+      ...get2().slice(0, index2),
+      step,
+      ...get2().slice(index2)
+    ])
+  });
+  const exclusive = [
+    ...headings.flatMap((h2) => {
+      const when = headingWhen.get(h2);
+      return when ? [placed(when, () => h2.path ?? [], (path) => h2.path = path)] : [];
+    }),
+    ...[...componentWhen].flatMap(([node, when]) => when ? [placed(when, () => componentPaths.get(node), (path) => componentPaths.set(node, path))] : []),
+    ...[...renderWhen].flatMap(([name, when]) => when ? [placed(when, () => renderPaths.get(name), (path) => renderPaths.set(name, path))] : [])
+  ];
+  const oneArmFrom = (p2, from) => p2.path.slice(from).every((s) => s.branch === -1 || armCount.get(s.group) === 1);
+  for (const clique of contradictingArms(exclusive.filter((p2) => oneArmFrom(p2, 0)))) {
+    const group = groups++;
+    clique.forEach((members, branch) => members.forEach((m) => m.insert(0, {
+      group,
+      branch
+    })));
+  }
+  const refs = (conds) => new Set(JSON.stringify(conds).match(/"[te]":"[^"]*"/g));
+  for (const p2 of exclusive) {
+    const own = refs(p2.when);
+    if (own.size === 0) continue;
+    for (const [group, block2] of fullWhen) {
+      if (p2.path.some((s) => s.group === group)) continue;
+      if (![...refs(block2.arms.flat())].some((r2) => own.has(r2))) continue;
+      if (!block2.path.every((s) => p2.path.some((t2) => t2.group === s.group && t2.branch === s.branch))) continue;
+      const fits = block2.arms.flatMap((w2, branch) => unsatisfiable([...p2.when, ...w2]) ? [] : [branch]);
+      if (fits.length !== 1) continue;
+      const step = {
+        group,
+        branch: fits[0],
+        always: true
+      };
+      const depth = block2.path.length;
+      const below = block2.path.every((s, i3) => p2.path[i3]?.group === s.group && p2.path[i3]?.branch === s.branch);
+      p2.insert(below && oneArmFrom(p2, depth) ? depth : p2.path.length, step);
+    }
+  }
+  const armsWithHeading = /* @__PURE__ */ new Map();
+  for (const h2 of headings) {
+    const last = h2.path?.at(-1);
+    if (last && fullArms.has(last.group)) armsWithHeading.set(last.group, (armsWithHeading.get(last.group) ?? /* @__PURE__ */ new Set()).add(last.branch));
+  }
+  const covered = new Set([...armsWithHeading].filter(([g, b]) => b.size === fullArms.get(g)).map(([g]) => g));
+  if (covered.size > 0) {
+    for (const h2 of headings) if (h2.path?.some((s) => covered.has(s.group))) h2.path = h2.path.map((s) => covered.has(s.group) ? {
+      ...s,
+      always: true
+    } : s);
+  }
   return {
     headings,
     dynamic,
     componentPaths,
+    componentOffsets,
     renderPaths,
+    childrenSites,
+    renderOffsets,
     holes,
     groups,
-    gates
+    gates,
+    flagGates,
+    urlGates
   };
 }
+function condOf(test, source2, opaque, name = (reference) => reference) {
+  const reference = (n2) => n2.type === "Identifier" || n2.type === "MemberExpression" && !n2.computed && reference(n2.object);
+  const text2 = (n2) => {
+    const { start, end } = n2;
+    return name(source2.slice(start, end).replace(/\s+/g, ""));
+  };
+  const read = (n2) => {
+    if (reference(n2)) return { t: text2(n2) };
+    if (n2.type === "Literal" && typeof n2.value === "boolean") return { k: n2.value };
+    if (n2.type === "UnaryExpression" && n2.operator === "!") return { not: read(n2.argument) };
+    if (n2.type === "LogicalExpression" && n2.operator !== "??") return n2.operator === "&&" ? { and: [read(n2.left), read(n2.right)] } : { or: [read(n2.left), read(n2.right)] };
+    if (n2.type === "BinaryExpression" && [
+      "===",
+      "!==",
+      "==",
+      "!="
+    ].includes(n2.operator) && n2.left.type !== "PrivateIdentifier") {
+      const [side, lit] = n2.left.type === "Literal" ? [n2.right, n2.left] : [n2.left, n2.right];
+      const value = literalValue(lit);
+      const strict = n2.operator.length === 3;
+      if (value !== "unknown" && reference(side) && (strict || typeof value.value === "number")) {
+        const eq = {
+          e: `${strict ? "" : "number:"}${text2(side)}`,
+          v: JSON.stringify(value.value)
+        };
+        return n2.operator.startsWith("!") ? { not: eq } : eq;
+      }
+    }
+    return { o: opaque.next++ };
+  };
+  return read(test);
+}
+function unsatisfiable(conds) {
+  const bools = /* @__PURE__ */ new Set();
+  const equals = /* @__PURE__ */ new Map();
+  const gather2 = (c) => {
+    if ("t" in c) bools.add(`t:${c.t}`);
+    else if ("o" in c) bools.add(`o:${c.o}`);
+    else if ("e" in c) equals.set(c.e, (equals.get(c.e) ?? /* @__PURE__ */ new Set()).add(c.v));
+    else if ("not" in c) gather2(c.not);
+    else if ("and" in c || "or" in c) ("and" in c ? c.and : c.or).forEach(gather2);
+  };
+  conds.forEach(gather2);
+  const names = [...bools];
+  const subjects = [...equals].map(([key2, values]) => [key2, [...values, ""]]);
+  let combos = 2 ** names.length;
+  for (const [, values] of subjects) combos *= values.length;
+  if (combos > 4096) return false;
+  for (let i3 = 0; i3 < combos; i3++) {
+    let rest2 = i3;
+    const bool = new Map(names.map((n2) => {
+      const v = rest2 % 2 === 1;
+      rest2 = Math.floor(rest2 / 2);
+      return [n2, v];
+    }));
+    const equal2 = new Map(subjects.map(([key2, values]) => {
+      const v = values[rest2 % values.length];
+      rest2 = Math.floor(rest2 / values.length);
+      return [key2, v];
+    }));
+    const holds = (c) => "t" in c ? bool.get(`t:${c.t}`) : "o" in c ? bool.get(`o:${c.o}`) : "k" in c ? c.k : "e" in c ? equal2.get(c.e) === c.v : "not" in c ? !holds(c.not) : "and" in c ? c.and.every(holds) : c.or.some(holds);
+    if (conds.every(holds)) return false;
+  }
+  return true;
+}
+function contradictingArms(places) {
+  const classes = /* @__PURE__ */ new Map();
+  for (const p2 of places) {
+    if (p2.when.length === 0) continue;
+    const key2 = JSON.stringify(p2.when);
+    classes.set(key2, [...classes.get(key2) ?? [], p2]);
+  }
+  const list4 = [...classes.values()];
+  if (list4.length < 2 || list4.length > 80) return [];
+  const apart = (a2, b) => a2[0].path.some((s) => b[0].path.some((t2) => s.group === t2.group && s.branch !== t2.branch));
+  const excludes = (a2, b) => !apart(a2, b) && unsatisfiable([...a2[0].when, ...b[0].when]);
+  const taken = /* @__PURE__ */ new Set();
+  const cliques = [];
+  for (const a2 of list4) {
+    if (taken.has(a2)) continue;
+    const clique = [a2];
+    for (const b of list4) if (!taken.has(b) && !clique.includes(b) && clique.every((c) => excludes(c, b))) clique.push(b);
+    if (clique.length < 2) continue;
+    clique.forEach((c) => taken.add(c));
+    cliques.push(clique);
+  }
+  return cliques;
+}
+function exclusiveIfs(fragment2, source2, eligible) {
+  const reference = (n2) => n2.type === "Identifier" || n2.type === "MemberExpression" && !n2.computed && reference(n2.object);
+  const text2 = (n2) => {
+    const { start, end } = n2;
+    return source2.slice(start, end).replace(/\s+/g, "");
+  };
+  const facts = (test, out = /* @__PURE__ */ new Map()) => {
+    if (test.type === "LogicalExpression" && test.operator === "&&") {
+      facts(test.left, out);
+      facts(test.right, out);
+    } else if (test.type === "UnaryExpression" && test.operator === "!" && reference(test.argument)) out.set(`t:${text2(test.argument)}`, "false");
+    else if (reference(test)) out.set(`t:${text2(test)}`, "true");
+    else if (test.type === "BinaryExpression" && (test.operator === "===" || test.operator === "==") && test.left.type !== "PrivateIdentifier") {
+      const [side, lit] = test.left.type === "Literal" ? [test.right, test.left] : [test.left, test.right];
+      const value = literalValue(lit);
+      if (value !== "unknown" && reference(side) && test.operator === "===") out.set(`e:${text2(side)}`, JSON.stringify(value.value));
+      else if (value !== "unknown" && reference(side) && typeof value.value === "number") out.set(`e:number:${text2(side)}`, JSON.stringify(value.value));
+    }
+    return out;
+  };
+  const blocks = [];
+  const visit = (nodes) => {
+    for (const node of nodes) if (node.type === "IfBlock" && !node.alternate && eligible(node)) blocks.push(node);
+    else if (node.type === "RegularElement" || node.type === "SvelteElement" || node.type === "KeyBlock") visit(node.fragment.nodes);
+  };
+  visit(fragment2.nodes);
+  const known = new Map(blocks.map((block2) => [block2, facts(block2.test)]));
+  const excludes = (a2, b) => [...known.get(a2)].some(([key2, value]) => known.get(b).has(key2) && known.get(b).get(key2) !== value);
+  const taken = /* @__PURE__ */ new Set();
+  const sets = [];
+  for (const block2 of blocks) {
+    if (taken.has(block2)) continue;
+    const set2 = [block2];
+    for (const other of blocks) if (!taken.has(other) && !set2.includes(other) && set2.every((member2) => excludes(member2, other))) set2.push(other);
+    if (set2.length < 2) continue;
+    for (const member2 of set2) taken.add(member2);
+    sets.push(set2);
+  }
+  return sets;
+}
+function endsInElse(node) {
+  if (!node.alternate) return false;
+  const rest2 = node.alternate.nodes.filter((n2) => n2.type !== "Text" || n2.data.trim() !== "");
+  const chained = rest2.length === 1 && rest2[0].type === "IfBlock" && rest2[0].elseif ? rest2[0] : void 0;
+  return chained ? endsInElse(chained) : true;
+}
+function ifTests(node) {
+  const rest2 = node.alternate?.nodes.filter((n2) => n2.type !== "Text" || n2.data.trim() !== "") ?? [];
+  const chained = rest2.length === 1 && rest2[0].type === "IfBlock" && rest2[0].elseif ? rest2[0] : void 0;
+  return [node.test, ...chained ? ifTests(chained) : []];
+}
+var A11Y_OPAQUE = { next: 0 };
 function ifArms(node) {
   if (!node.alternate) return [node.consequent];
   const rest2 = node.alternate.nodes.filter((n2) => n2.type !== "Text" || n2.data.trim() !== "");
@@ -71990,22 +73910,39 @@ function hasAccessibleName(attrs) {
   });
 }
 var IDREF_ATTR_SET = new Set(IDREF_ATTRS);
-function collectA11y(fragment2, source2) {
+function collectA11y(fragment2, source2, urls = /* @__PURE__ */ new Map(), props = /* @__PURE__ */ new Map(), reassigned = /* @__PURE__ */ new Set(), flags = /* @__PURE__ */ new Set(), urlBlocks = /* @__PURE__ */ new Map(), name = (reference) => reference) {
+  const gates = /* @__PURE__ */ new Map();
+  const flagGates = /* @__PURE__ */ new Map();
+  const urlGates = /* @__PURE__ */ new Map();
   const nodes = [];
   let groups = 0;
   let slotInLandmark;
   let slotInFixedLandmark;
-  let slotPath;
-  const noteSlot = (ctx) => {
+  const slotPaths = [];
+  const slotEnclosing = [];
+  let childrenPassed = false;
+  const slotUrls = [];
+  const slotLandmarks = [];
+  const slotWhens = [];
+  const noteSlot = (ctx, start) => {
     if (slotInLandmark === void 0) {
       slotInLandmark = ctx.landmarks.at(-1);
       slotInFixedLandmark = ctx.fixedLandmark;
     }
-    if (!slotPath) slotPath = ctx.path;
-    else {
-      let n2 = 0;
-      while (n2 < slotPath.length && n2 < ctx.path.length && sameStep(slotPath[n2], ctx.path[n2])) n2++;
-      slotPath = slotPath.slice(0, n2);
+    const same = (p2) => p2.length === ctx.path.length && p2.every((s, i3) => sameStep(s, ctx.path[i3]));
+    if (!slotPaths.some((p2, i3) => same(p2) && slotEnclosing[i3] === ctx.enclosing)) {
+      slotPaths.push(ctx.path);
+      slotEnclosing.push(ctx.enclosing);
+      slotUrls.push(urls.get(start));
+      slotLandmarks.push({
+        landmark: ctx.landmarks.at(-1),
+        fixed: ctx.fixedLandmark
+      });
+      slotWhens.push({
+        when: ctx.when,
+        landmark: ctx.landmarks.at(-1),
+        fixed: ctx.fixedLandmark
+      });
     }
   };
   const unknowable = [];
@@ -72017,8 +73954,10 @@ function collectA11y(fragment2, source2) {
       ...node,
       repeatable: ctx.repeatable,
       path: ctx.path,
+      ...ctx.when.length > 0 ? { when: ctx.when } : {},
       ...inLandmark ? { inLandmark } : {},
-      ...ctx.fixedLandmark ? { inFixedLandmark: ctx.fixedLandmark } : {}
+      ...ctx.fixedLandmark ? { inFixedLandmark: ctx.fixedLandmark } : {},
+      ...ctx.enclosing !== void 0 ? { enclosing: ctx.enclosing } : {}
     });
   };
   const noteSpread = (node) => {
@@ -72048,12 +73987,24 @@ function collectA11y(fragment2, source2) {
         return;
       case "IfBlock": {
         const group = groups++;
+        const chain = ifTests(node).map((t2) => propGate(t2, props, reassigned, 0, true));
+        if (chain.some(Boolean)) gates.set(group, chain);
+        const flag = flagGate(node.test, flags);
+        if (flag) flagGates.set(group, flag);
+        const url = urlBlocks.get(node.start);
+        if (url) urlGates.set(group, url);
+        const tests = ifTests(node).map((t2) => condOf(t2, source2, A11Y_OPAQUE, name));
         ifArms(node).forEach((arm, branch) => walk2(arm, {
           ...ctx,
           path: [...ctx.path, {
             group,
             branch
-          }]
+          }],
+          when: ctx.frozen ? ctx.when : [
+            ...ctx.when,
+            ...tests.slice(0, branch).map((t2) => ({ not: t2 })),
+            ...tests.slice(branch, branch + 1)
+          ]
         }));
         return;
       }
@@ -72071,7 +74022,8 @@ function collectA11y(fragment2, source2) {
           path: [...ctx.path, {
             group,
             branch: 1
-          }]
+          }],
+          frozen: true
         });
         walk2(node.catch, {
           ...ctx,
@@ -72085,14 +74037,17 @@ function collectA11y(fragment2, source2) {
       case "EachBlock":
         walk2(node.body, {
           ...ctx,
-          repeatable: true
+          repeatable: true,
+          frozen: true
         });
         walk2(node.fallback, ctx);
         return;
       case "SnippetBlock":
         walk2(node.body, {
           ...ctx,
-          repeatable: true
+          repeatable: true,
+          frozen: true,
+          enclosing: void 0
         });
         return;
       case "RegularElement":
@@ -72107,23 +74062,33 @@ function collectA11y(fragment2, source2) {
       case "SvelteComponent":
       case "SvelteSelf":
         noteSpread(node);
+        for (const attr of node.attributes) {
+          const value = attr.type === "Attribute" && !Array.isArray(attr.value) ? attr.value : void 0;
+          const e3 = value && value !== true ? value.expression : void 0;
+          if (e3?.type === "Identifier" && (props.get(e3.name) ?? e3.name) === "children") childrenPassed = true;
+        }
         emit(ctx, {
           kind: "component",
           key: componentName(node),
-          line: lineOf(source2, node.start)
+          line: lineOf(source2, node.start),
+          ...node.type === "Component" ? {
+            attributes: node.attributes,
+            snippets: suppliedSnippets(node.fragment)
+          } : {}
         });
         walk2(node.fragment, {
           ...ctx,
-          elementDepth: ctx.elementDepth + 1
+          elementDepth: ctx.elementDepth + 1,
+          enclosing: nodes.length - 1
         });
         return;
       case "SlotElement":
         noteSpread(node);
-        noteSlot(ctx);
+        noteSlot(ctx, node.start);
         walk2(node.fragment, ctx);
         return;
       case "RenderTag":
-        if (renderCallee(node) === "children") noteSlot(ctx);
+        if ((props.get(renderCallee(node) ?? "") ?? renderCallee(node)) === "children") noteSlot(ctx, node.start);
         return;
       default:
         noteSpread(node);
@@ -72193,6 +74158,8 @@ function collectA11y(fragment2, source2) {
   };
   walk2(fragment2, {
     path: [],
+    when: [],
+    frozen: false,
     repeatable: false,
     landmarks: [],
     fixedLandmark: void 0,
@@ -72204,7 +74171,17 @@ function collectA11y(fragment2, source2) {
     nodes,
     ...slotInLandmark ? { slotInLandmark } : {},
     ...slotInFixedLandmark ? { slotInFixedLandmark } : {},
-    ...slotPath ? { slotPath } : {},
+    ...slotPaths.length > 0 ? { slotPaths } : {},
+    ...slotEnclosing.some((i3) => i3 !== void 0) ? { slotEnclosing } : {},
+    ...childrenPassed ? { childrenPassed: true } : {},
+    ...gates.size > 0 ? { gates } : {},
+    ...flagGates.size > 0 ? { flagGates } : {},
+    ...urlGates.size > 0 ? { urlGates } : {},
+    ...slotUrls.some(Boolean) ? {
+      slotUrls,
+      slotLandmarks
+    } : {},
+    ...slotWhens.some((s) => s.when.length > 0) ? { slotWhens } : {},
     unknowable,
     elementTags: [...elementTags],
     elementsUnknowable
@@ -72217,29 +74194,69 @@ function renderCallee(node) {
   const call2 = node.expression.type === "ChainExpression" ? node.expression.expression : node.expression;
   return call2.callee.type === "Identifier" ? call2.callee.name : void 0;
 }
-function parseFile(source2, filename2) {
+function markdownTemplate(source2) {
+  let fence;
+  let frontMatter = /^---\s*$/.test(source2.split("\n", 1)[0] ?? "");
+  return source2.split("\n").map((line, i3) => {
+    if (frontMatter) {
+      if (i3 > 0 && /^---\s*$/.test(line)) frontMatter = false;
+      return "";
+    }
+    if (fence) {
+      const close2 = /^ {0,3}(`{3,}|~{3,})[ \t]*$/.exec(line)?.[1];
+      if (close2 && close2[0] === fence[0] && close2.length >= fence.length) fence = void 0;
+      return "";
+    }
+    fence = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1];
+    if (fence) return "";
+    const atx = /^ {0,3}(#{1,6})(?:[ \t]+(.*?))?(?:[ \t]+#+)?[ \t]*$/.exec(line);
+    if (!atx) return "";
+    const level = atx[1].length;
+    return `<h${level}>${(atx[2] ?? "").replace(/[<>{}&]/g, " ")}</h${level}>`;
+  }).join("\n");
+}
+function parseFile(raw, filename2) {
+  const source2 = /\.(md|svx)$/.test(filename2) ? markdownTemplate(raw) : raw;
   const ast = parseSvelte(source2, filename2);
   const heads = [];
   collectSvelteHeads(ast.fragment, heads);
   const props = collectProps(ast);
-  const headingAcc = collectHeadings(ast.fragment, source2, props, reassignedLocals(ast));
-  const components = [];
-  collectComponents(ast.fragment, components, headingAcc);
+  const urls = childrenUrlConds(ast, source2);
   const imports2 = collectImports(ast);
+  const bound = templateBindings(ast.fragment);
+  const flags = new Set([...imports2.keys()].filter((name) => !bound.has(name)));
+  const reassigned = reassignedLocals(ast);
+  const mounts = mountFlags(ast, bound, imports2);
+  const ungated = /* @__PURE__ */ new Set([...reassigned, ...bound]);
+  const headingAcc = collectHeadings(ast.fragment, source2, props, ungated, urls.sites, flags, urls.blocks, dialogTitles(imports2, bound));
+  const components = [];
+  collectComponents(ast.fragment, components, headingAcc, mounts);
   const jsonLdNames = jsonLdBindings(ast);
+  const calls = importedCalls(ast, imports2);
   return {
-    headTags: [...heads.flatMap((h2) => tagsFromHead(h2, source2, jsonLdNames)), ...bodyJsonLd(ast.fragment, source2, jsonLdNames)],
+    headTags: [
+      ...heads.flatMap((h2) => tagsFromHead(h2, source2, jsonLdNames)),
+      ...bodyJsonLd(ast.fragment, source2, jsonLdNames),
+      ...documentTitle(ast)
+    ],
+    ...calls.length > 0 ? { scriptCalls: calls } : {},
+    ...scriptAlwaysThrows(ast, imports2) ? { alwaysThrows: true } : {},
     components,
     imports: imports2,
     componentBindings: collectComponentBindings(ast),
-    images: collectImages(ast.fragment, source2, imports2),
+    ...collectImages(ast.fragment, source2, imports2),
     headings: headingAcc.headings,
     headingGroups: headingAcc.groups,
     renderPaths: headingAcc.renderPaths,
+    ...headingAcc.childrenSites.length > 1 ? { childrenSites: headingAcc.childrenSites } : {},
+    renderOffsets: headingAcc.renderOffsets,
     dynamicHeading: headingAcc.dynamic,
     headingGates: headingAcc.gates,
+    ...headingAcc.flagGates.size > 0 ? { headingFlagGates: headingAcc.flagGates } : {},
+    ...headingAcc.urlGates.size > 0 ? { headingUrlGates: headingAcc.urlGates } : {},
     propDefaults: collectPropDefaults(ast),
-    a11y: collectA11y(ast.fragment, source2),
+    heldProps: heldProps(ast, reassigned),
+    a11y: collectA11y(ast.fragment, source2, urls.sites, props, ungated, flags, urls.blocks, chainNames(ast, imports2, reassigned, filename2)),
     template: {
       source: source2,
       filename: filename2,
@@ -72470,7 +74487,11 @@ function detectAppHtmlHeadTags(html) {
   } catch {
     return [];
   }
-  return tags.filter((t2) => t2.kind === "title" || t2.kind === "jsonld" || t2.kind === "meta" && t2.name !== "charset" && t2.name !== "viewport" || t2.kind === "link" && (t2.rel === "canonical" || t2.rel === "preconnect" || t2.rel === "dns-prefetch")).map((t2) => t2.kind === "jsonld" && t2.jsonld !== void 0 && /%(?![0-9a-f]{2}%)[a-z_][\w.-]*%/i.test(t2.jsonld) ? {
+  return tags.filter((t2) => t2.kind === "title" || t2.kind === "jsonld" || t2.kind === "meta" && t2.name !== "charset" && t2.name !== "viewport" || t2.kind === "link" && [
+    "canonical",
+    "preconnect",
+    "dns-prefetch"
+  ].some((r2) => hasRel(t2, r2))).map((t2) => t2.kind === "jsonld" && t2.jsonld !== void 0 && /%(?![0-9a-f]{2}%)[a-z_][\w.-]*%/i.test(t2.jsonld) ? {
     kind: "jsonld",
     value: "dynamic"
   } : t2);
@@ -72495,7 +74516,8 @@ async function detectAppHtmlFacts(rt, cwd) {
     appHtmlDoctype: /^\s*<!doctype\s+html/i.test(content.replace(/<!--[\s\S]*?-->/g, "")),
     appHtmlIds: detectAppHtmlIds(content),
     appHtmlBodyTags: detectAppHtmlBodyTags(content),
-    appHtmlHeadTags: detectAppHtmlHeadTags(content)
+    appHtmlHeadTags: detectAppHtmlHeadTags(content),
+    appHtmlHeadComments: /<head\b[^>]*>([\s\S]*?)(?:<\/head\s*>|<body\b|$)/i.exec(content)?.[1]?.match(/<!--[\s\S]*?-->/g) ?? []
   };
 }
 async function robotsRefsSitemap(rt, cwd) {
@@ -72550,6 +74572,7 @@ async function detectKitConfigFacts(rt, cwd) {
   const headAliases = withInstalledPackages(componentAliases, installedPackages);
   return {
     ...kitPathsBase ? { kitPathsBase } : {},
+    ...resolveKitHashRouter(viteConfig, svelteConfig) ? { kitHashRouter: true } : {},
     ...kitAliases ? { kitAliases } : {},
     ...componentAliases !== kitAliases ? { componentAliases } : {},
     ...headAliases !== componentAliases ? { headAliases } : {}
@@ -72975,10 +74998,6 @@ function readAndParse(rt, cwd, rel, cache) {
   }
   return hit;
 }
-async function readPackageAware(rt, cwd, rel, cache) {
-  const parsed = readAndParse(rt, cwd, rel, cache);
-  return rel.split("/").includes("node_modules") ? parsed.catch(() => void 0) : parsed;
-}
 function nameOf(node) {
   return node.type === "Identifier" ? node.name : String(node.value);
 }
@@ -72986,7 +75005,9 @@ function moduleExportsOf(source2, rel) {
   const out = {
     named: /* @__PURE__ */ new Map(),
     stars: [],
-    lists: /* @__PURE__ */ new Set()
+    lists: /* @__PURE__ */ new Set(),
+    falses: /* @__PURE__ */ new Set(),
+    titleSetters: /* @__PURE__ */ new Set()
   };
   let program;
   try {
@@ -72995,6 +75016,8 @@ function moduleExportsOf(source2, rel) {
     return out;
   }
   out.lists = collectConstantListExports(program);
+  out.falses = collectFalseExports(program);
+  out.titleSetters = titleSetterExports(program);
   const imports2 = /* @__PURE__ */ new Map();
   addImportsFromProgram(program, imports2);
   for (const node of program?.body ?? []) {
@@ -73023,11 +75046,38 @@ function readModuleExports(ctx, rel) {
     hit = ctx.rt.readFile(ctx.rt.join(ctx.cwd, rel)).then((source2) => moduleExportsOf(source2, rel), () => ({
       named: /* @__PURE__ */ new Map(),
       stars: [],
-      lists: /* @__PURE__ */ new Set()
+      lists: /* @__PURE__ */ new Set(),
+      falses: /* @__PURE__ */ new Set(),
+      titleSetters: /* @__PURE__ */ new Set()
     }));
     ctx.cache.set(rel, hit);
   }
   return hit;
+}
+function titleSetterExports(program) {
+  const isFn = (n2) => n2?.type === "FunctionDeclaration" || n2?.type === "ArrowFunctionExpression" || n2?.type === "FunctionExpression";
+  const setters = /* @__PURE__ */ new Set();
+  const exported = /* @__PURE__ */ new Map();
+  const names = /* @__PURE__ */ new Set();
+  for (const node of program?.body ?? []) {
+    const own = node.type === "ExportNamedDeclaration" ? node.declaration : node;
+    if (own?.type === "FunctionDeclaration" && own.id && setsDocumentTitle([own.body])) setters.add(own.id.name);
+    if (own?.type === "VariableDeclaration") for (const d2 of own.declarations) {
+      const init2 = unwrapTs(d2.init);
+      if ((init2?.type === "ArrowFunctionExpression" || init2?.type === "FunctionExpression") && d2.id.type === "Identifier" && setsDocumentTitle([init2.body])) setters.add(d2.id.name);
+    }
+    if (node.type === "ExportNamedDeclaration") {
+      for (const name of own?.id ? [own.id.name] : (own?.declarations ?? []).map((d2) => d2.id.name)) if (name) exported.set(name, name);
+      if (!node.source) for (const spec of node.specifiers) exported.set(nameOf(spec.exported), nameOf(spec.local));
+    }
+    if (node.type === "ExportDefaultDeclaration") {
+      const decl = node.declaration;
+      if (decl.type === "Identifier") exported.set("default", decl.name);
+      else if (isFn(decl) && setsDocumentTitle([decl.body])) names.add("default");
+    }
+  }
+  for (const [name, local] of exported) if (setters.has(local)) names.add(name);
+  return names;
 }
 var MAX_REEXPORT_HOPS = 8;
 async function resolveExport(ctx, spec, fromRel, name, target = "component", hops = 0, memo = /* @__PURE__ */ new Map()) {
@@ -73074,9 +75124,10 @@ function unbuiltSources(path, aliases) {
 }
 async function resolveExportAt(ctx, path, name, target, hops, memo) {
   const exists2 = (rel) => ctx.rt.exists(ctx.rt.join(ctx.cwd, rel));
-  const ext = /\.[^./]+$/.exec(path)?.[0];
+  const ext = /\.(svelte|md|svx|[cm]?[jt]sx?|json)$/.exec(path)?.[0];
   const component = target === "component" && name === "default";
   let modules;
+  if (ext === ".md" || ext === ".svx") return component && await exists2(path) ? path : void 0;
   if (ext === ".svelte") {
     if (await exists2(path)) return component ? path : void 0;
     modules = [`${path}.js`, `${path}.ts`];
@@ -73089,12 +75140,11 @@ async function resolveExportAt(ctx, path, name, target, hops, memo) {
       "/index.ts"
     ].map((suffix) => path + suffix);
   } else if (ext === ".js") modules = [path, `${path.slice(0, -3)}.ts`];
-  else if (ext === ".ts") modules = [path];
-  else return void 0;
+  else modules = [path];
   for (const mod of modules) {
     if (!await exists2(mod)) continue;
     const exports = await readModuleExports(ctx, mod);
-    if (target === "list" && exports.lists.has(name)) return mod;
+    if ((target === "list" ? exports.lists : target === "false" ? exports.falses : target === "titleSetter" ? exports.titleSetters : void 0)?.has(name)) return mod;
     const hit = exports.named.get(name);
     if (hit) return resolveExport(ctx, hit.source, mod, hit.imported, target, hops + 1, memo);
     if (name === "default") return void 0;
@@ -73133,10 +75183,25 @@ async function dropConstantListEachBlocks(ctx, components) {
     };
   }));
 }
+async function falseImports(ctx, fileRel, parsed, names) {
+  const out = /* @__PURE__ */ new Set();
+  for (const name of new Set(names)) {
+    const info2 = parsed.imports.get(name);
+    if (info2 && await resolveExport(ctx, info2.source, fileRel, info2.imported, "false")) out.add(name);
+  }
+  return out;
+}
+async function titleSetterCalled(ctx, fileRel, parsed) {
+  for (const name of parsed.scriptCalls ?? []) {
+    const info2 = parsed.imports.get(name);
+    if (info2 && await resolveExport(ctx, info2.source, fileRel, info2.imported, "titleSetter")) return true;
+  }
+  return false;
+}
 function offsetPath(path, base) {
   return base === 0 ? path : path.map((step) => ({
-    group: step.group + base,
-    branch: step.branch
+    ...step,
+    group: step.group + base
   }));
 }
 function nestHeading(heading, prefix, base) {
@@ -73207,18 +75272,43 @@ function tagKey(tag2) {
     case "meta":
       return `meta:${tag2.name ? `name=${tag2.name}` : tag2.property ? `prop=${tag2.property}` : "?"}`;
     case "link":
-      return `link:${tag2.rel ?? "?"}`;
+      return hasRel(tag2, "canonical") ? "link:canonical" : `link:${tag2.rel ?? "?"}`;
     case "jsonld":
       return "jsonld";
     case "script":
       return `script:${tag2.href ?? "?"}`;
   }
 }
-async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited, cache = /* @__PURE__ */ new Map(), aliases, inHead) {
+function forwarded(attributes, held, passed) {
+  if (!passed || held.size === 0 || passed.some((a2) => a2.type === "SpreadAttribute")) return attributes;
+  return attributes.map((a2) => {
+    if (a2.type !== "Attribute") return a2;
+    const tag2 = Array.isArray(a2.value) ? a2.value.length === 1 ? a2.value[0] : void 0 : a2.value;
+    const local = tag2 !== true && tag2?.type === "ExpressionTag" && tag2.expression.type === "Identifier" ? tag2.expression.name : void 0;
+    const prop2 = local === void 0 ? void 0 : held.get(local);
+    const from = prop2 === void 0 ? [] : passed.filter((p2) => p2.type === "Attribute" && p2.name === prop2);
+    return from.length === 1 ? {
+      ...a2,
+      value: from[0].value
+    } : a2;
+  });
+}
+async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited, cache = /* @__PURE__ */ new Map(), aliases, inHead, passed) {
   const tags = [...parsed.headTags, ...inHead ? tagsInHead(parsed, inHead) : []];
   const nested = [];
   const holes = /* @__PURE__ */ new Map();
-  const place = (path) => path.flatMap((s) => s.branch === -1 ? holes.get(s.group) ?? [] : [s]);
+  const opaque = /* @__PURE__ */ new Map();
+  const place = (path) => path.flatMap((s) => {
+    if (s.branch !== -1) return [s];
+    const rendered = holes.get(s.group);
+    if (rendered) return rendered;
+    let step = opaque.get(s.group);
+    if (!step) opaque.set(s.group, step = {
+      group: groupSpan2++,
+      branch: 0
+    });
+    return [step];
+  });
   let groupSpan2 = parsed.headingGroups;
   let dynamicHeading = false;
   let clientOnlyHeading = false;
@@ -73231,16 +75321,21 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
   };
   for (const use of parsed.components) {
     const info2 = importOf(parsed.imports, use.name);
+    const attributes = forwarded(use.attributes, parsed.heldProps, passed);
     const adapter = info2 ? findAdapter(info2) : void 0;
     if (adapter) {
       const result2 = adapter.resolve(use);
-      tags.push(...use.conditional ? result2.tags.map(maybeTag) : result2.tags);
-      broad = broad || result2.broad;
+      const adapted = [...result2.tags, ...use.clientOnly && result2.broad ? BROAD_KINDS : []];
+      tags.push(...(use.conditional ? adapted.map(maybeTag) : adapted).map((t2) => use.clientOnly ? {
+        ...t2,
+        clientOnly: true
+      } : t2));
+      broad = broad || result2.broad && !use.clientOnly;
       continue;
     }
     const found = depth > 0 ? await resolveComponentFiles(ctx, use.name, parsed, fileRel) : void 0;
     const unvisited = found?.files.filter((f) => !visited.has(f)) ?? [];
-    const read = await Promise.all(unvisited.map((f) => readPackageAware(rt, cwd, f, cache)));
+    const read = await Promise.all(unvisited.map((f) => readAndParse(rt, cwd, f, cache).catch(() => void 0)));
     const files = unvisited.filter((_, i3) => read[i3] !== void 0);
     const parsedFiles = read.filter((p2) => p2 !== void 0);
     const unreadable = files.length < unvisited.length;
@@ -73248,18 +75343,25 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
       const exclusive = files.length > 1 || !found.complete || files.length < found.files.length;
       const childHead = inHead || use.inHead ? argsOf(parsed, use, inHead ?? /* @__PURE__ */ new Map()) : void 0;
       const maybe = /* @__PURE__ */ new Map();
+      const headed = [];
       for (const [i3, childRel] of files.entries()) {
         const childParsed = parsedFiles[i3];
         const childVisited = new Set(visited).add(childRel);
-        const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache, aliases, childHead);
-        const clientOnly = found.clientOnly?.has(childRel) === true;
+        const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache, aliases, childHead, attributes);
+        const clientOnly = use.clientOnly === true || found.clientOnly?.has(childRel) === true;
         const childTags = clientOnly ? [...child.tags, ...child.broad ? BROAD_KINDS : []].map((t2) => ({
           ...t2,
           clientOnly: true
         })) : child.tags;
         broad = broad || child.broad && !clientOnly;
-        const decided = decidedArms(childParsed, use.attributes);
-        const childHeadings = [...child.ownHeadings, ...child.headings].filter((h2) => !h2.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0)));
+        const decided = decidedArms(childParsed, attributes, void 0, [...use.holes?.keys() ?? []]);
+        const childHeadings = [...child.ownHeadings, ...child.headings].filter((h2) => !h2.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0))).map((h2) => h2.path?.some((step) => decided.has(step.group)) ? {
+          ...h2,
+          path: h2.path.map((step) => decided.has(step.group) ? {
+            ...step,
+            always: true
+          } : step)
+        } : h2);
         const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
         clientOnlyHeading = clientOnlyHeading || child.clientOnlyHeading;
         if (!exclusive && !use.conditional) tags.push(...childTags);
@@ -73268,10 +75370,14 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
           nested.push({
             headings: childHeadings,
             at: use.path,
-            base: groupSpan2
+            base: groupSpan2,
+            offset: use.offset
           });
           for (const [name, id2] of use.holes ?? []) {
-            const rendered = child.renderPaths.get(name);
+            const rendered = child.renderPaths.get(name)?.map((step) => decided.has(step.group) ? {
+              ...step,
+              always: true
+            } : step);
             if (rendered) holes.set(id2, offsetPath(rendered, groupSpan2));
           }
           groupSpan2 += child.groupSpan;
@@ -73282,7 +75388,18 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
           if (clientOnly) clientOnlyHeading = true;
           else dynamicHeading = true;
         }
+        const always = childHeadings.find((h2) => !h2.path);
+        if (always && !clientOnly) headed.push(always);
       }
+      if (found.complete && !unreadable && headed.length === found.files.length) nested.push({
+        headings: [{
+          ...headed[0],
+          level: 0
+        }],
+        at: use.path,
+        base: groupSpan2,
+        offset: use.offset
+      });
       tags.push(...maybe.values());
       if (!unreadable) continue;
     }
@@ -73302,16 +75419,90 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
   return {
     tags,
     broad,
-    ownHeadings: parsed.headings.map((h2) => placeHeading({
+    ownHeadings: parsed.headings.filter((h2) => !h2.overlay).map((h2) => placeHeading({
       ...h2,
       file: fileRel
     })),
     renderPaths: new Map([...parsed.renderPaths].map(([name, path]) => [name, place(path)])),
-    headings: nested.flatMap(({ headings, at: at2, base }) => headings.map((h2) => nestHeading(h2, place(at2), base))),
+    ...parsed.childrenSites ? { childrenSites: parsed.childrenSites.map((s) => ({
+      ...s,
+      path: place(s.path)
+    })) } : {},
+    renderOffsets: parsed.renderOffsets,
+    headings: [...parsed.headings.filter((h2) => h2.overlay).map((h2) => placeHeading({
+      ...h2,
+      file: fileRel
+    })), ...nested.flatMap(({ headings, at: at2, base, offset: offset2 }) => headings.map((h2) => ({
+      ...nestHeading(h2, place(at2), base),
+      order: [offset2, ...h2.order ?? []]
+    })))],
     groupSpan: groupSpan2,
     dynamicHeading,
     clientOnlyHeading
   };
+}
+var DYNAMIC = /\[[^\]]*\]/;
+function urlHolds(cond, route, routeId = route) {
+  if (!cond) return true;
+  if ("k" in cond) return cond.k;
+  if ("u" in cond) return void 0;
+  if ("not" in cond) {
+    const r2 = urlHolds(cond.not, route, routeId);
+    return r2 === void 0 ? void 0 : !r2;
+  }
+  if ("and" in cond) {
+    const rs = cond.and.map((c) => urlHolds(c, route, routeId));
+    return rs.includes(false) ? false : rs.every((r2) => r2 === true) ? true : void 0;
+  }
+  if ("or" in cond) {
+    const rs = cond.or.map((c) => urlHolds(c, route, routeId));
+    return rs.includes(true) ? true : rs.every((r2) => r2 === false) ? false : void 0;
+  }
+  if ("id" in cond) return cond.id.includes(routeId);
+  if ("idOp" in cond) return cond.idOp === "starts" ? routeId.startsWith(cond.v) : cond.idOp === "ends" ? routeId.endsWith(cond.v) : routeId.includes(cond.v);
+  if ("re" in cond) {
+    if (DYNAMIC.test(route)) return void 0;
+    try {
+      const bare = new RegExp(cond.re, cond.flags).test(route);
+      return route === "/" || new RegExp(cond.re, cond.flags).test(`${route}/`) === bare ? bare : void 0;
+    } catch {
+      return;
+    }
+  }
+  if ("tpl" in cond) {
+    const segments = route.split("/").slice(1);
+    if (segments.some((s) => /^\[\[|^\[\.\.\./.test(s))) return void 0;
+    if (segments.length !== cond.tpl.length) return false;
+    let unknown = false;
+    for (const [i3, t2] of cond.tpl.entries()) {
+      const param2 = DYNAMIC.test(segments[i3]);
+      if (t2 !== null && !param2 && t2 !== segments[i3]) return false;
+      if (t2 === null !== param2) unknown = true;
+    }
+    return unknown ? void 0 : true;
+  }
+  const v = cond.v.length > 1 && cond.op === "eq" ? cond.v.replace(/\/$/, "") : cond.v;
+  const param = route.search(DYNAMIC);
+  if (param === -1) {
+    if (cond.op === "eq") return route === v;
+    if (cond.op === "starts") return route.startsWith(v);
+    if (cond.op === "ends") return route.endsWith(v);
+    return route.includes(v);
+  }
+  const prefix = route.slice(0, param);
+  const mayEnd = /\[\[|\[\.\.\./.test(route);
+  if (cond.op === "starts") {
+    if (v.length <= prefix.length) return prefix.startsWith(v);
+    return v.startsWith(prefix) ? void 0 : false;
+  }
+  if (cond.op === "eq") {
+    if (!v.startsWith(prefix.slice(0, Math.min(v.length, prefix.length)))) return false;
+    return v.length <= prefix.length && !mayEnd ? false : void 0;
+  }
+  if (cond.op === "includes") return route.split(DYNAMIC).some((part) => part.includes(v)) ? true : void 0;
+  const suffix = route.slice(route.lastIndexOf("]") + 1);
+  if (v.length <= suffix.length) return suffix.endsWith(v);
+  return v.endsWith(suffix) ? void 0 : false;
 }
 var ROUTES_DIR2 = "src/routes";
 var MAX_DEPTH$1 = 5;
@@ -73384,7 +75575,7 @@ function chainFiles(pageRel, layouts) {
 }
 function groupSpan(a11y) {
   let max = -1;
-  for (const path of [...a11y.nodes.map((n2) => n2.path), a11y.slotPath ?? []]) for (const step of path) if (step.group > max) max = step.group;
+  for (const path of [...a11y.nodes.map((n2) => n2.path), ...a11y.slotPaths ?? []]) for (const step of path) if (step.group > max) max = step.group;
   return max + 1;
 }
 function dedupeCauses(causes) {
@@ -73401,7 +75592,7 @@ function serverRendered(tag2) {
 function isRobotsMeta(tag2) {
   return tag2.kind === "meta" && tag2.name === "robots";
 }
-async function composeA11y(ctx, fileRel, parsed, depth, visited, chain) {
+async function composeA11y(ctx, fileRel, parsed, depth, visited, chain, decided, expanded = /* @__PURE__ */ new Map()) {
   const { rt, cwd, state } = ctx;
   if (parsed.a11y.unknowable.length > 0) {
     state.fullyResolved = false;
@@ -73414,9 +75605,12 @@ async function composeA11y(ctx, fileRel, parsed, depth, visited, chain) {
   if (parsed.a11y.elementsUnknowable) state.elementsClosed = false;
   const base = state.nextGroup;
   state.nextGroup += groupSpan(parsed.a11y);
+  const wrapping = /* @__PURE__ */ new Set([...parsed.a11y.nodes.map((n2) => n2.enclosing), ...parsed.a11y.slotEnclosing ?? []]);
   const composed = [];
-  for (const node of parsed.a11y.nodes) {
-    const path = offsetPath(node.path, base);
+  for (const [index, node] of parsed.a11y.nodes.entries()) {
+    if (decided && ruledOut(node.path, decided)) continue;
+    const paths = readdress(parsed.a11y, node.path, node.enclosing, base, expanded);
+    const path = paths.length === 1 ? paths[0] : offsetPath(node.path, base);
     if (node.kind !== "component") {
       composed.push({
         ...node,
@@ -73427,7 +75621,9 @@ async function composeA11y(ctx, fileRel, parsed, depth, visited, chain) {
       continue;
     }
     const found = depth > 0 ? await resolveComponentFiles(ctx, node.key, parsed, fileRel) : void 0;
-    const files = found?.files.filter((f) => !visited.has(f)) ?? [];
+    const unvisited = found?.files.filter((f) => !visited.has(f)) ?? [];
+    const read = await Promise.all(unvisited.map((f) => readAndParse(rt, cwd, f, ctx.cache).catch(() => void 0)));
+    const files = unvisited.filter((_, i3) => read[i3] !== void 0);
     if (!found?.complete || files.length < found.files.length) {
       state.fullyResolved = false;
       state.causes.push({
@@ -73439,20 +75635,54 @@ async function composeA11y(ctx, fileRel, parsed, depth, visited, chain) {
       state.elementsClosed = false;
     }
     const group = files.length > 1 ? state.nextGroup++ : void 0;
+    const parsedFiles = read.filter((p2) => p2 !== void 0);
+    const wraps = found?.complete && files.length === found.files.length && wrapping.has(index);
+    const sites = [];
+    let placed = !!wraps && files.length > 0;
     for (const [branch, childRel] of files.entries()) {
-      const child = await composeA11y(ctx, childRel, await readAndParse(rt, cwd, childRel, ctx.cache), depth - 1, new Set(visited).add(childRel), false);
+      const childParsed = parsedFiles[branch];
+      const gates = childParsed.a11y.gates;
+      const childDecided = gates && node.attributes ? ruledOutArms(childParsed, node.attributes, gates, node.snippets) : void 0;
+      const childBase = state.nextGroup;
+      const childExpanded = /* @__PURE__ */ new Map();
+      const child = await composeA11y(ctx, childRel, childParsed, depth - 1, new Set(visited).add(childRel), false, childDecided, childExpanded);
       const at2 = group === void 0 ? path : [...path, {
         group,
         branch
       }];
-      for (const inner of child) composed.push({
-        ...inner,
-        path: [...at2, ...inner.path],
-        repeatable: node.repeatable || inner.repeatable
-      });
+      if (childParsed.a11y.childrenPassed) placed = false;
+      if (placed) {
+        const kept = childParsed.a11y.slotPaths?.flatMap((p2, i3) => childDecided && ruledOut(p2, childDecided) ? [] : [i3]) ?? [];
+        const apart = exclusiveSites(kept.map((i3) => childParsed.a11y.slotPaths[i3]));
+        if (!apart?.length) placed = false;
+        else if (apart.length < kept.length) sites.push([...at2, ...offsetPath(apart[0], childBase)]);
+        else for (const i3 of kept) sites.push(...readdress(childParsed.a11y, childParsed.a11y.slotPaths[i3], childParsed.a11y.slotEnclosing?.[i3], childBase, childExpanded).map((s) => [...at2, ...s]));
+      }
+      for (const inner of child) {
+        const when = [...node.when ?? [], ...inner.when ?? []];
+        composed.push({
+          ...inner,
+          path: [...at2, ...inner.path],
+          repeatable: node.repeatable || inner.repeatable,
+          ...when.length > 0 ? { when } : {}
+        });
+      }
     }
+    if (placed) expanded.set(index, sites);
   }
   return composed;
+}
+function readdress(a11y, path, enclosing, base, expanded) {
+  const sites = enclosing === void 0 ? void 0 : expanded.get(enclosing);
+  if (!sites) return [offsetPath(path, base)];
+  const rest2 = offsetPath(path.slice(a11y.nodes[enclosing].path.length), base);
+  return sites.map((site) => [...site, ...rest2]);
+}
+function ruledOut(path, decided) {
+  return path.some((s) => {
+    const d2 = decided.get(s.group);
+    return d2 === void 0 ? false : typeof d2 === "boolean" ? d2 === (s.branch !== 0) : d2.has(s.branch);
+  });
 }
 function countsAsLandmark(node) {
   return node.topLevel === void 0 || node.chain && node.topLevel === true;
@@ -73477,6 +75707,17 @@ function representatives(nodes, chainOrder) {
 async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags, appHtmlHeadTags, headAliases) {
   const files = chainFiles(pageRel, layouts);
   const chainOrder = new Map(files.map((f, i3) => [f.rel, i3]));
+  const routePath = deriveRoute(pageRel);
+  const routeId = "/" + dirSegments(dirOf(pageRel)).join("/");
+  const onRoute = (url) => urlHolds(url, routePath, routeId) !== false;
+  const urlArms = (gates) => {
+    const out = /* @__PURE__ */ new Map();
+    for (const [group, cond] of gates ?? []) {
+      const holds = urlHolds(cond, routePath, routeId);
+      if (holds !== void 0) out.set(group, holds);
+    }
+    return out;
+  };
   const composed = /* @__PURE__ */ new Map();
   const additiveTags = [];
   let broadOwn = false;
@@ -73496,12 +75737,23 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
     }
   };
   const images = [];
+  let imagesAt = 0;
   const headings = [];
   const componentHeadings = [];
   let dynamicHeading = false;
   let clientOnlyHeading = false;
   let headingGroup = 0;
-  let childrenAt = [];
+  let childrenAts = [{
+    path: [],
+    order: []
+  }];
+  const placeHeading = (h2, at2) => {
+    const nested = nestHeading(h2, at2.path, headingGroup);
+    return {
+      ...nested,
+      order: [...at2.order, ...nested.order ?? []]
+    };
+  };
   const a11yCtx = {
     rt,
     cwd,
@@ -73518,34 +75770,92 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
   const a11yNodes = [];
   const nestedLandmarks = [];
   let slotLandmark;
-  let slotPrefix = [];
+  let slotPrefixes = [[]];
+  let slotWhens = [{ when: [] }];
+  const placeable = (at2, when) => !when || at2.when.length === 0 || !unsatisfiable([...at2.when, ...when]);
+  let unreached = false;
+  let throws = false;
+  const callers = [];
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
+    if (parsed.alwaysThrows) throws = true;
+    if (parsed.scriptCalls && !unreached) callers.push({
+      rel,
+      isPage,
+      parsed
+    });
+    const flagGates = [...parsed.a11y.flagGates?.values() ?? [], ...parsed.headingFlagGates?.values() ?? []];
+    const falses = flagGates.length > 0 && !unreached ? await falseImports(a11yCtx, rel, parsed, flagGates.map((g) => g.name)) : /* @__PURE__ */ new Set();
+    const a11yFlags = flagArms(parsed.a11y.flagGates, falses);
+    const headingFlags = flagArms(parsed.headingFlagGates, falses);
+    const a11yDecided = new Map([...urlArms(parsed.a11y.urlGates), ...a11yFlags]);
+    const headingDecided = new Map([...urlArms(parsed.headingUrlGates), ...headingFlags]);
+    const open3 = (path) => !path || !ruledOut(path, headingDecided);
     const base = a11yCtx.state.nextGroup;
-    const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH$1, /* @__PURE__ */ new Set([rel]), true);
+    const expanded = /* @__PURE__ */ new Map();
+    const contributed = unreached ? [] : await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH$1, /* @__PURE__ */ new Set([rel]), true, a11yDecided, expanded);
     const scoped = slotLandmark === "main" || slotLandmark === "complementary";
     for (const node of contributed) {
-      if (slotPrefix.length > 0) node.path = [...slotPrefix, ...node.path];
       if (node.topLevel && scoped) node.topLevel = false;
       if (!node.chain || node.kind !== "landmark" || !countsAsLandmark(node) || node.repeatable) continue;
-      const within = (scoped ? node.inFixedLandmark : node.inLandmark) ?? slotLandmark;
-      if (within) nestedLandmarks.push({
+      const own2 = scoped ? node.inFixedLandmark : node.inLandmark;
+      const within = own2 ?? slotLandmark;
+      const fits = own2 !== void 0 ? slotWhens.some((at2) => placeable(at2, node.when)) : slotWhens.every((at2) => at2.when.length === 0) || slotWhens.some((at2) => at2.around !== void 0 && placeable(at2, node.when));
+      if (within && fits) nestedLandmarks.push({
         kind: node.key,
         within,
         file: node.file,
         line: node.line
       });
     }
-    slotLandmark = (scoped ? parsed.a11y.slotInFixedLandmark : parsed.a11y.slotInLandmark) ?? slotLandmark;
-    if (parsed.a11y.slotPath) slotPrefix = [...slotPrefix, ...offsetPath(parsed.a11y.slotPath, base)];
-    a11yNodes.push(...contributed);
-    for (const img of parsed.images) images.push({
+    for (const [i3, prefix] of slotPrefixes.entries()) a11yNodes.push(...contributed.filter((node) => placeable(slotWhens[i3] ?? { when: [] }, node.when)).map((node) => prefix.length > 0 ? {
+      ...node,
+      path: [...prefix, ...node.path]
+    } : node));
+    const kept = parsed.a11y.slotPaths?.flatMap((p2, i3) => onRoute(parsed.a11y.slotUrls?.[i3]) && !ruledOut(p2, a11yFlags) ? [i3] : []) ?? [];
+    const around = parsed.a11y.slotLandmarks?.filter((_, i3) => kept.includes(i3)).find((l2) => l2.landmark);
+    slotLandmark = (parsed.a11y.slotLandmarks && kept.length > 0 ? scoped ? around?.fixed : around?.landmark : scoped ? parsed.a11y.slotInFixedLandmark : parsed.a11y.slotInLandmark) ?? slotLandmark;
+    const slotIndices = kept.length > 0 ? kept : parsed.a11y.slotPaths?.map((_, i3) => i3) ?? [];
+    const slotPaths = slotIndices.map((i3) => parsed.a11y.slotPaths[i3]);
+    const slotSites = exclusiveSites(slotPaths.length > 0 ? slotPaths : void 0);
+    const split = slotSites?.length === slotPaths.length;
+    const slots = slotSites?.flatMap((p2, j2) => (split ? readdress(parsed.a11y, p2, parsed.a11y.slotEnclosing?.[slotIndices[j2]], base, expanded) : [offsetPath(p2, base)]).map((path) => ({
+      path,
+      j: j2
+    })));
+    if (slots) {
+      const own2 = parsed.a11y.slotWhens && slotSites.length === slotPaths.length ? slotIndices.map((i3) => parsed.a11y.slotWhens[i3]) : void 0;
+      const next2 = slotPrefixes.flatMap((prefix, i3) => slots.map(({ path: slot, j: j2 }) => {
+        const outer = slotWhens[i3] ?? { when: [] };
+        const inner = own2?.[j2];
+        return {
+          path: [...prefix, ...slot],
+          at: inner ? {
+            when: [...outer.when, ...inner.when],
+            around: (scoped ? inner.fixed : inner.landmark) ?? outer.around
+          } : {
+            when: outer.when,
+            around: slotLandmark
+          }
+        };
+      }));
+      const reached = next2.filter((n2) => n2.at.when.length === 0 || !unsatisfiable(n2.at.when));
+      const live = reached.length > 0 ? reached : next2;
+      slotPrefixes = live.length <= 8 ? live.map((n2) => n2.path) : [live.map((n2) => n2.path).reduce(commonPrefix)];
+      slotWhens = live.length <= 8 ? live.map((n2) => n2.at) : [{
+        when: [],
+        around: slotLandmark
+      }];
+    }
+    const own = unreached ? [] : parsed.images.map((img) => ({
       ...img,
       file: rel
-    });
+    }));
+    images.splice(imagesAt, 0, ...own);
+    imagesAt += parsed.imagesBeforeChildren ?? own.length;
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH$1, /* @__PURE__ */ new Set([rel]), cache, headAliases);
-    for (const heading of resolved.ownHeadings) headings.push(nestHeading(heading, childrenAt, headingGroup));
-    dynamicHeading = dynamicHeading || parsed.dynamicHeading;
+    for (const heading of unreached ? [] : resolved.ownHeadings.filter((h2) => open3(h2.path))) for (const at2 of childrenAts) headings.push(placeHeading(heading, at2));
+    dynamicHeading = dynamicHeading || !unreached && parsed.dynamicHeading;
     for (const tag2 of resolved.tags) {
       if (tag2.dynamicKey) {
         const seen = dynamicKeys[isPage ? "own" : "inherited"][tag2.clientOnly ? "client" : "server"];
@@ -73558,19 +75868,40 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
         presence: isPage ? "own" : "inherited",
         file: rel
       };
-      if (tag2.kind === "jsonld" || tag2.kind === "script" || tag2.kind === "link" && tag2.rel !== "canonical" || isRobotsMeta(tag2)) additiveTags.push(stamped);
+      if (tag2.kind === "jsonld" || tag2.kind === "script" || tag2.kind === "link" && !hasRel(tag2, "canonical") || isRobotsMeta(tag2)) additiveTags.push(stamped);
       else if (!(stamped.clientOnly && serverRendered(composed.get(tagKey(tag2))))) composed.set(tagKey(tag2), stamped);
     }
     if (resolved.broad) {
       if (isPage) broadOwn = true;
       else broadInherited = true;
     }
-    componentHeadings.push(...resolved.headings.map((h2) => nestHeading(h2, childrenAt, headingGroup)));
-    dynamicHeading = dynamicHeading || resolved.dynamicHeading;
-    clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
+    if (!unreached) {
+      const shown = resolved.headings.filter((h2) => open3(h2.path));
+      for (const at2 of childrenAts) componentHeadings.push(...shown.map((h2) => placeHeading(h2, at2)));
+      dynamicHeading = dynamicHeading || resolved.dynamicHeading;
+      clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
+    }
     const childrenPath = resolved.renderPaths.get("children");
-    if (childrenPath) childrenAt = [...childrenAt, ...offsetPath(childrenPath, headingGroup)];
+    const childrenOffset = resolved.renderOffsets.get("children");
+    const reachable = resolved.childrenSites?.filter((s) => onRoute(s.url) && open3(s.path));
+    const placed = reachable?.length ? reachable : resolved.childrenSites;
+    const exclusive = exclusiveSites(placed?.map((s) => s.path));
+    const sites = placed?.length === 1 ? placed : exclusive && exclusive.length > 1 ? placed : childrenPath && childrenOffset !== void 0 ? [{
+      path: exclusive?.[0] ?? childrenPath,
+      offset: childrenOffset
+    }] : void 0;
+    if (sites) {
+      const next2 = childrenAts.flatMap((at2) => sites.map((site) => ({
+        path: [...at2.path, ...offsetPath(site.path, headingGroup)],
+        order: [...at2.order, site.offset]
+      })));
+      childrenAts = next2.length <= 8 ? next2 : [{
+        path: next2.map((n2) => n2.path).reduce(commonPrefix),
+        order: next2[0].order
+      }];
+    }
     headingGroup += resolved.groupSpan;
+    if (a11yFlags.size > 0 && parsed.a11y.slotPaths?.every((p2) => ruledOut(p2, a11yFlags))) unreached = true;
   }
   if (broadOwn || broadInherited) {
     const presence = broadOwn ? "own" : "inherited";
@@ -73608,6 +75939,19 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
     if (isRobotsMeta(tag2)) additiveTags.push(stamped);
     else if (!serverRendered(composed.get(tagKey(tag2)))) composed.set(tagKey(tag2), stamped);
   }
+  if (!composed.has("title")) {
+    for (const { rel, isPage, parsed } of [...callers].reverse()) if (await titleSetterCalled(a11yCtx, rel, parsed)) {
+      const presence = isPage ? "own" : "inherited";
+      composed.set("title", {
+        kind: "title",
+        value: "dynamic",
+        clientOnly: true,
+        presence,
+        file: rel
+      });
+      break;
+    }
+  }
   const idNodes = a11yNodes.filter((n2) => n2.kind === "id");
   for (const n2 of idNodes) {
     if (n2.key !== "") continue;
@@ -73632,6 +75976,7 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
   }
   const route = deriveRoute(pageRel);
   return {
+    ...throws ? { neverRenders: true } : {},
     head: {
       route,
       source: "static",
@@ -73677,8 +76022,15 @@ async function collectRoutes(rt, cwd, config = defaultConfig, cache = /* @__PURE
     images: facts.map((f) => f.images),
     headings: facts.map((f) => f.headings),
     a11y: facts.map((f) => f.a11y),
-    routeFiles: [...pages, ...layouts.values()]
+    routeFiles: [...pages, ...layouts.values()],
+    neverRenders: facts.flatMap((f) => f.neverRenders ? [f.head.route] : [])
   };
+}
+function exclusiveSites(sites) {
+  if (!sites) return void 0;
+  if (sites.length < 2) return sites;
+  const apart = (a2, b) => a2.some((s) => b.some((t2) => s.group === t2.group && s.branch !== t2.branch));
+  return sites.every((a2, i3) => sites.every((b, j2) => i3 === j2 || apart(a2, b))) ? sites : [sites.reduce(commonPrefix)];
 }
 function routeMatcher(glob2) {
   if (!glob2) return () => true;
@@ -73690,6 +76042,23 @@ function globList(globs) {
   return globs === void 0 ? [] : Array.isArray(globs) ? globs : [globs];
 }
 var PAGE_MODULE_RE = /\/\+page(\.server)?\.(ts|js)$/;
+var HOOKS_RE = /(^|\/)src\/hooks\.server\.(ts|js)$/;
+function pageChunkFill(kitModules, project) {
+  const tokens = kitModules.filter((m) => HOOKS_RE.test(m.file)).flatMap((m) => m.pageChunkTokens ?? []);
+  const comments = project.appHtmlHeadComments ?? [];
+  if (!tokens.some((t2) => comments.includes(t2))) return [];
+  return BROAD_KINDS.map((t2) => ({
+    ...t2,
+    presence: "inherited",
+    file: "src/app.html"
+  }));
+}
+async function hooksAnswered(rt, cwd, kitModules, heads, project, sourceFiles) {
+  const conds = kitModules.filter((m) => HOOKS_RE.test(m.file)).flatMap((m) => m.answeredPaths ?? []);
+  if (conds.length === 0 || project.kitPathsBase) return [];
+  if ((sourceFiles?.filter((f) => /^src\/hooks\.(ts|js)$/.test(f)) ?? await rt.glob("src/hooks.{ts,js}", cwd)).length > 0) return [];
+  return heads.map((h2) => h2.route).filter((r2) => conds.some((c) => urlHolds(c, r2) === true));
+}
 async function collectAll(rt, cwd, config, opts = {}) {
   const matches = routeMatcher(opts.route);
   const parseCache = opts.parseCache ?? /* @__PURE__ */ new Map();
@@ -73707,16 +76076,30 @@ async function collectAll(rt, cwd, config, opts = {}) {
     opts.route ? void 0 : collectSourceFiles(rt, cwd)
   ]);
   const kitModules = opts.route ? [] : allKitModules;
-  const redirectOnly = new Set(allKitModules.filter((m) => m.loadNeverRenders && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file)));
-  const routeLevel = (route) => matches(route) && !redirectOnly.has(route);
   const ssrScope = {
     kitModules: allKitModules,
-    sourceFiles: collected.routeFiles
+    sourceFiles: collected.routeFiles,
+    project
   };
+  const redirectOnly = /* @__PURE__ */ new Set([
+    ...allKitModules.filter((m) => m.loadNeverRenders && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file)),
+    ...collected.heads.filter((h2) => layoutNeverRenders(h2.file, ssrScope) || pageRendersOnlyWhenBuilding(h2.file, ssrScope)).map((h2) => h2.route),
+    ...collected.neverRenders,
+    ...await hooksAnswered(rt, cwd, allKitModules, collected.heads, project, sourceFiles)
+  ]);
+  const routeLevel = (route) => matches(route) && !redirectOnly.has(route);
+  const chunkFill = pageChunkFill(allKitModules, project);
   const heads = collected.heads.filter((h2) => routeLevel(h2.route)).map((h2) => h2.tags.some((t2) => t2.clientOnly) && !routeNeverSsr(h2.file, ssrScope) ? {
     ...h2,
     tags: h2.tags.filter((t2) => !t2.clientOnly)
-  } : h2);
+  } : h2).map((h2) => {
+    const have = new Set(h2.tags.map((t2) => tagKey(t2)));
+    const fill = chunkFill.filter((t2) => !have.has(tagKey(t2)));
+    return fill.length === 0 ? h2 : {
+      ...h2,
+      tags: [...h2.tags, ...fill]
+    };
+  });
   const images = collected.images.filter((i3) => routeLevel(i3.route));
   const pageOf = new Map(collected.heads.map((h2) => [h2.route, h2.file]));
   const headings = collected.headings.filter((h2) => routeLevel(h2.route)).map(({ clientOnlyHeading, ...h2 }) => clientOnlyHeading && routeNeverSsr(pageOf.get(h2.route), ssrScope) ? {
@@ -74390,9 +76773,9 @@ content-type/dist/index.js:
 @octokit/graphql/dist-bundle/index.js:
   (* v8 ignore if -- @preserve *)
 
-@svelte-vitals/core/dist/markdown-DgHBAvYl.js:
+@svelte-vitals/core/dist/markdown-JeaI7QMp.js:
   (*!
-  * HTML spec data projected from @markuplint/html-spec@5.0.0 — https://github.com/markuplint/markuplint
+  * HTML spec data projected from @markuplint/html-spec@5.4.0 — https://github.com/markuplint/markuplint
   *
   * MIT License
   *
