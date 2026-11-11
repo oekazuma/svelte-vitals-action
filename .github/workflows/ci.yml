@@ -16,8 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       # Also runs `pnpm install --frozen-lockfile`, so there is no separate install step.
-      # `node@24` floats on purpose: the action itself runs on whatever node24 the consumer's
-      # runner ships, and Renovate does not track this input.
+      # Stays on Node 24 because action.yml's `using: node24` is what consumers run; Renovate
+      # bumps the patch/minor but is held below 25 (see renovate.json).
       - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
         with:
           runtime: node@24.22.2
