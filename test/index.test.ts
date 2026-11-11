@@ -314,8 +314,8 @@ describe('main() with svelte-vitals installed in the project', () => {
     await main();
 
     expect(h.runCli.mock.calls).toEqual([
-      [BIN, ['.', '--reporter', 'md'], 'capture'],
-      [BIN, ['.', '--reporter', 'github'], 'inherit']
+      [BIN, [resolve('.'), '--reporter', 'md'], 'capture'],
+      [BIN, [resolve('.'), '--reporter', 'github'], 'inherit']
     ]);
     expect(h.addRaw).toHaveBeenCalledWith(REPORT);
     expect(h.write).toHaveBeenCalledTimes(1);
@@ -332,9 +332,17 @@ describe('main() with svelte-vitals installed in the project', () => {
 
     const rest = ['--diff', 'origin/main', '--baseline', 'origin/main'];
     expect(h.runCli.mock.calls).toEqual([
-      [BIN, ['apps/web', '--reporter', 'md', ...rest], 'capture'],
-      [BIN, ['apps/web', '--reporter', 'github', ...rest], 'inherit']
+      [BIN, [resolve('apps/web'), '--reporter', 'md', ...rest], 'capture'],
+      [BIN, [resolve('apps/web'), '--reporter', 'github', ...rest], 'inherit']
     ]);
+  });
+
+  it('passes a path named like a CLI subcommand as an absolute path', async () => {
+    h.inputs.path = 'docs';
+
+    await main();
+
+    expect(h.runCli.mock.calls.map(([, args]) => args[0])).toEqual([resolve('docs'), resolve('docs')]);
   });
 
   it('resolves from the path input up to the workspace', async () => {

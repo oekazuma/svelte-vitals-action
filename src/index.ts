@@ -17,9 +17,11 @@ export async function main(): Promise<void> {
   const baseline = core.getInput('baseline') || undefined;
   const token = core.getInput('github-token') || process.env.GITHUB_TOKEN || '';
 
-  const resolution = resolveProjectCli(resolve(path), process.env.GITHUB_WORKSPACE ?? resolve(path));
+  const projectDir = resolve(path);
+  const resolution = resolveProjectCli(projectDir, process.env.GITHUB_WORKSPACE ?? projectDir);
   if (resolution.kind === 'installed') {
-    await runInstalledCli(resolution.bin, { path, diff, baseline }, token);
+    // The CLI reads a first argument such as `docs` or `install` as a subcommand, not a path.
+    await runInstalledCli(resolution.bin, { path: projectDir, diff, baseline }, token);
   } else {
     await runBundled(resolution, { path, diff, baseline }, token);
   }
