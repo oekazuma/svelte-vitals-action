@@ -65,6 +65,29 @@ describe('runCli', () => {
     expect(run.stdout.length).toBe(5_000_000);
   });
 
+  it('passes the environment without the action inputs', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'run-cli-'));
+    try {
+      const envFile = join(dir, 'env.json');
+      vi.stubEnv('FAKE_ENV_FILE', envFile);
+      vi.stubEnv('INPUT_GITHUB-TOKEN', 'secret');
+      vi.stubEnv('FAKE_ORDINARY', 'kept');
+      await runCli(fakeCli, [], 'capture');
+      const env = JSON.parse(readFileSync(envFile, 'utf8')) as Record<string, string>;
+      expect(env).not.toHaveProperty('INPUT_GITHUB-TOKEN');
+      expect(env.FAKE_ORDINARY).toBe('kept');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('reports a bin killed by a signal', async () => {
+    vi.stubEnv('FAKE_SIGNAL', 'SIGKILL');
+    const run = await runCli(fakeCli, [], 'capture');
+    expect(run.code).toBeNull();
+    expect(run.failure).toBe('was killed by SIGKILL');
+  });
+
   it('reports a bin that cannot start', async () => {
     const run = await runCli('/nonexistent/bin.js', [], 'capture');
     expect(typeof run.code).toBe('number');

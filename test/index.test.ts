@@ -6,10 +6,10 @@ import type { CliResolution } from '../src/resolve-cli.js';
 import type { CliRun } from '../src/run-cli.js';
 
 // `fork.ts`/`sticky-comment.ts` are pure helpers already covered by their own test
-// files — main() uses the real implementations here. Only the external SDK surface
-// (@actions/core, @actions/github, svelte-vitals, @svelte-vitals/core) is mocked, using
-// the same "vi.mock before importing the module under test" pattern as
-// packages/vite/test/plugin-error.test.ts.
+// files — main() uses the real implementations here, and the real `cliArgs`. Mocked are
+// the external SDK surface (@actions/core, @actions/github, svelte-vitals,
+// @svelte-vitals/core) and this repository's subprocess seams, `resolveProjectCli` and
+// `runCli`, which their own test files exercise against real directories and processes.
 const h = vi.hoisted(() => {
   const inputs: Record<string, string> = {};
 
@@ -393,13 +393,12 @@ describe('main() with svelte-vitals installed in the project', () => {
 
   it('fails with what happened when the CLI cannot start', async () => {
     h.runCli.mockReset();
-    h.runCli.mockResolvedValueOnce({ code: null, stdout: '', stderr: '', failure: 'spawn ENOENT' });
+    h.runCli.mockResolvedValueOnce({ code: null, stdout: '', stderr: '', failure: 'was killed by SIGKILL' });
 
     await main();
 
     expect(h.setFailed).toHaveBeenCalledTimes(1);
-    expect(h.setFailed.mock.calls[0]![0]).toContain(BIN);
-    expect(h.setFailed.mock.calls[0]![0]).toContain('spawn ENOENT');
+    expect(h.setFailed).toHaveBeenCalledWith(`svelte-vitals: ${BIN} was killed by SIGKILL.`);
     expect(h.addRaw).not.toHaveBeenCalled();
     expect(h.runCli).toHaveBeenCalledTimes(1);
     expect(h.analyzeProject).not.toHaveBeenCalled();
@@ -433,6 +432,20 @@ describe('main() with svelte-vitals installed in the project', () => {
     expect(h.warning).toHaveBeenCalledTimes(2);
     expect(h.warning).toHaveBeenCalledWith('svelte-vitals: a');
     expect(h.warning).toHaveBeenCalledWith('svelte-vitals: b');
+  });
+
+  it.each([
+    [{ code: 2, stdout: '', stderr: '' }, 'exited with code 2'],
+    [{ code: null, stdout: '', stderr: '', failure: 'was killed by SIGKILL' }, 'was killed by SIGKILL']
+  ])('warns, without failing, when the second run cannot produce annotations', async (run2, how) => {
+    h.runCli.mockResolvedValueOnce(run2);
+
+    await main();
+
+    expect(h.warning).toHaveBeenCalledTimes(1);
+    expect(h.warning).toHaveBeenCalledWith(`svelte-vitals: the annotations could not be produced: ${BIN} ${how}.`);
+    expect(h.addRaw).toHaveBeenCalledWith(REPORT);
+    expect(h.setFailed).not.toHaveBeenCalled();
   });
 
   it('ignores the second run exit code', async () => {

@@ -47,8 +47,12 @@ async function runInstalledCli(bin: string, opts: CliOptions, token: string): Pr
   }
 
   for (const line of run.stderr.split('\n')) if (line.trim()) core.warning(line);
-  // Its exit code is ignored: run 1 already decided the gate, this run only emits annotations.
-  await runCli(bin, cliArgs('github', opts), 'inherit');
+  // Its exit code does not affect the gate: run 1 already decided it, this run only emits annotations.
+  const annotations = await runCli(bin, cliArgs('github', opts), 'inherit');
+  if (annotations.failure !== undefined || annotations.code === 2) {
+    const how = annotations.failure ?? 'exited with code 2';
+    core.warning(`svelte-vitals: the annotations could not be produced: ${bin} ${how}.`);
+  }
 
   await publish(run.stdout, token);
   if (run.code === 1) core.setFailed(BLOCKING_MESSAGE);
