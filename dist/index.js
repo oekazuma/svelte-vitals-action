@@ -12,7 +12,11 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
   throw Error('Dynamic require of "' + x + '" is not supported');
 });
 var __commonJS = (cb, mod) => function __require2() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  try {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  } catch (e3) {
+    throw mod = 0, e3;
+  }
 };
 var __export = (target, all) => {
   for (var name in all)
@@ -83,10 +87,10 @@ var require_tunnel = __commonJS({
       self.sockets = [];
       self.on("free", function onFree(socket, host, port, localAddress) {
         var options2 = toOptions(host, port, localAddress);
-        for (var i2 = 0, len = self.requests.length; i2 < len; ++i2) {
-          var pending = self.requests[i2];
+        for (var i3 = 0, len = self.requests.length; i3 < len; ++i3) {
+          var pending = self.requests[i3];
           if (pending.host === options2.host && pending.port === options2.port) {
-            self.requests.splice(i2, 1);
+            self.requests.splice(i3, 1);
             pending.request.onSocket(socket);
             return;
           }
@@ -232,8 +236,8 @@ var require_tunnel = __commonJS({
       return host;
     }
     function mergeOptions(target) {
-      for (var i2 = 1, len = arguments.length; i2 < len; ++i2) {
-        var overrides = arguments[i2];
+      for (var i3 = 1, len = arguments.length; i3 < len; ++i3) {
+        var overrides = arguments[i3];
         if (typeof overrides === "object") {
           var keys = Object.keys(overrides);
           for (var j2 = 0, keyLen = keys.length; j2 < keyLen; ++j2) {
@@ -807,8 +811,8 @@ var require_constants = __commonJS({
       "X-Requested-With",
       "X-XSS-Protection"
     ];
-    for (let i2 = 0; i2 < wellknownHeaderNames.length; ++i2) {
-      const key2 = wellknownHeaderNames[i2];
+    for (let i3 = 0; i3 < wellknownHeaderNames.length; ++i3) {
+      const key2 = wellknownHeaderNames[i3];
       const lowerCasedKey = key2.toLowerCase();
       headerNameLowerCasedRecord[key2] = headerNameLowerCasedRecord[lowerCasedKey] = lowerCasedKey;
     }
@@ -949,8 +953,8 @@ var require_tree = __commonJS({
       }
     };
     var tree = new TernarySearchTree();
-    for (let i2 = 0; i2 < wellknownHeaderNames.length; ++i2) {
-      const key2 = headerNameLowerCasedRecord[wellknownHeaderNames[i2]];
+    for (let i3 = 0; i3 < wellknownHeaderNames.length; ++i3) {
+      const key2 = headerNameLowerCasedRecord[wellknownHeaderNames[i3]];
       tree.insert(key2, key2);
     }
     module.exports = {
@@ -1174,17 +1178,17 @@ var require_util = __commonJS({
     }
     function parseHeaders(headers, obj) {
       if (obj === void 0) obj = {};
-      for (let i2 = 0; i2 < headers.length; i2 += 2) {
-        const key2 = headerNameToString(headers[i2]);
+      for (let i3 = 0; i3 < headers.length; i3 += 2) {
+        const key2 = headerNameToString(headers[i3]);
         let val = obj[key2];
         if (val) {
           if (typeof val === "string") {
             val = [val];
             obj[key2] = val;
           }
-          val.push(headers[i2 + 1].toString("utf8"));
+          val.push(headers[i3 + 1].toString("utf8"));
         } else {
-          const headersValue = headers[i2 + 1];
+          const headersValue = headers[i3 + 1];
           if (typeof headersValue === "string") {
             obj[key2] = headersValue;
           } else {
@@ -1353,8 +1357,8 @@ var require_util = __commonJS({
       if (characters.length === 0) {
         return false;
       }
-      for (let i2 = 0; i2 < characters.length; ++i2) {
-        if (!isTokenCharCode(characters.charCodeAt(i2))) {
+      for (let i3 = 0; i3 < characters.length; ++i3) {
+        if (!isTokenCharCode(characters.charCodeAt(i3))) {
           return false;
         }
       }
@@ -1779,8 +1783,8 @@ var require_request = __commonJS({
           if (headers.length % 2 !== 0) {
             throw new InvalidArgumentError("headers array must be even");
           }
-          for (let i2 = 0; i2 < headers.length; i2 += 2) {
-            processHeader(this, headers[i2], headers[i2 + 1]);
+          for (let i3 = 0; i3 < headers.length; i3 += 2) {
+            processHeader(this, headers[i3], headers[i3 + 1]);
           }
         } else if (headers && typeof headers === "object") {
           if (headers[Symbol.iterator]) {
@@ -1792,8 +1796,8 @@ var require_request = __commonJS({
             }
           } else {
             const keys = Object.keys(headers);
-            for (let i2 = 0; i2 < keys.length; ++i2) {
-              processHeader(this, keys[i2], headers[keys[i2]]);
+            for (let i3 = 0; i3 < keys.length; ++i3) {
+              processHeader(this, keys[i3], headers[keys[i3]]);
             }
           }
         } else if (headers != null) {
@@ -1977,18 +1981,18 @@ var require_request = __commonJS({
       }
       if (Array.isArray(val)) {
         const arr = [];
-        for (let i2 = 0; i2 < val.length; i2++) {
-          if (typeof val[i2] === "string") {
-            if (!isValidHeaderValue(val[i2])) {
+        for (let i3 = 0; i3 < val.length; i3++) {
+          if (typeof val[i3] === "string") {
+            if (!isValidHeaderValue(val[i3])) {
               throw new InvalidArgumentError(`invalid ${key2} header`);
             }
-            arr.push(val[i2]);
-          } else if (val[i2] === null) {
+            arr.push(val[i3]);
+          } else if (val[i3] === null) {
             arr.push("");
-          } else if (typeof val[i2] === "object") {
+          } else if (typeof val[i3] === "object") {
             throw new InvalidArgumentError(`invalid ${key2} header`);
           } else {
-            const str = `${val[i2]}`;
+            const str = `${val[i3]}`;
             if (!isValidHeaderValue(str)) {
               throw new InvalidArgumentError(`invalid ${key2} header`);
             }
@@ -2143,8 +2147,8 @@ var require_dispatcher_base = __commonJS({
       }
       set interceptors(newInterceptors) {
         if (newInterceptors) {
-          for (let i2 = newInterceptors.length - 1; i2 >= 0; i2--) {
-            const interceptor = this[kInterceptors][i2];
+          for (let i3 = newInterceptors.length - 1; i3 >= 0; i3--) {
+            const interceptor = this[kInterceptors][i3];
             if (typeof interceptor !== "function") {
               throw new InvalidArgumentError("interceptor must be an function");
             }
@@ -2180,8 +2184,8 @@ var require_dispatcher_base = __commonJS({
         const onClosed = () => {
           const callbacks = this[kOnClosed];
           this[kOnClosed] = null;
-          for (let i2 = 0; i2 < callbacks.length; i2++) {
-            callbacks[i2](null, null);
+          for (let i3 = 0; i3 < callbacks.length; i3++) {
+            callbacks[i3](null, null);
           }
         };
         this[kClose]().then(() => this.destroy()).then(() => {
@@ -2223,8 +2227,8 @@ var require_dispatcher_base = __commonJS({
         const onDestroyed = () => {
           const callbacks = this[kOnDestroyed];
           this[kOnDestroyed] = null;
-          for (let i2 = 0; i2 < callbacks.length; i2++) {
-            callbacks[i2](null, null);
+          for (let i3 = 0; i3 < callbacks.length; i3++) {
+            callbacks[i3](null, null);
           }
         };
         this[kDestroy](err).then(() => {
@@ -2237,8 +2241,8 @@ var require_dispatcher_base = __commonJS({
           return this[kDispatch](opts, handler2);
         }
         let dispatch = this[kDispatch].bind(this);
-        for (let i2 = this[kInterceptors].length - 1; i2 >= 0; i2--) {
-          dispatch = this[kInterceptors][i2](dispatch);
+        for (let i3 = this[kInterceptors].length - 1; i3 >= 0; i3--) {
+          dispatch = this[kInterceptors][i3](dispatch);
         }
         this[kInterceptedDispatch] = dispatch;
         return dispatch(opts, handler2);
@@ -2882,9 +2886,9 @@ var require_constants2 = __commonJS({
       FINISH2[FINISH2["UNSAFE"] = 2] = "UNSAFE";
     })(FINISH = exports.FINISH || (exports.FINISH = {}));
     exports.ALPHA = [];
-    for (let i2 = "A".charCodeAt(0); i2 <= "Z".charCodeAt(0); i2++) {
-      exports.ALPHA.push(String.fromCharCode(i2));
-      exports.ALPHA.push(String.fromCharCode(i2 + 32));
+    for (let i3 = "A".charCodeAt(0); i3 <= "Z".charCodeAt(0); i3++) {
+      exports.ALPHA.push(String.fromCharCode(i3));
+      exports.ALPHA.push(String.fromCharCode(i3 + 32));
     }
     exports.NUM_MAP = {
       0: 0,
@@ -2970,8 +2974,8 @@ var require_constants2 = __commonJS({
       "~"
     ].concat(exports.ALPHANUM);
     exports.URL_CHAR = exports.STRICT_URL_CHAR.concat(["	", "\f"]);
-    for (let i2 = 128; i2 <= 255; i2++) {
-      exports.URL_CHAR.push(i2);
+    for (let i3 = 128; i3 <= 255; i3++) {
+      exports.URL_CHAR.push(i3);
     }
     exports.HEX = exports.NUM.concat(["a", "b", "c", "d", "e", "f", "A", "B", "C", "D", "E", "F"]);
     exports.STRICT_TOKEN = [
@@ -2993,9 +2997,9 @@ var require_constants2 = __commonJS({
     ].concat(exports.ALPHANUM);
     exports.TOKEN = exports.STRICT_TOKEN.concat([" "]);
     exports.HEADER_CHARS = ["	"];
-    for (let i2 = 32; i2 <= 255; i2++) {
-      if (i2 !== 127) {
-        exports.HEADER_CHARS.push(i2);
+    for (let i3 = 32; i3 <= 255; i3++) {
+      if (i3 !== 127) {
+        exports.HEADER_CHARS.push(i3);
       }
     }
     exports.CONNECTION_TOKEN_CHARS = exports.HEADER_CHARS.filter((c) => c !== 44);
@@ -3389,15 +3393,15 @@ var require_data_url = __commonJS({
       const length = input.length;
       const output = new Uint8Array(length);
       let j2 = 0;
-      for (let i2 = 0; i2 < length; ++i2) {
-        const byte = input[i2];
+      for (let i3 = 0; i3 < length; ++i3) {
+        const byte = input[i3];
         if (byte !== 37) {
           output[j2++] = byte;
-        } else if (byte === 37 && !(isHexCharByte(input[i2 + 1]) && isHexCharByte(input[i2 + 2]))) {
+        } else if (byte === 37 && !(isHexCharByte(input[i3 + 1]) && isHexCharByte(input[i3 + 2]))) {
           output[j2++] = 37;
         } else {
-          output[j2++] = hexByteToNumber(input[i2 + 1]) << 4 | hexByteToNumber(input[i2 + 2]);
-          i2 += 2;
+          output[j2++] = hexByteToNumber(input[i3 + 1]) << 4 | hexByteToNumber(input[i3 + 2]);
+          i3 += 2;
         }
       }
       return length === j2 ? output : output.subarray(0, j2);
@@ -3583,13 +3587,13 @@ var require_data_url = __commonJS({
         return String.fromCharCode.apply(null, input);
       }
       let result2 = "";
-      let i2 = 0;
+      let i3 = 0;
       let addition = (2 << 15) - 1;
-      while (i2 < length) {
-        if (i2 + addition > length) {
-          addition = length - i2;
+      while (i3 < length) {
+        if (i3 + addition > length) {
+          addition = length - i3;
         }
-        result2 += String.fromCharCode.apply(null, input.subarray(i2, i2 += addition));
+        result2 += String.fromCharCode.apply(null, input.subarray(i3, i3 += addition));
       }
       return result2;
     }
@@ -3862,12 +3866,12 @@ var require_webidl = __commonJS({
         return result2;
       };
     };
-    webidl.interfaceConverter = function(i2) {
+    webidl.interfaceConverter = function(i3) {
       return (V, prefix, argument, opts) => {
-        if (opts?.strict !== false && !(V instanceof i2)) {
+        if (opts?.strict !== false && !(V instanceof i3)) {
           throw webidl.errors.exception({
             header: prefix,
-            message: `Expected ${argument} ("${webidl.util.Stringify(V)}") to be an instance of ${i2.name}.`
+            message: `Expected ${argument} ("${webidl.util.Stringify(V)}") to be an instance of ${i3.name}.`
           });
         }
         return V;
@@ -4110,8 +4114,8 @@ var require_util2 = __commonJS({
       return location;
     }
     function isValidEncodedURL(url) {
-      for (let i2 = 0; i2 < url.length; ++i2) {
-        const code = url.charCodeAt(i2);
+      for (let i3 = 0; i3 < url.length; ++i3) {
+        const code = url.charCodeAt(i3);
         if (code > 126 || // Non-US-ASCII + DEL
         code < 32) {
           return false;
@@ -4136,8 +4140,8 @@ var require_util2 = __commonJS({
       return object4 instanceof Error || (object4?.constructor?.name === "Error" || object4?.constructor?.name === "DOMException");
     }
     function isValidReasonPhrase(statusText) {
-      for (let i2 = 0; i2 < statusText.length; ++i2) {
-        const c = statusText.charCodeAt(i2);
+      for (let i3 = 0; i3 < statusText.length; ++i3) {
+        const c = statusText.charCodeAt(i3);
         if (!(c === 9 || // HTAB
         c >= 32 && c <= 126 || // SP / VCHAR
         c >= 128 && c <= 255)) {
@@ -4155,8 +4159,8 @@ var require_util2 = __commonJS({
       const policyHeader = (headersList.get("referrer-policy", true) ?? "").split(",");
       let policy = "";
       if (policyHeader.length > 0) {
-        for (let i2 = policyHeader.length; i2 !== 0; i2--) {
-          const token = policyHeader[i2 - 1].trim();
+        for (let i3 = policyHeader.length; i3 !== 0; i3--) {
+          const token = policyHeader[i3 - 1].trim();
           if (referrerPolicyTokens.has(token)) {
             policy = token;
             break;
@@ -4412,8 +4416,8 @@ var require_util2 = __commonJS({
       if (algorithm[3] === "5") {
         return algorithm;
       }
-      for (let i2 = 1; i2 < metadataList.length; ++i2) {
-        const metadata = metadataList[i2];
+      for (let i3 = 1; i3 < metadataList.length; ++i3) {
+        const metadata = metadataList[i3];
         if (metadata.algo[3] === "5") {
           algorithm = "sha512";
           break;
@@ -4430,9 +4434,9 @@ var require_util2 = __commonJS({
         return metadataList;
       }
       let pos = 0;
-      for (let i2 = 0; i2 < metadataList.length; ++i2) {
-        if (metadataList[i2].algo === algorithm) {
-          metadataList[pos++] = metadataList[i2];
+      for (let i3 = 0; i3 < metadataList.length; ++i3) {
+        if (metadataList[i3].algo === algorithm) {
+          metadataList[pos++] = metadataList[i3];
         }
       }
       metadataList.length = pos;
@@ -4442,9 +4446,9 @@ var require_util2 = __commonJS({
       if (actualValue.length !== expectedValue.length) {
         return false;
       }
-      for (let i2 = 0; i2 < actualValue.length; ++i2) {
-        if (actualValue[i2] !== expectedValue[i2]) {
-          if (actualValue[i2] === "+" && expectedValue[i2] === "-" || actualValue[i2] === "/" && expectedValue[i2] === "_") {
+      for (let i3 = 0; i3 < actualValue.length; ++i3) {
+        if (actualValue[i3] !== expectedValue[i3]) {
+          if (actualValue[i3] === "+" && expectedValue[i3] === "-" || actualValue[i3] === "/" && expectedValue[i3] === "_") {
             continue;
           }
           return false;
@@ -4849,8 +4853,8 @@ var require_util2 = __commonJS({
       }
       return values;
     }
-    function getDecodeSplit(name, list3) {
-      const value = list3.get(name, true);
+    function getDecodeSplit(name, list4) {
+      const value = list4.get(name, true);
       if (value === null) {
         return null;
       }
@@ -5177,8 +5181,8 @@ var require_formdata_parser = __commonJS({
     var dd = Buffer.from("--");
     var ddcrlf = Buffer.from("--\r\n");
     function isAsciiString(chars2) {
-      for (let i2 = 0; i2 < chars2.length; ++i2) {
-        if ((chars2.charCodeAt(i2) & ~127) !== 0) {
+      for (let i3 = 0; i3 < chars2.length; ++i3) {
+        if ((chars2.charCodeAt(i3) & ~127) !== 0) {
           return false;
         }
       }
@@ -5189,8 +5193,8 @@ var require_formdata_parser = __commonJS({
       if (length < 27 || length > 70) {
         return false;
       }
-      for (let i2 = 0; i2 < length; ++i2) {
-        const cp = boundary.charCodeAt(i2);
+      for (let i3 = 0; i3 < length; ++i3) {
+        const cp = boundary.charCodeAt(i3);
         if (!(cp >= 48 && cp <= 57 || cp >= 65 && cp <= 90 || cp >= 97 && cp <= 122 || cp === 39 || cp === 45 || cp === 95)) {
           return false;
         }
@@ -5397,8 +5401,8 @@ var require_formdata_parser = __commonJS({
       if (buffer.length < start.length) {
         return false;
       }
-      for (let i2 = 0; i2 < start.length; i2++) {
-        if (start[i2] !== buffer[position2.position + i2]) {
+      for (let i3 = 0; i3 < start.length; i3++) {
+        if (start[i3] !== buffer[position2.position + i3]) {
           return false;
         }
       }
@@ -6326,8 +6330,8 @@ var require_client_h1 = __commonJS({
         if (client2.destroyed) {
           assert2(client2[kPending] === 0);
           const requests = client2[kQueue].splice(client2[kRunningIdx]);
-          for (let i2 = 0; i2 < requests.length; i2++) {
-            const request2 = requests[i2];
+          for (let i3 = 0; i3 < requests.length; i3++) {
+            const request2 = requests[i3];
             util.errorRequest(client2, request2, err);
           }
         } else if (client2[kRunning] > 0 && err.code !== "UND_ERR_INFO") {
@@ -6554,8 +6558,8 @@ upgrade: ${upgrade}\r
           const key2 = headers[n2 + 0];
           const val = headers[n2 + 1];
           if (Array.isArray(val)) {
-            for (let i2 = 0; i2 < val.length; i2++) {
-              header += `${key2}: ${val[i2]}\r
+            for (let i3 = 0; i3 < val.length; i3++) {
+              header += `${key2}: ${val[i3]}\r
 `;
             }
           } else {
@@ -6953,8 +6957,8 @@ var require_client_h2 = __commonJS({
         if (client2.destroyed) {
           assert2(client2[kPending] === 0);
           const requests = client2[kQueue].splice(client2[kRunningIdx]);
-          for (let i2 = 0; i2 < requests.length; i2++) {
-            const request2 = requests[i2];
+          for (let i3 = 0; i3 < requests.length; i3++) {
+            const request2 = requests[i3];
             util.errorRequest(client2, request2, err);
           }
         }
@@ -7074,11 +7078,11 @@ var require_client_h2 = __commonJS({
         const key2 = reqHeaders[n2 + 0];
         const val = reqHeaders[n2 + 1];
         if (Array.isArray(val)) {
-          for (let i2 = 0; i2 < val.length; i2++) {
+          for (let i3 = 0; i3 < val.length; i3++) {
             if (headers[key2]) {
-              headers[key2] += `,${val[i2]}`;
+              headers[key2] += `,${val[i3]}`;
             } else {
-              headers[key2] = val[i2];
+              headers[key2] = val[i3];
             }
           }
         } else {
@@ -7549,9 +7553,9 @@ var require_redirect_handler = __commonJS({
       if (redirectableStatusCodes.indexOf(statusCode) === -1) {
         return null;
       }
-      for (let i2 = 0; i2 < headers.length; i2 += 2) {
-        if (headers[i2].length === 8 && util.headerNameToString(headers[i2]) === "location") {
-          return headers[i2 + 1];
+      for (let i3 = 0; i3 < headers.length; i3 += 2) {
+        if (headers[i3].length === 8 && util.headerNameToString(headers[i3]) === "location") {
+          return headers[i3 + 1];
         }
       }
     }
@@ -7571,9 +7575,9 @@ var require_redirect_handler = __commonJS({
     function cleanRequestHeaders(headers, removeContent, unknownOrigin) {
       const ret = [];
       if (Array.isArray(headers)) {
-        for (let i2 = 0; i2 < headers.length; i2 += 2) {
-          if (!shouldRemoveHeader(headers[i2], removeContent, unknownOrigin)) {
-            ret.push(headers[i2], headers[i2 + 1]);
+        for (let i3 = 0; i3 < headers.length; i3 += 2) {
+          if (!shouldRemoveHeader(headers[i3], removeContent, unknownOrigin)) {
+            ret.push(headers[i3], headers[i3 + 1]);
           }
         }
       } else if (headers && typeof headers === "object") {
@@ -7890,8 +7894,8 @@ var require_client = __commonJS({
       async [kDestroy](err) {
         return new Promise((resolve3) => {
           const requests = this[kQueue].splice(this[kPendingIdx]);
-          for (let i2 = 0; i2 < requests.length; i2++) {
-            const request2 = requests[i2];
+          for (let i3 = 0; i3 < requests.length; i3++) {
+            const request2 = requests[i3];
             util.errorRequest(this, request2, err);
           }
           const callback = () => {
@@ -7916,8 +7920,8 @@ var require_client = __commonJS({
       if (client[kRunning] === 0 && err.code !== "UND_ERR_INFO" && err.code !== "UND_ERR_SOCKET") {
         assert2(client[kPendingIdx] === client[kRunningIdx]);
         const requests = client[kQueue].splice(client[kRunningIdx]);
-        for (let i2 = 0; i2 < requests.length; i2++) {
-          const request2 = requests[i2];
+        for (let i3 = 0; i3 < requests.length; i3++) {
+          const request2 = requests[i3];
           util.errorRequest(client, request2, err);
         }
         assert2(client[kSize] === 0);
@@ -8539,8 +8543,8 @@ var require_balanced_pool = __commonJS({
       }
       _updateBalancedPoolStats() {
         let result2 = 0;
-        for (let i2 = 0; i2 < this[kClients].length; i2++) {
-          result2 = getGreatestCommonDivisor(this[kClients][i2][kWeight], result2);
+        for (let i3 = 0; i3 < this[kClients].length; i3++) {
+          result2 = getGreatestCommonDivisor(this[kClients][i3][kWeight], result2);
         }
         this[kGreatestCommonDivisor] = result2;
       }
@@ -8897,8 +8901,8 @@ var require_proxy_agent = __commonJS({
     function buildHeaders(headers) {
       if (Array.isArray(headers)) {
         const headersPair = {};
-        for (let i2 = 0; i2 < headers.length; i2 += 2) {
-          headersPair[headers[i2]] = headers[i2 + 1];
+        for (let i3 = 0; i3 < headers.length; i3 += 2) {
+          headersPair[headers[i3]] = headers[i3 + 1];
         }
         return headersPair;
       }
@@ -9001,8 +9005,8 @@ var require_env_http_proxy_agent = __commonJS({
         if (this.#noProxyValue === "*") {
           return false;
         }
-        for (let i2 = 0; i2 < this.#noProxyEntries.length; i2++) {
-          const entry = this.#noProxyEntries[i2];
+        for (let i3 = 0; i3 < this.#noProxyEntries.length; i3++) {
+          const entry = this.#noProxyEntries[i3];
           if (entry.port && entry.port !== port) {
             continue;
           }
@@ -9022,8 +9026,8 @@ var require_env_http_proxy_agent = __commonJS({
         const noProxyValue = this.#opts.noProxy ?? this.#noProxyEnv;
         const noProxySplit = noProxyValue.split(/[,\s]/);
         const noProxyEntries = [];
-        for (let i2 = 0; i2 < noProxySplit.length; i2++) {
-          const entry = noProxySplit[i2];
+        for (let i3 = 0; i3 < noProxySplit.length; i3++) {
+          const entry = noProxySplit[i3];
           if (!entry) {
             continue;
           }
@@ -9677,8 +9681,8 @@ var require_readable = __commonJS({
       }
       const buffer = new Uint8Array(Buffer.allocUnsafeSlow(length).buffer);
       let offset2 = 0;
-      for (let i2 = 0; i2 < chunks.length; ++i2) {
-        const chunk = chunks[i2];
+      for (let i3 = 0; i3 < chunks.length; ++i3) {
+        const chunk = chunks[i3];
         buffer.set(chunk, offset2);
         offset2 += chunk.length;
       }
@@ -10687,9 +10691,9 @@ var require_mock_utils = __commonJS({
     }
     function getHeaderByName(headers, key2) {
       if (Array.isArray(headers)) {
-        for (let i2 = 0; i2 < headers.length; i2 += 2) {
-          if (headers[i2].toLocaleLowerCase() === key2.toLocaleLowerCase()) {
-            return headers[i2 + 1];
+        for (let i3 = 0; i3 < headers.length; i3 += 2) {
+          if (headers[i3].toLocaleLowerCase() === key2.toLocaleLowerCase()) {
+            return headers[i3 + 1];
           }
         }
         return void 0;
@@ -10813,8 +10817,8 @@ var require_mock_utils = __commonJS({
     function generateKeyValues(data2) {
       const keys = Object.keys(data2);
       const result2 = [];
-      for (let i2 = 0; i2 < keys.length; ++i2) {
-        const key2 = keys[i2];
+      for (let i3 = 0; i3 < keys.length; ++i3) {
+        const key2 = keys[i3];
         const value = data2[key2];
         const name = Buffer.from(`${key2}`);
         if (Array.isArray(value)) {
@@ -11941,16 +11945,16 @@ var require_headers = __commonJS({
       return code === 10 || code === 13 || code === 9 || code === 32;
     }
     function headerValueNormalize(potentialValue) {
-      let i2 = 0;
+      let i3 = 0;
       let j2 = potentialValue.length;
-      while (j2 > i2 && isHTTPWhiteSpaceCharCode(potentialValue.charCodeAt(j2 - 1))) --j2;
-      while (j2 > i2 && isHTTPWhiteSpaceCharCode(potentialValue.charCodeAt(i2))) ++i2;
-      return i2 === 0 && j2 === potentialValue.length ? potentialValue : potentialValue.substring(i2, j2);
+      while (j2 > i3 && isHTTPWhiteSpaceCharCode(potentialValue.charCodeAt(j2 - 1))) --j2;
+      while (j2 > i3 && isHTTPWhiteSpaceCharCode(potentialValue.charCodeAt(i3))) ++i3;
+      return i3 === 0 && j2 === potentialValue.length ? potentialValue : potentialValue.substring(i3, j2);
     }
     function fill(headers, object4) {
       if (Array.isArray(object4)) {
-        for (let i2 = 0; i2 < object4.length; ++i2) {
-          const header = object4[i2];
+        for (let i3 = 0; i3 < object4.length; ++i3) {
+          const header = object4[i3];
           if (header.length !== 2) {
             throw webidl.errors.exception({
               header: "Headers constructor",
@@ -11961,8 +11965,8 @@ var require_headers = __commonJS({
         }
       } else if (typeof object4 === "object" && object4 !== null) {
         const keys = Object.keys(object4);
-        for (let i2 = 0; i2 < keys.length; ++i2) {
-          appendHeader(headers, keys[i2], object4[keys[i2]]);
+        for (let i3 = 0; i3 < keys.length; ++i3) {
+          appendHeader(headers, keys[i3], object4[keys[i3]]);
         }
       } else {
         throw webidl.errors.conversionFailed({
@@ -12124,12 +12128,12 @@ var require_headers = __commonJS({
           const firstValue = iterator2.next().value;
           array2[0] = [firstValue[0], firstValue[1].value];
           assert2(firstValue[1].value !== null);
-          for (let i2 = 1, j2 = 0, right = 0, left = 0, pivot = 0, x, value; i2 < size; ++i2) {
+          for (let i3 = 1, j2 = 0, right = 0, left = 0, pivot = 0, x, value; i3 < size; ++i3) {
             value = iterator2.next().value;
-            x = array2[i2] = [value[0], value[1].value];
+            x = array2[i3] = [value[0], value[1].value];
             assert2(x[1] !== null);
             left = 0;
-            right = i2;
+            right = i3;
             while (left < right) {
               pivot = left + (right - left >> 1);
               if (array2[pivot][0] <= x[0]) {
@@ -12138,8 +12142,8 @@ var require_headers = __commonJS({
                 right = pivot;
               }
             }
-            if (i2 !== pivot) {
-              j2 = i2;
+            if (i3 !== pivot) {
+              j2 = i3;
               while (j2 > left) {
                 array2[j2] = array2[--j2];
               }
@@ -12151,9 +12155,9 @@ var require_headers = __commonJS({
           }
           return array2;
         } else {
-          let i2 = 0;
+          let i3 = 0;
           for (const { 0: name, 1: { value } } of this[kHeadersMap]) {
-            array2[i2++] = [name, value];
+            array2[i3++] = [name, value];
             assert2(value !== null);
           }
           return array2.sort(compareHeaderName);
@@ -12264,9 +12268,9 @@ var require_headers = __commonJS({
       // https://fetch.spec.whatwg.org/#dom-headers-getsetcookie
       getSetCookie() {
         webidl.brandCheck(this, _Headers);
-        const list3 = this.#headersList.cookies;
-        if (list3) {
-          return [...list3];
+        const list4 = this.#headersList.cookies;
+        if (list4) {
+          return [...list4];
         }
         return [];
       }
@@ -12281,8 +12285,8 @@ var require_headers = __commonJS({
         if (cookies === null || cookies.length === 1) {
           return this.#headersList[kHeadersSortedMap] = names;
         }
-        for (let i2 = 0; i2 < names.length; ++i2) {
-          const { 0: name, 1: value } = names[i2];
+        for (let i3 = 0; i3 < names.length; ++i3) {
+          const { 0: name, 1: value } = names[i3];
           if (name === "set-cookie") {
             for (let j2 = 0; j2 < cookies.length; ++j2) {
               headers.push([name, cookies[j2]]);
@@ -12306,8 +12310,8 @@ var require_headers = __commonJS({
       static getHeadersList(o2) {
         return o2.#headersList;
       }
-      static setHeadersList(o2, list3) {
-        o2.#headersList = list3;
+      static setHeadersList(o2, list4) {
+        o2.#headersList = list4;
       }
     };
     var { getHeadersGuard, setHeadersGuard, getHeadersList, setHeadersList } = Headers2;
@@ -13275,13 +13279,13 @@ var require_request2 = __commonJS({
         if (this.signal.aborted) {
           ac.abort(this.signal.reason);
         } else {
-          let list3 = dependentControllerMap.get(this.signal);
-          if (list3 === void 0) {
-            list3 = /* @__PURE__ */ new Set();
-            dependentControllerMap.set(this.signal, list3);
+          let list4 = dependentControllerMap.get(this.signal);
+          if (list4 === void 0) {
+            list4 = /* @__PURE__ */ new Set();
+            dependentControllerMap.set(this.signal, list4);
           }
           const acRef = new WeakRef(ac);
-          list3.add(acRef);
+          list4.add(acRef);
           util.addAbortListener(
             ac.signal,
             buildAbort(acRef)
@@ -14458,8 +14462,8 @@ var require_fetch = __commonJS({
               }
               let location = "";
               const headersList = new HeadersList();
-              for (let i2 = 0; i2 < rawHeaders.length; i2 += 2) {
-                headersList.append(bufferToLowerCasedHeaderName(rawHeaders[i2]), rawHeaders[i2 + 1].toString("latin1"), true);
+              for (let i3 = 0; i3 < rawHeaders.length; i3 += 2) {
+                headersList.append(bufferToLowerCasedHeaderName(rawHeaders[i3]), rawHeaders[i3 + 1].toString("latin1"), true);
               }
               location = headersList.get("location", true);
               this.body = new Readable({ read: resume });
@@ -14473,8 +14477,8 @@ var require_fetch = __commonJS({
                   reject(new Error(`too many content-encodings in response: ${codings.length}, maximum allowed is ${maxContentEncodings}`));
                   return true;
                 }
-                for (let i2 = codings.length - 1; i2 >= 0; --i2) {
-                  const coding = codings[i2].trim();
+                for (let i3 = codings.length - 1; i3 >= 0; --i3) {
+                  const coding = codings[i3].trim();
                   if (coding === "x-gzip" || coding === "gzip") {
                     decoders.push(zlib.createGunzip({
                       // Be less strict when decoding compressed responses, since sometimes
@@ -14544,8 +14548,8 @@ var require_fetch = __commonJS({
                 return;
               }
               const headersList = new HeadersList();
-              for (let i2 = 0; i2 < rawHeaders.length; i2 += 2) {
-                headersList.append(bufferToLowerCasedHeaderName(rawHeaders[i2]), rawHeaders[i2 + 1].toString("latin1"), true);
+              for (let i3 = 0; i3 < rawHeaders.length; i3 += 2) {
+                headersList.append(bufferToLowerCasedHeaderName(rawHeaders[i3]), rawHeaders[i3 + 1].toString("latin1"), true);
               }
               resolve3({
                 status,
@@ -16094,8 +16098,8 @@ var require_util6 = __commonJS({
   "node_modules/.pnpm/undici@6.29.0/node_modules/undici/lib/web/cookies/util.js"(exports, module) {
     "use strict";
     function isCTLExcludingHtab(value) {
-      for (let i2 = 0; i2 < value.length; ++i2) {
-        const code = value.charCodeAt(i2);
+      for (let i3 = 0; i3 < value.length; ++i3) {
+        const code = value.charCodeAt(i3);
         if (code >= 0 && code <= 8 || code >= 10 && code <= 31 || code === 127) {
           return true;
         }
@@ -16103,8 +16107,8 @@ var require_util6 = __commonJS({
       return false;
     }
     function validateCookieName(name) {
-      for (let i2 = 0; i2 < name.length; ++i2) {
-        const code = name.charCodeAt(i2);
+      for (let i3 = 0; i3 < name.length; ++i3) {
+        const code = name.charCodeAt(i3);
         if (code < 33 || // exclude CTLs (0-31), SP and HT
         code > 126 || // exclude non-ascii and DEL
         code === 34 || // "
@@ -16130,16 +16134,16 @@ var require_util6 = __commonJS({
     }
     function validateCookieValue(value) {
       let len = value.length;
-      let i2 = 0;
+      let i3 = 0;
       if (value[0] === '"') {
         if (len === 1 || value[len - 1] !== '"') {
           throw new Error("Invalid cookie value");
         }
         --len;
-        ++i2;
+        ++i3;
       }
-      while (i2 < len) {
-        const code = value.charCodeAt(i2++);
+      while (i3 < len) {
+        const code = value.charCodeAt(i3++);
         if (code < 33 || // exclude CTLs (0-31)
         code > 126 || // non-ascii and DEL (127)
         code === 34 || // "
@@ -16151,8 +16155,8 @@ var require_util6 = __commonJS({
       }
     }
     function validateCookiePath(path) {
-      for (let i2 = 0; i2 < path.length; ++i2) {
-        const code = path.charCodeAt(i2);
+      for (let i3 = 0; i3 < path.length; ++i3) {
+        const code = path.charCodeAt(i3);
         if (code < 32 || // exclude CTLs (0-31)
         code > 126 || // exclude DEL and non-ascii
         code === 59) {
@@ -16173,13 +16177,13 @@ var require_util6 = __commonJS({
         throw new Error("Invalid cookie domain");
       }
       let labelLength = 0;
-      for (let i2 = 0; i2 < domain.length; ++i2) {
-        const code = domain.charCodeAt(i2);
+      for (let i3 = 0; i3 < domain.length; ++i3) {
+        const code = domain.charCodeAt(i3);
         if (code === 46) {
           if (labelLength === 0) {
             throw new Error("Invalid cookie domain");
           }
-          if (domain.charCodeAt(i2 - 1) === 45) {
+          if (domain.charCodeAt(i3 - 1) === 45) {
             throw new Error("Invalid cookie domain");
           }
           labelLength = 0;
@@ -16222,7 +16226,7 @@ var require_util6 = __commonJS({
       "Nov",
       "Dec"
     ];
-    var IMFPaddedNumbers = Array(61).fill(0).map((_, i2) => i2.toString().padStart(2, "0"));
+    var IMFPaddedNumbers = Array(61).fill(0).map((_, i3) => i3.toString().padStart(2, "0"));
     function toIMFDate(date) {
       if (typeof date === "number") {
         date = new Date(date);
@@ -16961,8 +16965,8 @@ var require_util7 = __commonJS({
       if (protocol.length === 0) {
         return false;
       }
-      for (let i2 = 0; i2 < protocol.length; ++i2) {
-        const code = protocol.charCodeAt(i2);
+      for (let i3 = 0; i3 < protocol.length; ++i3) {
+        const code = protocol.charCodeAt(i3);
         if (code < 33 || // CTL, contains SP (0x20) and HT (0x09)
         code > 126 || code === 34 || // "
         code === 40 || // (
@@ -17037,8 +17041,8 @@ var require_util7 = __commonJS({
       if (value.length === 0) {
         return false;
       }
-      for (let i2 = 0; i2 < value.length; i2++) {
-        const byte = value.charCodeAt(i2);
+      for (let i3 = 0; i3 < value.length; i3++) {
+        const byte = value.charCodeAt(i3);
         if (byte < 48 || byte > 57) {
           return false;
         }
@@ -17090,8 +17094,8 @@ var require_frame = __commonJS({
       crypto = {
         // not full compatibility, but minimum.
         randomFillSync: function randomFillSync(buffer2, _offset, _size) {
-          for (let i2 = 0; i2 < buffer2.length; ++i2) {
-            buffer2[i2] = Math.random() * 255 | 0;
+          for (let i3 = 0; i3 < buffer2.length; ++i3) {
+            buffer2[i3] = Math.random() * 255 | 0;
           }
           return buffer2;
         }
@@ -17140,8 +17144,8 @@ var require_frame = __commonJS({
           buffer2.writeUIntBE(bodyLength, 4, 6);
         }
         buffer2[1] |= 128;
-        for (let i2 = 0; i2 < bodyLength; ++i2) {
-          buffer2[offset2 + i2] = frameData[i2] ^ maskKey[i2 & 3];
+        for (let i3 = 0; i3 < bodyLength; ++i3) {
+          buffer2[offset2 + i3] = frameData[i3] ^ maskKey[i3 & 3];
         }
         return buffer2;
       }
@@ -18272,8 +18276,8 @@ var require_util8 = __commonJS({
     }
     function isASCIINumber(value) {
       if (value.length === 0) return false;
-      for (let i2 = 0; i2 < value.length; i2++) {
-        if (value.charCodeAt(i2) < 48 || value.charCodeAt(i2) > 57) return false;
+      for (let i3 = 0; i3 < value.length; i3++) {
+        if (value.charCodeAt(i3) < 48 || value.charCodeAt(i3) > 57) return false;
       }
       return true;
     }
@@ -18309,16 +18313,16 @@ var require_eventsource_stream = __commonJS({
       if (start >= buffer.length) {
         return false;
       }
-      for (let i2 = start; i2 < buffer.length; i2++) {
-        if (buffer[i2] < 48 || buffer[i2] > 57) {
+      for (let i3 = start; i3 < buffer.length; i3++) {
+        if (buffer[i3] < 48 || buffer[i3] > 57) {
           return false;
         }
       }
       return true;
     }
     function isValidLastEventIdBytes(buffer, start) {
-      for (let i2 = start; i2 < buffer.length; i2++) {
-        if (buffer[i2] === 0) {
+      for (let i3 = start; i3 < buffer.length; i3++) {
+        if (buffer[i3] === 0) {
           return false;
         }
       }
@@ -18328,8 +18332,8 @@ var require_eventsource_stream = __commonJS({
       if (length !== field.length) {
         return false;
       }
-      for (let i2 = 0; i2 < length; i2++) {
-        if (line[i2] !== field[i2]) {
+      for (let i3 = 0; i3 < length; i3++) {
+        if (line[i3] !== field[i3]) {
           return false;
         }
       }
@@ -18558,10 +18562,10 @@ ${value}`;
         }
         const chunks = [];
         let length = 0;
-        for (let i2 = this.lineChunkIndex; i2 <= this.chunkIndex; i2++) {
-          const chunk = this.chunks[i2];
-          const start = i2 === this.lineChunkIndex ? this.linePos : 0;
-          const end = i2 === this.chunkIndex ? this.pos : chunk.length;
+        for (let i3 = this.lineChunkIndex; i3 <= this.chunkIndex; i3++) {
+          const chunk = this.chunks[i3];
+          const start = i3 === this.lineChunkIndex ? this.linePos : 0;
+          const end = i3 === this.chunkIndex ? this.pos : chunk.length;
           const slice = chunk.subarray(start, end);
           length += slice.length;
           chunks.push(slice);
@@ -19185,7 +19189,7 @@ var require_lib = __commonJS({
         if (mod && mod.__esModule) return mod;
         var result2 = {};
         if (mod != null) {
-          for (var k2 = ownKeys(mod), i2 = 0; i2 < k2.length; i2++) if (k2[i2] !== "default") __createBinding(result2, mod, k2[i2]);
+          for (var k2 = ownKeys(mod), i3 = 0; i3 < k2.length; i3++) if (k2[i3] !== "default") __createBinding(result2, mod, k2[i3]);
         }
         __setModuleDefault(result2, mod);
         return result2;
@@ -19941,12 +19945,12 @@ var require_ariaPropsMap = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i2, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i2 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i2.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
+          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
         } catch (r3) {
           o2 = true, n2 = r3;
         } finally {
@@ -20148,12 +20152,12 @@ var require_domMap = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i2, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i2 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i2.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
+          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
         } catch (r3) {
           o2 = true, n2 = r3;
         } finally {
@@ -26162,12 +26166,12 @@ var require_rolesMap = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i2, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i2 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i2.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
+          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
         } catch (r3) {
           o2 = true, n2 = r3;
         } finally {
@@ -26304,12 +26308,12 @@ var require_elementRoleMap = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i4, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i4 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
+          } else for (; !(f = (e3 = i4.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
         } catch (r3) {
           o2 = true, n2 = r3;
         } finally {
@@ -26327,8 +26331,8 @@ var require_elementRoleMap = __commonJS({
     }
     var elementRoles2 = [];
     var keys = _rolesMap.default.keys();
-    for (i2 = 0; i2 < keys.length; i2++) {
-      key2 = keys[i2];
+    for (i3 = 0; i3 < keys.length; i3++) {
+      key2 = keys[i3];
       role = _rolesMap.default.get(key2);
       if (role) {
         concepts = [].concat(role.baseConcepts, role.relatedConcepts);
@@ -26372,7 +26376,7 @@ var require_elementRoleMap = __commonJS({
     var concepts;
     var _loop;
     var k2;
-    var i2;
+    var i3;
     var elementRoleMap = {
       entries: function entries() {
         return elementRoles2;
@@ -26501,12 +26505,12 @@ var require_roleElementMap = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i4, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i4 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
+          } else for (; !(f = (e3 = i4.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) ;
         } catch (r3) {
           o2 = true, n2 = r3;
         } finally {
@@ -26524,8 +26528,8 @@ var require_roleElementMap = __commonJS({
     }
     var roleElement = [];
     var keys = _rolesMap.default.keys();
-    for (i2 = 0; i2 < keys.length; i2++) {
-      key2 = keys[i2];
+    for (i3 = 0; i3 < keys.length; i3++) {
+      key2 = keys[i3];
       role = _rolesMap.default.get(key2);
       relationConcepts = [];
       if (role) {
@@ -26551,7 +26555,7 @@ var require_roleElementMap = __commonJS({
     var relation;
     var concept;
     var k2;
-    var i2;
+    var i3;
     var roleElementMap = {
       entries: function entries() {
         return roleElement;
@@ -26715,12 +26719,12 @@ var require_ariaPropsMap2 = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i2, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i2 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i2.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
+          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
             ;
           }
         } catch (r3) {
@@ -26926,12 +26930,12 @@ var require_domMap2 = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i2, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i2 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i2.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
+          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
             ;
           }
         } catch (r3) {
@@ -32902,15 +32906,15 @@ var require_rolesMap2 = __commonJS({
       return (r2 = _toPropertyKey(r2)) in e3 ? Object.defineProperty(e3, r2, { value: t2, enumerable: true, configurable: true, writable: true }) : e3[r2] = t2, e3;
     }
     function _toPropertyKey(t2) {
-      var i2 = _toPrimitive(t2, "string");
-      return "symbol" == _typeof(i2) ? i2 : i2 + "";
+      var i3 = _toPrimitive(t2, "string");
+      return "symbol" == _typeof(i3) ? i3 : i3 + "";
     }
     function _toPrimitive(t2, r2) {
       if ("object" != _typeof(t2) || !t2) return t2;
       var e3 = t2[Symbol.toPrimitive];
       if (void 0 !== e3) {
-        var i2 = e3.call(t2, r2 || "default");
-        if ("object" != _typeof(i2)) return i2;
+        var i3 = e3.call(t2, r2 || "default");
+        if ("object" != _typeof(i3)) return i3;
         throw new TypeError("@@toPrimitive must return a primitive value.");
       }
       return ("string" === r2 ? String : Number)(t2);
@@ -32969,12 +32973,12 @@ var require_rolesMap2 = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i2, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i2 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i2.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
+          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
             ;
           }
         } catch (r3) {
@@ -33115,12 +33119,12 @@ var require_elementRoleMap2 = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i4, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i4 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
+          } else for (; !(f = (e3 = i4.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
             ;
           }
         } catch (r3) {
@@ -33140,8 +33144,8 @@ var require_elementRoleMap2 = __commonJS({
     }
     var elementRoles2 = [];
     var keys = _rolesMap.default.keys();
-    for (i2 = 0; i2 < keys.length; i2++) {
-      key2 = keys[i2];
+    for (i3 = 0; i3 < keys.length; i3++) {
+      key2 = keys[i3];
       role = _rolesMap.default.get(key2);
       if (role) {
         concepts = [].concat(role.baseConcepts, role.relatedConcepts);
@@ -33184,7 +33188,7 @@ var require_elementRoleMap2 = __commonJS({
     var concepts;
     var relation;
     var k2;
-    var i2;
+    var i3;
     var elementRoleMap = {
       entries: function entries() {
         return elementRoles2;
@@ -33315,12 +33319,12 @@ var require_roleElementMap2 = __commonJS({
     function _iterableToArrayLimit(r2, l2) {
       var t2 = null == r2 ? null : "undefined" != typeof Symbol && r2[Symbol.iterator] || r2["@@iterator"];
       if (null != t2) {
-        var e3, n2, i3, u2, a2 = [], f = true, o2 = false;
+        var e3, n2, i4, u2, a2 = [], f = true, o2 = false;
         try {
-          if (i3 = (t2 = t2.call(r2)).next, 0 === l2) {
+          if (i4 = (t2 = t2.call(r2)).next, 0 === l2) {
             if (Object(t2) !== t2) return;
             f = false;
-          } else for (; !(f = (e3 = i3.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
+          } else for (; !(f = (e3 = i4.call(t2)).done) && (a2.push(e3.value), a2.length !== l2); f = true) {
             ;
           }
         } catch (r3) {
@@ -33340,8 +33344,8 @@ var require_roleElementMap2 = __commonJS({
     }
     var roleElement = [];
     var keys = _rolesMap.default.keys();
-    for (i2 = 0; i2 < keys.length; i2++) {
-      key2 = keys[i2];
+    for (i3 = 0; i3 < keys.length; i3++) {
+      key2 = keys[i3];
       role = _rolesMap.default.get(key2);
       relationConcepts = [];
       if (role) {
@@ -33367,7 +33371,7 @@ var require_roleElementMap2 = __commonJS({
     var relation;
     var concept;
     var k2;
-    var i2;
+    var i3;
     var roleElementMap = {
       entries: function entries() {
         return roleElement;
@@ -36525,8 +36529,8 @@ var require_AXObjectsMap = __commonJS({
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : { default: obj };
     }
-    function _slicedToArray(arr, i2) {
-      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i2) || _unsupportedIterableToArray(arr, i2) || _nonIterableRest();
+    function _slicedToArray(arr, i3) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i3) || _unsupportedIterableToArray(arr, i3) || _nonIterableRest();
     }
     function _nonIterableRest() {
       throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
@@ -36541,12 +36545,12 @@ var require_AXObjectsMap = __commonJS({
     }
     function _arrayLikeToArray(arr, len) {
       if (len == null || len > arr.length) len = arr.length;
-      for (var i2 = 0, arr2 = new Array(len); i2 < len; i2++) {
-        arr2[i2] = arr[i2];
+      for (var i3 = 0, arr2 = new Array(len); i3 < len; i3++) {
+        arr2[i3] = arr[i3];
       }
       return arr2;
     }
-    function _iterableToArrayLimit(arr, i2) {
+    function _iterableToArrayLimit(arr, i3) {
       var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
       if (_i == null) return;
       var _arr = [];
@@ -36556,7 +36560,7 @@ var require_AXObjectsMap = __commonJS({
       try {
         for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
           _arr.push(_s.value);
-          if (i2 && _arr.length === i2) break;
+          if (i3 && _arr.length === i3) break;
         }
       } catch (err) {
         _d = true;
@@ -36625,13 +36629,13 @@ var require_AXObjectElementMap = __commonJS({
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : { default: obj };
     }
-    function _slicedToArray(arr, i2) {
-      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i2) || _unsupportedIterableToArray(arr, i2) || _nonIterableRest();
+    function _slicedToArray(arr, i3) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i3) || _unsupportedIterableToArray(arr, i3) || _nonIterableRest();
     }
     function _nonIterableRest() {
       throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
-    function _iterableToArrayLimit(arr, i2) {
+    function _iterableToArrayLimit(arr, i3) {
       var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
       if (_i == null) return;
       var _arr = [];
@@ -36641,7 +36645,7 @@ var require_AXObjectElementMap = __commonJS({
       try {
         for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
           _arr.push(_s.value);
-          if (i2 && _arr.length === i2) break;
+          if (i3 && _arr.length === i3) break;
         }
       } catch (err) {
         _d = true;
@@ -36663,12 +36667,12 @@ var require_AXObjectElementMap = __commonJS({
       if (!it) {
         if (Array.isArray(o2) || (it = _unsupportedIterableToArray(o2)) || allowArrayLike && o2 && typeof o2.length === "number") {
           if (it) o2 = it;
-          var i2 = 0;
+          var i3 = 0;
           var F2 = function F3() {
           };
           return { s: F2, n: function n2() {
-            if (i2 >= o2.length) return { done: true };
-            return { done: false, value: o2[i2++] };
+            if (i3 >= o2.length) return { done: true };
+            return { done: false, value: o2[i3++] };
           }, e: function e3(_e2) {
             throw _e2;
           }, f: F2 };
@@ -36703,8 +36707,8 @@ var require_AXObjectElementMap = __commonJS({
     }
     function _arrayLikeToArray(arr, len) {
       if (len == null || len > arr.length) len = arr.length;
-      for (var i2 = 0, arr2 = new Array(len); i2 < len; i2++) {
-        arr2[i2] = arr[i2];
+      for (var i3 = 0, arr2 = new Array(len); i3 < len; i3++) {
+        arr2[i3] = arr[i3];
       }
       return arr2;
     }
@@ -36794,13 +36798,13 @@ var require_AXObjectRoleMap = __commonJS({
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : { default: obj };
     }
-    function _slicedToArray(arr, i2) {
-      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i2) || _unsupportedIterableToArray(arr, i2) || _nonIterableRest();
+    function _slicedToArray(arr, i3) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i3) || _unsupportedIterableToArray(arr, i3) || _nonIterableRest();
     }
     function _nonIterableRest() {
       throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
-    function _iterableToArrayLimit(arr, i2) {
+    function _iterableToArrayLimit(arr, i3) {
       var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
       if (_i == null) return;
       var _arr = [];
@@ -36810,7 +36814,7 @@ var require_AXObjectRoleMap = __commonJS({
       try {
         for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
           _arr.push(_s.value);
-          if (i2 && _arr.length === i2) break;
+          if (i3 && _arr.length === i3) break;
         }
       } catch (err) {
         _d = true;
@@ -36832,12 +36836,12 @@ var require_AXObjectRoleMap = __commonJS({
       if (!it) {
         if (Array.isArray(o2) || (it = _unsupportedIterableToArray(o2)) || allowArrayLike && o2 && typeof o2.length === "number") {
           if (it) o2 = it;
-          var i2 = 0;
+          var i3 = 0;
           var F2 = function F3() {
           };
           return { s: F2, n: function n2() {
-            if (i2 >= o2.length) return { done: true };
-            return { done: false, value: o2[i2++] };
+            if (i3 >= o2.length) return { done: true };
+            return { done: false, value: o2[i3++] };
           }, e: function e3(_e2) {
             throw _e2;
           }, f: F2 };
@@ -36872,8 +36876,8 @@ var require_AXObjectRoleMap = __commonJS({
     }
     function _arrayLikeToArray(arr, len) {
       if (len == null || len > arr.length) len = arr.length;
-      for (var i2 = 0, arr2 = new Array(len); i2 < len; i2++) {
-        arr2[i2] = arr[i2];
+      for (var i3 = 0, arr2 = new Array(len); i3 < len; i3++) {
+        arr2[i3] = arr[i3];
       }
       return arr2;
     }
@@ -36963,13 +36967,13 @@ var require_elementAXObjectMap = __commonJS({
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : { default: obj };
     }
-    function _slicedToArray(arr, i2) {
-      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i2) || _unsupportedIterableToArray(arr, i2) || _nonIterableRest();
+    function _slicedToArray(arr, i3) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i3) || _unsupportedIterableToArray(arr, i3) || _nonIterableRest();
     }
     function _nonIterableRest() {
       throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
-    function _iterableToArrayLimit(arr, i2) {
+    function _iterableToArrayLimit(arr, i3) {
       var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
       if (_i == null) return;
       var _arr = [];
@@ -36979,7 +36983,7 @@ var require_elementAXObjectMap = __commonJS({
       try {
         for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
           _arr.push(_s.value);
-          if (i2 && _arr.length === i2) break;
+          if (i3 && _arr.length === i3) break;
         }
       } catch (err) {
         _d = true;
@@ -37001,12 +37005,12 @@ var require_elementAXObjectMap = __commonJS({
       if (!it) {
         if (Array.isArray(o2) || (it = _unsupportedIterableToArray(o2)) || allowArrayLike && o2 && typeof o2.length === "number") {
           if (it) o2 = it;
-          var i2 = 0;
+          var i3 = 0;
           var F2 = function F3() {
           };
           return { s: F2, n: function n2() {
-            if (i2 >= o2.length) return { done: true };
-            return { done: false, value: o2[i2++] };
+            if (i3 >= o2.length) return { done: true };
+            return { done: false, value: o2[i3++] };
           }, e: function e3(_e2) {
             throw _e2;
           }, f: F2 };
@@ -37041,8 +37045,8 @@ var require_elementAXObjectMap = __commonJS({
     }
     function _arrayLikeToArray(arr, len) {
       if (len == null || len > arr.length) len = arr.length;
-      for (var i2 = 0, arr2 = new Array(len); i2 < len; i2++) {
-        arr2[i2] = arr[i2];
+      for (var i3 = 0, arr2 = new Array(len); i3 < len; i3++) {
+        arr2[i3] = arr[i3];
       }
       return arr2;
     }
@@ -37107,8 +37111,8 @@ var require_elementAXObjectMap = __commonJS({
         if (a2.length != b.length) {
           return false;
         }
-        for (var i2 = 0; i2 < a2.length; i2++) {
-          if (b[i2].name !== a2[i2].name || b[i2].value !== a2[i2].value) {
+        for (var i3 = 0; i3 < a2.length; i3++) {
+          if (b[i3].name !== a2[i3].name || b[i3].value !== a2[i3].value) {
             return false;
           }
         }
@@ -38644,8 +38648,8 @@ var applyReviverIteratively = (parsed, userReviver) => {
       const isComplexObject = value !== null && typeof value === "object";
       if (isComplexObject) {
         const keys = Object.keys(value);
-        for (let i2 = keys.length - 1; i2 >= 0; i2--) {
-          stack.push({ parent: value, key: keys[i2], visited: false });
+        for (let i3 = keys.length - 1; i3 >= 0; i3--) {
+          stack.push({ parent: value, key: keys[i3], visited: false });
         }
       }
     } else {
@@ -39209,8 +39213,8 @@ var Octokit = class {
       this.auth = auth2;
     }
     const classConstructor = this.constructor;
-    for (let i2 = 0; i2 < classConstructor.plugins.length; ++i2) {
-      Object.assign(this, classConstructor.plugins[i2](this, options));
+    for (let i3 = 0; i3 < classConstructor.plugins.length; ++i3) {
+      Object.assign(this, classConstructor.plugins[i3](this, options));
     }
   }
   // assigned during constructor
@@ -41831,12 +41835,12 @@ function walk(node, state, visitors) {
         if (Array.isArray(child_node)) {
           let mutated_array = null;
           const len = child_node.length;
-          for (let i2 = 0; i2 < len; i2++) {
-            const node3 = child_node[i2];
+          for (let i3 = 0; i3 < len; i3++) {
+            const node3 = child_node[i3];
             if (node3 && typeof node3 === "object") {
               const result2 = visit(node3, path, state2);
               if (result2) {
-                (mutated_array ??= child_node.slice())[i2] = result2;
+                (mutated_array ??= child_node.slice())[i3] = result2;
               }
             }
           }
@@ -42004,17 +42008,17 @@ function _distance(str1, str2) {
 function levenshtein(str1, str2) {
   const current2 = [];
   let prev = 0;
-  for (let i2 = 0; i2 <= str2.length; i2++) {
+  for (let i3 = 0; i3 <= str2.length; i3++) {
     for (let j2 = 0; j2 <= str1.length; j2++) {
       let value;
-      if (i2 && j2) {
-        if (str1.charAt(j2 - 1) === str2.charAt(i2 - 1)) {
+      if (i3 && j2) {
+        if (str1.charAt(j2 - 1) === str2.charAt(i3 - 1)) {
           value = prev;
         } else {
           value = Math.min(current2[j2], current2[j2 - 1], prev) + 1;
         }
       } else {
-        value = i2 + j2;
+        value = i3 + j2;
       }
       prev = current2[j2];
       current2[j2] = value;
@@ -42031,24 +42035,24 @@ function iterate_grams(value, gram_size = 2) {
   const len_diff = gram_size - simplified.length;
   const results = [];
   if (len_diff > 0) {
-    for (let i2 = 0; i2 < len_diff; ++i2) {
+    for (let i3 = 0; i3 < len_diff; ++i3) {
       value += "-";
     }
   }
-  for (let i2 = 0; i2 < simplified.length - gram_size + 1; ++i2) {
-    results.push(simplified.slice(i2, i2 + gram_size));
+  for (let i3 = 0; i3 < simplified.length - gram_size + 1; ++i3) {
+    results.push(simplified.slice(i3, i3 + gram_size));
   }
   return results;
 }
 function gram_counter(value, gram_size = 2) {
   const result2 = {};
   const grams = iterate_grams(value, gram_size);
-  let i2 = 0;
-  for (i2; i2 < grams.length; ++i2) {
-    if (grams[i2] in result2) {
-      result2[grams[i2]] += 1;
+  let i3 = 0;
+  for (i3; i3 < grams.length; ++i3) {
+    if (grams[i3] in result2) {
+      result2[grams[i3]] += 1;
     } else {
-      result2[grams[i2]] = 1;
+      result2[grams[i3]] = 1;
     }
   }
   return result2;
@@ -42065,11 +42069,11 @@ var FuzzySet = class {
   items = {};
   /** @param {string[]} arr */
   constructor(arr) {
-    for (let i2 = GRAM_SIZE_LOWER; i2 < GRAM_SIZE_UPPER + 1; ++i2) {
-      this.items[i2] = [];
+    for (let i3 = GRAM_SIZE_LOWER; i3 < GRAM_SIZE_UPPER + 1; ++i3) {
+      this.items[i3] = [];
     }
-    for (let i2 = 0; i2 < arr.length; ++i2) {
-      this.add(arr[i2]);
+    for (let i3 = 0; i3 < arr.length; ++i3) {
+      this.add(arr[i3]);
     }
   }
   /** @param {string} value */
@@ -42078,9 +42082,9 @@ var FuzzySet = class {
     if (normalized_value in this.exact_set) {
       return false;
     }
-    let i2 = GRAM_SIZE_LOWER;
-    for (i2; i2 < GRAM_SIZE_UPPER + 1; ++i2) {
-      this._add(value, i2);
+    let i3 = GRAM_SIZE_LOWER;
+    for (i3; i3 < GRAM_SIZE_UPPER + 1; ++i3) {
+      this._add(value, i3);
     }
   }
   /**
@@ -42139,16 +42143,16 @@ var FuzzySet = class {
     let sum_of_square_gram_counts = 0;
     let gram;
     let gram_count;
-    let i2;
+    let i3;
     let index;
     let other_gram_count;
     for (gram in gram_counts) {
       gram_count = gram_counts[gram];
       sum_of_square_gram_counts += Math.pow(gram_count, 2);
       if (gram in this.match_dict) {
-        for (i2 = 0; i2 < this.match_dict[gram].length; ++i2) {
-          index = this.match_dict[gram][i2][0];
-          other_gram_count = this.match_dict[gram][i2][1];
+        for (i3 = 0; i3 < this.match_dict[gram].length; ++i3) {
+          index = this.match_dict[gram][i3][0];
+          other_gram_count = this.match_dict[gram][i3][1];
           if (index in matches) {
             matches[index] += gram_count * other_gram_count;
           } else {
@@ -42167,15 +42171,15 @@ var FuzzySet = class {
     results.sort(sort_descending);
     let new_results = [];
     const end_index = Math.min(50, results.length);
-    for (let i3 = 0; i3 < end_index; ++i3) {
-      new_results.push([_distance(results[i3][1], normalized_value), results[i3][1]]);
+    for (let i4 = 0; i4 < end_index; ++i4) {
+      new_results.push([_distance(results[i4][1], normalized_value), results[i4][1]]);
     }
     results = new_results;
     results.sort(sort_descending);
     new_results = [];
-    for (let i3 = 0; i3 < results.length; ++i3) {
-      if (results[i3][0] === results[0][0]) {
-        new_results.push([results[i3][0], this.exact_set[results[i3][1]]]);
+    for (let i4 = 0; i4 < results.length; ++i4) {
+      if (results[i4][0] === results[0][0]) {
+        new_results.push([results[i4][0], this.exact_set[results[i4][1]]]);
       }
     }
     return new_results;
@@ -42189,19 +42193,19 @@ function rangeContains(range, index) {
 function getLocator(source2, options = {}) {
   const { offsetLine = 0, offsetColumn = 0 } = options;
   let start = 0;
-  const ranges = source2.split("\n").map((line, i3) => {
+  const ranges = source2.split("\n").map((line, i4) => {
     const end = start + line.length + 1;
-    const range = { start, end, line: i3 };
+    const range = { start, end, line: i4 };
     start = end;
     return range;
   });
-  let i2 = 0;
+  let i3 = 0;
   function locator2(search, index) {
     if (typeof search === "string") {
       search = source2.indexOf(search, index ?? 0);
     }
     if (search === -1) return void 0;
-    let range = ranges[i2];
+    let range = ranges[i3];
     const d2 = search >= range.end ? 1 : -1;
     while (range) {
       if (rangeContains(range, search)) {
@@ -42211,8 +42215,8 @@ function getLocator(source2, options = {}) {
           character: search
         };
       }
-      i2 += d2;
-      range = ranges[i2];
+      i3 += d2;
+      range = ranges[i3];
     }
   }
   return locator2;
@@ -42388,8 +42392,8 @@ function set_source(value) {
   source = value;
   source_lines = void 0;
   const l2 = getLocator(source, { offsetLine: 1 });
-  locator = (i2) => {
-    const loc = l2(i2);
+  locator = (i3) => {
+    const loc = l2(i3);
     if (!loc) throw new Error("An impossible situation occurred");
     return loc;
   };
@@ -42418,9 +42422,9 @@ function get_code_frame(line, column) {
   const frame_start = Math.max(0, line - 2);
   const frame_end = Math.min(line + 3, lines.length);
   const digits = String(frame_end + 1).length;
-  return lines.slice(frame_start, frame_end).map((str, i2) => {
-    const is_error_line = frame_start + i2 === line;
-    const line_num = String(i2 + frame_start + 1).padStart(digits, " ");
+  return lines.slice(frame_start, frame_end).map((str, i3) => {
+    const is_error_line = frame_start + i3 === line;
+    const line_num = String(i3 + frame_start + 1).padStart(digits, " ");
     if (is_error_line) {
       const indicator = " ".repeat(digits + 2 + tabs_to_spaces(str.slice(0, column)).length) + "^";
       return `${line_num}: ${tabs_to_spaces(str)}
@@ -43415,12 +43419,12 @@ var nonASCIIidentifierStart = new RegExp("[" + nonASCIIidentifierStartChars + "]
 var nonASCIIidentifier = new RegExp("[" + nonASCIIidentifierStartChars + nonASCIIidentifierChars + "]");
 function isInAstralSet(code, set2) {
   var pos = 65536;
-  for (var i2 = 0; i2 < set2.length; i2 += 2) {
-    pos += set2[i2];
+  for (var i3 = 0; i3 < set2.length; i3 += 2) {
+    pos += set2[i3];
     if (pos > code) {
       return false;
     }
-    pos += set2[i2 + 1];
+    pos += set2[i3 + 1];
     if (pos >= code) {
       return true;
     }
@@ -43600,10 +43604,10 @@ function isNewLine(code) {
 }
 function nextLineBreak(code, from, end) {
   if (end === void 0) end = code.length;
-  for (var i2 = from; i2 < end; i2++) {
-    var next2 = code.charCodeAt(i2);
+  for (var i3 = from; i3 < end; i3++) {
+    var next2 = code.charCodeAt(i3);
     if (isNewLine(next2)) {
-      return i2 < end - 1 && next2 === 13 && code.charCodeAt(i2 + 1) === 10 ? i2 + 2 : i2 + 1;
+      return i3 < end - 1 && next2 === 13 && code.charCodeAt(i3 + 1) === 10 ? i3 + 2 : i3 + 1;
     }
   }
   return -1;
@@ -43909,8 +43913,8 @@ prototypeAccessors.inAsync.get = function() {
   return (this.currentVarScope().flags & SCOPE_ASYNC) > 0;
 };
 prototypeAccessors.canAwait.get = function() {
-  for (var i2 = this.scopeStack.length - 1; i2 >= 0; i2--) {
-    var ref2 = this.scopeStack[i2];
+  for (var i3 = this.scopeStack.length - 1; i3 >= 0; i3--) {
+    var ref2 = this.scopeStack[i3];
     var flags = ref2.flags;
     if (flags & (SCOPE_CLASS_STATIC_BLOCK | SCOPE_CLASS_FIELD_INIT)) {
       return false;
@@ -43942,8 +43946,8 @@ prototypeAccessors.treatFunctionsAsVar.get = function() {
   return this.treatFunctionsAsVarInScope(this.currentScope());
 };
 prototypeAccessors.allowNewDotTarget.get = function() {
-  for (var i2 = this.scopeStack.length - 1; i2 >= 0; i2--) {
-    var ref2 = this.scopeStack[i2];
+  for (var i3 = this.scopeStack.length - 1; i3 >= 0; i3--) {
+    var ref2 = this.scopeStack[i3];
     var flags = ref2.flags;
     if (flags & (SCOPE_CLASS_STATIC_BLOCK | SCOPE_CLASS_FIELD_INIT) || flags & SCOPE_FUNCTION && !(flags & SCOPE_ARROW)) {
       return true;
@@ -43969,8 +43973,8 @@ Parser.extend = function extend() {
   var plugins = [], len = arguments.length;
   while (len--) plugins[len] = arguments[len];
   var cls = this;
-  for (var i2 = 0; i2 < plugins.length; i2++) {
-    cls = plugins[i2](cls);
+  for (var i3 = 0; i3 < plugins.length; i3++) {
+    cls = plugins[i3](cls);
   }
   return cls;
 };
@@ -44136,8 +44140,8 @@ pp$8.parseTopLevel = function(node) {
     node.body.push(stmt2);
   }
   if (this.inModule) {
-    for (var i2 = 0, list3 = Object.keys(this.undefinedExports); i2 < list3.length; i2 += 1) {
-      var name = list3[i2];
+    for (var i3 = 0, list4 = Object.keys(this.undefinedExports); i3 < list4.length; i3 += 1) {
+      var name = list4[i3];
       this.raiseRecoverable(this.undefinedExports[name].start, "Export '" + name + "' is not defined");
     }
   }
@@ -44363,9 +44367,9 @@ pp$8.parseBreakContinueStatement = function(node, keyword) {
     node.label = this.parseIdent();
     this.semicolon();
   }
-  var i2 = 0;
-  for (; i2 < this.labels.length; ++i2) {
-    var lab = this.labels[i2];
+  var i3 = 0;
+  for (; i3 < this.labels.length; ++i3) {
+    var lab = this.labels[i3];
     if (node.label == null || lab.name === node.label.name) {
       if (lab.kind != null && (isBreak || lab.kind === "loop")) {
         break;
@@ -44375,7 +44379,7 @@ pp$8.parseBreakContinueStatement = function(node, keyword) {
       }
     }
   }
-  if (i2 === this.labels.length) {
+  if (i3 === this.labels.length) {
     this.raise(node.start, "Unsyntactic " + keyword);
   }
   return this.finishNode(node, isBreak ? "BreakStatement" : "ContinueStatement");
@@ -44622,15 +44626,15 @@ pp$8.parseEmptyStatement = function(node) {
   return this.finishNode(node, "EmptyStatement");
 };
 pp$8.parseLabeledStatement = function(node, maybeName, expr, context3) {
-  for (var i$1 = 0, list3 = this.labels; i$1 < list3.length; i$1 += 1) {
-    var label = list3[i$1];
+  for (var i$1 = 0, list4 = this.labels; i$1 < list4.length; i$1 += 1) {
+    var label = list4[i$1];
     if (label.name === maybeName) {
       this.raise(expr.start, "Label '" + maybeName + "' is already declared");
     }
   }
   var kind = this.type.isLoop ? "loop" : this.type === types$1._switch ? "switch" : null;
-  for (var i2 = this.labels.length - 1; i2 >= 0; i2--) {
-    var label$1 = this.labels[i2];
+  for (var i3 = this.labels.length - 1; i3 >= 0; i3--) {
+    var label$1 = this.labels[i3];
     if (label$1.statementStart === node.start) {
       label$1.statementStart = this.start;
       label$1.kind = kind;
@@ -44802,7 +44806,7 @@ pp$8.parseClassElement = function(constructorAllowsSuper) {
   if (this.eat(types$1.semi)) {
     return null;
   }
-  var ecmaVersion = this.options.ecmaVersion;
+  var ecmaVersion2 = this.options.ecmaVersion;
   var node = this.startNode();
   var keyName = "";
   var isGenerator = false;
@@ -44810,7 +44814,7 @@ pp$8.parseClassElement = function(constructorAllowsSuper) {
   var kind = "method";
   var isStatic = false;
   if (this.eatContextual("static")) {
-    if (ecmaVersion >= 13 && this.eat(types$1.braceL)) {
+    if (ecmaVersion2 >= 13 && this.eat(types$1.braceL)) {
       this.parseClassStaticBlock(node);
       return node;
     }
@@ -44821,14 +44825,14 @@ pp$8.parseClassElement = function(constructorAllowsSuper) {
     }
   }
   node.static = isStatic;
-  if (!keyName && ecmaVersion >= 8 && this.eatContextual("async")) {
+  if (!keyName && ecmaVersion2 >= 8 && this.eatContextual("async")) {
     if ((this.isClassElementNameStart() || this.type === types$1.star) && !this.canInsertSemicolon()) {
       isAsync = true;
     } else {
       keyName = "async";
     }
   }
-  if (!keyName && (ecmaVersion >= 9 || !isAsync) && this.eat(types$1.star)) {
+  if (!keyName && (ecmaVersion2 >= 9 || !isAsync) && this.eat(types$1.star)) {
     isGenerator = true;
   }
   if (!keyName && !isAsync && !isGenerator) {
@@ -44849,7 +44853,7 @@ pp$8.parseClassElement = function(constructorAllowsSuper) {
   } else {
     this.parseClassElementName(node);
   }
-  if (ecmaVersion < 13 || this.type === types$1.parenL || kind !== "method" || isGenerator || isAsync) {
+  if (ecmaVersion2 < 13 || this.type === types$1.parenL || kind !== "method" || isGenerator || isAsync) {
     var isConstructor = !node.static && checkKeyName(node, "constructor");
     var allowsDirectSuper = isConstructor && constructorAllowsSuper;
     if (isConstructor && kind !== "method") {
@@ -44960,8 +44964,8 @@ pp$8.exitClassBody = function() {
   }
   var len = this.privateNameStack.length;
   var parent = len === 0 ? null : this.privateNameStack[len - 1];
-  for (var i2 = 0; i2 < used.length; ++i2) {
-    var id2 = used[i2];
+  for (var i3 = 0; i3 < used.length; ++i3) {
+    var id2 = used[i3];
     if (!hasOwn(declared2, id2.name)) {
       if (parent) {
         parent.used.push(id2);
@@ -45047,8 +45051,8 @@ pp$8.parseExport = function(node, exports$1) {
         node.attributes = this.parseWithClause();
       }
     } else {
-      for (var i2 = 0, list3 = node.specifiers; i2 < list3.length; i2 += 1) {
-        var spec = list3[i2];
+      for (var i3 = 0, list4 = node.specifiers; i3 < list4.length; i3 += 1) {
+        var spec = list4[i3];
         this.checkUnreserved(spec.local);
         this.checkLocalExport(spec.local);
         if (spec.local.type === "Literal") {
@@ -45102,8 +45106,8 @@ pp$8.checkPatternExport = function(exports$1, pat) {
   if (type === "Identifier") {
     this.checkExport(exports$1, pat, pat.start);
   } else if (type === "ObjectPattern") {
-    for (var i2 = 0, list3 = pat.properties; i2 < list3.length; i2 += 1) {
-      var prop2 = list3[i2];
+    for (var i3 = 0, list4 = pat.properties; i3 < list4.length; i3 += 1) {
+      var prop2 = list4[i3];
       this.checkPatternExport(exports$1, prop2);
     }
   } else if (type === "ArrayPattern") {
@@ -45125,8 +45129,8 @@ pp$8.checkVariableExport = function(exports$1, decls) {
   if (!exports$1) {
     return;
   }
-  for (var i2 = 0, list3 = decls; i2 < list3.length; i2 += 1) {
-    var decl = list3[i2];
+  for (var i3 = 0, list4 = decls; i3 < list4.length; i3 += 1) {
+    var decl = list4[i3];
     this.checkPatternExport(exports$1, decl.id);
   }
 };
@@ -45276,8 +45280,8 @@ pp$8.parseModuleExportName = function() {
   return this.parseIdent(true);
 };
 pp$8.adaptDirectivePrologue = function(statements) {
-  for (var i2 = 0; i2 < statements.length && this.isDirectiveCandidate(statements[i2]); ++i2) {
-    statements[i2].directive = statements[i2].expression.raw.slice(1, -1);
+  for (var i3 = 0; i3 < statements.length && this.isDirectiveCandidate(statements[i3]); ++i3) {
+    statements[i3].directive = statements[i3].expression.raw.slice(1, -1);
   }
 };
 pp$8.isDirectiveCandidate = function(statement) {
@@ -45303,8 +45307,8 @@ pp$7.toAssignable = function(node, isBinding, refDestructuringErrors) {
         if (refDestructuringErrors) {
           this.checkPatternErrors(refDestructuringErrors, true);
         }
-        for (var i2 = 0, list3 = node.properties; i2 < list3.length; i2 += 1) {
-          var prop2 = list3[i2];
+        for (var i3 = 0, list4 = node.properties; i3 < list4.length; i3 += 1) {
+          var prop2 = list4[i3];
           this.toAssignable(prop2, isBinding);
           if (prop2.type === "RestElement" && (prop2.argument.type === "ArrayPattern" || prop2.argument.type === "ObjectPattern")) {
             this.raise(prop2.argument.start, "Unexpected token");
@@ -45359,8 +45363,8 @@ pp$7.toAssignable = function(node, isBinding, refDestructuringErrors) {
 };
 pp$7.toAssignableList = function(exprList, isBinding) {
   var end = exprList.length;
-  for (var i2 = 0; i2 < end; i2++) {
-    var elt = exprList[i2];
+  for (var i3 = 0; i3 < end; i3++) {
+    var elt = exprList[i3];
     if (elt) {
       this.toAssignable(elt, isBinding);
     }
@@ -45491,8 +45495,8 @@ pp$7.checkLValPattern = function(expr, bindingType, checkClashes) {
   if (bindingType === void 0) bindingType = BIND_NONE;
   switch (expr.type) {
     case "ObjectPattern":
-      for (var i2 = 0, list3 = expr.properties; i2 < list3.length; i2 += 1) {
-        var prop2 = list3[i2];
+      for (var i3 = 0, list4 = expr.properties; i3 < list4.length; i3 += 1) {
+        var prop2 = list4[i3];
         this.checkLValInnerPattern(prop2, bindingType, checkClashes);
       }
       break;
@@ -45575,8 +45579,8 @@ pp$6.braceIsBlock = function(prevType) {
   return !this.exprAllowed;
 };
 pp$6.inGeneratorContext = function() {
-  for (var i2 = this.context.length - 1; i2 >= 1; i2--) {
-    var context3 = this.context[i2];
+  for (var i3 = this.context.length - 1; i3 >= 1; i3--) {
+    var context3 = this.context[i3];
     if (context3.token === "function") {
       return context3.generator;
     }
@@ -46578,8 +46582,8 @@ pp$5.parseFunctionBody = function(node, isArrowFunction, isMethod, forInit) {
   this.exitScope();
 };
 pp$5.isSimpleParamList = function(params) {
-  for (var i2 = 0, list3 = params; i2 < list3.length; i2 += 1) {
-    var param = list3[i2];
+  for (var i3 = 0, list4 = params; i3 < list4.length; i3 += 1) {
+    var param = list4[i3];
     if (param.type !== "Identifier") {
       return false;
     }
@@ -46588,8 +46592,8 @@ pp$5.isSimpleParamList = function(params) {
 };
 pp$5.checkParams = function(node, allowDuplicates) {
   var nameHash = /* @__PURE__ */ Object.create(null);
-  for (var i2 = 0, list3 = node.params; i2 < list3.length; i2 += 1) {
-    var param = list3[i2];
+  for (var i3 = 0, list4 = node.params; i3 < list4.length; i3 += 1) {
+    var param = list4[i3];
     this.checkLValInnerPattern(param, BIND_VAR, allowDuplicates ? null : nameHash);
   }
 };
@@ -46774,8 +46778,8 @@ pp$3.declareName = function(name, bindingType, pos) {
     }
     scope$2.functions.push(name);
   } else {
-    for (var i2 = this.scopeStack.length - 1; i2 >= 0; --i2) {
-      var scope$3 = this.scopeStack[i2];
+    for (var i3 = this.scopeStack.length - 1; i3 >= 0; --i3) {
+      var scope$3 = this.scopeStack[i3];
       if (scope$3.lexical.indexOf(name) > -1 && !(scope$3.flags & SCOPE_SIMPLE_CATCH && scope$3.lexical[0] === name) || !this.treatFunctionsAsVarInScope(scope$3) && scope$3.functions.indexOf(name) > -1) {
         redeclared = true;
         break;
@@ -46802,16 +46806,16 @@ pp$3.currentScope = function() {
   return this.scopeStack[this.scopeStack.length - 1];
 };
 pp$3.currentVarScope = function() {
-  for (var i2 = this.scopeStack.length - 1; ; i2--) {
-    var scope = this.scopeStack[i2];
+  for (var i3 = this.scopeStack.length - 1; ; i3--) {
+    var scope = this.scopeStack[i3];
     if (scope.flags & (SCOPE_VAR | SCOPE_CLASS_FIELD_INIT | SCOPE_CLASS_STATIC_BLOCK)) {
       return scope;
     }
   }
 };
 pp$3.currentThisScope = function() {
-  for (var i2 = this.scopeStack.length - 1; ; i2--) {
-    var scope = this.scopeStack[i2];
+  for (var i3 = this.scopeStack.length - 1; ; i3--) {
+    var scope = this.scopeStack[i3];
     if (scope.flags & (SCOPE_VAR | SCOPE_CLASS_FIELD_INIT | SCOPE_CLASS_STATIC_BLOCK) && !(scope.flags & SCOPE_ARROW)) {
       return scope;
     }
@@ -46902,13 +46906,13 @@ var unicodeScriptValues = {
   14: ecma14ScriptValues
 };
 var data = {};
-function buildUnicodeData(ecmaVersion) {
-  var d2 = data[ecmaVersion] = {
-    binary: wordsRegexp(unicodeBinaryProperties[ecmaVersion] + " " + unicodeGeneralCategoryValues),
-    binaryOfStrings: wordsRegexp(unicodeBinaryPropertiesOfStrings[ecmaVersion]),
+function buildUnicodeData(ecmaVersion2) {
+  var d2 = data[ecmaVersion2] = {
+    binary: wordsRegexp(unicodeBinaryProperties[ecmaVersion2] + " " + unicodeGeneralCategoryValues),
+    binaryOfStrings: wordsRegexp(unicodeBinaryPropertiesOfStrings[ecmaVersion2]),
     nonBinary: {
       General_Category: wordsRegexp(unicodeGeneralCategoryValues),
-      Script: wordsRegexp(unicodeScriptValues[ecmaVersion])
+      Script: wordsRegexp(unicodeScriptValues[ecmaVersion2])
     }
   };
   d2.nonBinary.Script_Extensions = d2.nonBinary.Script;
@@ -46916,13 +46920,13 @@ function buildUnicodeData(ecmaVersion) {
   d2.nonBinary.sc = d2.nonBinary.Script;
   d2.nonBinary.scx = d2.nonBinary.Script_Extensions;
 }
-for (i2 = 0, list3 = [9, 10, 11, 12, 13, 14]; i2 < list3.length; i2 += 1) {
-  ecmaVersion = list3[i2];
+for (i = 0, list = [9, 10, 11, 12, 13, 14]; i < list.length; i += 1) {
+  ecmaVersion = list[i];
   buildUnicodeData(ecmaVersion);
 }
 var ecmaVersion;
-var i2;
-var list3;
+var i;
+var list;
 var pp$1 = Parser.prototype;
 var BranchID = function BranchID2(parent, base) {
   this.parent = parent;
@@ -46980,32 +46984,32 @@ RegExpValidationState.prototype.reset = function reset2(start, pattern, flags) {
 RegExpValidationState.prototype.raise = function raise(message) {
   this.parser.raiseRecoverable(this.start, "Invalid regular expression: /" + this.source + "/: " + message);
 };
-RegExpValidationState.prototype.at = function at(i2, forceU) {
+RegExpValidationState.prototype.at = function at(i3, forceU) {
   if (forceU === void 0) forceU = false;
   var s = this.source;
   var l2 = s.length;
-  if (i2 >= l2) {
+  if (i3 >= l2) {
     return -1;
   }
-  var c = s.charCodeAt(i2);
-  if (!(forceU || this.switchU) || c <= 55295 || c >= 57344 || i2 + 1 >= l2) {
+  var c = s.charCodeAt(i3);
+  if (!(forceU || this.switchU) || c <= 55295 || c >= 57344 || i3 + 1 >= l2) {
     return c;
   }
-  var next2 = s.charCodeAt(i2 + 1);
+  var next2 = s.charCodeAt(i3 + 1);
   return next2 >= 56320 && next2 <= 57343 ? (c << 10) + next2 - 56613888 : c;
 };
-RegExpValidationState.prototype.nextIndex = function nextIndex(i2, forceU) {
+RegExpValidationState.prototype.nextIndex = function nextIndex(i3, forceU) {
   if (forceU === void 0) forceU = false;
   var s = this.source;
   var l2 = s.length;
-  if (i2 >= l2) {
+  if (i3 >= l2) {
     return l2;
   }
-  var c = s.charCodeAt(i2), next2;
-  if (!(forceU || this.switchU) || c <= 55295 || c >= 57344 || i2 + 1 >= l2 || (next2 = s.charCodeAt(i2 + 1)) < 56320 || next2 > 57343) {
-    return i2 + 1;
+  var c = s.charCodeAt(i3), next2;
+  if (!(forceU || this.switchU) || c <= 55295 || c >= 57344 || i3 + 1 >= l2 || (next2 = s.charCodeAt(i3 + 1)) < 56320 || next2 > 57343) {
+    return i3 + 1;
   }
-  return i2 + 2;
+  return i3 + 2;
 };
 RegExpValidationState.prototype.current = function current(forceU) {
   if (forceU === void 0) forceU = false;
@@ -47030,8 +47034,8 @@ RegExpValidationState.prototype.eat = function eat(ch, forceU) {
 RegExpValidationState.prototype.eatChars = function eatChars(chs, forceU) {
   if (forceU === void 0) forceU = false;
   var pos = this.pos;
-  for (var i2 = 0, list3 = chs; i2 < list3.length; i2 += 1) {
-    var ch = list3[i2];
+  for (var i3 = 0, list4 = chs; i3 < list4.length; i3 += 1) {
+    var ch = list4[i3];
     var current2 = this.at(pos, forceU);
     if (current2 === -1 || current2 !== ch) {
       return false;
@@ -47046,12 +47050,12 @@ pp$1.validateRegExpFlags = function(state) {
   var flags = state.flags;
   var u2 = false;
   var v = false;
-  for (var i2 = 0; i2 < flags.length; i2++) {
-    var flag = flags.charAt(i2);
+  for (var i3 = 0; i3 < flags.length; i3++) {
+    var flag = flags.charAt(i3);
     if (validFlags.indexOf(flag) === -1) {
       this.raise(state.start, "Invalid regular expression flag");
     }
-    if (flags.indexOf(flag, i2 + 1) > -1) {
+    if (flags.indexOf(flag, i3 + 1) > -1) {
       this.raise(state.start, "Duplicate regular expression flag");
     }
     if (flag === "u") {
@@ -47109,8 +47113,8 @@ pp$1.regexp_pattern = function(state) {
   if (state.maxBackReference > state.numCapturingParens) {
     state.raise("Invalid escape");
   }
-  for (var i2 = 0, list3 = state.backReferenceNames; i2 < list3.length; i2 += 1) {
-    var name = list3[i2];
+  for (var i3 = 0, list4 = state.backReferenceNames; i3 < list4.length; i3 += 1) {
+    var name = list4[i3];
     if (!state.groupNames[name]) {
       state.raise("Invalid named capture referenced");
     }
@@ -47316,9 +47320,9 @@ pp$1.regexp_eatUncapturingGroup = function(state) {
           /* - */
         );
         if (addModifiers || hasHyphen) {
-          for (var i2 = 0; i2 < addModifiers.length; i2++) {
-            var modifier = addModifiers.charAt(i2);
-            if (addModifiers.indexOf(modifier, i2 + 1) > -1) {
+          for (var i3 = 0; i3 < addModifiers.length; i3++) {
+            var modifier = addModifiers.charAt(i3);
+            if (addModifiers.indexOf(modifier, i3 + 1) > -1) {
               state.raise("Duplicate regular expression modifiers");
             }
           }
@@ -47440,8 +47444,8 @@ pp$1.regexp_groupSpecifier = function(state) {
     var known = state.groupNames[state.lastStringValue];
     if (known) {
       if (trackDisjunction) {
-        for (var i2 = 0, list3 = known; i2 < list3.length; i2 += 1) {
-          var altID = list3[i2];
+        for (var i3 = 0, list4 = known; i3 < list4.length; i3 += 1) {
+          var altID = list4[i3];
           if (!altID.separatedFrom(state.branchID)) {
             state.raise("Duplicate capture group name");
           }
@@ -48204,7 +48208,7 @@ function isOctalDigit(ch) {
 pp$1.regexp_eatFixedHexDigits = function(state, length) {
   var start = state.pos;
   state.lastIntValue = 0;
-  for (var i2 = 0; i2 < length; ++i2) {
+  for (var i3 = 0; i3 < length; ++i3) {
     var ch = state.current();
     if (!isHexDigit(ch)) {
       state.pos = start;
@@ -48497,8 +48501,8 @@ pp.readToken_eq_excl = function(code) {
   return this.finishOp(code === 61 ? types$1.eq : types$1.prefix, 1);
 };
 pp.readToken_question = function() {
-  var ecmaVersion = this.options.ecmaVersion;
-  if (ecmaVersion >= 11) {
+  var ecmaVersion2 = this.options.ecmaVersion;
+  if (ecmaVersion2 >= 11) {
     var next2 = this.input.charCodeAt(this.pos + 1);
     if (next2 === 46) {
       var next22 = this.input.charCodeAt(this.pos + 2);
@@ -48507,7 +48511,7 @@ pp.readToken_question = function() {
       }
     }
     if (next2 === 63) {
-      if (ecmaVersion >= 12) {
+      if (ecmaVersion2 >= 12) {
         var next2$1 = this.input.charCodeAt(this.pos + 2);
         if (next2$1 === 61) {
           return this.finishOp(types$1.assign, 3);
@@ -48519,9 +48523,9 @@ pp.readToken_question = function() {
   return this.finishOp(types$1.question, 1);
 };
 pp.readToken_numberSign = function() {
-  var ecmaVersion = this.options.ecmaVersion;
+  var ecmaVersion2 = this.options.ecmaVersion;
   var code = 35;
-  if (ecmaVersion >= 13) {
+  if (ecmaVersion2 >= 13) {
     ++this.pos;
     code = this.fullCharCodeAtPos();
     if (isIdentifierStart(code, true) || code === 92) {
@@ -48682,7 +48686,7 @@ pp.readInt = function(radix, len, maybeLegacyOctalNumericLiteral) {
   var allowSeparators = this.options.ecmaVersion >= 12 && len === void 0;
   var isLegacyOctalNumericLiteral = maybeLegacyOctalNumericLiteral && this.input.charCodeAt(this.pos) === 48;
   var start = this.pos, total = 0, lastCode = 0;
-  for (var i2 = 0, e3 = len == null ? Infinity : len; i2 < e3; ++i2, ++this.pos) {
+  for (var i3 = 0, e3 = len == null ? Infinity : len; i3 < e3; ++i3, ++this.pos) {
     var code = this.input.charCodeAt(this.pos), val = void 0;
     if (allowSeparators && code === 95) {
       if (isLegacyOctalNumericLiteral) {
@@ -48691,7 +48695,7 @@ pp.readInt = function(radix, len, maybeLegacyOctalNumericLiteral) {
       if (lastCode === 95) {
         this.raiseRecoverable(this.pos, "Numeric separator must be exactly one underscore");
       }
-      if (i2 === 0) {
+      if (i3 === 0) {
         this.raiseRecoverable(this.pos, "Numeric separator is not allowed at the first of digits");
       }
       lastCode = code;
@@ -50214,8 +50218,8 @@ var ParseEffects = class {
   }
   flush(output) {
     const work = [];
-    for (let i2 = output.segments.length - 1; i2 >= 0; i2--) {
-      work.push(output.segments[i2]);
+    for (let i3 = output.segments.length - 1; i3 >= 0; i3--) {
+      work.push(output.segments[i3]);
     }
     while (work.length > 0) {
       const segment = work.pop();
@@ -50225,8 +50229,8 @@ var ParseEffects = class {
         }
         continue;
       }
-      for (let i2 = segment.segments.length - 1; i2 >= 0; i2--) {
-        work.push(segment.segments[i2]);
+      for (let i3 = segment.segments.length - 1; i3 >= 0; i3--) {
+        work.push(segment.segments[i3]);
       }
     }
   }
@@ -50252,8 +50256,8 @@ var ParseEffects = class {
     }
   }
   unwind(mark) {
-    for (let i2 = this.undoLog.length - 1; i2 >= mark; i2--) {
-      const entry = this.undoLog[i2];
+    for (let i3 = this.undoLog.length - 1; i3 >= mark; i3--) {
+      const entry = this.undoLog[i3];
       switch (entry._tag) {
         case "ArrayLength":
           if (entry.target.length < entry.length) {
@@ -50408,8 +50412,8 @@ function adaptParser(Parser4, config) {
       return super.parseIdentNode();
     }
     parseLabeledStatement(node, maybeName, expr, context3) {
-      for (let i2 = this.labels.length - 1; i2 >= 0; i2--) {
-        const label = this.labels[i2];
+      for (let i3 = this.labels.length - 1; i3 >= 0; i3--) {
+        const label = this.labels[i3];
         if (label.statementStart !== node.start) break;
         this.parseEffects?.willSet(label, "statementStart");
         this.parseEffects?.willSet(label, "kind");
@@ -50470,8 +50474,8 @@ function adaptParser(Parser4, config) {
         } else if (bindingType === scopeFlags.BIND_FUNCTION) {
           effects.willAppend(this.currentScope().functions);
         } else {
-          for (let i2 = this.scopeStack.length - 1; i2 >= 0; i2--) {
-            const scope = this.scopeStack[i2];
+          for (let i3 = this.scopeStack.length - 1; i3 >= 0; i3--) {
+            const scope = this.scopeStack[i3];
             effects.willAppend(scope.var);
             if (this.inModule && scope.flags & scopeFlags.SCOPE_TOP) {
               effects.willSet(this.undefinedExports, name);
@@ -50622,10 +50626,10 @@ function tsPlugin(options) {
       tokenIsTSTypeOperator
     } = acornTypeScript;
     function nextLineBreak2(code, from, end = code.length) {
-      for (let i2 = from; i2 < end; i2++) {
-        let next2 = code.charCodeAt(i2);
+      for (let i3 = from; i3 < end; i3++) {
+        let next2 = code.charCodeAt(i3);
         if (isNewLine2(next2))
-          return i2 < end - 1 && next2 === 13 && code.charCodeAt(i2 + 1) === 10 ? i2 + 2 : i2 + 1;
+          return i3 < end - 1 && next2 === 13 && code.charCodeAt(i3 + 1) === 10 ? i3 + 2 : i3 + 1;
       }
       return -1;
     }
@@ -50977,7 +50981,7 @@ function tsPlugin(options) {
           this.createLookaheadState();
           this.isLookahead = true;
           if (number !== void 0) {
-            for (let i2 = 0; i2 < number; i2++) {
+            for (let i3 = 0; i3 < number; i3++) {
               this.nextToken();
             }
           } else {
@@ -51182,7 +51186,7 @@ function tsPlugin(options) {
       ts_eatWithState(type, nextCount, state) {
         const targetType = state.type;
         if (type === targetType) {
-          for (let i2 = 0; i2 < nextCount; i2++) {
+          for (let i3 = 0; i3 < nextCount; i3++) {
             this.next();
           }
           return true;
@@ -51193,7 +51197,7 @@ function tsPlugin(options) {
       ts_eatContextualWithState(name, nextCount, state) {
         if (keywordsRegExp.test(name)) {
           if (this.ts_isContextualWithState(state, tokTypes[name])) {
-            for (let i2 = 0; i2 < nextCount; i2++) {
+            for (let i3 = 0; i3 < nextCount; i3++) {
               this.next();
             }
             return true;
@@ -51201,7 +51205,7 @@ function tsPlugin(options) {
           return false;
         } else {
           if (!this.isContextualWithState(name, state)) return false;
-          for (let i2 = 0; i2 < nextCount; i2++) {
+          for (let i3 = 0; i3 < nextCount; i3++) {
             this.next();
           }
           return true;
@@ -53085,10 +53089,10 @@ function tsPlugin(options) {
       }
       toAssignableList(exprList, isBinding) {
         if (!exprList) exprList = [];
-        for (let i2 = 0; i2 < exprList.length; i2++) {
-          const expr = exprList[i2];
+        for (let i3 = 0; i3 < exprList.length; i3++) {
+          const expr = exprList[i3];
           if (expr?.type === "TSTypeCastExpression") {
-            exprList[i2] = this.typeCastToParameter(expr);
+            exprList[i3] = this.typeCastToParameter(expr);
           }
         }
         return super.toAssignableList(exprList, isBinding);
@@ -53800,8 +53804,8 @@ function tsPlugin(options) {
             return true;
           case "ObjectExpression": {
             const last = node.properties.length - 1;
-            return node.properties.every((prop2, i2) => {
-              return prop2.type !== "ObjectMethod" && (i2 === last || prop2.type !== "SpreadElement") && this.isAssignable(prop2);
+            return node.properties.every((prop2, i3) => {
+              return prop2.type !== "ObjectMethod" && (i3 === last || prop2.type !== "SpreadElement") && this.isAssignable(prop2);
             });
           }
           case "Property":
@@ -54639,8 +54643,8 @@ function tsPlugin(options) {
           return true;
         }
         if (!allowShadow && len > 1) {
-          for (let i2 = 0; i2 < len - 1; i2++) {
-            if (this.importsStack[i2].indexOf(name) > -1) return true;
+          for (let i3 = 0; i3 < len - 1; i3++) {
+            if (this.importsStack[i3].indexOf(name) > -1) return true;
           }
         }
         return false;
@@ -54689,8 +54693,8 @@ function tsPlugin(options) {
         const { name } = id2;
         if (this.hasImport(name)) return;
         const len = this.scopeStack.length;
-        for (let i2 = len - 1; i2 >= 0; i2--) {
-          const scope = this.scopeStack[i2];
+        for (let i3 = len - 1; i3 >= 0; i3--) {
+          const scope = this.scopeStack[i3];
           if (scope.types.indexOf(name) > -1 || scope.exportOnlyBindings.indexOf(name) > -1) return;
         }
         super.checkLocalExport(id2);
@@ -54897,8 +54901,8 @@ function svelte_meta_invalid_placement(node, name) {
   e(node, "svelte_meta_invalid_placement", `\`<${name}>\` tags cannot be inside elements or blocks
 https://svelte.dev/e/svelte_meta_invalid_placement`);
 }
-function svelte_meta_invalid_tag(node, list3) {
-  e(node, "svelte_meta_invalid_tag", `Valid \`<svelte:...>\` tag names are ${list3}
+function svelte_meta_invalid_tag(node, list4) {
+  e(node, "svelte_meta_invalid_tag", `Valid \`<svelte:...>\` tag names are ${list4}
 https://svelte.dev/e/svelte_meta_invalid_tag`);
 }
 function svelte_options_deprecated_tag(node) {
@@ -54909,8 +54913,8 @@ function svelte_options_invalid_attribute(node) {
   e(node, "svelte_options_invalid_attribute", `\`<svelte:options>\` can only receive static attributes
 https://svelte.dev/e/svelte_options_invalid_attribute`);
 }
-function svelte_options_invalid_attribute_value(node, list3) {
-  e(node, "svelte_options_invalid_attribute_value", `Value must be ${list3}, if specified
+function svelte_options_invalid_attribute_value(node, list4) {
+  e(node, "svelte_options_invalid_attribute_value", `Value must be ${list4}, if specified
 https://svelte.dev/e/svelte_options_invalid_attribute_value`);
 }
 function svelte_options_invalid_customelement(node) {
@@ -55186,72 +55190,72 @@ function find_regex_end(string2, search_start_index) {
   return slash < eol ? slash : Infinity;
 }
 function find_unescaped_char(string2, search_start_index, char) {
-  let i2 = search_start_index;
+  let i3 = search_start_index;
   while (true) {
-    const found_index = string2.indexOf(char, i2);
+    const found_index = string2.indexOf(char, i3);
     if (found_index === -1) {
       return Infinity;
     }
     if (count_leading_backslashes(string2, found_index - 1) % 2 === 0) {
       return found_index;
     }
-    i2 = found_index + 1;
+    i3 = found_index + 1;
   }
 }
 function count_leading_backslashes(string2, search_start_index) {
-  let i2 = search_start_index;
+  let i3 = search_start_index;
   let count = 0;
-  while (string2[i2] === "\\") {
+  while (string2[i3] === "\\") {
     count++;
-    i2--;
+    i3--;
   }
   return count;
 }
 function find_matching_bracket(template2, index, open3) {
   const close2 = default_brackets[open3];
   let brackets = 1;
-  let i2 = index;
-  while (brackets > 0 && i2 < template2.length) {
-    const char = template2[i2];
+  let i3 = index;
+  while (brackets > 0 && i3 < template2.length) {
+    const char = template2[i3];
     switch (char) {
       case "'":
       case '"':
       case "`":
-        i2 = find_string_end(template2, i2 + 1, char) + 1;
+        i3 = find_string_end(template2, i3 + 1, char) + 1;
         continue;
       case "/": {
-        const next_char = template2[i2 + 1];
+        const next_char = template2[i3 + 1];
         if (!next_char) {
-          i2++;
+          i3++;
           continue;
         }
         if (next_char === "/") {
-          i2 = infinity_if_negative(template2.indexOf("\n", i2 + 1)) + "\n".length;
+          i3 = infinity_if_negative(template2.indexOf("\n", i3 + 1)) + "\n".length;
           continue;
         }
         if (next_char === "*") {
-          i2 = infinity_if_negative(template2.indexOf("*/", i2 + 1)) + "*/".length;
+          i3 = infinity_if_negative(template2.indexOf("*/", i3 + 1)) + "*/".length;
           continue;
         }
-        const end = find_regex_end(template2, i2 + 1) + "/".length;
+        const end = find_regex_end(template2, i3 + 1) + "/".length;
         if (end === Infinity) {
-          i2++;
+          i3++;
         } else {
-          i2 = end;
+          i3 = end;
         }
         continue;
       }
       default: {
-        const char2 = template2[i2];
+        const char2 = template2[i3];
         if (char2 === open3) {
           brackets++;
         } else if (char2 === close2) {
           brackets--;
         }
         if (brackets === 0) {
-          return i2;
+          return i3;
         }
-        i2++;
+        i3++;
       }
     }
   }
@@ -55266,11 +55270,11 @@ var default_close = new Set(Object.values(default_brackets));
 function match_bracket(parser, start, brackets = default_brackets) {
   const close2 = brackets === default_brackets ? default_close : new Set(Object.values(brackets));
   const bracket_stack = [];
-  let i2 = start;
-  while (i2 < parser.template.length) {
-    let char = parser.template[i2++];
+  let i3 = start;
+  while (i3 < parser.template.length) {
+    let char = parser.template[i3++];
     if (char === "'" || char === '"' || char === "`") {
-      i2 = match_quote(parser, i2, char);
+      i3 = match_quote(parser, i3, char);
       continue;
     }
     if (char in brackets) {
@@ -55285,10 +55289,10 @@ function match_bracket(parser, start, brackets = default_brackets) {
         brackets[popped]
       );
       if (char !== expected) {
-        expected_token(i2 - 1, expected);
+        expected_token(i3 - 1, expected);
       }
       if (bracket_stack.length === 0) {
-        return i2;
+        return i3;
       }
     }
   }
@@ -55296,21 +55300,21 @@ function match_bracket(parser, start, brackets = default_brackets) {
 }
 function match_quote(parser, start, quote) {
   let is_escaped = false;
-  let i2 = start;
-  while (i2 < parser.template.length) {
-    const char = parser.template[i2++];
+  let i3 = start;
+  while (i3 < parser.template.length) {
+    const char = parser.template[i3++];
     if (is_escaped) {
       is_escaped = false;
       continue;
     }
     if (char === quote) {
-      return i2;
+      return i3;
     }
     if (char === "\\") {
       is_escaped = true;
     }
-    if (quote === "`" && char === "$" && parser.template[i2] === "{") {
-      i2 = match_bracket(parser, i2);
+    if (quote === "`" && char === "$" && parser.template[i3] === "{") {
+      i3 = match_bracket(parser, i3);
     }
   }
   unterminated_string_constant(start);
@@ -58573,7 +58577,7 @@ var disallowed_children = {
 };
 
 // node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/utils/string.js
-function list(strings, conjunction = "or") {
+function list2(strings, conjunction = "or") {
   if (strings.length === 1) return strings[0];
   if (strings.length === 2) return `${strings[0]} ${conjunction} ${strings[1]}`;
   return `${strings.slice(0, -1).join(", ")} ${conjunction} ${strings[strings.length - 1]}`;
@@ -58683,7 +58687,7 @@ function element(parser) {
   const tag2 = read_tag(parser);
   if (tag2.name.startsWith("svelte:") && !meta_tags.has(tag2.name)) {
     const bounds = { start: start + 1, end: start + 1 + tag2.name.length };
-    svelte_meta_invalid_tag(bounds, list(Array.from(meta_tags.keys())));
+    svelte_meta_invalid_tag(bounds, list2(Array.from(meta_tags.keys())));
   }
   if (!is_valid_element_name(tag2.name) && !regex_valid_component_name.test(tag2.name)) {
     if (!parser.loose || !tag2.name.endsWith(".")) {
@@ -58821,9 +58825,9 @@ function element(parser) {
   if (is_top_level_script_or_style) {
     parser.eat(">", true);
     let prev_comment = null;
-    for (let i2 = current2.fragment.nodes.length - 1; i2 >= 0; i2--) {
-      const node = current2.fragment.nodes[i2];
-      if (i2 === current2.fragment.nodes.length - 1 && node.end !== start) {
+    for (let i3 = current2.fragment.nodes.length - 1; i3 >= 0; i3--) {
+      const node = current2.fragment.nodes[i3];
+      if (i3 === current2.fragment.nodes.length - 1 && node.end !== start) {
         break;
       }
       if (node.type === "Comment") {
@@ -58913,19 +58917,19 @@ function element(parser) {
   }
 }
 function parent_is_head(stack) {
-  let i2 = stack.length;
-  while (i2--) {
-    const { type } = stack[i2];
+  let i3 = stack.length;
+  while (i3--) {
+    const { type } = stack[i3];
     if (type === "SvelteHead") return true;
     if (type === "RegularElement" || type === "Component") return false;
   }
   return false;
 }
 function parent_is_shadowroot_template(stack) {
-  let i2 = stack.length;
-  while (i2--) {
-    if (stack[i2].type === "RegularElement" && /** @type {AST.RegularElement} */
-    stack[i2].attributes.some(
+  let i3 = stack.length;
+  while (i3--) {
+    if (stack[i3].type === "RegularElement" && /** @type {AST.RegularElement} */
+    stack[i3].attributes.some(
       (a2) => a2.type === "Attribute" && a2.name === "shadowrootmode"
     )) {
       return true;
@@ -59314,7 +59318,7 @@ function read_lowercase_name(parser) {
 // node_modules/.pnpm/svelte@5.57.1/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
 function read_pattern(parser) {
   const start = parser.index;
-  let i2 = parser.index;
+  let i3 = parser.index;
   const id2 = parser.read_identifier();
   if (id2.name !== "") {
     const annotation = read_type_annotation(parser);
@@ -59323,14 +59327,14 @@ function read_pattern(parser) {
       typeAnnotation: annotation
     };
   }
-  const char = parser.template[i2];
+  const char = parser.template[i3];
   if (char !== "{" && char !== "[") {
-    expected_pattern(i2);
+    expected_pattern(i3);
   }
-  i2 = match_bracket(parser, start);
-  parser.index = i2;
+  i3 = match_bracket(parser, start);
+  parser.index = i3;
   let expression = remove_parens(
-    parse_expression_at(parser, parser.template.slice(0, i2) + " = 1", start)
+    parse_expression_at(parser, parser.template.slice(0, i3) + " = 1", start)
   );
   expression = expression.left;
   expression.typeAnnotation = read_type_annotation(parser);
@@ -60438,7 +60442,7 @@ var Parser3 = class _Parser {
       this.template.codePointAt(this.index)
     );
     if (isIdentifierStart(code, true)) {
-      let i2 = this.index;
+      let i3 = this.index;
       end += code <= 65535 ? 1 : 2;
       while (end < this.template.length) {
         const code2 = (
@@ -60643,10 +60647,10 @@ var semicolon = ";".charCodeAt(0);
 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 var intToChar = new Uint8Array(64);
 var charToInt = new Uint8Array(128);
-for (let i2 = 0; i2 < chars.length; i2++) {
-  const c = chars.charCodeAt(i2);
-  intToChar[i2] = c;
-  charToInt[c] = i2;
+for (let i3 = 0; i3 < chars.length; i3++) {
+  const c = chars.charCodeAt(i3);
+  intToChar[i3] = c;
+  charToInt[c] = i3;
 }
 var bufLength = 1024 * 16;
 
@@ -60764,15 +60768,15 @@ var component_options = {
     "The legacy option has been removed. If you are using this because of legacy.componentApi, use compatibility.componentApi instead"
   ),
   compatibility: object3({
-    componentApi: list2([4, 5], 5)
+    componentApi: list3([4, 5], 5)
   }),
   loopGuardTimeout: warn_removed(options_removed_loop_guard_timeout),
   name: string(void 0),
-  namespace: list2(["html", "mathml", "svg"]),
+  namespace: list3(["html", "mathml", "svg"]),
   modernAst: boolean(false),
   outputFilename: string(void 0),
   preserveComments: boolean(false),
-  fragments: list2(["html", "tree"]),
+  fragments: list3(["html", "tree"]),
   preserveWhitespace: boolean(false),
   /** @type {Validator<boolean | undefined | (() => boolean | undefined), () => boolean | undefined>} */
   runes: parametric(() => (
@@ -60897,7 +60901,7 @@ function boolean(fallback) {
     return input;
   });
 }
-function list2(options, fallback = options[0]) {
+function list3(options, fallback = options[0]) {
   return validator(fallback, (input, keypath) => {
     if (!options.includes(input)) {
       const msg = options.length > 2 ? `${keypath} should be one of ${options.slice(0, -1).map((input2) => `"${input2}"`).join(", ")} or "${options[options.length - 1]}"` : `${keypath} should be either "${options[0]}" or "${options[1]}"`;
@@ -61770,8 +61774,8 @@ function isPlainObject3(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 function otherOverrideNarrowsOppositeSide(overrides, selfIndex, key2, side) {
-  return overrides.some((entry, i2) => {
-    if (i2 === selfIndex || !isPlainObject3(entry) || !isPlainObject3(entry.rules)) return false;
+  return overrides.some((entry, i3) => {
+    if (i3 === selfIndex || !isPlainObject3(entry) || !isPlainObject3(entry.rules)) return false;
     const setting = entry.rules[key2];
     return isPlainObject3(setting) && isPlainObject3(setting.options) && side in setting.options;
   });
@@ -62254,11 +62258,11 @@ var MAX_SUGGEST_DISTANCE = 2;
 function levenshteinWithin(a2, b, maxDistance) {
   if (Math.abs(a2.length - b.length) > maxDistance) return maxDistance + 1;
   let prev = Array.from({ length: b.length + 1 }, (_, j2) => j2);
-  for (let i2 = 1; i2 <= a2.length; i2++) {
-    const curr = [i2];
-    let rowMin = i2;
+  for (let i3 = 1; i3 <= a2.length; i3++) {
+    const curr = [i3];
+    let rowMin = i3;
     for (let j2 = 1; j2 <= b.length; j2++) {
-      const cost = a2[i2 - 1] === b[j2 - 1] ? 0 : 1;
+      const cost = a2[i3 - 1] === b[j2 - 1] ? 0 : 1;
       const v = Math.min(prev[j2] + 1, curr[j2 - 1] + 1, prev[j2 - 1] + cost);
       curr.push(v);
       if (v < rowMin) rowMin = v;
@@ -62673,12 +62677,12 @@ function foldOccurrences(nodes) {
   const byKey = /* @__PURE__ */ new Map();
   for (const node of nodes) {
     if (node.repeatable) continue;
-    const list3 = byKey.get(node.key);
-    if (list3) list3.push(node);
+    const list4 = byKey.get(node.key);
+    if (list4) list4.push(node);
     else byKey.set(node.key, [node]);
   }
   const folded = /* @__PURE__ */ new Map();
-  for (const [key2, list3] of byKey) folded.set(key2, foldAt(list3, 0));
+  for (const [key2, list4] of byKey) folded.set(key2, foldAt(list4, 0));
   return folded;
 }
 function foldAt(nodes, depth) {
@@ -62692,16 +62696,16 @@ function foldAt(nodes, depth) {
     }
     let branches = groups.get(step.group);
     if (!branches) groups.set(step.group, branches = /* @__PURE__ */ new Map());
-    const list3 = branches.get(step.branch);
-    if (list3) list3.push(node);
+    const list4 = branches.get(step.branch);
+    if (list4) list4.push(node);
     else branches.set(step.branch, [node]);
   }
   const representatives2 = [...unconditional];
   for (const branches of groups.values()) {
     let best = [];
     let bestBranch = Number.POSITIVE_INFINITY;
-    for (const [branch, list3] of branches) {
-      const arm = foldAt(list3, depth + 1);
+    for (const [branch, list4] of branches) {
+      const arm = foldAt(list4, depth + 1);
       if (arm.length > best.length || arm.length === best.length && branch < bestBranch) {
         best = arm;
         bestBranch = branch;
@@ -62772,8 +62776,8 @@ function isTopFragment(id2) {
   return id2.toLowerCase() === "top";
 }
 function stripTextDirective(fragment2) {
-  const i2 = fragment2.indexOf(":~:");
-  return i2 === -1 ? fragment2 : fragment2.slice(0, i2);
+  const i3 = fragment2.indexOf(":~:");
+  return i3 === -1 ? fragment2 : fragment2.slice(0, i3);
 }
 var docsUrl$6 = docsUrlFor("seo/single-h1");
 var passRecommendation = "Use exactly one <h1> per page for its main topic; demote extra top-level headings to <h2>+.";
@@ -62939,9 +62943,9 @@ var seoHeadingLevelSkip = {
     for (const route of ctx.headings ?? []) {
       if (route.headings.length === 0) continue;
       let skip;
-      for (let i2 = 1; i2 < route.headings.length && !skip; i2++) {
-        const h2 = route.headings[i2];
-        const prev = route.headings.slice(0, i2).reverse().find((p2) => !exclusiveHeadings(p2, h2));
+      for (let i3 = 1; i3 < route.headings.length && !skip; i3++) {
+        const h2 = route.headings[i3];
+        const prev = route.headings.slice(0, i3).reverse().find((p2) => !exclusiveHeadings(p2, h2));
         if (prev && h2.level > prev.level + 1) skip = {
           level: h2.level,
           prev: prev.level,
@@ -63691,7 +63695,7 @@ function lineOf(source2, offset2) {
   if (typeof offset2 !== "number" || offset2 < 0) return 0;
   let line = 1;
   const end = Math.min(offset2, source2.length);
-  for (let i2 = 0; i2 < end; i2++) if (source2[i2] === "\n") line++;
+  for (let i3 = 0; i3 < end; i3++) if (source2[i3] === "\n") line++;
   return line;
 }
 function findAttr(attributes, name) {
@@ -63794,12 +63798,12 @@ var JS_DIRECTIVE = new RegExp(`^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+
 var HTML_DIRECTIVE = new RegExp(`^\\s*<!--\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*-->\\s*$`);
 function collectSuppressions(source2) {
   const out = [];
-  source2.split("\n").forEach((line, i2) => {
+  source2.split("\n").forEach((line, i3) => {
     const m = JS_DIRECTIVE.exec(line) ?? HTML_DIRECTIVE.exec(line);
     if (!m) return;
     const ruleIds = m[1]?.split(",").map((s) => s.trim());
     out.push({
-      line: i2 + 2,
+      line: i3 + 2,
       ruleIds
     });
   });
@@ -64758,7 +64762,7 @@ var OPTIONS$5 = { scopes: {
 function ancestorDirs$1(file) {
   const segments = file.split("/");
   const out = [];
-  for (let i2 = segments.length - 1; i2 > 0; i2--) out.push(segments.slice(0, i2).join("/"));
+  for (let i3 = segments.length - 1; i3 > 0; i3--) out.push(segments.slice(0, i3).join("/"));
   return out;
 }
 function privateScopeOf(target, patterns) {
@@ -64862,7 +64866,7 @@ var architecturePrivateScopeImport = {
 function ancestorDirs(file) {
   const segments = file.split("/");
   const out = [];
-  for (let i2 = 1; i2 < segments.length; i2++) out.push(segments.slice(0, i2).join("/"));
+  for (let i3 = 1; i3 < segments.length; i3++) out.push(segments.slice(0, i3).join("/"));
   return out;
 }
 function baseName(dir) {
@@ -65699,8 +65703,8 @@ var architectureRouteComponentImport = componentRule({
 });
 var ID$1 = "architecture/doc-link-target";
 function stripFragment(url) {
-  const i2 = url.search(/[#?]/);
-  return i2 === -1 ? url : url.slice(0, i2);
+  const i3 = url.search(/[#?]/);
+  return i3 === -1 ? url : url.slice(0, i3);
 }
 function baseOf(root) {
   return root.replace(/\/+$/, "");
@@ -66418,10 +66422,10 @@ var a11yDeprecatedAttr = componentRule({
   bad: (c) => (c.elements ?? []).filter((e3) => !e3.inSvg && !htmlElement(e3.tag)?.obsolete).flatMap((e3) => {
     const names = e3.attrs.filter((a2) => isDeprecatedAttr(e3.tag, a2.name)).map((a2) => a2.name);
     if (names.length === 0) return [];
-    const list3 = names.map((n2) => `\`${n2}\``).join(", ");
+    const list4 = names.map((n2) => `\`${n2}\``).join(", ");
     return [{
       line: e3.line,
-      message: `${list3} on <${e3.tag}> ${names.length === 1 ? "is a deprecated attribute" : "are deprecated attributes"}`
+      message: `${list4} on <${e3.tag}> ${names.length === 1 ? "is a deprecated attribute" : "are deprecated attributes"}`
     }];
   })
 });
@@ -66634,10 +66638,10 @@ var Evaluator = class {
   }
   matchCategory(cat, idx) {
     if (cat === "#custom") return false;
-    const list3 = HTML_SPEC.contentModels[cat];
-    if (!list3) return "unknown";
+    const list4 = HTML_SPEC.contentModels[cat];
+    if (!list4) return "unknown";
     let unknown = false;
-    for (const sel of list3) {
+    for (const sel of list4) {
       if (sel === "#text") continue;
       const r2 = this.matchSelector(sel, idx);
       if (r2 === true) return true;
@@ -66688,11 +66692,11 @@ var Evaluator = class {
       if (open3 === -1) return "unknown";
       const fn = rest2.slice(1, open3);
       let depth = 1;
-      let i2 = open3 + 1;
-      for (; i2 < rest2.length && depth > 0; i2++) if (rest2[i2] === "(") depth++;
-      else if (rest2[i2] === ")") depth--;
-      const arg = rest2.slice(open3 + 1, i2 - 1);
-      rest2 = rest2.slice(i2);
+      let i3 = open3 + 1;
+      for (; i3 < rest2.length && depth > 0; i3++) if (rest2[i3] === "(") depth++;
+      else if (rest2[i3] === ")") depth--;
+      const arg = rest2.slice(open3 + 1, i3 - 1);
+      rest2 = rest2.slice(i3);
       if (fn === "model") {
         const r2 = this.matchCategory("#" + arg, idx);
         if (r2 === false) return false;
@@ -66787,8 +66791,8 @@ var STRUCTURE_BOUND = /* @__PURE__ */ new Set([
 function judgeContent(els, children, ancestors, childIdx) {
   const ev = new Evaluator(els, children);
   const child = els[childIdx];
-  for (let i2 = ancestors.length - 1; i2 >= 0; i2--) {
-    const holder = els[ancestors[i2]];
+  for (let i3 = ancestors.length - 1; i3 >= 0; i3--) {
+    const holder = els[ancestors[i3]];
     const spec = Object.hasOwn(HTML_SPEC.elements, holder.tag) ? HTML_SPEC.elements[holder.tag] : void 0;
     if (!spec?.contentModel) return void 0;
     const cm = spec.contentModel;
@@ -66809,9 +66813,9 @@ function judgeContent(els, children, ancestors, childIdx) {
       if (r2 === "unknown") return void 0;
     }
     if (cm.conditional) {
-      const grandparent = i2 >= 1 ? els[ancestors[i2 - 1]] : void 0;
+      const grandparent = i3 >= 1 ? els[ancestors[i3 - 1]] : void 0;
       for (const cond of cm.conditional) {
-        const applies = conditionApplies(ev, cond.condition, ancestors[i2], holder, grandparent?.tag);
+        const applies = conditionApplies(ev, cond.condition, ancestors[i3], holder, grandparent?.tag);
         if (applies === true) {
           if (cond.contents === true) return void 0;
           const repl = [];
@@ -66840,7 +66844,7 @@ function judgeContent(els, children, ancestors, childIdx) {
     }
     if (unknown) return void 0;
     if (filters.length > 0) {
-      if (i2 > 0) continue;
+      if (i3 > 0) continue;
       return;
     }
     return violation(entries);
@@ -66880,22 +66884,22 @@ var a11yPermittedContents = componentRule({
   bad: (c) => {
     const els = c.elements ?? [];
     const children = /* @__PURE__ */ new Map();
-    for (let i2 = 0; i2 < els.length; i2++) {
-      const p2 = els[i2].parent;
+    for (let i3 = 0; i3 < els.length; i3++) {
+      const p2 = els[i3].parent;
       if (p2 === void 0) continue;
-      const list3 = children.get(p2);
-      if (list3) list3.push(i2);
-      else children.set(p2, [i2]);
+      const list4 = children.get(p2);
+      if (list4) list4.push(i3);
+      else children.set(p2, [i3]);
     }
     const out = [];
-    for (let i2 = 0; i2 < els.length; i2++) {
-      const child = els[i2];
+    for (let i3 = 0; i3 < els.length; i3++) {
+      const child = els[i3];
       if (child.parent === void 0 || !judgeable(child)) continue;
       const ancestors = [];
       for (let a2 = child.parent; a2 !== void 0; a2 = els[a2].parent) ancestors.unshift(a2);
       const parent = els[child.parent];
       if (!judgeable(parent) || COMPILER_CARVEOUT.has(parent.tag)) continue;
-      const judgment = judgeContent(els, children, ancestors, i2);
+      const judgment = judgeContent(els, children, ancestors, i3);
       if (!judgment) continue;
       out.push({
         line: child.line,
@@ -66938,10 +66942,10 @@ function surplusRule(spec) {
         let surplus = false;
         for (const [key2, reps] of spec.map(route)) {
           first ??= reps[0];
-          for (let i2 = 1; i2 < reps.length; i2++) {
+          for (let i3 = 1; i3 < reps.length; i3++) {
             surplus = true;
-            const finding = result2(route.route, PENALIZED$1, reps[i2], spec.message(key2, i2, reps.length, reps[0]));
-            const recommendation2 = spec.recommendationFor?.(reps[i2], reps[0]);
+            const finding = result2(route.route, PENALIZED$1, reps[i3], spec.message(key2, i3, reps.length, reps[0]));
+            const recommendation2 = spec.recommendationFor?.(reps[i3], reps[0]);
             out.push(recommendation2 ? {
               ...finding,
               recommendation: recommendation2
@@ -67048,7 +67052,7 @@ var a11yDuplicateLandmark = surplusRule({
     const reps = route.landmarks[kind];
     return reps?.length ? [[kind, reps]] : [];
   }),
-  message: (kind, i2, n2) => `Duplicate ${kind} landmark (${i2 + 1} of ${n2})`,
+  message: (kind, i3, n2) => `Duplicate ${kind} landmark (${i3 + 1} of ${n2})`,
   passMessage: "No duplicate landmarks"
 });
 var result$2 = resultFactory("a11y/top-level-landmark", "A banner, main, complementary, or contentinfo landmark should not be nested inside another landmark.", "warning");
@@ -67806,9 +67810,9 @@ function collectEachBlocks(node, source2, acc, lists, imports2) {
   if (!node || typeof node !== "object") return;
   if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) {
     const expr = node.expression;
-    const list3 = expr?.type === "Identifier" ? expr.name : expr?.type === "MemberExpression" && !expr.computed && expr.object?.type === "Identifier" ? `${expr.object.name}.${expr.property.name}` : void 0;
-    const constant = list3 !== void 0 && lists.has(list3);
-    const [local, member2] = list3?.split(".") ?? [];
+    const list4 = expr?.type === "Identifier" ? expr.name : expr?.type === "MemberExpression" && !expr.computed && expr.object?.type === "Identifier" ? `${expr.object.name}.${expr.property.name}` : void 0;
+    const constant = list4 !== void 0 && lists.has(list4);
+    const [local, member2] = list4?.split(".") ?? [];
     const binding = constant ? imports2.get(local) : void 0;
     const indexKey = isIndexKey(node);
     if (!constant || binding) acc.push({
@@ -69141,7 +69145,7 @@ function collectCommentLinks(source2, { wholeFileIsScript = false } = {}) {
   const out = [];
   let htmlOpen = false;
   let block2 = wholeFileIsScript ? "script" : void 0;
-  source2.split("\n").forEach((line, i2) => {
+  source2.split("\n").forEach((line, i3) => {
     let text2 = "";
     if (block2 !== void 0) {
       if (block2 === "script" && /^\s*\/\//.test(line)) text2 = line.replace(/^\s*\/\//, "");
@@ -69175,7 +69179,7 @@ function collectCommentLinks(source2, { wholeFileIsScript = false } = {}) {
     }
     for (const m of text2.matchAll(MD_LINK)) if (m[1] !== void 0) out.push({
       url: m[1],
-      line: i2 + 1
+      line: i3 + 1
     });
   });
   return out;
@@ -69660,7 +69664,7 @@ function unknownDirectiveIds(index, rules) {
   return [...seen].sort();
 }
 function skippedFileWarnings(facts) {
-  const list3 = (files) => {
+  const list4 = (files) => {
     const shown = files.slice(0, 10);
     return files.length > shown.length ? `${shown.join(", ")}, \u2026 and ${files.length - shown.length} more` : shown.join(", ");
   };
@@ -69668,8 +69672,8 @@ function skippedFileWarnings(facts) {
   const unread = names((f) => f.readFailed === true);
   const unparsed = names((f) => f.parseFailed === true && f.readFailed !== true);
   const out = [];
-  if (unread.length > 0) out.push(`skipped ${unread.length} file(s) that could not be read: ${list3(unread)}`, "this is an environment problem, not a code one \u2014 check file permissions and the open-file limit (`ulimit -n`).");
-  if (unparsed.length > 0) out.push(`skipped ${unparsed.length} file(s) that could not be parsed: ${list3(unparsed)}`, "findings for these files are unavailable until they parse.");
+  if (unread.length > 0) out.push(`skipped ${unread.length} file(s) that could not be read: ${list4(unread)}`, "this is an environment problem, not a code one \u2014 check file permissions and the open-file limit (`ulimit -n`).");
+  if (unparsed.length > 0) out.push(`skipped ${unparsed.length} file(s) that could not be parsed: ${list4(unparsed)}`, "findings for these files are unavailable until they parse.");
   return out;
 }
 function emptyComponentFacts(file) {
@@ -69832,7 +69836,7 @@ function propOf(obj, name) {
 }
 function unwrapToObjectExpression(expr, bindings) {
   let current2 = expr;
-  for (let i2 = 0; i2 < 4 && current2; i2++) {
+  for (let i3 = 0; i3 < 4 && current2; i3++) {
     const e3 = unwrapTs(current2);
     if (e3.type === "ObjectExpression") return e3;
     if (e3.type === "Identifier") {
@@ -69930,8 +69934,8 @@ function pathValueOf(value) {
   }
   if (name !== "resolve" && name !== "join") return void 0;
   const parts = [];
-  for (const [i2, arg] of args.entries()) {
-    if (i2 === 0 && isRootDir(arg)) continue;
+  for (const [i3, arg] of args.entries()) {
+    if (i3 === 0 && isRootDir(arg)) continue;
     const part = stringLiteralOf(arg);
     if (part === void 0) return void 0;
     if (name === "resolve" && part.startsWith("/")) parts.length = 0;
@@ -70167,8 +70171,8 @@ function packageJsonWorkspaceGlobs(source2) {
   } catch {
     return;
   }
-  const list3 = Array.isArray(workspaces) ? workspaces : workspaces?.packages;
-  return Array.isArray(list3) ? list3.filter((g) => typeof g === "string") : void 0;
+  const list4 = Array.isArray(workspaces) ? workspaces : workspaces?.packages;
+  return Array.isArray(list4) ? list4.filter((g) => typeof g === "string") : void 0;
 }
 function svelteField(manifest) {
   let field;
@@ -70959,14 +70963,14 @@ var r = [
   [`gemini`, [`GEMINI_CLI`]],
   [`codex`, [`CODEX_SANDBOX`, `CODEX_THREAD_ID`]],
   [`opencode`, [`OPENCODE`]],
-  [`pi`, [i(`PATH`, /\.pi[\\/]agent/)]],
+  [`pi`, [i2(`PATH`, /\.pi[\\/]agent/)]],
   [`auggie`, [`AUGMENT_AGENT`]],
   [`goose`, [`GOOSE_PROVIDER`]],
-  [`devin`, [i(`EDITOR`, /devin/)]],
+  [`devin`, [i2(`EDITOR`, /devin/)]],
   [`cursor`, [`CURSOR_AGENT`]],
-  [`kiro`, [i(`TERM_PROGRAM`, /kiro/)]]
+  [`kiro`, [i2(`TERM_PROGRAM`, /kiro/)]]
 ];
-function i(t2, n2) {
+function i2(t2, n2) {
   return () => {
     let r2 = e2[t2];
     return r2 ? n2.test(r2) : false;
@@ -71288,8 +71292,8 @@ function addDynamicLocals(id2, init2, out) {
     const call2 = init2.argument;
     if (!(call2.type === "CallExpression" && call2.callee.type === "MemberExpression" && call2.callee.object.type === "Identifier" && call2.callee.object.name === "Promise" && call2.callee.property.type === "Identifier" && call2.callee.property.name === "all" && call2.arguments[0]?.type === "ArrayExpression")) return;
     const elements = call2.arguments[0].elements;
-    id2.elements.forEach((el, i2) => {
-      const s = importSpec(elements[i2]);
+    id2.elements.forEach((el, i3) => {
+      const s = importSpec(elements[i3]);
       if (el?.type === "Identifier" && s) out.modules.set(el.name, s);
     });
   }
@@ -71339,8 +71343,8 @@ function addDynamicBindings(ast, out) {
     if (n2.type !== "AssignmentExpression" || n2.operator !== "=" || n2.left.type !== "Identifier") return;
     if (!lets.has(n2.left.name)) return;
     const loaded = inFunction ? dynamicExport(n2.right, locals) : void 0;
-    const list3 = found.get(n2.left.name) ?? [""];
-    found.set(n2.left.name, [...list3, ...loaded ? [loaded] : candidatesOf(n2.right)]);
+    const list4 = found.get(n2.left.name) ?? [""];
+    found.set(n2.left.name, [...list4, ...loaded ? [loaded] : candidatesOf(n2.right)]);
   });
   for (const [name, candidates] of found) if (candidates.some((c) => typeof c !== "string")) out.set(name, candidates);
 }
@@ -71857,9 +71861,9 @@ function headingLevelOf(tags) {
   return levels.size === 1 ? [...levels][0] : void 0;
 }
 function commonPrefix(a2, b) {
-  let i2 = 0;
-  while (i2 < a2.length && i2 < b.length && a2[i2].group === b[i2].group && a2[i2].branch === b[i2].branch) i2++;
-  return a2.slice(0, i2);
+  let i3 = 0;
+  while (i3 < a2.length && i3 < b.length && a2[i3].group === b[i3].group && a2[i3].branch === b[i3].branch) i3++;
+  return a2.slice(0, i3);
 }
 var BOUNDARY_SNIPPET_ARMS = /* @__PURE__ */ new Map([["failed", 1], ["pending", 2]]);
 function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */ new Set()) {
@@ -72316,8 +72320,8 @@ async function findWorkspacePackages(rt, cwd, packageJsonSource) {
     const paths = [...included].filter((p2) => !excluded.has(p2)).sort();
     const read = await Promise.all(paths.map((p2) => readIfExists(rt, rt.join(root, p2))));
     const byName = /* @__PURE__ */ new Map();
-    paths.forEach((p2, i2) => {
-      const manifest = read[i2];
+    paths.forEach((p2, i3) => {
+      const manifest = read[i3];
       const name = nameOf$1(manifest);
       if (!name || !declared2.get(name)?.startsWith("workspace:")) return;
       const dir = fromApp(cwd, up, p2.slice(0, -13));
@@ -73122,10 +73126,10 @@ async function resolveComponentFiles(ctx, name, parsed, fileRel) {
 async function dropConstantListEachBlocks(ctx, components) {
   return Promise.all(components.map(async (c) => {
     if (!c.eachBlocks.some((e3) => e3.importedList)) return c;
-    const constant = await Promise.all(c.eachBlocks.map(async ({ importedList: list3 }) => list3 ? await resolveExport(ctx, list3.source, c.file, list3.imported, "list") !== void 0 : false));
+    const constant = await Promise.all(c.eachBlocks.map(async ({ importedList: list4 }) => list4 ? await resolveExport(ctx, list4.source, c.file, list4.imported, "list") !== void 0 : false));
     return {
       ...c,
-      eachBlocks: c.eachBlocks.filter((_, i2) => !constant[i2])
+      eachBlocks: c.eachBlocks.filter((_, i3) => !constant[i3])
     };
   }));
 }
@@ -73237,15 +73241,15 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
     const found = depth > 0 ? await resolveComponentFiles(ctx, use.name, parsed, fileRel) : void 0;
     const unvisited = found?.files.filter((f) => !visited.has(f)) ?? [];
     const read = await Promise.all(unvisited.map((f) => readPackageAware(rt, cwd, f, cache)));
-    const files = unvisited.filter((_, i2) => read[i2] !== void 0);
+    const files = unvisited.filter((_, i3) => read[i3] !== void 0);
     const parsedFiles = read.filter((p2) => p2 !== void 0);
     const unreadable = files.length < unvisited.length;
     if (found && files.length > 0) {
       const exclusive = files.length > 1 || !found.complete || files.length < found.files.length;
       const childHead = inHead || use.inHead ? argsOf(parsed, use, inHead ?? /* @__PURE__ */ new Map()) : void 0;
       const maybe = /* @__PURE__ */ new Map();
-      for (const [i2, childRel] of files.entries()) {
-        const childParsed = parsedFiles[i2];
+      for (const [i3, childRel] of files.entries()) {
+        const childParsed = parsedFiles[i3];
         const childVisited = new Set(visited).add(childRel);
         const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache, aliases, childHead);
         const clientOnly = found.clientOnly?.has(childRel) === true;
@@ -73315,8 +73319,8 @@ function isGroupSegment(segment) {
   return /^\(.+\)$/.test(segment);
 }
 function dirOf(rel) {
-  const i2 = rel.lastIndexOf("/");
-  return i2 >= 0 ? rel.slice(0, i2) : "";
+  const i3 = rel.lastIndexOf("/");
+  return i3 >= 0 ? rel.slice(0, i3) : "";
 }
 function dirSegments(dir) {
   const extra = dir.slice(10);
@@ -73334,8 +73338,8 @@ function atTarget(rel, dirSegs, strictAncestor = false) {
   const at2 = parseAt(rel);
   if (at2 === null) return null;
   if (at2 === "") return [];
-  const i2 = (strictAncestor ? dirSegs.slice(0, -1) : dirSegs).lastIndexOf(at2);
-  return i2 >= 0 ? dirSegs.slice(0, i2 + 1) : null;
+  const i3 = (strictAncestor ? dirSegs.slice(0, -1) : dirSegs).lastIndexOf(at2);
+  return i3 >= 0 ? dirSegs.slice(0, i3 + 1) : null;
 }
 function deriveRoute(pageRel) {
   return "/" + dirSegments(dirOf(pageRel)).filter((s) => !isGroupSegment(s)).join("/");
@@ -73465,14 +73469,14 @@ function representativeOrder(chainOrder) {
 function representatives(nodes, chainOrder) {
   const folded = foldOccurrences(nodes);
   const order = representativeOrder(chainOrder);
-  return Object.fromEntries([...folded].map(([key2, list3]) => [key2, list3.sort(order).map(({ file, line }) => ({
+  return Object.fromEntries([...folded].map(([key2, list4]) => [key2, list4.sort(order).map(({ file, line }) => ({
     file,
     line
   }))]));
 }
 async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags, appHtmlHeadTags, headAliases) {
   const files = chainFiles(pageRel, layouts);
-  const chainOrder = new Map(files.map((f, i2) => [f.rel, i2]));
+  const chainOrder = new Map(files.map((f, i3) => [f.rel, i3]));
   const composed = /* @__PURE__ */ new Map();
   const additiveTags = [];
   let broadOwn = false;
@@ -73713,7 +73717,7 @@ async function collectAll(rt, cwd, config, opts = {}) {
     ...h2,
     tags: h2.tags.filter((t2) => !t2.clientOnly)
   } : h2);
-  const images = collected.images.filter((i2) => routeLevel(i2.route));
+  const images = collected.images.filter((i3) => routeLevel(i3.route));
   const pageOf = new Map(collected.heads.map((h2) => [h2.route, h2.file]));
   const headings = collected.headings.filter((h2) => routeLevel(h2.route)).map(({ clientOnlyHeading, ...h2 }) => clientOnlyHeading && routeNeverSsr(pageOf.get(h2.route), ssrScope) ? {
     ...h2,
@@ -73743,12 +73747,12 @@ async function collectAll(rt, cwd, config, opts = {}) {
     ];
     const entries = config.overrides ?? [];
     const compiled = compileOverrides(config);
-    entries.forEach((entry, i2) => {
+    entries.forEach((entry, i3) => {
       globList(entry.route).forEach((glob2) => {
         if (!routes.some(routeMatcher(glob2))) emptySelections.push(`overrides entry for route '${glob2}' matched no route \u2014 route globs are URL paths, e.g. '/blog/**'; see \`svelte-vitals docs show config\`.`);
       });
       globList(entry.files).forEach((glob2, j2) => {
-        const pattern = compiled[i2]?.files[j2];
+        const pattern = compiled[i3]?.files[j2];
         if (pattern && !attributable.some((f) => pattern.test(f))) emptySelections.push(`overrides entry for files '${glob2}' matched no file \u2014 file globs are project-relative, e.g. 'src/lib/**'; see \`svelte-vitals docs show config\`.`);
       });
     });
@@ -73925,8 +73929,8 @@ function loadSuppressions(cwd) {
   if (parsed.version !== 1) throw new Error(`invalid ${SUPPRESSIONS_FILE}: expected "version": 1, got ${JSON.stringify(parsed.version)}.`);
   if (!Array.isArray(parsed.suppressions)) throw new Error(`invalid ${SUPPRESSIONS_FILE}: "suppressions" must be an array.`);
   const entries = [];
-  parsed.suppressions.forEach((entry, i2) => {
-    if (!isPlainObject3(entry) || typeof entry.id !== "string") throw new Error(`invalid ${SUPPRESSIONS_FILE}: suppressions[${i2}] must be an object with a string "id".`);
+  parsed.suppressions.forEach((entry, i3) => {
+    if (!isPlainObject3(entry) || typeof entry.id !== "string") throw new Error(`invalid ${SUPPRESSIONS_FILE}: suppressions[${i3}] must be an object with a string "id".`);
     entries.push({
       id: entry.id,
       ...typeof entry.route === "string" ? { route: entry.route } : {},
@@ -74041,23 +74045,23 @@ function validateConfigFile(raw, path) {
     const isGlobs = (v) => isGlob(v) || Array.isArray(v) && v.length > 0 && v.every(isGlob);
     const overrides = [];
     const rawOverrides = raw.overrides;
-    rawOverrides.forEach((entry, i2) => {
-      if (!isPlainObject3(entry)) throw new Error(`${path}: overrides[${i2}] must be an object with 'route' and/or 'files', and 'rules'.`);
-      if (entry.route !== void 0 && !isGlobs(entry.route)) throw new Error(`${path}: overrides[${i2}].route must be a non-empty string or a non-empty array of non-empty strings.`);
-      if (entry.files !== void 0 && !isGlobs(entry.files)) throw new Error(`${path}: overrides[${i2}].files must be a non-empty string or a non-empty array of non-empty strings.`);
-      if (entry.route === void 0 && entry.files === void 0) throw new Error(`${path}: overrides[${i2}] must set 'route' and/or 'files' to scope the override.`);
-      if (!isPlainObject3(entry.rules)) throw new Error(`${path}: overrides[${i2}].rules must be an object of rule-id/category \u2192 setting.`);
-      if (Object.keys(entry.rules).length === 0) throw new Error(`${path}: overrides[${i2}].rules must contain at least one rule id or category.`);
+    rawOverrides.forEach((entry, i3) => {
+      if (!isPlainObject3(entry)) throw new Error(`${path}: overrides[${i3}] must be an object with 'route' and/or 'files', and 'rules'.`);
+      if (entry.route !== void 0 && !isGlobs(entry.route)) throw new Error(`${path}: overrides[${i3}].route must be a non-empty string or a non-empty array of non-empty strings.`);
+      if (entry.files !== void 0 && !isGlobs(entry.files)) throw new Error(`${path}: overrides[${i3}].files must be a non-empty string or a non-empty array of non-empty strings.`);
+      if (entry.route === void 0 && entry.files === void 0) throw new Error(`${path}: overrides[${i3}] must set 'route' and/or 'files' to scope the override.`);
+      if (!isPlainObject3(entry.rules)) throw new Error(`${path}: overrides[${i3}].rules must be an object of rule-id/category \u2192 setting.`);
+      if (Object.keys(entry.rules).length === 0) throw new Error(`${path}: overrides[${i3}].rules must contain at least one rule id or category.`);
       const unknown = findUnknownRuleIds(Object.keys(entry.rules).filter((k2) => !CATEGORIES.includes(k2)));
-      if (unknown.length > 0) throw new Error(`${path}: unknown rule id(s) or categories in overrides[${i2}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids (${registryTag()}): ${knownRuleIds().join(", ")}`);
+      if (unknown.length > 0) throw new Error(`${path}: unknown rule id(s) or categories in overrides[${i3}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids (${registryTag()}): ${knownRuleIds().join(", ")}`);
       for (const [key2, setting] of Object.entries(entry.rules)) {
         const isCategory = CATEGORIES.includes(key2);
         const baseline = isCategory ? void 0 : resolveRuleOptions(key2, ruleOptionsSpec(key2), {
           ...defaultConfig,
           rules: config.rules ?? {}
         });
-        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i2, key2, setting);
-        validateSetting(path, `overrides[${i2}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
+        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i3, key2, setting);
+        validateSetting(path, `overrides[${i3}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
       }
       overrides.push({
         ...entry.route !== void 0 ? { route: entry.route } : {},
