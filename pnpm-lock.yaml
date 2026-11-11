@@ -173,11 +173,11 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       '@svelte-vitals/core':
-        specifier: ^0.55.2
-        version: 0.55.2
+        specifier: ^0.55.5
+        version: 0.55.5
       svelte-vitals:
-        specifier: ^0.55.2
-        version: 0.55.2(cac@7.0.0)
+        specifier: ^0.55.5
+        version: 0.55.5(cac@7.0.0)
     devDependencies:
       '@changesets/cli':
         specifier: ^3.0.3
@@ -187,7 +187,7 @@ importers:
         version: 24.19.2
       oxfmt:
         specifier: ^0.77.0
-        version: 0.77.0(svelte@5.57.1)
+        version: 0.77.0(svelte@5.57.3)
       oxlint:
         specifier: ^1.92.0
         version: 1.92.0
@@ -1072,8 +1072,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@svelte-vitals/core@0.55.2':
-    resolution: {integrity: sha512-AjSiSBgM76iNhL1YYSM5U0FWVlbLoqph6h+F7jWXs4gXjjAlxuP3ZHhwETpz1Mxc3sO0IT9xAtYrY0yNTfr07w==}
+  '@svelte-vitals/core@0.55.5':
+    resolution: {integrity: sha512-BCEN2ZMWircldU80hFRO3kMXUV4G5wN1oSypZu0/wegcJ0gafngm1lpVMX2fulCvN0O0WJC+WS0rTkQPvGErVQ==}
     engines: {node: '>=24.16.0'}
 
   '@sveltejs/acorn-typescript@1.0.13':
@@ -1616,13 +1616,13 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte-vitals@0.55.2:
-    resolution: {integrity: sha512-w4U11gfYHEEa09uHglzs4871qU8g6OqzdV3GnhOb5LRePYSyHcaxUmOxVTQRn8+3KruRzXiTov/IHbhFefAfIg==}
+  svelte-vitals@0.55.5:
+    resolution: {integrity: sha512-0IoJ2KzPX3KC85cg3ha9v+c8UCnJ4ii7Oi/3pyG1p2+rOxWuOx0Y47nqYnKeNRMJQITSQFBowJQTHF0C8OXCvQ==}
     engines: {node: '>=24.16.0'}
     hasBin: true
 
-  svelte@5.57.1:
-    resolution: {integrity: sha512-Uqj49lWKB+iSSnneuwiYYJ7MZgkB+eXr0LXBhv4uDuAkXqnWmq65Sxflfvp0Lc6MdKjMUxGaeOKWJqz5SNiVIA==}
+  svelte@5.57.3:
+    resolution: {integrity: sha512-5mAftM3SoDV9X0zdF386F9p2pv8iKOwi/KfBS1XnBAkVCKFzVOLHUoa8iGWAt4buoicLmyWVRpuuD5wplXOQsg==}
     engines: {node: '>=18'}
 
   thenify-all@1.6.0:
@@ -2393,10 +2393,10 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.68.0':
     optional: true
 
-  '@svelte-vitals/core@0.55.2':
+  '@svelte-vitals/core@0.55.5':
     dependencies:
       aria-query: 5.3.2
-      svelte: 5.57.1
+      svelte: 5.57.3
     transitivePeerDependencies:
       - '@typescript-eslint/types'
 
@@ -2607,7 +2607,7 @@ snapshots:
 
   is-reference@3.0.3:
     dependencies:
-      '@types/estree': 1.0.9
+      '@types/estree': 1.0.10
 
   jju@1.4.0: {}
 
@@ -2712,7 +2712,7 @@ snapshots:
 
   obug@3.0.0: {}
 
-  oxfmt@0.77.0(svelte@5.57.1):
+  oxfmt@0.77.0(svelte@5.57.3):
     dependencies:
       tinypool: 2.2.0
     optionalDependencies:
@@ -2735,7 +2735,7 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.77.0
       '@oxfmt/binding-win32-ia32-msvc': 0.77.0
       '@oxfmt/binding-win32-x64-msvc': 0.77.0
-      svelte: 5.57.1
+      svelte: 5.57.3
 
   oxlint@1.92.0:
     optionalDependencies:
@@ -2865,16 +2865,16 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  svelte-vitals@0.55.2(cac@7.0.0):
+  svelte-vitals@0.55.5(cac@7.0.0):
     dependencies:
       '@clack/prompts': 1.8.1
       '@gunshi/plugin-completion': 0.37.3(@gunshi/plugin-i18n@0.37.3)(cac@7.0.0)
       '@gunshi/plugin-i18n': 0.37.3
       '@gunshi/plugin-suggestion': 0.37.3(@gunshi/plugin-i18n@0.37.3)
-      '@svelte-vitals/core': 0.55.2
+      '@svelte-vitals/core': 0.55.5
       gunshi: 0.37.3
       magicast: 0.5.5
-      svelte: 5.57.1
+      svelte: 5.57.3
     transitivePeerDependencies:
       - '@gunshi/plugin-global'
       - '@typescript-eslint/types'
@@ -2882,12 +2882,12 @@ snapshots:
       - citty
       - commander
 
-  svelte@5.57.1:
+  svelte@5.57.3:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.6.0
       '@sveltejs/acorn-typescript': 1.0.13(acorn@8.18.0)
-      '@types/estree': 1.0.9
+      '@types/estree': 1.0.10
       acorn: 8.18.0
       aria-query: 5.3.1
       axobject-query: 4.1.0
