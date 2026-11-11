@@ -1,0 +1,7 @@
+{
+  "name": "e2e-workspace",
+  "private": true,
+  "devDependencies": {
+    "svelte-vitals": "0.44.0"
+  }
+}

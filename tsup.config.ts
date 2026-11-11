@@ -1,4 +1,5 @@
 import { defineConfig } from 'tsup';
+import { define } from './bundled-version.js';
 
 // ESM-only by design (issue #20) — never add 'cjs'. Everything is bundled (noExternal)
 // because GitHub Actions runs dist/index.js standalone — there is no `npm install`
@@ -9,6 +10,7 @@ export default defineConfig({
   noExternal: [/.*/],
   clean: true,
   target: 'es2022',
+  define,
   // Transitive CJS deps (e.g. `tunnel`, pulled in by @actions/github's proxy support)
   // call require('net')/('tls')/etc. at module scope. esbuild's ESM output has no
   // real `require` in scope for those to fall back on, so without this shim they

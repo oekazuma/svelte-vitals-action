@@ -16,6 +16,7 @@
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:e2e": "node test/e2e/run.mjs",
     "lint": "oxlint . && oxfmt --check .",
     "format": "oxfmt --write .",
     "changeset": "changeset",
