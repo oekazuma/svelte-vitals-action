@@ -45,9 +45,9 @@ var require_tunnel = __commonJS({
     "use strict";
     var net = __require("net");
     var tls = __require("tls");
-    var http = __require("http");
-    var https = __require("https");
-    var events = __require("events");
+    var http2 = __require("http");
+    var https2 = __require("https");
+    var events2 = __require("events");
     var assert2 = __require("assert");
     var util = __require("util");
     exports.httpOverHttp = httpOverHttp2;
@@ -56,24 +56,24 @@ var require_tunnel = __commonJS({
     exports.httpsOverHttps = httpsOverHttps2;
     function httpOverHttp2(options) {
       var agent = new TunnelingAgent(options);
-      agent.request = http.request;
+      agent.request = http2.request;
       return agent;
     }
     function httpsOverHttp2(options) {
       var agent = new TunnelingAgent(options);
-      agent.request = http.request;
+      agent.request = http2.request;
       agent.createSocket = createSecureSocket;
       agent.defaultPort = 443;
       return agent;
     }
     function httpOverHttps2(options) {
       var agent = new TunnelingAgent(options);
-      agent.request = https.request;
+      agent.request = https2.request;
       return agent;
     }
     function httpsOverHttps2(options) {
       var agent = new TunnelingAgent(options);
-      agent.request = https.request;
+      agent.request = https2.request;
       agent.createSocket = createSecureSocket;
       agent.defaultPort = 443;
       return agent;
@@ -82,7 +82,7 @@ var require_tunnel = __commonJS({
       var self = this;
       self.options = options || {};
       self.proxyOptions = self.options.proxy || {};
-      self.maxSockets = self.options.maxSockets || http.Agent.defaultMaxSockets;
+      self.maxSockets = self.options.maxSockets || http2.Agent.defaultMaxSockets;
       self.requests = [];
       self.sockets = [];
       self.on("free", function onFree(socket, host, port, localAddress) {
@@ -99,7 +99,7 @@ var require_tunnel = __commonJS({
         self.removeSocket(socket);
       });
     }
-    util.inherits(TunnelingAgent, events.EventEmitter);
+    util.inherits(TunnelingAgent, events2.EventEmitter);
     TunnelingAgent.prototype.addRequest = function addRequest(req, host, port, localAddress) {
       var self = this;
       var options = mergeOptions({ request: req }, self.options, toOptions(host, port, localAddress));
@@ -1080,14 +1080,14 @@ var require_util = __commonJS({
         }
         const port = url.port != null ? url.port : url.protocol === "https:" ? 443 : 80;
         let origin = url.origin != null ? url.origin : `${url.protocol || ""}//${url.hostname || ""}:${port}`;
-        let path = url.path != null ? url.path : `${url.pathname || ""}${url.search || ""}`;
+        let path6 = url.path != null ? url.path : `${url.pathname || ""}${url.search || ""}`;
         if (origin[origin.length - 1] === "/") {
           origin = origin.slice(0, origin.length - 1);
         }
-        if (path && path[0] !== "/") {
-          path = `/${path}`;
+        if (path6 && path6[0] !== "/") {
+          path6 = `/${path6}`;
         }
-        return new URL(`${origin}${path}`);
+        return new URL(`${origin}${path6}`);
       }
       if (!isHttpOrHttpsPrefixed(url.origin || url.protocol)) {
         throw new InvalidArgumentError("Invalid URL protocol: the URL must start with `http:` or `https:`.");
@@ -1538,39 +1538,39 @@ var require_diagnostics = __commonJS({
       });
       diagnosticsChannel.channel("undici:client:sendHeaders").subscribe((evt) => {
         const {
-          request: { method: method2, path, origin }
+          request: { method: method2, path: path6, origin }
         } = evt;
-        debuglog("sending request to %s %s/%s", method2, origin, path);
+        debuglog("sending request to %s %s/%s", method2, origin, path6);
       });
       diagnosticsChannel.channel("undici:request:headers").subscribe((evt) => {
         const {
-          request: { method: method2, path, origin },
+          request: { method: method2, path: path6, origin },
           response: { statusCode }
         } = evt;
         debuglog(
           "received response to %s %s/%s - HTTP %d",
           method2,
           origin,
-          path,
+          path6,
           statusCode
         );
       });
       diagnosticsChannel.channel("undici:request:trailers").subscribe((evt) => {
         const {
-          request: { method: method2, path, origin }
+          request: { method: method2, path: path6, origin }
         } = evt;
-        debuglog("trailers received from %s %s/%s", method2, origin, path);
+        debuglog("trailers received from %s %s/%s", method2, origin, path6);
       });
       diagnosticsChannel.channel("undici:request:error").subscribe((evt) => {
         const {
-          request: { method: method2, path, origin },
+          request: { method: method2, path: path6, origin },
           error: error2
         } = evt;
         debuglog(
           "request to %s %s/%s errored - %s",
           method2,
           origin,
-          path,
+          path6,
           error2.message
         );
       });
@@ -1619,9 +1619,9 @@ var require_diagnostics = __commonJS({
         });
         diagnosticsChannel.channel("undici:client:sendHeaders").subscribe((evt) => {
           const {
-            request: { method: method2, path, origin }
+            request: { method: method2, path: path6, origin }
           } = evt;
-          debuglog("sending request to %s %s/%s", method2, origin, path);
+          debuglog("sending request to %s %s/%s", method2, origin, path6);
         });
       }
       diagnosticsChannel.channel("undici:websocket:open").subscribe((evt) => {
@@ -1684,7 +1684,7 @@ var require_request = __commonJS({
     var kHandler = /* @__PURE__ */ Symbol("handler");
     var Request = class {
       constructor(origin, {
-        path,
+        path: path6,
         method: method2,
         body,
         headers,
@@ -1699,11 +1699,11 @@ var require_request = __commonJS({
         expectContinue,
         servername
       }, handler2) {
-        if (typeof path !== "string") {
+        if (typeof path6 !== "string") {
           throw new InvalidArgumentError("path must be a string");
-        } else if (path[0] !== "/" && !(path.startsWith("http://") || path.startsWith("https://")) && method2 !== "CONNECT") {
+        } else if (path6[0] !== "/" && !(path6.startsWith("http://") || path6.startsWith("https://")) && method2 !== "CONNECT") {
           throw new InvalidArgumentError("path must be an absolute URL or start with a slash");
-        } else if (invalidPathRegex.test(path)) {
+        } else if (invalidPathRegex.test(path6)) {
           throw new InvalidArgumentError("invalid request path");
         }
         if (typeof method2 !== "string") {
@@ -1769,7 +1769,7 @@ var require_request = __commonJS({
         this.completed = false;
         this.aborted = false;
         this.upgrade = upgrade || null;
-        this.path = query ? buildURL(path, query) : path;
+        this.path = query ? buildURL(path6, query) : path6;
         this.origin = origin;
         this.idempotent = idempotent == null ? method2 === "HEAD" || method2 === "GET" : idempotent;
         this.blocking = blocking == null ? false : blocking;
@@ -2055,8 +2055,8 @@ var require_request = __commonJS({
 var require_dispatcher = __commonJS({
   "node_modules/.pnpm/undici@6.29.0/node_modules/undici/lib/dispatcher/dispatcher.js"(exports, module) {
     "use strict";
-    var EventEmitter = __require("events");
-    var Dispatcher = class extends EventEmitter {
+    var EventEmitter2 = __require("events");
+    var Dispatcher = class extends EventEmitter2 {
       dispatch() {
         throw new Error("not implemented");
       }
@@ -2158,9 +2158,9 @@ var require_dispatcher_base = __commonJS({
       }
       close(callback) {
         if (callback === void 0) {
-          return new Promise((resolve3, reject) => {
+          return new Promise((resolve6, reject) => {
             this.close((err, data2) => {
-              return err ? reject(err) : resolve3(data2);
+              return err ? reject(err) : resolve6(data2);
             });
           });
         }
@@ -2198,12 +2198,12 @@ var require_dispatcher_base = __commonJS({
           err = null;
         }
         if (callback === void 0) {
-          return new Promise((resolve3, reject) => {
+          return new Promise((resolve6, reject) => {
             this.destroy(err, (err2, data2) => {
               return err2 ? (
                 /* istanbul ignore next: should never error */
                 reject(err2)
-              ) : resolve3(data2);
+              ) : resolve6(data2);
             });
           });
         }
@@ -4085,11 +4085,11 @@ var require_util2 = __commonJS({
     var { isUint8Array } = __require("util/types");
     var { webidl } = require_webidl();
     var supportedHashes = [];
-    var crypto;
+    var crypto2;
     try {
-      crypto = __require("crypto");
+      crypto2 = __require("crypto");
       const possibleRelevantHashes = ["sha256", "sha384", "sha512"];
-      supportedHashes = crypto.getHashes().filter((hash2) => possibleRelevantHashes.includes(hash2));
+      supportedHashes = crypto2.getHashes().filter((hash2) => possibleRelevantHashes.includes(hash2));
     } catch {
     }
     function responseURL(response) {
@@ -4362,7 +4362,7 @@ var require_util2 = __commonJS({
       }
     }
     function bytesMatch(bytes, metadataList) {
-      if (crypto === void 0) {
+      if (crypto2 === void 0) {
         return true;
       }
       const parsedMetadata = parseMetadata(metadataList);
@@ -4377,7 +4377,7 @@ var require_util2 = __commonJS({
       for (const item of metadata) {
         const algorithm = item.algo;
         const expectedValue = item.hash;
-        let actualValue = crypto.createHash(algorithm).update(bytes).digest("base64");
+        let actualValue = crypto2.createHash(algorithm).update(bytes).digest("base64");
         if (actualValue[actualValue.length - 1] === "=") {
           if (actualValue[actualValue.length - 2] === "=") {
             actualValue = actualValue.slice(0, -2);
@@ -4470,8 +4470,8 @@ var require_util2 = __commonJS({
     function createDeferredPromise() {
       let res;
       let rej;
-      const promise = new Promise((resolve3, reject) => {
-        res = resolve3;
+      const promise = new Promise((resolve6, reject) => {
+        res = resolve6;
         rej = reject;
       });
       return { promise, resolve: res, reject: rej };
@@ -5441,8 +5441,8 @@ var require_body = __commonJS({
     var { multipartFormDataParser } = require_formdata_parser();
     var random;
     try {
-      const crypto = __require("crypto");
-      random = (max) => crypto.randomInt(0, max);
+      const crypto2 = __require("crypto");
+      random = (max) => crypto2.randomInt(0, max);
     } catch {
       random = (max) => Math.floor(Math.random(max));
     }
@@ -6455,7 +6455,7 @@ var require_client_h1 = __commonJS({
       return method2 !== "GET" && method2 !== "HEAD" && method2 !== "OPTIONS" && method2 !== "TRACE" && method2 !== "CONNECT";
     }
     function writeH1(client, request2) {
-      const { method: method2, path, host, upgrade, blocking, reset: reset3 } = request2;
+      const { method: method2, path: path6, host, upgrade, blocking, reset: reset3 } = request2;
       let { body, headers, contentLength } = request2;
       const expectsPayload = method2 === "PUT" || method2 === "POST" || method2 === "PATCH" || method2 === "QUERY" || method2 === "PROPFIND" || method2 === "PROPPATCH";
       if (util.isFormDataLike(body)) {
@@ -6536,7 +6536,7 @@ var require_client_h1 = __commonJS({
       if (blocking) {
         socket[kBlocking] = true;
       }
-      let header = `${method2} ${path} HTTP/1.1\r
+      let header = `${method2} ${path6} HTTP/1.1\r
 `;
       if (typeof host === "string") {
         header += `host: ${host}\r
@@ -6723,12 +6723,12 @@ upgrade: ${upgrade}\r
           cb();
         }
       }
-      const waitForDrain = () => new Promise((resolve3, reject) => {
+      const waitForDrain = () => new Promise((resolve6, reject) => {
         assert2(callback === null);
         if (socket[kError]) {
           reject(socket[kError]);
         } else {
-          callback = resolve3;
+          callback = resolve6;
         }
       });
       socket.on("close", onDrain).on("drain", onDrain);
@@ -7067,7 +7067,7 @@ var require_client_h2 = __commonJS({
     }
     function writeH2(client, request2) {
       const session = client[kHTTP2Session];
-      const { method: method2, path, host, upgrade, expectContinue, signal, headers: reqHeaders } = request2;
+      const { method: method2, path: path6, host, upgrade, expectContinue, signal, headers: reqHeaders } = request2;
       let { body } = request2;
       if (upgrade) {
         util.errorRequest(client, request2, new Error("Upgrade not supported for H2"));
@@ -7164,7 +7164,7 @@ var require_client_h2 = __commonJS({
         });
         return true;
       }
-      headers[HTTP2_HEADER_PATH] = path;
+      headers[HTTP2_HEADER_PATH] = path6;
       headers[HTTP2_HEADER_SCHEME] = "https";
       const expectsPayload = method2 === "PUT" || method2 === "POST" || method2 === "PATCH";
       if (body && typeof body.read === "function") {
@@ -7400,12 +7400,12 @@ var require_client_h2 = __commonJS({
           cb();
         }
       }
-      const waitForDrain = () => new Promise((resolve3, reject) => {
+      const waitForDrain = () => new Promise((resolve6, reject) => {
         assert2(callback === null);
         if (socket[kError]) {
           reject(socket[kError]);
         } else {
-          callback = resolve3;
+          callback = resolve6;
         }
       });
       h2stream.on("close", onDrain).on("drain", onDrain);
@@ -7517,9 +7517,9 @@ var require_redirect_handler = __commonJS({
           return this.handler.onHeaders(statusCode, headers, resume, statusText);
         }
         const { origin, pathname, search } = util.parseURL(new URL(this.location, this.opts.origin && new URL(this.opts.path, this.opts.origin)));
-        const path = search ? `${pathname}${search}` : pathname;
+        const path6 = search ? `${pathname}${search}` : pathname;
         this.opts.headers = cleanRequestHeaders(this.opts.headers, statusCode === 303, this.opts.origin !== origin);
-        this.opts.path = path;
+        this.opts.path = path6;
         this.opts.origin = origin;
         this.opts.maxRedirections = 0;
         this.opts.query = null;
@@ -7623,7 +7623,7 @@ var require_client = __commonJS({
     "use strict";
     var assert2 = __require("assert");
     var net = __require("net");
-    var http = __require("http");
+    var http2 = __require("http");
     var util = require_util();
     var { channels } = require_diagnostics();
     var Request = require_request();
@@ -7811,7 +7811,7 @@ var require_client = __commonJS({
         this[kUrl] = util.parseOrigin(url);
         this[kConnector] = connect2;
         this[kPipelining] = pipelining != null ? pipelining : 1;
-        this[kMaxHeadersSize] = maxHeaderSize || http.maxHeaderSize;
+        this[kMaxHeadersSize] = maxHeaderSize || http2.maxHeaderSize;
         this[kKeepAliveDefaultTimeout] = keepAliveTimeout == null ? 4e3 : keepAliveTimeout;
         this[kKeepAliveMaxTimeout] = keepAliveMaxTimeout == null ? 6e5 : keepAliveMaxTimeout;
         this[kKeepAliveTimeoutThreshold] = keepAliveTimeoutThreshold == null ? 2e3 : keepAliveTimeoutThreshold;
@@ -7883,16 +7883,16 @@ var require_client = __commonJS({
         return this[kNeedDrain] < 2;
       }
       async [kClose]() {
-        return new Promise((resolve3) => {
+        return new Promise((resolve6) => {
           if (this[kSize]) {
-            this[kClosedResolve] = resolve3;
+            this[kClosedResolve] = resolve6;
           } else {
-            resolve3(null);
+            resolve6(null);
           }
         });
       }
       async [kDestroy](err) {
-        return new Promise((resolve3) => {
+        return new Promise((resolve6) => {
           const requests = this[kQueue].splice(this[kPendingIdx]);
           for (let i3 = 0; i3 < requests.length; i3++) {
             const request2 = requests[i3];
@@ -7903,7 +7903,7 @@ var require_client = __commonJS({
               this[kClosedResolve]();
               this[kClosedResolve] = null;
             }
-            resolve3(null);
+            resolve6(null);
           };
           if (this[kHTTPContext]) {
             this[kHTTPContext].destroy(err, callback);
@@ -7954,7 +7954,7 @@ var require_client = __commonJS({
         });
       }
       try {
-        const socket = await new Promise((resolve3, reject) => {
+        const socket = await new Promise((resolve6, reject) => {
           client[kConnector]({
             host,
             hostname,
@@ -7966,7 +7966,7 @@ var require_client = __commonJS({
             if (err) {
               reject(err);
             } else {
-              resolve3(socket2);
+              resolve6(socket2);
             }
           });
         });
@@ -8303,8 +8303,8 @@ var require_pool_base = __commonJS({
         if (this[kQueue].isEmpty()) {
           await Promise.all(this[kClients].map((c) => c.close()));
         } else {
-          await new Promise((resolve3) => {
-            this[kClosedResolve] = resolve3;
+          await new Promise((resolve6) => {
+            this[kClosedResolve] = resolve6;
           });
         }
       }
@@ -8619,7 +8619,7 @@ var require_agent = __commonJS({
     function defaultFactory(origin, opts) {
       return opts && opts.connections === 1 ? new Client(origin, opts) : new Pool(origin, opts);
     }
-    var Agent = class extends DispatcherBase {
+    var Agent3 = class extends DispatcherBase {
       constructor({ factory = defaultFactory, maxRedirections = 0, connect, ...options } = {}) {
         if (typeof factory !== "function") {
           throw new InvalidArgumentError("factory must be a function.");
@@ -8691,7 +8691,7 @@ var require_agent = __commonJS({
         await Promise.all(destroyPromises);
       }
     };
-    module.exports = Agent;
+    module.exports = Agent3;
   }
 });
 
@@ -8701,7 +8701,7 @@ var require_proxy_agent = __commonJS({
     "use strict";
     var { kProxy, kClose, kDestroy, kDispatch, kInterceptors } = require_symbols();
     var { URL: URL2 } = __require("url");
-    var Agent = require_agent();
+    var Agent3 = require_agent();
     var Pool = require_pool();
     var DispatcherBase = require_dispatcher_base();
     var { InvalidArgumentError, RequestAbortedError, SecureProxyConnectionError } = require_errors();
@@ -8755,10 +8755,10 @@ var require_proxy_agent = __commonJS({
         };
         const {
           origin,
-          path = "/",
+          path: path6 = "/",
           headers = {}
         } = opts;
-        opts.path = origin + path;
+        opts.path = origin + path6;
         if (!("host" in headers) && !("Host" in headers)) {
           const { host } = new URL2(origin);
           headers.host = host;
@@ -8816,7 +8816,7 @@ var require_proxy_agent = __commonJS({
           return agentFactory(origin2, options);
         };
         this[kClient] = clientFactory(url, { connect });
-        this[kAgent] = new Agent({
+        this[kAgent] = new Agent3({
           ...opts,
           factory,
           connect: async (opts2, callback) => {
@@ -8925,7 +8925,7 @@ var require_env_http_proxy_agent = __commonJS({
     var DispatcherBase = require_dispatcher_base();
     var { kClose, kDestroy, kClosed, kDestroyed, kDispatch, kNoProxyAgent, kHttpProxyAgent, kHttpsProxyAgent } = require_symbols();
     var ProxyAgent2 = require_proxy_agent();
-    var Agent = require_agent();
+    var Agent3 = require_agent();
     var DEFAULT_PORTS = {
       "http:": 80,
       "https:": 443
@@ -8945,7 +8945,7 @@ var require_env_http_proxy_agent = __commonJS({
           });
         }
         const { httpProxy, httpsProxy, noProxy, ...agentOpts } = opts;
-        this[kNoProxyAgent] = new Agent(agentOpts);
+        this[kNoProxyAgent] = new Agent3(agentOpts);
         const HTTP_PROXY = httpProxy ?? process.env.http_proxy ?? process.env.HTTP_PROXY;
         if (HTTP_PROXY) {
           this[kHttpProxyAgent] = new ProxyAgent2({ ...agentOpts, uri: HTTP_PROXY });
@@ -9570,7 +9570,7 @@ var require_readable = __commonJS({
         if (this._readableState.closeEmitted) {
           return null;
         }
-        return await new Promise((resolve3, reject) => {
+        return await new Promise((resolve6, reject) => {
           if (this[kContentLength] > limit) {
             this.destroy(new AbortError());
           }
@@ -9583,7 +9583,7 @@ var require_readable = __commonJS({
             if (signal?.aborted) {
               reject(signal.reason ?? new AbortError());
             } else {
-              resolve3(null);
+              resolve6(null);
             }
           }).on("error", noop3).on("data", function(chunk) {
             limit -= chunk.length;
@@ -9602,7 +9602,7 @@ var require_readable = __commonJS({
     }
     async function consume(stream, type) {
       assert2(!stream[kConsume]);
-      return new Promise((resolve3, reject) => {
+      return new Promise((resolve6, reject) => {
         if (isUnusable(stream)) {
           const rState = stream._readableState;
           if (rState.destroyed && rState.closeEmitted === false) {
@@ -9619,7 +9619,7 @@ var require_readable = __commonJS({
             stream[kConsume] = {
               type,
               stream,
-              resolve: resolve3,
+              resolve: resolve6,
               reject,
               length: 0,
               body: []
@@ -9689,18 +9689,18 @@ var require_readable = __commonJS({
       return buffer;
     }
     function consumeEnd(consume2) {
-      const { type, body, resolve: resolve3, stream, length } = consume2;
+      const { type, body, resolve: resolve6, stream, length } = consume2;
       try {
         if (type === "text") {
-          resolve3(chunksDecode(body, length));
+          resolve6(chunksDecode(body, length));
         } else if (type === "json") {
-          resolve3(JSON.parse(chunksDecode(body, length)));
+          resolve6(JSON.parse(chunksDecode(body, length)));
         } else if (type === "arrayBuffer") {
-          resolve3(chunksConcat(body, length).buffer);
+          resolve6(chunksConcat(body, length).buffer);
         } else if (type === "blob") {
-          resolve3(new Blob(body, { type: stream[kContentType] }));
+          resolve6(new Blob(body, { type: stream[kContentType] }));
         } else if (type === "bytes") {
-          resolve3(chunksConcat(body, length));
+          resolve6(chunksConcat(body, length));
         }
         consumeFinish(consume2);
       } catch (err) {
@@ -9958,9 +9958,9 @@ var require_api_request = __commonJS({
     };
     function request2(opts, callback) {
       if (callback === void 0) {
-        return new Promise((resolve3, reject) => {
+        return new Promise((resolve6, reject) => {
           request2.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve3(data2);
+            return err ? reject(err) : resolve6(data2);
           });
         });
       }
@@ -10184,9 +10184,9 @@ var require_api_stream = __commonJS({
     };
     function stream(opts, factory, callback) {
       if (callback === void 0) {
-        return new Promise((resolve3, reject) => {
+        return new Promise((resolve6, reject) => {
           stream.call(this, opts, factory, (err, data2) => {
-            return err ? reject(err) : resolve3(data2);
+            return err ? reject(err) : resolve6(data2);
           });
         });
       }
@@ -10471,9 +10471,9 @@ var require_api_upgrade = __commonJS({
     };
     function upgrade(opts, callback) {
       if (callback === void 0) {
-        return new Promise((resolve3, reject) => {
+        return new Promise((resolve6, reject) => {
           upgrade.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve3(data2);
+            return err ? reject(err) : resolve6(data2);
           });
         });
       }
@@ -10565,9 +10565,9 @@ var require_api_connect = __commonJS({
     };
     function connect(opts, callback) {
       if (callback === void 0) {
-        return new Promise((resolve3, reject) => {
+        return new Promise((resolve6, reject) => {
           connect.call(this, opts, (err, data2) => {
-            return err ? reject(err) : resolve3(data2);
+            return err ? reject(err) : resolve6(data2);
           });
         });
       }
@@ -10732,20 +10732,20 @@ var require_mock_utils = __commonJS({
       }
       return true;
     }
-    function safeUrl(path) {
-      if (typeof path !== "string") {
-        return path;
+    function safeUrl(path6) {
+      if (typeof path6 !== "string") {
+        return path6;
       }
-      const pathSegments = path.split("?");
+      const pathSegments = path6.split("?");
       if (pathSegments.length !== 2) {
-        return path;
+        return path6;
       }
       const qp = new URLSearchParams(pathSegments.pop());
       qp.sort();
       return [...pathSegments, qp.toString()].join("?");
     }
-    function matchKey(mockDispatch2, { path, method: method2, body, headers }) {
-      const pathMatch = matchValue(mockDispatch2.path, path);
+    function matchKey(mockDispatch2, { path: path6, method: method2, body, headers }) {
+      const pathMatch = matchValue(mockDispatch2.path, path6);
       const methodMatch = matchValue(mockDispatch2.method, method2);
       const bodyMatch = typeof mockDispatch2.body !== "undefined" ? matchValue(mockDispatch2.body, body) : true;
       const headersMatch = matchHeaders(mockDispatch2, headers);
@@ -10767,7 +10767,7 @@ var require_mock_utils = __commonJS({
     function getMockDispatch(mockDispatches, key2) {
       const basePath = key2.query ? buildURL(key2.path, key2.query) : key2.path;
       const resolvedPath = typeof basePath === "string" ? safeUrl(basePath) : basePath;
-      let matchedMockDispatches = mockDispatches.filter(({ consumed }) => !consumed).filter(({ path }) => matchValue(safeUrl(path), resolvedPath));
+      let matchedMockDispatches = mockDispatches.filter(({ consumed }) => !consumed).filter(({ path: path6 }) => matchValue(safeUrl(path6), resolvedPath));
       if (matchedMockDispatches.length === 0) {
         throw new MockNotMatchedError(`Mock dispatch not matched for path '${resolvedPath}'`);
       }
@@ -10805,9 +10805,9 @@ var require_mock_utils = __commonJS({
       }
     }
     function buildKey(opts) {
-      const { path, method: method2, body, headers, query } = opts;
+      const { path: path6, method: method2, body, headers, query } = opts;
       return {
-        path,
+        path: path6,
         method: method2,
         body,
         headers,
@@ -11270,10 +11270,10 @@ var require_pending_interceptors_formatter = __commonJS({
       }
       format(pendingInterceptors) {
         const withPrettyHeaders = pendingInterceptors.map(
-          ({ method: method2, path, data: { statusCode }, persist, times, timesInvoked, origin }) => ({
+          ({ method: method2, path: path6, data: { statusCode }, persist, times, timesInvoked, origin }) => ({
             Method: method2,
             Origin: origin,
-            Path: path,
+            Path: path6,
             "Status code": statusCode,
             Persistent: persist ? PERSISTENT : NOT_PERSISTENT,
             Invocations: timesInvoked,
@@ -11292,7 +11292,7 @@ var require_mock_agent = __commonJS({
   "node_modules/.pnpm/undici@6.29.0/node_modules/undici/lib/mock/mock-agent.js"(exports, module) {
     "use strict";
     var { kClients } = require_symbols();
-    var Agent = require_agent();
+    var Agent3 = require_agent();
     var {
       kAgent,
       kMockAgentSet,
@@ -11319,7 +11319,7 @@ var require_mock_agent = __commonJS({
         if (opts?.agent && typeof opts.agent.dispatch !== "function") {
           throw new InvalidArgumentError("Argument opts.agent must implement Agent");
         }
-        const agent = opts?.agent ? opts.agent : new Agent(opts);
+        const agent = opts?.agent ? opts.agent : new Agent3(opts);
         this[kAgent] = agent;
         this[kClients] = agent[kClients];
         this[kOptions] = buildMockOptions(opts);
@@ -11423,9 +11423,9 @@ var require_global2 = __commonJS({
     "use strict";
     var globalDispatcher = /* @__PURE__ */ Symbol.for("undici.globalDispatcher.1");
     var { InvalidArgumentError } = require_errors();
-    var Agent = require_agent();
+    var Agent3 = require_agent();
     if (getGlobalDispatcher() === void 0) {
-      setGlobalDispatcher(new Agent());
+      setGlobalDispatcher(new Agent3());
     }
     function setGlobalDispatcher(agent) {
       if (!agent || typeof agent.dispatch !== "function") {
@@ -12036,10 +12036,10 @@ var require_headers = __commonJS({
         const lowercaseName = isLowerCase ? name : name.toLowerCase();
         const exists2 = this[kHeadersMap].get(lowercaseName);
         if (exists2) {
-          const delimiter = lowercaseName === "cookie" ? "; " : ", ";
+          const delimiter3 = lowercaseName === "cookie" ? "; " : ", ";
           this[kHeadersMap].set(lowercaseName, {
             name: exists2.name,
-            value: `${exists2.value}${delimiter}${value}`
+            value: `${exists2.value}${delimiter3}${value}`
           });
         } else {
           this[kHeadersMap].set(lowercaseName, { name, value });
@@ -14429,7 +14429,7 @@ var require_fetch = __commonJS({
       function dispatch({ body }) {
         const url = requestCurrentURL(request2);
         const agent = fetchParams.controller.dispatcher;
-        return new Promise((resolve3, reject) => agent.dispatch(
+        return new Promise((resolve6, reject) => agent.dispatch(
           {
             path: url.pathname + url.search,
             origin: url.origin,
@@ -14505,7 +14505,7 @@ var require_fetch = __commonJS({
                 }
               }
               const onError = this.onError.bind(this);
-              resolve3({
+              resolve6({
                 status,
                 statusText,
                 headersList,
@@ -14551,7 +14551,7 @@ var require_fetch = __commonJS({
               for (let i3 = 0; i3 < rawHeaders.length; i3 += 2) {
                 headersList.append(bufferToLowerCasedHeaderName(rawHeaders[i3]), rawHeaders[i3 + 1].toString("latin1"), true);
               }
-              resolve3({
+              resolve6({
                 status,
                 statusText: STATUS_CODES[status],
                 headersList,
@@ -14956,7 +14956,7 @@ var require_util4 = __commonJS({
     var { getEncoding } = require_encoding();
     var { serializeAMimeType, parseMIMEType } = require_data_url();
     var { types: types2 } = __require("util");
-    var { StringDecoder } = __require("string_decoder");
+    var { StringDecoder: StringDecoder2 } = __require("string_decoder");
     var { btoa: btoa3 } = __require("buffer");
     var staticPropertyDescriptors = {
       enumerable: true,
@@ -15047,7 +15047,7 @@ var require_util4 = __commonJS({
             dataURL += serializeAMimeType(parsed);
           }
           dataURL += ";base64,";
-          const decoder = new StringDecoder("latin1");
+          const decoder = new StringDecoder2("latin1");
           for (const chunk of bytes) {
             dataURL += btoa3(decoder.write(chunk));
           }
@@ -15076,7 +15076,7 @@ var require_util4 = __commonJS({
         }
         case "BinaryString": {
           let binaryString = "";
-          const decoder = new StringDecoder("latin1");
+          const decoder = new StringDecoder2("latin1");
           for (const chunk of bytes) {
             binaryString += decoder.write(chunk);
           }
@@ -16154,9 +16154,9 @@ var require_util6 = __commonJS({
         }
       }
     }
-    function validateCookiePath(path) {
-      for (let i3 = 0; i3 < path.length; ++i3) {
-        const code = path.charCodeAt(i3);
+    function validateCookiePath(path6) {
+      for (let i3 = 0; i3 < path6.length; ++i3) {
+        const code = path6.charCodeAt(i3);
         if (code < 32 || // exclude CTLs (0-31)
         code > 126 || // exclude DEL and non-ascii
         code === 59) {
@@ -17085,13 +17085,13 @@ var require_frame = __commonJS({
     "use strict";
     var { maxUnsigned16Bit } = require_constants5();
     var BUFFER_SIZE = 16386;
-    var crypto;
+    var crypto2;
     var buffer = null;
     var bufIdx = BUFFER_SIZE;
     try {
-      crypto = __require("crypto");
+      crypto2 = __require("crypto");
     } catch {
-      crypto = {
+      crypto2 = {
         // not full compatibility, but minimum.
         randomFillSync: function randomFillSync(buffer2, _offset, _size) {
           for (let i3 = 0; i3 < buffer2.length; ++i3) {
@@ -17104,7 +17104,7 @@ var require_frame = __commonJS({
     function generateMask() {
       if (bufIdx === BUFFER_SIZE) {
         bufIdx = 0;
-        crypto.randomFillSync(buffer ??= Buffer.allocUnsafe(BUFFER_SIZE), 0, BUFFER_SIZE);
+        crypto2.randomFillSync(buffer ??= Buffer.allocUnsafe(BUFFER_SIZE), 0, BUFFER_SIZE);
       }
       return [buffer[bufIdx++], buffer[bufIdx++], buffer[bufIdx++], buffer[bufIdx++]];
     }
@@ -17176,9 +17176,9 @@ var require_connection = __commonJS({
     var { Headers: Headers2, getHeadersList } = require_headers();
     var { getDecodeSplit } = require_util2();
     var { WebsocketFrameSend } = require_frame();
-    var crypto;
+    var crypto2;
     try {
-      crypto = __require("crypto");
+      crypto2 = __require("crypto");
     } catch {
     }
     function establishWebSocketConnection(url, protocols, client, ws, onEstablish, options) {
@@ -17198,7 +17198,7 @@ var require_connection = __commonJS({
         const headersList = getHeadersList(new Headers2(options.headers));
         request2.headersList = headersList;
       }
-      const keyValue = crypto.randomBytes(16).toString("base64");
+      const keyValue = crypto2.randomBytes(16).toString("base64");
       request2.headersList.append("sec-websocket-key", keyValue);
       request2.headersList.append("sec-websocket-version", "13");
       for (const protocol of protocols) {
@@ -17228,7 +17228,7 @@ var require_connection = __commonJS({
             return;
           }
           const secWSAccept = response.headersList.get("Sec-WebSocket-Accept");
-          const digest = crypto.createHash("sha1").update(keyValue + uid).digest("base64");
+          const digest = crypto2.createHash("sha1").update(keyValue + uid).digest("base64");
           if (secWSAccept !== digest) {
             failWebsocketConnection(ws, "Incorrect hash received in Sec-WebSocket-Accept header.");
             return;
@@ -18282,8 +18282,8 @@ var require_util8 = __commonJS({
       return true;
     }
     function delay(ms) {
-      return new Promise((resolve3) => {
-        setTimeout(resolve3, ms).unref();
+      return new Promise((resolve6) => {
+        setTimeout(resolve6, ms).unref();
       });
     }
     module.exports = {
@@ -18939,7 +18939,7 @@ var require_undici = __commonJS({
     var Dispatcher = require_dispatcher();
     var Pool = require_pool();
     var BalancedPool = require_balanced_pool();
-    var Agent = require_agent();
+    var Agent3 = require_agent();
     var ProxyAgent2 = require_proxy_agent();
     var EnvHttpProxyAgent = require_env_http_proxy_agent();
     var RetryAgent = require_retry_agent();
@@ -18962,7 +18962,7 @@ var require_undici = __commonJS({
     module.exports.Client = Client;
     module.exports.Pool = Pool;
     module.exports.BalancedPool = BalancedPool;
-    module.exports.Agent = Agent;
+    module.exports.Agent = Agent3;
     module.exports.ProxyAgent = ProxyAgent2;
     module.exports.EnvHttpProxyAgent = EnvHttpProxyAgent;
     module.exports.RetryAgent = RetryAgent;
@@ -18998,11 +18998,11 @@ var require_undici = __commonJS({
           if (typeof opts.path !== "string") {
             throw new InvalidArgumentError("invalid opts.path");
           }
-          let path = opts.path;
+          let path6 = opts.path;
           if (!opts.path.startsWith("/")) {
-            path = `/${path}`;
+            path6 = `/${path6}`;
           }
-          url = new URL(util.parseOrigin(url).origin + path);
+          url = new URL(util.parseOrigin(url).origin + path6);
         } else {
           if (!opts) {
             opts = typeof url === "object" ? url : {};
@@ -19079,10 +19079,10 @@ var require_proxy = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getProxyUrl = getProxyUrl2;
-    exports.checkBypass = checkBypass;
+    exports.checkBypass = checkBypass2;
     function getProxyUrl2(reqUrl) {
       const usingSsl = reqUrl.protocol === "https:";
-      if (checkBypass(reqUrl)) {
+      if (checkBypass2(reqUrl)) {
         return void 0;
       }
       const proxyVar = (() => {
@@ -19094,21 +19094,21 @@ var require_proxy = __commonJS({
       })();
       if (proxyVar) {
         try {
-          return new DecodedURL(proxyVar);
+          return new DecodedURL2(proxyVar);
         } catch (_a) {
           if (!proxyVar.startsWith("http://") && !proxyVar.startsWith("https://"))
-            return new DecodedURL(`http://${proxyVar}`);
+            return new DecodedURL2(`http://${proxyVar}`);
         }
       } else {
         return void 0;
       }
     }
-    function checkBypass(reqUrl) {
+    function checkBypass2(reqUrl) {
       if (!reqUrl.hostname) {
         return false;
       }
       const reqHost = reqUrl.hostname;
-      if (isLoopbackAddress(reqHost)) {
+      if (isLoopbackAddress2(reqHost)) {
         return true;
       }
       const noProxy = process.env["no_proxy"] || process.env["NO_PROXY"] || "";
@@ -19134,11 +19134,11 @@ var require_proxy = __commonJS({
       }
       return false;
     }
-    function isLoopbackAddress(host) {
+    function isLoopbackAddress2(host) {
       const hostLower = host.toLowerCase();
       return hostLower === "localhost" || hostLower.startsWith("127.") || hostLower.startsWith("[::1]") || hostLower.startsWith("[0:0:0:0:0:0:0:1]");
     }
-    var DecodedURL = class extends URL {
+    var DecodedURL2 = class extends URL {
       constructor(url, base) {
         super(url, base);
         this._decodedUsername = decodeURIComponent(super.username);
@@ -19195,13 +19195,13 @@ var require_lib = __commonJS({
         return result2;
       };
     })();
-    var __awaiter3 = exports && exports.__awaiter || function(thisArg, _arguments, P2, generator) {
+    var __awaiter12 = exports && exports.__awaiter || function(thisArg, _arguments, P2, generator) {
       function adopt(value) {
-        return value instanceof P2 ? value : new P2(function(resolve3) {
-          resolve3(value);
+        return value instanceof P2 ? value : new P2(function(resolve6) {
+          resolve6(value);
         });
       }
-      return new (P2 || (P2 = Promise))(function(resolve3, reject) {
+      return new (P2 || (P2 = Promise))(function(resolve6, reject) {
         function fulfilled(value) {
           try {
             step(generator.next(value));
@@ -19217,7 +19217,7 @@ var require_lib = __commonJS({
           }
         }
         function step(result2) {
-          result2.done ? resolve3(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+          result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
         }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
@@ -19226,8 +19226,8 @@ var require_lib = __commonJS({
     exports.HttpClient = exports.HttpClientResponse = exports.HttpClientError = exports.MediaTypes = exports.Headers = exports.HttpCodes = void 0;
     exports.getProxyUrl = getProxyUrl2;
     exports.isHttps = isHttps;
-    var http = __importStar(__require("http"));
-    var https = __importStar(__require("https"));
+    var http2 = __importStar(__require("http"));
+    var https2 = __importStar(__require("https"));
     var pm = __importStar(require_proxy());
     var tunnel2 = __importStar(require_tunnel2());
     var undici_1 = require_undici();
@@ -19286,10 +19286,10 @@ var require_lib = __commonJS({
       HttpCodes2.ServiceUnavailable,
       HttpCodes2.GatewayTimeout
     ];
-    var RetryableHttpVerbs = ["OPTIONS", "GET", "DELETE", "HEAD"];
-    var ExponentialBackoffCeiling = 10;
-    var ExponentialBackoffTimeSlice = 5;
-    var HttpClientError = class _HttpClientError extends Error {
+    var RetryableHttpVerbs2 = ["OPTIONS", "GET", "DELETE", "HEAD"];
+    var ExponentialBackoffCeiling2 = 10;
+    var ExponentialBackoffTimeSlice2 = 5;
+    var HttpClientError2 = class _HttpClientError extends Error {
       constructor(message, statusCode) {
         super(message);
         this.name = "HttpClientError";
@@ -19297,39 +19297,39 @@ var require_lib = __commonJS({
         Object.setPrototypeOf(this, _HttpClientError.prototype);
       }
     };
-    exports.HttpClientError = HttpClientError;
-    var HttpClientResponse = class {
+    exports.HttpClientError = HttpClientError2;
+    var HttpClientResponse2 = class {
       constructor(message) {
         this.message = message;
       }
       readBody() {
-        return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve3) => __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
+          return new Promise((resolve6) => __awaiter12(this, void 0, void 0, function* () {
             let output = Buffer.alloc(0);
             this.message.on("data", (chunk) => {
               output = Buffer.concat([output, chunk]);
             });
             this.message.on("end", () => {
-              resolve3(output.toString());
+              resolve6(output.toString());
             });
           }));
         });
       }
       readBodyBuffer() {
-        return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve3) => __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
+          return new Promise((resolve6) => __awaiter12(this, void 0, void 0, function* () {
             const chunks = [];
             this.message.on("data", (chunk) => {
               chunks.push(chunk);
             });
             this.message.on("end", () => {
-              resolve3(Buffer.concat(chunks));
+              resolve6(Buffer.concat(chunks));
             });
           }));
         });
       }
     };
-    exports.HttpClientResponse = HttpClientResponse;
+    exports.HttpClientResponse = HttpClientResponse2;
     function isHttps(requestUrl) {
       const parsedUrl = new URL(requestUrl);
       return parsedUrl.protocol === "https:";
@@ -19373,42 +19373,42 @@ var require_lib = __commonJS({
         }
       }
       options(requestUrl, additionalHeaders) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           return this.request("OPTIONS", requestUrl, null, additionalHeaders || {});
         });
       }
       get(requestUrl, additionalHeaders) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           return this.request("GET", requestUrl, null, additionalHeaders || {});
         });
       }
       del(requestUrl, additionalHeaders) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           return this.request("DELETE", requestUrl, null, additionalHeaders || {});
         });
       }
       post(requestUrl, data2, additionalHeaders) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           return this.request("POST", requestUrl, data2, additionalHeaders || {});
         });
       }
       patch(requestUrl, data2, additionalHeaders) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           return this.request("PATCH", requestUrl, data2, additionalHeaders || {});
         });
       }
       put(requestUrl, data2, additionalHeaders) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           return this.request("PUT", requestUrl, data2, additionalHeaders || {});
         });
       }
       head(requestUrl, additionalHeaders) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           return this.request("HEAD", requestUrl, null, additionalHeaders || {});
         });
       }
       sendStream(verb, requestUrl, stream, additionalHeaders) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           return this.request(verb, requestUrl, stream, additionalHeaders);
         });
       }
@@ -19417,14 +19417,14 @@ var require_lib = __commonJS({
        * Be aware that not found returns a null.  Other errors (4xx, 5xx) reject the promise
        */
       getJson(requestUrl_1) {
-        return __awaiter3(this, arguments, void 0, function* (requestUrl, additionalHeaders = {}) {
+        return __awaiter12(this, arguments, void 0, function* (requestUrl, additionalHeaders = {}) {
           additionalHeaders[Headers2.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers2.Accept, MediaTypes2.ApplicationJson);
           const res = yield this.get(requestUrl, additionalHeaders);
           return this._processResponse(res, this.requestOptions);
         });
       }
       postJson(requestUrl_1, obj_1) {
-        return __awaiter3(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
+        return __awaiter12(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
           const data2 = JSON.stringify(obj, null, 2);
           additionalHeaders[Headers2.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers2.Accept, MediaTypes2.ApplicationJson);
           additionalHeaders[Headers2.ContentType] = this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes2.ApplicationJson);
@@ -19433,7 +19433,7 @@ var require_lib = __commonJS({
         });
       }
       putJson(requestUrl_1, obj_1) {
-        return __awaiter3(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
+        return __awaiter12(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
           const data2 = JSON.stringify(obj, null, 2);
           additionalHeaders[Headers2.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers2.Accept, MediaTypes2.ApplicationJson);
           additionalHeaders[Headers2.ContentType] = this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes2.ApplicationJson);
@@ -19442,7 +19442,7 @@ var require_lib = __commonJS({
         });
       }
       patchJson(requestUrl_1, obj_1) {
-        return __awaiter3(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
+        return __awaiter12(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
           const data2 = JSON.stringify(obj, null, 2);
           additionalHeaders[Headers2.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers2.Accept, MediaTypes2.ApplicationJson);
           additionalHeaders[Headers2.ContentType] = this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes2.ApplicationJson);
@@ -19456,13 +19456,13 @@ var require_lib = __commonJS({
        * Prefer get, del, post and patch
        */
       request(verb, requestUrl, data2, headers) {
-        return __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
           if (this._disposed) {
             throw new Error("Client has already been disposed.");
           }
           const parsedUrl = new URL(requestUrl);
           let info2 = this._prepareRequest(verb, parsedUrl, headers);
-          const maxTries = this._allowRetries && RetryableHttpVerbs.includes(verb) ? this._maxRetries + 1 : 1;
+          const maxTries = this._allowRetries && RetryableHttpVerbs2.includes(verb) ? this._maxRetries + 1 : 1;
           let numTries = 0;
           let response;
           do {
@@ -19530,15 +19530,15 @@ var require_lib = __commonJS({
        * @param data
        */
       requestRaw(info2, data2) {
-        return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve3, reject) => {
+        return __awaiter12(this, void 0, void 0, function* () {
+          return new Promise((resolve6, reject) => {
             function callbackForResult(err, res) {
               if (err) {
                 reject(err);
               } else if (!res) {
                 reject(new Error("Unknown error"));
               } else {
-                resolve3(res);
+                resolve6(res);
               }
             }
             this.requestRawWithCallback(info2, data2, callbackForResult);
@@ -19566,7 +19566,7 @@ var require_lib = __commonJS({
           }
         }
         const req = info2.httpModule.request(info2.options, (msg) => {
-          const res = new HttpClientResponse(msg);
+          const res = new HttpClientResponse2(msg);
           handleResult(void 0, res);
         });
         let socket;
@@ -19616,7 +19616,7 @@ var require_lib = __commonJS({
         const info2 = {};
         info2.parsedUrl = requestUrl;
         const usingSsl = info2.parsedUrl.protocol === "https:";
-        info2.httpModule = usingSsl ? https : http;
+        info2.httpModule = usingSsl ? https2 : http2;
         const defaultPort = usingSsl ? 443 : 80;
         info2.options = {};
         info2.options.host = info2.parsedUrl.hostname;
@@ -19637,9 +19637,9 @@ var require_lib = __commonJS({
       }
       _mergeHeaders(headers) {
         if (this.requestOptions && this.requestOptions.headers) {
-          return Object.assign({}, lowercaseKeys2(this.requestOptions.headers), lowercaseKeys2(headers || {}));
+          return Object.assign({}, lowercaseKeys3(this.requestOptions.headers), lowercaseKeys3(headers || {}));
         }
-        return lowercaseKeys2(headers || {});
+        return lowercaseKeys3(headers || {});
       }
       /**
        * Gets an existing header value or returns a default.
@@ -19651,7 +19651,7 @@ var require_lib = __commonJS({
       _getExistingOrDefaultHeader(additionalHeaders, header, _default) {
         let clientHeader;
         if (this.requestOptions && this.requestOptions.headers) {
-          const headerValue = lowercaseKeys2(this.requestOptions.headers)[header];
+          const headerValue = lowercaseKeys3(this.requestOptions.headers)[header];
           if (headerValue) {
             clientHeader = typeof headerValue === "number" ? headerValue.toString() : headerValue;
           }
@@ -19675,7 +19675,7 @@ var require_lib = __commonJS({
       _getExistingOrDefaultContentTypeHeader(additionalHeaders, _default) {
         let clientHeader;
         if (this.requestOptions && this.requestOptions.headers) {
-          const headerValue = lowercaseKeys2(this.requestOptions.headers)[Headers2.ContentType];
+          const headerValue = lowercaseKeys3(this.requestOptions.headers)[Headers2.ContentType];
           if (headerValue) {
             if (typeof headerValue === "number") {
               clientHeader = String(headerValue);
@@ -19717,7 +19717,7 @@ var require_lib = __commonJS({
         const usingSsl = parsedUrl.protocol === "https:";
         let maxSockets = 100;
         if (this.requestOptions) {
-          maxSockets = this.requestOptions.maxSockets || http.globalAgent.maxSockets;
+          maxSockets = this.requestOptions.maxSockets || http2.globalAgent.maxSockets;
         }
         if (proxyUrl && proxyUrl.hostname) {
           const agentOptions = {
@@ -19739,7 +19739,7 @@ var require_lib = __commonJS({
         }
         if (!agent) {
           const options = { keepAlive: this._keepAlive, maxSockets };
-          agent = usingSsl ? new https.Agent(options) : new http.Agent(options);
+          agent = usingSsl ? new https2.Agent(options) : new http2.Agent(options);
           this._agent = agent;
         }
         if (usingSsl && this._ignoreSslError) {
@@ -19779,15 +19779,15 @@ var require_lib = __commonJS({
         return baseUserAgent;
       }
       _performExponentialBackoff(retryNumber) {
-        return __awaiter3(this, void 0, void 0, function* () {
-          retryNumber = Math.min(ExponentialBackoffCeiling, retryNumber);
-          const ms = ExponentialBackoffTimeSlice * Math.pow(2, retryNumber);
-          return new Promise((resolve3) => setTimeout(() => resolve3(), ms));
+        return __awaiter12(this, void 0, void 0, function* () {
+          retryNumber = Math.min(ExponentialBackoffCeiling2, retryNumber);
+          const ms = ExponentialBackoffTimeSlice2 * Math.pow(2, retryNumber);
+          return new Promise((resolve6) => setTimeout(() => resolve6(), ms));
         });
       }
       _processResponse(res, options) {
-        return __awaiter3(this, void 0, void 0, function* () {
-          return new Promise((resolve3, reject) => __awaiter3(this, void 0, void 0, function* () {
+        return __awaiter12(this, void 0, void 0, function* () {
+          return new Promise((resolve6, reject) => __awaiter12(this, void 0, void 0, function* () {
             const statusCode = res.message.statusCode || 0;
             const response = {
               statusCode,
@@ -19795,7 +19795,7 @@ var require_lib = __commonJS({
               headers: {}
             };
             if (statusCode === HttpCodes2.NotFound) {
-              resolve3(response);
+              resolve6(response);
             }
             function dateTimeDeserializer(key2, value) {
               if (typeof value === "string") {
@@ -19830,18 +19830,18 @@ var require_lib = __commonJS({
               } else {
                 msg = `Failed request: (${statusCode})`;
               }
-              const err = new HttpClientError(msg, statusCode);
+              const err = new HttpClientError2(msg, statusCode);
               err.result = response.result;
               reject(err);
             } else {
-              resolve3(response);
+              resolve6(response);
             }
           }));
         });
       }
     };
     exports.HttpClient = HttpClient3;
-    var lowercaseKeys2 = (obj) => Object.keys(obj).reduce((c, k2) => (c[k2.toLowerCase()] = obj[k2], c), {});
+    var lowercaseKeys3 = (obj) => Object.keys(obj).reduce((c, k2) => (c[k2.toLowerCase()] = obj[k2], c), {});
   }
 });
 
@@ -37183,6 +37183,42 @@ var require_lib4 = __commonJS({
   }
 });
 
+// src/index.ts
+import { resolve as resolve5 } from "path";
+
+// node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/core.js
+var core_exports = {};
+__export(core_exports, {
+  ExitCode: () => ExitCode,
+  addPath: () => addPath,
+  debug: () => debug,
+  endGroup: () => endGroup,
+  error: () => error,
+  exportVariable: () => exportVariable,
+  getBooleanInput: () => getBooleanInput,
+  getIDToken: () => getIDToken,
+  getInput: () => getInput,
+  getMultilineInput: () => getMultilineInput,
+  getState: () => getState,
+  group: () => group,
+  info: () => info,
+  isDebug: () => isDebug,
+  markdownSummary: () => markdownSummary,
+  notice: () => notice,
+  platform: () => platform_exports,
+  saveState: () => saveState,
+  setCommandEcho: () => setCommandEcho,
+  setFailed: () => setFailed,
+  setOutput: () => setOutput,
+  setSecret: () => setSecret,
+  startGroup: () => startGroup,
+  summary: () => summary,
+  toPlatformPath: () => toPlatformPath,
+  toPosixPath: () => toPosixPath,
+  toWin32Path: () => toWin32Path,
+  warning: () => warning
+});
+
 // node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/command.js
 import * as os from "os";
 
@@ -37213,6 +37249,9 @@ function toCommandProperties(annotationProperties) {
 function issueCommand(command, properties, message) {
   const cmd = new Command(command, properties, message);
   process.stdout.write(cmd.toString() + os.EOL);
+}
+function issue(name, message = "") {
+  issueCommand(name, {}, message);
 }
 var CMD_STRING = "::";
 var Command = class {
@@ -37254,12 +37293,145 @@ function escapeProperty(s) {
   return toCommandValue(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A").replace(/:/g, "%3A").replace(/,/g, "%2C");
 }
 
+// node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/file-command.js
+import * as crypto from "crypto";
+import * as fs from "fs";
+import * as os2 from "os";
+function issueFileCommand(command, message) {
+  const filePath = process.env[`GITHUB_${command}`];
+  if (!filePath) {
+    throw new Error(`Unable to find environment variable for file command ${command}`);
+  }
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Missing file at path: ${filePath}`);
+  }
+  fs.appendFileSync(filePath, `${toCommandValue(message)}${os2.EOL}`, {
+    encoding: "utf8"
+  });
+}
+function prepareKeyValueMessage(key2, value) {
+  const delimiter3 = `ghadelimiter_${crypto.randomUUID()}`;
+  const convertedValue = toCommandValue(value);
+  if (key2.includes(delimiter3)) {
+    throw new Error(`Unexpected input: name should not contain the delimiter "${delimiter3}"`);
+  }
+  if (convertedValue.includes(delimiter3)) {
+    throw new Error(`Unexpected input: value should not contain the delimiter "${delimiter3}"`);
+  }
+  return `${key2}<<${delimiter3}${os2.EOL}${convertedValue}${os2.EOL}${delimiter3}`;
+}
+
 // node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/core.js
-import * as os3 from "os";
+import * as os5 from "os";
+import * as path5 from "path";
+
+// node_modules/.pnpm/@actions+http-client@4.0.1/node_modules/@actions/http-client/lib/index.js
+import * as http from "http";
+import * as https from "https";
+
+// node_modules/.pnpm/@actions+http-client@4.0.1/node_modules/@actions/http-client/lib/proxy.js
+function getProxyUrl(reqUrl) {
+  const usingSsl = reqUrl.protocol === "https:";
+  if (checkBypass(reqUrl)) {
+    return void 0;
+  }
+  const proxyVar = (() => {
+    if (usingSsl) {
+      return process.env["https_proxy"] || process.env["HTTPS_PROXY"];
+    } else {
+      return process.env["http_proxy"] || process.env["HTTP_PROXY"];
+    }
+  })();
+  if (proxyVar) {
+    try {
+      return new DecodedURL(proxyVar);
+    } catch (_a) {
+      if (!proxyVar.startsWith("http://") && !proxyVar.startsWith("https://"))
+        return new DecodedURL(`http://${proxyVar}`);
+    }
+  } else {
+    return void 0;
+  }
+}
+function checkBypass(reqUrl) {
+  if (!reqUrl.hostname) {
+    return false;
+  }
+  const reqHost = reqUrl.hostname;
+  if (isLoopbackAddress(reqHost)) {
+    return true;
+  }
+  const noProxy = process.env["no_proxy"] || process.env["NO_PROXY"] || "";
+  if (!noProxy) {
+    return false;
+  }
+  let reqPort;
+  if (reqUrl.port) {
+    reqPort = Number(reqUrl.port);
+  } else if (reqUrl.protocol === "http:") {
+    reqPort = 80;
+  } else if (reqUrl.protocol === "https:") {
+    reqPort = 443;
+  }
+  const upperReqHosts = [reqUrl.hostname.toUpperCase()];
+  if (typeof reqPort === "number") {
+    upperReqHosts.push(`${upperReqHosts[0]}:${reqPort}`);
+  }
+  for (const upperNoProxyItem of noProxy.split(",").map((x) => x.trim().toUpperCase()).filter((x) => x)) {
+    if (upperNoProxyItem === "*" || upperReqHosts.some((x) => x === upperNoProxyItem || x.endsWith(`.${upperNoProxyItem}`) || upperNoProxyItem.startsWith(".") && x.endsWith(`${upperNoProxyItem}`))) {
+      return true;
+    }
+  }
+  return false;
+}
+function isLoopbackAddress(host) {
+  const hostLower = host.toLowerCase();
+  return hostLower === "localhost" || hostLower.startsWith("127.") || hostLower.startsWith("[::1]") || hostLower.startsWith("[0:0:0:0:0:0:0:1]");
+}
+var DecodedURL = class extends URL {
+  constructor(url, base) {
+    super(url, base);
+    this._decodedUsername = decodeURIComponent(super.username);
+    this._decodedPassword = decodeURIComponent(super.password);
+  }
+  get username() {
+    return this._decodedUsername;
+  }
+  get password() {
+    return this._decodedPassword;
+  }
+};
 
 // node_modules/.pnpm/@actions+http-client@4.0.1/node_modules/@actions/http-client/lib/index.js
 var tunnel = __toESM(require_tunnel2(), 1);
 var import_undici = __toESM(require_undici(), 1);
+var __awaiter = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
 var HttpCodes;
 (function(HttpCodes2) {
   HttpCodes2[HttpCodes2["OK"] = 200] = "OK";
@@ -37311,17 +37483,564 @@ var HttpResponseRetryCodes = [
   HttpCodes.ServiceUnavailable,
   HttpCodes.GatewayTimeout
 ];
-
-// node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/summary.js
-import { EOL as EOL2 } from "os";
-import { constants, promises } from "fs";
-var __awaiter = function(thisArg, _arguments, P2, generator) {
-  function adopt(value) {
-    return value instanceof P2 ? value : new P2(function(resolve3) {
-      resolve3(value);
+var RetryableHttpVerbs = ["OPTIONS", "GET", "DELETE", "HEAD"];
+var ExponentialBackoffCeiling = 10;
+var ExponentialBackoffTimeSlice = 5;
+var HttpClientError = class _HttpClientError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.name = "HttpClientError";
+    this.statusCode = statusCode;
+    Object.setPrototypeOf(this, _HttpClientError.prototype);
+  }
+};
+var HttpClientResponse = class {
+  constructor(message) {
+    this.message = message;
+  }
+  readBody() {
+    return __awaiter(this, void 0, void 0, function* () {
+      return new Promise((resolve6) => __awaiter(this, void 0, void 0, function* () {
+        let output = Buffer.alloc(0);
+        this.message.on("data", (chunk) => {
+          output = Buffer.concat([output, chunk]);
+        });
+        this.message.on("end", () => {
+          resolve6(output.toString());
+        });
+      }));
     });
   }
-  return new (P2 || (P2 = Promise))(function(resolve3, reject) {
+  readBodyBuffer() {
+    return __awaiter(this, void 0, void 0, function* () {
+      return new Promise((resolve6) => __awaiter(this, void 0, void 0, function* () {
+        const chunks = [];
+        this.message.on("data", (chunk) => {
+          chunks.push(chunk);
+        });
+        this.message.on("end", () => {
+          resolve6(Buffer.concat(chunks));
+        });
+      }));
+    });
+  }
+};
+var HttpClient = class {
+  constructor(userAgent2, handlers, requestOptions) {
+    this._ignoreSslError = false;
+    this._allowRedirects = true;
+    this._allowRedirectDowngrade = false;
+    this._maxRedirects = 50;
+    this._allowRetries = false;
+    this._maxRetries = 1;
+    this._keepAlive = false;
+    this._disposed = false;
+    this.userAgent = this._getUserAgentWithOrchestrationId(userAgent2);
+    this.handlers = handlers || [];
+    this.requestOptions = requestOptions;
+    if (requestOptions) {
+      if (requestOptions.ignoreSslError != null) {
+        this._ignoreSslError = requestOptions.ignoreSslError;
+      }
+      this._socketTimeout = requestOptions.socketTimeout;
+      if (requestOptions.allowRedirects != null) {
+        this._allowRedirects = requestOptions.allowRedirects;
+      }
+      if (requestOptions.allowRedirectDowngrade != null) {
+        this._allowRedirectDowngrade = requestOptions.allowRedirectDowngrade;
+      }
+      if (requestOptions.maxRedirects != null) {
+        this._maxRedirects = Math.max(requestOptions.maxRedirects, 0);
+      }
+      if (requestOptions.keepAlive != null) {
+        this._keepAlive = requestOptions.keepAlive;
+      }
+      if (requestOptions.allowRetries != null) {
+        this._allowRetries = requestOptions.allowRetries;
+      }
+      if (requestOptions.maxRetries != null) {
+        this._maxRetries = requestOptions.maxRetries;
+      }
+    }
+  }
+  options(requestUrl, additionalHeaders) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return this.request("OPTIONS", requestUrl, null, additionalHeaders || {});
+    });
+  }
+  get(requestUrl, additionalHeaders) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return this.request("GET", requestUrl, null, additionalHeaders || {});
+    });
+  }
+  del(requestUrl, additionalHeaders) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return this.request("DELETE", requestUrl, null, additionalHeaders || {});
+    });
+  }
+  post(requestUrl, data2, additionalHeaders) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return this.request("POST", requestUrl, data2, additionalHeaders || {});
+    });
+  }
+  patch(requestUrl, data2, additionalHeaders) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return this.request("PATCH", requestUrl, data2, additionalHeaders || {});
+    });
+  }
+  put(requestUrl, data2, additionalHeaders) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return this.request("PUT", requestUrl, data2, additionalHeaders || {});
+    });
+  }
+  head(requestUrl, additionalHeaders) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return this.request("HEAD", requestUrl, null, additionalHeaders || {});
+    });
+  }
+  sendStream(verb, requestUrl, stream, additionalHeaders) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return this.request(verb, requestUrl, stream, additionalHeaders);
+    });
+  }
+  /**
+   * Gets a typed object from an endpoint
+   * Be aware that not found returns a null.  Other errors (4xx, 5xx) reject the promise
+   */
+  getJson(requestUrl_1) {
+    return __awaiter(this, arguments, void 0, function* (requestUrl, additionalHeaders = {}) {
+      additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
+      const res = yield this.get(requestUrl, additionalHeaders);
+      return this._processResponse(res, this.requestOptions);
+    });
+  }
+  postJson(requestUrl_1, obj_1) {
+    return __awaiter(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
+      const data2 = JSON.stringify(obj, null, 2);
+      additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
+      additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes.ApplicationJson);
+      const res = yield this.post(requestUrl, data2, additionalHeaders);
+      return this._processResponse(res, this.requestOptions);
+    });
+  }
+  putJson(requestUrl_1, obj_1) {
+    return __awaiter(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
+      const data2 = JSON.stringify(obj, null, 2);
+      additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
+      additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes.ApplicationJson);
+      const res = yield this.put(requestUrl, data2, additionalHeaders);
+      return this._processResponse(res, this.requestOptions);
+    });
+  }
+  patchJson(requestUrl_1, obj_1) {
+    return __awaiter(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
+      const data2 = JSON.stringify(obj, null, 2);
+      additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
+      additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes.ApplicationJson);
+      const res = yield this.patch(requestUrl, data2, additionalHeaders);
+      return this._processResponse(res, this.requestOptions);
+    });
+  }
+  /**
+   * Makes a raw http request.
+   * All other methods such as get, post, patch, and request ultimately call this.
+   * Prefer get, del, post and patch
+   */
+  request(verb, requestUrl, data2, headers) {
+    return __awaiter(this, void 0, void 0, function* () {
+      if (this._disposed) {
+        throw new Error("Client has already been disposed.");
+      }
+      const parsedUrl = new URL(requestUrl);
+      let info2 = this._prepareRequest(verb, parsedUrl, headers);
+      const maxTries = this._allowRetries && RetryableHttpVerbs.includes(verb) ? this._maxRetries + 1 : 1;
+      let numTries = 0;
+      let response;
+      do {
+        response = yield this.requestRaw(info2, data2);
+        if (response && response.message && response.message.statusCode === HttpCodes.Unauthorized) {
+          let authenticationHandler;
+          for (const handler2 of this.handlers) {
+            if (handler2.canHandleAuthentication(response)) {
+              authenticationHandler = handler2;
+              break;
+            }
+          }
+          if (authenticationHandler) {
+            return authenticationHandler.handleAuthentication(this, info2, data2);
+          } else {
+            return response;
+          }
+        }
+        let redirectsRemaining = this._maxRedirects;
+        while (response.message.statusCode && HttpRedirectCodes.includes(response.message.statusCode) && this._allowRedirects && redirectsRemaining > 0) {
+          const redirectUrl = response.message.headers["location"];
+          if (!redirectUrl) {
+            break;
+          }
+          const parsedRedirectUrl = new URL(redirectUrl);
+          if (parsedUrl.protocol === "https:" && parsedUrl.protocol !== parsedRedirectUrl.protocol && !this._allowRedirectDowngrade) {
+            throw new Error("Redirect from HTTPS to HTTP protocol. This downgrade is not allowed for security reasons. If you want to allow this behavior, set the allowRedirectDowngrade option to true.");
+          }
+          yield response.readBody();
+          if (parsedRedirectUrl.hostname !== parsedUrl.hostname) {
+            for (const header in headers) {
+              if (header.toLowerCase() === "authorization") {
+                delete headers[header];
+              }
+            }
+          }
+          info2 = this._prepareRequest(verb, parsedRedirectUrl, headers);
+          response = yield this.requestRaw(info2, data2);
+          redirectsRemaining--;
+        }
+        if (!response.message.statusCode || !HttpResponseRetryCodes.includes(response.message.statusCode)) {
+          return response;
+        }
+        numTries += 1;
+        if (numTries < maxTries) {
+          yield response.readBody();
+          yield this._performExponentialBackoff(numTries);
+        }
+      } while (numTries < maxTries);
+      return response;
+    });
+  }
+  /**
+   * Needs to be called if keepAlive is set to true in request options.
+   */
+  dispose() {
+    if (this._agent) {
+      this._agent.destroy();
+    }
+    this._disposed = true;
+  }
+  /**
+   * Raw request.
+   * @param info
+   * @param data
+   */
+  requestRaw(info2, data2) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return new Promise((resolve6, reject) => {
+        function callbackForResult(err, res) {
+          if (err) {
+            reject(err);
+          } else if (!res) {
+            reject(new Error("Unknown error"));
+          } else {
+            resolve6(res);
+          }
+        }
+        this.requestRawWithCallback(info2, data2, callbackForResult);
+      });
+    });
+  }
+  /**
+   * Raw request with callback.
+   * @param info
+   * @param data
+   * @param onResult
+   */
+  requestRawWithCallback(info2, data2, onResult) {
+    if (typeof data2 === "string") {
+      if (!info2.options.headers) {
+        info2.options.headers = {};
+      }
+      info2.options.headers["Content-Length"] = Buffer.byteLength(data2, "utf8");
+    }
+    let callbackCalled = false;
+    function handleResult(err, res) {
+      if (!callbackCalled) {
+        callbackCalled = true;
+        onResult(err, res);
+      }
+    }
+    const req = info2.httpModule.request(info2.options, (msg) => {
+      const res = new HttpClientResponse(msg);
+      handleResult(void 0, res);
+    });
+    let socket;
+    req.on("socket", (sock) => {
+      socket = sock;
+    });
+    req.setTimeout(this._socketTimeout || 3 * 6e4, () => {
+      if (socket) {
+        socket.end();
+      }
+      handleResult(new Error(`Request timeout: ${info2.options.path}`));
+    });
+    req.on("error", function(err) {
+      handleResult(err);
+    });
+    if (data2 && typeof data2 === "string") {
+      req.write(data2, "utf8");
+    }
+    if (data2 && typeof data2 !== "string") {
+      data2.on("close", function() {
+        req.end();
+      });
+      data2.pipe(req);
+    } else {
+      req.end();
+    }
+  }
+  /**
+   * Gets an http agent. This function is useful when you need an http agent that handles
+   * routing through a proxy server - depending upon the url and proxy environment variables.
+   * @param serverUrl  The server URL where the request will be sent. For example, https://api.github.com
+   */
+  getAgent(serverUrl) {
+    const parsedUrl = new URL(serverUrl);
+    return this._getAgent(parsedUrl);
+  }
+  getAgentDispatcher(serverUrl) {
+    const parsedUrl = new URL(serverUrl);
+    const proxyUrl = getProxyUrl(parsedUrl);
+    const useProxy = proxyUrl && proxyUrl.hostname;
+    if (!useProxy) {
+      return;
+    }
+    return this._getProxyAgentDispatcher(parsedUrl, proxyUrl);
+  }
+  _prepareRequest(method2, requestUrl, headers) {
+    const info2 = {};
+    info2.parsedUrl = requestUrl;
+    const usingSsl = info2.parsedUrl.protocol === "https:";
+    info2.httpModule = usingSsl ? https : http;
+    const defaultPort = usingSsl ? 443 : 80;
+    info2.options = {};
+    info2.options.host = info2.parsedUrl.hostname;
+    info2.options.port = info2.parsedUrl.port ? parseInt(info2.parsedUrl.port) : defaultPort;
+    info2.options.path = (info2.parsedUrl.pathname || "") + (info2.parsedUrl.search || "");
+    info2.options.method = method2;
+    info2.options.headers = this._mergeHeaders(headers);
+    if (this.userAgent != null) {
+      info2.options.headers["user-agent"] = this.userAgent;
+    }
+    info2.options.agent = this._getAgent(info2.parsedUrl);
+    if (this.handlers) {
+      for (const handler2 of this.handlers) {
+        handler2.prepareRequest(info2.options);
+      }
+    }
+    return info2;
+  }
+  _mergeHeaders(headers) {
+    if (this.requestOptions && this.requestOptions.headers) {
+      return Object.assign({}, lowercaseKeys(this.requestOptions.headers), lowercaseKeys(headers || {}));
+    }
+    return lowercaseKeys(headers || {});
+  }
+  /**
+   * Gets an existing header value or returns a default.
+   * Handles converting number header values to strings since HTTP headers must be strings.
+   * Note: This returns string | string[] since some headers can have multiple values.
+   * For headers that must always be a single string (like Content-Type), use the
+   * specialized _getExistingOrDefaultContentTypeHeader method instead.
+   */
+  _getExistingOrDefaultHeader(additionalHeaders, header, _default) {
+    let clientHeader;
+    if (this.requestOptions && this.requestOptions.headers) {
+      const headerValue = lowercaseKeys(this.requestOptions.headers)[header];
+      if (headerValue) {
+        clientHeader = typeof headerValue === "number" ? headerValue.toString() : headerValue;
+      }
+    }
+    const additionalValue = additionalHeaders[header];
+    if (additionalValue !== void 0) {
+      return typeof additionalValue === "number" ? additionalValue.toString() : additionalValue;
+    }
+    if (clientHeader !== void 0) {
+      return clientHeader;
+    }
+    return _default;
+  }
+  /**
+   * Specialized version of _getExistingOrDefaultHeader for Content-Type header.
+   * Always returns a single string (not an array) since Content-Type should be a single value.
+   * Converts arrays to comma-separated strings and numbers to strings to ensure type safety.
+   * This was split from _getExistingOrDefaultHeader to provide stricter typing for callers
+   * that assign the result to places expecting a string (e.g., additionalHeaders[Headers.ContentType]).
+   */
+  _getExistingOrDefaultContentTypeHeader(additionalHeaders, _default) {
+    let clientHeader;
+    if (this.requestOptions && this.requestOptions.headers) {
+      const headerValue = lowercaseKeys(this.requestOptions.headers)[Headers.ContentType];
+      if (headerValue) {
+        if (typeof headerValue === "number") {
+          clientHeader = String(headerValue);
+        } else if (Array.isArray(headerValue)) {
+          clientHeader = headerValue.join(", ");
+        } else {
+          clientHeader = headerValue;
+        }
+      }
+    }
+    const additionalValue = additionalHeaders[Headers.ContentType];
+    if (additionalValue !== void 0) {
+      if (typeof additionalValue === "number") {
+        return String(additionalValue);
+      } else if (Array.isArray(additionalValue)) {
+        return additionalValue.join(", ");
+      } else {
+        return additionalValue;
+      }
+    }
+    if (clientHeader !== void 0) {
+      return clientHeader;
+    }
+    return _default;
+  }
+  _getAgent(parsedUrl) {
+    let agent;
+    const proxyUrl = getProxyUrl(parsedUrl);
+    const useProxy = proxyUrl && proxyUrl.hostname;
+    if (this._keepAlive && useProxy) {
+      agent = this._proxyAgent;
+    }
+    if (!useProxy) {
+      agent = this._agent;
+    }
+    if (agent) {
+      return agent;
+    }
+    const usingSsl = parsedUrl.protocol === "https:";
+    let maxSockets = 100;
+    if (this.requestOptions) {
+      maxSockets = this.requestOptions.maxSockets || http.globalAgent.maxSockets;
+    }
+    if (proxyUrl && proxyUrl.hostname) {
+      const agentOptions = {
+        maxSockets,
+        keepAlive: this._keepAlive,
+        proxy: Object.assign(Object.assign({}, (proxyUrl.username || proxyUrl.password) && {
+          proxyAuth: `${proxyUrl.username}:${proxyUrl.password}`
+        }), { host: proxyUrl.hostname, port: proxyUrl.port })
+      };
+      let tunnelAgent;
+      const overHttps = proxyUrl.protocol === "https:";
+      if (usingSsl) {
+        tunnelAgent = overHttps ? tunnel.httpsOverHttps : tunnel.httpsOverHttp;
+      } else {
+        tunnelAgent = overHttps ? tunnel.httpOverHttps : tunnel.httpOverHttp;
+      }
+      agent = tunnelAgent(agentOptions);
+      this._proxyAgent = agent;
+    }
+    if (!agent) {
+      const options = { keepAlive: this._keepAlive, maxSockets };
+      agent = usingSsl ? new https.Agent(options) : new http.Agent(options);
+      this._agent = agent;
+    }
+    if (usingSsl && this._ignoreSslError) {
+      agent.options = Object.assign(agent.options || {}, {
+        rejectUnauthorized: false
+      });
+    }
+    return agent;
+  }
+  _getProxyAgentDispatcher(parsedUrl, proxyUrl) {
+    let proxyAgent;
+    if (this._keepAlive) {
+      proxyAgent = this._proxyAgentDispatcher;
+    }
+    if (proxyAgent) {
+      return proxyAgent;
+    }
+    const usingSsl = parsedUrl.protocol === "https:";
+    proxyAgent = new import_undici.ProxyAgent(Object.assign({ uri: proxyUrl.href, pipelining: !this._keepAlive ? 0 : 1 }, (proxyUrl.username || proxyUrl.password) && {
+      token: `Basic ${Buffer.from(`${proxyUrl.username}:${proxyUrl.password}`).toString("base64")}`
+    }));
+    this._proxyAgentDispatcher = proxyAgent;
+    if (usingSsl && this._ignoreSslError) {
+      proxyAgent.options = Object.assign(proxyAgent.options.requestTls || {}, {
+        rejectUnauthorized: false
+      });
+    }
+    return proxyAgent;
+  }
+  _getUserAgentWithOrchestrationId(userAgent2) {
+    const baseUserAgent = userAgent2 || "actions/http-client";
+    const orchId = process.env["ACTIONS_ORCHESTRATION_ID"];
+    if (orchId) {
+      const sanitizedId = orchId.replace(/[^a-z0-9_.-]/gi, "_");
+      return `${baseUserAgent} actions_orchestration_id/${sanitizedId}`;
+    }
+    return baseUserAgent;
+  }
+  _performExponentialBackoff(retryNumber) {
+    return __awaiter(this, void 0, void 0, function* () {
+      retryNumber = Math.min(ExponentialBackoffCeiling, retryNumber);
+      const ms = ExponentialBackoffTimeSlice * Math.pow(2, retryNumber);
+      return new Promise((resolve6) => setTimeout(() => resolve6(), ms));
+    });
+  }
+  _processResponse(res, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return new Promise((resolve6, reject) => __awaiter(this, void 0, void 0, function* () {
+        const statusCode = res.message.statusCode || 0;
+        const response = {
+          statusCode,
+          result: null,
+          headers: {}
+        };
+        if (statusCode === HttpCodes.NotFound) {
+          resolve6(response);
+        }
+        function dateTimeDeserializer(key2, value) {
+          if (typeof value === "string") {
+            const a2 = new Date(value);
+            if (!isNaN(a2.valueOf())) {
+              return a2;
+            }
+          }
+          return value;
+        }
+        let obj;
+        let contents;
+        try {
+          contents = yield res.readBody();
+          if (contents && contents.length > 0) {
+            if (options && options.deserializeDates) {
+              obj = JSON.parse(contents, dateTimeDeserializer);
+            } else {
+              obj = JSON.parse(contents);
+            }
+            response.result = obj;
+          }
+          response.headers = res.message.headers;
+        } catch (err) {
+        }
+        if (statusCode > 299) {
+          let msg;
+          if (obj && obj.message) {
+            msg = obj.message;
+          } else if (contents && contents.length > 0) {
+            msg = contents;
+          } else {
+            msg = `Failed request: (${statusCode})`;
+          }
+          const err = new HttpClientError(msg, statusCode);
+          err.result = response.result;
+          reject(err);
+        } else {
+          resolve6(response);
+        }
+      }));
+    });
+  }
+};
+var lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k2) => (c[k2.toLowerCase()] = obj[k2], c), {});
+
+// node_modules/.pnpm/@actions+http-client@4.0.1/node_modules/@actions/http-client/lib/auth.js
+var __awaiter2 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
@@ -37337,7 +38056,147 @@ var __awaiter = function(thisArg, _arguments, P2, generator) {
       }
     }
     function step(result2) {
-      result2.done ? resolve3(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var BearerCredentialHandler = class {
+  constructor(token) {
+    this.token = token;
+  }
+  // currently implements pre-authorization
+  // TODO: support preAuth = false where it hooks on 401
+  prepareRequest(options) {
+    if (!options.headers) {
+      throw Error("The request has no headers");
+    }
+    options.headers["Authorization"] = `Bearer ${this.token}`;
+  }
+  // This handler cannot handle 401
+  canHandleAuthentication() {
+    return false;
+  }
+  handleAuthentication() {
+    return __awaiter2(this, void 0, void 0, function* () {
+      throw new Error("not implemented");
+    });
+  }
+};
+
+// node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/oidc-utils.js
+var __awaiter3 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var OidcClient = class _OidcClient {
+  static createHttpClient(allowRetry = true, maxRetry = 10) {
+    const requestOptions = {
+      allowRetries: allowRetry,
+      maxRetries: maxRetry
+    };
+    return new HttpClient("actions/oidc-client", [new BearerCredentialHandler(_OidcClient.getRequestToken())], requestOptions);
+  }
+  static getRequestToken() {
+    const token = process.env["ACTIONS_ID_TOKEN_REQUEST_TOKEN"];
+    if (!token) {
+      throw new Error("Unable to get ACTIONS_ID_TOKEN_REQUEST_TOKEN env variable");
+    }
+    return token;
+  }
+  static getIDTokenUrl() {
+    const runtimeUrl = process.env["ACTIONS_ID_TOKEN_REQUEST_URL"];
+    if (!runtimeUrl) {
+      throw new Error("Unable to get ACTIONS_ID_TOKEN_REQUEST_URL env variable");
+    }
+    return runtimeUrl;
+  }
+  static getCall(id_token_url) {
+    return __awaiter3(this, void 0, void 0, function* () {
+      var _a;
+      const httpclient = _OidcClient.createHttpClient();
+      const res = yield httpclient.getJson(id_token_url).catch((error2) => {
+        throw new Error(`Failed to get ID Token. 
+ 
+        Error Code : ${error2.statusCode}
+ 
+        Error Message: ${error2.message}`);
+      });
+      const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
+      if (!id_token) {
+        throw new Error("Response json body do not have ID Token field");
+      }
+      return id_token;
+    });
+  }
+  static getIDToken(audience) {
+    return __awaiter3(this, void 0, void 0, function* () {
+      try {
+        let id_token_url = _OidcClient.getIDTokenUrl();
+        if (audience) {
+          const encodedAudience = encodeURIComponent(audience);
+          id_token_url = `${id_token_url}&audience=${encodedAudience}`;
+        }
+        debug(`ID token url is ${id_token_url}`);
+        const id_token = yield _OidcClient.getCall(id_token_url);
+        setSecret(id_token);
+        return id_token;
+      } catch (error2) {
+        throw new Error(`Error message: ${error2.message}`);
+      }
+    });
+  }
+};
+
+// node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/summary.js
+import { EOL as EOL3 } from "os";
+import { constants, promises } from "fs";
+var __awaiter4 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
     }
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
@@ -37355,7 +38214,7 @@ var Summary = class {
    * @returns step summary file path
    */
   filePath() {
-    return __awaiter(this, void 0, void 0, function* () {
+    return __awaiter4(this, void 0, void 0, function* () {
       if (this._filePath) {
         return this._filePath;
       }
@@ -37396,7 +38255,7 @@ var Summary = class {
    * @returns {Promise<Summary>} summary instance
    */
   write(options) {
-    return __awaiter(this, void 0, void 0, function* () {
+    return __awaiter4(this, void 0, void 0, function* () {
       const overwrite = !!(options === null || options === void 0 ? void 0 : options.overwrite);
       const filePath = yield this.filePath();
       const writeFunc = overwrite ? writeFile : appendFile;
@@ -37410,7 +38269,7 @@ var Summary = class {
    * @returns {Summary} summary instance
    */
   clear() {
-    return __awaiter(this, void 0, void 0, function* () {
+    return __awaiter4(this, void 0, void 0, function* () {
       return this.emptyBuffer().write({ overwrite: true });
     });
   }
@@ -37457,7 +38316,7 @@ var Summary = class {
    * @returns {Summary} summary instance
    */
   addEOL() {
-    return this.addRaw(EOL2);
+    return this.addRaw(EOL3);
   }
   /**
    * Adds an HTML codeblock to the summary buffer
@@ -37595,30 +38454,916 @@ var Summary = class {
   }
 };
 var _summary = new Summary();
+var markdownSummary = _summary;
 var summary = _summary;
 
-// node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/platform.js
-import os2 from "os";
+// node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/path-utils.js
+import * as path from "path";
+function toPosixPath(pth) {
+  return pth.replace(/[\\]/g, "/");
+}
+function toWin32Path(pth) {
+  return pth.replace(/[/]/g, "\\");
+}
+function toPlatformPath(pth) {
+  return pth.replace(/[/\\]/g, path.sep);
+}
 
-// node_modules/.pnpm/@actions+io@3.0.2/node_modules/@actions/io/lib/io-util.js
-import * as fs from "fs";
-var { chmod, copyFile, lstat, mkdir, open, readdir, rename, rm, rmdir, stat, symlink, unlink } = fs.promises;
-var IS_WINDOWS = process.platform === "win32";
-var READONLY = fs.constants.O_RDONLY;
+// node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/platform.js
+var platform_exports = {};
+__export(platform_exports, {
+  arch: () => arch,
+  getDetails: () => getDetails,
+  isLinux: () => isLinux,
+  isMacOS: () => isMacOS,
+  isWindows: () => isWindows,
+  platform: () => platform
+});
+import os4 from "os";
+
+// node_modules/.pnpm/@actions+exec@3.0.0/node_modules/@actions/exec/lib/exec.js
+import { StringDecoder } from "string_decoder";
 
 // node_modules/.pnpm/@actions+exec@3.0.0/node_modules/@actions/exec/lib/toolrunner.js
+import * as os3 from "os";
+import * as events from "events";
+import * as child from "child_process";
+import * as path4 from "path";
+
+// node_modules/.pnpm/@actions+io@3.0.2/node_modules/@actions/io/lib/io.js
+import * as path3 from "path";
+
+// node_modules/.pnpm/@actions+io@3.0.2/node_modules/@actions/io/lib/io-util.js
+import * as fs2 from "fs";
+import * as path2 from "path";
+var __awaiter5 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var { chmod, copyFile, lstat, mkdir, open, readdir, rename, rm, rmdir, stat, symlink, unlink } = fs2.promises;
+var IS_WINDOWS = process.platform === "win32";
+var READONLY = fs2.constants.O_RDONLY;
+function exists(fsPath) {
+  return __awaiter5(this, void 0, void 0, function* () {
+    try {
+      yield stat(fsPath);
+    } catch (err) {
+      if (err.code === "ENOENT") {
+        return false;
+      }
+      throw err;
+    }
+    return true;
+  });
+}
+function isRooted(p2) {
+  p2 = normalizeSeparators(p2);
+  if (!p2) {
+    throw new Error('isRooted() parameter "p" cannot be empty');
+  }
+  if (IS_WINDOWS) {
+    return p2.startsWith("\\") || /^[A-Z]:/i.test(p2);
+  }
+  return p2.startsWith("/");
+}
+function tryGetExecutablePath(filePath, extensions) {
+  return __awaiter5(this, void 0, void 0, function* () {
+    let stats = void 0;
+    try {
+      stats = yield stat(filePath);
+    } catch (err) {
+      if (err.code !== "ENOENT") {
+        console.log(`Unexpected error attempting to determine if executable file exists '${filePath}': ${err}`);
+      }
+    }
+    if (stats && stats.isFile()) {
+      if (IS_WINDOWS) {
+        const upperExt = path2.extname(filePath).toUpperCase();
+        if (extensions.some((validExt) => validExt.toUpperCase() === upperExt)) {
+          return filePath;
+        }
+      } else {
+        if (isUnixExecutable(stats)) {
+          return filePath;
+        }
+      }
+    }
+    const originalFilePath = filePath;
+    for (const extension of extensions) {
+      filePath = originalFilePath + extension;
+      stats = void 0;
+      try {
+        stats = yield stat(filePath);
+      } catch (err) {
+        if (err.code !== "ENOENT") {
+          console.log(`Unexpected error attempting to determine if executable file exists '${filePath}': ${err}`);
+        }
+      }
+      if (stats && stats.isFile()) {
+        if (IS_WINDOWS) {
+          try {
+            const directory = path2.dirname(filePath);
+            const upperName = path2.basename(filePath).toUpperCase();
+            for (const actualName of yield readdir(directory)) {
+              if (upperName === actualName.toUpperCase()) {
+                filePath = path2.join(directory, actualName);
+                break;
+              }
+            }
+          } catch (err) {
+            console.log(`Unexpected error attempting to determine the actual case of the file '${filePath}': ${err}`);
+          }
+          return filePath;
+        } else {
+          if (isUnixExecutable(stats)) {
+            return filePath;
+          }
+        }
+      }
+    }
+    return "";
+  });
+}
+function normalizeSeparators(p2) {
+  p2 = p2 || "";
+  if (IS_WINDOWS) {
+    p2 = p2.replace(/\//g, "\\");
+    return p2.replace(/\\\\+/g, "\\");
+  }
+  return p2.replace(/\/\/+/g, "/");
+}
+function isUnixExecutable(stats) {
+  return (stats.mode & 1) > 0 || (stats.mode & 8) > 0 && process.getgid !== void 0 && stats.gid === process.getgid() || (stats.mode & 64) > 0 && process.getuid !== void 0 && stats.uid === process.getuid();
+}
+
+// node_modules/.pnpm/@actions+io@3.0.2/node_modules/@actions/io/lib/io.js
+var __awaiter6 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+function which(tool, check) {
+  return __awaiter6(this, void 0, void 0, function* () {
+    if (!tool) {
+      throw new Error("parameter 'tool' is required");
+    }
+    if (check) {
+      const result2 = yield which(tool, false);
+      if (!result2) {
+        if (IS_WINDOWS) {
+          throw new Error(`Unable to locate executable file: ${tool}. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also verify the file has a valid extension for an executable file.`);
+        } else {
+          throw new Error(`Unable to locate executable file: ${tool}. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable.`);
+        }
+      }
+      return result2;
+    }
+    const matches = yield findInPath(tool);
+    if (matches && matches.length > 0) {
+      return matches[0];
+    }
+    return "";
+  });
+}
+function findInPath(tool) {
+  return __awaiter6(this, void 0, void 0, function* () {
+    if (!tool) {
+      throw new Error("parameter 'tool' is required");
+    }
+    const extensions = [];
+    if (IS_WINDOWS && process.env["PATHEXT"]) {
+      for (const extension of process.env["PATHEXT"].split(path3.delimiter)) {
+        if (extension) {
+          extensions.push(extension);
+        }
+      }
+    }
+    if (isRooted(tool)) {
+      const filePath = yield tryGetExecutablePath(tool, extensions);
+      if (filePath) {
+        return [filePath];
+      }
+      return [];
+    }
+    if (tool.includes(path3.sep)) {
+      return [];
+    }
+    const directories = [];
+    if (process.env.PATH) {
+      for (const p2 of process.env.PATH.split(path3.delimiter)) {
+        if (p2) {
+          directories.push(p2);
+        }
+      }
+    }
+    const matches = [];
+    for (const directory of directories) {
+      const filePath = yield tryGetExecutablePath(path3.join(directory, tool), extensions);
+      if (filePath) {
+        matches.push(filePath);
+      }
+    }
+    return matches;
+  });
+}
+
+// node_modules/.pnpm/@actions+exec@3.0.0/node_modules/@actions/exec/lib/toolrunner.js
+import { setTimeout as setTimeout2 } from "timers";
+var __awaiter7 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
 var IS_WINDOWS2 = process.platform === "win32";
+var ToolRunner = class extends events.EventEmitter {
+  constructor(toolPath, args, options) {
+    super();
+    if (!toolPath) {
+      throw new Error("Parameter 'toolPath' cannot be null or empty.");
+    }
+    this.toolPath = toolPath;
+    this.args = args || [];
+    this.options = options || {};
+  }
+  _debug(message) {
+    if (this.options.listeners && this.options.listeners.debug) {
+      this.options.listeners.debug(message);
+    }
+  }
+  _getCommandString(options, noPrefix) {
+    const toolPath = this._getSpawnFileName();
+    const args = this._getSpawnArgs(options);
+    let cmd = noPrefix ? "" : "[command]";
+    if (IS_WINDOWS2) {
+      if (this._isCmdFile()) {
+        cmd += toolPath;
+        for (const a2 of args) {
+          cmd += ` ${a2}`;
+        }
+      } else if (options.windowsVerbatimArguments) {
+        cmd += `"${toolPath}"`;
+        for (const a2 of args) {
+          cmd += ` ${a2}`;
+        }
+      } else {
+        cmd += this._windowsQuoteCmdArg(toolPath);
+        for (const a2 of args) {
+          cmd += ` ${this._windowsQuoteCmdArg(a2)}`;
+        }
+      }
+    } else {
+      cmd += toolPath;
+      for (const a2 of args) {
+        cmd += ` ${a2}`;
+      }
+    }
+    return cmd;
+  }
+  _processLineBuffer(data2, strBuffer, onLine) {
+    try {
+      let s = strBuffer + data2.toString();
+      let n2 = s.indexOf(os3.EOL);
+      while (n2 > -1) {
+        const line = s.substring(0, n2);
+        onLine(line);
+        s = s.substring(n2 + os3.EOL.length);
+        n2 = s.indexOf(os3.EOL);
+      }
+      return s;
+    } catch (err) {
+      this._debug(`error processing line. Failed with error ${err}`);
+      return "";
+    }
+  }
+  _getSpawnFileName() {
+    if (IS_WINDOWS2) {
+      if (this._isCmdFile()) {
+        return process.env["COMSPEC"] || "cmd.exe";
+      }
+    }
+    return this.toolPath;
+  }
+  _getSpawnArgs(options) {
+    if (IS_WINDOWS2) {
+      if (this._isCmdFile()) {
+        let argline = `/D /S /C "${this._windowsQuoteCmdArg(this.toolPath)}`;
+        for (const a2 of this.args) {
+          argline += " ";
+          argline += options.windowsVerbatimArguments ? a2 : this._windowsQuoteCmdArg(a2);
+        }
+        argline += '"';
+        return [argline];
+      }
+    }
+    return this.args;
+  }
+  _endsWith(str, end) {
+    return str.endsWith(end);
+  }
+  _isCmdFile() {
+    const upperToolPath = this.toolPath.toUpperCase();
+    return this._endsWith(upperToolPath, ".CMD") || this._endsWith(upperToolPath, ".BAT");
+  }
+  _windowsQuoteCmdArg(arg) {
+    if (!this._isCmdFile()) {
+      return this._uvQuoteCmdArg(arg);
+    }
+    if (!arg) {
+      return '""';
+    }
+    const cmdSpecialChars = [
+      " ",
+      "	",
+      "&",
+      "(",
+      ")",
+      "[",
+      "]",
+      "{",
+      "}",
+      "^",
+      "=",
+      ";",
+      "!",
+      "'",
+      "+",
+      ",",
+      "`",
+      "~",
+      "|",
+      "<",
+      ">",
+      '"'
+    ];
+    let needsQuotes = false;
+    for (const char of arg) {
+      if (cmdSpecialChars.some((x) => x === char)) {
+        needsQuotes = true;
+        break;
+      }
+    }
+    if (!needsQuotes) {
+      return arg;
+    }
+    let reverse = '"';
+    let quoteHit = true;
+    for (let i3 = arg.length; i3 > 0; i3--) {
+      reverse += arg[i3 - 1];
+      if (quoteHit && arg[i3 - 1] === "\\") {
+        reverse += "\\";
+      } else if (arg[i3 - 1] === '"') {
+        quoteHit = true;
+        reverse += '"';
+      } else {
+        quoteHit = false;
+      }
+    }
+    reverse += '"';
+    return reverse.split("").reverse().join("");
+  }
+  _uvQuoteCmdArg(arg) {
+    if (!arg) {
+      return '""';
+    }
+    if (!arg.includes(" ") && !arg.includes("	") && !arg.includes('"')) {
+      return arg;
+    }
+    if (!arg.includes('"') && !arg.includes("\\")) {
+      return `"${arg}"`;
+    }
+    let reverse = '"';
+    let quoteHit = true;
+    for (let i3 = arg.length; i3 > 0; i3--) {
+      reverse += arg[i3 - 1];
+      if (quoteHit && arg[i3 - 1] === "\\") {
+        reverse += "\\";
+      } else if (arg[i3 - 1] === '"') {
+        quoteHit = true;
+        reverse += "\\";
+      } else {
+        quoteHit = false;
+      }
+    }
+    reverse += '"';
+    return reverse.split("").reverse().join("");
+  }
+  _cloneExecOptions(options) {
+    options = options || {};
+    const result2 = {
+      cwd: options.cwd || process.cwd(),
+      env: options.env || process.env,
+      silent: options.silent || false,
+      windowsVerbatimArguments: options.windowsVerbatimArguments || false,
+      failOnStdErr: options.failOnStdErr || false,
+      ignoreReturnCode: options.ignoreReturnCode || false,
+      delay: options.delay || 1e4
+    };
+    result2.outStream = options.outStream || process.stdout;
+    result2.errStream = options.errStream || process.stderr;
+    return result2;
+  }
+  _getSpawnOptions(options, toolPath) {
+    options = options || {};
+    const result2 = {};
+    result2.cwd = options.cwd;
+    result2.env = options.env;
+    result2["windowsVerbatimArguments"] = options.windowsVerbatimArguments || this._isCmdFile();
+    if (options.windowsVerbatimArguments) {
+      result2.argv0 = `"${toolPath}"`;
+    }
+    return result2;
+  }
+  /**
+   * Exec a tool.
+   * Output will be streamed to the live console.
+   * Returns promise with return code
+   *
+   * @param     tool     path to tool to exec
+   * @param     options  optional exec options.  See ExecOptions
+   * @returns   number
+   */
+  exec() {
+    return __awaiter7(this, void 0, void 0, function* () {
+      if (!isRooted(this.toolPath) && (this.toolPath.includes("/") || IS_WINDOWS2 && this.toolPath.includes("\\"))) {
+        this.toolPath = path4.resolve(process.cwd(), this.options.cwd || process.cwd(), this.toolPath);
+      }
+      this.toolPath = yield which(this.toolPath, true);
+      return new Promise((resolve6, reject) => __awaiter7(this, void 0, void 0, function* () {
+        this._debug(`exec tool: ${this.toolPath}`);
+        this._debug("arguments:");
+        for (const arg of this.args) {
+          this._debug(`   ${arg}`);
+        }
+        const optionsNonNull = this._cloneExecOptions(this.options);
+        if (!optionsNonNull.silent && optionsNonNull.outStream) {
+          optionsNonNull.outStream.write(this._getCommandString(optionsNonNull) + os3.EOL);
+        }
+        const state = new ExecState(optionsNonNull, this.toolPath);
+        state.on("debug", (message) => {
+          this._debug(message);
+        });
+        if (this.options.cwd && !(yield exists(this.options.cwd))) {
+          return reject(new Error(`The cwd: ${this.options.cwd} does not exist!`));
+        }
+        const fileName = this._getSpawnFileName();
+        const cp = child.spawn(fileName, this._getSpawnArgs(optionsNonNull), this._getSpawnOptions(this.options, fileName));
+        let stdbuffer = "";
+        if (cp.stdout) {
+          cp.stdout.on("data", (data2) => {
+            if (this.options.listeners && this.options.listeners.stdout) {
+              this.options.listeners.stdout(data2);
+            }
+            if (!optionsNonNull.silent && optionsNonNull.outStream) {
+              optionsNonNull.outStream.write(data2);
+            }
+            stdbuffer = this._processLineBuffer(data2, stdbuffer, (line) => {
+              if (this.options.listeners && this.options.listeners.stdline) {
+                this.options.listeners.stdline(line);
+              }
+            });
+          });
+        }
+        let errbuffer = "";
+        if (cp.stderr) {
+          cp.stderr.on("data", (data2) => {
+            state.processStderr = true;
+            if (this.options.listeners && this.options.listeners.stderr) {
+              this.options.listeners.stderr(data2);
+            }
+            if (!optionsNonNull.silent && optionsNonNull.errStream && optionsNonNull.outStream) {
+              const s = optionsNonNull.failOnStdErr ? optionsNonNull.errStream : optionsNonNull.outStream;
+              s.write(data2);
+            }
+            errbuffer = this._processLineBuffer(data2, errbuffer, (line) => {
+              if (this.options.listeners && this.options.listeners.errline) {
+                this.options.listeners.errline(line);
+              }
+            });
+          });
+        }
+        cp.on("error", (err) => {
+          state.processError = err.message;
+          state.processExited = true;
+          state.processClosed = true;
+          state.CheckComplete();
+        });
+        cp.on("exit", (code) => {
+          state.processExitCode = code;
+          state.processExited = true;
+          this._debug(`Exit code ${code} received from tool '${this.toolPath}'`);
+          state.CheckComplete();
+        });
+        cp.on("close", (code) => {
+          state.processExitCode = code;
+          state.processExited = true;
+          state.processClosed = true;
+          this._debug(`STDIO streams have closed for tool '${this.toolPath}'`);
+          state.CheckComplete();
+        });
+        state.on("done", (error2, exitCode) => {
+          if (stdbuffer.length > 0) {
+            this.emit("stdline", stdbuffer);
+          }
+          if (errbuffer.length > 0) {
+            this.emit("errline", errbuffer);
+          }
+          cp.removeAllListeners();
+          if (error2) {
+            reject(error2);
+          } else {
+            resolve6(exitCode);
+          }
+        });
+        if (this.options.input) {
+          if (!cp.stdin) {
+            throw new Error("child process missing stdin");
+          }
+          cp.stdin.end(this.options.input);
+        }
+      }));
+    });
+  }
+};
+function argStringToArray(argString) {
+  const args = [];
+  let inQuotes = false;
+  let escaped = false;
+  let arg = "";
+  function append(c) {
+    if (escaped && c !== '"') {
+      arg += "\\";
+    }
+    arg += c;
+    escaped = false;
+  }
+  for (let i3 = 0; i3 < argString.length; i3++) {
+    const c = argString.charAt(i3);
+    if (c === '"') {
+      if (!escaped) {
+        inQuotes = !inQuotes;
+      } else {
+        append(c);
+      }
+      continue;
+    }
+    if (c === "\\" && escaped) {
+      append(c);
+      continue;
+    }
+    if (c === "\\" && inQuotes) {
+      escaped = true;
+      continue;
+    }
+    if (c === " " && !inQuotes) {
+      if (arg.length > 0) {
+        args.push(arg);
+        arg = "";
+      }
+      continue;
+    }
+    append(c);
+  }
+  if (arg.length > 0) {
+    args.push(arg.trim());
+  }
+  return args;
+}
+var ExecState = class _ExecState extends events.EventEmitter {
+  constructor(options, toolPath) {
+    super();
+    this.processClosed = false;
+    this.processError = "";
+    this.processExitCode = 0;
+    this.processExited = false;
+    this.processStderr = false;
+    this.delay = 1e4;
+    this.done = false;
+    this.timeout = null;
+    if (!toolPath) {
+      throw new Error("toolPath must not be empty");
+    }
+    this.options = options;
+    this.toolPath = toolPath;
+    if (options.delay) {
+      this.delay = options.delay;
+    }
+  }
+  CheckComplete() {
+    if (this.done) {
+      return;
+    }
+    if (this.processClosed) {
+      this._setResult();
+    } else if (this.processExited) {
+      this.timeout = setTimeout2(_ExecState.HandleTimeout, this.delay, this);
+    }
+  }
+  _debug(message) {
+    this.emit("debug", message);
+  }
+  _setResult() {
+    let error2;
+    if (this.processExited) {
+      if (this.processError) {
+        error2 = new Error(`There was an error when attempting to execute the process '${this.toolPath}'. This may indicate the process failed to start. Error: ${this.processError}`);
+      } else if (this.processExitCode !== 0 && !this.options.ignoreReturnCode) {
+        error2 = new Error(`The process '${this.toolPath}' failed with exit code ${this.processExitCode}`);
+      } else if (this.processStderr && this.options.failOnStdErr) {
+        error2 = new Error(`The process '${this.toolPath}' failed because one or more lines were written to the STDERR stream`);
+      }
+    }
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+    this.done = true;
+    this.emit("done", error2, this.processExitCode);
+  }
+  static HandleTimeout(state) {
+    if (state.done) {
+      return;
+    }
+    if (!state.processClosed && state.processExited) {
+      const message = `The STDIO streams did not close within ${state.delay / 1e3} seconds of the exit event from process '${state.toolPath}'. This may indicate a child process inherited the STDIO streams and has not yet exited.`;
+      state._debug(message);
+    }
+    state._setResult();
+  }
+};
+
+// node_modules/.pnpm/@actions+exec@3.0.0/node_modules/@actions/exec/lib/exec.js
+var __awaiter8 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+function exec(commandLine, args, options) {
+  return __awaiter8(this, void 0, void 0, function* () {
+    const commandArgs = argStringToArray(commandLine);
+    if (commandArgs.length === 0) {
+      throw new Error(`Parameter 'commandLine' cannot be null or empty.`);
+    }
+    const toolPath = commandArgs[0];
+    args = commandArgs.slice(1).concat(args || []);
+    const runner = new ToolRunner(toolPath, args, options);
+    return runner.exec();
+  });
+}
+function getExecOutput(commandLine, args, options) {
+  return __awaiter8(this, void 0, void 0, function* () {
+    var _a, _b;
+    let stdout = "";
+    let stderr = "";
+    const stdoutDecoder = new StringDecoder("utf8");
+    const stderrDecoder = new StringDecoder("utf8");
+    const originalStdoutListener = (_a = options === null || options === void 0 ? void 0 : options.listeners) === null || _a === void 0 ? void 0 : _a.stdout;
+    const originalStdErrListener = (_b = options === null || options === void 0 ? void 0 : options.listeners) === null || _b === void 0 ? void 0 : _b.stderr;
+    const stdErrListener = (data2) => {
+      stderr += stderrDecoder.write(data2);
+      if (originalStdErrListener) {
+        originalStdErrListener(data2);
+      }
+    };
+    const stdOutListener = (data2) => {
+      stdout += stdoutDecoder.write(data2);
+      if (originalStdoutListener) {
+        originalStdoutListener(data2);
+      }
+    };
+    const listeners = Object.assign(Object.assign({}, options === null || options === void 0 ? void 0 : options.listeners), { stdout: stdOutListener, stderr: stdErrListener });
+    const exitCode = yield exec(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
+    stdout += stdoutDecoder.end();
+    stderr += stderrDecoder.end();
+    return {
+      exitCode,
+      stdout,
+      stderr
+    };
+  });
+}
 
 // node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/platform.js
-var platform = os2.platform();
-var arch = os2.arch();
+var __awaiter9 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var getWindowsInfo = () => __awaiter9(void 0, void 0, void 0, function* () {
+  const { stdout: version2 } = yield getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Version"', void 0, {
+    silent: true
+  });
+  const { stdout: name } = yield getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Caption"', void 0, {
+    silent: true
+  });
+  return {
+    name: name.trim(),
+    version: version2.trim()
+  };
+});
+var getMacOsInfo = () => __awaiter9(void 0, void 0, void 0, function* () {
+  var _a, _b, _c, _d;
+  const { stdout } = yield getExecOutput("sw_vers", void 0, {
+    silent: true
+  });
+  const version2 = (_b = (_a = stdout.match(/ProductVersion:\s*(.+)/)) === null || _a === void 0 ? void 0 : _a[1]) !== null && _b !== void 0 ? _b : "";
+  const name = (_d = (_c = stdout.match(/ProductName:\s*(.+)/)) === null || _c === void 0 ? void 0 : _c[1]) !== null && _d !== void 0 ? _d : "";
+  return {
+    name,
+    version: version2
+  };
+});
+var getLinuxInfo = () => __awaiter9(void 0, void 0, void 0, function* () {
+  const { stdout } = yield getExecOutput("lsb_release", ["-i", "-r", "-s"], {
+    silent: true
+  });
+  const [name, version2] = stdout.trim().split("\n");
+  return {
+    name,
+    version: version2
+  };
+});
+var platform = os4.platform();
+var arch = os4.arch();
+var isWindows = platform === "win32";
+var isMacOS = platform === "darwin";
+var isLinux = platform === "linux";
+function getDetails() {
+  return __awaiter9(this, void 0, void 0, function* () {
+    return Object.assign(Object.assign({}, yield isWindows ? getWindowsInfo() : isMacOS ? getMacOsInfo() : getLinuxInfo()), {
+      platform,
+      arch,
+      isWindows,
+      isMacOS,
+      isLinux
+    });
+  });
+}
 
 // node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/core.js
+var __awaiter10 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
+    });
+  }
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e3) {
+        reject(e3);
+      }
+    }
+    function step(result2) {
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
 var ExitCode;
 (function(ExitCode2) {
   ExitCode2[ExitCode2["Success"] = 0] = "Success";
   ExitCode2[ExitCode2["Failure"] = 1] = "Failure";
 })(ExitCode || (ExitCode = {}));
+function exportVariable(name, val) {
+  const convertedVal = toCommandValue(val);
+  process.env[name] = convertedVal;
+  const filePath = process.env["GITHUB_ENV"] || "";
+  if (filePath) {
+    return issueFileCommand("ENV", prepareKeyValueMessage(name, val));
+  }
+  issueCommand("set-env", { name }, convertedVal);
+}
+function setSecret(secret) {
+  issueCommand("add-mask", {}, secret);
+}
+function addPath(inputPath) {
+  const filePath = process.env["GITHUB_PATH"] || "";
+  if (filePath) {
+    issueFileCommand("PATH", inputPath);
+  } else {
+    issueCommand("add-path", {}, inputPath);
+  }
+  process.env["PATH"] = `${inputPath}${path5.delimiter}${process.env["PATH"]}`;
+}
 function getInput(name, options) {
   const val = process.env[`INPUT_${name.replace(/ /g, "_").toUpperCase()}`] || "";
   if (options && options.required && !val) {
@@ -37629,9 +39374,44 @@ function getInput(name, options) {
   }
   return val.trim();
 }
+function getMultilineInput(name, options) {
+  const inputs = getInput(name, options).split("\n").filter((x) => x !== "");
+  if (options && options.trimWhitespace === false) {
+    return inputs;
+  }
+  return inputs.map((input) => input.trim());
+}
+function getBooleanInput(name, options) {
+  const trueValue = ["true", "True", "TRUE"];
+  const falseValue = ["false", "False", "FALSE"];
+  const val = getInput(name, options);
+  if (trueValue.includes(val))
+    return true;
+  if (falseValue.includes(val))
+    return false;
+  throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}
+Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
+}
+function setOutput(name, value) {
+  const filePath = process.env["GITHUB_OUTPUT"] || "";
+  if (filePath) {
+    return issueFileCommand("OUTPUT", prepareKeyValueMessage(name, value));
+  }
+  process.stdout.write(os5.EOL);
+  issueCommand("set-output", { name }, toCommandValue(value));
+}
+function setCommandEcho(enabled) {
+  issue("echo", enabled ? "on" : "off");
+}
 function setFailed(message) {
   process.exitCode = ExitCode.Failure;
   error(message);
+}
+function isDebug() {
+  return process.env["RUNNER_DEBUG"] === "1";
+}
+function debug(message) {
+  issueCommand("debug", {}, message);
 }
 function error(message, properties = {}) {
   issueCommand("error", toCommandProperties(properties), message instanceof Error ? message.toString() : message);
@@ -37639,13 +39419,49 @@ function error(message, properties = {}) {
 function warning(message, properties = {}) {
   issueCommand("warning", toCommandProperties(properties), message instanceof Error ? message.toString() : message);
 }
+function notice(message, properties = {}) {
+  issueCommand("notice", toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+}
 function info(message) {
-  process.stdout.write(message + os3.EOL);
+  process.stdout.write(message + os5.EOL);
+}
+function startGroup(name) {
+  issue("group", name);
+}
+function endGroup() {
+  issue("endgroup");
+}
+function group(name, fn) {
+  return __awaiter10(this, void 0, void 0, function* () {
+    startGroup(name);
+    let result2;
+    try {
+      result2 = yield fn();
+    } finally {
+      endGroup();
+    }
+    return result2;
+  });
+}
+function saveState(name, value) {
+  const filePath = process.env["GITHUB_STATE"] || "";
+  if (filePath) {
+    return issueFileCommand("STATE", prepareKeyValueMessage(name, value));
+  }
+  issueCommand("save-state", { name }, toCommandValue(value));
+}
+function getState(name) {
+  return process.env[`STATE_${name}`] || "";
+}
+function getIDToken(aud) {
+  return __awaiter10(this, void 0, void 0, function* () {
+    return yield OidcClient.getIDToken(aud);
+  });
 }
 
 // node_modules/.pnpm/@actions+github@9.1.1/node_modules/@actions/github/lib/context.js
-import { readFileSync, existsSync } from "fs";
-import { EOL as EOL4 } from "os";
+import { readFileSync, existsSync as existsSync2 } from "fs";
+import { EOL as EOL6 } from "os";
 var Context = class {
   /**
    * Hydrate the context from the environment
@@ -37654,11 +39470,11 @@ var Context = class {
     var _a, _b, _c;
     this.payload = {};
     if (process.env.GITHUB_EVENT_PATH) {
-      if (existsSync(process.env.GITHUB_EVENT_PATH)) {
+      if (existsSync2(process.env.GITHUB_EVENT_PATH)) {
         this.payload = JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH, { encoding: "utf8" }));
       } else {
-        const path = process.env.GITHUB_EVENT_PATH;
-        process.stdout.write(`GITHUB_EVENT_PATH ${path} does not exist${EOL4}`);
+        const path6 = process.env.GITHUB_EVENT_PATH;
+        process.stdout.write(`GITHUB_EVENT_PATH ${path6} does not exist${EOL6}`);
       }
     }
     this.eventName = process.env.GITHUB_EVENT_NAME;
@@ -37697,13 +39513,13 @@ var Context = class {
 // node_modules/.pnpm/@actions+github@9.1.1/node_modules/@actions/github/lib/internal/utils.js
 var httpClient = __toESM(require_lib(), 1);
 var import_undici2 = __toESM(require_undici(), 1);
-var __awaiter2 = function(thisArg, _arguments, P2, generator) {
+var __awaiter11 = function(thisArg, _arguments, P2, generator) {
   function adopt(value) {
-    return value instanceof P2 ? value : new P2(function(resolve3) {
-      resolve3(value);
+    return value instanceof P2 ? value : new P2(function(resolve6) {
+      resolve6(value);
     });
   }
-  return new (P2 || (P2 = Promise))(function(resolve3, reject) {
+  return new (P2 || (P2 = Promise))(function(resolve6, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
@@ -37719,7 +39535,7 @@ var __awaiter2 = function(thisArg, _arguments, P2, generator) {
       }
     }
     function step(result2) {
-      result2.done ? resolve3(result2.value) : adopt(result2.value).then(fulfilled, rejected);
+      result2.done ? resolve6(result2.value) : adopt(result2.value).then(fulfilled, rejected);
     }
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
@@ -37742,7 +39558,7 @@ function getProxyAgentDispatcher(destinationUrl) {
 }
 function getProxyFetch(destinationUrl) {
   const httpDispatcher = getProxyAgentDispatcher(destinationUrl);
-  const proxyFetch = (url, opts) => __awaiter2(this, void 0, void 0, function* () {
+  const proxyFetch = (url, opts) => __awaiter11(this, void 0, void 0, function* () {
     return (0, import_undici2.fetch)(url, Object.assign(Object.assign({}, opts), { dispatcher: httpDispatcher }));
   });
   return proxyFetch;
@@ -37895,7 +39711,7 @@ var DEFAULTS = {
     format: ""
   }
 };
-function lowercaseKeys(object4) {
+function lowercaseKeys2(object4) {
   if (!object4) {
     return {};
   }
@@ -37939,7 +39755,7 @@ function merge(defaults2, route, options) {
   } else {
     options = Object.assign({}, route);
   }
-  options.headers = lowercaseKeys(options.headers);
+  options.headers = lowercaseKeys2(options.headers);
   removeUndefinedProperties(options);
   removeUndefinedProperties(options.headers);
   const mergedOptions = mergeDeep(defaults2 || {}, options);
@@ -39046,8 +40862,8 @@ function withCustomRequest(customRequest) {
 
 // node_modules/.pnpm/@octokit+auth-token@6.0.0/node_modules/@octokit/auth-token/dist-bundle/index.js
 var b64url = "(?:[a-zA-Z0-9_-]+)";
-var sep = "\\.";
-var jwtRE = new RegExp(`^${b64url}${sep}${b64url}${sep}${b64url}$`);
+var sep3 = "\\.";
+var jwtRE = new RegExp(`^${b64url}${sep3}${b64url}${sep3}${b64url}$`);
 var isJWT = jwtRE.test.bind(jwtRE);
 async function auth(token) {
   const isApp = isJWT(token);
@@ -41809,8 +43625,8 @@ function getOctokit(token, options, ...additionalPlugins) {
 }
 
 // node_modules/.pnpm/svelte-vitals@0.55.5_cac@7.0.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
-import { existsSync as existsSync2, mkdirSync, mkdtempSync, readFileSync as readFileSync2, renameSync, rmSync, unlinkSync, writeFileSync } from "fs";
-import { dirname, join, relative, resolve as resolve2, sep as sep2 } from "path";
+import { existsSync as existsSync3, mkdirSync, mkdtempSync, readFileSync as readFileSync2, renameSync, rmSync, unlinkSync, writeFileSync } from "fs";
+import { dirname as dirname3, join as join3, relative as relative2, resolve as resolve3, sep as sep4 } from "path";
 
 // node_modules/.pnpm/@svelte-vitals+core@0.55.5/node_modules/@svelte-vitals/core/dist/markdown-JeaI7QMp.js
 var import_aria_query3 = __toESM(require_lib2(), 1);
@@ -41822,9 +43638,9 @@ function walk(node, state, visitors) {
   const stop = () => {
     stopped = true;
   };
-  function visit_children(node2, path, state2) {
+  function visit_children(node2, path6, state2) {
     let mutations = null;
-    path.push(node2);
+    path6.push(node2);
     for (const key2 in node2) {
       if (key2 === "type" || // avoid manipulating the prototype
       key2 === "__proto__") {
@@ -41838,7 +43654,7 @@ function walk(node, state, visitors) {
           for (let i3 = 0; i3 < len; i3++) {
             const node3 = child_node[i3];
             if (node3 && typeof node3 === "object") {
-              const result2 = visit(node3, path, state2);
+              const result2 = visit(node3, path6, state2);
               if (result2) {
                 (mutated_array ??= child_node.slice())[i3] = result2;
               }
@@ -41851,7 +43667,7 @@ function walk(node, state, visitors) {
           const result2 = visit(
             /** @type {T} */
             child_node,
-            path,
+            path6,
             state2
           );
           if (result2) {
@@ -41860,12 +43676,12 @@ function walk(node, state, visitors) {
         }
       }
     }
-    path.pop();
+    path6.pop();
     if (mutations) {
       return apply_mutations(node2, mutations);
     }
   }
-  function visit(node2, path, state2) {
+  function visit(node2, path6, state2) {
     if (stopped) return;
     if (!node2.type) return;
     const visitor = (
@@ -41876,28 +43692,28 @@ function walk(node, state, visitors) {
       ]
     );
     if (!universal && !visitor) {
-      return visit_children(node2, path, state2);
+      return visit_children(node2, path6, state2);
     }
     let result2;
     let next_result;
-    const next2 = (next_state = state2) => next_result = visit_children(node2, path, next_state);
+    const next2 = (next_state = state2) => next_result = visit_children(node2, path6, next_state);
     const visit_node = (next_node, next_state = state2) => {
-      path.push(node2);
-      const result3 = visit(next_node, path, next_state) ?? next_node;
-      path.pop();
+      path6.push(node2);
+      const result3 = visit(next_node, path6, next_state) ?? next_node;
+      path6.pop();
       return result3;
     };
     if (universal) {
       let inner_result;
       result2 = universal(node2, {
         // Don't spread for performance reasons
-        path,
+        path: path6,
         state: state2,
         /** @param {U} next_state */
         next: (next_state = state2) => {
           state2 = next_state;
           inner_result = visitor ? visitor(node2, {
-            path,
+            path: path6,
             state: next_state,
             next: next2,
             stop,
@@ -41914,7 +43730,7 @@ function walk(node, state, visitors) {
     } else {
       result2 = /** @type {Visitor<T, U, T>} */
       visitor(node2, {
-        path,
+        path: path6,
         state: state2,
         next: next2,
         stop,
@@ -42770,7 +44586,7 @@ function convert(source2, ast) {
             type: "Fragment",
             start,
             end,
-            children: node.fragment.nodes.map((child) => visit(child))
+            children: node.fragment.nodes.map((child2) => visit(child2))
           },
           instance,
           module,
@@ -42793,7 +44609,7 @@ function convert(source2, ast) {
           start: null,
           /** @type {number | null} */
           end: null,
-          children: node.pending?.nodes.map((child) => visit(child)) ?? [],
+          children: node.pending?.nodes.map((child2) => visit(child2)) ?? [],
           skip: true
         };
         let thenblock = {
@@ -42802,7 +44618,7 @@ function convert(source2, ast) {
           start: null,
           /** @type {number | null} */
           end: null,
-          children: node.then?.nodes.map((child) => visit(child)) ?? [],
+          children: node.then?.nodes.map((child2) => visit(child2)) ?? [],
           skip: true
         };
         let catchblock = {
@@ -42811,7 +44627,7 @@ function convert(source2, ast) {
           start: null,
           /** @type {number | null} */
           end: null,
-          children: node.catch?.nodes.map((child) => visit(child)) ?? [],
+          children: node.catch?.nodes.map((child2) => visit(child2)) ?? [],
           skip: true
         };
         if (node.pending) {
@@ -42862,11 +44678,11 @@ function convert(source2, ast) {
       ComplexSelector(node, { next: next2 }) {
         next2();
         const children = [];
-        for (const child of node.children) {
-          if (child.combinator) {
-            children.push(child.combinator);
+        for (const child2 of node.children) {
+          if (child2.combinator) {
+            children.push(child2.combinator);
           }
-          children.push(...child.selectors);
+          children.push(...child2.selectors);
         }
         return {
           type: "Selector",
@@ -42882,15 +44698,15 @@ function convert(source2, ast) {
           end: node.end,
           name: node.name,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -42936,9 +44752,9 @@ function convert(source2, ast) {
           end: node.end,
           expression: node.expression,
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -42959,7 +44775,7 @@ function convert(source2, ast) {
             type: "ElseBlock",
             start,
             end,
-            children: node.fallback.nodes.map((child) => visit(child))
+            children: node.fallback.nodes.map((child2) => visit(child2))
           };
         }
         remove_surrounding_whitespace_nodes(node.body.nodes);
@@ -42967,7 +44783,7 @@ function convert(source2, ast) {
           type: "EachBlock",
           start: node.start,
           end: node.end,
-          children: node.body.nodes.map((child) => visit(child)),
+          children: node.body.nodes.map((child2) => visit(child2)),
           context: node.context,
           expression: node.expression,
           index: node.index,
@@ -42975,8 +44791,8 @@ function convert(source2, ast) {
           else: elseblock
         };
       },
-      ExpressionTag(node, { path }) {
-        const parent = path.at(-1);
+      ExpressionTag(node, { path: path6 }) {
+        const parent = path6.at(-1);
         if (parent?.type === "Attribute") {
           if (source2[parent.start] === "{") {
             return {
@@ -43017,9 +44833,9 @@ function convert(source2, ast) {
             start: start2,
             end,
             children: node.alternate.nodes.map(
-              (child) => (
+              (child2) => (
                 /** @type {Legacy.LegacyElementLike} */
-                visit(child)
+                visit(child2)
               )
             )
           };
@@ -43036,9 +44852,9 @@ function convert(source2, ast) {
           end: node.end,
           expression: node.test,
           children: node.consequent.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           else: elseblock,
@@ -43057,7 +44873,7 @@ function convert(source2, ast) {
           end: node.end,
           expression: node.expression,
           parameters: node.parameters,
-          children: node.body.nodes.map((child) => visit(child)),
+          children: node.body.nodes.map((child2) => visit(child2)),
           typeParams: node.typeParams
         };
       },
@@ -43070,12 +44886,12 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
-          children: node.fragment.nodes.map((child) => visit(child))
+          children: node.fragment.nodes.map((child2) => visit(child2))
         };
       },
       RegularElement(node, { visit }) {
@@ -43084,8 +44900,8 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           name: node.name,
-          attributes: node.attributes.map((child) => visit(child)),
-          children: node.fragment.nodes.map((child) => visit(child))
+          attributes: node.attributes.map((child2) => visit(child2)),
+          children: node.fragment.nodes.map((child2) => visit(child2))
         };
       },
       SlotElement(node, { visit }) {
@@ -43095,27 +44911,27 @@ function convert(source2, ast) {
           end: node.end,
           name: node.name,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
       },
-      Attribute(node, { visit, next: next2, path }) {
+      Attribute(node, { visit, next: next2, path: path6 }) {
         if (node.value !== true && !Array.isArray(node.value)) {
-          path.push(node);
+          path6.push(node);
           const value = (
             /** @type {Legacy.LegacyAttribute['value']} */
             [visit(node.value)]
           );
-          path.pop();
+          path6.pop();
           return {
             ...node,
             value
@@ -43124,14 +44940,14 @@ function convert(source2, ast) {
           return next2();
         }
       },
-      StyleDirective(node, { visit, next: next2, path }) {
+      StyleDirective(node, { visit, next: next2, path: path6 }) {
         if (node.value !== true && !Array.isArray(node.value)) {
-          path.push(node);
+          path6.push(node);
           const value = (
             /** @type {Legacy.LegacyStyleDirective['value']} */
             [visit(node.value)]
           );
-          path.pop();
+          path6.pop();
           return {
             ...node,
             value
@@ -43158,15 +44974,15 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -43179,15 +44995,15 @@ function convert(source2, ast) {
           end: node.end,
           expression: node.expression,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -43199,15 +45015,15 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -43226,8 +45042,8 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           tag: tag2,
-          attributes: node.attributes.map((child) => visit(child)),
-          children: node.fragment.nodes.map((child) => visit(child))
+          attributes: node.attributes.map((child2) => visit(child2)),
+          children: node.fragment.nodes.map((child2) => visit(child2))
         };
       },
       SvelteFragment(node, { visit }) {
@@ -43243,9 +45059,9 @@ function convert(source2, ast) {
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -43257,15 +45073,15 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -43277,9 +45093,9 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -43291,15 +45107,15 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -43311,21 +45127,21 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
       },
-      Text(node, { path }) {
-        const parent = path.at(-1);
+      Text(node, { path: path6 }) {
+        const parent = path6.at(-1);
         if (parent?.type === "RegularElement" && parent.name === "style") {
           return (
             /** @type {AST.Text} */
@@ -43345,15 +45161,15 @@ function convert(source2, ast) {
           start: node.start,
           end: node.end,
           attributes: node.attributes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyAttributeLike} */
-              visit(child)
+              visit(child2)
             )
           ),
           children: node.fragment.nodes.map(
-            (child) => (
+            (child2) => (
               /** @type {Legacy.LegacyElementLike} */
-              visit(child)
+              visit(child2)
             )
           )
         };
@@ -50090,14 +51906,14 @@ var ParseEffects = class {
     this.restore(frame);
     return frame.output ?? emptyOutputBuffer;
   }
-  replay(events) {
-    if (!hasEvents(events)) return;
+  replay(events2) {
+    if (!hasEvents(events2)) return;
     const frame = this.currentFrame();
     if (frame) {
-      this.appendOutput(this.outputFor(frame), events);
+      this.appendOutput(this.outputFor(frame), events2);
       return;
     }
-    this.flush(events);
+    this.flush(events2);
   }
   set(target, key2, value) {
     this.willSet(target, key2);
@@ -55123,7 +56939,7 @@ function get_comment_handlers(source2, comments, index = 0) {
       if (comments.length === 0) return;
       comments = comments.filter((comment) => comment.start >= index).map(({ type, value, start, end }) => ({ type, value, start, end }));
       walk(ast, null, {
-        _(node, { next: next2, path }) {
+        _(node, { next: next2, path: path6 }) {
           let comment;
           while (comments[0] && comments[0].start < node.start) {
             comment = /** @type {CommentWithLocation} */
@@ -55134,7 +56950,7 @@ function get_comment_handlers(source2, comments, index = 0) {
           if (comments[0]) {
             const parent = (
               /** @type {any} */
-              path.at(-1)
+              path6.at(-1)
             );
             if (parent === void 0 || node.end !== parent.end) {
               const slice = source2.slice(node.end, comments[0].start);
@@ -59796,7 +61612,7 @@ function next(parser) {
       parser.eat("}", true);
       let elseif_start = start - 1;
       while (parser.template[elseif_start] !== "{") elseif_start -= 1;
-      const child = parser.append({
+      const child2 = parser.append({
         start: elseif_start,
         end: -1,
         type: "IfBlock",
@@ -59808,9 +61624,9 @@ function next(parser) {
           expression: new ExpressionMetadata()
         }
       });
-      parser.stack.push(child);
+      parser.stack.push(child2);
       parser.fragments.pop();
-      parser.fragments.push(child.consequent);
+      parser.fragments.push(child2.consequent);
     } else {
       parser.allow_whitespace();
       parser.eat("}", true);
@@ -60472,13 +62288,13 @@ var Parser3 = class _Parser {
     };
   }
   /** @param {string} delimiter */
-  read_until(delimiter) {
+  read_until(delimiter3) {
     if (this.index >= this.template.length) {
       if (this.loose) return "";
       unexpected_eof(this.template.length);
     }
     const start = this.index;
-    const index = this.template.indexOf(delimiter, start);
+    const index = this.template.indexOf(delimiter3, start);
     if (index !== -1) {
       this.index = index;
       return this.template.slice(start, this.index);
@@ -63490,8 +65306,8 @@ var DOCS_URL$1 = docsUrlFor(ID$8);
 var LABEL$1 = "Base-path-aware navigation";
 var RECOMMENDATION$2 = "Wrap root-relative paths in resolve() from '$app/paths' so they resolve against paths.base.";
 var FIX$2 = { description: "Import { resolve } from '$app/paths' and wrap the path: href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login')). SvelteKit 3 reads a leading / as a route ID, so write a path there without it: resolve('blog/hello-world')." };
-function kit3Hint(path) {
-  return ` (resolve('${path.slice(1)}') in SvelteKit 3)`;
+function kit3Hint(path6) {
+  return ` (resolve('${path6.slice(1)}') in SvelteKit 3)`;
 }
 function messageFor(link) {
   const hint = kit3Hint(link.path);
@@ -63499,10 +65315,10 @@ function messageFor(link) {
   if (link.kind === "goto") return `goto('${link.path}') is root-relative \u2014 it navigates outside this project's paths.base and 404s in production. Use goto(resolve('${link.path}')) with resolve from '$app/paths'${hint}.`;
   return `redirect(\u2026, '${link.path}') is root-relative \u2014 the Location header points outside this project's paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'${hint}.`;
 }
-function startsWithBase(path, base) {
-  if (base === void 0 || !path.startsWith(base)) return false;
-  if (/(^|\/)(\.|%2e){2}(\/|$)/i.test(path.split(/[?#]/)[0])) return false;
-  const next2 = path.charAt(base.length);
+function startsWithBase(path6, base) {
+  if (base === void 0 || !path6.startsWith(base)) return false;
+  if (/(^|\/)(\.|%2e){2}(\/|$)/i.test(path6.split(/[?#]/)[0])) return false;
+  const next2 = path6.charAt(base.length);
   return next2 === "" || next2 === "/" || next2 === "?" || next2 === "#";
 }
 function emitFile$1(out, file, links, suppressions, base) {
@@ -63689,8 +65505,8 @@ var securityServerModuleState = kitModuleRule({
     message: r2.inHandler ? `module-scope variable "${r2.name}" is reassigned from a request handler \u2014 its value is shared across all requests on the server` : `module-scope variable "${r2.name}" is reassigned from a function \u2014 if it runs during a request, the value is shared across all requests on the server`
   }))
 });
-function extSibling(path) {
-  return path.endsWith(".svelte.ts") ? path.replace(/\.svelte\.ts$/, ".svelte.js") : path.replace(/\.svelte\.js$/, ".svelte.ts");
+function extSibling(path6) {
+  return path6.endsWith(".svelte.ts") ? path6.replace(/\.svelte\.ts$/, ".svelte.js") : path6.replace(/\.svelte\.js$/, ".svelte.ts");
 }
 var securitySharedStateImport = kitModuleRule({
   id: "security/shared-state-import",
@@ -63927,7 +65743,7 @@ function scopeIntroducedNames(node) {
     else introduced.add(attr.name);
   }
   else if (node.type === "Fragment") {
-    for (const child of node.nodes ?? []) if (child?.type === "ConstTag" || child?.type === "DeclarationTag") for (const d2 of child.declaration?.declarations ?? []) addBoundNames(d2.id, introduced);
+    for (const child2 of node.nodes ?? []) if (child2?.type === "ConstTag" || child2?.type === "DeclarationTag") for (const d2 of child2.declaration?.declarations ?? []) addBoundNames(d2.id, introduced);
   }
   return introduced;
 }
@@ -63956,7 +65772,7 @@ var EVAL_SCOPE_BOUNDARIES = /* @__PURE__ */ new Set([
 ]);
 function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set(), boundaries = EVAL_SCOPE_BOUNDARIES) {
   if (Array.isArray(node)) {
-    for (const child of node) walkEvalScope(child, visit, shadowed, boundaries);
+    for (const child2 of node) walkEvalScope(child2, visit, shadowed, boundaries);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -63969,7 +65785,7 @@ function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set(), bounda
     if (WALK_IGNORED_KEYS.has(key2)) continue;
     if (!outer?.has(key2)) walkEvalScope(node[key2], visit, scope, boundaries);
     else if (!Array.isArray(node[key2])) walkEvalScope(node[key2], visit, shadowed, boundaries);
-    else for (const child of node[key2]) walkEvalScope(child, visit, child?.type === "LetDirective" ? scope : shadowed, boundaries);
+    else for (const child2 of node[key2]) walkEvalScope(child2, visit, child2?.type === "LetDirective" ? scope : shadowed, boundaries);
   }
 }
 function outerScopeKeys(node) {
@@ -64418,7 +66234,7 @@ function findLoadFunction(program) {
 }
 function collectAwaits(node, out = []) {
   if (Array.isArray(node)) {
-    for (const child of node) collectAwaits(child, out);
+    for (const child2 of node) collectAwaits(child2, out);
     return out;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
@@ -64451,7 +66267,7 @@ var EXIT_NAMES = /* @__PURE__ */ new Set(["redirect", "error"]);
 var ERROR_NAMES = /* @__PURE__ */ new Set(["error"]);
 function collectRedirectCalls(node, locals, out = []) {
   if (Array.isArray(node)) {
-    for (const child of node) collectRedirectCalls(child, locals, out);
+    for (const child2 of node) collectRedirectCalls(child2, locals, out);
     return out;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
@@ -64507,8 +66323,8 @@ function handleAnsweredPaths(program, exits) {
     return p2?.value?.type === "Identifier" ? p2.value.name : void 0;
   };
   const event = local("event");
-  const resolve3 = local("resolve");
-  if (!event || !resolve3) return [];
+  const resolve6 = local("resolve");
+  if (!event || !resolve6) return [];
   const isUrl = (n2) => n2?.type === "MemberExpression" && !n2.computed && n2.property?.name === "url" && n2.object?.type === "Identifier" && n2.object.name === event;
   const aliases = /* @__PURE__ */ new Set();
   const isPath = (n2) => {
@@ -64545,7 +66361,7 @@ function handleAnsweredPaths(program, exits) {
   };
   const out = [];
   for (const stmt2 of handle.body.body) {
-    if (callsOutsideFunctions(stmt2, resolve3)) break;
+    if (callsOutsideFunctions(stmt2, resolve6)) break;
     if (stmt2.type === "VariableDeclaration" && stmt2.kind === "const") for (const d2 of stmt2.declarations ?? []) {
       if (d2.id?.type === "Identifier" && isPath(d2.init)) aliases.add(d2.id.name);
       if (d2.id?.type === "ObjectPattern" && isUrl(unwrapTs(d2.init))) {
@@ -64818,7 +66634,7 @@ function refsTainted(node, tainted) {
   const walk2 = (n2, shadowed) => {
     if (hit) return;
     if (Array.isArray(n2)) {
-      for (const child of n2) walk2(child, shadowed);
+      for (const child2 of n2) walk2(child2, shadowed);
       return;
     }
     if (!n2 || typeof n2 !== "object" || typeof n2.type !== "string") return;
@@ -64840,7 +66656,7 @@ function refsTainted(node, tainted) {
 }
 function guardedAwaits(node, tainted, out = /* @__PURE__ */ new Set()) {
   if (Array.isArray(node)) {
-    for (const child of node) guardedAwaits(child, tainted, out);
+    for (const child2 of node) guardedAwaits(child2, tainted, out);
     return out;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string" || isFunctionNode(node)) return out;
@@ -64919,7 +66735,7 @@ function collectLoadWaterfalls(program, wrapped) {
   };
   const taintOnly = (node) => {
     if (Array.isArray(node)) {
-      for (const child of node) taintOnly(child);
+      for (const child2 of node) taintOnly(child2);
       return;
     }
     if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -64997,7 +66813,7 @@ function collectLoadWaterfalls(program, wrapped) {
 }
 function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
   if (Array.isArray(node)) {
-    for (const child of node) walkKit(child, handlerFns, startupFns, visit, shadowed, inFunction, inHandler, inStartup);
+    for (const child2 of node) walkKit(child2, handlerFns, startupFns, visit, shadowed, inFunction, inHandler, inStartup);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -65013,16 +66829,16 @@ function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */
     walkKit(node[key2], handlerFns, startupFns, visit, scope, nextInFunction, nextInHandler, nextInStartup);
   }
 }
-function normalizePosix(path) {
+function normalizePosix(path6) {
   const out = [];
-  for (const seg of path.split("/")) {
+  for (const seg of path6.split("/")) {
     if (seg === "" || seg === ".") continue;
     if (seg === ".." && out.length > 0 && out[out.length - 1] !== "..") out.pop();
     else out.push(seg);
   }
   return out.join("/");
 }
-var escapesRoot = (path) => path === ".." || path.startsWith("../");
+var escapesRoot = (path6) => path6 === ".." || path6.startsWith("../");
 var DEFAULT_KIT_ALIASES = [{
   find: "$lib",
   replacement: "src/lib",
@@ -65034,15 +66850,15 @@ function aliasMatches(entry, spec) {
   return entry.match === "prefix" && spec === entry.find;
 }
 function resolveRepoLocalPath(spec, importerFile, aliases = DEFAULT_KIT_ALIASES) {
-  let path;
-  if (spec === "." || spec === ".." || spec.startsWith("./") || spec.startsWith("../")) path = `${importerFile.split("/").slice(0, -1).join("/")}/${spec}`;
+  let path6;
+  if (spec === "." || spec === ".." || spec.startsWith("./") || spec.startsWith("../")) path6 = `${importerFile.split("/").slice(0, -1).join("/")}/${spec}`;
   else {
     const entry = aliases.find((a2) => aliasMatches(a2, spec));
     if (entry?.replacement == null) return void 0;
     if (entry.replacement.startsWith("/") || /^[A-Za-z]:\//.test(entry.replacement)) return void 0;
-    path = entry.replacement + spec.slice(entry.find.length) + (entry.suffix ?? "");
+    path6 = entry.replacement + spec.slice(entry.find.length) + (entry.suffix ?? "");
   }
-  const normalized = normalizePosix(path);
+  const normalized = normalizePosix(path6);
   if (!escapesRoot(normalized)) return normalized;
   return aliases.some((a2) => {
     const named = a2.root ?? a2.replacement;
@@ -65051,20 +66867,20 @@ function resolveRepoLocalPath(spec, importerFile, aliases = DEFAULT_KIT_ALIASES)
   }) ? normalized : void 0;
 }
 function resolveRunesModuleSpecifier(spec, importerFile, aliases) {
-  const path = resolveRepoLocalPath(spec, importerFile, aliases);
-  if (path === void 0) return void 0;
-  if (/\.svelte\.(ts|js)$/.test(path)) return path;
-  if (path.endsWith(".svelte")) return `${path}.ts`;
+  const path6 = resolveRepoLocalPath(spec, importerFile, aliases);
+  if (path6 === void 0) return void 0;
+  if (/\.svelte\.(ts|js)$/.test(path6)) return path6;
+  if (path6.endsWith(".svelte")) return `${path6}.ts`;
 }
 function libServerRoot(aliases) {
   const lib = aliases?.find((a2) => a2.find === "$lib");
   if (lib && lib.replacement === null) return void 0;
   return `${lib?.replacement ?? "src/lib"}/server`;
 }
-function isServerOnlyPath(path) {
-  const dirs = path.split("/");
+function isServerOnlyPath(path6) {
+  const dirs = path6.split("/");
   if (dirs.pop().split(".").includes("server")) return true;
-  return dirs.includes("server") && !path.startsWith("src/routes/") && !path.startsWith("static/");
+  return dirs.includes("server") && !path6.startsWith("src/routes/") && !path6.startsWith("static/");
 }
 function localModulePath(spec, importerFile, aliases) {
   return libServerRoot(aliases) === void 0 ? void 0 : resolveRepoLocalPath(spec, importerFile, aliases);
@@ -65072,9 +66888,9 @@ function localModulePath(spec, importerFile, aliases) {
 function isLocalStateSpecifier(spec, importerFile, aliases) {
   const serverRoot = libServerRoot(aliases);
   if (serverRoot === void 0) return false;
-  const path = resolveRepoLocalPath(spec, importerFile, aliases);
-  if (path === void 0) return false;
-  return path !== serverRoot && !path.startsWith(`${serverRoot}/`) && !isServerOnlyPath(path);
+  const path6 = resolveRepoLocalPath(spec, importerFile, aliases);
+  if (path6 === void 0) return false;
+  return path6 !== serverRoot && !path6.startsWith(`${serverRoot}/`) && !isServerOnlyPath(path6);
 }
 var WRITABLE_NAMES = /* @__PURE__ */ new Set(["writable"]);
 var IN_MEMORY_CTORS = /* @__PURE__ */ new Set([
@@ -66053,15 +67869,15 @@ var architectureReservedDirectoryNames = {
       if (winner === void 0) continue;
       if (globalKeys.has(winner.best)) examinedCounts[winner.best] = (examinedCounts[winner.best] ?? 0) + 1;
       const allowed = new Set(winner.names);
-      for (const child of kids.get(dir) ?? []) {
-        if (allowed.has(baseName(child))) continue;
-        if (isExcluded(child, ancestorDirs(child), excluded)) continue;
+      for (const child2 of kids.get(dir) ?? []) {
+        if (allowed.has(baseName(child2))) continue;
+        if (isExcluded(child2, ancestorDirs(child2), excluded)) continue;
         const childOptions = resolveRuleOptions(ID$4, OPTIONS$2, ctx.config, {
-          route: child,
-          file: child
+          route: child2,
+          file: child2
         }, compiledOverrides);
-        if (isExcluded(child, ancestorDirs(child), compile(listOption(childOptions, "exclude")))) continue;
-        const at2 = reportAt(child, files);
+        if (isExcluded(child2, ancestorDirs(child2), compile(listOption(childOptions, "exclude")))) continue;
+        const at2 = reportAt(child2, files);
         if (at2 === void 0) continue;
         out.push({
           id: ID$4,
@@ -66071,9 +67887,9 @@ var architectureReservedDirectoryNames = {
             presence: "none",
             value: "absent"
           },
-          route: child,
+          route: child2,
           location: at2,
-          message: `${child} is not one of the names declared here: ${winner.names.join(", ")}.`,
+          message: `${child2} is not one of the names declared here: ${winner.names.join(", ")}.`,
           recommendation: recommendation$1,
           docsUrl: docsUrl$1,
           fix: { description: "Rename it to a declared name, move it under one of them, or add its name to the declaration." }
@@ -66305,9 +68121,9 @@ var EXEMPT_IMPORTERS = [
 ];
 var ROUTES_DIR = "src/routes/";
 var ROUTE_ENTRY = /^\+(page|layout)(@.*)?\.svelte$/;
-function isRouteEntry(path) {
-  if (!path.startsWith(ROUTES_DIR)) return false;
-  const base = path.slice(path.lastIndexOf("/") + 1);
+function isRouteEntry(path6) {
+  if (!path6.startsWith(ROUTES_DIR)) return false;
+  const base = path6.slice(path6.lastIndexOf("/") + 1);
   return base === "+error.svelte" || ROUTE_ENTRY.test(base);
 }
 function routeEntryImports(c, ctx) {
@@ -66383,9 +68199,9 @@ function rootFor(url, roots) {
   }
   return best;
 }
-function targetExists(path, sourceFiles) {
-  const prefix = `${path}/`;
-  return sourceFiles.some((f) => f === path || f.startsWith(prefix));
+function targetExists(path6, sourceFiles) {
+  const prefix = `${path6}/`;
+  return sourceFiles.some((f) => f === path6 || f.startsWith(prefix));
 }
 function references(links, roots) {
   const out = [];
@@ -67443,7 +69259,7 @@ var STRUCTURE_BOUND = /* @__PURE__ */ new Set([
 ]);
 function judgeContent(els, children, ancestors, childIdx) {
   const ev = new Evaluator(els, children);
-  const child = els[childIdx];
+  const child2 = els[childIdx];
   for (let i3 = ancestors.length - 1; i3 >= 0; i3--) {
     const holder = els[ancestors[i3]];
     const spec = Object.hasOwn(HTML_SPEC.elements, holder.tag) ? HTML_SPEC.elements[holder.tag] : void 0;
@@ -67452,7 +69268,7 @@ function judgeContent(els, children, ancestors, childIdx) {
     if (cm.contents === true) return void 0;
     const violation = (entries2) => ({
       verdict: "violation",
-      closedModel: isClosedEntrySet(entries2) || HEADINGS.has(child.tag) || HEADINGS.has(holder.tag) || STRUCTURE_BOUND.has(child.tag),
+      closedModel: isClosedEntrySet(entries2) || HEADINGS.has(child2.tag) || HEADINGS.has(holder.tag) || STRUCTURE_BOUND.has(child2.tag),
       admits: describeEntries(entries2, holder.tag),
       modelTag: holder.tag
     });
@@ -67546,17 +69362,17 @@ var a11yPermittedContents = componentRule({
     }
     const out = [];
     for (let i3 = 0; i3 < els.length; i3++) {
-      const child = els[i3];
-      if (child.parent === void 0 || !judgeable(child)) continue;
+      const child2 = els[i3];
+      if (child2.parent === void 0 || !judgeable(child2)) continue;
       const ancestors = [];
-      for (let a2 = child.parent; a2 !== void 0; a2 = els[a2].parent) ancestors.unshift(a2);
-      const parent = els[child.parent];
+      for (let a2 = child2.parent; a2 !== void 0; a2 = els[a2].parent) ancestors.unshift(a2);
+      const parent = els[child2.parent];
       if (!judgeable(parent) || COMPILER_CARVEOUT.has(parent.tag)) continue;
       const judgment = judgeContent(els, children, ancestors, i3);
       if (!judgment) continue;
       out.push({
-        line: child.line,
-        message: `\`<${child.tag}>\` is not permitted content here \u2014 ${judgment.admits}`,
+        line: child2.line,
+        message: `\`<${child2.tag}>\` is not permitted content here \u2014 ${judgment.admits}`,
         severity: judgment.closedModel ? "warning" : "info"
       });
     }
@@ -68456,7 +70272,7 @@ function collectConstantListExports(program) {
 }
 function eachListRoots(node, acc = /* @__PURE__ */ new Set()) {
   if (Array.isArray(node)) {
-    for (const child of node) eachListRoots(child, acc);
+    for (const child2 of node) eachListRoots(child2, acc);
     return acc;
   }
   if (!node || typeof node !== "object") return acc;
@@ -68474,7 +70290,7 @@ function rootObjectNode(n2) {
 }
 function collectEachBlocks(node, source2, acc, lists, imports2) {
   if (Array.isArray(node)) {
-    for (const child of node) collectEachBlocks(child, source2, acc, lists, imports2);
+    for (const child2 of node) collectEachBlocks(child2, source2, acc, lists, imports2);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -68711,7 +70527,7 @@ var BUILTIN_MUTATIONS = {
 };
 function collectBuiltinStateSignals(node, candidates, mutated, reassigned, shadowed = /* @__PURE__ */ new Set(), inFunction = false) {
   if (Array.isArray(node)) {
-    for (const child of node) collectBuiltinStateSignals(child, candidates, mutated, reassigned, shadowed, inFunction);
+    for (const child2 of node) collectBuiltinStateSignals(child2, candidates, mutated, reassigned, shadowed, inFunction);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -68783,7 +70599,7 @@ function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
 }
 function collectAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set(), ownRhs = null) {
   if (Array.isArray(node)) {
-    for (const child of node) collectAliasRefs(child, names, acc, shadowed, ownRhs);
+    for (const child2 of node) collectAliasRefs(child2, names, acc, shadowed, ownRhs);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -68813,7 +70629,7 @@ function collectAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()
 }
 function collectFragmentAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
   if (Array.isArray(node)) {
-    for (const child of node) collectFragmentAliasRefs(child, names, acc, shadowed);
+    for (const child2 of node) collectFragmentAliasRefs(child2, names, acc, shadowed);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -68833,7 +70649,7 @@ function collectFragmentAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ n
 }
 function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ new Set(), includeIndex = true) {
   if (Array.isArray(node)) {
-    for (const child of node) collectEachContextTaint(child, names, acc, shadowed, includeIndex);
+    for (const child2 of node) collectEachContextTaint(child2, names, acc, shadowed, includeIndex);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -69062,7 +70878,7 @@ var URL_ATTRS = [
 var CHECKABLE_INPUT_TYPES = /* @__PURE__ */ new Set(["checkbox", "radio"]);
 function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
   if (Array.isArray(node)) {
-    for (const child of node) collectSecurityFacts(child, source2, htmlTags, jsUrls);
+    for (const child2 of node) collectSecurityFacts(child2, source2, htmlTags, jsUrls);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69077,7 +70893,7 @@ function collectSecurityFacts(node, source2, htmlTags, jsUrls) {
 }
 function collectCheckableBindValues(node, source2, acc) {
   if (Array.isArray(node)) {
-    for (const child of node) collectCheckableBindValues(child, source2, acc);
+    for (const child2 of node) collectCheckableBindValues(child2, source2, acc);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69113,7 +70929,7 @@ var CHAIN_BREAKS = /* @__PURE__ */ new Set([
 var SILENT_BREAKS = /* @__PURE__ */ new Set(["SnippetBlock", "SvelteHead"]);
 function collectElements(node, source2, acc, inSvg, parent) {
   if (Array.isArray(node)) {
-    for (const child of node) collectElements(child, source2, acc, inSvg, parent);
+    for (const child2 of node) collectElements(child2, source2, acc, inSvg, parent);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69169,7 +70985,7 @@ function isDndZone(a2) {
 }
 function collectAriaElements(node, source2, acc, parentIsDndZone = false) {
   if (Array.isArray(node)) {
-    for (const child of node) collectAriaElements(child, source2, acc, parentIsDndZone);
+    for (const child2 of node) collectAriaElements(child2, source2, acc, parentIsDndZone);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69216,7 +71032,7 @@ function containerRoleOf(attrs) {
 }
 function collectInteractiveNestings(node, source2, acc, stack) {
   if (Array.isArray(node)) {
-    for (const child of node) collectInteractiveNestings(child, source2, acc, stack);
+    for (const child2 of node) collectInteractiveNestings(child2, source2, acc, stack);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69256,7 +71072,7 @@ var DISABLEABLE_TAGS = /* @__PURE__ */ new Set([
 ]);
 function collectAriaHiddenFocusables(node, source2, acc, stack, unfocusable = false) {
   if (Array.isArray(node)) {
-    for (const child of node) collectAriaHiddenFocusables(child, source2, acc, stack, unfocusable);
+    for (const child2 of node) collectAriaHiddenFocusables(child2, source2, acc, stack, unfocusable);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69309,8 +71125,8 @@ function scanAccessibleNameSubtree(node, skip) {
       named: false,
       unknowable: false
     };
-    for (const child of node) {
-      const r2 = scanAccessibleNameSubtree(child, skip);
+    for (const child2 of node) {
+      const r2 = scanAccessibleNameSubtree(child2, skip);
       acc2.named ||= r2.named;
       acc2.unknowable ||= r2.unknowable;
     }
@@ -69360,8 +71176,8 @@ function accessibleNameTarget(node) {
 }
 function firstLabelableDescendant(node) {
   if (Array.isArray(node)) {
-    for (const child of node) {
-      const hit = firstLabelableDescendant(child);
+    for (const child2 of node) {
+      const hit = firstLabelableDescendant(child2);
       if (hit) return hit;
     }
     return;
@@ -69376,7 +71192,7 @@ function firstLabelableDescendant(node) {
 }
 function collectLabelTargets(node, acc) {
   if (Array.isArray(node)) {
-    for (const child of node) collectLabelTargets(child, acc);
+    for (const child2 of node) collectLabelTargets(child2, acc);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69393,7 +71209,7 @@ function collectLabelTargets(node, acc) {
 }
 function collectUnnamedInteractive(node, source2, acc, labels) {
   if (Array.isArray(node)) {
-    for (const child of node) collectUnnamedInteractive(child, source2, acc, labels);
+    for (const child2 of node) collectUnnamedInteractive(child2, source2, acc, labels);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69439,8 +71255,8 @@ function scanLabelSubtree(node) {
       hasControl: false,
       unknowable: false
     };
-    for (const child of node) {
-      const r2 = scanLabelSubtree(child);
+    for (const child2 of node) {
+      const r2 = scanLabelSubtree(child2);
       acc2.hasControl ||= r2.hasControl;
       acc2.unknowable ||= r2.unknowable;
     }
@@ -69475,7 +71291,7 @@ function scanLabelSubtree(node) {
 }
 function collectUnassociatedLabels(node, source2, acc) {
   if (Array.isArray(node)) {
-    for (const child of node) collectUnassociatedLabels(child, source2, acc);
+    for (const child2 of node) collectUnassociatedLabels(child2, source2, acc);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69500,9 +71316,9 @@ var VERBATIM_TEXT_TAGS = /* @__PURE__ */ new Set([
 function collectBulletTexts(node, source2, acc, inert, afterExpression = false, reported = /* @__PURE__ */ new WeakSet()) {
   if (Array.isArray(node)) {
     let prevWasExpression = afterExpression;
-    let group = [];
+    let group2 = [];
     const flush = () => {
-      if (group.length >= 2) for (const b of group) {
+      if (group2.length >= 2) for (const b of group2) {
         if (reported.has(b.text)) continue;
         reported.add(b.text);
         acc.push({
@@ -69510,7 +71326,7 @@ function collectBulletTexts(node, source2, acc, inert, afterExpression = false, 
           char: b.char
         });
       }
-      group = [];
+      group2 = [];
     };
     const bulletOf = (text2, after) => {
       if (!text2 || typeof text2 !== "object" || text2.type !== "Text" || after) return void 0;
@@ -69521,21 +71337,21 @@ function collectBulletTexts(node, source2, acc, inert, afterExpression = false, 
         text: text2
       } : void 0;
     };
-    for (const child of node) {
-      if (!child || typeof child !== "object") continue;
-      if (child.type === "Text") {
-        const b = inert ? void 0 : bulletOf(child, prevWasExpression);
-        if (b) group.push(b);
-        else if (String(child.data ?? "").trim()) flush();
-      } else if (child.type === "Comment" || child.type === "RegularElement" && child.name === "br") {
+    for (const child2 of node) {
+      if (!child2 || typeof child2 !== "object") continue;
+      if (child2.type === "Text") {
+        const b = inert ? void 0 : bulletOf(child2, prevWasExpression);
+        if (b) group2.push(b);
+        else if (String(child2.data ?? "").trim()) flush();
+      } else if (child2.type === "Comment" || child2.type === "RegularElement" && child2.name === "br") {
       } else {
         let item;
-        if (!inert && child.type === "RegularElement" && child.name !== "li" && !VERBATIM_TEXT_TAGS.has(child.name)) item = bulletOf((child.fragment?.nodes ?? []).find((n2) => !(n2?.type === "Text" && !String(n2.data ?? "").trim()) && n2?.type !== "Comment"), prevWasExpression);
-        if (item) group.push(item);
+        if (!inert && child2.type === "RegularElement" && child2.name !== "li" && !VERBATIM_TEXT_TAGS.has(child2.name)) item = bulletOf((child2.fragment?.nodes ?? []).find((n2) => !(n2?.type === "Text" && !String(n2.data ?? "").trim()) && n2?.type !== "Comment"), prevWasExpression);
+        if (item) group2.push(item);
         else flush();
-        collectBulletTexts(child, source2, acc, inert, prevWasExpression, reported);
+        collectBulletTexts(child2, source2, acc, inert, prevWasExpression, reported);
       }
-      if (child.type !== "Comment") prevWasExpression = child.type === "ExpressionTag";
+      if (child2.type !== "Comment") prevWasExpression = child2.type === "ExpressionTag";
     }
     flush();
     return;
@@ -69559,11 +71375,11 @@ function selectNeedsPlaceholder(attributes) {
   return true;
 }
 function firstSignificantChild(nodes) {
-  for (const child of nodes ?? []) {
-    if (!child) continue;
-    if (child.type === "Comment") continue;
-    if (child.type === "Text" && !String(child.data ?? "").trim()) continue;
-    return child;
+  for (const child2 of nodes ?? []) {
+    if (!child2) continue;
+    if (child2.type === "Comment") continue;
+    if (child2.type === "Text" && !String(child2.data ?? "").trim()) continue;
+    return child2;
   }
 }
 function isPlaceholderOption(option) {
@@ -69576,7 +71392,7 @@ function isPlaceholderOption(option) {
 }
 function collectSelectsMissingPlaceholder(node, source2, acc) {
   if (Array.isArray(node)) {
-    for (const child of node) collectSelectsMissingPlaceholder(child, source2, acc);
+    for (const child2 of node) collectSelectsMissingPlaceholder(child2, source2, acc);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69603,7 +71419,7 @@ var MACHINE_READABLE_TIME = [
 ];
 function collectTimesMissingDatetime(node, source2, acc) {
   if (Array.isArray(node)) {
-    for (const child of node) collectTimesMissingDatetime(child, source2, acc);
+    for (const child2 of node) collectTimesMissingDatetime(child2, source2, acc);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69640,7 +71456,7 @@ function staticTextOf(nodes) {
 }
 function collectDuplicateDts(node, source2, acc, inSvg) {
   if (Array.isArray(node)) {
-    for (const child of node) collectDuplicateDts(child, source2, acc, inSvg);
+    for (const child2 of node) collectDuplicateDts(child2, source2, acc, inSvg);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69662,12 +71478,12 @@ function collectDuplicateDts(node, source2, acc, inSvg) {
         });
         else seen.add(name);
       };
-      for (const child of node.fragment?.nodes ?? []) {
-        if (child?.type !== "RegularElement" || typeof child.name !== "string") continue;
-        const childTag = child.name.toLowerCase();
-        if (childTag === "dt") judge(child);
+      for (const child2 of node.fragment?.nodes ?? []) {
+        if (child2?.type !== "RegularElement" || typeof child2.name !== "string") continue;
+        const childTag = child2.name.toLowerCase();
+        if (childTag === "dt") judge(child2);
         else if (childTag === "div") {
-          for (const inner of child.fragment?.nodes ?? []) if (inner?.type === "RegularElement" && typeof inner.name === "string" && inner.name.toLowerCase() === "dt") judge(inner);
+          for (const inner of child2.fragment?.nodes ?? []) if (inner?.type === "RegularElement" && typeof inner.name === "string" && inner.name.toLowerCase() === "dt") judge(inner);
         }
       }
     }
@@ -69676,7 +71492,7 @@ function collectDuplicateDts(node, source2, acc, inSvg) {
 }
 function collectVideosAutoplayNoMuted(node, source2, acc, inSvg) {
   if (Array.isArray(node)) {
-    for (const child of node) collectVideosAutoplayNoMuted(child, source2, acc, inSvg);
+    for (const child2 of node) collectVideosAutoplayNoMuted(child2, source2, acc, inSvg);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -69695,7 +71511,7 @@ function collectVideosAutoplayNoMuted(node, source2, acc, inSvg) {
 }
 function collectHrefLinks(node, source2, acc) {
   if (Array.isArray(node)) {
-    for (const child of node) collectHrefLinks(child, source2, acc);
+    for (const child2 of node) collectHrefLinks(child2, source2, acc);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -71305,11 +73121,11 @@ function withReadLimit(readFile2, limit = READ_CONCURRENCY) {
     active--;
     waiting.shift()?.();
   };
-  return async (path) => {
-    if (active >= limit) await new Promise((resolve3) => waiting.push(resolve3));
+  return async (path6) => {
+    if (active >= limit) await new Promise((resolve6) => waiting.push(resolve6));
     active++;
     try {
-      return await readFile2(path);
+      return await readFile2(path6);
     } finally {
       release();
     }
@@ -72121,7 +73937,7 @@ I()?.name;
 import { execFileSync } from "child_process";
 import { tmpdir } from "os";
 import { styleText } from "util";
-import { setTimeout as setTimeout2 } from "timers/promises";
+import { setTimeout as setTimeout3 } from "timers/promises";
 import { createHash } from "crypto";
 import { pathToFileURL } from "url";
 var ID_REF_RULE = "a11y/no-missing-id-ref";
@@ -72153,25 +73969,25 @@ async function globFiles(pattern, cwd, exclude) {
     withFileTypes: true,
     ...exclude ? { exclude } : {}
   })) {
-    const path = join(entry.parentPath, entry.name);
+    const path6 = join3(entry.parentPath, entry.name);
     if (!entry.isFile()) {
       if (!entry.isSymbolicLink()) continue;
-      if (!(await stat2(path).catch(() => null))?.isFile()) continue;
+      if (!(await stat2(path6).catch(() => null))?.isFile()) continue;
     }
-    const rel = relative(cwd, path);
-    out.push(sep2 === "/" ? rel : rel.split(sep2).join("/"));
+    const rel = relative2(cwd, path6);
+    out.push(sep4 === "/" ? rel : rel.split(sep4).join("/"));
   }
   return out;
 }
 function createNodeRuntime() {
-  const boundedRead = withReadLimit((path) => readFile(path, "utf8"));
+  const boundedRead = withReadLimit((path6) => readFile(path6, "utf8"));
   return {
-    readFile(path) {
-      return boundedRead(path);
+    readFile(path6) {
+      return boundedRead(path6);
     },
-    async exists(path) {
+    async exists(path6) {
       try {
-        await access2(path);
+        await access2(path6);
         return true;
       } catch {
         return false;
@@ -72181,7 +73997,7 @@ function createNodeRuntime() {
       return globFiles(pattern, cwd);
     },
     join(...parts) {
-      return join(...parts);
+      return join3(...parts);
     }
   };
 }
@@ -72245,7 +74061,7 @@ function addBinding(decl, out) {
 }
 function addConstTags(node, out) {
   if (Array.isArray(node)) {
-    for (const child of node) addConstTags(child, out);
+    for (const child2 of node) addConstTags(child2, out);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -72294,7 +74110,7 @@ var FUNCTION_TYPES = /* @__PURE__ */ new Set([
 ]);
 function walkAll(node, visit, inFunction = false) {
   if (Array.isArray(node)) {
-    for (const child of node) walkAll(child, visit, inFunction);
+    for (const child2 of node) walkAll(child2, visit, inFunction);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -72366,7 +74182,7 @@ function childOf(node, key2) {
 }
 function collectSvelteHeads(node, acc) {
   if (Array.isArray(node)) {
-    for (const child of node) collectSvelteHeads(child, acc);
+    for (const child2 of node) collectSvelteHeads(child2, acc);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -72647,13 +74463,13 @@ function bodyJsonLd(fragment2, source2, jsonLdNames) {
   findRenders(fragment2);
   const visit = (node, nested, names) => {
     if (Array.isArray(node)) {
-      for (const child of node) visit(child, nested, names);
+      for (const child2 of node) visit(child2, nested, names);
       return;
     }
     if (!node || typeof node !== "object" || node.type === "SvelteHead") return;
     if (node.type === "SnippetBlock" && !rendered.has(node.expression.name)) return;
     if (node.type === "Component" || node.type === "SvelteComponent") {
-      for (const child of node.fragment.nodes) visit(child.type === "SnippetBlock" ? child.body : child, true, names);
+      for (const child2 of node.fragment.nodes) visit(child2.type === "SnippetBlock" ? child2.body : child2, true, names);
       return;
     }
     if (node.type === "HtmlTag" || node.type === "SvelteElement" || node.type === "RegularElement" && node.name === "script") {
@@ -72677,13 +74493,13 @@ function tagsFromHead(head, source2, jsonLdNames) {
 }
 function memberPath(node) {
   if (node.type === "Component") return node.name.includes(".") ? node.name.split(".") : [];
-  const path = [];
+  const path6 = [];
   let e3 = node.expression.type === "ChainExpression" ? node.expression.expression : node.expression;
   for (; e3.type === "MemberExpression"; e3 = e3.object) {
     const key2 = e3.property;
-    path.unshift(!e3.computed && key2.type === "Identifier" ? key2.name : key2.type === "Literal" && typeof key2.value === "string" ? key2.value : "");
+    path6.unshift(!e3.computed && key2.type === "Identifier" ? key2.name : key2.type === "Literal" && typeof key2.value === "string" ? key2.value : "");
   }
-  return path.length > 0 && e3.type === "Identifier" ? [e3.name, ...path] : [];
+  return path6.length > 0 && e3.type === "Identifier" ? [e3.name, ...path6] : [];
 }
 function componentName(node) {
   if (node.type !== "SvelteComponent") return node.name;
@@ -72694,7 +74510,7 @@ function componentName(node) {
 }
 function collectComponents(node, acc, heading, mounts, at2 = {}) {
   if (Array.isArray(node)) {
-    for (const child of node) collectComponents(child, acc, heading, mounts, at2);
+    for (const child2 of node) collectComponents(child2, acc, heading, mounts, at2);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -72786,7 +74602,7 @@ function mountFlags(ast, bound, imports2) {
 }
 function flagArms(gates, falses) {
   const out = /* @__PURE__ */ new Map();
-  for (const [group, gate] of gates ?? []) if (falses.has(gate.name)) out.set(group, gate.negate);
+  for (const [group2, gate] of gates ?? []) if (falses.has(gate.name)) out.set(group2, gate.negate);
   return out;
 }
 var TRANSLATE_CALL = /^(?:[$\w]+\.)?(?:\$?t|\$?_|translate)$/;
@@ -73020,9 +74836,9 @@ function decidedArms(parsed, attributes, gates = parsed.headingGates, supplied =
     }
     return holds !== gate.negate;
   }
-  for (const [group, gate] of gates) {
+  for (const [group2, gate] of gates) {
     const holds = decide(gate);
-    if (holds !== void 0) out.set(group, holds);
+    if (holds !== void 0) out.set(group2, holds);
   }
   return out;
 }
@@ -73030,7 +74846,7 @@ function ruledOutArms(parsed, attributes, chains, supplied = []) {
   const all = [...chains.values()].flat().filter((g) => g !== void 0);
   const decided = decidedArms(parsed, attributes, new Map(all.map((g) => [g, g])), supplied);
   const out = /* @__PURE__ */ new Map();
-  for (const [group, tests] of chains) {
+  for (const [group2, tests] of chains) {
     const ruled = /* @__PURE__ */ new Set();
     let taken = false;
     for (let arm = 0; arm <= tests.length; arm++) {
@@ -73038,7 +74854,7 @@ function ruledOutArms(parsed, attributes, chains, supplied = []) {
       if (taken || holds === false) ruled.add(arm);
       else if (holds) taken = true;
     }
-    if (ruled.size > 0) out.set(group, ruled);
+    if (ruled.size > 0) out.set(group2, ruled);
   }
   return out;
 }
@@ -73212,7 +75028,7 @@ function isQrImage(attrs) {
 }
 function indexSnippets(node, acc) {
   if (Array.isArray(node)) {
-    for (const child of node) indexSnippets(child, acc);
+    for (const child2 of node) indexSnippets(child2, acc);
     return;
   }
   if (!node || typeof node !== "object") return;
@@ -73235,7 +75051,7 @@ function collectImages(fragment2, source2, imports2) {
   const emitted = /* @__PURE__ */ new Set();
   const walk2 = (node, picture) => {
     if (Array.isArray(node)) {
-      for (const child of node) walk2(child, picture);
+      for (const child2 of node) walk2(child2, picture);
       return;
     }
     if (!node || typeof node !== "object") return;
@@ -73432,14 +75248,14 @@ function childrenUrlConds(ast, source2) {
         v
       });
       if (v !== void 0 && isRouteId(side, depth)) return negate({ id: [v] });
-      const [path, other] = isPath(n2.left, depth) ? [n2.left, n2.right] : [n2.right, n2.left];
-      const tpl = isPath(path, depth) ? template2(other, depth) : void 0;
+      const [path6, other] = isPath(n2.left, depth) ? [n2.left, n2.right] : [n2.right, n2.left];
+      const tpl = isPath(path6, depth) ? template2(other, depth) : void 0;
       if (tpl) return negate({ tpl });
     }
     return { u: true };
   };
   const walk2 = (node, stack) => {
-    if (Array.isArray(node)) return node.forEach((child) => walk2(child, stack));
+    if (Array.isArray(node)) return node.forEach((child2) => walk2(child2, stack));
     if (!node) return;
     if (node.type === "IfBlock") {
       const tests = ifTests(node).map((t2) => cond(t2));
@@ -73489,12 +75305,12 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
   let holeIds = 0;
   const fullArms = /* @__PURE__ */ new Map();
   const fullWhen = /* @__PURE__ */ new Map();
-  const push = (level, node, path, at2, when, aria3, overlay) => {
+  const push = (level, node, path6, at2, when, aria3, overlay) => {
     const order = at2 === void 0 ? [node.start] : [...at2, node.start];
     const heading = {
       level,
       line: lineOf(source2, node.start),
-      ...path.length > 0 ? { path } : {},
+      ...path6.length > 0 ? { path: path6 } : {},
       order,
       ...aria3 ? { aria: aria3 } : {},
       ...overlay ? { overlay } : {}
@@ -73506,17 +75322,17 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
     if (!map.has(key2)) map.set(key2, offset2);
   };
   const childrenSites = [];
-  const site = (path, offset2, start) => {
+  const site = (path6, offset2, start) => {
     const url = urls.get(start);
-    if (!childrenSites.some(({ path: p2 }) => p2.length === path.length && p2.every((s, i3) => sameStep(s, path[i3])))) childrenSites.push({
-      path,
+    if (!childrenSites.some(({ path: p2 }) => p2.length === path6.length && p2.every((s, i3) => sameStep(s, path6[i3])))) childrenSites.push({
+      path: path6,
       offset: offset2,
       ...url ? { url } : {}
     });
   };
-  const meet = (map, key2, path) => {
+  const meet = (map, key2, path6) => {
     const prev = map.get(key2);
-    map.set(key2, prev ? commonPrefix(prev, path) : path);
+    map.set(key2, prev ? commonPrefix(prev, path6) : path6);
   };
   const holeOf = (node, name) => {
     let named = holes.get(node);
@@ -73537,19 +75353,19 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
   const note = (map, key2, when) => {
     map.set(key2, map.has(key2) ? null : when);
   };
-  const walk2 = (node, path, open3, at2, when = []) => {
+  const walk2 = (node, path6, open3, at2, when = []) => {
     if (Array.isArray(node)) {
-      for (const child of node) walk2(child, path, open3, at2, when);
+      for (const child2 of node) walk2(child2, path6, open3, at2, when);
       return;
     }
     if (!node || typeof node !== "object") return;
     if (node.type === "Fragment") {
       const eligible = (b) => !shared.has(b) && !propGate(b.test, props, reassigned) && !flagGate(b.test, flags) && !urlBlocks.has(b.start);
       for (const set2 of exclusiveIfs(node, source2, eligible)) {
-        const group = groups++;
-        armCount.set(group, set2.length);
+        const group2 = groups++;
+        armCount.set(group2, set2.length);
         set2.forEach((block2, branch) => shared.set(block2, {
-          group,
+          group: group2,
           branch
         }));
       }
@@ -73559,27 +75375,27 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
     if (node.type === "SnippetBlock" && local(node.expression.name) === node) return;
     const sibling2 = node.type === "IfBlock" ? shared.get(node) : void 0;
     if (sibling2 && node.type === "IfBlock") {
-      walk2(node.consequent, [...path, sibling2], open3, at2, when && [...when, condOf(node.test, source2, opaque)]);
+      walk2(node.consequent, [...path6, sibling2], open3, at2, when && [...when, condOf(node.test, source2, opaque)]);
       return;
     }
     if (node.type === "IfBlock" || node.type === "AwaitBlock") {
-      const group = groups++;
+      const group2 = groups++;
       const gate = node.type === "IfBlock" ? propGate(node.test, props, reassigned) : void 0;
-      if (gate) gates.set(group, gate);
+      if (gate) gates.set(group2, gate);
       const flag = node.type === "IfBlock" ? flagGate(node.test, flags) : void 0;
-      if (flag) flagGates.set(group, flag);
+      if (flag) flagGates.set(group2, flag);
       const url = node.type === "IfBlock" ? urlBlocks.get(node.start) : void 0;
-      if (url) urlGates.set(group, url);
+      if (url) urlGates.set(group2, url);
       const arms = node.type === "IfBlock" ? ifArms(node) : [
         node.pending,
         node.then,
         node.catch
       ];
-      if (node.type === "IfBlock" && endsInElse(node)) fullArms.set(group, arms.length);
-      armCount.set(group, arms.filter(Boolean).length);
+      if (node.type === "IfBlock" && endsInElse(node)) fullArms.set(group2, arms.length);
+      armCount.set(group2, arms.filter(Boolean).length);
       const tests = node.type === "IfBlock" ? ifTests(node).map((t2) => condOf(t2, source2, opaque)) : [];
-      if (node.type === "IfBlock" && endsInElse(node) && when) fullWhen.set(group, {
-        path,
+      if (node.type === "IfBlock" && endsInElse(node) && when) fullWhen.set(group2, {
+        path: path6,
         arms: arms.map((_, branch) => [
           ...when,
           ...tests.slice(0, branch).map((t2) => ({ not: t2 })),
@@ -73592,31 +75408,31 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
           ...tests.slice(0, branch).map((t2) => ({ not: t2 })),
           ...tests[branch] ? [tests[branch]] : []
         ];
-        walk2(arm, [...path, {
-          group,
+        walk2(arm, [...path6, {
+          group: group2,
           branch
         }], open3, at2, armWhen);
       });
       return;
     }
     if (node.type === "EachBlock") {
-      const group = groups++;
-      armCount.set(group, 1);
-      walk2(node.body, [...path, {
-        group,
+      const group2 = groups++;
+      armCount.set(group2, 1);
+      walk2(node.body, [...path6, {
+        group: group2,
         branch: 0,
         repeat: true
       }], open3, at2, null);
-      walk2(node.fallback, path, open3, at2, when);
+      walk2(node.fallback, path6, open3, at2, when);
       return;
     }
     if (node.type === "SvelteBoundary") {
-      const group = groups++;
-      armCount.set(group, 2);
-      for (const child of node.fragment.nodes) {
-        const branch = child.type === "SnippetBlock" ? BOUNDARY_SNIPPET_ARMS.get(child.expression.name) ?? 0 : 0;
-        walk2(child, [...path, {
-          group,
+      const group2 = groups++;
+      armCount.set(group2, 2);
+      for (const child2 of node.fragment.nodes) {
+        const branch = child2.type === "SnippetBlock" ? BOUNDARY_SNIPPET_ARMS.get(child2.expression.name) ?? 0 : 0;
+        walk2(child2, [...path6, {
+          group: group2,
           branch
         }], open3, at2, when);
       }
@@ -73627,18 +75443,18 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
       const snippet = local(name);
       if (snippet && !open3.includes(snippet)) {
         reached.add(snippet);
-        walk2(snippet.body, path, [...open3, snippet], [...at2 ?? [], node.start], snippet.parameters.length > 0 ? null : when);
+        walk2(snippet.body, path6, [...open3, snippet], [...at2 ?? [], node.start], snippet.parameters.length > 0 ? null : when);
       } else if (!snippet && name !== void 0) {
-        if ((props.get(name) ?? name) === "children") site(path, at2?.[0] ?? node.start, node.start);
-        meet(renderPaths, props.get(name) ?? name, path);
+        if ((props.get(name) ?? name) === "children") site(path6, at2?.[0] ?? node.start, node.start);
+        meet(renderPaths, props.get(name) ?? name, path6);
         note(renderWhen, props.get(name) ?? name, when);
         first(renderOffsets, props.get(name) ?? name, at2?.[0] ?? node.start);
       }
       return;
     }
     if (node.type === "SlotElement" && !node.attributes.some((a2) => a2.type === "Attribute" && a2.name === "name")) {
-      site(path, at2?.[0] ?? node.start, node.start);
-      meet(renderPaths, "children", path);
+      site(path6, at2?.[0] ?? node.start, node.start);
+      meet(renderPaths, "children", path6);
       note(renderWhen, "children", when);
       first(renderOffsets, "children", at2?.[0] ?? node.start);
     }
@@ -73648,36 +75464,36 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
         const set2 = attrs.find((a2) => a2.name === "level")?.value;
         const expr = set2 && !Array.isArray(set2) && set2 !== true ? set2.expression : void 0;
         const level = Number(expr?.type === "Literal" ? expr.value : set2 ? attrText(attrs, "level") : 2);
-        push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at2, when, true, true);
+        push(Number.isInteger(level) && level >= 1 ? level : 0, node, path6, at2, when, true, true);
       }
       const [root, next2] = memberPath(node);
       if (root && !bound.has(root) && (props.get(root) === "data" || root === props.get(WHOLE_PROPS) && next2 === "data")) dynamic = true;
-      meet(componentPaths, node, path);
+      meet(componentPaths, node, path6);
       note(componentWhen, node, when);
       first(componentOffsets, node, at2?.[0] ?? node.start);
-      for (const child of node.fragment.nodes) {
-        const name = child.type === "SnippetBlock" ? child.expression.name : "children";
-        const scoped = child.type === "SnippetBlock" && child.parameters.length > 0 ? null : when;
-        walk2(child, [...path, holeOf(node, name)], open3, at2, scoped);
+      for (const child2 of node.fragment.nodes) {
+        const name = child2.type === "SnippetBlock" ? child2.expression.name : "children";
+        const scoped = child2.type === "SnippetBlock" && child2.parameters.length > 0 ? null : when;
+        walk2(child2, [...path6, holeOf(node, name)], open3, at2, scoped);
       }
       return;
     }
-    if (node.type === "RegularElement" && HEADING_TAG.test(node.name)) push(Number(node.name[1]), node, path, at2, when);
+    if (node.type === "RegularElement" && HEADING_TAG.test(node.name)) push(Number(node.name[1]), node, path6, at2, when);
     else if (node.type === "RegularElement" && isAriaHeading(node)) {
       const attrs = node.attributes.filter((a2) => a2.type === "Attribute");
       const set2 = attrs.some((a2) => a2.name === "aria-level");
       const level = Number(set2 ? attrText(attrs, "aria-level") : 2);
-      push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at2, when, true);
+      push(Number.isInteger(level) && level >= 1 ? level : 0, node, path6, at2, when, true);
     } else if (node.type === "SvelteElement") {
       const tags = svelteElementTags(node.tag);
       const level = tags ? headingLevelOf(tags) : void 0;
-      if (level !== void 0) push(level, node, path, at2, when);
+      if (level !== void 0) push(level, node, path6, at2, when);
       else if (!tags || tags.some((t2) => HEADING_TAG.test(t2.toLowerCase()))) {
         dynamic = true;
-        push(0, node, path, at2, when);
+        push(0, node, path6, at2, when);
       }
     }
-    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) walk2(childOf(node, key2), path, open3, at2, when);
+    for (const key2 of CHILD_NODE_KEYS) if (key2 in node) walk2(childOf(node, key2), path6, open3, at2, when);
   };
   walk2(fragment2, [], []);
   for (const snippet of index.snippets.values()) if (local(snippet.expression.name) === snippet && !reached.has(snippet)) walk2(snippet.body, [], [snippet], void 0, null);
@@ -73695,16 +75511,16 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
   const exclusive = [
     ...headings.flatMap((h2) => {
       const when = headingWhen.get(h2);
-      return when ? [placed(when, () => h2.path ?? [], (path) => h2.path = path)] : [];
+      return when ? [placed(when, () => h2.path ?? [], (path6) => h2.path = path6)] : [];
     }),
-    ...[...componentWhen].flatMap(([node, when]) => when ? [placed(when, () => componentPaths.get(node), (path) => componentPaths.set(node, path))] : []),
-    ...[...renderWhen].flatMap(([name, when]) => when ? [placed(when, () => renderPaths.get(name), (path) => renderPaths.set(name, path))] : [])
+    ...[...componentWhen].flatMap(([node, when]) => when ? [placed(when, () => componentPaths.get(node), (path6) => componentPaths.set(node, path6))] : []),
+    ...[...renderWhen].flatMap(([name, when]) => when ? [placed(when, () => renderPaths.get(name), (path6) => renderPaths.set(name, path6))] : [])
   ];
   const oneArmFrom = (p2, from) => p2.path.slice(from).every((s) => s.branch === -1 || armCount.get(s.group) === 1);
   for (const clique of contradictingArms(exclusive.filter((p2) => oneArmFrom(p2, 0)))) {
-    const group = groups++;
+    const group2 = groups++;
     clique.forEach((members, branch) => members.forEach((m) => m.insert(0, {
-      group,
+      group: group2,
       branch
     })));
   }
@@ -73712,14 +75528,14 @@ function collectHeadings(fragment2, source2, props, reassigned = /* @__PURE__ */
   for (const p2 of exclusive) {
     const own = refs(p2.when);
     if (own.size === 0) continue;
-    for (const [group, block2] of fullWhen) {
-      if (p2.path.some((s) => s.group === group)) continue;
+    for (const [group2, block2] of fullWhen) {
+      if (p2.path.some((s) => s.group === group2)) continue;
       if (![...refs(block2.arms.flat())].some((r2) => own.has(r2))) continue;
       if (!block2.path.every((s) => p2.path.some((t2) => t2.group === s.group && t2.branch === s.branch))) continue;
       const fits = block2.arms.flatMap((w2, branch) => unsatisfiable([...p2.when, ...w2]) ? [] : [branch]);
       if (fits.length !== 1) continue;
       const step = {
-        group,
+        group: group2,
         branch: fits[0],
         always: true
       };
@@ -73971,7 +75787,7 @@ function collectA11y(fragment2, source2, urls = /* @__PURE__ */ new Map(), props
   };
   const walk2 = (node, ctx) => {
     if (Array.isArray(node)) {
-      for (const child of node) walk2(child, ctx);
+      for (const child2 of node) walk2(child2, ctx);
       return;
     }
     if (!node || typeof node !== "object") return;
@@ -73986,18 +75802,18 @@ function collectA11y(fragment2, source2, urls = /* @__PURE__ */ new Map(), props
         elementsUnknowable = true;
         return;
       case "IfBlock": {
-        const group = groups++;
+        const group2 = groups++;
         const chain = ifTests(node).map((t2) => propGate(t2, props, reassigned, 0, true));
-        if (chain.some(Boolean)) gates.set(group, chain);
+        if (chain.some(Boolean)) gates.set(group2, chain);
         const flag = flagGate(node.test, flags);
-        if (flag) flagGates.set(group, flag);
+        if (flag) flagGates.set(group2, flag);
         const url = urlBlocks.get(node.start);
-        if (url) urlGates.set(group, url);
+        if (url) urlGates.set(group2, url);
         const tests = ifTests(node).map((t2) => condOf(t2, source2, A11Y_OPAQUE, name));
         ifArms(node).forEach((arm, branch) => walk2(arm, {
           ...ctx,
           path: [...ctx.path, {
-            group,
+            group: group2,
             branch
           }],
           when: ctx.frozen ? ctx.when : [
@@ -74009,18 +75825,18 @@ function collectA11y(fragment2, source2, urls = /* @__PURE__ */ new Map(), props
         return;
       }
       case "AwaitBlock": {
-        const group = groups++;
+        const group2 = groups++;
         walk2(node.pending, {
           ...ctx,
           path: [...ctx.path, {
-            group,
+            group: group2,
             branch: 0
           }]
         });
         walk2(node.then, {
           ...ctx,
           path: [...ctx.path, {
-            group,
+            group: group2,
             branch: 1
           }],
           frozen: true
@@ -74028,7 +75844,7 @@ function collectA11y(fragment2, source2, urls = /* @__PURE__ */ new Map(), props
         walk2(node.catch, {
           ...ctx,
           path: [...ctx.path, {
-            group,
+            group: group2,
             branch: 2
           }]
         });
@@ -74274,9 +76090,9 @@ function parseHeadTags(source2, filename2) {
   return heads.flatMap((h2) => tagsFromHead(h2, source2, jsonLdNames));
 }
 var MAX_LEVELS = 32;
-async function readIfExists(rt, path) {
+async function readIfExists(rt, path6) {
   try {
-    return await rt.exists(path) ? await rt.readFile(path) : void 0;
+    return await rt.exists(path6) ? await rt.readFile(path6) : void 0;
   } catch {
     return;
   }
@@ -74289,18 +76105,18 @@ function nameOf$1(manifest) {
     return;
   }
 }
-function normalize(path) {
+function normalize(path6) {
   const out = [];
-  for (const seg of path.split("/")) {
+  for (const seg of path6.split("/")) {
     if (seg === "" || seg === ".") continue;
     if (seg === ".." && out.length > 0 && out[out.length - 1] !== "..") out.pop();
     else out.push(seg);
   }
   return out;
 }
-function fromApp(cwd, up, path) {
+function fromApp(cwd, up, path6) {
   const tail = up === 0 ? [] : cwd.split(/[\\/]/).filter(Boolean).slice(-up);
-  const segs = normalize(path);
+  const segs = normalize(path6);
   let shared = 0;
   if (tail.length === up) while (shared < up && tail[shared] === segs[shared]) shared++;
   return [...Array(up - shared).fill(".."), ...segs.slice(shared)].join("/");
@@ -74547,12 +76363,12 @@ async function detectViteMinifyDisabled(rt, cwd) {
 }
 async function readFirstConfig(rt, cwd, files) {
   for (const file of files) {
-    const path = rt.join(cwd, file);
-    if (!await rt.exists(path)) continue;
+    const path6 = rt.join(cwd, file);
+    if (!await rt.exists(path6)) continue;
     try {
       return {
         file,
-        source: await rt.readFile(path)
+        source: await rt.readFile(path6)
       };
     } catch {
       return;
@@ -75082,8 +76898,8 @@ function titleSetterExports(program) {
 var MAX_REEXPORT_HOPS = 8;
 async function resolveExport(ctx, spec, fromRel, name, target = "component", hops = 0, memo = /* @__PURE__ */ new Map()) {
   if (name === "*" || hops > MAX_REEXPORT_HOPS) return void 0;
-  const path = resolveRepoLocalPath(spec, fromRel, ctx.aliases);
-  if (path === void 0) return void 0;
+  const path6 = resolveRepoLocalPath(spec, fromRel, ctx.aliases);
+  if (path6 === void 0) return void 0;
   const at2 = (candidate) => {
     const key2 = `${candidate}#${name}#${hops}`;
     let hit = memo.get(key2);
@@ -75093,54 +76909,54 @@ async function resolveExport(ctx, spec, fromRel, name, target = "component", hop
     }
     return hit;
   };
-  const found = await at2(path);
-  const sources = unbuiltSources(path, ctx.aliases);
-  if (found || sources.length === 0 || await isBuilt(ctx, path)) return found;
+  const found = await at2(path6);
+  const sources = unbuiltSources(path6, ctx.aliases);
+  if (found || sources.length === 0 || await isBuilt(ctx, path6)) return found;
   for (const source2 of sources) {
     const hit = await at2(source2);
     if (hit) return hit;
   }
 }
-async function isBuilt(ctx, path) {
+async function isBuilt(ctx, path6) {
   const variants = [
-    path,
-    `${path}.svelte`,
-    `${path}.js`,
-    `${path}.ts`,
-    `${path}/index.js`,
-    `${path}/index.ts`
+    path6,
+    `${path6}.svelte`,
+    `${path6}.js`,
+    `${path6}.ts`,
+    `${path6}/index.js`,
+    `${path6}/index.ts`
   ];
-  if (path.endsWith(".js")) variants.push(`${path.slice(0, -3)}.ts`);
+  if (path6.endsWith(".js")) variants.push(`${path6.slice(0, -3)}.ts`);
   for (const file of variants) if (await ctx.rt.exists(ctx.rt.join(ctx.cwd, file))) return true;
   return false;
 }
-function unbuiltSources(path, aliases) {
+function unbuiltSources(path6, aliases) {
   for (const { root } of aliases ?? []) {
-    if (root === void 0 || !path.startsWith(`${root}/dist/`)) continue;
-    const rest2 = path.slice(root.length + 6);
+    if (root === void 0 || !path6.startsWith(`${root}/dist/`)) continue;
+    const rest2 = path6.slice(root.length + 6);
     return [`${root}/src/${rest2}`, `${root}/src/lib/${rest2}`];
   }
   return [];
 }
-async function resolveExportAt(ctx, path, name, target, hops, memo) {
+async function resolveExportAt(ctx, path6, name, target, hops, memo) {
   const exists2 = (rel) => ctx.rt.exists(ctx.rt.join(ctx.cwd, rel));
-  const ext = /\.(svelte|md|svx|[cm]?[jt]sx?|json)$/.exec(path)?.[0];
+  const ext = /\.(svelte|md|svx|[cm]?[jt]sx?|json)$/.exec(path6)?.[0];
   const component = target === "component" && name === "default";
   let modules;
-  if (ext === ".md" || ext === ".svx") return component && await exists2(path) ? path : void 0;
+  if (ext === ".md" || ext === ".svx") return component && await exists2(path6) ? path6 : void 0;
   if (ext === ".svelte") {
-    if (await exists2(path)) return component ? path : void 0;
-    modules = [`${path}.js`, `${path}.ts`];
+    if (await exists2(path6)) return component ? path6 : void 0;
+    modules = [`${path6}.js`, `${path6}.ts`];
   } else if (ext === void 0) {
-    if (component && await exists2(`${path}.svelte`)) return `${path}.svelte`;
+    if (component && await exists2(`${path6}.svelte`)) return `${path6}.svelte`;
     modules = [
       ".js",
       ".ts",
       "/index.js",
       "/index.ts"
-    ].map((suffix) => path + suffix);
-  } else if (ext === ".js") modules = [path, `${path.slice(0, -3)}.ts`];
-  else modules = [path];
+    ].map((suffix) => path6 + suffix);
+  } else if (ext === ".js") modules = [path6, `${path6.slice(0, -3)}.ts`];
+  else modules = [path6];
   for (const mod of modules) {
     if (!await exists2(mod)) continue;
     const exports = await readModuleExports(ctx, mod);
@@ -75198,18 +77014,18 @@ async function titleSetterCalled(ctx, fileRel, parsed) {
   }
   return false;
 }
-function offsetPath(path, base) {
-  return base === 0 ? path : path.map((step) => ({
+function offsetPath(path6, base) {
+  return base === 0 ? path6 : path6.map((step) => ({
     ...step,
     group: step.group + base
   }));
 }
 function nestHeading(heading, prefix, base) {
   const { path: own, ...rest2 } = heading;
-  const path = [...prefix, ...offsetPath(own ?? [], base)];
-  return path.length > 0 ? {
+  const path6 = [...prefix, ...offsetPath(own ?? [], base)];
+  return path6.length > 0 ? {
     ...rest2,
-    path
+    path: path6
   } : rest2;
 }
 function maybeTag(tag2) {
@@ -75298,7 +77114,7 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
   const nested = [];
   const holes = /* @__PURE__ */ new Map();
   const opaque = /* @__PURE__ */ new Map();
-  const place = (path) => path.flatMap((s) => {
+  const place = (path6) => path6.flatMap((s) => {
     if (s.branch !== -1) return [s];
     const rendered = holes.get(s.group);
     if (rendered) return rendered;
@@ -75347,23 +77163,23 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
       for (const [i3, childRel] of files.entries()) {
         const childParsed = parsedFiles[i3];
         const childVisited = new Set(visited).add(childRel);
-        const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache, aliases, childHead, attributes);
+        const child2 = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache, aliases, childHead, attributes);
         const clientOnly = use.clientOnly === true || found.clientOnly?.has(childRel) === true;
-        const childTags = clientOnly ? [...child.tags, ...child.broad ? BROAD_KINDS : []].map((t2) => ({
+        const childTags = clientOnly ? [...child2.tags, ...child2.broad ? BROAD_KINDS : []].map((t2) => ({
           ...t2,
           clientOnly: true
-        })) : child.tags;
-        broad = broad || child.broad && !clientOnly;
+        })) : child2.tags;
+        broad = broad || child2.broad && !clientOnly;
         const decided = decidedArms(childParsed, attributes, void 0, [...use.holes?.keys() ?? []]);
-        const childHeadings = [...child.ownHeadings, ...child.headings].filter((h2) => !h2.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0))).map((h2) => h2.path?.some((step) => decided.has(step.group)) ? {
+        const childHeadings = [...child2.ownHeadings, ...child2.headings].filter((h2) => !h2.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0))).map((h2) => h2.path?.some((step) => decided.has(step.group)) ? {
           ...h2,
           path: h2.path.map((step) => decided.has(step.group) ? {
             ...step,
             always: true
           } : step)
         } : h2);
-        const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
-        clientOnlyHeading = clientOnlyHeading || child.clientOnlyHeading;
+        const childDynamic = childParsed.dynamicHeading || child2.dynamicHeading;
+        clientOnlyHeading = clientOnlyHeading || child2.clientOnlyHeading;
         if (!exclusive && !use.conditional) tags.push(...childTags);
         else for (const tag2 of childTags.map(maybeTag)) maybe.set(JSON.stringify(tag2), tag2);
         if (!exclusive) {
@@ -75374,13 +77190,13 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
             offset: use.offset
           });
           for (const [name, id2] of use.holes ?? []) {
-            const rendered = child.renderPaths.get(name)?.map((step) => decided.has(step.group) ? {
+            const rendered = child2.renderPaths.get(name)?.map((step) => decided.has(step.group) ? {
               ...step,
               always: true
             } : step);
             if (rendered) holes.set(id2, offsetPath(rendered, groupSpan2));
           }
-          groupSpan2 += child.groupSpan;
+          groupSpan2 += child2.groupSpan;
           dynamicHeading = dynamicHeading || childDynamic;
           continue;
         }
@@ -75409,8 +77225,8 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
       continue;
     }
   }
-  const placeHeading = ({ path, ...rest2 }) => {
-    const placed = place(path ?? []);
+  const placeHeading = ({ path: path6, ...rest2 }) => {
+    const placed = place(path6 ?? []);
     return placed.length > 0 ? {
       ...rest2,
       path: placed
@@ -75423,7 +77239,7 @@ async function resolveFileTags(rt, cwd, fileRel, parsed, config, depth, visited,
       ...h2,
       file: fileRel
     })),
-    renderPaths: new Map([...parsed.renderPaths].map(([name, path]) => [name, place(path)])),
+    renderPaths: new Map([...parsed.renderPaths].map(([name, path6]) => [name, place(path6)])),
     ...parsed.childrenSites ? { childrenSites: parsed.childrenSites.map((s) => ({
       ...s,
       path: place(s.path)
@@ -75575,7 +77391,7 @@ function chainFiles(pageRel, layouts) {
 }
 function groupSpan(a11y) {
   let max = -1;
-  for (const path of [...a11y.nodes.map((n2) => n2.path), ...a11y.slotPaths ?? []]) for (const step of path) if (step.group > max) max = step.group;
+  for (const path6 of [...a11y.nodes.map((n2) => n2.path), ...a11y.slotPaths ?? []]) for (const step of path6) if (step.group > max) max = step.group;
   return max + 1;
 }
 function dedupeCauses(causes) {
@@ -75610,11 +77426,11 @@ async function composeA11y(ctx, fileRel, parsed, depth, visited, chain, decided,
   for (const [index, node] of parsed.a11y.nodes.entries()) {
     if (decided && ruledOut(node.path, decided)) continue;
     const paths = readdress(parsed.a11y, node.path, node.enclosing, base, expanded);
-    const path = paths.length === 1 ? paths[0] : offsetPath(node.path, base);
+    const path6 = paths.length === 1 ? paths[0] : offsetPath(node.path, base);
     if (node.kind !== "component") {
       composed.push({
         ...node,
-        path,
+        path: path6,
         file: fileRel,
         chain
       });
@@ -75634,7 +77450,7 @@ async function composeA11y(ctx, fileRel, parsed, depth, visited, chain, decided,
       });
       state.elementsClosed = false;
     }
-    const group = files.length > 1 ? state.nextGroup++ : void 0;
+    const group2 = files.length > 1 ? state.nextGroup++ : void 0;
     const parsedFiles = read.filter((p2) => p2 !== void 0);
     const wraps = found?.complete && files.length === found.files.length && wrapping.has(index);
     const sites = [];
@@ -75645,9 +77461,9 @@ async function composeA11y(ctx, fileRel, parsed, depth, visited, chain, decided,
       const childDecided = gates && node.attributes ? ruledOutArms(childParsed, node.attributes, gates, node.snippets) : void 0;
       const childBase = state.nextGroup;
       const childExpanded = /* @__PURE__ */ new Map();
-      const child = await composeA11y(ctx, childRel, childParsed, depth - 1, new Set(visited).add(childRel), false, childDecided, childExpanded);
-      const at2 = group === void 0 ? path : [...path, {
-        group,
+      const child2 = await composeA11y(ctx, childRel, childParsed, depth - 1, new Set(visited).add(childRel), false, childDecided, childExpanded);
+      const at2 = group2 === void 0 ? path6 : [...path6, {
+        group: group2,
         branch
       }];
       if (childParsed.a11y.childrenPassed) placed = false;
@@ -75658,7 +77474,7 @@ async function composeA11y(ctx, fileRel, parsed, depth, visited, chain, decided,
         else if (apart.length < kept.length) sites.push([...at2, ...offsetPath(apart[0], childBase)]);
         else for (const i3 of kept) sites.push(...readdress(childParsed.a11y, childParsed.a11y.slotPaths[i3], childParsed.a11y.slotEnclosing?.[i3], childBase, childExpanded).map((s) => [...at2, ...s]));
       }
-      for (const inner of child) {
+      for (const inner of child2) {
         const when = [...node.when ?? [], ...inner.when ?? []];
         composed.push({
           ...inner,
@@ -75672,14 +77488,14 @@ async function composeA11y(ctx, fileRel, parsed, depth, visited, chain, decided,
   }
   return composed;
 }
-function readdress(a11y, path, enclosing, base, expanded) {
+function readdress(a11y, path6, enclosing, base, expanded) {
   const sites = enclosing === void 0 ? void 0 : expanded.get(enclosing);
-  if (!sites) return [offsetPath(path, base)];
-  const rest2 = offsetPath(path.slice(a11y.nodes[enclosing].path.length), base);
+  if (!sites) return [offsetPath(path6, base)];
+  const rest2 = offsetPath(path6.slice(a11y.nodes[enclosing].path.length), base);
   return sites.map((site) => [...site, ...rest2]);
 }
-function ruledOut(path, decided) {
-  return path.some((s) => {
+function ruledOut(path6, decided) {
+  return path6.some((s) => {
     const d2 = decided.get(s.group);
     return d2 === void 0 ? false : typeof d2 === "boolean" ? d2 === (s.branch !== 0) : d2.has(s.branch);
   });
@@ -75712,9 +77528,9 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
   const onRoute = (url) => urlHolds(url, routePath, routeId) !== false;
   const urlArms = (gates) => {
     const out = /* @__PURE__ */ new Map();
-    for (const [group, cond] of gates ?? []) {
+    for (const [group2, cond] of gates ?? []) {
       const holds = urlHolds(cond, routePath, routeId);
-      if (holds !== void 0) out.set(group, holds);
+      if (holds !== void 0) out.set(group2, holds);
     }
     return out;
   };
@@ -75790,7 +77606,7 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
     const headingFlags = flagArms(parsed.headingFlagGates, falses);
     const a11yDecided = new Map([...urlArms(parsed.a11y.urlGates), ...a11yFlags]);
     const headingDecided = new Map([...urlArms(parsed.headingUrlGates), ...headingFlags]);
-    const open3 = (path) => !path || !ruledOut(path, headingDecided);
+    const open3 = (path6) => !path6 || !ruledOut(path6, headingDecided);
     const base = a11yCtx.state.nextGroup;
     const expanded = /* @__PURE__ */ new Map();
     const contributed = unreached ? [] : await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH$1, /* @__PURE__ */ new Set([rel]), true, a11yDecided, expanded);
@@ -75819,8 +77635,8 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache, aliases, a
     const slotPaths = slotIndices.map((i3) => parsed.a11y.slotPaths[i3]);
     const slotSites = exclusiveSites(slotPaths.length > 0 ? slotPaths : void 0);
     const split = slotSites?.length === slotPaths.length;
-    const slots = slotSites?.flatMap((p2, j2) => (split ? readdress(parsed.a11y, p2, parsed.a11y.slotEnclosing?.[slotIndices[j2]], base, expanded) : [offsetPath(p2, base)]).map((path) => ({
-      path,
+    const slots = slotSites?.flatMap((p2, j2) => (split ? readdress(parsed.a11y, p2, parsed.a11y.slotEnclosing?.[slotIndices[j2]], base, expanded) : [offsetPath(p2, base)]).map((path6) => ({
+      path: path6,
       j: j2
     })));
     if (slots) {
@@ -76229,8 +78045,8 @@ function checkoutBaseline(cwd, ref2) {
   try {
     const repoRoot = git(["rev-parse", "--show-toplevel"], cwd).trim();
     const showPrefix = git(["rev-parse", "--show-prefix"], cwd).trim().replace(/\/+$/, "");
-    tmp = mkdtempSync(join(tmpdir(), "svelte-vitals-baseline-"));
-    const wt = join(tmp, "wt");
+    tmp = mkdtempSync(join3(tmpdir(), "svelte-vitals-baseline-"));
+    const wt = join3(tmp, "wt");
     git([
       "worktree",
       "add",
@@ -76238,7 +78054,7 @@ function checkoutBaseline(cwd, ref2) {
       wt,
       ref2
     ], repoRoot);
-    const analyzeCwd = showPrefix ? join(wt, showPrefix) : wt;
+    const analyzeCwd = showPrefix ? join3(wt, showPrefix) : wt;
     const tmpDir = tmp;
     const cleanup = () => {
       try {
@@ -76295,10 +78111,10 @@ function filterToNewFindings(results, baselineResults, config = defaultConfig) {
 }
 var SUPPRESSIONS_FILE = "svelte-vitals-suppressions.json";
 function loadSuppressions(cwd) {
-  const path = join(cwd, SUPPRESSIONS_FILE);
+  const path6 = join3(cwd, SUPPRESSIONS_FILE);
   let raw;
   try {
-    raw = readFileSync2(path, "utf8");
+    raw = readFileSync2(path6, "utf8");
   } catch {
     return;
   }
@@ -76390,53 +78206,53 @@ var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set([
   "overrides",
   "seo"
 ]);
-function validateSetting(path, where, key2, setting, allowOptions, baseline, skipRangeCheck) {
+function validateSetting(path6, where, key2, setting, allowOptions, baseline, skipRangeCheck) {
   const errors = validateRuleSetting(`${where}.${key2}`, key2, setting, ruleOptionsSpec(key2), {
     allowOptions,
     ...baseline !== void 0 ? { baseline } : {},
     ...skipRangeCheck !== void 0 ? { skipRangeCheck } : {}
   });
-  if (errors.length > 0) throw new Error(`${path}: ${errors.join(" ")}`);
+  if (errors.length > 0) throw new Error(`${path6}: ${errors.join(" ")}`);
 }
-function validateConfigFile(raw, path) {
+function validateConfigFile(raw, path6) {
   const warnings2 = [];
   const config = {};
-  for (const key2 of Object.keys(raw)) if (!KNOWN_TOP_LEVEL_KEYS.has(key2)) warnings2.push(`${path}: unknown config key '${key2}' ignored.`);
+  for (const key2 of Object.keys(raw)) if (!KNOWN_TOP_LEVEL_KEYS.has(key2)) warnings2.push(`${path6}: unknown config key '${key2}' ignored.`);
   if (raw.treatDynamicAs !== void 0) {
     if (TREAT_DYNAMIC_AS_VALUES.includes(raw.treatDynamicAs)) config.treatDynamicAs = raw.treatDynamicAs;
-    else warnings2.push(`${path}: unknown treatDynamicAs '${String(raw.treatDynamicAs)}'; expected pass|warn|fail. Ignoring.`);
+    else warnings2.push(`${path6}: unknown treatDynamicAs '${String(raw.treatDynamicAs)}'; expected pass|warn|fail. Ignoring.`);
   }
   if (raw.failOn !== void 0) {
     if (FAIL_ON_VALUES.includes(raw.failOn)) config.failOn = raw.failOn;
-    else warnings2.push(`${path}: unknown failOn '${String(raw.failOn)}'; expected critical|warning|info. Ignoring.`);
+    else warnings2.push(`${path6}: unknown failOn '${String(raw.failOn)}'; expected critical|warning|info. Ignoring.`);
   }
   if (raw.metaComponents !== void 0) {
     if (Array.isArray(raw.metaComponents) && raw.metaComponents.every((c) => typeof c === "string")) config.metaComponents = raw.metaComponents;
-    else warnings2.push(`${path}: metaComponents must be an array of strings. Ignoring.`);
+    else warnings2.push(`${path6}: metaComponents must be an array of strings. Ignoring.`);
   }
   if (raw.rules !== void 0) {
-    if (!isPlainObject3(raw.rules)) throw new Error(`${path}: rules must be an object of rule-id \u2192 setting.`);
+    if (!isPlainObject3(raw.rules)) throw new Error(`${path6}: rules must be an object of rule-id \u2192 setting.`);
     const rules = raw.rules;
     const unknown = findUnknownRuleIds(Object.keys(rules));
-    if (unknown.length > 0) throw new Error(`${path}: unknown rule id(s) in rules: ${unknown.join(", ")}. Known rule ids (${registryTag()}): ${knownRuleIds().join(", ")}`);
-    for (const [key2, setting] of Object.entries(rules)) validateSetting(path, "rules", key2, setting, true);
+    if (unknown.length > 0) throw new Error(`${path6}: unknown rule id(s) in rules: ${unknown.join(", ")}. Known rule ids (${registryTag()}): ${knownRuleIds().join(", ")}`);
+    for (const [key2, setting] of Object.entries(rules)) validateSetting(path6, "rules", key2, setting, true);
     config.rules = rules;
   }
   if (raw.overrides !== void 0) {
-    if (!Array.isArray(raw.overrides)) throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
+    if (!Array.isArray(raw.overrides)) throw new Error(`${path6}: overrides must be an array of { route/files, rules } entries.`);
     const isGlob = (v) => typeof v === "string" && v.length > 0;
     const isGlobs = (v) => isGlob(v) || Array.isArray(v) && v.length > 0 && v.every(isGlob);
     const overrides = [];
     const rawOverrides = raw.overrides;
     rawOverrides.forEach((entry, i3) => {
-      if (!isPlainObject3(entry)) throw new Error(`${path}: overrides[${i3}] must be an object with 'route' and/or 'files', and 'rules'.`);
-      if (entry.route !== void 0 && !isGlobs(entry.route)) throw new Error(`${path}: overrides[${i3}].route must be a non-empty string or a non-empty array of non-empty strings.`);
-      if (entry.files !== void 0 && !isGlobs(entry.files)) throw new Error(`${path}: overrides[${i3}].files must be a non-empty string or a non-empty array of non-empty strings.`);
-      if (entry.route === void 0 && entry.files === void 0) throw new Error(`${path}: overrides[${i3}] must set 'route' and/or 'files' to scope the override.`);
-      if (!isPlainObject3(entry.rules)) throw new Error(`${path}: overrides[${i3}].rules must be an object of rule-id/category \u2192 setting.`);
-      if (Object.keys(entry.rules).length === 0) throw new Error(`${path}: overrides[${i3}].rules must contain at least one rule id or category.`);
+      if (!isPlainObject3(entry)) throw new Error(`${path6}: overrides[${i3}] must be an object with 'route' and/or 'files', and 'rules'.`);
+      if (entry.route !== void 0 && !isGlobs(entry.route)) throw new Error(`${path6}: overrides[${i3}].route must be a non-empty string or a non-empty array of non-empty strings.`);
+      if (entry.files !== void 0 && !isGlobs(entry.files)) throw new Error(`${path6}: overrides[${i3}].files must be a non-empty string or a non-empty array of non-empty strings.`);
+      if (entry.route === void 0 && entry.files === void 0) throw new Error(`${path6}: overrides[${i3}] must set 'route' and/or 'files' to scope the override.`);
+      if (!isPlainObject3(entry.rules)) throw new Error(`${path6}: overrides[${i3}].rules must be an object of rule-id/category \u2192 setting.`);
+      if (Object.keys(entry.rules).length === 0) throw new Error(`${path6}: overrides[${i3}].rules must contain at least one rule id or category.`);
       const unknown = findUnknownRuleIds(Object.keys(entry.rules).filter((k2) => !CATEGORIES.includes(k2)));
-      if (unknown.length > 0) throw new Error(`${path}: unknown rule id(s) or categories in overrides[${i3}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids (${registryTag()}): ${knownRuleIds().join(", ")}`);
+      if (unknown.length > 0) throw new Error(`${path6}: unknown rule id(s) or categories in overrides[${i3}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids (${registryTag()}): ${knownRuleIds().join(", ")}`);
       for (const [key2, setting] of Object.entries(entry.rules)) {
         const isCategory = CATEGORIES.includes(key2);
         const baseline = isCategory ? void 0 : resolveRuleOptions(key2, ruleOptionsSpec(key2), {
@@ -76444,7 +78260,7 @@ function validateConfigFile(raw, path) {
           rules: config.rules ?? {}
         });
         const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i3, key2, setting);
-        validateSetting(path, `overrides[${i3}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
+        validateSetting(path6, `overrides[${i3}].rules`, key2, setting, !isCategory, baseline, skipRangeCheck);
       }
       overrides.push({
         ...entry.route !== void 0 ? { route: entry.route } : {},
@@ -76455,21 +78271,21 @@ function validateConfigFile(raw, path) {
     config.overrides = overrides;
   }
   if (raw.seo !== void 0) {
-    if (!isPlainObject3(raw.seo)) throw new Error(`${path}: seo must be an object, e.g. { indexable: false }.`);
+    if (!isPlainObject3(raw.seo)) throw new Error(`${path6}: seo must be an object, e.g. { indexable: false }.`);
     const unknown = Object.keys(raw.seo).filter((k2) => k2 !== "indexable");
-    if (unknown.length > 0) throw new Error(`${path}: unknown key(s) in seo: ${unknown.join(", ")}. Known keys: indexable.`);
+    if (unknown.length > 0) throw new Error(`${path6}: unknown key(s) in seo: ${unknown.join(", ")}. Known keys: indexable.`);
     if (raw.seo.indexable !== void 0) {
-      if (typeof raw.seo.indexable !== "boolean") throw new Error(`${path}: seo.indexable must be a boolean.`);
+      if (typeof raw.seo.indexable !== "boolean") throw new Error(`${path6}: seo.indexable must be a boolean.`);
       config.seo = { indexable: raw.seo.indexable };
     }
   }
   if (raw.weights !== void 0) {
-    if (!isPlainObject3(raw.weights)) throw new Error(`${path}: weights must be an object of category \u2192 number.`);
+    if (!isPlainObject3(raw.weights)) throw new Error(`${path6}: weights must be an object of category \u2192 number.`);
     const weights = {};
     for (const [rawCat, w2] of Object.entries(raw.weights)) {
       const cat = rawCat.toLowerCase();
-      if (!CATEGORIES.includes(cat)) throw new Error(`${path}: unknown category '${rawCat}' in weights. Known categories: ${CATEGORIES.join(", ")}`);
-      if (typeof w2 !== "number" || !Number.isFinite(w2) || w2 < 0) throw new Error(`${path}: invalid weight for '${cat}': ${String(w2)}; expected a finite number >= 0.`);
+      if (!CATEGORIES.includes(cat)) throw new Error(`${path6}: unknown category '${rawCat}' in weights. Known categories: ${CATEGORIES.join(", ")}`);
+      if (typeof w2 !== "number" || !Number.isFinite(w2) || w2 < 0) throw new Error(`${path6}: invalid weight for '${cat}': ${String(w2)}; expected a finite number >= 0.`);
       weights[cat] = w2;
     }
     config.weights = weights;
@@ -76480,35 +78296,35 @@ function validateConfigFile(raw, path) {
   };
 }
 async function loadConfigFile(cwd) {
-  const found = CONFIG_FILENAMES.map((name) => join(cwd, name)).find((path) => existsSync2(path));
+  const found = CONFIG_FILENAMES.map((name) => join3(cwd, name)).find((path6) => existsSync3(path6));
   if (!found) {
-    const retired = join(cwd, "svelte-vitals.config.mjs");
-    if (existsSync2(retired)) throw new Error(`${retired} is no longer read \u2014 svelte-vitals loads svelte-vitals.config.{js,ts} only. Rename the file to .js (the project must be "type": "module") or .ts.`);
+    const retired = join3(cwd, "svelte-vitals.config.mjs");
+    if (existsSync3(retired)) throw new Error(`${retired} is no longer read \u2014 svelte-vitals loads svelte-vitals.config.{js,ts} only. Rename the file to .js (the project must be "type": "module") or .ts.`);
     return;
   }
   return loadFrom(found);
 }
-async function loadConfigFromPath(path) {
-  if (!CONFIG_EXTENSIONS.some((ext) => path.endsWith(ext))) throw new Error(`${path} is not a supported config file \u2014 svelte-vitals loads ${CONFIG_EXTENSIONS.join(" and ")} only.`);
-  if (!existsSync2(path)) throw new Error(`${path} does not exist.`);
-  return loadFrom(path);
+async function loadConfigFromPath(path6) {
+  if (!CONFIG_EXTENSIONS.some((ext) => path6.endsWith(ext))) throw new Error(`${path6} is not a supported config file \u2014 svelte-vitals loads ${CONFIG_EXTENSIONS.join(" and ")} only.`);
+  if (!existsSync3(path6)) throw new Error(`${path6} does not exist.`);
+  return loadFrom(path6);
 }
-async function loadFrom(path) {
+async function loadFrom(path6) {
   let mod;
   try {
-    let digest = createHash("sha1").update(readFileSync2(path)).digest("hex").slice(0, 16);
+    let digest = createHash("sha1").update(readFileSync2(path6)).digest("hex").slice(0, 16);
     for (let attempt = 0; ; attempt++) {
-      mod = await import(`${pathToFileURL(path).href}?v=${digest}`);
-      const digestAfter = createHash("sha1").update(readFileSync2(path)).digest("hex").slice(0, 16);
+      mod = await import(`${pathToFileURL(path6).href}?v=${digest}`);
+      const digestAfter = createHash("sha1").update(readFileSync2(path6)).digest("hex").slice(0, 16);
       if (digestAfter === digest || attempt >= 2) break;
       digest = digestAfter;
     }
   } catch (err) {
-    if (path.endsWith(".js") && err instanceof SyntaxError) throw new Error(`could not load ${path}: ${err.message} \u2014 config files are ESM, so the nearest package.json above the config file needs "type": "module" (SvelteKit's default), or use a .ts config.`, { cause: err });
+    if (path6.endsWith(".js") && err instanceof SyntaxError) throw new Error(`could not load ${path6}: ${err.message} \u2014 config files are ESM, so the nearest package.json above the config file needs "type": "module" (SvelteKit's default), or use a .ts config.`, { cause: err });
     throw err;
   }
-  if (!isPlainObject3(mod.default)) throw new Error(`${path} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`);
-  return validateConfigFile(mod.default, path);
+  if (!isPlainObject3(mod.default)) throw new Error(`${path6} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`);
+  return validateConfigFile(mod.default, path6);
 }
 function resolveRuleSelection(input) {
   const out = { ...input.rules ?? input.fileRules };
@@ -76557,7 +78373,7 @@ function failedRuleWarnings(failedRules) {
 async function analyzeProject(opts = {}) {
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
-  const loaded = opts.loadedConfig !== void 0 ? opts.loadedConfig ?? void 0 : opts.configPath !== void 0 ? await loadConfigFromPath(resolve2(opts.configPath)) : await loadConfigFile(cwd);
+  const loaded = opts.loadedConfig !== void 0 ? opts.loadedConfig ?? void 0 : opts.configPath !== void 0 ? await loadConfigFromPath(resolve3(opts.configPath)) : await loadConfigFile(cwd);
   const file = loaded?.config;
   const weights = opts.weights ?? file?.weights;
   const seo = opts.seo ?? file?.seo;
@@ -76669,17 +78485,146 @@ function planStickyComment(existing) {
   return mine ? { op: "update", id: mine.id } : { op: "create" };
 }
 
+// src/resolve-cli.ts
+import { readFileSync as readFileSync3 } from "fs";
+import { dirname as dirname4, join as join4, resolve as resolve4 } from "path";
+var MIN_CLI_VERSION = "0.44.0";
+function readPackageJson(path6) {
+  try {
+    const parsed = JSON.parse(readFileSync3(path6, "utf8"));
+    return parsed !== null && typeof parsed === "object" ? parsed : void 0;
+  } catch {
+    return void 0;
+  }
+}
+function isAtLeast(version2, min) {
+  const parse9 = (v) => (v.split("-")[0] ?? "").split(".").map(Number);
+  const a2 = parse9(version2);
+  const b = parse9(min);
+  for (let i3 = 0; i3 < 3; i3++) {
+    const x = a2[i3] ?? 0;
+    const y = b[i3] ?? 0;
+    if (x !== y) return x > y;
+  }
+  return true;
+}
+function resolveProjectCli(projectDir, stopDir) {
+  const stop = resolve4(stopDir);
+  let dir = resolve4(projectDir);
+  for (; ; ) {
+    const pkgDir = join4(dir, "node_modules", "svelte-vitals");
+    const pkg = readPackageJson(join4(pkgDir, "package.json"));
+    const bin = typeof pkg?.bin === "string" ? pkg.bin : pkg?.bin?.["svelte-vitals"];
+    if (pkg && typeof pkg.version === "string" && typeof bin === "string") {
+      return isAtLeast(pkg.version, MIN_CLI_VERSION) ? { kind: "installed", version: pkg.version, bin: join4(pkgDir, bin) } : { kind: "too-old", version: pkg.version };
+    }
+    const parent = dirname4(dir);
+    if (dir === stop || parent === dir) break;
+    dir = parent;
+  }
+  const project = readPackageJson(join4(projectDir, "package.json"));
+  const declared2 = project?.devDependencies?.["svelte-vitals"] ?? project?.dependencies?.["svelte-vitals"];
+  return typeof declared2 === "string" ? { kind: "missing", declared: declared2 } : { kind: "missing" };
+}
+
+// src/fallback-message.ts
+function fallbackMessage(resolution, bundledVersion) {
+  const lead = `svelte-vitals: analyzed with the bundled svelte-vitals ${bundledVersion}.`;
+  if (resolution.kind === "too-old") {
+    return {
+      level: "warning",
+      text: `${lead} The installed svelte-vitals ${resolution.version} is older than ${MIN_CLI_VERSION}, the oldest version this action can run.`
+    };
+  }
+  if (resolution.declared !== void 0) {
+    return {
+      level: "warning",
+      text: `${lead} This project declares svelte-vitals ${resolution.declared} but it is not installed. Install dependencies before this step to analyze with the project's version.`
+    };
+  }
+  return {
+    level: "notice",
+    text: `${lead} Add svelte-vitals as a devDependency and install it before this step to choose the version CI analyzes with.`
+  };
+}
+
+// src/run-cli.ts
+import { spawn as spawn2 } from "child_process";
+function cliArgs(reporter, opts) {
+  const args = [opts.path, "--reporter", reporter];
+  if (opts.diff !== void 0) args.push("--diff", opts.diff);
+  if (opts.baseline !== void 0) args.push("--baseline", opts.baseline);
+  return args;
+}
+function runCli(bin, args, mode) {
+  return new Promise((resolve6) => {
+    const child2 = spawn2(process.execPath, [bin, ...args], {
+      stdio: mode === "capture" ? ["ignore", "pipe", "pipe"] : ["ignore", "inherit", "inherit"]
+    });
+    const out = [];
+    const err = [];
+    child2.stdout?.on("data", (chunk) => out.push(chunk));
+    child2.stderr?.on("data", (chunk) => err.push(chunk));
+    const captured = () => ({
+      stdout: Buffer.concat(out).toString("utf8"),
+      stderr: Buffer.concat(err).toString("utf8")
+    });
+    let settled = false;
+    const settle = (run2) => {
+      if (settled) return;
+      settled = true;
+      resolve6(run2);
+    };
+    child2.on("error", (error2) => settle({ code: null, ...captured(), failure: error2.message }));
+    child2.on(
+      "close",
+      (code, signal) => settle(
+        signal === null ? { code, ...captured() } : { code: null, ...captured(), failure: `svelte-vitals was killed by ${signal}` }
+      )
+    );
+  });
+}
+
 // src/index.ts
+var BLOCKING_MESSAGE = "svelte-vitals found blocking issues (see annotations above).";
 async function main() {
-  const path = getInput("path") || ".";
+  const path6 = getInput("path") || ".";
   const diff = getInput("diff") || void 0;
   const baseline = getInput("baseline") || void 0;
   const token = getInput("github-token") || process.env.GITHUB_TOKEN || "";
-  const analysis = await analyzeProject({ cwd: path });
+  const resolution = resolveProjectCli(resolve5(path6), process.env.GITHUB_WORKSPACE ?? resolve5(path6));
+  if (resolution.kind === "installed") {
+    await runInstalledCli(resolution.bin, { path: path6, diff, baseline }, token);
+  } else {
+    await runBundled(resolution, { path: path6, diff, baseline }, token);
+  }
+}
+async function runInstalledCli(bin, opts, token) {
+  const run2 = await runCli(bin, cliArgs("md", opts), "capture");
+  const stderr = run2.stderr.trim();
+  if (run2.failure === void 0 && run2.code === 2) {
+    setFailed(stderr || "svelte-vitals exited with code 2.");
+    return;
+  }
+  if (run2.failure !== void 0 || run2.code !== 0 && run2.code !== 1 || run2.stdout.trim() === "") {
+    const how = run2.failure ?? (run2.code === 0 || run2.code === 1 ? `exited with code ${run2.code} without printing a report` : `exited with code ${run2.code}`);
+    setFailed(`svelte-vitals: ${bin} ${how}${stderr ? `:
+${stderr}` : "."}`);
+    return;
+  }
+  for (const line of run2.stderr.split("\n")) if (line.trim()) warning(line);
+  await runCli(bin, cliArgs("github", opts), "inherit");
+  await publish(run2.stdout, token);
+  if (run2.code === 1) setFailed(BLOCKING_MESSAGE);
+}
+async function runBundled(resolution, { path: path6, diff, baseline }, token) {
+  const analysis = await analyzeProject({ cwd: path6 });
   const { config, version: version2, warnings: warnings2, loadedConfig } = analysis;
+  const message = fallbackMessage(resolution, version2);
+  core_exports[message.level](message.text);
   for (const line of warnings2) warning(line);
   const results = await applyScope(analysis.results, {
-    cwd: path,
+    cwd: path6,
     config,
     diffBase: diff,
     baseline,
@@ -76692,7 +78637,13 @@ async function main() {
   });
   const annotations = formatGithubReport(results, config);
   if (annotations) info(annotations);
-  const markdown = formatMarkdownReport(results, config, { version: version2 });
+  await publish(formatMarkdownReport(results, config, { version: version2 }), token);
+  const summary2 = summarize(results, config);
+  if (hasFailureAtOrAbove(summary2, config.failOn)) {
+    setFailed(BLOCKING_MESSAGE);
+  }
+}
+async function publish(markdown, token) {
   await summary.addRaw(markdown).write();
   const ctx = context2;
   const pr = ctx.payload.pull_request;
@@ -76736,10 +78687,6 @@ ${markdown}`;
         );
       }
     }
-  }
-  const summary2 = summarize(results, config);
-  if (hasFailureAtOrAbove(summary2, config.failOn)) {
-    setFailed("svelte-vitals found blocking issues (see annotations above).");
   }
 }
 main().catch((err) => {
