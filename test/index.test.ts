@@ -1,5 +1,9 @@
 import { describe, it, expect, beforeAll, beforeEach, afterEach, vi } from 'vitest';
+import { resolve } from 'node:path';
 import { STICKY_COMMENT_MARKER } from '../src/sticky-comment.js';
+import { fallbackMessage } from '../src/fallback-message.js';
+import type { CliResolution } from '../src/resolve-cli.js';
+import type { CliRun } from '../src/run-cli.js';
 
 // `fork.ts`/`sticky-comment.ts` are pure helpers already covered by their own test
 // files — main() uses the real implementations here. Only the external SDK surface
@@ -12,6 +16,7 @@ const h = vi.hoisted(() => {
   const getInput = vi.fn((name: string) => inputs[name] ?? '');
   const info = vi.fn();
   const warning = vi.fn();
+  const notice = vi.fn();
   const setFailed = vi.fn();
   const write = vi.fn(async () => {});
   const addRaw = vi.fn(() => ({ write }));
@@ -56,11 +61,19 @@ const h = vi.hoisted(() => {
   const summarize = vi.fn(() => ({}));
   const hasFailureAtOrAbove = vi.fn(() => false);
 
+  const resolveProjectCli = vi.fn<(projectDir: string, stopDir: string) => CliResolution>(() => ({ kind: 'missing' }));
+  const runCli = vi.fn<(bin: string, args: string[], mode: 'capture' | 'inherit') => Promise<CliRun>>(async () => ({
+    code: 0,
+    stdout: '',
+    stderr: ''
+  }));
+
   return {
     inputs,
     getInput,
     info,
     warning,
+    notice,
     setFailed,
     write,
     addRaw,
@@ -74,7 +87,9 @@ const h = vi.hoisted(() => {
     formatGithubReport,
     formatMarkdownReport,
     summarize,
-    hasFailureAtOrAbove
+    hasFailureAtOrAbove,
+    resolveProjectCli,
+    runCli
   };
 });
 
@@ -82,6 +97,7 @@ vi.mock('@actions/core', () => ({
   getInput: h.getInput,
   info: h.info,
   warning: h.warning,
+  notice: h.notice,
   setFailed: h.setFailed,
   summary: { addRaw: h.addRaw }
 }));
@@ -101,6 +117,16 @@ vi.mock('@svelte-vitals/core', () => ({
   formatMarkdownReport: h.formatMarkdownReport,
   summarize: h.summarize,
   hasFailureAtOrAbove: h.hasFailureAtOrAbove
+}));
+
+vi.mock('../src/resolve-cli.js', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../src/resolve-cli.js')>()),
+  resolveProjectCli: h.resolveProjectCli
+}));
+
+vi.mock('../src/run-cli.js', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../src/run-cli.js')>()),
+  runCli: h.runCli
 }));
 
 // Importing this module runs its top-level `main().catch(...)` as a side effect (that
@@ -129,6 +155,8 @@ beforeEach(() => {
 
   h.listComments.mockResolvedValue({ data: [] });
   h.hasFailureAtOrAbove.mockReturnValue(false);
+  h.resolveProjectCli.mockReturnValue({ kind: 'missing' });
+  h.runCli.mockResolvedValue({ code: 0, stdout: '', stderr: '' });
 });
 
 afterEach(() => {
@@ -270,5 +298,181 @@ describe('main()', () => {
     await main();
 
     expect(h.setFailed).not.toHaveBeenCalled();
+  });
+});
+
+const BIN = '/p/node_modules/svelte-vitals/dist/bin.js';
+const REPORT = '<!-- svelte-vitals v0.50.0 -->\n# report';
+
+describe('main() with svelte-vitals installed in the project', () => {
+  beforeEach(() => {
+    h.resolveProjectCli.mockReturnValue({ kind: 'installed', version: '0.50.0', bin: BIN });
+    h.runCli.mockResolvedValueOnce({ code: 0, stdout: REPORT, stderr: '' });
+  });
+
+  it('runs the installed CLI twice and publishes its markdown', async () => {
+    await main();
+
+    expect(h.runCli.mock.calls).toEqual([
+      [BIN, ['.', '--reporter', 'md'], 'capture'],
+      [BIN, ['.', '--reporter', 'github'], 'inherit']
+    ]);
+    expect(h.addRaw).toHaveBeenCalledWith(REPORT);
+    expect(h.write).toHaveBeenCalledTimes(1);
+    expect(h.analyzeProject).not.toHaveBeenCalled();
+    expect(h.setFailed).not.toHaveBeenCalled();
+  });
+
+  it('passes path, diff and baseline through to both runs', async () => {
+    h.inputs.path = 'apps/web';
+    h.inputs.diff = 'origin/main';
+    h.inputs.baseline = 'origin/main';
+
+    await main();
+
+    const rest = ['--diff', 'origin/main', '--baseline', 'origin/main'];
+    expect(h.runCli.mock.calls).toEqual([
+      [BIN, ['apps/web', '--reporter', 'md', ...rest], 'capture'],
+      [BIN, ['apps/web', '--reporter', 'github', ...rest], 'inherit']
+    ]);
+  });
+
+  it('resolves from the path input up to the workspace', async () => {
+    vi.stubEnv('GITHUB_WORKSPACE', '/ws');
+    h.inputs.path = 'apps/web';
+
+    await main();
+
+    expect(h.resolveProjectCli).toHaveBeenCalledWith(resolve('apps/web'), '/ws');
+  });
+
+  it('posts the installed CLI markdown as the sticky comment', async () => {
+    h.inputs['github-token'] = 'gh-token';
+    h.context.eventName = 'pull_request';
+    setPullRequest({ number: 42, head: { repo: { full_name: 'oekazuma/svelte-vitals' } } });
+
+    await main();
+
+    expect(h.createComment).toHaveBeenCalledTimes(1);
+    expect(h.createComment.mock.calls[0]![0]).toMatchObject({ body: `${STICKY_COMMENT_MARKER}\n${REPORT}` });
+  });
+
+  it('fails after publishing when the CLI exits 1', async () => {
+    h.runCli.mockReset();
+    h.runCli.mockResolvedValueOnce({ code: 1, stdout: REPORT, stderr: '' });
+    h.runCli.mockResolvedValueOnce({ code: 1, stdout: '', stderr: '' });
+
+    await main();
+
+    expect(h.addRaw).toHaveBeenCalledWith(REPORT);
+    expect(h.setFailed).toHaveBeenCalledTimes(1);
+    expect(h.setFailed).toHaveBeenCalledWith('svelte-vitals found blocking issues (see annotations above).');
+    expect(h.write.mock.invocationCallOrder[0]!).toBeLessThan(h.setFailed.mock.invocationCallOrder[0]!);
+  });
+
+  it('fails with the CLI stderr and publishes nothing when it exits 2', async () => {
+    h.runCli.mockReset();
+    h.runCli.mockResolvedValueOnce({ code: 2, stdout: '', stderr: 'svelte-vitals: unknown rule id(s) in rules: x\n' });
+
+    await main();
+
+    expect(h.setFailed).toHaveBeenCalledTimes(1);
+    expect(h.setFailed).toHaveBeenCalledWith('svelte-vitals: unknown rule id(s) in rules: x');
+    expect(h.addRaw).not.toHaveBeenCalled();
+    expect(h.runCli).toHaveBeenCalledTimes(1);
+    expect(h.analyzeProject).not.toHaveBeenCalled();
+  });
+
+  it('fails with what happened when the CLI cannot start', async () => {
+    h.runCli.mockReset();
+    h.runCli.mockResolvedValueOnce({ code: null, stdout: '', stderr: '', failure: 'spawn ENOENT' });
+
+    await main();
+
+    expect(h.setFailed).toHaveBeenCalledTimes(1);
+    expect(h.setFailed.mock.calls[0]![0]).toContain(BIN);
+    expect(h.setFailed.mock.calls[0]![0]).toContain('spawn ENOENT');
+    expect(h.addRaw).not.toHaveBeenCalled();
+    expect(h.runCli).toHaveBeenCalledTimes(1);
+    expect(h.analyzeProject).not.toHaveBeenCalled();
+  });
+
+  it('fails with the CLI stderr when it exits 1 without printing a report', async () => {
+    h.runCli.mockReset();
+    h.runCli.mockResolvedValueOnce({
+      code: 1,
+      stdout: '',
+      stderr: "Error: Cannot find module '/p/node_modules/svelte-vitals/dist/bin.js'\n"
+    });
+
+    await main();
+
+    expect(h.setFailed).toHaveBeenCalledTimes(1);
+    expect(h.setFailed.mock.calls[0]![0]).toContain(BIN);
+    expect(h.setFailed.mock.calls[0]![0]).toContain('Cannot find module');
+    expect(h.addRaw).not.toHaveBeenCalled();
+    expect(h.runCli).toHaveBeenCalledTimes(1);
+    expect(h.analyzeProject).not.toHaveBeenCalled();
+  });
+
+  it('turns the first run stderr lines into warnings', async () => {
+    h.runCli.mockReset();
+    h.runCli.mockResolvedValueOnce({ code: 0, stdout: REPORT, stderr: 'svelte-vitals: a\n\nsvelte-vitals: b\n' });
+    h.runCli.mockResolvedValueOnce({ code: 0, stdout: '', stderr: '' });
+
+    await main();
+
+    expect(h.warning).toHaveBeenCalledTimes(2);
+    expect(h.warning).toHaveBeenCalledWith('svelte-vitals: a');
+    expect(h.warning).toHaveBeenCalledWith('svelte-vitals: b');
+  });
+
+  it('ignores the second run exit code', async () => {
+    h.runCli.mockResolvedValueOnce({ code: 1, stdout: '', stderr: '' });
+
+    await main();
+
+    expect(h.runCli).toHaveBeenCalledTimes(2);
+    expect(h.setFailed).not.toHaveBeenCalled();
+  });
+});
+
+describe('main() falling back to the bundled analyzer', () => {
+  it('warns when the project declares svelte-vitals but has not installed it', async () => {
+    const resolution = { kind: 'missing', declared: '^0.55.0' } as const;
+    h.resolveProjectCli.mockReturnValue(resolution);
+    h.analyzeProject.mockResolvedValueOnce({
+      results: [],
+      config: { failOn: 'critical' },
+      version: '0.55.5',
+      warnings: []
+    });
+
+    await main();
+
+    expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, '0.55.5').text);
+    expect(h.addRaw).toHaveBeenCalledWith('markdown report');
+    expect(h.runCli).not.toHaveBeenCalled();
+  });
+
+  it('warns when the installed version is too old', async () => {
+    const resolution = { kind: 'too-old', version: '0.40.0' } as const;
+    h.resolveProjectCli.mockReturnValue(resolution);
+
+    await main();
+
+    expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, '0.0.0-test').text);
+    expect(h.addRaw).toHaveBeenCalledWith('markdown report');
+    expect(h.runCli).not.toHaveBeenCalled();
+  });
+
+  it('notes, without warning, when svelte-vitals is neither declared nor installed', async () => {
+    const text = fallbackMessage({ kind: 'missing' }, '0.0.0-test').text;
+
+    await main();
+
+    expect(h.notice).toHaveBeenCalledWith(text);
+    expect(h.warning).not.toHaveBeenCalledWith(text);
+    expect(h.runCli).not.toHaveBeenCalled();
   });
 });
