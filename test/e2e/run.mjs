@@ -67,4 +67,4 @@ if (!bundled.stdout.includes(`using the bundled svelte-vitals ${bundledVersion}`
 if (!bundled.summary.includes(`<!-- svelte-vitals v${bundledVersion} -->`)) {
   fail(`the job summary does not name the bundled svelte-vitals ${bundledVersion}\n${bundled.output}`);
 }
-console.log(`e2e: the action analyzed with the bundled svelte-vitals ${bundledVersion} (exit ${bundled.status})`);
+console.log(`e2e: the action used the bundled svelte-vitals ${bundledVersion} (exit ${bundled.status})`);

@@ -19,7 +19,7 @@ pnpm test       # vitest
 pnpm typecheck  # tsc --noEmit
 pnpm lint       # oxlint + oxfmt --check
 (cd test/e2e/workspace && npm ci --ignore-scripts)  # once, installs the e2e fixture
-pnpm test:e2e   # runs the built dist/index.js against a project with svelte-vitals installed (needs pnpm build)
+pnpm test:e2e   # runs the built dist/index.js against a project with svelte-vitals installed, then against a copy with no install (needs pnpm build)
 ```
 
 Run these yourself and confirm they pass before claiming a task is complete. CI also verifies
@@ -36,8 +36,10 @@ Run these yourself and confirm they pass before claiming a task is complete. CI 
 - **The e2e fixture's `svelte-vitals` 0.44.0 is the supported minimum** (`MIN_CLI_VERSION` in
   `src/resolve-cli.ts`), not a dependency to bump.
 - **`dist/index.js` is committed** — GitHub Actions runs it directly at the pinned ref, so there's
-  no install step for the action's own dependencies. It carries the bundled `svelte-vitals`, which
-  analyzes when the project has no usable installation of its own. Never gitignore it.
+  no install step for the action's own dependencies. Never gitignore it. It carries the bundled
+  `svelte-vitals`, which analyzes when the project has no usable installation of its own; the fallback
+  message and that path's report name its version, which `bundled-version.ts` reads from
+  `node_modules/svelte-vitals/package.json` at build time.
 - **Changesets required** for any user-facing change (`pnpm changeset`). Merging to `main` opens/
   updates a "Version Packages" PR; merging that PR is what actually cuts a release — see the tag/
   release step in `.github/workflows/release.yml` for the mechanics.

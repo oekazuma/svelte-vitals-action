@@ -78529,7 +78529,7 @@ function resolveProjectCli(projectDir, stopDir) {
 
 // src/fallback-message.ts
 function fallbackMessage(resolution, bundledVersion) {
-  const lead = `svelte-vitals: analyzed with the bundled svelte-vitals ${bundledVersion}.`;
+  const lead = `svelte-vitals: using the bundled svelte-vitals ${bundledVersion}.`;
   if (resolution.kind === "too-old") {
     return {
       level: "warning",
@@ -78559,7 +78559,9 @@ function cliArgs(reporter, opts) {
 function runCli(bin, args, mode) {
   return new Promise((resolve6) => {
     const child2 = spawn2(process.execPath, [bin, ...args], {
-      stdio: mode === "capture" ? ["ignore", "pipe", "pipe"] : ["ignore", "inherit", "inherit"]
+      stdio: mode === "capture" ? ["ignore", "pipe", "pipe"] : ["ignore", "inherit", "inherit"],
+      // The CLI reads none of the action's inputs, and one of them is the token.
+      env: Object.fromEntries(Object.entries(process.env).filter(([key2]) => !key2.startsWith("INPUT_")))
     });
     const out = [];
     const err = [];
@@ -78575,11 +78577,14 @@ function runCli(bin, args, mode) {
       settled = true;
       resolve6(run2);
     };
-    child2.on("error", (error2) => settle({ code: null, ...captured(), failure: error2.message }));
+    child2.on(
+      "error",
+      (error2) => settle({ code: null, ...captured(), failure: `could not be started: ${error2.message}` })
+    );
     child2.on(
       "close",
       (code, signal) => settle(
-        signal === null ? { code, ...captured() } : { code: null, ...captured(), failure: `svelte-vitals was killed by ${signal}` }
+        signal === null ? { code, ...captured() } : { code: null, ...captured(), failure: `was killed by ${signal}` }
       )
     );
   });
@@ -78592,9 +78597,10 @@ async function main() {
   const diff = getInput("diff") || void 0;
   const baseline = getInput("baseline") || void 0;
   const token = getInput("github-token") || process.env.GITHUB_TOKEN || "";
-  const resolution = resolveProjectCli(resolve5(path6), process.env.GITHUB_WORKSPACE ?? resolve5(path6));
+  const projectDir = resolve5(path6);
+  const resolution = resolveProjectCli(projectDir, process.env.GITHUB_WORKSPACE ?? projectDir);
   if (resolution.kind === "installed") {
-    await runInstalledCli(resolution.bin, { path: path6, diff, baseline }, token);
+    await runInstalledCli(resolution.bin, { path: projectDir, diff, baseline }, token);
   } else {
     await runBundled(resolution, { path: path6, diff, baseline }, token);
   }
@@ -78613,15 +78619,19 @@ ${stderr}` : "."}`);
     return;
   }
   for (const line of run2.stderr.split("\n")) if (line.trim()) warning(line);
-  await runCli(bin, cliArgs("github", opts), "inherit");
+  const annotations = await runCli(bin, cliArgs("github", opts), "inherit");
+  if (annotations.failure !== void 0 || annotations.code === 2) {
+    const how = annotations.failure ?? "exited with code 2";
+    warning(`svelte-vitals: the annotations could not be produced: ${bin} ${how}.`);
+  }
   await publish(run2.stdout, token);
   if (run2.code === 1) setFailed(BLOCKING_MESSAGE);
 }
 async function runBundled(resolution, { path: path6, diff, baseline }, token) {
-  const analysis = await analyzeProject({ cwd: path6 });
-  const { config, version: version2, warnings: warnings2, loadedConfig } = analysis;
-  const message = fallbackMessage(resolution, version2);
+  const message = fallbackMessage(resolution, "0.55.5");
   core_exports[message.level](message.text);
+  const analysis = await analyzeProject({ cwd: path6 });
+  const { config, warnings: warnings2, loadedConfig } = analysis;
   for (const line of warnings2) warning(line);
   const results = await applyScope(analysis.results, {
     cwd: path6,
@@ -78637,7 +78647,7 @@ async function runBundled(resolution, { path: path6, diff, baseline }, token) {
   });
   const annotations = formatGithubReport(results, config);
   if (annotations) info(annotations);
-  await publish(formatMarkdownReport(results, config, { version: version2 }), token);
+  await publish(formatMarkdownReport(results, config, { version: "0.55.5" }), token);
   const summary2 = summarize(results, config);
   if (hasFailureAtOrAbove(summary2, config.failOn)) {
     setFailed(BLOCKING_MESSAGE);
