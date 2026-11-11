@@ -57,7 +57,7 @@ const h = vi.hoisted(() => {
   const applyScope = vi.fn(async (results: unknown[], _opts: Record<string, unknown>) => results);
 
   const formatGithubReport = vi.fn(() => 'annotations');
-  const formatMarkdownReport = vi.fn(() => 'markdown report');
+  const formatMarkdownReport = vi.fn((..._args: unknown[]) => 'markdown report');
   const summarize = vi.fn(() => ({}));
   const hasFailureAtOrAbove = vi.fn(() => false);
 
@@ -449,16 +449,10 @@ describe('main() falling back to the bundled analyzer', () => {
   it('warns when the project declares svelte-vitals but has not installed it', async () => {
     const resolution = { kind: 'missing', declared: '^0.55.0' } as const;
     h.resolveProjectCli.mockReturnValue(resolution);
-    h.analyzeProject.mockResolvedValueOnce({
-      results: [],
-      config: { failOn: 'critical' },
-      version: '0.55.5',
-      warnings: []
-    });
 
     await main();
 
-    expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, '0.55.5').text);
+    expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, __BUNDLED_SVELTE_VITALS_VERSION__).text);
     expect(h.addRaw).toHaveBeenCalledWith('markdown report');
     expect(h.runCli).not.toHaveBeenCalled();
   });
@@ -469,18 +463,35 @@ describe('main() falling back to the bundled analyzer', () => {
 
     await main();
 
-    expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, '0.0.0-test').text);
+    expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, __BUNDLED_SVELTE_VITALS_VERSION__).text);
     expect(h.addRaw).toHaveBeenCalledWith('markdown report');
     expect(h.runCli).not.toHaveBeenCalled();
   });
 
   it('notes, without warning, when svelte-vitals is neither declared nor installed', async () => {
-    const text = fallbackMessage({ kind: 'missing' }, '0.0.0-test').text;
+    const text = fallbackMessage({ kind: 'missing' }, __BUNDLED_SVELTE_VITALS_VERSION__).text;
 
     await main();
 
     expect(h.notice).toHaveBeenCalledWith(text);
     expect(h.warning).not.toHaveBeenCalledWith(text);
     expect(h.runCli).not.toHaveBeenCalled();
+  });
+
+  it('warns before analyzing, so the message stands when the analysis throws', async () => {
+    const resolution = { kind: 'missing', declared: '^0.55.0' } as const;
+    h.resolveProjectCli.mockReturnValue(resolution);
+    h.analyzeProject.mockRejectedValueOnce(new Error("Cannot find package 'svelte-vitals'"));
+
+    await expect(main()).rejects.toThrow("Cannot find package 'svelte-vitals'");
+
+    expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, __BUNDLED_SVELTE_VITALS_VERSION__).text);
+    expect(h.warning.mock.invocationCallOrder[0]!).toBeLessThan(h.analyzeProject.mock.invocationCallOrder.at(-1)!);
+  });
+
+  it('names the bundled analyzer version in the report', async () => {
+    await main();
+
+    expect(h.formatMarkdownReport.mock.calls[0]![2]).toEqual({ version: __BUNDLED_SVELTE_VITALS_VERSION__ });
   });
 });

@@ -59,10 +59,11 @@ async function runBundled(
   { path, diff, baseline }: CliOptions,
   token: string
 ): Promise<void> {
-  const analysis = await analyzeProject({ cwd: path });
-  const { config, version, warnings, loadedConfig } = analysis;
-  const message = fallbackMessage(resolution, version);
+  // Before analyzing: a config the bundled analyzer cannot load throws, and that user needs this most.
+  const message = fallbackMessage(resolution, __BUNDLED_SVELTE_VITALS_VERSION__);
   core[message.level](message.text);
+  const analysis = await analyzeProject({ cwd: path });
+  const { config, warnings, loadedConfig } = analysis;
   // Includes rules that crashed and were dropped from the run, so the scan can be
   // incomplete while the gate below still passes — these must not stay silent.
   for (const line of warnings) core.warning(line);
@@ -83,7 +84,7 @@ async function runBundled(
   const annotations = formatGithubReport(results, config);
   if (annotations) core.info(annotations);
 
-  await publish(formatMarkdownReport(results, config, { version }), token);
+  await publish(formatMarkdownReport(results, config, { version: __BUNDLED_SVELTE_VITALS_VERSION__ }), token);
 
   const summary = summarize(results, config);
   if (hasFailureAtOrAbove(summary, config.failOn)) {

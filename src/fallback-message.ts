@@ -9,7 +9,7 @@ export function fallbackMessage(
   resolution: Exclude<CliResolution, { kind: 'installed' }>,
   bundledVersion: string
 ): FallbackMessage {
-  const lead = `svelte-vitals: analyzed with the bundled svelte-vitals ${bundledVersion}.`;
+  const lead = `svelte-vitals: using the bundled svelte-vitals ${bundledVersion}.`;
   if (resolution.kind === 'too-old') {
     return {
       level: 'warning',
