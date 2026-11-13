@@ -44,6 +44,15 @@ function runAction(path, workspace) {
   };
 }
 
+// The fixture sits in a subdirectory of GITHUB_WORKSPACE, which is where GitHub resolves `file=`.
+function assertRepoRelativeFiles(run, workspace) {
+  const files = [...run.stdout.matchAll(/^::(?:error|warning|notice) file=([^,:\r\n]*)/gm)].map((m) => m[1]);
+  if (files.length === 0) fail(`no annotation carries file=\n${run.output}`);
+  const missing = files.filter((file) => !existsSync(join(workspace, decodeURIComponent(file))));
+  if (missing.length > 0)
+    fail(`file= does not name a file under GITHUB_WORKSPACE: ${missing.join(', ')}\n${run.output}`);
+}
+
 const installed = runAction('test/e2e/workspace/app', root);
 if (!installed.summary.includes(`<!-- svelte-vitals v${installedVersion} -->`)) {
   fail(`the job summary was not written by the installed svelte-vitals ${installedVersion}\n${installed.output}`);
@@ -54,6 +63,7 @@ if (installed.stdout.includes('using the bundled svelte-vitals')) {
 if (!installed.stdout.includes('::error file=') && !installed.stdout.includes('::warning file=')) {
   fail(`the second run of the installed svelte-vitals printed no annotations\n${installed.output}`);
 }
+assertRepoRelativeFiles(installed, root);
 console.log(`e2e: the action ran the installed svelte-vitals ${installedVersion} (exit ${installed.status})`);
 
 // No node_modules above this copy, so the action has to fall back to the bundled analyzer.
@@ -67,4 +77,5 @@ if (!bundled.stdout.includes(`using the bundled svelte-vitals ${bundledVersion}`
 if (!bundled.summary.includes(`<!-- svelte-vitals v${bundledVersion} -->`)) {
   fail(`the job summary does not name the bundled svelte-vitals ${bundledVersion}\n${bundled.output}`);
 }
+assertRepoRelativeFiles(bundled, isolated);
 console.log(`e2e: the action used the bundled svelte-vitals ${bundledVersion} (exit ${bundled.status})`);

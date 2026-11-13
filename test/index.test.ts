@@ -315,7 +315,7 @@ describe('main() with svelte-vitals installed in the project', () => {
 
     expect(h.runCli.mock.calls).toEqual([
       [BIN, [resolve('.'), '--reporter', 'md'], 'capture'],
-      [BIN, [resolve('.'), '--reporter', 'github'], 'inherit']
+      [BIN, [resolve('.'), '--reporter', 'github'], 'capture']
     ]);
     expect(h.addRaw).toHaveBeenCalledWith(REPORT);
     expect(h.write).toHaveBeenCalledTimes(1);
@@ -333,7 +333,7 @@ describe('main() with svelte-vitals installed in the project', () => {
     const rest = ['--diff', 'origin/main', '--baseline', 'origin/main'];
     expect(h.runCli.mock.calls).toEqual([
       [BIN, [resolve('apps/web'), '--reporter', 'md', ...rest], 'capture'],
-      [BIN, [resolve('apps/web'), '--reporter', 'github', ...rest], 'inherit']
+      [BIN, [resolve('apps/web'), '--reporter', 'github', ...rest], 'capture']
     ]);
   });
 
@@ -448,6 +448,34 @@ describe('main() with svelte-vitals installed in the project', () => {
     expect(h.setFailed).not.toHaveBeenCalled();
   });
 
+  it('prints the second run annotations with file= relative to the workspace', async () => {
+    vi.stubEnv('GITHUB_WORKSPACE', resolve('.'));
+    h.inputs.path = 'apps/web';
+    h.runCli.mockResolvedValueOnce({
+      code: 1,
+      stdout: '::error file=src/routes/+page.svelte,line=3,title=t::m\n::warning title=t::m\n',
+      stderr: ''
+    });
+
+    await main();
+
+    expect(h.info).toHaveBeenCalledWith(
+      '::error file=apps/web/src/routes/+page.svelte,line=3,title=t::m\n::warning title=t::m'
+    );
+  });
+
+  it('passes the second run stderr through to the log', async () => {
+    const stderr = vi.spyOn(process.stderr, 'write').mockImplementation(() => true);
+    h.runCli.mockResolvedValueOnce({ code: 0, stdout: '', stderr: 'svelte-vitals: a\n' });
+
+    await main();
+
+    expect(stderr).toHaveBeenCalledWith('svelte-vitals: a\n');
+    stderr.mockRestore();
+    expect(h.info).not.toHaveBeenCalled();
+    expect(h.warning).not.toHaveBeenCalled();
+  });
+
   it('ignores the second run exit code', async () => {
     h.runCli.mockResolvedValueOnce({ code: 1, stdout: '', stderr: '' });
 
@@ -500,6 +528,16 @@ describe('main() falling back to the bundled analyzer', () => {
 
     expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, __BUNDLED_SVELTE_VITALS_VERSION__).text);
     expect(h.warning.mock.invocationCallOrder[0]!).toBeLessThan(h.analyzeProject.mock.invocationCallOrder.at(-1)!);
+  });
+
+  it('prints the annotations with file= relative to the workspace', async () => {
+    vi.stubEnv('GITHUB_WORKSPACE', resolve('.'));
+    h.inputs.path = 'apps/web';
+    h.formatGithubReport.mockReturnValueOnce('::error file=src/routes/+page.svelte,title=t::m');
+
+    await main();
+
+    expect(h.info).toHaveBeenCalledWith('::error file=apps/web/src/routes/+page.svelte,title=t::m');
   });
 
   it('names the bundled analyzer version in the report', async () => {
