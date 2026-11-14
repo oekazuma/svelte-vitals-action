@@ -6,6 +6,7 @@ import { formatGithubReport, formatMarkdownReport, summarize, hasFailureAtOrAbov
 import { isForkPR } from './fork.js';
 import { planStickyComment, STICKY_COMMENT_MARKER } from './sticky-comment.js';
 import { fallbackMessage } from './fallback-message.js';
+import { repoRelativeAnnotations } from './annotation-paths.js';
 import { resolveProjectCli, type CliResolution } from './resolve-cli.js';
 import { cliArgs, runCli, type CliOptions } from './run-cli.js';
 
@@ -18,16 +19,23 @@ export async function main(): Promise<void> {
   const token = core.getInput('github-token') || process.env.GITHUB_TOKEN || '';
 
   const projectDir = resolve(path);
-  const resolution = resolveProjectCli(projectDir, process.env.GITHUB_WORKSPACE ?? projectDir);
+  const workspace = process.env.GITHUB_WORKSPACE ?? projectDir;
+  const resolution = resolveProjectCli(projectDir, workspace);
+  const toRepo = (annotations: string) => repoRelativeAnnotations(annotations, projectDir, workspace);
   if (resolution.kind === 'installed') {
     // The CLI reads a first argument such as `docs` or `install` as a subcommand, not a path.
-    await runInstalledCli(resolution.bin, { path: projectDir, diff, baseline }, token);
+    await runInstalledCli(resolution.bin, { path: projectDir, diff, baseline }, token, toRepo);
   } else {
-    await runBundled(resolution, { path, diff, baseline }, token);
+    await runBundled(resolution, { path, diff, baseline }, token, toRepo);
   }
 }
 
-async function runInstalledCli(bin: string, opts: CliOptions, token: string): Promise<void> {
+async function runInstalledCli(
+  bin: string,
+  opts: CliOptions,
+  token: string,
+  toRepo: (annotations: string) => string
+): Promise<void> {
   const run = await runCli(bin, cliArgs('md', opts), 'capture');
   const stderr = run.stderr.trim();
   if (run.failure === undefined && run.code === 2) {
@@ -48,7 +56,11 @@ async function runInstalledCli(bin: string, opts: CliOptions, token: string): Pr
 
   for (const line of run.stderr.split('\n')) if (line.trim()) core.warning(line);
   // Its exit code does not affect the gate: run 1 already decided it, this run only emits annotations.
-  const annotations = await runCli(bin, cliArgs('github', opts), 'inherit');
+  const annotations = await runCli(bin, cliArgs('github', opts), 'capture');
+  // Raw, not as warnings: run 1 has already turned the same analysis's stderr into warnings.
+  if (annotations.stderr) process.stderr.write(annotations.stderr);
+  const lines = toRepo(annotations.stdout).trimEnd();
+  if (lines) core.info(lines);
   if (annotations.failure !== undefined || annotations.code === 2) {
     const how = annotations.failure ?? 'exited with code 2';
     core.warning(`svelte-vitals: the annotations could not be produced: ${bin} ${how}.`);
@@ -61,7 +73,8 @@ async function runInstalledCli(bin: string, opts: CliOptions, token: string): Pr
 async function runBundled(
   resolution: Exclude<CliResolution, { kind: 'installed' }>,
   { path, diff, baseline }: CliOptions,
-  token: string
+  token: string,
+  toRepo: (annotations: string) => string
 ): Promise<void> {
   // Before analyzing: a config the bundled analyzer cannot load throws, and that user needs this most.
   const message = fallbackMessage(resolution, __BUNDLED_SVELTE_VITALS_VERSION__);
@@ -86,7 +99,7 @@ async function runBundled(
   });
 
   const annotations = formatGithubReport(results, config);
-  if (annotations) core.info(annotations);
+  if (annotations) core.info(toRepo(annotations));
 
   await publish(formatMarkdownReport(results, config, { version: __BUNDLED_SVELTE_VITALS_VERSION__ }), token);
 

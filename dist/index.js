@@ -72850,8 +72850,8 @@ function findKitAliasesInSvelteConfig(source2) {
   return kitObj ? rawKitAliasesOf(kitObj, bindings) : { entries: [] };
 }
 function normalizeAliasValue(value) {
-  const posix = value.replace(/\\/g, "/").replace(/^(\.\/)+/, "");
-  return (posix.endsWith("/*") ? posix.slice(0, -2) : posix).replace(/\/+$/, "");
+  const posix2 = value.replace(/\\/g, "/").replace(/^(\.\/)+/, "");
+  return (posix2.endsWith("/*") ? posix2.slice(0, -2) : posix2).replace(/\/+$/, "");
 }
 function compileKitAliases(raw) {
   const out = [{
@@ -78663,6 +78663,24 @@ function fallbackMessage(resolution, bundledVersion) {
   };
 }
 
+// src/annotation-paths.ts
+import { isAbsolute, posix, relative as relative3, sep as sep5 } from "path";
+var ESCAPED = { "%25": "%", "%0D": "\r", "%0A": "\n", "%3A": ":", "%2C": "," };
+function escapeProp2(s) {
+  return s.replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A").replace(/:/g, "%3A").replace(/,/g, "%2C");
+}
+function repoRelativeAnnotations(text2, projectDir, workspace) {
+  const rel = relative3(workspace, projectDir);
+  if (rel === "" || rel === ".." || rel.startsWith(`..${sep5}`) || isAbsolute(rel)) return text2;
+  const prefix = rel.split(sep5).join("/");
+  return text2.replace(/^(::(?:error|warning|notice) file=)([^,:\r\n]*)/gm, (line, head, value) => {
+    const file = value.replace(/%(?:25|0D|0A|3A|2C)/g, (e3) => ESCAPED[e3]);
+    const joined = posix.join(prefix, file);
+    if (file.startsWith("/") || joined === ".." || joined.startsWith("../")) return line;
+    return head + escapeProp2(joined);
+  });
+}
+
 // src/run-cli.ts
 import { spawn as spawn2 } from "child_process";
 function cliArgs(reporter, opts) {
@@ -78713,14 +78731,16 @@ async function main() {
   const baseline = getInput("baseline") || void 0;
   const token = getInput("github-token") || process.env.GITHUB_TOKEN || "";
   const projectDir = resolve5(path6);
-  const resolution = resolveProjectCli(projectDir, process.env.GITHUB_WORKSPACE ?? projectDir);
+  const workspace = process.env.GITHUB_WORKSPACE ?? projectDir;
+  const resolution = resolveProjectCli(projectDir, workspace);
+  const toRepo = (annotations) => repoRelativeAnnotations(annotations, projectDir, workspace);
   if (resolution.kind === "installed") {
-    await runInstalledCli(resolution.bin, { path: projectDir, diff, baseline }, token);
+    await runInstalledCli(resolution.bin, { path: projectDir, diff, baseline }, token, toRepo);
   } else {
-    await runBundled(resolution, { path: path6, diff, baseline }, token);
+    await runBundled(resolution, { path: path6, diff, baseline }, token, toRepo);
   }
 }
-async function runInstalledCli(bin, opts, token) {
+async function runInstalledCli(bin, opts, token, toRepo) {
   const run2 = await runCli(bin, cliArgs("md", opts), "capture");
   const stderr = run2.stderr.trim();
   if (run2.failure === void 0 && run2.code === 2) {
@@ -78734,7 +78754,10 @@ ${stderr}` : "."}`);
     return;
   }
   for (const line of run2.stderr.split("\n")) if (line.trim()) warning(line);
-  const annotations = await runCli(bin, cliArgs("github", opts), "inherit");
+  const annotations = await runCli(bin, cliArgs("github", opts), "capture");
+  if (annotations.stderr) process.stderr.write(annotations.stderr);
+  const lines = toRepo(annotations.stdout).trimEnd();
+  if (lines) info(lines);
   if (annotations.failure !== void 0 || annotations.code === 2) {
     const how = annotations.failure ?? "exited with code 2";
     warning(`svelte-vitals: the annotations could not be produced: ${bin} ${how}.`);
@@ -78742,7 +78765,7 @@ ${stderr}` : "."}`);
   await publish(run2.stdout, token);
   if (run2.code === 1) setFailed(BLOCKING_MESSAGE);
 }
-async function runBundled(resolution, { path: path6, diff, baseline }, token) {
+async function runBundled(resolution, { path: path6, diff, baseline }, token, toRepo) {
   const message = fallbackMessage(resolution, "0.55.5");
   core_exports[message.level](message.text);
   const analysis = await analyzeProject({ cwd: path6 });
@@ -78761,7 +78784,7 @@ async function runBundled(resolution, { path: path6, diff, baseline }, token) {
     errorLog: (line) => warning(line)
   });
   const annotations = formatGithubReport(results, config);
-  if (annotations) info(annotations);
+  if (annotations) info(toRepo(annotations));
   await publish(formatMarkdownReport(results, config, { version: "0.55.5" }), token);
   const summary2 = summarize(results, config);
   if (hasFailureAtOrAbove(summary2, config.failOn)) {
