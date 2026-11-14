@@ -43709,11 +43709,11 @@ function getOctokit(token, options, ...additionalPlugins) {
   return new GitHubWithPlugins(getOctokitOptions(token, options));
 }
 
-// node_modules/.pnpm/svelte-vitals@0.55.5_cac@7.1.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
+// node_modules/.pnpm/svelte-vitals@0.56.0_cac@7.1.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
 import { existsSync as existsSync3, mkdirSync, mkdtempSync, readFileSync as readFileSync2, renameSync, rmSync, unlinkSync, writeFileSync } from "fs";
 import { dirname as dirname3, join as join3, relative as relative2, resolve as resolve3, sep as sep4 } from "path";
 
-// node_modules/.pnpm/@svelte-vitals+core@0.55.5/node_modules/@svelte-vitals/core/dist/markdown-JeaI7QMp.js
+// node_modules/.pnpm/@svelte-vitals+core@0.56.0/node_modules/@svelte-vitals/core/dist/markdown-JeaI7QMp.js
 var import_aria_query3 = __toESM(require_lib2(), 1);
 
 // node_modules/.pnpm/zimmerframe@1.1.5/node_modules/zimmerframe/src/walk.js
@@ -62911,7 +62911,7 @@ function remove_bom(source2) {
   return source2;
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.55.5/node_modules/@svelte-vitals/core/dist/markdown-JeaI7QMp.js
+// node_modules/.pnpm/@svelte-vitals+core@0.56.0/node_modules/@svelte-vitals/core/dist/markdown-JeaI7QMp.js
 var CATEGORIES = [
   "seo",
   "performance",
@@ -70206,7 +70206,7 @@ function formatMarkdownReport(results, config, meta) {
   return lines.join("\n");
 }
 
-// node_modules/.pnpm/@svelte-vitals+core@0.55.5/node_modules/@svelte-vitals/core/dist/internal.js
+// node_modules/.pnpm/@svelte-vitals+core@0.56.0/node_modules/@svelte-vitals/core/dist/internal.js
 function isSvgSrc(src) {
   return /^data:image\/svg\+xml[;,]/i.test(src) || /\.svg$/i.test(src.split(/[?#]/, 1)[0]);
 }
@@ -73858,7 +73858,7 @@ var APP_SCRIPT = `
 })();
 `;
 
-// node_modules/.pnpm/svelte-vitals@0.55.5_cac@7.1.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
+// node_modules/.pnpm/svelte-vitals@0.56.0_cac@7.1.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
 import { access as access2, glob, readFile, stat as stat2 } from "fs/promises";
 
 // node_modules/.pnpm/gunshi@0.37.3/node_modules/gunshi/lib/agent.js
@@ -74048,7 +74048,7 @@ function I() {
 }
 I()?.name;
 
-// node_modules/.pnpm/svelte-vitals@0.55.5_cac@7.1.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
+// node_modules/.pnpm/svelte-vitals@0.56.0_cac@7.1.0/node_modules/svelte-vitals/dist/src-DRKJFB86.js
 import { execFileSync } from "child_process";
 import { tmpdir } from "os";
 import { styleText } from "util";
@@ -78766,7 +78766,7 @@ ${stderr}` : "."}`);
   if (run2.code === 1) setFailed(BLOCKING_MESSAGE);
 }
 async function runBundled(resolution, { path: path6, diff, baseline }, token, toRepo) {
-  const message = fallbackMessage(resolution, "0.55.5");
+  const message = fallbackMessage(resolution, "0.56.0");
   core_exports[message.level](message.text);
   const analysis = await analyzeProject({ cwd: path6 });
   const { config, warnings: warnings2, loadedConfig } = analysis;
@@ -78785,7 +78785,7 @@ async function runBundled(resolution, { path: path6, diff, baseline }, token, to
   });
   const annotations = formatGithubReport(results, config);
   if (annotations) info(toRepo(annotations));
-  await publish(formatMarkdownReport(results, config, { version: "0.55.5" }), token);
+  await publish(formatMarkdownReport(results, config, { version: "0.56.0" }), token);
   const summary2 = summarize(results, config);
   if (hasFailureAtOrAbove(summary2, config.failOn)) {
     setFailed(BLOCKING_MESSAGE);
