@@ -1,5 +1,14 @@
 # @svelte-vitals/action
 
+## 0.15.1
+
+### Patch Changes
+
+- e7ebcca: Attach annotations to the right file when `path` is a subdirectory of the repository. The action rewrites each annotation's file to be relative to the repository root (`GITHUB_WORKSPACE`) instead of the analyzed project, both when it runs the project's installed `svelte-vitals` and when it uses the bundled one. A file in a sibling workspace package (`../ui/...` from the project) resolves to its repository path. When `path` is the repository root, annotations are printed as before.
+- 6cfc93f: Refresh the lockfile. `svelte-vitals` and `@svelte-vitals/core` stay at 0.55.5, so no rule, severity, score or report output changes. The bundle consumers run is still rebuilt on newer transitive dependencies, which is why this ships as a release rather than passing unnoticed.
+  
+  What moved inside it: `undici` 6.29.0 → 6.29.1 behind the sticky PR comment, and `acorn` 8.18.0 → 8.19.0 underneath the analysis.
+
 ## 0.15.0
 
 ### Minor Changes
