@@ -133,7 +133,9 @@ vi.mock('../src/run-cli.js', async (importOriginal) => ({
 // call is the real action's entry point — see packages/action/src/index.ts — and must
 // stay). `beforeAll` below drains that one extra invocation before any test's own
 // `main()` call and assertions run.
-import { main } from '../src/index.js';
+import { main, RETIRED_NOTICE } from '../src/index.js';
+
+const otherWarnings = () => h.warning.mock.calls.map(([m]) => m).filter((m) => m !== RETIRED_NOTICE);
 
 function setPullRequest(payload: Record<string, unknown> | undefined): void {
   h.context.payload.pull_request = payload;
@@ -164,6 +166,13 @@ afterEach(() => {
 });
 
 describe('main()', () => {
+  it('warns that the action is retired before it resolves the CLI', async () => {
+    await main();
+
+    expect(h.warning.mock.calls[0]![0]).toBe(RETIRED_NOTICE);
+    expect(h.warning.mock.invocationCallOrder[0]!).toBeLessThan(h.resolveProjectCli.mock.invocationCallOrder[0]!);
+  });
+
   it('creates a new sticky comment on a same-repo PR with no existing report comment', async () => {
     h.inputs['github-token'] = 'gh-token';
     h.context.eventName = 'pull_request';
@@ -235,9 +244,9 @@ describe('main()', () => {
 
     await expect(main()).resolves.toBeUndefined();
 
-    expect(h.warning).toHaveBeenCalledTimes(1);
-    expect(h.warning.mock.calls[0]![0]).toMatch(/failed to post\/update the PR comment/);
-    expect(h.warning.mock.calls[0]![0]).toMatch(/boom: rate limited/);
+    expect(otherWarnings()).toHaveLength(1);
+    expect(otherWarnings()[0]).toMatch(/failed to post\/update the PR comment/);
+    expect(otherWarnings()[0]).toMatch(/boom: rate limited/);
     expect(h.setFailed).not.toHaveBeenCalled();
   });
 
@@ -277,7 +286,7 @@ describe('main()', () => {
 
     await main();
 
-    expect(h.warning).toHaveBeenCalledTimes(2);
+    expect(otherWarnings()).toHaveLength(2);
     expect(h.warning).toHaveBeenCalledWith('rule seo/title-presence failed and was skipped: boom');
     expect(h.warning).toHaveBeenCalledWith('skipped 1 unparseable file');
     expect(h.setFailed).not.toHaveBeenCalled();
@@ -429,9 +438,19 @@ describe('main() with svelte-vitals installed in the project', () => {
 
     await main();
 
-    expect(h.warning).toHaveBeenCalledTimes(2);
+    expect(otherWarnings()).toHaveLength(2);
     expect(h.warning).toHaveBeenCalledWith('svelte-vitals: a');
     expect(h.warning).toHaveBeenCalledWith('svelte-vitals: b');
+  });
+
+  it('does not repeat the retirement line a newer CLI prints', async () => {
+    h.runCli.mockReset();
+    h.runCli.mockResolvedValueOnce({ code: 0, stdout: REPORT, stderr: `${RETIRED_NOTICE}\nsvelte-vitals: a\n` });
+    h.runCli.mockResolvedValueOnce({ code: 0, stdout: '', stderr: '' });
+
+    await main();
+
+    expect(h.warning.mock.calls.map(([m]) => m)).toEqual([RETIRED_NOTICE, 'svelte-vitals: a']);
   });
 
   it.each([
@@ -442,7 +461,7 @@ describe('main() with svelte-vitals installed in the project', () => {
 
     await main();
 
-    expect(h.warning).toHaveBeenCalledTimes(1);
+    expect(otherWarnings()).toHaveLength(1);
     expect(h.warning).toHaveBeenCalledWith(`svelte-vitals: the annotations could not be produced: ${BIN} ${how}.`);
     expect(h.addRaw).toHaveBeenCalledWith(REPORT);
     expect(h.setFailed).not.toHaveBeenCalled();
@@ -473,7 +492,7 @@ describe('main() with svelte-vitals installed in the project', () => {
     expect(stderr).toHaveBeenCalledWith('svelte-vitals: a\n');
     stderr.mockRestore();
     expect(h.info).not.toHaveBeenCalled();
-    expect(h.warning).not.toHaveBeenCalled();
+    expect(otherWarnings()).toEqual([]);
   });
 
   it('ignores the second run exit code', async () => {
@@ -526,8 +545,10 @@ describe('main() falling back to the bundled analyzer', () => {
 
     await expect(main()).rejects.toThrow("Cannot find package 'svelte-vitals'");
 
-    expect(h.warning).toHaveBeenCalledWith(fallbackMessage(resolution, __BUNDLED_SVELTE_VITALS_VERSION__).text);
-    expect(h.warning.mock.invocationCallOrder[0]!).toBeLessThan(h.analyzeProject.mock.invocationCallOrder.at(-1)!);
+    const text = fallbackMessage(resolution, __BUNDLED_SVELTE_VITALS_VERSION__).text;
+    const call = h.warning.mock.calls.findIndex(([m]) => m === text);
+    expect(call).toBeGreaterThanOrEqual(0);
+    expect(h.warning.mock.invocationCallOrder[call]!).toBeLessThan(h.analyzeProject.mock.invocationCallOrder.at(-1)!);
   });
 
   it('prints the annotations with file= relative to the workspace', async () => {

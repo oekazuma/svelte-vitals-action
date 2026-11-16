@@ -11,8 +11,12 @@ import { resolveProjectCli, type CliResolution } from './resolve-cli.js';
 import { cliArgs, runCli, type CliOptions } from './run-cli.js';
 
 const BLOCKING_MESSAGE = 'svelte-vitals found blocking issues (see annotations above).';
+// The same line svelte-vitals 0.57.0 and later prints when it runs under this action.
+const RETIRED = 'svelte-vitals: oekazuma/svelte-vitals-action is retired.';
+export const RETIRED_NOTICE = `${RETIRED} Run \`npx svelte-vitals@latest ci install --force\` to switch this workflow to the CLI.`;
 
 export async function main(): Promise<void> {
+  core.warning(RETIRED_NOTICE);
   const path = core.getInput('path') || '.';
   const diff = core.getInput('diff') || undefined;
   const baseline = core.getInput('baseline') || undefined;
@@ -54,7 +58,7 @@ async function runInstalledCli(
     return;
   }
 
-  for (const line of run.stderr.split('\n')) if (line.trim()) core.warning(line);
+  for (const line of run.stderr.split('\n')) if (line.trim() && !line.startsWith(RETIRED)) core.warning(line);
   // Its exit code does not affect the gate: run 1 already decided it, this run only emits annotations.
   const annotations = await runCli(bin, cliArgs('github', opts), 'capture');
   // Raw, not as warnings: run 1 has already turned the same analysis's stderr into warnings.
