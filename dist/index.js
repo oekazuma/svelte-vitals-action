@@ -78745,7 +78745,10 @@ function runCli(bin, args, mode) {
 
 // src/index.ts
 var BLOCKING_MESSAGE = "svelte-vitals found blocking issues (see annotations above).";
+var RETIRED = "svelte-vitals: oekazuma/svelte-vitals-action is retired.";
+var RETIRED_NOTICE = `${RETIRED} Run \`npx svelte-vitals@latest ci install --force\` to switch this workflow to the CLI.`;
 async function main() {
+  warning(RETIRED_NOTICE);
   const path6 = getInput("path") || ".";
   const diff = getInput("diff") || void 0;
   const baseline = getInput("baseline") || void 0;
@@ -78773,7 +78776,7 @@ async function runInstalledCli(bin, opts, token, toRepo) {
 ${stderr}` : "."}`);
     return;
   }
-  for (const line of run2.stderr.split("\n")) if (line.trim()) warning(line);
+  for (const line of run2.stderr.split("\n")) if (line.trim() && !line.startsWith(RETIRED)) warning(line);
   const annotations = await runCli(bin, cliArgs("github", opts), "capture");
   if (annotations.stderr) process.stderr.write(annotations.stderr);
   const lines = toRepo(annotations.stdout).trimEnd();
@@ -78861,6 +78864,7 @@ main().catch((err) => {
   setFailed(err instanceof Error ? err.message : String(err));
 });
 export {
+  RETIRED_NOTICE,
   main
 };
 /*! Bundled license information:

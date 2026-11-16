@@ -1,42 +1,17 @@
 # svelte-vitals-action
 
+> [!WARNING]
+> **This action is retired and gets no further updates.** Workflows that use it keep running. Replace yours with a workflow that runs the `svelte-vitals` installed in your project:
+>
+> ```bash
+> npx svelte-vitals@latest ci install --force
+> ```
+>
+> The command writes `.github/workflows/svelte-vitals.yml`, replacing that file and any edits you made to it. A step that calls the action from another workflow file is yours to remove. See [Migrating from the action](https://oekazuma.github.io/svelte-vitals/guides/ci/#migrating-from-the-action).
+
 First-party GitHub Action for [svelte-vitals](https://github.com/oekazuma/svelte-vitals): static SvelteKit code-health checks (SEO, Performance, Correctness, Security, Architecture, Accessibility) on every pull request — inline annotations on the diff, a job summary, and a single sticky PR comment that updates in place on each push.
 
-The easiest way to set it up is the generator (no YAML to hand-write, and it pins a working commit SHA for you):
-
-```bash
-npx svelte-vitals@latest ci install
-```
-
-Or by hand:
-
-```yaml
-name: svelte-vitals
-
-on:
-  pull_request:
-
-permissions:
-  contents: read
-  pull-requests: write
-
-jobs:
-  svelte-vitals:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          fetch-depth: 0 # full history, so diff/baseline can resolve the base ref
-      - run: npm ci --ignore-scripts # so the action runs the project's own svelte-vitals
-      - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
-        with:
-          diff: origin/${{ github.base_ref }}
-          baseline: origin/${{ github.base_ref }}
-```
-
-Pin `<sha>`/`<version>` from the latest [release tag](https://github.com/oekazuma/svelte-vitals-action/releases); `npx svelte-vitals ci upgrade` rewrites the pin in an existing workflow, and Renovate proposes updates automatically (this repo hosts only this one package, so its tags are plain `vX.Y.Z` — no extra Renovate config needed).
-
-The install step applies to any workflow running the action, including one the generator wrote. It is shown with npm. If the project uses another package manager, install with that package manager instead, after the setup step it needs.
+The rest of this page describes the action for workflows that still use it.
 
 ## Which svelte-vitals runs
 
